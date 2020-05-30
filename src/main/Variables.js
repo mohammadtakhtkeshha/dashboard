@@ -1,0 +1,1 @@
+const mobileSize='992px';
