@@ -1,29 +1,106 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import {IconButton, Typography, Button, Input, Toolbar, AppBar, Link, Box} from '@material-ui/core';
+import {Typography, Toolbar, AppBar, Link, Box} from '@material-ui/core';
 import useWindowDimensions from './../main/useWindowDimensions';
-import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Avatar from '@material-ui/core/Avatar';
-import avatar from './../assets/media/image/avatar.jpg'
+import avatar from './../assets/media/image/avatar.jpg';
+import SearchIcon from '@material-ui/icons/Search';
+import NotificationImportantIcon from '@material-ui/icons/NotificationImportant';
+import MessageIcon from '@material-ui/icons/Message';
+import AddIcon from '@material-ui/icons/Add';
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
+        root: {
+            flexGrow: 1,
+        },
+    appBar:{
+        '&.MuiAppBar-colorPrimary':{
+            backgroundColor: '#e7ebee',
+        }
     },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        flexGrow: 1,
-    },
-    leftBlock:{
-        flexGrow:2,
-        textAlign:'left'
-    }
+        menuButton: {
+            marginRight: theme.spacing(2),
+        },
+        title: {
+            flexGrow: 1,
+        },
+        leftBlock: {
+            flexGrow: 2,
+            textAlign: 'left'
+        },
+        headerInput: {
 
-}));
+            position: 'relative',
+            '& input': {
+                borderRadius: '5px',
+                border: 'none',
+                padding: '8px',
+                backgroundColor:'#fff',
+                fontSize:'14px',
+                '&:focus': {
+                    outline: '0',
+                    outlineOffset: '0',
+                    border: 'none',
+                },
+            },
+            '& #label': {
+                top: '54%',
+                left: '4%',
+                color: 'blue',
+                position: 'absolute',
+                transform: 'translateY(-50%)'
+            }
+
+        },
+        icons: {
+            backgroundColor: 'white',
+            marginRight: '12px',
+            borderRadius: '5px',
+            width: '40px',
+            height: '35px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            '& svg': {
+                color: '#828282'
+            },
+            '&#message':{
+                position:'relative',
+                '& .MuiBox-root':{
+                    width:'8px',
+                    height:'8px',
+                    border:'1px solid red',
+                    position:'absolute',
+                    top:'-3px',
+                    left:'0',
+                    borderRadius:'100%',
+                    backgroundColor:'#e04b4b'
+                }
+            }
+        },
+        avatar: {
+            marginRight: '12px'
+        },
+        breadcrumbs: {
+            '& h3': {
+                fontSize: '23px',
+                lineHeight: '32px',
+                fontWeight: '700',
+                color:'black'
+            },
+            '& li:nth-of-type(1)':{
+                color:'black',
+            },
+            '& li:nth-of-type(3)':{
+                color:'#5867dd',
+            },
+
+        }
+
+    }))
+;
 
 function HeaderComponent(props) {
     const classes = useStyles();
@@ -36,10 +113,10 @@ function HeaderComponent(props) {
 
     return (
         <>
-            <AppBar position="static">
+            <AppBar position="static" className={classes.appBar}>
                 <Toolbar>
-                    <Box display="flex">
-                        <Typography variant="h6" component="h6">داشبورد پشتیبانی</Typography>
+                    <Box display="flex" flexDirection="column" className={classes.breadcrumbs}>
+                        <Typography variant="h6" component="h3">داشبورد</Typography>
                         <Breadcrumbs aria-label="breadcrumb">
                             <Link color="inherit" href="/" onClick={handleClick}>
                                 داشبورد
@@ -50,18 +127,26 @@ function HeaderComponent(props) {
                         </Breadcrumbs>
                     </Box>
                     <Box display="flex" justifyContent="flex-end" className={classes.leftBlock}>
-                        <Input/>
-                        <AccessAlarmIcon/>
-                        <Avatar alt="Remy Sharp" src={avatar} />
+                        <Box className={classes.headerInput}>
+                            <label htmlFor="" id="label"><SearchIcon fontSize="small"/></label>
+                            <input type="text" placeholder="جستجو"/>
+                        </Box>
+                        <Box className={classes.icons}>
+                            <AddIcon/>
+                        </Box>
+                        <Box className={classes.icons} id="message">
+                            <Box></Box>
+                            <MessageIcon/>
+
+                        </Box>
+                        <Box className={classes.icons}>
+                            <NotificationImportantIcon  fontSize="small"/>
+                        </Box>
+                        <Box className={classes.avatar}>
+                            <Avatar alt="Remy Sharp" src={avatar}/>
+                        </Box>
                     </Box>
 
-                    {/*<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">*/}
-                    {/*    <MenuIcon/>*/}
-                    {/*</IconButton>*/}
-                    {/*<Typography variant="h6" className={classes.title}>*/}
-                    {/*    News*/}
-                    {/*</Typography>*/}
-                    {/*<Button color="inherit">Login</Button>*/}
 
                 </Toolbar>
             </AppBar>
