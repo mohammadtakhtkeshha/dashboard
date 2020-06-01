@@ -1,41 +1,47 @@
-import React, {Component} from 'react';
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import loadable from '@loadable/component'
-import { Box} from '@material-ui/core';
+import {Box} from '@material-ui/core';
+import UseWindowDimensions from './main/useWindowDimensions';
+import SecondTestComponent from './components/SecondTestComponent';
 
-
-const HeaderComponent = loadable(() => import('./components/HeaderComponent'));
+const HeaderWebComponent = loadable(() => import('./components/header/HeaderWebComponent'));
+const HeaderMobileComponent = loadable(() => import('./components/header/HeaderMobileComponent'));
 const ContentComponent = loadable(() => import('./components/ContentComponent'));
-const SidebarComponent = loadable(() => import('./components/SidebarComponent'));
+const SidebarComponent = loadable(() => import('./components/sidebar/SidebarComponent'));
 const TestComponent = loadable(() => import('./components/TestComponent'));
-const styles={
-    sidebar:{
-        height:'100vh',
-        width:'18%',
-        flexGrow:1
+
+
+const styles = {
+    sidebar: {
+        height: '100vh',
+        width: '18%',
+        flexGrow: 1
 
     },
-    content:{
-        flexGrow:5
+    content: {
+        flexGrow: 5
     }
 };
-class App extends Component {
 
-    render() {
-        return (
-            <Box display="flex" flexDirection="row">
-                <Box style={styles.sidebar} >
-                    <SidebarComponent/>
-                    <TestComponent/>
-                </Box>
-                <Box style={styles.content}>
-                    <HeaderComponent/>
-                    <ContentComponent/>
-                </Box>
+export function App() {
+
+
+    return (
+        <Box display="flex" flexDirection="row">
+            <Box style={styles.sidebar}>
+                <SidebarComponent/>
             </Box>
-        );
-    }
+            <Box style={styles.content}>
+                <HeaderWebComponent/>
+                <HeaderMobileComponent/>
+                <ContentComponent/>
+                <TestComponent/>
+            </Box>
+        </Box>
+    );
+
 }
 
 export default App;
