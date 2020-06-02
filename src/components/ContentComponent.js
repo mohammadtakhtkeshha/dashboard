@@ -1,12 +1,18 @@
 import React from 'react';
-import { Paper } from '@material-ui/core/index';
+import Grid from '@material-ui/core/Grid';
+import './../App.css'
 
 function HeaderComponent() {
     return (
         <>
-            <Paper>
-                <span>content</span>
-            </Paper>
+            <Grid container>
+                <Grid item className="card" xs={6} sm={6}>
+                    one
+                </Grid>
+                <Grid item className="card" xs={6} sm={6}>
+                    two
+                </Grid>
+            </Grid>
         </>
     );
 }

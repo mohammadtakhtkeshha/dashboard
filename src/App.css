@@ -1,5 +1,13 @@
 
-body{
- direction: rtl;
- background-color: #e7ebee;
+body {
+    direction: rtl;
+    background-color: #e7ebee;
+}
+
+.card {
+    border-radius: 5px;
+    margin-bottom: 1.875rem;
+    position: relative;
+    background: white;
+    border: none;
 }

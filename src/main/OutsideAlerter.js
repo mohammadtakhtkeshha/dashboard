@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Box from '@material-ui/core/Box'
 /**
  * Component that alerts if you click outside of it
  */
@@ -36,7 +36,7 @@ export default class OutsideAlerter extends Component {
     }
 
     render() {
-        return <div ref={this.setWrapperRef}>{this.props.children}</div>;
+        return <Box ref={this.setWrapperRef}>{this.props.children}</Box>;
     }
 }
 

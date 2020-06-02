@@ -2,18 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd5f164d-5ccd-4fa5-8a6f-e695dc3b248a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/SecondTestComponent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/header/HeaderMobileComponent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/sidebar/SidebarComponent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/sidebar/SidebarMobile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/contexts/AppContext.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/OutsideAlerter.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/media/image/favicon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/svg/remove_48px.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/header/LeftWebHeader.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/header/RightWebHeader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ContentComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ContentComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HeaderComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/HeaderWebComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SidebarComponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SecondTestComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SecondTestComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/TestComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TestComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/header/HeaderMobileComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/HeaderMobileComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/header/HeaderWebComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/HeaderWebComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/partials/inputComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/partials/inputComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sidebar/SidebarMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/SidebarMobile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/OutsideAlerter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/OutsideAlerter.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,8 +49,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="38" column="33" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="33" />
+            <state relative-caret-position="238">
+              <caret line="47" column="14" lean-forward="true" selection-start-line="47" selection-start-column="14" selection-end-line="47" selection-end-column="14" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="216" column="39" selection-start-line="216" selection-start-column="39" selection-end-line="216" selection-end-column="39" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -54,65 +70,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/useWindowDimensions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="80" selection-start-line="11" selection-start-column="61" selection-end-line="11" selection-end-column="80" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/TestComponent.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
-              <folding>
-                <element signature="e#0#57#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/sidebar/SidebarMobile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="46" column="49" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="49" />
+            <state relative-caret-position="186">
+              <caret line="85" column="22" lean-forward="true" selection-start-line="85" selection-start-column="22" selection-end-line="85" selection-end-column="22" />
               <folding>
                 <element signature="e#0#64#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/OutsideAlerter.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="34" column="9" lean-forward="true" selection-start-line="32" selection-start-column="7" selection-end-line="34" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/SecondTestComponent.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="12" lean-forward="true" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -121,40 +86,41 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>class</find>
-      <find>return</find>
-      <find>none</find>
-      <find>priva</find>
-      <find>flex-contai</find>
-      <find>right</find>
-      <find>Right</find>
-      <find>appBar</find>
-      <find>negar</find>
-      <find>const cl</find>
-      <find>61px</find>
-      <find>mysidebar</find>
-      <find>header</find>
-      <find>;</find>
-      <find>openedSidebar</find>
-      <find>windowDimensions</find>
-      <find>make</find>
+      <find>extanded</find>
+      <find>extandedDashboard</find>
+      <find>toggleDashboarIcon</find>
+      <find>toggleCartIcon</find>
+      <find>breadcrumbs</find>
+      <find>bread</find>
+      <find>HeaderWebComponent</find>
+      <find>15px 15px</find>
+      <find>15px</find>
+      <find>mobi</find>
       <find>red</find>
-      <find>test</find>
-      <find>useRef</find>
-      <find>console.</find>
-      <find>MuiTabs-flexContainer</find>
-      <find>consolel</find>
-      <find>useWindowDimenion</find>
-      <find>SidebarContentComponent</find>
-      <find>dimension</find>
-      <find>SidebarMobile</find>
-      <find>classes</find>
-      <find>makeStyles</find>
-      <find>console.log</find>
+      <find>backgrou</find>
+      <find>showWebHeader</find>
+      <find>onClick</find>
+      <find>Box</find>
+      <find>typo</find>
+      <find>Typography</find>
+      <find>box</find>
+      <find>ty</find>
+      <find>div</find>
+      <find>&lt;p</find>
+      <find>class</find>
+      <find>clas =</find>
+      <find>class =</find>
+      <find>cl=</find>
+      <find>class</find>
+      <find>class=</find>
+      <find>ListItemLink</find>
+      <find>useMediaQuery</find>
+      <find>handleClick</find>
     </findStrings>
     <replaceStrings>
       <replace>header</replace>
       <replace>,</replace>
+      <replace>,`</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -163,43 +129,34 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/components/ContentComponent.js" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/src/components/partials/inputComponent.js" />
         <option value="$PROJECT_DIR$/src/assets/css/main.css" />
         <option value="$PROJECT_DIR$/src/main/Variables.js" />
-        <option value="$PROJECT_DIR$/src/App.css" />
         <option value="$PROJECT_DIR$/src/components/HeaderComponent.js" />
         <option value="$PROJECT_DIR$/src/components/SidebarComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/header/HeaderMobileComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/header/HeaderWebComponent.js" />
         <option value="$PROJECT_DIR$/src/components/sidebar/SidebarContent.js" />
-        <option value="$PROJECT_DIR$/src/components/sidebar/SidebarComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js" />
         <option value="$PROJECT_DIR$/src/main/useOutSideAlerter.js" />
-        <option value="$PROJECT_DIR$/src/main/OutsideAlerter.js" />
         <option value="$PROJECT_DIR$/src/contexts/AppContext.js" />
         <option value="$PROJECT_DIR$/src/main/useWindowDimensions.js" />
-        <option value="$PROJECT_DIR$/src/components/SecondTestComponent.js" />
-        <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/components/sidebar/sidebarMobile.js" />
-        <option value="$PROJECT_DIR$/src/components/sidebar/SidebarMobile.js" />
+        <option value="$PROJECT_DIR$/src/components/header/RightWebHeader.js" />
+        <option value="$PROJECT_DIR$/src/App.css" />
         <option value="$PROJECT_DIR$/src/components/TestComponent.js" />
+        <option value="$PROJECT_DIR$/src/main/OutsideAlerter.js" />
+        <option value="$PROJECT_DIR$/src/components/ContentComponent.js" />
+        <option value="$PROJECT_DIR$/src/components/header/HeaderWebComponent.js" />
+        <option value="$PROJECT_DIR$/src/components/header/LeftWebHeader.js" />
+        <option value="$PROJECT_DIR$/src/components/SecondTestComponent.js" />
+        <option value="$PROJECT_DIR$/src/components/partials/inputComponent.js" />
+        <option value="$PROJECT_DIR$/src/components/header/HeaderMobileComponent.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/src/components/sidebar/SidebarComponent.js" />
+        <option value="$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js" />
+        <option value="$PROJECT_DIR$/src/components/sidebar/SidebarMobile.js" />
       </list>
     </option>
   </component>
   <component name="PhpDebugGeneral" listening_started="true" />
-  <component name="ProjectConfigurationFiles">
-    <option name="files">
-      <list>
-        <option value="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-        <option value="$PROJECT_DIR$/.idea/dashboard.iml" />
-        <option value="$PROJECT_DIR$/.idea/misc.xml" />
-        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
-        <option value="$PROJECT_DIR$/.idea/modules.xml" />
-      </list>
-    </option>
-  </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="10" />
     <option name="y" value="20" />
@@ -211,6 +168,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -234,40 +192,50 @@
               <item name="dashboard" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="sidebar" type="462c0819:PsiDirectoryNode" />
+              <item name="header" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="dashboard" type="b2602c69:ProjectViewProjectNode" />
               <item name="dashboard" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="partials" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dashboard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="sidebar" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/assets/media/image" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/assets/svg" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2019.1.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\assets\svg" />
+      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\assets\media\image" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\sidebar" />
       <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components" />
       <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\header" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\assets\media\image" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -296,7 +264,8 @@
       <workItem from="1590892768202" duration="16020000" />
       <workItem from="1590911124629" duration="594000" />
       <workItem from="1590912795053" duration="10302000" />
-      <workItem from="1590979006032" duration="29772000" />
+      <workItem from="1590979006032" duration="30518000" />
+      <workItem from="1591065416972" duration="30811000" />
     </task>
     <task id="LOCAL-00001" summary="second commit">
       <created>1590838544800</created>
@@ -312,11 +281,18 @@
       <option name="project" value="LOCAL" />
       <updated>1590924835595</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="today is 12 om">
+      <created>1591011236482</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1591011236482</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67690000" />
+    <option name="totallyTimeSpent" value="99247000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -331,10 +307,11 @@
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22720365" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23100305" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="TypeScript" weight="0.3289689" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -345,8 +322,8 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3289689" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50151974" side_tool="true" weight="0.32569557" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49848023" weight="0.21931261" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50227964" side_tool="true" weight="0.22422259" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49772036" visible="true" weight="0.24549918" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="12" weight="0.3289689" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -360,35 +337,14 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="second commit" />
     <MESSAGE value="side bar" />
-    <option name="LAST_COMMIT_MESSAGE" value="side bar" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/components/header/HeaderMobileComponent.js</url>
-          <line>7</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="today is 12 om" />
+    <option name="LAST_COMMIT_MESSAGE" value="today is 12 om" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
           <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/partials/inputComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-13">
-          <caret line="48" column="29" lean-forward="true" selection-start-line="48" selection-start-column="29" selection-end-line="48" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -403,13 +359,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -417,69 +366,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/ContentComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="29" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/header/HeaderWebComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="27" column="10" lean-forward="true" selection-start-line="27" selection-start-column="10" selection-end-line="27" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#886#940#0" />
-            <element signature="e#957#993#0" />
-            <element signature="e#1014#1080#0" />
-            <element signature="e#1103#1735#0" />
-            <element signature="e#1752#2536#0" />
-            <element signature="e#2554#2597#0" />
-            <element signature="e#2620#2975#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.es5.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
           <caret line="1451" column="38" selection-start-line="1451" selection-start-column="38" selection-end-line="1451" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/header/HeaderMobileComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="14" lean-forward="true" selection-end-line="26" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-135">
-          <caret line="103" column="17" selection-start-line="103" selection-start-column="17" selection-end-line="103" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#1902#1951#0" />
-            <element signature="e#1984#2507#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/sidebar/SidebarComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="20" column="38" lean-forward="true" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -497,10 +387,122 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/useWindowDimensions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="20" column="11" lean-forward="true" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../node_modules/@material-ui/core/CardMedia/CardMedia.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../node_modules/@material-ui/core/SvgIcon/SvgIcon.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-52">
+          <caret line="56" column="14" selection-start-line="56" selection-start-column="14" selection-end-line="56" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/svg/remove_48px.svg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/OutsideAlerter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/TestComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="9" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/header/HeaderWebComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="24" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/header/LeftWebHeader.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/ContentComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="19" lean-forward="true" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/SecondTestComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="12" lean-forward="true" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+        <state>
+          <caret column="12" selection-start-column="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/header/RightWebHeader.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="7" lean-forward="true" selection-start-column="7" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/partials/inputComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/header/HeaderMobileComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="18" lean-forward="true" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/sidebar/SidebarComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="24" column="10" lean-forward="true" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -509,44 +511,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="38" column="33" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="33" />
+        <state relative-caret-position="238">
+          <caret line="47" column="14" lean-forward="true" selection-start-line="47" selection-start-column="14" selection-end-line="47" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="216" column="39" selection-start-line="216" selection-start-column="39" selection-end-line="216" selection-end-column="39" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/useWindowDimensions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="80" selection-start-line="11" selection-start-column="61" selection-end-line="11" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/OutsideAlerter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="34" column="9" lean-forward="true" selection-start-line="32" selection-start-column="7" selection-end-line="34" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/sidebar/SidebarMobile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="46" column="49" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="49" />
+        <state relative-caret-position="186">
+          <caret line="85" column="22" lean-forward="true" selection-start-line="85" selection-start-column="22" selection-end-line="85" selection-end-column="22" />
           <folding>
             <element signature="e#0#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/TestComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#57#0" expanded="true" />
           </folding>
         </state>
       </provider>
