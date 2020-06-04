@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import loadable from '@loadable/component'
 import { Box} from '@material-ui/core';

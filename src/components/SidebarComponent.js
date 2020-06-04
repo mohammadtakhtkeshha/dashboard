@@ -22,7 +22,7 @@ function HeaderComponent() {
                 <Typography variant="h6" style={styles.img}>
                     <Link>
                         <CardMedia>
-                            <img src={require('../assets/media/image/logo.png')} alt="recipe thumbnail"/>
+                            {/*<img src={require('../assets/media/image/logo.png')} alt="recipe thumbnail"/>*/}
                         </CardMedia>
                     </Link>
                 </Typography>
