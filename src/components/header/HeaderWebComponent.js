@@ -1,15 +1,14 @@
 import React from 'react';
 import { Toolbar, AppBar} from '@material-ui/core/index';
 import {makeStyles} from '@material-ui/core/styles/index';
-
 import RightWebHeader from './RightWebHeader';
 import LeftWebHeader from './LeftWebHeader';
 
+import AppContext from './../../contexts/AppContext'
 
 
 const useStyles = makeStyles((theme) => ({
         root: {
-            border:'1px solid red',
             flexGrow: 1,
         },
 
@@ -27,14 +26,17 @@ function HeaderWebComponent(props) {
     const classes = useStyles();
     return (
         <>
+            <AppContext.Consumer>
+                {context => (
             <AppBar position="static" className={classes.appBar}>
                 <Toolbar>
                    <RightWebHeader/>
                    <LeftWebHeader/>
                 </Toolbar>
             </AppBar>
-
-        </>
+                    )}
+        </AppContext.Consumer>
+            </>
     );
 }
 

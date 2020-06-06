@@ -1,4 +1,4 @@
-import React , {useState} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -10,7 +10,7 @@ import LayersIcon from '@material-ui/icons/Layers';
 import SettingsIcon from '@material-ui/icons/Settings';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import PersonIcon from '@material-ui/icons/Person';
-import {Typography,Box} from '@material-ui/core';
+import {Typography, Box} from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -19,7 +19,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import AddIcon from '@material-ui/icons/Add';
 import MinimizeIcon from '@material-ui/icons/Minimize';
-
+import { Link} from 'react-router-dom';
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -55,14 +55,10 @@ function a11yProps(index) {
 }
 
 
-
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
-        '&::after': {
-            content: 'neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeg'
-        },
         '& .MuiTabs-flexContainer': {
             flexDirection: 'column',
             alignItems: 'center',
@@ -87,7 +83,8 @@ const useStyles = makeStyles((theme) => ({
                 }
             },
             '&~span:last-child': {
-                display: 'none'
+                display: 'none',
+                border: '1px solid red',
             }
         },
 
@@ -115,8 +112,8 @@ const useStyles = makeStyles((theme) => ({
             '& .MuiBox-root': {
                 paddingTop: '0',
                 // paddingRight: '8px'
-                '& nav':{
-                    '& li':{
+                '& nav': {
+                    '& li': {
                         padding: 0
                     }
                 }
@@ -129,7 +126,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     collapsible: {
-        width:'100%',
+        width: '100%',
         '& .MuiListItem-button:hover': {
             border: '0'
         },
@@ -140,15 +137,15 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: 'white',
 
         },
-        '& .MuiPaper-elevation1':{
-            boxShadow : '0 0 0 0'
+        '& .MuiPaper-elevation1': {
+            boxShadow: '0 0 0 0'
         },
-        '& .MuiCollapse-container':{
+        '& .MuiCollapse-container': {
             backgroundColor: 'white',
         },
-        '& .Mui-expanded':{
+        '& .Mui-expanded': {
             margin: '0',
-            minHeight : 0
+            minHeight: 0
         },
     },
 }));
@@ -156,23 +153,23 @@ const useStyles = makeStyles((theme) => ({
 export default function SimpleTabs() {
     const classes = useStyles();
     const [value, setValue] = useState(0);
-    const [extandedCart , setExtandedCart]=useState(false);
-    const [extandedDashboard , setExtandedDashboard]=useState(false);
+    const [extandedCart, setExtandedCart] = useState(false);
+    const [extandedDashboard, setExtandedDashboard] = useState(false);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    const toggleCartIcon=()=>{
-        if(extandedCart){
+    const toggleCartIcon = () => {
+        if (extandedCart) {
             setExtandedCart(false);
-        }else {
+        } else {
             setExtandedCart(true)
         }
 
     };
-    const toggleDashboarIcon=()=>{
-        if(extandedDashboard){
+    const toggleDashboarIcon = () => {
+        if (extandedDashboard) {
             setExtandedDashboard(false);
-        }else {
+        } else {
             setExtandedDashboard(true)
         }
 
@@ -181,9 +178,8 @@ export default function SimpleTabs() {
     return (
         <>
             <Box className={classes.root} id="myheader">
-
                 <AppBar position="static">
-                    <Tabs value={value} id="taaaaaaaaaab" onChange={handleChange} aria-label="simple tabs example">
+                    <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                         <Tab label={<PieChartIcon/>} {...a11yProps(0)} />
                         <Tab label={<PieChartIcon/>} {...a11yProps(1)} />
                         <Tab label={<BrushIcon/>} {...a11yProps(2)} />
@@ -202,7 +198,7 @@ export default function SimpleTabs() {
                             <ListItem button>
                                 <ListItemText primary="فروش و مدیریت مشتری"/>
                             </ListItem>
-                            <ListItem style={{textAlign: "right"}}  onClick= {toggleCartIcon}>
+                            <ListItem style={{textAlign: "right"}} onClick={toggleCartIcon}>
                                 <Box className={classes.collapsible}>
                                     <ExpansionPanel>
                                         <ExpansionPanelSummary
@@ -222,19 +218,41 @@ export default function SimpleTabs() {
                                     </ExpansionPanel>
                                 </Box>
                             </ListItem>
-                            <ListItem style={{textAlign: "right"}}  onClick={toggleDashboarIcon}>
+                            <ListItem style={{textAlign: "right"}} onClick={toggleDashboarIcon}>
                                 <Box className={classes.collapsible}>
                                     <ExpansionPanel>
                                         <ExpansionPanelSummary
                                             expandIcon={extandedDashboard ? <AddIcon/> : <MinimizeIcon/>}
                                             aria-controls="panel1a-content"
                                             id="panel1a-header">
-                                            <Typography className={classes.heading}>کارت</Typography>
+                                            <Typography className={classes.heading}>ساختن کارت</Typography>
                                         </ExpansionPanelSummary>
                                         <ExpansionPanelDetails>
                                             <List component="nav" aria-label="main mailbox folders">
                                                 <ListItem button>
                                                     <ListItemText primary="کارت"/>
+                                                </ListItem>
+                                            </List>
+                                        </ExpansionPanelDetails>
+                                    </ExpansionPanel>
+                                </Box>
+                            </ListItem>
+                            <ListItem style={{textAlign: "right"}} onClick={toggleDashboarIcon}>
+                                <Box className={classes.collapsible}>
+                                    <ExpansionPanel>
+                                        <ExpansionPanelSummary
+                                            expandIcon={extandedDashboard ? <AddIcon/> : <MinimizeIcon/>}
+                                            aria-controls="panel1a-content"
+                                            id="panel1a-header">
+                                            <Typography className={classes.heading}>فرم پایه</Typography>
+                                        </ExpansionPanelSummary>
+                                        <ExpansionPanelDetails>
+                                            <List component="nav" aria-label="main mailbox folders">
+                                                <ListItem >
+                                                    <Link to="/"> <ListItemText primary="فرم پایه"/></Link>
+                                                </ListItem>
+                                                <ListItem >
+                                                    <Link to="/custom"> <ListItemText primary="فرم سفارشی"/></Link>
                                                 </ListItem>
                                             </List>
                                         </ExpansionPanelDetails>
@@ -275,6 +293,7 @@ export default function SimpleTabs() {
                     Item Three
                 </TabPanel>
             </Box>
+
         </>
     );
 }

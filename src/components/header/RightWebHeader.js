@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
             '& li:nth-of-type(3)': {
                 color: '#5867dd',
             },
-
         }
     }))
 ;

@@ -1,72 +1,51 @@
-import React,{useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import {TextField} from '@material-ui/core';
+import React from 'react';
+import makeStyles from "@material-ui/styles/makeStyles/makeStyles";
+import {Box} from '@material-ui/core'
 
-const styles = makeStyles((theme) => ({
-    textField: {
-        width: '90%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        paddingBottom: 0,
-        marginTop: 0,
-        fontWeight: 500,
-        // border:'1px solid blue',
-        // '&.MuiFormControl-root':{
-        //     border:'1px solid blue'
-        // },
-        // '&.MuiTextField-root':{
-        //     border:'1px solid red'
-        // },
-        // '&.makeStyles-textField-9':{
-        //     border:'1px solid green'
-        // },
-        // '&.MuiFormControl-marginNormal':{
-        //     border:'1px solid black'
-        // },
-        '& .MuiInputBase-root::after':{
-            border:'0'
+const styles = makeStyles(() => ({
+    inputBlock:{
+        marginBottom: '1rem',
+        display: 'flex',
+        flexDirection : 'column',
+        '& label':{
+            marginBottom: '.5rem',
         },
-        '& .MuiInputBase-root::before':{
-            border:'0'
+        '& input': {
+            display: 'block',
+            height: 'calc(1.25rem + 2px)',
+            padding: '.375rem .75rem',
+            fontSize: '1rem',
+            fontWeight: '400',
+            lineHeight: '1.5',
+            color: '#495057',
+            backgroundColor: '#fff',
+            backgroundClip: 'padding-box',
+            border: '1px solid #ced4da',
+            borderRadius: '.25rem',
+            transition: 'border-color .15s ease-in-out,box-shadow .15s ease-in-out',
+            marginBottom : '.5rem',
+            '&:focus':{
+                borderColor: '#7685fb',
+                outline: '0'
+            }
         },
-        '& .MuiInput-underline:hover:not(.Mui-disabled):before':{
-            border:'0'
-        },
-        '& .MuiInputLabel-animated':{
-            transition:'none'
-        },
-        '& .MuiInputLabel-formControl':{
-            // transform:
-        },
-
-    },
-    input: {
-        color: 'red',
-        direction:'ltr',
+        '& small':{
+            color:'#a7abc3'
+        }
     }
+
 }));
-export default function BasicTextFields() {
+
+function Input(props) {
     const classes = styles();
-    const [form,setForm]=useState();
-    let handle_change=()=>{
-        console.log();
-    };
+    return (<>
+        <Box className={classes.inputBlock}>
+            <label htmlFor="">{props.label}</label>
+            <input type={props.type} className={classes.input} placeholder={props.placeholder}/>
+            {props.small?   <small>{props.small}</small> : ''}
 
-    return (
-
-        <span>
-           <TextField
-               id="email"
-               label="Email"
-               className={classes.textField}
-               value={form}
-               onChange={handle_change('form')}
-               margin="normal"
-               InputProps={{
-                   className: classes.input,
-               }}
-
-           />
-        </span>
-    );
+        </Box>
+    </>);
 }
+
+export default Input;
