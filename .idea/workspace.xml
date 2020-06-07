@@ -2,140 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd5f164d-5ccd-4fa5-8a6f-e695dc3b248a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/assets/AppImports.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/aviny-700.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/aviny-700.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/aviny-700.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/aviny-700.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/dastnevis-400.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/dastnevis-400.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/dastnevis-400.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/dastnevis-400.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/droid-naskh-400.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/droid-naskh-400.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/droid-naskh-400.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/droid-naskh-400.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/dubai-400.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/dubai-400.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/dubai-400.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/dubai-400.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/gandom-400.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/gandom-400.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/gandom-400.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/gandom-400.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/helvetica-neue-700.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/helvetica-neue-700.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/helvetica-neue-700.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/helvetica-neue-700.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-sans-300.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-sans-300.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-sans-300.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-sans-300.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-sans-400.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-sans-400.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-sans-400.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-sans-400.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-sans-500.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-sans-500.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-sans-500.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-sans-500.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-sans-700.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-sans-700.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-sans-700.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-sans-700.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-yekan-300.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-yekan-300.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-yekan-300.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-yekan-300.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-yekan-400.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-yekan-400.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-yekan-400.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-yekan-400.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-yekan-500.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-yekan-500.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-yekan-500.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-yekan-500.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-yekan-700.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-yekan-700.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-yekan-700.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/iran-yekan-700.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/lalezar-700.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/lalezar-700.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/lalezar-700.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/lalezar-700.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/myriad-400.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/myriad-400.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/myriad-400.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/myriad-400.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/myriad-700.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/myriad-700.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/myriad-700.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/myriad-700.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/neirizi-400.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/neirizi-400.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/neirizi-400.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/neirizi-400.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/palatino-sans-400.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/palatino-sans-400.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/palatino-sans-400.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/palatino-sans-400.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/sahel-400.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/sahel-400.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/sahel-400.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/sahel-400.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/shabnam-300.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/shabnam-300.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/shabnam-300.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/shabnam-300.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/shabnam-400.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/shabnam-400.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/shabnam-400.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/shabnam-400.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/shabnam-500.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/shabnam-500.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/shabnam-500.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/shabnam-500.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/shabnam-700.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/shabnam-700.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/shabnam-700.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/shabnam-700.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/vazir-300.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/vazir-300.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/vazir-300.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/vazir-300.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/vazir-400.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/vazir-400.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/vazir-400.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/vazir-400.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/vazir-500.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/vazir-500.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/vazir-500.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/vazir-500.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/vazir-700.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/vazir-700.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/vazir-700.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/vazir-700.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/yekan-400.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/yekan-400.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/yekan-400.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/yekan-400.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/js/LeftWebHeader.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/content/ContentComponent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/content/partials/BaseFormComponent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/content/partials/CustomizedForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/css/yekan.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/js/HeaderMobile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/js/SidebarContent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/js/SidebarMobile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/js/Theme.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/content/partials/UsersComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/header/BreadcrumbsComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/History.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/store/store.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ContentComponent.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/TestComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TestComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/header/HeaderWebComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/HeaderWebComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/header/LeftWebHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/LeftWebHeader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/content/ContentComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/content/ContentComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/header/HeaderMobileComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/HeaderMobileComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/header/RightWebHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/RightWebHeader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/partials/inputComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/partials/inputComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/contexts/AppContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/contexts/AppContext.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sidebar/SidebarMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/SidebarMobile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/OutsideAlerter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/OutsideAlerter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Variables.js" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -167,42 +54,69 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="11" column="49" lean-forward="true" selection-start-line="11" selection-end-line="11" selection-end-column="49" />
+            <state relative-caret-position="375">
+              <caret line="78" column="34" selection-start-line="78" selection-start-column="34" selection-end-line="78" selection-end-column="34" />
               <folding>
-                <element signature="e#0#39#0" expanded="true" />
-                <marker date="1591441976240" expanded="true" signature="667:1614" ph="..." />
+                <marker date="1591524789161" expanded="true" signature="950:2009" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/header/HeaderWebComponent.js">
+        <entry file="file://$PROJECT_DIR$/src/components/TestComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
+            <state relative-caret-position="289">
+              <caret line="20" column="12" lean-forward="true" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/content/ContentComponent.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="26" selection-start-line="26" selection-end-line="26" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-480">
+              <caret line="123" column="37" selection-start-line="123" selection-start-column="37" selection-end-line="123" selection-end-column="37" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+                <element signature="n#!!block;n#TabPanel#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/header/LeftWebHeader.js">
+        <entry file="file://$PROJECT_DIR$/src/components/content/partials/UsersComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+            <state relative-caret-position="340">
+              <caret line="24" column="24" lean-forward="true" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/assets/js/LeftWebHeader.js">
+        <entry file="file://$PROJECT_DIR$/src/assets/css/yekan.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="22" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="22" />
-              <folding>
-                <element signature="e#101#2120#0" />
-              </folding>
+            <state relative-caret-position="187">
+              <caret line="11" column="32" lean-forward="true" selection-end-line="38" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -211,14 +125,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>useMediaQuery</find>
-      <find>handleClick</find>
-      <find>styles</find>
-      <find>muiTheme</find>
-      <find>ContentComponent</find>
-      <find>variant=&quot;p</find>
-      <find>handleMobileMenuOpen</find>
-      <find>append</find>
       <find>input</find>
       <find>کارت</find>
       <find>;</find>
@@ -235,12 +141,20 @@
       <find>breadcrumbs</find>
       <find>paper</find>
       <find>leftBlock</find>
-      <find>red</find>
-      <find>AppContext</find>
       <find>none</find>
       <find>Paper</find>
       <find>UseWindowDimensions</find>
       <find>content</find>
+      <find>makeStyles</find>
+      <find>router</find>
+      <find>context</find>
+      <find>red</find>
+      <find>AppContext</find>
+      <find>user</find>
+      <find>فروش</find>
+      <find>toggleFormIcon</find>
+      <find>font</find>
+      <find>font-fa</find>
     </findStrings>
     <replaceStrings>
       <replace>header</replace>
@@ -256,36 +170,45 @@
       <list>
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/assets/css/main.css" />
-        <option value="$PROJECT_DIR$/src/main/Variables.js" />
         <option value="$PROJECT_DIR$/src/components/HeaderComponent.js" />
         <option value="$PROJECT_DIR$/src/components/SidebarComponent.js" />
         <option value="$PROJECT_DIR$/src/components/sidebar/SidebarContent.js" />
         <option value="$PROJECT_DIR$/src/main/useOutSideAlerter.js" />
         <option value="$PROJECT_DIR$/src/main/useWindowDimensions.js" />
         <option value="$PROJECT_DIR$/src/components/sidebar/sidebarMobile.js" />
-        <option value="$PROJECT_DIR$/src/main/OutsideAlerter.js" />
         <option value="$PROJECT_DIR$/src/components/SecondTestComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/header/HeaderMobileComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/sidebar/SidebarMobile.js" />
         <option value="$PROJECT_DIR$/src/App.css" />
         <option value="$PROJECT_DIR$/src/components/AppImports.js" />
         <option value="$PROJECT_DIR$/src/assets/AppImports.js" />
         <option value="$PROJECT_DIR$/src/components/sidebar/SidebarComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/TestComponent.js" />
         <option value="$PROJECT_DIR$/src/components/partials/inputComponent.js" />
         <option value="$PROJECT_DIR$/src/components/ContentComponent.js" />
         <option value="$PROJECT_DIR$/src/components/content/partials/FormsComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/content/ContentComponent.js" />
         <option value="$PROJECT_DIR$/src/components/content/partials/CustomizedForm.js" />
         <option value="$PROJECT_DIR$/src/components/content/partials/BaseFormComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/header/RightWebHeader.js" />
         <option value="$PROJECT_DIR$/src/contexts/AppContext.js" />
-        <option value="$PROJECT_DIR$/src/components/header/HeaderWebComponent.js" />
         <option value="$PROJECT_DIR$/src/assets/css/header/leftwebheader.css" />
-        <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/assets/js/LeftWebHeader.js" />
         <option value="$PROJECT_DIR$/src/components/header/LeftWebHeader.js" />
+        <option value="$PROJECT_DIR$/src/assets/js/HeaderMobile.js" />
+        <option value="$PROJECT_DIR$/src/components/header/HeaderMobileComponent.js" />
+        <option value="$PROJECT_DIR$/src/assets/js/SidebarMobile.js" />
+        <option value="$PROJECT_DIR$/src/components/sidebar/SidebarMobile.js" />
+        <option value="$PROJECT_DIR$/src/main/Variables.js" />
+        <option value="$PROJECT_DIR$/src/main/OutsideAlerter.js" />
+        <option value="$PROJECT_DIR$/src/main/History.js" />
+        <option value="$PROJECT_DIR$/src/assets/js/SidebarContent.js" />
+        <option value="$PROJECT_DIR$/src/components/header/HeaderWebComponent.js" />
+        <option value="$PROJECT_DIR$/src/components/header/BreadcrumbsComponent.js" />
+        <option value="$PROJECT_DIR$/src/components/header/RightWebHeader.js" />
+        <option value="$PROJECT_DIR$/src/store/store.js" />
+        <option value="$PROJECT_DIR$/src/assets/js/Theme.js" />
+        <option value="$PROJECT_DIR$/src/assets/css/yekan.css" />
+        <option value="$PROJECT_DIR$/src/components/TestComponent.js" />
+        <option value="$PROJECT_DIR$/src/components/content/ContentComponent.js" />
+        <option value="$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/src/components/content/partials/UsersComponent.js" />
       </list>
     </option>
   </component>
@@ -301,7 +224,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -320,29 +242,11 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="assets" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="dashboard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dashboard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="header" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dashboard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="contexts" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -360,11 +264,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\assets\js" />
       <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\content" />
       <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\assets" />
       <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\sidebar" />
       <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components" />
-      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\header" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\public" />
@@ -400,7 +304,8 @@
       <workItem from="1590912795053" duration="10302000" />
       <workItem from="1590979006032" duration="30518000" />
       <workItem from="1591065416972" duration="30932000" />
-      <workItem from="1591410684895" duration="31465000" />
+      <workItem from="1591410684895" duration="31677000" />
+      <workItem from="1591496730385" duration="27259000" />
     </task>
     <task id="LOCAL-00001" summary="second commit">
       <created>1590838544800</created>
@@ -430,11 +335,18 @@
       <option name="project" value="LOCAL" />
       <updated>1591097174873</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="17 omm">
+      <created>1591443245937</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1591443245937</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="130833000" />
+    <option name="totallyTimeSpent" value="158304000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -447,8 +359,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23480242" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23860182" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -463,7 +376,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3289689" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50227964" side_tool="true" weight="0.22422259" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49772036" visible="true" weight="0.24549918" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49772036" visible="true" weight="0.20785597" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="12" weight="0.3289689" />
       <window_info anchor="bottom" id="TypeScript" order="13" weight="0.3289689" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -480,39 +393,37 @@
     <MESSAGE value="side bar" />
     <MESSAGE value="today is 12 om" />
     <MESSAGE value="13 omm" />
-    <option name="LAST_COMMIT_MESSAGE" value="13 omm" />
+    <MESSAGE value="17 omm" />
+    <option name="LAST_COMMIT_MESSAGE" value="17 omm" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js</url>
-          <line>270</line>
-          <properties lambdaOrdinal="-1" />
+          <line>263</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js</url>
+          <line>266</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js</url>
+          <line>93</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/assets/css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/assets/css/main.css" />
-    <entry file="file://$PROJECT_DIR$/src/main/Variables.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -524,13 +435,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/useWindowDimensions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="20" column="11" lean-forward="true" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -551,26 +455,7 @@
     <entry file="file://$PROJECT_DIR$/src/assets/svg/remove_48px.svg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/OutsideAlerter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/AppImports.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-start-column="3" selection-end-line="6" selection-end-column="81" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/AppImports.js" />
     <entry file="file://$PROJECT_DIR$/node_modules/@material-ui/icons/EditAttributesTwoTone.d.ts">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -578,26 +463,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/partials/inputComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/TestComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -615,51 +480,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/content/partials/CustomizedForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/content/partials/BaseFormComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.es5.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="1451" column="38" selection-start-line="1451" selection-start-column="38" selection-end-line="1451" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/sidebar/SidebarComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="26" column="65" lean-forward="true" selection-start-line="26" selection-start-column="65" selection-end-line="26" selection-end-column="65" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <marker date="1591422191293" expanded="true" signature="605:967" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/header/HeaderMobileComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="63" column="26" lean-forward="true" selection-start-line="63" selection-start-column="26" selection-end-line="63" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -673,33 +497,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/content/ContentComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/sidebar/SidebarMobile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="66" column="26" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/header/RightWebHeader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="31" column="15" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contexts/AppContext.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -707,38 +504,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-832">
-          <caret line="132" column="20" selection-start-line="132" selection-start-column="15" selection-end-line="132" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/css/header/leftwebheader.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/header/HeaderWebComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="11" column="49" lean-forward="true" selection-start-line="11" selection-end-line="11" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <marker date="1591441976240" expanded="true" signature="667:1614" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/AppImports.js">
+    <entry file="file://$PROJECT_DIR$/src/assets/css/header/leftwebheader.css" />
+    <entry file="file://$PROJECT_DIR$/src/assets/js/AppImports.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="88" selection-start-line="6" selection-start-column="72" selection-end-line="6" selection-end-column="88" />
@@ -749,16 +516,267 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="22" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/js/HeaderMobile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
           <folding>
-            <element signature="e#101#2120#0" />
+            <element signature="e#38#1272#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/sidebar/SidebarComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="65" lean-forward="true" selection-start-line="26" selection-start-column="65" selection-end-line="26" selection-end-column="65" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <marker date="1591422191293" expanded="true" signature="605:967" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/js/SidebarMobile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/Variables.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/OutsideAlerter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="44" column="5" lean-forward="true" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/useWindowDimensions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="20" column="11" lean-forward="true" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/partials/inputComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-51">
+          <caret line="27" column="13" lean-forward="true" selection-start-line="27" selection-start-column="13" selection-end-line="28" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="10" column="24" lean-forward="true" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/History.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="23" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/header/HeaderMobileComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="683">
+          <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/header/LeftWebHeader.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+        <state relative-caret-position="238">
+          <caret line="14" column="39" lean-forward="true" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/header/HeaderWebComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="35" column="21" lean-forward="true" selection-start-line="35" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#333#592#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/header/RightWebHeader.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="43" column="11" lean-forward="true" selection-start-line="43" selection-start-column="11" selection-end-line="44" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#444#827#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/header/BreadcrumbsComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="19" lean-forward="true" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/content/partials/BaseFormComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="16" column="4" lean-forward="true" selection-end-line="31" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/store/store.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#81#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/content/partials/CustomizedForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/js/Theme.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="3" lean-forward="true" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/js/SidebarContent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="8" column="33" lean-forward="true" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/sidebar/SidebarMobile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="29" column="44" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/New folder/nextable/Theme/small-navigation/assets/js/examples/form-wizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/New folder/nextable/Theme/small-navigation/assets/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="217" column="18" selection-start-line="217" selection-start-column="18" selection-end-line="217" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/New folder/nextable/Theme/dark/assets/css/font/primary-iran-yekan.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="38" lean-forward="true" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/css/yekan.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="32" lean-forward="true" selection-end-line="38" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/TestComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="20" column="12" lean-forward="true" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/content/ContentComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-480">
+          <caret line="123" column="37" selection-start-line="123" selection-start-column="37" selection-end-line="123" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+            <element signature="n#!!block;n#TabPanel#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="78" column="34" selection-start-line="78" selection-start-column="34" selection-end-line="78" selection-end-column="34" />
+          <folding>
+            <marker date="1591524789161" expanded="true" signature="950:2009" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/content/partials/UsersComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="24" column="24" lean-forward="true" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
