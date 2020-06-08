@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd5f164d-5ccd-4fa5-8a6f-e695dc3b248a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/assets/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/content/user/NewUserComponent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/partials/ButtonComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/content/ContentComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/content/ContentComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/content/partials/UsersComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/content/user/UsersComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/store.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -304,7 +297,7 @@
       <workItem from="1591410684895" duration="31677000" />
       <workItem from="1591496730385" duration="27298000" />
       <workItem from="1591583313836" duration="773000" />
-      <workItem from="1591595700207" duration="18610000" />
+      <workItem from="1591595700207" duration="18632000" />
     </task>
     <task id="LOCAL-00001" summary="second commit">
       <created>1590838544800</created>
@@ -348,11 +341,18 @@
       <option name="project" value="LOCAL" />
       <updated>1591529479639</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="19 om">
+      <created>1591616174884</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1591616174884</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177726000" />
+    <option name="totallyTimeSpent" value="177748000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -365,7 +365,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2462006" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -401,7 +400,8 @@
     <MESSAGE value="13 omm" />
     <MESSAGE value="17 omm" />
     <MESSAGE value="18 omm" />
-    <option name="LAST_COMMIT_MESSAGE" value="18 omm" />
+    <MESSAGE value="19 om" />
+    <option name="LAST_COMMIT_MESSAGE" value="19 om" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
