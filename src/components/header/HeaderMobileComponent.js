@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import { Box, Link, Typography} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import SidebarMobile from './../sidebar/SidebarMobile';
+import SidebarMobile from '../sidebar/SidebarMobileDrawerComponent';
 import {CardMedia} from '@material-ui/core/index';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs/index';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import HeaderLeftWeb from './LeftWebHeader'
+import HeaderLeftWeb from './LeftWebHeaderComponent';
+import SearchIcon from '@material-ui/icons/Search';
+
 
 //styles of make style
 import * as HeaderMobile from './../../assets/js/HeaderMobile';
@@ -49,7 +51,6 @@ export default function HeaderMobileComponent() {
                     <ArrowDownwardIcon onClick={toggleWebHeader}/>
                 </button>
                 <SidebarMobile changeDrawer={changeDrawer} showDrawer={showDrawer}/>
-
             </Box>
             {showWebHeader ? <Box className={classes.showWebHeader}>
                 <HeaderLeftWeb/>

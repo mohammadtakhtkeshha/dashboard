@@ -34,7 +34,7 @@ function TabPanel(props) {
         >
             {value === index && (
                 <Box p={3}>
-                    <Typography>{children}</Typography>
+                    <Typography variant="inherit">{children}</Typography>
                 </Box>
             )}
         </Box>
@@ -102,83 +102,83 @@ export default function SimpleTabs() {
                         <Tab label={<PowerSettingsNewIcon/>} {...a11yProps(6)} />
                     </Tabs>
                 </AppBar>
-                <TabPanel value={value} index={0} className={classes.tab}>
-                   <Box className={classes.list}>
-                       <List component="nav" aria-label="main mailbox folders">
-                           <ListItem button>
-                               <ListItemText primary="داشبورد"/>
-                           </ListItem>
-                           <ListItem button>
-                               <ListItemText primary="فروش و مدیریت مشتری"/>
-                           </ListItem>
-                           <ListItem style={{textAlign: "right"}}>
-                               <Box className={classes.collapsible}>
-                                   <ExpansionPanel>
-                                       <ExpansionPanelSummary onClick={toggleCartIcon}
-                                                              expandIcon={extandedCart ? <AddIcon/> : <MinimizeIcon/>}
-                                                              aria-controls="panel1a-content"
-                                                              id="panel1a-header"
-                                       >
-                                           <Typography className={classes.heading}>داشبورد</Typography>
-                                       </ExpansionPanelSummary>
-                                       <ExpansionPanelDetails>
-                                           <List component="nav" aria-label="main mailbox folders">
-                                               <ListItem button>
-                                                   <ListItemText primary="ایتم "/>
-                                               </ListItem>
-                                           </List>
-                                       </ExpansionPanelDetails>
-                                   </ExpansionPanel>
-                               </Box>
-                           </ListItem>
-                           <ListItem style={{textAlign: "right"}}>
-                               <Box className={classes.collapsible}>
-                                   <ExpansionPanel>
-                                       <ExpansionPanelSummary onClick={toggleDashboarIcon}
-                                                              expandIcon={extandedDashboard ? <AddIcon/> :
-                                                                  <MinimizeIcon/>}
-                                                              aria-controls="panel1a-content"
-                                                              id="panel1a-header">
-                                           <Typography className={classes.heading}>ساختن کارت</Typography>
-                                       </ExpansionPanelSummary>
-                                       <ExpansionPanelDetails>
-                                           <List component="nav" aria-label="main mailbox folders">
-                                               <ListItem button>
-                                                   <ListItemText primary="کارت"/>
-                                               </ListItem>
-                                           </List>
-                                       </ExpansionPanelDetails>
-                                   </ExpansionPanel>
-                               </Box>
-                           </ListItem>
-                           <ListItem style={{textAlign: "right"}}>
-                               <Box className={classes.collapsible}>
-                                   <ExpansionPanel>
-                                       <ExpansionPanelSummary onClick={toggleFormIcon}
-                                                              expandIcon={extandedForm ? <AddIcon/> : <MinimizeIcon/>}
-                                                              aria-controls="panel1a-content"
-                                                              id="panel1a-header">
-                                           <Typography className={classes.heading}>فرم پایه</Typography>
-                                       </ExpansionPanelSummary>
-                                       <ExpansionPanelDetails>
-                                           <List component="nav" aria-label="main mailbox folders">
-                                               <ListItem>
-                                                   <Link to="/">
-                                                       <ListItemText primary="فرم پایه"/>
-                                                   </Link>
-                                               </ListItem>
-                                               <ListItem>
-                                                   <Link to="/custom">
-                                                       <ListItemText primary="فرم سفارشی"/>
-                                                   </Link>
-                                               </ListItem>
-                                           </List>
-                                       </ExpansionPanelDetails>
-                                   </ExpansionPanel>
-                               </Box>
-                           </ListItem>
-                       </List>
-                   </Box>
+                <TabPanel value={value} index={0} className={classes.tab} variant="div">
+                    <Box className={classes.list}>
+                        <List aria-label="main mailbox folders">
+                            <ListItem button>
+                                <ListItemText primary="داشبورد"/>
+                            </ListItem>
+                            <ListItem button>
+                                <ListItemText primary="فروش و مدیریت مشتری"/>
+                            </ListItem>
+                            <ListItem style={{textAlign: "right"}}>
+                                <Box className={classes.collapsible}>
+                                    <ExpansionPanel>
+                                        <ExpansionPanelSummary onClick={toggleCartIcon}
+                                                               expandIcon={extandedCart ? <AddIcon/> : <MinimizeIcon/>}
+                                                               aria-controls="panel1a-content"
+                                                               id="panel1a-header"
+                                        >
+                                            <Typography className={classes.heading}>داشبورد</Typography>
+                                        </ExpansionPanelSummary>
+                                        <ExpansionPanelDetails>
+                                            <List component="nav" aria-label="main mailbox folders">
+                                                <ListItem button>
+                                                    <ListItemText primary="ایتم "/>
+                                                </ListItem>
+                                            </List>
+                                        </ExpansionPanelDetails>
+                                    </ExpansionPanel>
+                                </Box>
+                            </ListItem>
+                            <ListItem style={{textAlign: "right"}}>
+                                <Box className={classes.collapsible}>
+                                    <ExpansionPanel>
+                                        <ExpansionPanelSummary onClick={toggleDashboarIcon}
+                                                               expandIcon={extandedDashboard ? <AddIcon/> :
+                                                                   <MinimizeIcon/>}
+                                                               aria-controls="panel1a-content"
+                                                               id="panel1a-header">
+                                            <Typography className={classes.heading}>ساختن کارت</Typography>
+                                        </ExpansionPanelSummary>
+                                        <ExpansionPanelDetails>
+                                            <List component="nav" aria-label="main mailbox folders">
+                                                <ListItem button>
+                                                    <ListItemText primary="کارت"/>
+                                                </ListItem>
+                                            </List>
+                                        </ExpansionPanelDetails>
+                                    </ExpansionPanel>
+                                </Box>
+                            </ListItem>
+                            <ListItem style={{textAlign: "right"}}>
+                                <Box className={classes.collapsible}>
+                                    <ExpansionPanel>
+                                        <ExpansionPanelSummary onClick={toggleFormIcon}
+                                                               expandIcon={extandedForm ? <AddIcon/> : <MinimizeIcon/>}
+                                                               aria-controls="panel1a-content"
+                                                               id="panel1a-header">
+                                            <Typography className={classes.heading}>فرم پایه</Typography>
+                                        </ExpansionPanelSummary>
+                                        <ExpansionPanelDetails>
+                                            <List component="nav" aria-label="main mailbox folders">
+                                                <ListItem>
+                                                    <Link to="/">
+                                                        <ListItemText primary="فرم پایه"/>
+                                                    </Link>
+                                                </ListItem>
+                                                <ListItem>
+                                                    <Link to="/custom">
+                                                        <ListItemText primary="فرم سفارشی"/>
+                                                    </Link>
+                                                </ListItem>
+                                            </List>
+                                        </ExpansionPanelDetails>
+                                    </ExpansionPanel>
+                                </Box>
+                            </ListItem>
+                        </List>
+                    </Box>
                 </TabPanel>
                 <TabPanel value={value} index={1} className={classes.tab}>
                     <Box className={classes.list}>

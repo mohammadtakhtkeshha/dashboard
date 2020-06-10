@@ -32,6 +32,16 @@ export const styles = makeStyles((theme) => ({
             }
         },
 
+        '& .tabcontent':{
+            display : 'none',
+        },
+        '& .tab':{
+            '& .tablinks': {
+                '&.active':{
+                    backgroundColor : 'red'
+                }
+            },
+        },
         '&#myheader': {
             display: 'flex',
             flexDirection: 'row',
@@ -56,11 +66,15 @@ export const styles = makeStyles((theme) => ({
             '& .MuiBox-root': {
                 paddingTop: '0',
                 // paddingRight: '8px'
-                '& nav': {
+                '& span': {
                     '& li': {
                         padding: 0
                     }
-                }
+                },
+                '& .MuiListItem-gutters': {
+                    paddingRight: 0,
+                    paddingLeft: 0,
+                },
             },
         }
     },

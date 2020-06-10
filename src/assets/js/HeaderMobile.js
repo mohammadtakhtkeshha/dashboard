@@ -50,10 +50,14 @@ export const styles = makeStyles((theme) => ({
         borderBottomRightRadius: 0,
         border: '1px solid #e1e1e1',
         '& input':{
-            display:'none'
+            '@media(max-width:768px)':{
+                display:'none'
+            }
         },
         '& label':{
-            display:'none'
+            '@media(max-width:768px)':{
+                display:'none'
+            }
         },
     }
 }));

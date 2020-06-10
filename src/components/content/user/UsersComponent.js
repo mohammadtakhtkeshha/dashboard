@@ -6,10 +6,13 @@ import axios from "axios/index";
 import ButtonComponent from '../../partials/ButtonComponent';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Checkbox from '@material-ui/core/Checkbox';
+import Pagination from '@material-ui/lab/Pagination';
+import * as colors from './../../../components/partials/Colors'
 
 
 const useStyles = makeStyles((theme) => ({
     userBlock: {
+        overflow: 'hidden',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -27,21 +30,49 @@ const useStyles = makeStyles((theme) => ({
                 flexShrink: 2
             }
         }
+    },
+    pagination: {
+        display: 'flex',
+        justifyContent: 'center',
+        padding: '20px',
+        '& ul': {
+            '& li': {
+                '& button': {
+                    borderRadius: '0',
+                    margin: '0',
+                    borderColor: colors.grey.tooLight,
+                    color: colors.primary,
+                    padding: '13px'
+                }
+            }
+        },
+        '& .MuiPaginationItem-page.Mui-selected': {
+            backgroundColor: colors.primary,
+            color: 'white',
+            border: '0'
+        }
     }
 }));
 
 export default function BaseFormComponent() {
+    console.log(colors);
     const classes = useStyles();
     const [selectedCheckBoxes, setSelectedCheckBoxes] = useState([]);
     const users = [
         {id: 1, name: 'نگار', role: 'ادمین', status: 'published', photo: "'./../../../assets/media/image/avatar.jpg'"},
         {id: 2, name: 'شادی', role: 'کاربر', status: 'published', photo: "./../../../assets/media/image/avatar.jpg"},
         {id: 3, name: 'payam', role: 'ادمین', status: 'published', photo: './../../../assets/media/image/avatar.jpg'},
-        {id: 4, name: 'behnaz', role: 'ادمین', status: 'published', photo: '"./../../../assets/media/image/avatar.jpg"'},
+        {
+            id: 4,
+            name: 'behnaz',
+            role: 'ادمین',
+            status: 'published',
+            photo: '"./../../../assets/media/image/avatar.jpg"'
+        },
         {id: 5, name: 'akbar', role: 'کاربر', status: 'published', photo: "assets/media/image/avatar.jpg/../../../."},
     ];
     useEffect(() => {
-        axios.get('http://sitesaz99.rbp/web/api/user/v1?_format=json').then(
+        axios.get('http://sitesaz99.rbp/web/api/user/v2?_format=json').then(
             function (response) {
                 console.log(response);
             }
@@ -76,8 +107,11 @@ export default function BaseFormComponent() {
             );
         }
     };
-    return (<>
+    let paginate = (e) => {
+        let currentPage = e.target.innerText;
 
+    };
+    return (<>
         <Box className={classes.userBlock}>
             <Box className="item">
                 <Checkbox
@@ -135,6 +169,8 @@ export default function BaseFormComponent() {
                     <ButtonComponent text="حذف" color="secondary" startIcon={<DeleteIcon/>}/>
                 </Box>
             </Box>)}
-
+        <Box className={classes.pagination}>
+            <Pagination count={10} variant="outlined" shape="rounded" onClick={(e)=>{paginate(e)}}/>
+        </Box>
     </>);
 }

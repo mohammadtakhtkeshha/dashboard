@@ -11,9 +11,6 @@ const useStyles = makeStyles((theme) => ({
         border: '1px solid red',
         padding: theme.spacing(2),
         margin: theme.spacing(2),
-        '&.MuiPaper-elevation1': {
-            boxShadow: '0 0 0 0',
-        }
     },
 }));
 
@@ -23,8 +20,10 @@ export default function BaseFormComponent() {
         <Grid container>
             <Grid item xs={12} sm={6}>
                 <Paper className={classes.paper}>
-                    <Input type="text" placeholder='ایمیل' label='ساخت ایمیل'
-                           small='لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ'/>
+                    <Input type="text" placeholder='نام کاربری' label='نام کاربری خود را وارد کنید'
+                           small=''/>
+                    <Input type="password" placeholder='رمز عبور' label='رمز عبور خود را وارد کنید'
+                           small=''/>
                 </Paper>
             </Grid>
         </Grid>

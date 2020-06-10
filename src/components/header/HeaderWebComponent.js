@@ -1,8 +1,8 @@
 import React from 'react';
-import { Toolbar, AppBar} from '@material-ui/core/index';
+import {Toolbar, AppBar} from '@material-ui/core/index';
 import {makeStyles} from '@material-ui/core/styles/index';
-import RightWebHeader from './RightWebHeader';
-import LeftWebHeader from './LeftWebHeader';
+import RightWebHeaderComponent from './RightWebHeaderComponent';
+import LeftWebHeaderComponent from './LeftWebHeaderComponent';
 
 import AppContext from './../../contexts/AppContext'
 
@@ -13,10 +13,13 @@ const useStyles = makeStyles((theme) => ({
         },
 
         appBar: {
+            position: 'fixed',
+            width: 'calc(100% - 300px)',
+            marginLeft: 'auto',
+            right: '300px',
             '&.MuiAppBar-colorPrimary': {
                 backgroundColor: '#e7ebee',
                 boxShadow: '0 0 0 0',
-                padding:'15px 0'
             }
         }
     }))
@@ -28,15 +31,15 @@ function HeaderWebComponent(props) {
         <>
             <AppContext.Consumer>
                 {context => (
-            <AppBar position="static" className={classes.appBar}>
-                <Toolbar>
-                   <RightWebHeader/>
-                   <LeftWebHeader/>
-                </Toolbar>
-            </AppBar>
-                    )}
-        </AppContext.Consumer>
-            </>
+                    <AppBar className={classes.appBar}>
+                        <Toolbar>
+                            <RightWebHeaderComponent/>
+                            <LeftWebHeaderComponent/>
+                        </Toolbar>
+                    </AppBar>
+                )}
+            </AppContext.Consumer>
+        </>
     );
 }
 

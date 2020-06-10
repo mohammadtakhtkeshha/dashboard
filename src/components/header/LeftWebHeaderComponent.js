@@ -1,5 +1,4 @@
-import React from "react";
-import Avatar from '@material-ui/core/Avatar/index';
+import React , {useState} from "react";
 import avatar from '../../assets/media/image/avatar.jpg';
 import SearchIcon from '@material-ui/icons/Search';
 import NotificationImportantIcon from '@material-ui/icons/NotificationImportant';
@@ -7,9 +6,17 @@ import MessageIcon from '@material-ui/icons/Message';
 import AddIcon from '@material-ui/icons/Add';
 import {Box} from '@material-ui/core/index';
 import * as styles from './../../assets/js/LeftWebHeader';
+import UserDrawerComponent from "../content/user/partials/UserDrawerComponent";
+import AvatarComponent from "../partials/AvatarComponent";
 
-export default function LeftWebHeader() {
+
+export default function LeftWebHeaderComponent() {
     const classes = styles.useStyles();
+    const [showUserDrawer , setShowUserDrawer] = useState(false);
+    let changeDrawerUser = () => {
+        setShowUserDrawer(false);
+    };
+
     return (<>
         <Box display="flex" justifyContent="flex-end" className={classes.leftBlock}>
             <Box className={classes.headerInput}>
@@ -29,9 +36,10 @@ export default function LeftWebHeader() {
             <Box className={classes.icons}>
                 <NotificationImportantIcon fontSize="small"/>
             </Box>
-            <Box className={classes.avatar}>
-                <Avatar alt="Remy Sharp" src={avatar}/>
+            <Box className={classes.avatar}  onClick={()=>{setShowUserDrawer(true)}}>
+                <AvatarComponent/>
             </Box>
         </Box>
+        <UserDrawerComponent changeDrawerUser={changeDrawerUser} showDrawer={showUserDrawer}/>
     </>);
 }

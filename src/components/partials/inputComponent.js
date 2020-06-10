@@ -41,7 +41,7 @@ function Input(props) {
     return (<>
         <Box className={classes.inputBlock}>
             <label htmlFor="">{props.label}</label>
-            <input type={props.type} className={classes.input} placeholder={props.placeholder}/>
+            <input type={props.type} className={classes.input} title="n" placeholder={props.placeholder}/>
             {props.small?   <small>{props.small}</small> : ''}
 
         </Box>

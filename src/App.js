@@ -4,6 +4,8 @@ import Grid from '@material-ui/core/Grid/index';
 import AppContext from './contexts/AppContext';
 import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import './App.css';
+import font from './assets/css/font.css'
+
 import UseWindowDimensions from './main/useWindowDimensions';
 
 import {
@@ -24,12 +26,46 @@ const styles = {
     }
 };
 
+const useStyle = makeStyles(() => ({
+    sidebar: {
+        position: 'fixed',
+        width : '300px'
+    },
+    content: {
+        marginRight: 'auto',
+        width : 'calc(100% - 300px)',
+        '@media (max-width: 992px)': {
+                width: '100%'
+        },
+        padding: theme.spacing(2),
+    }
+}));
+
 const theme = createMuiTheme({
+    typography:{
+        fontFamily :["primary-font", "segoe ui", "tahoma"],
+        body1:{
+            fontSize : '13px'
+        }
+    },
+    breakpoints: {
+        values: {
+            xs: 576, sm: 768, md: 992, lg: 1200, xl: 1200
+        }
+    },
+    overrides:{
+        MuiPaper: {
+            elevation1:{
+                boxShadow:'0 0 0 0',
+            }
+        },
+    }
 
 });
 
 export function App() {
     const {width} = UseWindowDimensions();
+    const classes = useStyle();
     console.log(theme);
     return (
         <>
@@ -38,14 +74,14 @@ export function App() {
                     <Box display="flex" flexDirection="row">
                         <Router history={history}>
                             <Grid container>
-                                <Grid xs={3} sm={3} md={3} lg={3} xl={3} item style={{width: '300px'}}>
-                                    {width > 960 ? <Box style={styles.sidebar}>
+                                <Grid item className={classes.sidebar}>
+                                    {width > 992 ? <Box style={styles.sidebar}>
                                         <components.SidebarComponent/>
                                     </Box> : ''}
                                 </Grid>
-                                <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
+                                <Grid item  className={classes.content}>
                                     <Box style={styles.content}>
-                                        {width > 960 ? <components.HeaderWebComponent/> :
+                                        {width > 992 ? <components.HeaderWebComponent/> :
                                             <components.HeaderMobileComponent/>}
                                         <components.ContentComponent/>
                                     </Box>

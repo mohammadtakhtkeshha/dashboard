@@ -2,7 +2,7 @@ import BaseFormComponent from "../components/content/partials/BaseFormComponent"
 import CustomizedForm from "../components/content/partials/CustomizedForm";
 import BreadcrumbsComponent from './../components/header/BreadcrumbsComponent';
 import UsersComponent from '../components/content/user/UsersComponent';
-import NewUserComponent from '../components/content/user/NewUserComponent';
+import NewUserComponent from '../components/content/user/forms/NewUserComponent';
 
 import React from "react";
 

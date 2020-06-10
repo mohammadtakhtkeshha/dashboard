@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function RightWebHeader() {
+export default function RightWebHeaderComponent() {
     const classes = useStyles();
     return (
         <>

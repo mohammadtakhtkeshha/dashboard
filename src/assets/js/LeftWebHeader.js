@@ -18,10 +18,11 @@ export const useStyles = makeStyles((theme) => ({
     },
     leftBlock: {
         flexGrow: 2,
-        textAlign: 'left'
+        textAlign: 'left',
+        display: 'flex',
+        alignItems: 'center'
     },
     headerInput: {
-
         position: 'relative',
         '& input': {
             borderRadius: '5px',
@@ -75,6 +76,5 @@ export const useStyles = makeStyles((theme) => ({
     avatar: {
         marginRight: '12px'
     }
-
 }));
 
