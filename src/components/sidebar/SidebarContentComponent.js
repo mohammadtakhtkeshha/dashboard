@@ -18,7 +18,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import AddIcon from '@material-ui/icons/Add';
 import MinimizeIcon from '@material-ui/icons/Minimize';
-import {Link} from 'react-router-dom';
+import {Link , NavLink} from 'react-router-dom';
 import * as useStyles from './../../assets/js/SidebarContent'
 
 function TabPanel(props) {
@@ -106,7 +106,9 @@ export default function SimpleTabs() {
                     <Box className={classes.list}>
                         <List aria-label="main mailbox folders">
                             <ListItem button>
+                                <NavLink to='/dashboard' activeClassName={classes.active}>
                                 <ListItemText primary="داشبورد"/>
+                                </NavLink>
                             </ListItem>
                             <ListItem button>
                                 <ListItemText primary="فروش و مدیریت مشتری"/>
@@ -158,19 +160,20 @@ export default function SimpleTabs() {
                                                                expandIcon={extandedForm ? <AddIcon/> : <MinimizeIcon/>}
                                                                aria-controls="panel1a-content"
                                                                id="panel1a-header">
-                                            <Typography className={classes.heading}>فرم پایه</Typography>
+                                            <Typography className={classes.heading}>فرم پایه اصلی</Typography>
                                         </ExpansionPanelSummary>
                                         <ExpansionPanelDetails>
                                             <List component="nav" aria-label="main mailbox folders">
                                                 <ListItem>
-                                                    <Link to="/">
+                                                    <NavLink to="/" activeClassName={classes.active} exact>
                                                         <ListItemText primary="فرم پایه"/>
-                                                    </Link>
+                                                    </NavLink>
                                                 </ListItem>
                                                 <ListItem>
-                                                    <Link to="/custom">
+                                                    {/*<Link to="/custom">*/}
+                                                        <NavLink to="/custom" activeClassName={classes.active}>
                                                         <ListItemText primary="فرم سفارشی"/>
-                                                    </Link>
+                                                    </NavLink>
                                                 </ListItem>
                                             </List>
                                         </ExpansionPanelDetails>
@@ -241,14 +244,15 @@ export default function SimpleTabs() {
                                         <ExpansionPanelDetails>
                                             <List component="nav" aria-label="main mailbox folders">
                                                 <ListItem>
-                                                    <Link to="/">
+                                                    <NavLink to="/" activeClassName={classes.active}>
                                                         <ListItemText primary="فرم پایه"/>
-                                                    </Link>
+                                                    </NavLink>
                                                 </ListItem>
                                                 <ListItem>
-                                                    <Link to="/custom">
+                                                    <NavLink to="/custom"
+                                                             activeClassName={classes.active}>
                                                         <ListItemText primary="فرم سفارشی"/>
-                                                    </Link>
+                                                    </NavLink>
                                                 </ListItem>
                                             </List>
                                         </ExpansionPanelDetails>
@@ -268,14 +272,14 @@ export default function SimpleTabs() {
                     <Box className={classes.list}>
                         <List component="nav" aria-label="main mailbox folders">
                             <ListItem button>
-                                <Link to='/users'>
+                                <NavLink to='/users' activeClassName={classes.active}>
                                     <ListItemText primary="کاربران"/>
-                                </Link>
+                                </NavLink>
                             </ListItem>
                             <ListItem button>
-                                <Link to='/new-user'>
+                                <NavLink to='/new-user' activeClassName={classes.active}>
                                     <ListItemText primary="افزودن کاربر جدید"/>
-                                </Link>
+                                </NavLink>
                             </ListItem>
 
                         </List>

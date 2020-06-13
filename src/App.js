@@ -29,23 +29,23 @@ const styles = {
 const useStyle = makeStyles(() => ({
     sidebar: {
         position: 'fixed',
-        width : '300px'
+        width: '300px'
     },
     content: {
         marginRight: 'auto',
-        width : 'calc(100% - 300px)',
+        width: 'calc(100% - 300px)',
         '@media (max-width: 992px)': {
-                width: '100%'
+            width: '100%'
         },
         padding: theme.spacing(2),
     }
 }));
 
 const theme = createMuiTheme({
-    typography:{
-        fontFamily :["primary-font", "segoe ui", "tahoma"],
-        body1:{
-            fontSize : '13px'
+    typography: {
+        fontFamily: ["primary-font", "segoe ui", "tahoma"],
+        body1: {
+            fontSize: '13px'
         }
     },
     breakpoints: {
@@ -53,10 +53,10 @@ const theme = createMuiTheme({
             xs: 576, sm: 768, md: 992, lg: 1200, xl: 1200
         }
     },
-    overrides:{
+    overrides: {
         MuiPaper: {
-            elevation1:{
-                boxShadow:'0 0 0 0',
+            elevation1: {
+                boxShadow: '0 0 0 0',
             }
         },
     }
@@ -65,21 +65,25 @@ const theme = createMuiTheme({
 
 export function App() {
     const {width} = UseWindowDimensions();
+    const [showUserDrawer, setShowUserDrawer] = useState(false);
+    const [token, setToken] = useState('');
     const classes = useStyle();
-    console.log(theme);
+    let toggleUserDrawer = (boolean) => {
+        setShowUserDrawer(boolean)
+    };
     return (
         <>
             <ThemeProvider theme={theme}>
-                <AppContext.Provider>
+                <AppContext.Provider value={{showUserDrawer: showUserDrawer, toggleUserDrawer: toggleUserDrawer,toke:token}}>
                     <Box display="flex" flexDirection="row">
-                        <Router history={history}>
+                        {token ? <Router history={history}>
                             <Grid container>
                                 <Grid item className={classes.sidebar}>
                                     {width > 992 ? <Box style={styles.sidebar}>
                                         <components.SidebarComponent/>
                                     </Box> : ''}
                                 </Grid>
-                                <Grid item  className={classes.content}>
+                                <Grid item className={classes.content}>
                                     <Box style={styles.content}>
                                         {width > 992 ? <components.HeaderWebComponent/> :
                                             <components.HeaderMobileComponent/>}
@@ -87,7 +91,9 @@ export function App() {
                                     </Box>
                                 </Grid>
                             </Grid>
-                        </Router>
+                        </Router>:<Router>
+                            <components.LoginComponent/>
+                        </Router>}
                     </Box>
                 </AppContext.Provider>
             </ThemeProvider>

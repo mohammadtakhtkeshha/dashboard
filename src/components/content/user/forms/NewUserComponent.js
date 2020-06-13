@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                cursor : 'pointer',
+                cursor: 'pointer',
 
             },
             '& input': {
@@ -47,7 +47,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BaseFormComponent() {
     const classes = useStyles();
-    function register(){
+
+    function register() {
         debugger;
     };
     return (<>
@@ -70,7 +71,7 @@ export default function BaseFormComponent() {
                     <input type="file" id="file"/>
                 </Box>
                 <Box mt={2}>
-                <ButtonComponent color="primary" text="ثبت" clicked={register}/>
+                    <ButtonComponent color="primary" text="ثبت" clicked={register}/>
                 </Box>
             </Paper>
         </Box>

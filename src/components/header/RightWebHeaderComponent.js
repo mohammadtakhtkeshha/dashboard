@@ -1,7 +1,7 @@
 import React from "react";
 import {makeStyles} from '@material-ui/core/styles/index';
 import {Typography, Box} from '@material-ui/core/index';
-import * as routes from './../../store/store'
+import * as routes from '../../store/routes'
 import {
     Switch,
     Route,

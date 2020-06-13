@@ -74,7 +74,8 @@ export const useStyles = makeStyles((theme) => ({
         }
     },
     avatar: {
-        marginRight: '12px'
+        marginRight: '12px',
+        cursor : 'pointer'
     }
 }));
 

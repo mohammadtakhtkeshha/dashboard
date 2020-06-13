@@ -11,6 +11,7 @@ import {
 
 import AvatarComponent from "../../../partials/AvatarComponent";
 import ButtonComponent from "../../../partials/ButtonComponent";
+import AppContext from "../../../../contexts/AppContext";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,9 +21,9 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        height : '100%',
-        overflow:'scroll',
-        alignItems : 'center',
+        height: '100%',
+        overflow: 'scroll',
+        alignItems: 'center',
         '& .avatar': {
             borderBottom: `1px solid ${colors.grey.veryLight}`,
             '& > :first-child': {
@@ -86,8 +87,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function UserDrawerContentComponent() {
+export default function UserDrawerContentComponent(props) {
     const classes = useStyles();
+    const appContext= React.useContext(AppContext);
+
+    let changeUserDrawer = () => {
+        appContext.toggleUserDrawer(false);
+    };
     return (<>
         <Box className={classes.content}>
             <Box className="item avatar">
@@ -101,16 +107,22 @@ export default function UserDrawerContentComponent() {
                 <Typography variant="h3" id="email">ngrcode@gmail.com</Typography>
             </Box>
             <Box className="buttons">
-                <Link className="link" to="/">
+                <Link className="link" to="/comments" onClick={changeUserDrawer}>
                     <ButtonComponent className="button" text="مشاهده کامنت ها" color="primary" startIcon={<EditIcon/>}/>
                 </Link>
-                <Link className="link" to="/">
-                    <ButtonComponent className="button" text="مشاهده محتوا ها" color="secondary"
+                <Link className="link" to="/contents" onClick={changeUserDrawer}>
+                    <ButtonComponent
+                        className="button" text="مشاهده محتوا ها" color="secondary"
                                      startIcon={<EditIcon/>}/>
                 </Link>
-                <Link className="link" to="/">
-                    <ButtonComponent className="button" text="ویرایش پروفایل" color="secondary"
-                                     startIcon={<EditIcon/>}/>
+                <Link className="link" to="/edit-user"
+                      onClick={changeUserDrawer}
+                >
+                    <ButtonComponent
+                        className="button"
+                        text="ویرایش پروفایل"
+                        color="secondary"
+                        startIcon={<EditIcon/>}/>
                 </Link>
             </Box>
         </Box>

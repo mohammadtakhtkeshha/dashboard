@@ -1,7 +1,14 @@
 import {makeStyles} from '@material-ui/core/styles';
-
+import * as  colors from './../../components/partials/Colors'
 export const styles = makeStyles((theme) => ({
+    active:{
+        color:`${colors.primary}!important`,
+    },
     root: {
+        '& a':{
+          textDecoration: 'none',
+          color: 'black',
+        },
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
         '& .MuiTabs-flexContainer': {
@@ -75,6 +82,9 @@ export const styles = makeStyles((theme) => ({
                     paddingRight: 0,
                     paddingLeft: 0,
                 },
+                '& .MuiExpansionPanelSummary-root':{
+                    padding:'0 0!important'
+                }
             },
         }
     },
@@ -93,6 +103,12 @@ export const styles = makeStyles((theme) => ({
         },
         '& .MuiPaper-root': {
             backgroundColor: 'white',
+            '& li':{
+                '& a':{
+                    textDecoration : 'none',
+                    color:'inherit'
+                }
+            }
 
         },
         '& .MuiPaper-elevation1': {

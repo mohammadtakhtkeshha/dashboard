@@ -6,4 +6,5 @@ const HeaderMobileComponent = loadable(() => import('../../components/header/Hea
 const ContentComponent = loadable(() => import('../../components/content/ContentComponent'));
 const SidebarComponent = loadable(() => import('../../components/sidebar/SidebarComponent'));
 const TestComponent = loadable(() => import('../../components/TestComponent'));
-export {HeaderWebComponent,HeaderMobileComponent,ContentComponent,SidebarComponent,TestComponent}
+const LoginComponent = loadable(() => import('../../components/content/user/forms/LoginComponent'));
+export {HeaderWebComponent,HeaderMobileComponent,ContentComponent,SidebarComponent,TestComponent,LoginComponent}

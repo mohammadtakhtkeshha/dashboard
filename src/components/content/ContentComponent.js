@@ -11,7 +11,7 @@ import {
     Route,
 } from "react-router-dom";
 
-import * as routes from './../../store/store'
+import * as routes from '../../store/routes'
 
 const useStyles = makeStyles((theme) => ({
     content: {

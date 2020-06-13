@@ -2,6 +2,7 @@ import UserDrawerContentComponent from "./UserDrawerContentComponent";
 import React, {useEffect, useRef, useCallback} from "react";
 import {makeStyles} from '@material-ui/core/styles/index';
 import {Box} from '@material-ui/core/index'
+import AppContext from "../../../../contexts/AppContext";
 //import styles from make style
 // import * as useStyle from './../../../assets/js/SidebarMobile.js'
 
@@ -40,9 +41,12 @@ export const styles = makeStyles((theme) => ({
 export default function (props) {
     const node = useRef();
     const classes = styles();
+    const appContext= React.useContext(AppContext);
+
     const handleClick = useCallback((e) => {
         if (!node.current.contains(e.target)) {
-            props.changeDrawerUser();
+            // props.changeDrawerUser();
+            appContext.toggleUserDrawer(false);
         }
     }, []);
 
@@ -56,9 +60,9 @@ export default function (props) {
 
     return (
         <>
-            <Box className={props.showDrawer ? classes.show : classes.notShow}>
+            <Box className={appContext.showUserDrawer? classes.show : classes.notShow}>
                 <Box id="openedSidebar" ref={node} className={classes.openedSidebar}>
-                    <UserDrawerContentComponent/>
+                    <UserDrawerContentComponent changeUserDrawer={handleClick}/>
                 </Box>
             </Box>
         </>

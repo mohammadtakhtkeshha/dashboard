@@ -1,10 +1,20 @@
 import React from 'react';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs/index';
-import {Link} from '@material-ui/core/index';
+import {Link, Box} from '@material-ui/core/index';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles=makeStyles({
+    breadcrumbs:{
+        '& a:hover':{
+            textDecoration:'none',
+
+        }
+    }
+});
 export default function BreadcrumbsComponent(props) {
-    return (<>
-        <Breadcrumbs aria-label="breadcrumb">
+    const classes = useStyles();
+    return (<Box className={classes.breadcrumbs}>
+        <Breadcrumbs aria-label="breadcrumb" >
             <Link color="inherit" href="/">
                 داشبورد
             </Link>
@@ -12,5 +22,5 @@ export default function BreadcrumbsComponent(props) {
                 {props.bread}
             </Link>
         </Breadcrumbs>
-    </>);
+    </Box>);
 }
