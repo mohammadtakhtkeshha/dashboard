@@ -38,10 +38,13 @@ const styles = makeStyles(() => ({
 
 function Input(props) {
     const classes = styles();
+    let handleClick=(e,param)=>{
+        props.handleClick(e,param);
+    };
     return (<>
         <Box className={classes.inputBlock}>
             <label htmlFor="">{props.label}</label>
-            <input type={props.type} className={classes.input} title="n" placeholder={props.placeholder}/>
+            <input type={props.type} onChange={(e,param)=>handleClick(e,param)} className={classes.input} title="n" placeholder={props.placeholder}/>
             {props.small?   <small>{props.small}</small> : ''}
 
         </Box>

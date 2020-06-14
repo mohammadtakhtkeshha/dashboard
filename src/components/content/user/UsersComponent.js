@@ -55,33 +55,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function BaseFormComponent() {
-    console.log(colors);
     const classes = useStyles();
     const [selectedCheckBoxes, setSelectedCheckBoxes] = useState([]);
-    const users = [
-        {id: 1, name: 'نگار', role: 'ادمین', status: 'published', photo: "'./../../../assets/media/image/avatar.jpg'"},
-        {id: 2, name: 'شادی', role: 'کاربر', status: 'published', photo: "./../../../assets/media/image/avatar.jpg"},
-        {id: 3, name: 'payam', role: 'ادمین', status: 'published', photo: './../../../assets/media/image/avatar.jpg'},
-        {
-            id: 4,
-            name: 'behnaz',
-            role: 'ادمین',
-            status: 'published',
-            photo: '"./../../../assets/media/image/avatar.jpg"'
-        },
-        {id: 5, name: 'akbar', role: 'کاربر', status: 'published', photo: "assets/media/image/avatar.jpg/../../../."},
-    ];
-    useEffect(() => {
-        axios.get('http://sitesaz99.rbp/web/api/user/v2?_format=json').then(
+    const [page, setPage] = useState(1);
+    const [users, setUsers] = useState([]);
+    let getUsers = (page) => {
+        axios.get(`http://sitesaz99.rbp/web/api/user/v2?page=${page}`).then(
             function (response) {
                 console.log(response);
+                let currentList = [];
+                response.data.rows.map((item) => {
+                    currentList.push({
+                        uid: item.uid,
+                        name: item.user_name,
+                        field_name: item.first_name,
+                        field_last_name: item.last_name,
+                        role: item.role,
+                        status: item.status,
+                        user_picture: item.user_picture,
+                    });
+                });
+                setUsers(currentList);
             }
         ).catch(function (error) {
-            console.log(error);
         });
-    });
+    };
+    useEffect(() => {
+        getUsers(page);
+    }, []);
+
+
     let allCheckboxHandler = (e) => {
-        let ids = users.map(user => user.id);
+        let ids = users.map(user => user.uid);
         let usersLength = users.length;
         if (selectedCheckBoxes.length == usersLength) {
             setSelectedCheckBoxes(
@@ -95,7 +100,7 @@ export default function BaseFormComponent() {
 
     };
     let isCheckedHandler = (e, user) => {
-        let currentId = user.id;
+        let currentId = user.uid;
         if (e.currentTarget.checked) {
             setSelectedCheckBoxes(
                 [...selectedCheckBoxes, currentId]
@@ -109,7 +114,8 @@ export default function BaseFormComponent() {
     };
     let paginate = (e) => {
         let currentPage = e.target.innerText;
-
+        setPage(currentPage);
+        getUsers(currentPage);
     };
     return (<>
         <Box className={classes.userBlock}>
@@ -124,6 +130,12 @@ export default function BaseFormComponent() {
                 نام
             </Box>
             <Box className="item">
+                نام خانوادگی
+            </Box>
+            <Box className="item">
+                نام کاربری
+            </Box>
+            <Box className="item">
                 نقش
             </Box>
             <Box className="item">
@@ -136,14 +148,20 @@ export default function BaseFormComponent() {
                 عملیات
             </Box>
         </Box>
-        {users.map(user =>
-            <Box className={classes.userBlock}>
+        {users.map((user, index) =>
+            <Box key={index} className={classes.userBlock}>
                 <Box className="item">
                     <Checkbox
                         onChange={(e) => isCheckedHandler(e, user)}
                         inputProps={{'aria-label': 'primary checkbox'}}
-                        checked={selectedCheckBoxes.includes(user.id)}
+                        checked={selectedCheckBoxes.includes(user.uid)}
                     />
+                </Box>
+                <Box className="item">
+                    {user.field_name}
+                </Box>
+                <Box className="item">
+                    {user.field_last_name}
                 </Box>
                 <Box className="item">
                     {user.name}
@@ -152,7 +170,7 @@ export default function BaseFormComponent() {
                     {user.role}
                 </Box>
                 <Box className="item">
-                    {user.status}
+                    {user.status ? 'تایید شده' : 'در انتظار تایید'}
                 </Box>
                 <Box className="item">
                     <CardMedia
@@ -161,7 +179,6 @@ export default function BaseFormComponent() {
                         // image={require(user.photo)}
                         style={{width: '100px', height: '100px'}}
                     />
-                    {/*{user.photo}*/}
 
                 </Box>
                 <Box className="item">
@@ -170,7 +187,9 @@ export default function BaseFormComponent() {
                 </Box>
             </Box>)}
         <Box className={classes.pagination}>
-            <Pagination count={10} variant="outlined" shape="rounded" onClick={(e)=>{paginate(e)}}/>
+            <Pagination count={users.length} variant="outlined" shape="rounded" onClick={(e) => {
+                paginate(e)
+            }}/>
         </Box>
     </>);
 }

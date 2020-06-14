@@ -19,7 +19,6 @@ const theme = createMuiTheme({
 
 });
 export default function CenteredGrid() {
-console.log(theme);
     return (
         <div>
             <MuiThemeProvider theme={theme}>

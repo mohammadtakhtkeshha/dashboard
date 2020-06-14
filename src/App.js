@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid/index';
 import AppContext from './contexts/AppContext';
 import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import './App.css';
-import font from './assets/css/font.css'
+
 
 import UseWindowDimensions from './main/useWindowDimensions';
 
@@ -62,38 +62,39 @@ const theme = createMuiTheme({
     }
 
 });
-
 export function App() {
     const {width} = UseWindowDimensions();
     const [showUserDrawer, setShowUserDrawer] = useState(false);
-    const [token, setToken] = useState('');
+    const [token, setToken] = useState(true);
     const classes = useStyle();
     let toggleUserDrawer = (boolean) => {
         setShowUserDrawer(boolean)
     };
+
     return (
         <>
             <ThemeProvider theme={theme}>
-                <AppContext.Provider value={{showUserDrawer: showUserDrawer, toggleUserDrawer: toggleUserDrawer,toke:token}}>
+                <AppContext.Provider
+                    value={{showUserDrawer: showUserDrawer, toggleUserDrawer: toggleUserDrawer, toke: token}}>
                     <Box display="flex" flexDirection="row">
-                        {token ? <Router history={history}>
-                            <Grid container>
-                                <Grid item className={classes.sidebar}>
-                                    {width > 992 ? <Box style={styles.sidebar}>
-                                        <components.SidebarComponent/>
-                                    </Box> : ''}
-                                </Grid>
-                                <Grid item className={classes.content}>
-                                    <Box style={styles.content}>
-                                        {width > 992 ? <components.HeaderWebComponent/> :
-                                            <components.HeaderMobileComponent/>}
-                                        <components.ContentComponent/>
-                                    </Box>
-                                </Grid>
-                            </Grid>
-                        </Router>:<Router>
-                            <components.LoginComponent/>
-                        </Router>}
+                        <Router history={history}>
+                            {token ? (
+                                    <Grid container>
+                                        <Grid item className={classes.sidebar}>
+                                            {width > 992 ? <Box style={styles.sidebar}>
+                                                <components.SidebarComponent/>
+                                            </Box> : ''}
+                                        </Grid>
+                                        <Grid item className={classes.content}>
+                                            <Box style={styles.content}>
+                                                {width > 992 ? <components.HeaderWebComponent/> :
+                                                    <components.HeaderMobileComponent/>}
+                                                <components.ContentComponent/>
+                                            </Box>
+                                        </Grid>
+                                    </Grid>)
+                                : (<components.LoginComponent/>)
+                            } </Router>
                     </Box>
                 </AppContext.Provider>
             </ThemeProvider>

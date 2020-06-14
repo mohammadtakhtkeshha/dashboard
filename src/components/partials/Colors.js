@@ -20,6 +20,7 @@ const twitter = '#55acee';
 const whatsapp = '#43d854';
 const dribbble = '#ea4c89';
 const youtube = '#cd201f';
+const black = '#212529';
 
 // ------- blue -------
 const darkBlue = '#0056b3';
@@ -34,5 +35,5 @@ const grey = {
 export {
     primary, primaryBright, secondary, secondaryBright, success, successBright, danger,dangerBright,
     warning,warningBright,info,infoBright,light, dark, facebook, google, instagram, linkedin, twitter,
-    whatsapp, dribbble, youtube,darkBlue,grey
+    whatsapp, dribbble, youtube,darkBlue,grey,black
 };
