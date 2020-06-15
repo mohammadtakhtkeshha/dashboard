@@ -58,11 +58,11 @@ export default function BaseFormComponent() {
     const classes = useStyles();
     const [selectedCheckBoxes, setSelectedCheckBoxes] = useState([]);
     const [page, setPage] = useState(1);
+    const [totalPage, setTotalPage] = useState( 1);
     const [users, setUsers] = useState([]);
     let getUsers = (page) => {
         axios.get(`http://sitesaz99.rbp/web/api/user/v2?page=${page}`).then(
             function (response) {
-                console.log(response);
                 let currentList = [];
                 response.data.rows.map((item) => {
                     currentList.push({
@@ -76,6 +76,7 @@ export default function BaseFormComponent() {
                     });
                 });
                 setUsers(currentList);
+                setTotalPage(response.data.pager.total_pages);
             }
         ).catch(function (error) {
         });
@@ -84,7 +85,7 @@ export default function BaseFormComponent() {
         getUsers(page);
     }, []);
 
-
+    console.log(totalPage);
     let allCheckboxHandler = (e) => {
         let ids = users.map(user => user.uid);
         let usersLength = users.length;
@@ -112,10 +113,9 @@ export default function BaseFormComponent() {
             );
         }
     };
-    let paginate = (e) => {
-        let currentPage = e.target.innerText;
-        setPage(currentPage);
-        getUsers(currentPage);
+    let paginate = (e,value) => {
+        setPage(value);
+        getUsers(value);
     };
     return (<>
         <Box className={classes.userBlock}>
@@ -187,9 +187,8 @@ export default function BaseFormComponent() {
                 </Box>
             </Box>)}
         <Box className={classes.pagination}>
-            <Pagination count={users.length} variant="outlined" shape="rounded" onClick={(e) => {
-                paginate(e)
-            }}/>
+            <Pagination count={(totalPage-1)}
+                        onChange={paginate}/>
         </Box>
     </>);
 }

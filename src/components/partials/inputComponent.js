@@ -1,6 +1,6 @@
 import React from 'react';
 import makeStyles from "@material-ui/styles/makeStyles/makeStyles";
-import {Box} from '@material-ui/core'
+import {Box,Typography} from '@material-ui/core'
 
 const styles = makeStyles(() => ({
     inputBlock:{
@@ -46,6 +46,7 @@ function Input(props) {
             <label htmlFor="">{props.label}</label>
             <input type={props.type} onChange={(e,param)=>handleClick(e,param)} className={classes.input} title="n" placeholder={props.placeholder}/>
             {props.small?   <small>{props.small}</small> : ''}
+            <Typography>{props.error}</Typography>
 
         </Box>
     </>);

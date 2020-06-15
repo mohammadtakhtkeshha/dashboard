@@ -4,6 +4,9 @@ import Grid from '@material-ui/core/Grid/index';
 import AppContext from './contexts/AppContext';
 import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import './App.css';
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
 
 
 import UseWindowDimensions from './main/useWindowDimensions';
@@ -42,6 +45,7 @@ const useStyle = makeStyles(() => ({
 }));
 
 const theme = createMuiTheme({
+    direction: 'rtl',
     typography: {
         fontFamily: ["primary-font", "segoe ui", "tahoma"],
         body1: {
@@ -62,6 +66,7 @@ const theme = createMuiTheme({
     }
 
 });
+
 export function App() {
     const {width} = UseWindowDimensions();
     const [showUserDrawer, setShowUserDrawer] = useState(false);
@@ -76,26 +81,28 @@ export function App() {
             <ThemeProvider theme={theme}>
                 <AppContext.Provider
                     value={{showUserDrawer: showUserDrawer, toggleUserDrawer: toggleUserDrawer, toke: token}}>
-                    <Box display="flex" flexDirection="row">
-                        <Router history={history}>
-                            {token ? (
-                                    <Grid container>
-                                        <Grid item className={classes.sidebar}>
-                                            {width > 992 ? <Box style={styles.sidebar}>
-                                                <components.SidebarComponent/>
-                                            </Box> : ''}
-                                        </Grid>
-                                        <Grid item className={classes.content}>
-                                            <Box style={styles.content}>
-                                                {width > 992 ? <components.HeaderWebComponent/> :
-                                                    <components.HeaderMobileComponent/>}
-                                                <components.ContentComponent/>
-                                            </Box>
-                                        </Grid>
-                                    </Grid>)
-                                : (<components.LoginComponent/>)
-                            } </Router>
-                    </Box>
+                    <div dir="rtl">
+                        <Box display="flex" flexDirection="row">
+                            <Router history={history}>
+                                {token ? (
+                                        <Grid container>
+                                            <Grid item className={classes.sidebar}>
+                                                {width > 992 ? <Box style={styles.sidebar}>
+                                                    <components.SidebarComponent/>
+                                                </Box> : ''}
+                                            </Grid>
+                                            <Grid item className={classes.content}>
+                                                <Box style={styles.content}>
+                                                    {width > 992 ? <components.HeaderWebComponent/> :
+                                                        <components.HeaderMobileComponent/>}
+                                                    <components.ContentComponent/>
+                                                </Box>
+                                            </Grid>
+                                        </Grid>)
+                                    : (<components.LoginComponent/>)
+                                } </Router>
+                        </Box>
+                    </div>
                 </AppContext.Provider>
             </ThemeProvider>
         </>

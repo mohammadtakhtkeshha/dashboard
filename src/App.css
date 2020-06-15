@@ -1,6 +1,5 @@
 
 body {
-    direction: rtl;
     background-color: #e7ebee;
 }
 
@@ -12,13 +11,13 @@ body {
     border: none;
 }
 
-@font-face{
-    font-family: "IRANSansWeb";
-    src: url('./assets/fonts/iran-sans-300.ttf') format('ttf');
-    /*src: url('./../public/fonts/iransans/ttf/IRANSansWeb.ttf') format('ttf'),*/
-    /*url('./../public/fonts/iransans/eot/IRANSansWeb.eot') format('eot'),*/
-    /*url('./../public/fonts/iransans/woff/IRANSansWeb.woff') format('woff'),*/
-    /*url('../../public/fonts/iransans/woff2/IRANSansWeb.woff2') format('woff2')*/
-}
+/*@font-face{*/
+/*    font-family: "IRANSansWeb";*/
+/*    src: url('./assets/fonts/iran-sans-300.ttf') format('ttf');*/
+/*    !*src: url('./../public/fonts/iransans/ttf/IRANSansWeb.ttf') format('ttf'),*!*/
+/*    !*url('./../public/fonts/iransans/eot/IRANSansWeb.eot') format('eot'),*!*/
+/*    !*url('./../public/fonts/iransans/woff/IRANSansWeb.woff') format('woff'),*!*/
+/*    !*url('../../public/fonts/iransans/woff2/IRANSansWeb.woff2') format('woff2')*!*/
+/*}*/
 
 @import url('https://fonts.googleapis.com/css?family=Lato');
