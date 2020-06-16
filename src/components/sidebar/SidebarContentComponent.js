@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -19,7 +19,8 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import AddIcon from '@material-ui/icons/Add';
 import MinimizeIcon from '@material-ui/icons/Minimize';
 import {Link , NavLink} from 'react-router-dom';
-import * as useStyles from './../../assets/js/SidebarContent'
+import * as useStyles from './../../assets/js/SidebarContent';
+import AppContext from './../../contexts/AppContext'
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -60,6 +61,7 @@ export default function SimpleTabs() {
     const [extandedCart, setExtandedCart] = useState(false);
     const [extandedDashboard, setExtandedDashboard] = useState(false);
     const [extandedForm, setExtandedForm] = useState(false);
+    const appContext = useContext(AppContext);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -87,7 +89,9 @@ export default function SimpleTabs() {
         }
 
     };
-
+    let logOut = () =>{
+        appContext.setTokenHandler('');
+    };
     return (
         <>
             <Box className={classes.root} id="myheader">
@@ -99,7 +103,7 @@ export default function SimpleTabs() {
                         <Tab label={<LayersIcon/>} {...a11yProps(3)} />
                         <Tab label={<PersonIcon/>} {...a11yProps(4)} />
                         <Tab label={<SettingsIcon/>} {...a11yProps(5)} />
-                        <Tab label={<PowerSettingsNewIcon/>} {...a11yProps(6)} />
+                        <Tab label={<PowerSettingsNewIcon/>} {...a11yProps(6)} onClick={logOut} />
                     </Tabs>
                 </AppBar>
                 <TabPanel value={value} index={0} className={classes.tab} variant="div">

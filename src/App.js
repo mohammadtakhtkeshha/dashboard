@@ -4,9 +4,9 @@ import Grid from '@material-ui/core/Grid/index';
 import AppContext from './contexts/AppContext';
 import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import './App.css';
-import { create } from 'jss';
+import {create} from 'jss';
 import rtl from 'jss-rtl';
-import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+import {StylesProvider, jssPreset} from '@material-ui/core/styles';
 
 
 import UseWindowDimensions from './main/useWindowDimensions';
@@ -70,17 +70,47 @@ const theme = createMuiTheme({
 export function App() {
     const {width} = UseWindowDimensions();
     const [showUserDrawer, setShowUserDrawer] = useState(false);
-    const [token, setToken] = useState(true);
+    const [token, setToken] = useState(localStorage.getItem('token') || '');
+    const [user, setUser] = useState({
+        name: '',
+        field_name: '',
+        field_last_name: '',
+        mail: '',
+        pass: '',
+        confirm_pass: '',
+        user_picture:'',
+    });
     const classes = useStyle();
     let toggleUserDrawer = (boolean) => {
         setShowUserDrawer(boolean)
     };
-
+    let setTokenHandler = (param) => {
+        setToken(param);
+        if (param === "") {
+            localStorage.removeItem('token');
+        }
+    };
+    let changeUser = (keyName , value) => {
+        setUser(prevState => {
+            return {
+                ...prevState, [keyName]: value
+            }
+        });
+    };
+    useEffect(() => {
+        localStorage.setItem('token', token);
+    }, [token]);
     return (
         <>
             <ThemeProvider theme={theme}>
                 <AppContext.Provider
-                    value={{showUserDrawer: showUserDrawer, toggleUserDrawer: toggleUserDrawer, toke: token}}>
+                    value={{
+                        showUserDrawer: showUserDrawer,
+                        toggleUserDrawer: toggleUserDrawer,
+                        setTokenHandler: setTokenHandler,
+                        changeUser: changeUser,
+                        user: user,
+                    }}>
                     <div dir="rtl">
                         <Box display="flex" flexDirection="row">
                             <Router history={history}>

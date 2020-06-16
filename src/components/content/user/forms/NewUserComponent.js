@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Box, Button, Paper} from '@material-ui/core/index';
+import {Box, Checkbox, Paper, Typography} from '@material-ui/core/index';
 import * as colors from './../../../../components/partials/Colors';
 import ButtonComponent from './../../../../components/partials/ButtonComponent'
 import {makeStyles} from "@material-ui/core/styles/index";
@@ -7,6 +7,11 @@ import Input from "../../../partials/inputComponent";
 import axios from "axios/index";
 import {FileManager, FileUploader} from 'reactjs-file-uploader';
 import CancelIcon from '@material-ui/icons/Cancel';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -38,13 +43,16 @@ const useStyles = makeStyles((theme) => ({
                 position: 'absolute!important',
                 top: 0,
             }
+        },
+        '& .role': {
+            '& label': {
+                display: 'block'
+            }
         }
-
 
     },
     uploadedImgBlock: {
         position: 'relative',
-        // border: '9px solid green',
         borderRadius: '20px',
         width: '120px',
         height: '120px',
@@ -80,10 +88,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BaseFormComponent() {
     const classes = useStyles();
-    const [user, setUser] = useState();
-    const [file, setFile] = useState();
+    const [user, setUser] = useState({
+        name: {value: ''},
+        field_name: {value: ''},
+        field_last_name: {value: ''},
+        mail: {value: ''},
+        pass: {value: ''},
+        confirm_pass: {value: ''},
+        user_picture: {value: ''},
+        roles: [],
+        status: {value: ''},
+    });
     const [roles, setRoles] = useState();
     const [errors, setErrors] = useState({});
+    const [checkedRoles, setCheckRoles] = useState([]);
+    const [status , setStatus ] = useState('male');
     // ---------------------------------- upload -------------------------------------------------------
     const [files, setFiles] = useState([]);
     const uploadFiles = (files) => {
@@ -104,13 +123,21 @@ export default function BaseFormComponent() {
         });
     }, []);
 
+    useEffect(() => {
+        setUser(prevState => {
+            return {
+                ...prevState, roles: checkedRoles
+            }
+        });
+    }, [checkedRoles]);
 
-    // React.useEffect(function effectFunction() {
-    //         setUser(prevState=>{
-    //             return {...prevState}
-    //         });
-    // }, [user]);
-
+    useEffect(() => {
+        setUser(prevState => {
+            return {
+                ...prevState, status: status
+            }
+        });
+    }, [status]);
 
     const uploadFile = (file) => {
         return (
@@ -132,25 +159,7 @@ export default function BaseFormComponent() {
     const removeUploadedImg = () => {
         setFiles([]);
     };
-    const fileProgress = ({
-                              uploadReady,
-                              uploadStart,
-                              uploadProgress,
-                              uploadComplete,
-                              downloadStart,
-                              downloadProgress,
-                              downloadComplete,
-                              error,
-                              abort,
-                              timeout,
-                              requestState,
-                              startUpload,
-                              abortRequest,
-                              request,
-                              response,
-                              fileData,
-
-                          }) => {
+    const fileProgress = ({fileData}) => {
         return (
             <div>
                 <Box className={classes.uploadedImgBlock}>
@@ -164,25 +173,29 @@ export default function BaseFormComponent() {
 
 
     // -----------------------------------------------------------------------------------------
-    const saveUser = () => {
-        console.log(user);
-        // const headers = {
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         'Authorization':
-        //             'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjAxMWI3YzY0NTNiMTgzNWRlMDk1YmYwNjFmM2U1NWNmZWVkM2MzNzhmNmFhNmI2NjJjNGRjNjIzNDRlYzNjYjE0ZmFmODUyMmJjNDQ4MjIwIn0.eyJhdWQiOiI4YmY5M2Y0Yi00YmRjLTQ3Y2QtYTdkNS0xZmQ4MTE0Y2JjOWMiLCJqdGkiOiIwMTFiN2M2NDUzYjE4MzVkZTA5NWJmMDYxZjNlNTVjZmVlZDNjMzc4ZjZhYTZiNjYyYzRkYzYyMzQ0ZWMzY2IxNGZhZjg1MjJiYzQ0ODIyMCIsImlhdCI6MTU5MjIyMzA4MywibmJmIjoxNTkyMjIzMDgzLCJleHAiOjE2MDA5MjMwODMsInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCJdfQ.qof5zlJbRKFMFeDSKW0uzFKt3QdSp8P59VTRPT9O1OZDU72yQ1g1JMEM36iJqx7TDcIz0DGY-aYr891w2Lf6GURqcfyY2v_fDq63gsiqIAcNG5VCS_2DNogdXIsnO0xWjfilL3X8hvUMm6gS25foJf7vNlkxlOw0M0EqgnCrwZAMGSz_8r3AY9ZAKEcSwYPp4vqYUZJHknSFFMdAizCdCsuUiy9YB2mACHFtr7lNtHC23ysqD_givl6oxcfwALdvF0aWHT7u_wJ_CZzDhra3b2gZAEzho3s72sv3UNOtKIqYDgg1r5rs-Np0XSiw3w7XnFtuDkYV6Ue4xNhhMdQn6Q',
-        //         'Accept': 'application/json'
-        //     }
-        // };
-        // axios.post('http://sitesaz99.rbp/web/file/upload/user/user/user_picture?_format=json', JSON.stringify(user), headers)
-        //     .then((response) => {
-        //         debugger
-        //     }).catch((error) => {
-        //     debugger
-        // })
+    const saveUser = (param) => {
+        let registeredUser;
+        if (param === undefined) {
+            registeredUser = user;
+        } else {
+            registeredUser = param;
+        }
+        const headers = {
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization':
+                    'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjAxMWI3YzY0NTNiMTgzNWRlMDk1YmYwNjFmM2U1NWNmZWVkM2MzNzhmNmFhNmI2NjJjNGRjNjIzNDRlYzNjYjE0ZmFmODUyMmJjNDQ4MjIwIn0.eyJhdWQiOiI4YmY5M2Y0Yi00YmRjLTQ3Y2QtYTdkNS0xZmQ4MTE0Y2JjOWMiLCJqdGkiOiIwMTFiN2M2NDUzYjE4MzVkZTA5NWJmMDYxZjNlNTVjZmVlZDNjMzc4ZjZhYTZiNjYyYzRkYzYyMzQ0ZWMzY2IxNGZhZjg1MjJiYzQ0ODIyMCIsImlhdCI6MTU5MjIyMzA4MywibmJmIjoxNTkyMjIzMDgzLCJleHAiOjE2MDA5MjMwODMsInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCJdfQ.qof5zlJbRKFMFeDSKW0uzFKt3QdSp8P59VTRPT9O1OZDU72yQ1g1JMEM36iJqx7TDcIz0DGY-aYr891w2Lf6GURqcfyY2v_fDq63gsiqIAcNG5VCS_2DNogdXIsnO0xWjfilL3X8hvUMm6gS25foJf7vNlkxlOw0M0EqgnCrwZAMGSz_8r3AY9ZAKEcSwYPp4vqYUZJHknSFFMdAizCdCsuUiy9YB2mACHFtr7lNtHC23ysqD_givl6oxcfwALdvF0aWHT7u_wJ_CZzDhra3b2gZAEzho3s72sv3UNOtKIqYDgg1r5rs-Np0XSiw3w7XnFtuDkYV6Ue4xNhhMdQn6Q',
+                'Accept': 'application/json'
+            }
+        };
+        console.log(JSON.stringify(registeredUser));
+        axios.post('http://sitesaz99.rbp/web/file/upload/user/user/user_picture?_format=json', JSON.stringify(registeredUser), headers)
+            .then((response) => {
+            }).catch((error) => {
+        })
     };
 
-    const register = () => {
+    const saveFile = () => {
         const config = {
             headers: {
                 "Content-Type": "application/octet-stream",
@@ -191,133 +204,138 @@ export default function BaseFormComponent() {
                 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImI1NWI0ZTlmN2U3YjhlY2Q2NDdkNDljMjY3ZDJhNWIwNmZmNGZiMjFkZmIyNTk2MzM1OGRhNTdhZjUyODJlNjZiNWY1MTE3NTc5ZWZhODAxIn0.eyJhdWQiOiI4YmY5M2Y0Yi00YmRjLTQ3Y2QtYTdkNS0xZmQ4MTE0Y2JjOWMiLCJqdGkiOiJiNTViNGU5ZjdlN2I4ZWNkNjQ3ZDQ5YzI2N2QyYTViMDZmZjRmYjIxZGZiMjU5NjMzNThkYTU3YWY1MjgyZTY2YjVmNTExNzU3OWVmYTgwMSIsImlhdCI6MTU5MjE5NDI3OCwibmJmIjoxNTkyMTk0Mjc4LCJleHAiOjE2MDA4OTQyNzgsInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCJdfQ.BIbSg0tz2j4qghu8Qm_S2vEIDnPf8gggOnSypg_DD3Q4JBcXGmT0FgFbqYTMocFpmCjWHofhcaE2eGx_X5kkKE2FiZhLiM8Mg0vuO2KdqlTBHqV1SH288s9E6GPHCATLh3pvH_7H8k9iPV4cNJqeTN8ngDaFhkQWXPGOEWJEZLYNDyo2Zj78hFpQ6ihsSP_Jan7xOM0PhNQaQ5If1IQsu0cW6lWDV98FcETBOdYJCD58ecLZdDe9Gk7NII_mrWsR9FBsiBgG5Sje2xSIg1y5ogxx0ulXazZSt3uDMhGpmwAvW0CviGFAPLC8016OILfZqKuSuPEFyx4w6qGVQeDRlQ'
             }
         };
-        // {
-        //     "name":
-        //     {
-        //         "value": "wwww"
-        //     }
-        // ,
-        //     "pass":
-        //     {
-        //         "value": "dfdfdfs"
-        //     }
-        // ,
-        //     "mail":
-        //     {
-        //         "value": "tyjtgyjtj@dgd.com"
-        //     }
-        // ,
-        //     "field_name":
-        //     {
-        //         "value": "mnmn"
-        //     }
-        // ,
-        //     "field_last_name":
-        //     {
-        //         "value": "fgh"
-        //     },
-        //     "user_picture": [
-        //     {
-        //
-        //         "target_type": "file",
-        //         "target_uuid": "a4a0df42-76ca-412b-8811-967f4d58deaf",
-        //         "url": "http://sitesaz99.rbp/web/sites/default/files/pictures/2020-06/flat-faces-icons-circle-man-6_0.png"
-        //     }
-        // ]
-        //
-        // }
-
-
         axios.post('http://sitesaz99.rbp/web/file/upload/user/user/user_picture?_format=json', files[0], config).then(
             (response) => {
-
-                let promise = new Promise( (resolve, reject) => {
-
-                    resolve(
-                        setUser(prevState => {
-                            return {
-                                ...prevState,
-                                // user_picture: [{
-                                //     target_type: "file",
-                                //     target_uuid: response.data.uuid[0],
-                                //     url: response.data.uri[0].url
-                                // }],
-                                test: 'test'
-                            }
-                        })
-                    );
+                setUser(prevState => {
+                    return {
+                        ...prevState,
+                        user_picture: [{
+                            target_type: "file",
+                            target_uuid: response.data.uuid[0],
+                            url: response.data.uri[0].url
+                        }],
+                    }
                 });
 
-
-
-
-
-
-                debugger
-                promise.then(()=>{
-                    saveUser();
-                    show();
-                });
-                // const promiseA = new Promise(
-                //     setUser(prevState => {
-                //         return {
-                //             ...prevState,
-                //             user_picture: [{
-                //                 target_type: "file",
-                //                 target_uuid: response.data.uuid[0],
-                //                 url: response.data.uri[0].url
-                //             }],test :'test'
-                //         }
-                //     })
-                // );
+                user.user_picture = [{
+                    target_type: "file",
+                    target_uuid: response.data.uuid[0],
+                    url: response.data.uri[0].url
+                }];
+                saveUser(user);
             }
         ).catch((error) => {
             console.log(error);
-            debugger
         });
     };
-    let handleName = (e, field) => {
+
+    const register = () => {
+        if (checkedRoles.length === 0) {
+            setUser(prevState => {
+                return {
+                    ...prevState, roles: []
+                }
+            });
+        }
+        if (files.length === 0) {
+            setUser(prevState => {
+                return {
+                    ...prevState, user_picture: ''
+                }
+            });
+            saveUser();
+        } else {
+            saveFile();
+        }
+
+    };
+
+    let handleChange = (e, field) => {
         let currentName;
         currentName = e.currentTarget.value;
+        if (currentName === "") {
+            delete user[field];
+        }
         setUser(prevState => {
             return {
                 ...prevState, [field]: {value: currentName}
             }
         });
-        show();
     };
-    let show=()=>{
-        console.log(user);
+
+    let handleCheckRoles = (e) => {
+        let checked = e.target.checked;
+        let currentValue = e.target.value;
+        if (checked) {
+            setCheckRoles(prevState => {
+                return [
+                    ...prevState, currentValue
+                ]
+            });
+        } else {
+            let newCheckedRoles = checkedRoles.filter(role => role !== currentValue);
+            setCheckRoles([...newCheckedRoles]);
+        }
     };
-    // console.log(user);
+
+    let handleStatusChange = (e) =>{
+        let currentStatus = e.target.value;
+        setStatus(currentStatus);
+    };
+
+    console.log(user);
+
     return (<>
         <Box>
             <Paper className={classes.paper}>
                 <form method="post" encType="multipart/form-data">
                     <Input type="text" placeholder='نام' label='نام خود را وارد کنید'
                            error={errors.name ? errors.name : ''}
-                           small='' handleClick={e => handleName(e, "field_name")}/>
+                           small='' handleClick={e => handleChange(e, "field_name")}/>
 
                     <Input type="text" placeholder='نام خانوادگی' label='نام خانوادگی خود را وارد کنید'
                            error={errors.family}
-                           small='' handleClick={e => handleName(e, "field_last_name")}/>
+                           small='' handleClick={e => handleChange(e, "field_last_name")}/>
 
                     <Input type="text" placeholder='نام کاربری' label='نام کاربری خود را وارد کنید'
-                           small='' handleClick={e => handleName(e, "name")}/>
+                           small='' handleClick={e => handleChange(e, "name")}/>
 
                     <Input type="email" placeholder='ایمیل' label='ایمیل خود را وارد کنید'
-                           small='' handleClick={e => handleName(e, "mail")}/>
+                           small='' handleClick={e => handleChange(e, "mail")}/>
 
                     <Input type="password" placeholder='رمز عبور' label='رمز عبور'
-                           small='' handleClick={e => handleName(e, "pass")} error={errors.pass}/>
+                           small='' handleClick={e => handleChange(e, "pass")} error={errors.pass}/>
 
                     <Input type="password" placeholder='تکرار رمز عبور' label='تکرار رمز عبور'
-                           small='' handleClick={e => handleName(e, "confirm_pass")} error={errors.confirm_pass}/>
+                           small='' handleClick={e => handleChange(e, "confirm_pass")} error={errors.confirm_pass}/>
+                    {/*----------------------------------------------------------- status ------------------------------------------*/}
+                    <FormControl component="fieldset">
+                        <label>وضعیت</label>
+                        <RadioGroup aria-label="gender" name="gender1" value={status} onChange={handleStatusChange}>
+                            <FormControlLabel value="false" control={<Radio />} label="بلاک" />
+                            <FormControlLabel value="true" control={<Radio />} label="تایید" />
+                        </RadioGroup>
+                    </FormControl>
+                    {/*-------------------------------------------------- role -----------------------------------------------------*/}
+                    <Box className="role">
+                        <label>رول مورد نظر را انتخاب کنید:</label>
+                        <br/>
+                        {roles ?
+                            Object.keys(roles).map((keyName, index) => (
+                                <FormControlLabel key={index}
+                                                  control={<Checkbox onChange={(e) => handleCheckRoles(e)}
+                                                                     name="roles"/>}
+                                                  label={roles[keyName]}
+                                                  value={roles[keyName]}
+                                />
+                            ))
+                            : ''}
+                    </Box>
+                    {/*------------------------------------------------------ upload image -----------------------------------------*/}
+
                     <Box className="upload">
                         {files.length == 0 ?
                             <label id="label" htmlFor="file"> عکس مد نظر خود را انتخاب کنید</label> : ''}
-
-                        {/*<input type="file" id="file" name="avatar" onChange={e => handleName(e, "file")}/>*/}
                         <input
                             id="file"
                             type="file"
@@ -330,12 +348,9 @@ export default function BaseFormComponent() {
                         >
                             {uploadFiles}
                         </FileManager>
-                        {/*<input type="radio"/>negar*/}
                     </Box>
 
-                    {/*<Box className="role">*/}
-                    {/*    che*/}
-                    {/*</Box>*/}
+
                     <Box mt={2}>
                         <ButtonComponent color="primary" clicked={register} text="ثبت"/>
                     </Box>

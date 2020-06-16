@@ -32,8 +32,10 @@ const styles = makeStyles(() => ({
         '& small':{
             color:'#a7abc3'
         }
+    },
+    redBorder:{
+        border :'1px solid red!important'
     }
-
 }));
 
 function Input(props) {
@@ -44,7 +46,10 @@ function Input(props) {
     return (<>
         <Box className={classes.inputBlock}>
             <label htmlFor="">{props.label}</label>
-            <input type={props.type} onChange={(e,param)=>handleClick(e,param)} className={classes.input} title="n" placeholder={props.placeholder}/>
+            <input name={props.name} type={props.type} onChange={(e,param)=>handleClick(e,param)}
+                   // className={classes.redBorder}
+                   className={(props.border==='red'? classes.redBorder : '')}
+                   title="n" placeholder={props.placeholder}/>
             {props.small?   <small>{props.small}</small> : ''}
             <Typography>{props.error}</Typography>
 

@@ -64,21 +64,24 @@ export default function BaseFormComponent() {
         axios.get(`http://sitesaz99.rbp/web/api/user/v2?page=${page}`).then(
             function (response) {
                 let currentList = [];
+                debugger;
                 response.data.rows.map((item) => {
                     currentList.push({
                         uid: item.uid,
-                        name: item.user_name,
-                        field_name: item.first_name,
-                        field_last_name: item.last_name,
-                        role: item.role,
+                        name: item.name,
+                        field_name: item.field_name,
+                        field_last_name: item.field_last_name,
+                        // role: item.roles_target_id,
                         status: item.status,
                         user_picture: item.user_picture,
+                        mail: item.mail,
                     });
                 });
                 setUsers(currentList);
                 setTotalPage(response.data.pager.total_pages);
             }
         ).catch(function (error) {
+            debugger
         });
     };
     useEffect(() => {
@@ -117,6 +120,7 @@ export default function BaseFormComponent() {
         setPage(value);
         getUsers(value);
     };
+    console.log(users);
     return (<>
         <Box className={classes.userBlock}>
             <Box className="item">
@@ -137,6 +141,9 @@ export default function BaseFormComponent() {
             </Box>
             <Box className="item">
                 نقش
+            </Box>
+            <Box className="item">
+                ایمیل
             </Box>
             <Box className="item">
                 وضعیت
@@ -166,8 +173,16 @@ export default function BaseFormComponent() {
                 <Box className="item">
                     {user.name}
                 </Box>
+                {/*<Box className="item">*/}
+                {/*    {user.role.length===0?*/}
+                {/*        <span>'بدون نقش'</span>:*/}
+                {/*        (user.role.map((item)=>{*/}
+                {/*            <span>item</span>*/}
+                {/*        }))*/}
+                {/*    }*/}
+                {/*</Box>*/}
                 <Box className="item">
-                    {user.role}
+                    {user.mail}
                 </Box>
                 <Box className="item">
                     {user.status ? 'تایید شده' : 'در انتظار تایید'}

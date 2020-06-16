@@ -98,13 +98,14 @@ export default function UserDrawerContentComponent(props) {
         <Box className={classes.content}>
             <Box className="item avatar">
                 <AvatarComponent width="4.8rem" height="4.8rem" style={{justifyContent: 'center'}}/>
-                <Typography variant="h4" id="name">جان اسنو</Typography>
+                <Typography variant="h4" id="name">{appContext.user.field_name}</Typography>
+                <Typography variant="h4" id="name">{appContext.user.field_last_name}</Typography>
                 <Box id="roleBlock">
                     <SettingsIcon id="setting"/>
                     <span id="role">رهبر تیم</span>
                 </Box>
-                <Typography variant="h4" id="username">jansnow</Typography>
-                <Typography variant="h3" id="email">ngrcode@gmail.com</Typography>
+                <Typography variant="h4" id="username">{appContext.user.name}</Typography>
+                <Typography variant="h3" id="email">{appContext.user.mail}</Typography>
             </Box>
             <Box className="buttons">
                 <Link className="link" to="/comments" onClick={changeUserDrawer}>

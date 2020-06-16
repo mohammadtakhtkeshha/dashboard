@@ -1,140 +1,66 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
 import {Link,} from "react-router-dom";
-import {makeStyles} from "@material-ui/styles/index";
+import axios from 'axios/index';
 import {Box, CardMedia, Checkbox, Grid, Paper, Typography} from "@material-ui/core/index";
-import loginImg from '../../../../assets/media/image/login.png';
 import iconImg from '../../../../assets/media/image/logo-sm.png';
-import * as colors from '../../../partials/Colors';
 import InputComponent from '../../../partials/inputComponent'
 import ButtonComponent from "../../../partials/ButtonComponent";
+import AppContext from './../../../../contexts/AppContext'
+//JSS file
+import * as useStyles from './../../../../assets/js/login';
 
-const useStyles = makeStyles({
-    login: {
-        width: '100%',
-        height: '100vh',
-        background: `url(${loginImg})`,
-        justifyContent: 'center',
-        display: 'flex',
-        alignItems: 'center',
-        '& .grid': {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '50px auto',
-            width: '90%',
-            '& .paper': {
-                position: 'relative',
-                justifyContent: 'center',
-                width: '430px',
-                boxSizing: 'border-box',
-                '@media (max-width: 414px)': {
-                    paddingRight: '1.5rem',
-                    paddingLeft: '1.5rem',
-                },
-                '@media (max-width: 767px)': {
-                    width: '90%',
-                    margin: '30px auto',
-                },
-                padding: '3rem',
-                '& .loginBlock': {
-                    textAlign: 'center',
-                    '& .title': {
-                        fontSize: '17px',
-                        fontWeight: 'bold',
-                        marginBottom: '2rem',
-                        marginTop: '2rem',
-                    },
-                },
-                '& .head-img': {
-                    position: 'absolute',
-                    top: '0',
-                    backgroundColor: 'white',
-                    borderRadius: '100%',
-                    width: '100px',
-                    height: '100px',
-                    left: '50%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    transform: 'translate(-50%, -50%)',
-                },
-                '& .remember': {
-                    '& .right': {
-                        display: 'flex',
-                        '& .MuiButtonBase-root': {
-                            paddingRight: '0!important',
-                            '& .MuiIconButton-label': {
-                                '& svg': {
-                                    width: '21px',
-                                    height: '21px',
-                                }
-                            },
 
-                        },
-                        '& p': {
-                            paddingTop: '9px',
-                        },
-                        '& .MuiCheckbox-root': {
-                            color: '#adb5bd'
-                        },
-                        '& .MuiCheckbox-colorSecondary.Mui-checked': {
-                            color: colors.primary,
-                        }
-                    },
-                    '& .left': {
-                        padding: '6px',
-                        '& a': {
-                            textDecoration: 'none',
-                            display: 'inline-block',
-                            color: colors.primary,
-                            fontSize: '14px',
-                            fontWeight: '400',
-                            '&:hover': {
-                                color: colors.darkBlue
-                            }
-                        }
-                    },
-                },
-                '& .loginButton': {
-                    paddingTop: '1rem',
-                    '& button': {
-                        width: '100%'
-                    }
-                },
-                '& .hr': {
-                    '& hr': {
-                        margin: '2rem 0',
-                        border: 0,
-                        borderTop: '1px solid rgba(0,0,0,.1)',
-                    }
-                },
-                 '& .register': {
-                     textAlign: 'center',
-                     '& p':{
-                         color:colors.grey.light,
-                         marginBottom: '1rem',
-                    },
-                     '& a':{
-                         boxShadow : '0 0 0 0',
-                         fontSize : '13px',
-                         border:`1px solid ${colors.light}`,
-                         textDecoration: 'none',
-                         color : colors.black,
-                         padding : '5px 10px',
-                         '&:hover':{
-                             backgroundColor: colors.light
-                         }
-                    },
-
-                },
-
-            }
-        },
-    },
-
-});
 export default function LoginComponent() {
-    const classes = useStyles();
+    const classes = useStyles.styles();
+    // const [user, setUser] = useState({name: '', pass: ''});
+    const [errors, setErrors] = useState({errorName: '', errorPass: '',loginError:''});
+    const context = useContext(AppContext);
+    let login = () => {
+        let url = "http://sitesaz99.rbp/web/user/login?_format=json";
+        let config = {headers: {'content-type': 'application/json'}};
+        if (context.user.name === "" || context.user.pass === "") {
+            if (context.user.name === "") {
+                setErrors(prevState => {
+                    return {
+                        ...prevState, errorName: true
+                    }
+                });
+            } else {
+                setErrors(prevState => {
+                    return {
+                        ...prevState, errorName: false
+                    }
+                });
+            }
+            if (context.user.pass === "") {
+                setErrors(prevState => {
+                    return {
+                        ...prevState, errorPass: true
+                    }
+                });
+            } else {
+                setErrors(prevState => {
+                    return {
+                        ...prevState, errorPass: false
+                    }
+                });
+            }
+            return;
+        }
+        axios.post(url, context.user, config).then((response) => {
+            console.log(context);
+            context.setTokenHandler(response.data.csrf_token);
+            setErrors({errorName: false, errorPass: false,loginError: false});
+            debugger
+        }).catch((error) => {
+            setErrors({errorName: false, errorPass: false,loginError: true});
+        });
+    };
+    let changeInput = (e, keyName) => {
+        let value = e.target.value;
+
+        context.changeUser(keyName,value);
+    };
     return (<div className={classes.login}>
         <Grid container style={{justifyContent: 'center'}}>
             <Grid item sm className="grid">
@@ -148,8 +74,23 @@ export default function LoginComponent() {
                         <Typography variant="h5" className="title">
                             ورود
                         </Typography>
-                        <InputComponent type="text" placeholder="نام کاربری"/>
-                        <InputComponent type="password" placeholder="رمز عبور"/>
+                        {errors.loginError?<Typography className="loginError"> نام کاربری یا رمز عبور اشتباه میباشد!</Typography>
+                            :''}
+                        <Box className="inputBlock">
+                            <InputComponent name="name" type="text" placeholder="نام کاربری" border={errors.errorName?'red':''}
+                                            handleClick={e => changeInput(e, 'name')}/>
+                            {errors.errorName ? <div className="error">واردکرن نام کاربری الزامی میباشد</div> : ''}
+
+                        </Box>
+                        <Box className="inputBlock">
+                            <InputComponent name="pass" type="password" placeholder="رمز عبور"
+                                            handleClick={e => changeInput(e, 'pass')}
+                                            border={errors.errorPass?'red':''}
+                            />
+                            {errors.errorPass ? <div className="error">واردکرن رمز عبور الزامی میباشد</div> : ''}
+
+
+                        </Box>
                     </Box>
                     <Box display="flex" justifyContent="space-between" className="remember">
                         <Box className="right">
@@ -161,14 +102,14 @@ export default function LoginComponent() {
                         </Box>
                     </Box>
                     <Box className="loginButton">
-                        <ButtonComponent background={colors.primary} color="white" text="ورود"/>
+                        <ButtonComponent text="ورود" clicked={login}/>
                     </Box>
                     <Box className="hr">
                         <hr/>
                     </Box>
                     <Box className="register">
-                        <Typography >حسابی ندارید ؟</Typography>
-                        <Link>هم اکنون ثبت نام کنید!</Link>
+                        <Typography>حسابی ندارید ؟</Typography>
+                        <Link to="#">هم اکنون ثبت نام کنید!</Link>
                     </Box>
                 </Paper>
             </Grid>

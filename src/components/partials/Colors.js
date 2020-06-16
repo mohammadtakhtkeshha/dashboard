@@ -4,7 +4,6 @@ const secondary = '#6a6e92 ';
 const secondaryBright = 'rgba(106, 110, 146, 0.3)';
 const success = '#0abb87';
 const successBright = 'rgba(10, 187, 135, 0.3)';
-const danger = '#e04b4b';
 const dangerBright = 'rgba(224, 75, 75, 0.3)';
 const warning = '#ffb822';
 const warningBright = 'rgba(255, 184, 34, 0.3)';
@@ -30,6 +29,11 @@ const grey = {
     light:'#a7abc3 ',
     veryLight : 'rgba(0,0,0,.1)',
     tooLight : '#dee2e6',
+};
+const danger={
+    base:'#e04b4b',
+    light:'#f8d7da',
+    dark:'#721c24',
 };
 
 export {
