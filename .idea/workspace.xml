@@ -1,11 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd5f164d-5ccd-4fa5-8a6f-e695dc3b248a" name="Default Changelist" comment="">
+    <list default="true" id="fd5f164d-5ccd-4fa5-8a6f-e695dc3b248a" name="Default Changelist" comment="no changes">
+      <change afterPath="$PROJECT_DIR$/src/components/content/dashboard/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/content/dashboard/partials/CommentDashboardComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/content/dashboard/partials/CommentsChartComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/content/dashboard/partials/ContentChartComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/content/dashboard/partials/ContentDashboardComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/content/dashboard/partials/UserChartComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/content/dashboard/partials/UserDashboardComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/store/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/content/user/UsersComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/content/user/UsersComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TestComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TestComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/content/ContentComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/content/ContentComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/content/DashboardComponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/routes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,18 +85,18 @@
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2019.1.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\content\user\forms" />
-      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\content\user\forms\auth" />
-      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\content\user\partials" />
-      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\content\user" />
-      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\assets\js" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\assets\media\image" />
       <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\assets" />
       <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\public" />
       <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\assets\svg" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\laragon\www\dashboard\src\components\content\dashboard\partials" />
+      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\content\user\forms" />
+      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\content\user\forms\auth" />
+      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\content\user\partials" />
+      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\content\user" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -99,6 +129,7 @@
       <workItem from="1592188841009" duration="37578000" />
       <workItem from="1592274762310" duration="33688000" />
       <workItem from="1592476897928" duration="554000" />
+      <workItem from="1592540876993" duration="31012000" />
     </task>
     <task id="LOCAL-00001" summary="second commit">
       <created>1590838544800</created>
@@ -199,6 +230,18 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="second commit" />
     <MESSAGE value="side bar" />
@@ -215,10 +258,18 @@
     <option name="LAST_COMMIT_MESSAGE" value="26 om" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1592476992974">
+    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1592587090310">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1592476992974" />
+    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1592587090310" />
+    <state x="390" y="99" width="585" height="530" key="find.popup" timestamp="1592498867358">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="390" y="99" width="585" height="530" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1592498867358" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1592587719903">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1592587719903" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

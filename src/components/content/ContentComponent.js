@@ -17,9 +17,16 @@ const useStyles = makeStyles((theme) => ({
     content: {
         padding: theme.spacing(2),
         boxShadow: '0 0 0 0',
-        '@media(min-width : 992px)':{
-            marginTop : '64px',
+        '@media(min-width : 992px)': {
+            marginTop: '64px',
         }
+    },
+    test: {
+        border: '2px solid red',
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'flex-end'
     }
 }));
 
@@ -43,9 +50,9 @@ function HeaderComponent() {
                     </Paper>
                 </Grid>
             </Grid>
-            {/*<div>*/}
+            {/*<div className={classes.test}>*/}
             {/*    this is for test*/}
-            {/*<TestComponent></TestComponent>*/}
+            {/*    <TestComponent></TestComponent>*/}
             {/*</div>*/}
         </>
     );

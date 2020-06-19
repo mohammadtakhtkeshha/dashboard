@@ -70,7 +70,8 @@ const theme = createMuiTheme({
 export function App() {
     const {width} = UseWindowDimensions();
     const [showUserDrawer, setShowUserDrawer] = useState(false);
-    const [token, setToken] = useState(localStorage.getItem('token') || '');
+    // const [token, setToken] = useState(localStorage.getItem('token') || '');
+    const [token, setToken] = useState(true);
     const [user, setUser] = useState({
         name: '',
         field_name: '',
