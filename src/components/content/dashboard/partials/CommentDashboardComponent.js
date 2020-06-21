@@ -2,7 +2,9 @@ import React, {useState, useEffect} from "react";
 import {Box, Typography, Grid, Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import axios from "axios/index";
-import * as colors from './../../../partials/Colors'
+import * as colors from './../../../partials/Colors';
+import {CardMedia} from '@material-ui/core/index';
+
 import ButtonComponent from "../../../partials/ButtonComponent";
 import EditIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import Pagination from "@material-ui/lab/Pagination/Pagination";
@@ -63,9 +65,8 @@ export default function CommentDashboardComponent() {
     let getTenNumberOfComments=()=>{
         // let url = 'http://sitesaz99.rbp/web/api/comment/v2/dashboard';
         let url = 'http://sitesaz99.rbp/web/last_comment/dashboard?_format=json';
-        axios.get(url).then((response)=>{debugger
+        axios.get(url).then((response)=>{
             let comments=response.data;
-            debugger
             setComments([...comments]);
         }).catch((error)=>{
             console.log(error);
@@ -79,19 +80,21 @@ export default function CommentDashboardComponent() {
                         تصویر
                     </Box>
                     <Box className="item">
+                        موضوع
+                    </Box>
+                    <Box className="item">
                         تاریخ
                     </Box>
                     <Box className="item">
                         وضعیت
                     </Box>
-                    <Box className="item">
-                        لینک
-                    </Box>
                 </Box>
                 {comments.map((comment, index) =>
                     <Box key={index} className={classes.commentBlock}>
                         <Box className="item">
-                            {comment.field_image}
+                            <CardMedia>
+                                <img src={comment.field_image} alt="comment"/>
+                            </CardMedia>
                         </Box>
                         <Box className="item">
                             {comment.subject}
@@ -101,9 +104,6 @@ export default function CommentDashboardComponent() {
                         </Box>
                         <Box className="item">
                             {comment.status ? 'تایید شده':'رد شده'}
-                        </Box>
-                        <Box className="item">
-                            {comment.link}
                         </Box>
                     </Box>
                 )}

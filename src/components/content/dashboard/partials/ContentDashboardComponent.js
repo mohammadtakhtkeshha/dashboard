@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {Box, Typography, Grid, Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import axios from "axios/index";
-import * as colors from './../../../partials/Colors'
+import * as colors from './../../../partials/Colors';
+import AppContext from "../../../../contexts/AppContext";
 import ButtonComponent from "../../../partials/ButtonComponent";
 import EditIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import Pagination from "@material-ui/lab/Pagination/Pagination";
@@ -57,19 +58,24 @@ const useStyles = makeStyles((theme) => ({
 export default function ContentDashboardComponent() {
     const classes = useStyles();
     const [contents ,setContents]=useState([]);
+    const appContext=useContext(AppContext);
     useEffect(()=>{
         getTenNumberOfContents();
-    });
+    },[]);
     let getTenNumberOfContents=()=>{
         let url='http://sitesaz99.rbp/web/api/all_content/dashboard?_format=json';
-      axios.get(url).then((response)=>{
+        let config={
+            headers:{
+                Authorization:appContext.token,
+            }
+        }
+      axios.get(url,config).then((response)=>{
           let contents=response.data;
             setContents([...contents]);
       }).catch((error)=>{
             console.log(error);
       });
     };
-    console.log(contents);
     return (
         <>
             <Paper className={classes.paper}>
@@ -100,7 +106,7 @@ export default function ContentDashboardComponent() {
                             {content.type}
                         </Box>
                         <Box className="item">
-                            {content.create}
+                            {content.created}
                         </Box>
                     </Box>
                 )}

@@ -7,6 +7,8 @@ import CommentsChartComponent from "./partials/CommentsChartComponent";
 import ContentChartComponent from "./partials/ContentChartComponent";
 import ContentDashboardComponent from "./partials/ContentDashboardComponent";
 import UserDashboardComponent from "./partials/UserDashboardComponent";
+import HighChartsComponent from "./partials/HighChartsComponent";
+import TestHighChartsComponent from "./partials/TestHighChartsComponent";
 import axios from "axios";
 
 
@@ -49,6 +51,13 @@ export default function DashboardComponent() {
                 <Grid item xs={12}>
                     <CommentsChartComponent/>
                 </Grid>
+                <Grid item xs={12}>
+                    <HighChartsComponent/>
+                </Grid>
+                <Grid item xs={12}>
+                    <TestHighChartsComponent/>
+                </Grid>
+
 
             </Grid>
         </>

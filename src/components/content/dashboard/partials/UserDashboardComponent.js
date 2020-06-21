@@ -2,7 +2,9 @@ import React, {useState, useEffect} from "react";
 import {Box, Typography, Grid, Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import axios from "axios/index";
-import * as colors from './../../../partials/Colors'
+import * as colors from './../../../partials/Colors';
+import {CardMedia} from '@material-ui/core/index';
+
 import ButtonComponent from "../../../partials/ButtonComponent";
 import EditIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import Pagination from "@material-ui/lab/Pagination/Pagination";
@@ -59,11 +61,12 @@ export default function UserDashboardComponent() {
     const [users , setUsers]=useState([]);
     useEffect(()=>{
         getTenNumberOfUsers();
-    });
+    },[]);
     let getTenNumberOfUsers=()=>{
         let url = 'http://sitesaz99.rbp/web/api/user/v2/dashboard';
         axios.get(url).then((response)=>{
             let users=response.data;
+            debugger
             setUsers([...users]);
         }).catch((error)=>{
             console.log(error);
@@ -89,6 +92,9 @@ export default function UserDashboardComponent() {
                 {users.map((user, index) =>
                     <Box key={index} className={classes.userBlock}>
                         <Box className="item">
+                            {/*<CardMedia id="img">*/}
+                            {/*    <img src={require('../../assets/media/image/favicon.png')} alt="recipe thumbnail"/>*/}
+                            {/*</CardMedia>*/}
                             تصویر
                         </Box>
                         <Box className="item">
@@ -98,7 +104,7 @@ export default function UserDashboardComponent() {
                             {user.mail}
                         </Box>
                         <Box className="item">
-                            {user.create}
+                            {user.created}
                         </Box>
                     </Box>
                 )}
