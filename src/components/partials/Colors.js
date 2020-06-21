@@ -29,6 +29,7 @@ const grey = {
     light:'#a7abc3 ',
     veryLight : 'rgba(0,0,0,.1)',
     tooLight : '#dee2e6',
+    base:'#e9ecef'
 };
 const danger={
     base:'#e04b4b',

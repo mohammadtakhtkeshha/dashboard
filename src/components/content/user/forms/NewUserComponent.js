@@ -15,6 +15,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
+        padding:theme.spacing(2),
         '& .MuiBox-root': {
             '& input[type=file]': {
                 position: 'relative',
@@ -79,7 +80,6 @@ const useStyles = makeStyles((theme) => ({
             //     width:'100%!important',
             //     height:'100%!important',
             // }
-            border: '1px solid red',
         }
 
     }

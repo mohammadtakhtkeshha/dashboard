@@ -19,18 +19,22 @@ const useClass =makeStyles(()=>({
 
 export default function ButtonComponent(props) {
     const classes = useClass(props);
-    function clicked() {
-        props.clicked();
+    function clicked(e) {debugger
+        props.clicked(e);
+    }
+    function doNothing(e) {
+
     }
     return (
         <Button
-            onClick={clicked}
+            onClick={props.clicked?clicked:doNothing}
             variant="contained"
             color={props.color}
             className={classes.button}
             startIcon={props.startIcon}
             endIcon={props.endIcon}
             background={props.background}
+            value={props.value}
         >
             {props.text}
         </Button>);

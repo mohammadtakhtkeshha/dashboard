@@ -1,19 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="fd5f164d-5ccd-4fa5-8a6f-e695dc3b248a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
+    <list default="true" id="fd5f164d-5ccd-4fa5-8a6f-e695dc3b248a" name="Default Changelist" comment="no changes">
+      <change afterPath="$PROJECT_DIR$/src/components/content/dashboard/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/content/dashboard/partials/CommentDashboardComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/content/dashboard/partials/CommentsChartComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/content/dashboard/partials/ContentChartComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/content/dashboard/partials/ContentDashboardComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/content/dashboard/partials/UserChartComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/content/dashboard/partials/UserDashboardComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/store/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TestComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TestComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/content/ContentComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/content/ContentComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/content/DashboardComponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/routes.js" afterDir="false" />
+>>>>>>> dca1d39eb20d7f5796cab2efe7fd1d132f049051
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ComposerSettings">
-    <execution>
-      <executable />
-    </execution>
+    <execution />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -29,6 +64,7 @@
     <expand />
     <select />
   </component>
+<<<<<<< HEAD
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
@@ -126,67 +162,13 @@
       <replace>context.user</replace>
     </replaceStrings>
   </component>
+=======
+>>>>>>> dca1d39eb20d7f5796cab2efe7fd1d132f049051
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/main/Variables.js" />
-        <option value="$PROJECT_DIR$/src/main/OutsideAlerter.js" />
-        <option value="$PROJECT_DIR$/src/main/History.js" />
-        <option value="$PROJECT_DIR$/src/components/header/RightWebHeader.js" />
-        <option value="$PROJECT_DIR$/src/assets/js/Theme.js" />
-        <option value="$PROJECT_DIR$/src/assets/css/yekan.css" />
-        <option value="$PROJECT_DIR$/src/components/content/partials/UsersComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/partials/buttonComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/content/user/NewUserComponent.js" />
-        <option value="$PROJECT_DIR$/src/assets/js/HeaderMobile.js" />
-        <option value="$PROJECT_DIR$/src/components/content/user/UserDrawerContent.js" />
-        <option value="$PROJECT_DIR$/src/components/header/HeaderMobileComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/header/HeaderWebComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/partials/AvatarComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/sidebar/SidebarMobileDrawerComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/content/user/UserDrawerComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/content/user/UserDrawerContentComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/content/partials/CustomizedForm.js" />
-        <option value="$PROJECT_DIR$/src/components/content/partials/BaseFormComponent.js" />
-        <option value="$PROJECT_DIR$/src/assets/js/LeftWebHeader.js" />
-        <option value="$PROJECT_DIR$/src/components/content/user/partials/UserDrawerComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/header/LeftWebHeaderComponent.js" />
-        <option value="$PROJECT_DIR$/src/store/store.js" />
-        <option value="$PROJECT_DIR$/src/components/content/content/ContentsComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/content/comment/CommentsComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/content/user/forms/EditUserComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/header/BreadcrumbsComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/content/DashboardComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/content/user/forms/LoginUserComponent.js" />
-        <option value="$PROJECT_DIR$/src/store/routes.js" />
-        <option value="$PROJECT_DIR$/src/assets/js/AppImports.js" />
-        <option value="$PROJECT_DIR$/src/components/content/user/forms/RegisterComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/content/user/forms/auth/RegisterComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/content/user/forms/auth/index.js" />
-        <option value="$PROJECT_DIR$/src/components/content/user/forms/auth/LoginComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/partials/ButtonComponent.js" />
-        <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/src/App.css" />
-        <option value="$PROJECT_DIR$/src/components/SecondTestComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/TestComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/content/ContentComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/partials/inputComponent.js" />
-        <option value="$PROJECT_DIR$/src/assets/js/SidebarContent.js" />
-        <option value="$PROJECT_DIR$/src/components/partials/Colors.js" />
-        <option value="$PROJECT_DIR$/src/assets/js/login.js" />
-        <option value="$PROJECT_DIR$/src/components/content/user/partials/UserDrawerContentComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/sidebar/SidebarContentComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/content/user/forms/LoginComponent.js" />
-        <option value="$PROJECT_DIR$/src/App.js" />
-        <option value="$PROJECT_DIR$/src/components/content/user/forms/NewUserComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/content/user/UsersComponent.js" />
-      </list>
-    </option>
-  </component>
   <component name="PhpDebugGeneral" listening_started="true" />
+<<<<<<< HEAD
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="144" />
     <option name="y" value="74" />
@@ -229,12 +211,18 @@
       </pane>
       <pane id="Scope" />
     </panes>
+=======
+  <component name="ProjectId" id="1dUPqxT2J7KmBSwdl7imflrZhBh" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+>>>>>>> dca1d39eb20d7f5796cab2efe7fd1d132f049051
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/assets/media/image" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -247,31 +235,19 @@
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2019.1.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\content\user\forms" />
-      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\content\user\forms\auth" />
-      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\content\user\partials" />
-      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\content\user" />
-      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\assets\js" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\assets\media\image" />
       <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\assets" />
       <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\public" />
       <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\assets\svg" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\laragon\www\dashboard\src\components\content\dashboard\partials" />
+      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\content\user\forms" />
+      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\content\user\forms\auth" />
+      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\content\user\partials" />
+      <recent name="C:\Users\n.aalizadeh\PhpstormProjects\dashboard\src\components\content\user" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -301,8 +277,14 @@
       <workItem from="1592048242512" duration="76000" />
       <workItem from="1592102371076" duration="31434000" />
       <workItem from="1592188841009" duration="37578000" />
+<<<<<<< HEAD
       <workItem from="1592274762310" duration="33913000" />
       <workItem from="1592627718671" duration="237000" />
+=======
+      <workItem from="1592274762310" duration="33688000" />
+      <workItem from="1592476897928" duration="554000" />
+      <workItem from="1592540876993" duration="31012000" />
+>>>>>>> dca1d39eb20d7f5796cab2efe7fd1d132f049051
     </task>
     <task id="LOCAL-00001" summary="second commit">
       <created>1590838544800</created>
@@ -398,9 +380,12 @@
     <option name="localTasksCounter" value="14" />
     <servers />
   </component>
+<<<<<<< HEAD
   <component name="TimeTrackingManager">
     <option name="totallyTimeSpent" value="355116000" />
   </component>
+=======
+>>>>>>> dca1d39eb20d7f5796cab2efe7fd1d132f049051
   <component name="TodoView">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
@@ -410,6 +395,7 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
+<<<<<<< HEAD
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
     <editor active="true" />
@@ -438,8 +424,22 @@
       <window_info anchor="right" id="Database" order="3" weight="0.32978722" />
     </layout>
   </component>
+=======
+>>>>>>> dca1d39eb20d7f5796cab2efe7fd1d132f049051
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="second commit" />
@@ -457,6 +457,20 @@
     <MESSAGE value="27 om" />
     <option name="LAST_COMMIT_MESSAGE" value="27 om" />
   </component>
+  <component name="WindowStateProjectService">
+    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1592587090310">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1592587090310" />
+    <state x="390" y="99" width="585" height="530" key="find.popup" timestamp="1592498867358">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="390" y="99" width="585" height="530" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1592498867358" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1592587719903">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1592587719903" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -468,6 +482,7 @@
       </breakpoints>
     </breakpoint-manager>
   </component>
+<<<<<<< HEAD
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/../node_modules/@material-ui/core/styles/createMuiTheme.d.ts">
       <provider selected="true" editor-type-id="text-editor">
@@ -905,4 +920,6 @@
       </provider>
     </entry>
   </component>
+=======
+>>>>>>> dca1d39eb20d7f5796cab2efe7fd1d132f049051
 </project>

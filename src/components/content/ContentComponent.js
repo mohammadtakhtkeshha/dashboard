@@ -15,11 +15,17 @@ import * as routes from '../../store/routes'
 
 const useStyles = makeStyles((theme) => ({
     content: {
-        padding: theme.spacing(2),
         boxShadow: '0 0 0 0',
-        '@media(min-width : 992px)':{
-            marginTop : '64px',
+        '@media(min-width : 992px)': {
+            marginTop: '64px',
         }
+    },
+    test: {
+        border: '2px solid red',
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'flex-end'
     }
 }));
 
@@ -29,7 +35,7 @@ function HeaderComponent() {
         <>
             <Grid container>
                 <Grid item xs={12} sm={12}>
-                    <Paper className={classes.content}>
+                    <div className={classes.content}>
                         <Switch>
                             {routes.routes.map((route) => (
                                 <Route
@@ -40,12 +46,12 @@ function HeaderComponent() {
                                 />
                             ))}
                         </Switch>
-                    </Paper>
+                    </div>
                 </Grid>
             </Grid>
-            {/*<div>*/}
+            {/*<div className={classes.test}>*/}
             {/*    this is for test*/}
-            {/*<TestComponent></TestComponent>*/}
+            {/*    <TestComponent></TestComponent>*/}
             {/*</div>*/}
         </>
     );

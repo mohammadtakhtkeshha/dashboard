@@ -49,7 +49,9 @@ function Input(props) {
             <input name={props.name} type={props.type} onChange={(e,param)=>handleClick(e,param)}
                    // className={classes.redBorder}
                    className={(props.border==='red'? classes.redBorder : '')}
-                   title="n" placeholder={props.placeholder}/>
+                   title="n" placeholder={props.placeholder}
+                   value={props.value}
+            />
             {props.small?   <small>{props.small}</small> : ''}
             <Typography>{props.error}</Typography>
 

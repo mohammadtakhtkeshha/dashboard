@@ -6,8 +6,7 @@ import NewUserComponent from '../components/content/user/forms/NewUserComponent'
 import EditUserComponent from '../components/content/user/forms/EditUserComponent';
 import ContentsComponent from '../components/content/content/ContentsComponent';
 import CommentsComponent from '../components/content/comment/CommentsComponent';
-import DashboardComponent from '../components/content/DashboardComponent';
-import LoginComponent from '../components/content/user/forms/LoginComponent';
+import DashboardComponent from '../components/content/dashboard/DashboardComponent';
 
 import React from "react";
 
@@ -34,8 +33,9 @@ export const routes = [
         component: () => <NewUserComponent/>
     },
     {
-        path: '/edit-user',
+        path: '/edit-user/:id',
         breadcrumbs: () => <BreadcrumbsComponent bread="ویرایش پروفایل"/>,
+        // component: (props) => <EditUserComponent {...props}/>
         component: () => <EditUserComponent/>
     },
     {
