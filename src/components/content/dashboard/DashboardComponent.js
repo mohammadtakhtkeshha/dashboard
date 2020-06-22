@@ -51,14 +51,6 @@ export default function DashboardComponent() {
                 <Grid item xs={12}>
                     <CommentsChartComponent/>
                 </Grid>
-                <Grid item xs={12}>
-                    <HighChartsComponent/>
-                </Grid>
-                <Grid item xs={12}>
-                    <TestHighChartsComponent/>
-                </Grid>
-
-
             </Grid>
         </>
     );

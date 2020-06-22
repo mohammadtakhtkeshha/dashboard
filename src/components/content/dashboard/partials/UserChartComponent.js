@@ -1,18 +1,25 @@
 import React, {useEffect, useState} from 'react';
-
-// import moment from 'jalali-moment';
+import moment from 'jalali-moment';
 import Highcharts from 'highcharts';
-
-import {Box,Typography,Grid,Paper} from "@material-ui/core";
+import {Box, Typography, Grid, Paper} from "@material-ui/core";
+import axios from "axios";
 import {makeStyles} from "@material-ui/styles";
-const useStyles=makeStyles(theme=>({
-    paper:{
-        padding:theme.spacing(2),
-        margin:theme.spacing(2),
+
+const useStyles = makeStyles(theme => ({
+    paper: {
+        padding: theme.spacing(2),
+        margin: theme.spacing(2),
     }
 }));
-export default function TestComponent() {
+export default function UserChartComponent() {
+    const classes = useStyles();
+    const [users, setUser] = useState([]);
+
+    useEffect(() => {
+        getUsers(custom());
+    }, []);
     // ---------------- highchart --------------------
+
 
     let highChartsRender = () => {
         Highcharts.chart('userchart', {
@@ -50,40 +57,41 @@ export default function TestComponent() {
             }]
         });
     };
-
     useEffect(() => {
         highChartsRender();
-    });
-    // ----------------- end highchart --------------------
-    const classes=useStyles();
-    const users = [
-        {id: '1', name: 'one', date: '1990/05/13'},
-        {id: '2', name: 'two', date: '1990/02/01'},
-        {id: '3', name: 'three', date: '1990/02/11'},
-        {id: '4', name: 'behnaz', date: '1990/04/20'},
-        {id: '5', name: 'akbar', date: '1990/11/15'},
-        {id: '6', name: 'shahin', date: '1990/04/14'},
-        {id: '7', name: 'shahin', date: '1990/04/14'},
-        {id: '8', name: 'monir', date: '1990/06/9'},
-        {id: '9', name: 'somaye', date: '1990/12/7'},
-    ];
-    const [data , setData]=useState([]);
-
-    useEffect(() => {
-        setData(custom());
     }, []);
+    // ----------------- end highchart --------------------
 
-    let numberOfUserWithSameDate = () => {
+
+    let getUsers = () => {
+        let url = "http://sitesaz99.rbp/web/api/user/v2/dashboard";
+        axios.get(url).then((response) => {
+            // created: "2020-06-22"
+            let sortUserByDate= response.data.sort((a,b)=>(a.created>b.created)?1:-1);
+            customizeByDate(sortUserByDate);
+        }).catch((error) => {
+            console.log(error)
+        });
+
+
+    };
+
+    let customizeByDate = (users) => {
+        getUserByDate(users);
+        let getUser=Object.entries(getDateOfUser(users));
+        for(let user of getUser){
+            // let dates
+        }
+
+    }
+    let getUserByDate = (users) => {
         return users.reduce((initial, currentValue) => {
-            let date = currentValue.date;
-            let month = date.substr(0, 7);
+            let date = currentValue.created;
+            let month = date.substr(5, 2);
             if (!initial[month]) {
-                initial[month] = {name:month,uv:1,pv: 2400, amt: 2400};
-            }else{
-                initial[month].uv++;
-                // initial[month].pv++;
-                // initial[month].amt++;
+                initial[month] = [];
             }
+            initial[month].push(currentValue);
             return initial;
         }, {});
     };
@@ -135,13 +143,13 @@ export default function TestComponent() {
         return (`${year} ${mah}`);
     }
 
-    let custom=()=>{
-        let arr=Object.entries(numberOfUserWithSameDate());
-        let newArr=[];
-        for(let item of arr){
-            for(let part of item){
-                if(typeof part === 'object'){
-                    part.name=getDateOfUser(part.name);
+    let custom = () => {
+        let arr = Object.entries(numberOfUserWithSameDate());
+        let newArr = [];
+        for (let item of arr) {
+            for (let part of item) {
+                if (typeof part === 'object') {
+                    part.name = getDateOfUser(part.name);
                     newArr.push(part);
                 }
             }

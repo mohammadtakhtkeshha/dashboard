@@ -1,132 +1,99 @@
 import React, {useEffect, useState} from 'react';
 import Highcharts from 'highcharts';
-import {makeStyles} from "@material-ui/styles";
+import axios from "axios";
 import moment from 'jalali-moment';
 
-import axios from "axios";
-import {GraphicEqTwoTone} from "@material-ui/icons";
 
 
 export default function Donut() {
-
-    const [comments, setComments] = useState([]);
-    const [yearAndMonth, setYearAndMonth] = useState([]);
-    const [blockedComment, setBlockedComment] = useState([]);
-    const [confirmComment, setConfirmComment] = useState([]);
-    const [dateOfComment, setDateOfComment] = useState([]);
-    const [numberOfBlockComment, setNumberOfBlockComment] = useState([]);
-    const [numberOfConfirmComment, setNumberOfConfirmComment] = useState([]);
-
-
     useEffect(() => {
-        getTenNumberOfComments();
+        getContents();
     }, []);
 
-    let getTenNumberOfComments = () => {
-        // let url = 'http://sitesaz99.rbp/web/api/comment/v2/dashboard';
+    let getContents = () => {
         let url = 'http://sitesaz99.rbp/web/last_comment/chart?_format=json';
         axios.get(url).then((response) => {
             let comments = response.data;
-            setComments([...comments]);
-            numberOfCommentInSameDate([...comments]);
-            highChartsRender();
-            // setYearAndMonth(getYearAndMonth());
+            let sortCommentsByDate = comments.sort((a, b) => (a.created > b.created) ? 1 : -1);
+            getCustomComment([...sortCommentsByDate]);
+
         }).catch((error) => {
             console.log(error);
         });
     };
 
 
-    let numberOfCommentInSameDate = (comments) => {
-        let customArrayComment = sortCommentsByStatus(comments);
-        sortCommentByDate(customArrayComment);
+    let getCustomComment = (comments) => {
+        sortCommentByDate(comments);
+        let sortedCommentsByDate = sortCommentByDate(comments);
+        getDateAndNumberOfCumments(sortedCommentsByDate);
     };
-    let sortCommentsByStatus = (mycomments) => {
+    let sortCommentByDate = (mycomments) => {
         return mycomments.reduce((initial, current) => {
-            if (current.status === "true") {
-                if (!initial['confirmed']) {
-                    initial['confirmed'] = [];
+            let customDate = current.created.substr(0, 7);
+            if (!initial[customDate]) {
+                initial[customDate] = [];
+            }
+            initial[customDate].push(current);
+            return initial;
+        }, {});
+    }
+    let getDateAndNumberOfCumments = (sortedComment) => {
+        let arrayOfSortedComment = Object.entries(sortedComment);
+        let arrayOfDates = [];
+        let arrayOfBlockComments = [];
+        let arrayOfConfirmComments = [];
+        for (let comment of arrayOfSortedComment) {
+            let date=getYearAndMonth(comment[0]);
+            arrayOfDates.push(date);
+            sortCommentByStatus(comment[1]);
+            let sorted = Object.entries(sortCommentByStatus(comment[1]));
+            if (sorted.length === 1) {
+                for (let value of sorted) {
+                    if (value[0] === 'confirm') {
+                        arrayOfBlockComments.push(0);
+                        arrayOfConfirmComments.push(value[1].length);
+                    } else {
+
+                        arrayOfBlockComments.push(value[1].length);
+                        arrayOfConfirmComments.push(0);
+                    }
                 }
-                initial['confirmed'].push(current);
             } else {
-                if (!initial['block']) {
-                    initial['block'] = [];
+                let confirm = 0;
+                let block = 0;
+                for (let item of sorted) {
+                    if (item[0] === 'confirm') {
+                        confirm = item[1].length;
+                    } else {
+                        block = item[1].length;
+                    }
                 }
-                initial['block'].push(current);
+                arrayOfBlockComments.push(block);
+                arrayOfConfirmComments.push(confirm);
             }
-            return initial;
-        }, {});
-    };
 
-    let sortCommentByDate = (customArrayComment) => {
-        let blockComment = customArrayComment['block'];
-        let confirmedComment = customArrayComment['confirmed'];
-        sortConfirmedCommmentByDate(confirmedComment);
-        sortBlockedCommmentByDate(blockComment);
-        setBlockedComment(Object.entries(sortBlockedCommmentByDate(blockComment)));
-        setConfirmComment(Object.entries(sortConfirmedCommmentByDate(confirmedComment)));
-        let blockCommentByDate = sortBlockedCommmentByDate(blockComment);
-        let confirmCommentByDate = sortBlockedCommmentByDate(confirmedComment);
-        getNumberComment(blockCommentByDate,confirmCommentByDate);
-        // getDateConfirmComment(confirmCommentByDate);
-    };
-    let sortConfirmedCommmentByDate = (confirmed) => {
-        return confirmed.reduce((initial, current) => {
-            let date = current.created;
-            let month = date.substr(5, 2);
-            if (!initial[month]) {
-                initial[month] = [];
-            }
-            initial[month].push(current);
-            return initial;
-        }, {});
-    };
-    let sortBlockedCommmentByDate = (blocked) => {
-        return blocked.reduce((initial, current) => {
-            let date = current.created;
-            let month = date.substr(5, 2);
-            if (!initial[month]) {
-                initial[month] = [];
-            }
-            initial[month].push(current);
-            return initial;
-        }, {});
-    };
-    let getNumberComment = (blockCommentByDate,confirmCommentByDate) => {
-debugger
-        let sortByDate= confirmCommentByDate.sort((a, b) => b - a);
-        debugger
-        let arrDate = [];
-        let lengthBlockArr = [];
-        for (let comment of blockCommentByDate) {
-            let date= comment[0];
-            let length = comment[1];
-            if(!arrDate[date]){
-                arrDate.push(date);
-            }
-            lengthBlockArr.push(length.length);
         }
-        setDateOfComment(arrDate);
-        setNumberOfBlockComment(lengthBlockArr);
-
-
-        // for (let comment of confirmCommentByDate) {
-        //     let title = comment[0];
-        //     let length = comment[1];
-        //     // if(){
-        //     //
-        //     // }
-        //     arr.push(title);
-        //     lengthArr.push(length.length);
-        // }
-        // setDateOfConfirmComment(arr);
-        // setNumberOfConfirmComment(lengthArr);
-        // return arr;/
-        return arrDate;
-    };
+        highChartsRender(arrayOfDates,arrayOfConfirmComments,arrayOfBlockComments);
+    }
+    let sortCommentByStatus = (newComm) => {
+        return newComm.reduce((initial, current) => {
+            let key;
+            if (current.status === "true") {
+                key = 'confirm'
+            } else {
+                key = 'block'
+            }
+            if (!initial[key]) {
+                initial[key] = [];
+            }
+            initial[key].push(current);
+            return initial;
+        }, {});
+    }
 
     // --------------------- high charts -----------------------
-    let highChartsRender = () => {
+    let highChartsRender = (dates,confirmComment,blockedComment) => {
         Highcharts.chart('commentchart', {
             chart: {
                 type: 'line'
@@ -138,8 +105,7 @@ debugger
                 text: ' '
             },
             xAxis: {
-                // categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-                categories: ["05","03","04","01","02","06"]
+                categories: dates
             },
             yAxis: {
                 title: {
@@ -157,79 +123,69 @@ debugger
             series: [
                 {
                     name: 'تایید شده',
-                    data: numberOfBlockComment
+                    data: confirmComment
                 }, {
                     name: 'بلاک شده',
-                    data: numberOfConfirmComment
+                    data: blockedComment
                 }]
         });
     };
 
-    // useEffect(() => {
-    //     highChartsRender();
-    // }, []);
     // --------------------- End high chart ----------------------
-    console.log(numberOfConfirmComment);
 
-    // let getYearAndMonth = () => {
-    //     let dates = [];
-    //     for (let comment of comments) {
-    //         let date = comment.last_updated;
-    //         let splitString = date.split("-");
-    //         let joinArray = splitString.join("/");
-    //         let jalaliDate = moment(joinArray, 'YYYY/M/D');
-    //         let year = jalaliDate.jYear();
-    //         let month = jalaliDate.jMonth();
-    //         let myMonth = convertMonthToFa(month);
-    //         dates.push(`${year} ${myMonth}`);
-    //     }
-    //     return dates;
-    // };
-    //
-    // let convertMonthToFa = (month) => {
-    //     let mah;
-    //     switch (month) {
-    //         case 1:
-    //             mah = 'فروردین';
-    //             break;
-    //         case 2:
-    //             mah = 'اردیبهشت';
-    //             break;
-    //         case 3:
-    //             mah = 'خرداد';
-    //             break;
-    //         case 4:
-    //             mah = 'تیر';
-    //             break;
-    //         case 5:
-    //             mah = 'مرداد';
-    //             break;
-    //         case 6:
-    //             mah = 'شهریور';
-    //             break;
-    //         case 7:
-    //             mah = 'مهر';
-    //             break;
-    //         case 8:
-    //             mah = 'آبان';
-    //             break;
-    //         case 9:
-    //             mah = 'آذر';
-    //             break;
-    //         case 10:
-    //             mah = 'دی';
-    //             break;
-    //         case 11:
-    //             mah = 'بهمن';
-    //             break;
-    //         case 12:
-    //             mah = 'اسفند';
-    //     }
-    //     return mah;
-    //
-    // };
 
-    // console.log(yearAndMonth);
+    let getYearAndMonth = (dates) => {
+        let getYear = dates.substr(0,4);
+        let m = moment(getYear, 'YYYY');
+        let sal = m.jYear();
+        let getMonth=dates.substr(5,2);
+        let mah=convertMonthToFa(getMonth);
+        return `${sal} ${mah}`;
+    };
+
+    let convertMonthToFa = (month) => {
+        let mah;
+        switch (month) {
+            case '01':
+                mah = 'فروردین';
+                break;
+            case '02':
+                mah = 'اردیبهشت';
+                break;
+            case '03':
+                mah = 'خرداد';
+                break;
+            case '04':
+                mah = 'تیر';
+                break;
+            case '05':
+                mah = 'مرداد';
+                break;
+            case '06':
+                mah = 'شهریور';
+                break;
+            case '07':
+                mah = 'مهر';
+                break;
+            case '08':
+                mah = 'آبان';
+                break;
+            case '09':
+                mah = 'آذر';
+                break;
+            case '10':
+                mah = 'دی';
+                break;
+            case '11':
+                mah = 'بهمن';
+                break;
+            case '12':
+                mah = 'اسفند';
+        }
+        return mah;
+
+    };
+
     return (
         <figure className="highcharts-figure">
             <div id="commentchart"></div>
