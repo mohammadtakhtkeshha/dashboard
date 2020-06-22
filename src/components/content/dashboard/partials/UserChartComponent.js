@@ -1,7 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react';
+
 // import moment from 'jalali-moment';
+import Highcharts from 'highcharts';
+
 import {Box,Typography,Grid,Paper} from "@material-ui/core";
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import {makeStyles} from "@material-ui/styles";
 const useStyles=makeStyles(theme=>({
     paper:{
@@ -10,6 +12,49 @@ const useStyles=makeStyles(theme=>({
     }
 }));
 export default function TestComponent() {
+    // ---------------- highchart --------------------
+
+    let highChartsRender = () => {
+        Highcharts.chart('userchart', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: 'Monthly Average Temperature'
+            },
+            subtitle: {
+                text: 'Source: WorldClimate.com'
+            },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+            yAxis: {
+                title: {
+                    text: 'Temperature (°C)'
+                }
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: false
+                }
+            },
+            series: [{
+                name: 'Tokyo',
+                data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+            }, {
+                name: 'London',
+                data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+            }]
+        });
+    };
+
+    useEffect(() => {
+        highChartsRender();
+    });
+    // ----------------- end highchart --------------------
     const classes=useStyles();
     const users = [
         {id: '1', name: 'one', date: '1990/05/13'},
@@ -26,7 +71,7 @@ export default function TestComponent() {
 
     useEffect(() => {
         setData(custom());
-    }, [])
+    }, []);
 
     let numberOfUserWithSameDate = () => {
         return users.reduce((initial, currentValue) => {
@@ -41,7 +86,7 @@ export default function TestComponent() {
             }
             return initial;
         }, {});
-    }
+    };
 
     let getDateOfUser = (date) => {
         let mah;
@@ -102,17 +147,17 @@ export default function TestComponent() {
             }
         }
         return newArr;
-    }
+    };
 
     return (
         <Paper className={classes.paper}>
-            <LineChart width={600} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-                <Line type="monotone" dataKey="uv" stroke="#8884d8"/>
-                <CartesianGrid stroke="#ccc"/>
-                <XAxis dataKey="name"/>
-                <YAxis/>
-                {/*<Tooltip />*/}
-            </LineChart>
+            <figure className="highcharts-figure">
+                <div id="userchart"></div>
+                <p className="highcharts-description">
+                    This chart shows how data labels can be added to the data series. This
+                    can increase readability and comprehension for small datasets.
+                </p>
+            </figure>
         </Paper>
     );
 }

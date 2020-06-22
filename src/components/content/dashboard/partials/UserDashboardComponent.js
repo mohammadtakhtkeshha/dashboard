@@ -1,9 +1,12 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect,useContext} from "react";
 import {Box, Typography, Grid, Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import axios from "axios/index";
 import * as colors from './../../../partials/Colors';
 import {CardMedia} from '@material-ui/core/index';
+import AppContext from './../../../../contexts/AppContext';
+import userImg from './../../../../assets/media/image/user.jpg'
+
 
 import ButtonComponent from "../../../partials/ButtonComponent";
 import EditIcon from "@material-ui/core/SvgIcon/SvgIcon";
@@ -31,6 +34,15 @@ const useStyles = makeStyles((theme) => ({
         },
         '& .item': {
             width: '100%',
+            '& .imgBlock':{
+                width:'50px!important',
+                height:'50px',
+                borderRadius:'100%',
+                overflow:'hidden',
+                '& img':{
+                    width:'100%'
+                }
+            }
         }
     },
     pagination: {
@@ -53,20 +65,30 @@ const useStyles = makeStyles((theme) => ({
             color: 'white',
             border: '0'
         }
-    }
+    },
+    title: {
+        marginBottom: '10px',
+        fontSize: '14px',
+        fontWeight: '500'
+    },
 }));
 
 export default function UserDashboardComponent() {
     const classes = useStyles();
+    const appContext = useContext(AppContext);
     const [users , setUsers]=useState([]);
     useEffect(()=>{
         getTenNumberOfUsers();
     },[]);
     let getTenNumberOfUsers=()=>{
         let url = 'http://sitesaz99.rbp/web/api/user/v2/dashboard';
-        axios.get(url).then((response)=>{
+        let config={
+            headers:{
+                'Authorization':appContext.token,
+            }
+        };
+        axios.get(url,config).then((response)=>{
             let users=response.data;
-            debugger
             setUsers([...users]);
         }).catch((error)=>{
             console.log(error);
@@ -75,6 +97,7 @@ export default function UserDashboardComponent() {
     return (
         <>
             <Paper className={classes.paper}>
+                <Typography variant="h4" className={classes.title}>لیست کاربران</Typography>
                 <Box className={classes.userBlock}>
                     <Box className="item">
                         تصویر
@@ -92,10 +115,11 @@ export default function UserDashboardComponent() {
                 {users.map((user, index) =>
                     <Box key={index} className={classes.userBlock}>
                         <Box className="item">
-                            {/*<CardMedia id="img">*/}
-                            {/*    <img src={require('../../assets/media/image/favicon.png')} alt="recipe thumbnail"/>*/}
-                            {/*</CardMedia>*/}
-                            تصویر
+                            <Box className="imgBlock">
+                            <CardMedia id="img">
+                                { user.user_picture ? <img src={user.user_picture} alt="user.name"/>:<img src={userImg}/>}
+                            </CardMedia>
+                            </Box>
                         </Box>
                         <Box className="item">
                             {user.name}

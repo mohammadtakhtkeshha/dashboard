@@ -37,11 +37,12 @@ export default function ContentDashboardComponent({contents}) {
         setCustomContents([...arr]);
         return arr;
     };
+
     const classes = contentChart.useStyles();
     return (
         <>
             <Paper className={classes.paper}>
-                <Typography variant="h4" className={classes.title}>کامنت ها</Typography>
+                <Typography variant="h4" className={classes.title}>محتواها</Typography>
                 <div className={classes.content}>
                     {customContents.map(function (content, index) {
                         let length = content[1].length;

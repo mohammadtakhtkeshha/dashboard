@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {Box, Checkbox, Paper, Typography} from '@material-ui/core/index';
 import * as colors from './../../../../components/partials/Colors';
 import ButtonComponent from './../../../../components/partials/ButtonComponent'
@@ -12,10 +12,12 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import AppContext from './../../../../contexts/AppContext';
+
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-        padding:theme.spacing(2),
+        padding: theme.spacing(2),
         '& .MuiBox-root': {
             '& input[type=file]': {
                 position: 'relative',
@@ -88,7 +90,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BaseFormComponent() {
     const classes = useStyles();
+    const appContext = useContext(AppContext);
     const [user, setUser] = useState({
+        _links : {
+            "type": {
+                "href":"http://sitesaz99.rbp/web/rest/type/user/user"
+            }
+        },
         name: {value: ''},
         field_name: {value: ''},
         field_last_name: {value: ''},
@@ -98,11 +106,12 @@ export default function BaseFormComponent() {
         user_picture: {value: ''},
         roles: [],
         status: {value: ''},
+
     });
     const [roles, setRoles] = useState();
     const [errors, setErrors] = useState({});
     const [checkedRoles, setCheckRoles] = useState([]);
-    const [status , setStatus ] = useState('male');
+    const [status, setStatus] = useState('false');
     // ---------------------------------- upload -------------------------------------------------------
     const [files, setFiles] = useState([]);
     const uploadFiles = (files) => {
@@ -113,7 +122,9 @@ export default function BaseFormComponent() {
         const url = "http://sitesaz99.rbp/web/api/rest/role?_format=json";
         const config = {
             headers: {
-                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImI1NWI0ZTlmN2U3YjhlY2Q2NDdkNDljMjY3ZDJhNWIwNmZmNGZiMjFkZmIyNTk2MzM1OGRhNTdhZjUyODJlNjZiNWY1MTE3NTc5ZWZhODAxIn0.eyJhdWQiOiI4YmY5M2Y0Yi00YmRjLTQ3Y2QtYTdkNS0xZmQ4MTE0Y2JjOWMiLCJqdGkiOiJiNTViNGU5ZjdlN2I4ZWNkNjQ3ZDQ5YzI2N2QyYTViMDZmZjRmYjIxZGZiMjU5NjMzNThkYTU3YWY1MjgyZTY2YjVmNTExNzU3OWVmYTgwMSIsImlhdCI6MTU5MjE5NDI3OCwibmJmIjoxNTkyMTk0Mjc4LCJleHAiOjE2MDA4OTQyNzgsInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCJdfQ.BIbSg0tz2j4qghu8Qm_S2vEIDnPf8gggOnSypg_DD3Q4JBcXGmT0FgFbqYTMocFpmCjWHofhcaE2eGx_X5kkKE2FiZhLiM8Mg0vuO2KdqlTBHqV1SH288s9E6GPHCATLh3pvH_7H8k9iPV4cNJqeTN8ngDaFhkQWXPGOEWJEZLYNDyo2Zj78hFpQ6ihsSP_Jan7xOM0PhNQaQ5If1IQsu0cW6lWDV98FcETBOdYJCD58ecLZdDe9Gk7NII_mrWsR9FBsiBgG5Sje2xSIg1y5ogxx0ulXazZSt3uDMhGpmwAvW0CviGFAPLC8016OILfZqKuSuPEFyx4w6qGVQeDRlQ'
+                'Content-Type': 'application/hal+json',
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijg1OWZmZGU1YzMwOGYzNDQyMGEwN2VmMDU0MjA4ZGIzYjU5YjBmYTNlNmIzN2RmZTA3NTg4MjJiY2QyYzQ2NTNmMWEzM2ExNDRjN2VmNWU3In0.eyJhdWQiOiI4YmY5M2Y0Yi00YmRjLTQ3Y2QtYTdkNS0xZmQ4MTE0Y2JjOWMiLCJqdGkiOiI4NTlmZmRlNWMzMDhmMzQ0MjBhMDdlZjA1NDIwOGRiM2I1OWIwZmEzZTZiMzdkZmUwNzU4ODIyYmNkMmM0NjUzZjFhMzNhMTQ0YzdlZjVlNyIsImlhdCI6MTU5MjgwMDUwMiwibmJmIjoxNTkyODAwNTAyLCJleHAiOjE2MDE1MDA1MDIsInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCJdfQ.n8kvBBBiV_AP3zmEFIiS25SoGMlnX3p2KFhs45rGnz5OwlnVms2MB1c2R1oqQlrgEWDs4ENCQQ9ZuEPnMmoaCm45HmNzqkN2um3ckrhUx56tw2Tvv8XQ8i4fRwe-S-D5HUmki2yXIH7Z1f_G2MWNR6IB5Xg8KPsteKsVxoSDULWn9ynC9bTfsPj7J0mq3jADq7TUqzveLf27brXYZ3-yPnVpANCCxH0jmUUg2C_5RrB-5hDfGoPktl3dZp1leoFk5DzVV-aBJdxoF4APnxItFIu75Jb0AhwgVJu0QNn8G2KlZvk9seS8Y0ogpne5ingFVT0CZ6BqOcciLBxqjAyRpg',
+                'Accept': 'application/hal+json'
             }
         };
         axios.get(url, config).then((response) => {
@@ -182,26 +193,27 @@ export default function BaseFormComponent() {
         }
         const headers = {
             headers: {
-                "Content-Type": "application/json",
-                'Authorization':
-                    'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjAxMWI3YzY0NTNiMTgzNWRlMDk1YmYwNjFmM2U1NWNmZWVkM2MzNzhmNmFhNmI2NjJjNGRjNjIzNDRlYzNjYjE0ZmFmODUyMmJjNDQ4MjIwIn0.eyJhdWQiOiI4YmY5M2Y0Yi00YmRjLTQ3Y2QtYTdkNS0xZmQ4MTE0Y2JjOWMiLCJqdGkiOiIwMTFiN2M2NDUzYjE4MzVkZTA5NWJmMDYxZjNlNTVjZmVlZDNjMzc4ZjZhYTZiNjYyYzRkYzYyMzQ0ZWMzY2IxNGZhZjg1MjJiYzQ0ODIyMCIsImlhdCI6MTU5MjIyMzA4MywibmJmIjoxNTkyMjIzMDgzLCJleHAiOjE2MDA5MjMwODMsInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCJdfQ.qof5zlJbRKFMFeDSKW0uzFKt3QdSp8P59VTRPT9O1OZDU72yQ1g1JMEM36iJqx7TDcIz0DGY-aYr891w2Lf6GURqcfyY2v_fDq63gsiqIAcNG5VCS_2DNogdXIsnO0xWjfilL3X8hvUMm6gS25foJf7vNlkxlOw0M0EqgnCrwZAMGSz_8r3AY9ZAKEcSwYPp4vqYUZJHknSFFMdAizCdCsuUiy9YB2mACHFtr7lNtHC23ysqD_givl6oxcfwALdvF0aWHT7u_wJ_CZzDhra3b2gZAEzho3s72sv3UNOtKIqYDgg1r5rs-Np0XSiw3w7XnFtuDkYV6Ue4xNhhMdQn6Q',
-                'Accept': 'application/json'
+                'Content-Type': "application/hal+json",
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImI3ZmI2MThjZTIzYTdlOWUzOWRmMzcyZWUxYTNhMTNmZmE2NzJkZjEzZWQyM2E5NzI1NTQwYzU5YTJlNzgyYzIwMWJiZWJhM2QyOTAzNmQxIn0.eyJhdWQiOiI4YmY5M2Y0Yi00YmRjLTQ3Y2QtYTdkNS0xZmQ4MTE0Y2JjOWMiLCJqdGkiOiJiN2ZiNjE4Y2UyM2E3ZTllMzlkZjM3MmVlMWEzYTEzZmZhNjcyZGYxM2VkMjNhOTcyNTU0MGM1OWEyZTc4MmMyMDFiYmViYTNkMjkwMzZkMSIsImlhdCI6MTU5MjgwMTE1MywibmJmIjoxNTkyODAxMTUzLCJleHAiOjE2MDE1MDExNTMsInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCJdfQ.XWLBEzC8fX2hr9hNXiez8v5bS1gcZvIWm95j3PdHiAoiEBdhLivJLXI-oCnQgkGT5kzW1ZcPVPg4tSicYM64x-ebQWDi54jBEOaGAV6we_hSpU_cV-7IdGtUCOQFuQ6iZJV2UEG9662rIXIcarf-_KyqnJ6liA9Ps4MSpyRqzaOQG9Jm1duqpfP5IOrGAvJ-tL5iWlePIIBS_mSFG8McO2HCTfn13B9FGajpNR6daACxsIsx6l0HojMZRv1cou45HWnL_hqCc6y9QCpKTb35yOXKmNF434TnzreT0w4o4b1cRu3HOyp_08BtK1GSBHahCzQ3vIbWe5_CeENZSRT0zw',
+                'Accept': 'application/hal+json'
             }
         };
-        console.log(JSON.stringify(registeredUser));
-        axios.post('http://sitesaz99.rbp/web/file/upload/user/user/user_picture?_format=json', JSON.stringify(registeredUser), headers)
+        axios.post('http://sitesaz99.rbp/web/entity/user?_format=hal_json', JSON.stringify(registeredUser), headers)
             .then((response) => {
+
             }).catch((error) => {
+
         })
     };
 
     const saveFile = () => {
+
         const config = {
             headers: {
-                "Content-Type": "application/octet-stream",
-                "Accept": "application/vnd.api+json",
-                "Content-Disposition": 'file; filename="' + files[0].name + '"',
-                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImI1NWI0ZTlmN2U3YjhlY2Q2NDdkNDljMjY3ZDJhNWIwNmZmNGZiMjFkZmIyNTk2MzM1OGRhNTdhZjUyODJlNjZiNWY1MTE3NTc5ZWZhODAxIn0.eyJhdWQiOiI4YmY5M2Y0Yi00YmRjLTQ3Y2QtYTdkNS0xZmQ4MTE0Y2JjOWMiLCJqdGkiOiJiNTViNGU5ZjdlN2I4ZWNkNjQ3ZDQ5YzI2N2QyYTViMDZmZjRmYjIxZGZiMjU5NjMzNThkYTU3YWY1MjgyZTY2YjVmNTExNzU3OWVmYTgwMSIsImlhdCI6MTU5MjE5NDI3OCwibmJmIjoxNTkyMTk0Mjc4LCJleHAiOjE2MDA4OTQyNzgsInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCJdfQ.BIbSg0tz2j4qghu8Qm_S2vEIDnPf8gggOnSypg_DD3Q4JBcXGmT0FgFbqYTMocFpmCjWHofhcaE2eGx_X5kkKE2FiZhLiM8Mg0vuO2KdqlTBHqV1SH288s9E6GPHCATLh3pvH_7H8k9iPV4cNJqeTN8ngDaFhkQWXPGOEWJEZLYNDyo2Zj78hFpQ6ihsSP_Jan7xOM0PhNQaQ5If1IQsu0cW6lWDV98FcETBOdYJCD58ecLZdDe9Gk7NII_mrWsR9FBsiBgG5Sje2xSIg1y5ogxx0ulXazZSt3uDMhGpmwAvW0CviGFAPLC8016OILfZqKuSuPEFyx4w6qGVQeDRlQ'
+                'Content-Type': 'application/octet-stream',
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImI3ZmI2MThjZTIzYTdlOWUzOWRmMzcyZWUxYTNhMTNmZmE2NzJkZjEzZWQyM2E5NzI1NTQwYzU5YTJlNzgyYzIwMWJiZWJhM2QyOTAzNmQxIn0.eyJhdWQiOiI4YmY5M2Y0Yi00YmRjLTQ3Y2QtYTdkNS0xZmQ4MTE0Y2JjOWMiLCJqdGkiOiJiN2ZiNjE4Y2UyM2E3ZTllMzlkZjM3MmVlMWEzYTEzZmZhNjcyZGYxM2VkMjNhOTcyNTU0MGM1OWEyZTc4MmMyMDFiYmViYTNkMjkwMzZkMSIsImlhdCI6MTU5MjgwMTE1MywibmJmIjoxNTkyODAxMTUzLCJleHAiOjE2MDE1MDExNTMsInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCJdfQ.XWLBEzC8fX2hr9hNXiez8v5bS1gcZvIWm95j3PdHiAoiEBdhLivJLXI-oCnQgkGT5kzW1ZcPVPg4tSicYM64x-ebQWDi54jBEOaGAV6we_hSpU_cV-7IdGtUCOQFuQ6iZJV2UEG9662rIXIcarf-_KyqnJ6liA9Ps4MSpyRqzaOQG9Jm1duqpfP5IOrGAvJ-tL5iWlePIIBS_mSFG8McO2HCTfn13B9FGajpNR6daACxsIsx6l0HojMZRv1cou45HWnL_hqCc6y9QCpKTb35yOXKmNF434TnzreT0w4o4b1cRu3HOyp_08BtK1GSBHahCzQ3vIbWe5_CeENZSRT0zw',
+                'Accept': 'application/vnd.api+json',
+                "Content-Disposition": `file;filename="${files[0].name}"`,
             }
         };
         axios.post('http://sitesaz99.rbp/web/file/upload/user/user/user_picture?_format=json', files[0], config).then(
@@ -244,8 +256,11 @@ export default function BaseFormComponent() {
                 }
             });
             saveUser();
+
         } else {
+
             saveFile();
+
         }
 
     };
@@ -278,13 +293,12 @@ export default function BaseFormComponent() {
         }
     };
 
-    let handleStatusChange = (e) =>{
+    let handleStatusChange = (e) => {
         let currentStatus = e.target.value;
         setStatus(currentStatus);
     };
 
-    console.log(user);
-
+console.log(user);
     return (<>
         <Box>
             <Paper className={classes.paper}>
@@ -311,9 +325,9 @@ export default function BaseFormComponent() {
                     {/*----------------------------------------------------------- status ------------------------------------------*/}
                     <FormControl component="fieldset">
                         <label>وضعیت</label>
-                        <RadioGroup aria-label="gender" name="gender1" value={status} onChange={handleStatusChange}>
-                            <FormControlLabel value="false" control={<Radio />} label="بلاک" />
-                            <FormControlLabel value="true" control={<Radio />} label="تایید" />
+                        <RadioGroup aria-label="status" name="status" value={status} onChange={handleStatusChange}>
+                            <FormControlLabel value="false" control={<Radio/>} label="بلاک"/>
+                            <FormControlLabel value="true" control={<Radio/>} label="تایید"/>
                         </RadioGroup>
                     </FormControl>
                     {/*-------------------------------------------------- role -----------------------------------------------------*/}

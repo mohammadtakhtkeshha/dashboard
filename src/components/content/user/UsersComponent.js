@@ -9,6 +9,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Pagination from '@material-ui/lab/Pagination';
 import * as colors from './../../../components/partials/Colors';
 import AppContext from './../../../contexts/AppContext';
+
 import {
     Link
 } from "react-router-dom";
@@ -65,11 +66,9 @@ export default function BaseFormComponent() {
     const [users, setUsers] = useState([]);
     const appContext=useContext(AppContext);
     let getUsers = (page) => {
-
         axios.get(`http://sitesaz99.rbp/web/api/user/v2?page=${page}`).then(
             function (response) {
                 let currentList = [];
-                debugger;
                 response.data.rows.map((item) => {
                     currentList.push({
                         uid: item.uid,
@@ -86,7 +85,7 @@ export default function BaseFormComponent() {
                 setTotalPage(response.data.pager.total_pages);
             }
         ).catch(function (error) {
-            debugger
+            console.log(error);
         });
     };
     let deleteUser = (e) => {

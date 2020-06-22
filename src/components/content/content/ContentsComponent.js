@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) => ({
 export default function BaseFormComponent() {
     const classes = useStyles();
     function register(){
-        debugger;
     }
     return (<>
         <Box>

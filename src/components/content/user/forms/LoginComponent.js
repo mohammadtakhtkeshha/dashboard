@@ -51,7 +51,6 @@ export default function LoginComponent() {
             console.log(context);
             context.setTokenHandler(response.data.csrf_token);
             setErrors({errorName: false, errorPass: false,loginError: false});
-            debugger
         }).catch((error) => {
             setErrors({errorName: false, errorPass: false,loginError: true});
         });

@@ -9,7 +9,7 @@ import ButtonComponent from "../../../partials/ButtonComponent";
 import EditIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import Pagination from "@material-ui/lab/Pagination/Pagination";
 import {Link} from "react-router-dom";
-
+import userImg from "../../../../assets/media/image/user.jpg";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -31,6 +31,17 @@ const useStyles = makeStyles((theme) => ({
         },
         '& .item': {
             width: '100%',
+            '& .imgBlock':{
+                width:'50px!important',
+                height:'50px',
+                borderRadius:'100%',
+                display:'flex',
+                overflow:'hidden',
+                '& img':{
+                    width:'100%',
+                    height:'100%',
+                }
+            }
         }
     },
     pagination: {
@@ -53,7 +64,12 @@ const useStyles = makeStyles((theme) => ({
             color: 'white',
             border: '0'
         }
-    }
+    },
+    title: {
+        marginBottom: '10px',
+        fontSize: '14px',
+        fontWeight: '500'
+    },
 }));
 
 export default function CommentDashboardComponent() {
@@ -75,6 +91,8 @@ export default function CommentDashboardComponent() {
     return (
         <>
             <Paper className={classes.paper}>
+                <Typography variant="h4" className={classes.title}>کامنت ها</Typography>
+
                 <Box className={classes.commentBlock}>
                     <Box className="item">
                         تصویر
@@ -92,9 +110,11 @@ export default function CommentDashboardComponent() {
                 {comments.map((comment, index) =>
                     <Box key={index} className={classes.commentBlock}>
                         <Box className="item">
-                            <CardMedia>
-                                <img src={comment.field_image} alt="comment"/>
-                            </CardMedia>
+                            <Box className="imgBlock">
+                                <CardMedia id="img">
+                                    { comment.field_image ? <img src={comment.field_image}/>:<img src={userImg}/>}
+                                </CardMedia>
+                            </Box>
                         </Box>
                         <Box className="item">
                             {comment.subject}

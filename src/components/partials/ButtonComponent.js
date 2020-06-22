@@ -19,7 +19,7 @@ const useClass =makeStyles(()=>({
 
 export default function ButtonComponent(props) {
     const classes = useClass(props);
-    function clicked(e) {debugger
+    function clicked(e) {
         props.clicked(e);
     }
     function doNothing(e) {

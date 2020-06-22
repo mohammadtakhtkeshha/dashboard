@@ -19,8 +19,7 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "reactjs-file-uploader": "^1.0.8",
-    "recharts": "^1.8.5"
+    "reactjs-file-uploader": "^1.0.8"
   },
   "scripts": {
     "start": "react-scripts start",
