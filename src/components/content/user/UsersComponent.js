@@ -1,5 +1,5 @@
-import React, {useEffect, useState,useContext} from "react";
-import {Box, CardMedia,Paper} from '@material-ui/core';
+import React, {useEffect, useState, useContext} from "react";
+import {Box, CardMedia, Paper} from '@material-ui/core';
 import {makeStyles} from "@material-ui/core/styles/index";
 import EditIcon from '@material-ui/icons/Edit';
 import axios from "axios/index";
@@ -32,6 +32,32 @@ const useStyles = makeStyles((theme) => ({
             width: '100%',
             '&:first-child': {
                 flexShrink: 2
+            },
+            '&.firstName':{
+                display:'flex',
+                '& .name':{
+                    paddingRight:'5px',
+                    display:'flex',
+                    justifyContent:'center',
+                    alignItems:'center',
+                },
+                '& .imgBlock':{
+                    display:'flex',
+                    justifyContent:'center',
+                    alignItems:'center',
+                    borderRadius:'100%',
+                    overflow:'hidden',
+                    width:'50px',
+                    height:'50px',
+                    '& .MuiCardMedia-root':{
+                        width:'50px!important',
+                        height:'50px!important',
+                    },
+                    '& img':{
+                        width:'100%',
+                        height:'100%',
+                    }
+                },
             }
         }
     },
@@ -64,18 +90,23 @@ export default function BaseFormComponent() {
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
     const [users, setUsers] = useState([]);
-    const appContext=useContext(AppContext);
+    const appContext = useContext(AppContext);
     let getUsers = (page) => {
-        axios.get(`http://sitesaz99.rbp/web/api/user/v2?page=${page}`).then(
+        const config = {
+            headers: {
+                Authorization: appContext.token
+            }
+        };
+        axios.get(`http://sitesaz99.rbp/web/api/user/v2?page=${page}`, config).then(
             function (response) {
-                let currentList = [];
+                let currentList = [];debugger
                 response.data.rows.map((item) => {
                     currentList.push({
                         uid: item.uid,
                         name: item.name,
                         field_name: item.field_name,
                         field_last_name: item.field_last_name,
-                        // role: item.roles_target_id,
+                        role: (item.roles_target_id==="[]"?'بدون نقش':item.roles_target_id),
                         status: item.status,
                         user_picture: item.user_picture,
                         mail: item.mail,
@@ -91,13 +122,13 @@ export default function BaseFormComponent() {
     let deleteUser = (e) => {
         let id = e.currentTarget.value;
         let url = `http://sitesaz99.rbp/web/user/${id}?_format=json`;
-        let config={
-            headers:{
-                Authorization:appContext.token,
+        let config = {
+            headers: {
+                Authorization: appContext.token,
             }
         };
-        axios.delete(url,config).then((response) => {
-            let newUsers=users.filter(user=>user.uid!==id);
+        axios.delete(url, config).then((response) => {
+            let newUsers = users.filter(user => user.uid !== id);
             setUsers([...newUsers]);
         }).catch((error) => {
             console.log(`delete user error : ${error}`);
@@ -143,93 +174,85 @@ export default function BaseFormComponent() {
     };
     console.log(users);
     return (<>
-     <Paper>
-         <Box className={classes.userBlock}>
-             <Box className="item">
-                 <Checkbox
-                     checked={selectedCheckBoxes.length === users.length}
-                     onChange={(e) => allCheckboxHandler(e)}
-                     inputProps={{'aria-label': 'primary checkbox'}}
-                 />
-             </Box>
-             <Box className="item">
-                 نام
-             </Box>
-             <Box className="item">
-                 نام خانوادگی
-             </Box>
-             <Box className="item">
-                 نام کاربری
-             </Box>
-             <Box className="item">
-                 نقش
-             </Box>
-             <Box className="item">
-                 ایمیل
-             </Box>
-             <Box className="item">
-                 وضعیت
-             </Box>
-             <Box className="item">
-                 عکس
-             </Box>
-             <Box className="item">
-                 عملیات
-             </Box>
-         </Box>
-         {users.map((user, index) =>
-             <Box key={index} className={classes.userBlock}>
-                 <Box className="item">
-                     <Checkbox
-                         onChange={(e) => isCheckedHandler(e, user)}
-                         inputProps={{'aria-label': 'primary checkbox'}}
-                         checked={selectedCheckBoxes.includes(user.uid)}
-                     />
-                 </Box>
-                 <Box className="item">
-                     {user.field_name}
-                 </Box>
-                 <Box className="item">
-                     {user.field_last_name}
-                 </Box>
-                 <Box className="item">
-                     {user.name}
-                 </Box>
-                 {/*<Box className="item">*/}
-                 {/*    {user.role.length===0?*/}
-                 {/*        <span>'بدون نقش'</span>:*/}
-                 {/*        (user.role.map((item)=>{*/}
-                 {/*            <span>item</span>*/}
-                 {/*        }))*/}
-                 {/*    }*/}
-                 {/*</Box>*/}
-                 <Box className="item">
-                     {user.mail}
-                 </Box>
-                 <Box className="item">
-                     {user.status ? 'تایید شده' : 'در انتظار تایید'}
-                 </Box>
-                 <Box className="item">
-                     <CardMedia
-                         image={require('./../../../assets/media/image/avatar.jpg')}
-                         // image={require('')}
-                         // image={require(user.photo)}
-                         style={{width: '100px', height: '100px'}}
-                     />
+        <Paper>
+            <Box className={classes.userBlock}>
+                <Box className="item">
+                    <Checkbox
+                        checked={selectedCheckBoxes.length === users.length}
+                        onChange={(e) => allCheckboxHandler(e)}
+                        inputProps={{'aria-label': 'primary checkbox'}}
+                    />
+                </Box>
+                <Box className="item">
+                    نام
+                </Box>
+                <Box className="item">
+                    نام خانوادگی
+                </Box>
+                <Box className="item">
+                    نام کاربری
+                </Box>
+                <Box className="item">
+                    نقش
+                </Box>
+                <Box className="item">
+                    ایمیل
+                </Box>
+                <Box className="item">
+                    وضعیت
+                </Box>
+                <Box className="item">
+                    عملیات
+                </Box>
+            </Box>
+            {users.map((user, index) =>
+                <Box key={index} className={classes.userBlock}>
+                    <Box className="item">
+                        <Checkbox
+                            onChange={(e) => isCheckedHandler(e, user)}
+                            inputProps={{'aria-label': 'primary checkbox'}}
+                            checked={selectedCheckBoxes.includes(user.uid)}
+                        />
+                    </Box>
+                    <Box className="item firstName">
+                        <Box className="imgBlock">
+                        <CardMedia
+                            image={require('./../../../assets/media/image/avatar.jpg')}
+                            style={{width: '100px', height: '100px'}}
+                        />
+                        </Box>
+                        <Box className="name">
+                            {user.field_name}
+                        </Box>
+                    </Box>
+                    <Box className="item">
+                        {user.field_last_name}
+                    </Box>
+                    <Box className="item">
+                        {user.name}
+                    </Box>
+                    <Box className="item">
+                        {user.role}
+                    </Box>
+                    <Box className="item">
+                        {user.mail}
+                    </Box>
+                    <Box className="item">
+                        {user.status ? 'تایید شده' : 'در انتظار تایید'}
+                    </Box>
 
-                 </Box>
-                 <Box className="item">
-                     <Link to={`edit-user/${user.uid}`}>
-                     <ButtonComponent value={user.uid} text="ویرایش" color="primary" startIcon={<EditIcon/>}/>
-                     </Link>
-                     <ButtonComponent value={user.uid} text="حذف" color="secondary" startIcon={<DeleteIcon/>}
-                                      clicked={deleteUser}/>
-                 </Box>
-             </Box>)}
-         <Box className={classes.pagination}>
-             <Pagination count={(totalPage - 1)}
-                         onChange={paginate}/>
-         </Box>
-     </Paper>
+                    <Box className="item">
+                        <Link to={`edit-user/${user.uid}`}>
+                            <ButtonComponent value={user.uid} text="ویرایش" color="primary" startIcon={<EditIcon/>}/>
+                        </Link>
+                        <ButtonComponent value={user.uid} text="حذف" color="secondary" startIcon={<DeleteIcon/>}
+                                         clicked={deleteUser}/>
+                    </Box>
+                </Box>)}
+            <Box className={classes.pagination}>
+                <Pagination count={(totalPage - 1)}
+                            onChange={paginate}/>
+            </Box>
+        </Paper>
     </>);
 }

@@ -11,9 +11,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import AppContext from './../../../../contexts/AppContext';
-
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -38,12 +36,13 @@ const useStyles = makeStyles((theme) => ({
                 justifyContent: 'center',
                 alignItems: 'center',
                 cursor: 'pointer',
-
             },
             '& input': {
                 border: '1px solid green',
                 opacity: 0,
                 position: 'absolute!important',
+                width:'100%',
+                height:'100%',
                 top: 0,
             }
         },
@@ -87,14 +86,19 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-
 export default function BaseFormComponent() {
     const classes = useStyles();
     const appContext = useContext(AppContext);
+    const [keyRoles, setKeyRoles] = useState([]);
+    const [valueRoles, setValueRoles] = useState();
+    const [errors, setErrors] = useState({});
+    const [checkedRoles, setCheckRoles] = useState([]);
+    const [status, setStatus] = useState('false');
+    const [files, setFiles] = useState([]);
     const [user, setUser] = useState({
-        _links : {
+        _links: {
             "type": {
-                "href":"http://sitesaz99.rbp/web/rest/type/user/user"
+                "href": "http://sitesaz99.rbp/web/rest/type/user/user"
             }
         },
         name: {value: ''},
@@ -102,23 +106,17 @@ export default function BaseFormComponent() {
         field_last_name: {value: ''},
         mail: {value: ''},
         pass: {value: ''},
-        confirm_pass: {value: ''},
-        user_picture: {value: ''},
-        roles: [],
-        status: {value: ''},
+        user_picture: {value: []},
+        roles: keyRoles,
+        status: {value: status},
 
     });
-    const [roles, setRoles] = useState();
-    const [errors, setErrors] = useState({});
-    const [checkedRoles, setCheckRoles] = useState([]);
-    const [status, setStatus] = useState('false');
-    // ---------------------------------- upload -------------------------------------------------------
-    const [files, setFiles] = useState([]);
-    const uploadFiles = (files) => {
-        return files.map(uploadFile);
-    };
-
+// --------------------------------------------------- use effects ------------------------------------------------------
     useEffect(() => {
+        getRoles();
+    }, []);
+    // ------------------------------------------- get roles -----------------------------------------
+    let getRoles = () => {
         const url = "http://sitesaz99.rbp/web/api/rest/role?_format=json";
         const config = {
             headers: {
@@ -128,28 +126,42 @@ export default function BaseFormComponent() {
             }
         };
         axios.get(url, config).then((response) => {
-            setRoles(response.data);
+            let valueRoles = Object.values(response.data);
+            let keyRoles = Object.keys(response.data);
+            setKeyRoles(keyRoles);
+            setValueRoles(valueRoles);
+
         }).catch((error) => {
             console.log(error);
         });
-    }, []);
+    };
+    // ------------------------------------------------ register -----------------------------------------------------------
+    const register = () => {
+        if (checkedRoles.length === 0) {
+            setUser(prevState => {
+                return {
+                    ...prevState, roles: []
+                }
+            });
+        }
+        if (files.length === 0) {
+            setUser(prevState => {
+                return {
+                    ...prevState, user_picture: ''
+                }
+            });
+            saveUser();
 
-    useEffect(() => {
-        setUser(prevState => {
-            return {
-                ...prevState, roles: checkedRoles
-            }
-        });
-    }, [checkedRoles]);
+        } else {
+            saveFile();
+        }
 
-    useEffect(() => {
-        setUser(prevState => {
-            return {
-                ...prevState, status: status
-            }
-        });
-    }, [status]);
-
+    };
+// ---------------------------------- upload -------------------------------------------------------
+    const uploadFiles = (files) => {
+        return files.map(uploadFile);
+    };
+// --------------------------------------- upload file --------------------------------------------------
     const uploadFile = (file) => {
         return (
             <FileUploader
@@ -167,9 +179,11 @@ export default function BaseFormComponent() {
             </FileUploader>
         )
     };
+// --------------------------------------- remove upload img --------------------------------------------------
     const removeUploadedImg = () => {
         setFiles([]);
     };
+// --------------------------------------- fileProgress --------------------------------------------------
     const fileProgress = ({fileData}) => {
         return (
             <div>
@@ -181,15 +195,13 @@ export default function BaseFormComponent() {
 
         )
     };
-
-
-    // -----------------------------------------------------------------------------------------
-    const saveUser = (param) => {
+// --------------------------------------- save user--------------------------------------------------
+    const saveUser = (getUser) => {
         let registeredUser;
-        if (param === undefined) {
+        if (getUser === undefined) {//if only img no other data
             registeredUser = user;
         } else {
-            registeredUser = param;
+            registeredUser = getUser;
         }
         const headers = {
             headers: {
@@ -205,7 +217,7 @@ export default function BaseFormComponent() {
 
         })
     };
-
+// ----------------------------------------------- save File ---------------------------------------------------------------
     const saveFile = () => {
 
         const config = {
@@ -234,42 +246,32 @@ export default function BaseFormComponent() {
                     target_uuid: response.data.uuid[0],
                     url: response.data.uri[0].url
                 }];
+
+
                 saveUser(user);
             }
         ).catch((error) => {
             console.log(error);
         });
     };
-
-    const register = () => {
-        if (checkedRoles.length === 0) {
-            setUser(prevState => {
-                return {
-                    ...prevState, roles: []
-                }
-            });
-        }
-        if (files.length === 0) {
-            setUser(prevState => {
-                return {
-                    ...prevState, user_picture: ''
-                }
-            });
-            saveUser();
-
-        } else {
-
-            saveFile();
-
-        }
-
+// ---------------------------------- handlerFileChange ------------------------------------------------------------
+    let handleFileChange = (e) => {
+        setFiles([e[0]]);
+        // setUser((prevState) => {
+        //     return {
+        //         ...prevState, user_picture: [{value: e[0]}]
+        //     }
+        // });
     };
-
+// ------------------------------------------------ handle inputs changes -----------------------------------------------------------
     let handleChange = (e, field) => {
         let currentName;
         currentName = e.currentTarget.value;
         if (currentName === "") {
             delete user[field];
+        }
+        if(field==='confirm_pass'){
+            return
         }
         setUser(prevState => {
             return {
@@ -277,28 +279,48 @@ export default function BaseFormComponent() {
             }
         });
     };
-
+// ------------------------------------------------ handle checkbox changes -----------------------------------------------------------
     let handleCheckRoles = (e) => {
         let checked = e.target.checked;
         let currentValue = e.target.value;
+        let checkedRolesArr = [];
         if (checked) {
-            setCheckRoles(prevState => {
-                return [
-                    ...prevState, currentValue
-                ]
-            });
+            checkedRolesArr = [currentValue, ...checkedRoles];
         } else {
             let newCheckedRoles = checkedRoles.filter(role => role !== currentValue);
-            setCheckRoles([...newCheckedRoles]);
+            checkedRolesArr = [...newCheckedRoles];
         }
+        setCheckRoles([...checkedRolesArr]);
+        let formatedRoles = [];
+        for (let item of checkedRolesArr) {
+            formatedRoles.push({
+                "target_id": item,
+                "target_type": "user_role",
+            })
+        }
+        setUser((prevState) => {
+            return {
+                ...prevState, roles: formatedRoles
+            }
+        });
     };
-
+// ------------------------------------------------ handle status changes -----------------------------------------------------------
     let handleStatusChange = (e) => {
         let currentStatus = e.target.value;
+        let status;
+        if(currentStatus==="true"){
+             status= true;
+        }else{
+            status=false;
+        }
         setStatus(currentStatus);
+        setUser((prevState) => {
+            return {
+                ...prevState, status: [{value: status}]
+            }
+        });
     };
-
-console.log(user);
+    console.log(user);
     return (<>
         <Box>
             <Paper className={classes.paper}>
@@ -334,13 +356,13 @@ console.log(user);
                     <Box className="role">
                         <label>رول مورد نظر را انتخاب کنید:</label>
                         <br/>
-                        {roles ?
-                            Object.keys(roles).map((keyName, index) => (
+                        {valueRoles ?
+                            Object.keys(valueRoles).map((keyName, index) => (
                                 <FormControlLabel key={index}
                                                   control={<Checkbox onChange={(e) => handleCheckRoles(e)}
                                                                      name="roles"/>}
-                                                  label={roles[keyName]}
-                                                  value={roles[keyName]}
+                                                  label={valueRoles[keyName]}
+                                                  value={keyRoles[keyName]}
                                 />
                             ))
                             : ''}
@@ -355,7 +377,7 @@ console.log(user);
                             type="file"
                             accept="image/*"
                             name="avatar"
-                            onChange={event => setFiles(files.concat(Array.from(event.target.files)))}
+                            onChange={event => handleFileChange(files.concat(Array.from(event.target.files)))}
                         />
                         <FileManager
                             files={files}
@@ -363,8 +385,6 @@ console.log(user);
                             {uploadFiles}
                         </FileManager>
                     </Box>
-
-
                     <Box mt={2}>
                         <ButtonComponent color="primary" clicked={register} text="ثبت"/>
                     </Box>

@@ -43,6 +43,7 @@ function Input(props) {
     let handleClick=(e,param)=>{
         props.handleClick(e,param);
     };
+    // console.log(props.value);
     return (<>
         <Box className={classes.inputBlock}>
             <label htmlFor="">{props.label}</label>

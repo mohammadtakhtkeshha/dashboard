@@ -108,17 +108,57 @@ export default function BaseFormComponent() {
         roles: [],
         status: {value: ''},
     });
-    const [roles, setRoles] = useState();
+    const [keyRoles, setKeyRoles] = useState([]);
+    const [valueRoles, setValueRoles] = useState([]);
+    const [defaultRoles , setDefaultRoles]=useState([]);
+    const [roles , setRoles]=useState([]);
     const [errors, setErrors] = useState({});
     const [checkedRoles, setCheckRoles] = useState([]);
-    const [status, setStatus] = useState('male');
+    useEffect(() => {
+        getUser();
+    }, []);
+// ----------------------------------------------------- get User ---------------------------------------------------------
+    let getUser = () => {
+        let url = `http://sitesaz99.rbp/web/user/${id}?_format=json`;
+        let config = {
+            headers: {
+                Authorization: appContext.token
+            }
+        };
+        axios.get(url, config).then((response) => {
+            let user = response.data;
+            let rolesWithData=user.roles;
+            let roles=[];
+            rolesWithData.map(item=>{
+                roles.push(item.target_id);
+            });
+            setDefaultRoles([...roles]);
+            debugger
+            setUser({
+                name: {value: (user.name.length > 0 ? user.name[0].value : '')},
+                field_name: {value: (user.field_name.length > 0 ? user.field_name[0].value : '')},
+                field_last_name: {value: (user.field_last_name.length > 0 ? user.field_last_name[0].value : '')},
+                mail: {value: (user.mail.length > 0 ? user.mail[0].value : '')},
+                user_picture: {value: (user.user_picture.length > 0 ? user.user_picture[0].value : '')},
+                roles: (user.roles ? user.roles : []),
+                status: {value: (user.status.length > 0 ? user.status[0].value : '')},
+            });
+
+        }).catch((error) => {
+            console.log(error);
+        });
+    };
     // ---------------------------------- upload -------------------------------------------------------
     const [files, setFiles] = useState([]);
     const uploadFiles = (files) => {
         return files.map(uploadFile);
     };
-
+    // ----------------------------------- get roles ----------------------------------------------------
     useEffect(() => {
+        getRoles();
+    }, []);
+
+    let getRoles = () => {
         const url = "http://sitesaz99.rbp/web/api/rest/role?_format=json";
         const config = {
             headers: {
@@ -126,11 +166,17 @@ export default function BaseFormComponent() {
             }
         };
         axios.get(url, config).then((response) => {
-            setRoles(response.data);
+            let keyRoles=Object.keys(response.data);
+            let valueRoles=Object.values(response.data);
+            let roles=Object.entries(response.data);
+            setKeyRoles([...keyRoles]);
+            setValueRoles([...valueRoles]);
+            debugger
+            setRoles([...roles]);
         }).catch((error) => {
             console.log(error);
         });
-    }, []);
+    };
 
     useEffect(() => {
         setUser(prevState => {
@@ -139,14 +185,6 @@ export default function BaseFormComponent() {
             }
         });
     }, [checkedRoles]);
-
-    useEffect(() => {
-        setUser(prevState => {
-            return {
-                ...prevState, status: status
-            }
-        });
-    }, [status]);
 
     const uploadFile = (file) => {
         return (
@@ -165,9 +203,11 @@ export default function BaseFormComponent() {
             </FileUploader>
         )
     };
+
     const removeUploadedImg = () => {
         setFiles([]);
     };
+
     const fileProgress = ({fileData}) => {
         return (
             <div>
@@ -180,15 +220,7 @@ export default function BaseFormComponent() {
         )
     };
 
-
-    // -----------------------------------------------------------------------------------------
-    const saveUser = (param) => {
-        let registeredUser;
-        if (param === undefined) {
-            registeredUser = user;
-        } else {
-            registeredUser = param;
-        }
+    const saveUser = (getUser) => {
         const headers = {
             headers: {
                 "Content-Type": "application/json",
@@ -289,39 +321,19 @@ export default function BaseFormComponent() {
 
     let handleStatusChange = (e) => {
         let currentStatus = e.target.value;
-        setStatus(currentStatus);
-    };
-    // --------------------------------------Edit-------------------------------------------------------
-
-    useEffect(() => {
-        getUser();
-    }, []);
-
-    let getUser = () => {
-        let url = `http://sitesaz99.rbp/web/user/${id}?_format=json`;
-        let config = {
-            headers: {
-                Authorization: appContext.token
+        let status;
+        if (currentStatus === "false") {
+             status = false;
+        } else {
+            status = true;
+        }
+        setUser((prevState)=>{
+            return {
+                ...prevState,status:{value:status}
             }
-        };
-        axios.get(url, config).then((response) => {
-            let user = response.data;
-            console.log(user);
-            setUser({
-                name: {value: user.name[0].value},
-                field_name: {value: user.field_name[0].value},
-                field_last_name: {value: user.field_last_name[0].value},
-                mail: {value: user.mail[0].value},
-                pass: {value: ''},
-                confirm_pass: {value: ''},
-                user_picture: {value: user.user_picture[0].url},
-                roles: [],
-                status: {value: user.status[0].value},
-            });
-        }).catch((error) => {
-            console.log(error);
         });
     };
+
     return (<>
         <Box>
             <Paper className={classes.paper}>
@@ -351,28 +363,47 @@ export default function BaseFormComponent() {
 
                     <Input type="password" placeholder='تکرار رمز عبور' label='تکرار رمز عبور'
                            small='' handleClick={e => handleChange(e, "confirm_pass")} error={errors.confirm_pass}/>
-                    {/*----------------------------------------------------------- status ------------------------------------------*/}
+                    {/*----------------------------------------------------------- show status ------------------------------------------*/}
                     <FormControl component="fieldset">
                         <label>وضعیت</label>
-                        <RadioGroup aria-label="gender" name="gender1" value={status} onChange={handleStatusChange}>
-                            <FormControlLabel value="false" control={<Radio checked={!user.status ? true : false}/>} label="بلاک"/>
-                            <FormControlLabel value="true" control={<Radio checked={user.status ? true : false}/>} label="تایید"/>
+                        {/*<Box>status:{user.status}</Box>*/}
+                        <RadioGroup aria-label="gender" name="gender1" value={user.status.value} onChange={handleStatusChange}>
+                            <FormControlLabel value="false" control={<Radio checked={!user.status.value ? true : false}/>}
+                                              label="بلاک"/>
+                            <FormControlLabel value="true" control={<Radio checked={user.status.value ? true : false}/>}
+                                              label="تایید"/>
                         </RadioGroup>
                     </FormControl>
-                    {/*-------------------------------------------------- role -----------------------------------------------------*/}
+                    {/*-------------------------------------------------- show role -----------------------------------------------------*/}
                     <Box className="role">
                         <label>رول مورد نظر را انتخاب کنید:</label>
                         <br/>
-                        {roles ?
-                            Object.keys(roles).map((keyName, index) => (
+                        {valueRoles ?
+                            Object.keys(valueRoles).map((keyName, index) => (
                                 <FormControlLabel key={index}
                                                   control={<Checkbox onChange={(e) => handleCheckRoles(e)}
                                                                      name="roles"/>}
-                                                  label={roles[keyName]}
-                                                  value={roles[keyName]}
+                                                  label={valueRoles[keyName]}
+                                                  value={valueRoles[keyName]}
+                                                  checked={!defaultRoles.includes(valueRoles[keyName])}
                                 />
                             ))
                             : ''}
+                        {/*{roles ?*/}
+                        {/*  roles.map((key,index)=>(*/}
+                        {/*      <div>*/}
+                        {/*          <span>{key}</span>*/}
+                        {/*          /!*<span>{index}</span>*!/*/}
+                        {/*      <FormControlLabel*/}
+                        {/*                            control={<Checkbox onChange={(e) => handleCheckRoles(e)}*/}
+                        {/*                                               name="roles"/>}*/}
+                        {/*                            // label={key}*/}
+                        {/*                            value={key}*/}
+                        {/*                            checked={defaultRoles.includes(key)}*/}
+                        {/*          />*/}
+                        {/*          </div>*/}
+                        {/*  ))*/}
+                        {/*    : ''}*/}
                     </Box>
                     {/*------------------------------------------------------ upload image -----------------------------------------*/}
 

@@ -46,7 +46,7 @@ export default function CommentsChartComponent() {
             initial[customDate].push(current);
             return initial;
         }, {});
-    }
+    };
     let getDateAndNumberOfCumments = (sortedComment) => {
         let arrayOfSortedComment = Object.entries(sortedComment);
         let arrayOfDates = [];
