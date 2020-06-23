@@ -121,7 +121,7 @@ export default function BaseFormComponent() {
         const config = {
             headers: {
                 'Content-Type': 'application/hal+json',
-                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijg1OWZmZGU1YzMwOGYzNDQyMGEwN2VmMDU0MjA4ZGIzYjU5YjBmYTNlNmIzN2RmZTA3NTg4MjJiY2QyYzQ2NTNmMWEzM2ExNDRjN2VmNWU3In0.eyJhdWQiOiI4YmY5M2Y0Yi00YmRjLTQ3Y2QtYTdkNS0xZmQ4MTE0Y2JjOWMiLCJqdGkiOiI4NTlmZmRlNWMzMDhmMzQ0MjBhMDdlZjA1NDIwOGRiM2I1OWIwZmEzZTZiMzdkZmUwNzU4ODIyYmNkMmM0NjUzZjFhMzNhMTQ0YzdlZjVlNyIsImlhdCI6MTU5MjgwMDUwMiwibmJmIjoxNTkyODAwNTAyLCJleHAiOjE2MDE1MDA1MDIsInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCJdfQ.n8kvBBBiV_AP3zmEFIiS25SoGMlnX3p2KFhs45rGnz5OwlnVms2MB1c2R1oqQlrgEWDs4ENCQQ9ZuEPnMmoaCm45HmNzqkN2um3ckrhUx56tw2Tvv8XQ8i4fRwe-S-D5HUmki2yXIH7Z1f_G2MWNR6IB5Xg8KPsteKsVxoSDULWn9ynC9bTfsPj7J0mq3jADq7TUqzveLf27brXYZ3-yPnVpANCCxH0jmUUg2C_5RrB-5hDfGoPktl3dZp1leoFk5DzVV-aBJdxoF4APnxItFIu75Jb0AhwgVJu0QNn8G2KlZvk9seS8Y0ogpne5ingFVT0CZ6BqOcciLBxqjAyRpg',
+                'Authorization':appContext.token,
                 'Accept': 'application/hal+json'
             }
         };
@@ -137,13 +137,13 @@ export default function BaseFormComponent() {
     };
     // ------------------------------------------------ register -----------------------------------------------------------
     const register = () => {
-        if (checkedRoles.length === 0) {
-            setUser(prevState => {
-                return {
-                    ...prevState, roles: []
-                }
-            });
-        }
+        // if (checkedRoles.length === 0) {
+        //     setUser(prevState => {
+        //         return {
+        //             ...prevState, roles: []
+        //         }
+        //     });
+        // }
         if (files.length === 0) {
             setUser(prevState => {
                 return {
@@ -198,7 +198,7 @@ export default function BaseFormComponent() {
 // --------------------------------------- save user--------------------------------------------------
     const saveUser = (getUser) => {
         let registeredUser;
-        if (getUser === undefined) {//if only img no other data
+        if (getUser === undefined) {//if no img
             registeredUser = user;
         } else {
             registeredUser = getUser;
@@ -212,7 +212,7 @@ export default function BaseFormComponent() {
         };
         axios.post('http://sitesaz99.rbp/web/entity/user?_format=hal_json', JSON.stringify(registeredUser), headers)
             .then((response) => {
-
+debugger
             }).catch((error) => {
 
         })
@@ -223,7 +223,7 @@ export default function BaseFormComponent() {
         const config = {
             headers: {
                 'Content-Type': 'application/octet-stream',
-                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImI3ZmI2MThjZTIzYTdlOWUzOWRmMzcyZWUxYTNhMTNmZmE2NzJkZjEzZWQyM2E5NzI1NTQwYzU5YTJlNzgyYzIwMWJiZWJhM2QyOTAzNmQxIn0.eyJhdWQiOiI4YmY5M2Y0Yi00YmRjLTQ3Y2QtYTdkNS0xZmQ4MTE0Y2JjOWMiLCJqdGkiOiJiN2ZiNjE4Y2UyM2E3ZTllMzlkZjM3MmVlMWEzYTEzZmZhNjcyZGYxM2VkMjNhOTcyNTU0MGM1OWEyZTc4MmMyMDFiYmViYTNkMjkwMzZkMSIsImlhdCI6MTU5MjgwMTE1MywibmJmIjoxNTkyODAxMTUzLCJleHAiOjE2MDE1MDExNTMsInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCJdfQ.XWLBEzC8fX2hr9hNXiez8v5bS1gcZvIWm95j3PdHiAoiEBdhLivJLXI-oCnQgkGT5kzW1ZcPVPg4tSicYM64x-ebQWDi54jBEOaGAV6we_hSpU_cV-7IdGtUCOQFuQ6iZJV2UEG9662rIXIcarf-_KyqnJ6liA9Ps4MSpyRqzaOQG9Jm1duqpfP5IOrGAvJ-tL5iWlePIIBS_mSFG8McO2HCTfn13B9FGajpNR6daACxsIsx6l0HojMZRv1cou45HWnL_hqCc6y9QCpKTb35yOXKmNF434TnzreT0w4o4b1cRu3HOyp_08BtK1GSBHahCzQ3vIbWe5_CeENZSRT0zw',
+                'Authorization': appContext.token,
                 'Accept': 'application/vnd.api+json',
                 "Content-Disposition": `file;filename="${files[0].name}"`,
             }

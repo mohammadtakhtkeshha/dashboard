@@ -43,14 +43,13 @@ function Input(props) {
     let handleClick=(e,param)=>{
         props.handleClick(e,param);
     };
-    // console.log(props.value);
     return (<>
         <Box className={classes.inputBlock}>
             <label htmlFor="">{props.label}</label>
             <input name={props.name} type={props.type} onChange={(e,param)=>handleClick(e,param)}
                    // className={classes.redBorder}
                    className={(props.border==='red'? classes.redBorder : '')}
-                   title="n" placeholder={props.placeholder}
+                    placeholder={props.placeholder}
                    value={props.value}
             />
             {props.small?   <small>{props.small}</small> : ''}

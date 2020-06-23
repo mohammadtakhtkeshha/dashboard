@@ -97,6 +97,10 @@ export default function BaseFormComponent() {
     const {id} = useParams();//params
     const appContext = useContext(AppContext);
     const classes = useStyles();
+    const [defaultRoles, setDefaultRoles] = useState([]);
+    const [wholeRoles, setWholeRoles] = useState([]);
+    const [errors, setErrors] = useState({});
+    const [files, setFiles] = useState([]);
     const [user, setUser] = useState({
         name: {value: ''},
         field_name: {value: ''},
@@ -108,15 +112,16 @@ export default function BaseFormComponent() {
         roles: [],
         status: {value: ''},
     });
-    const [keyRoles, setKeyRoles] = useState([]);
-    const [valueRoles, setValueRoles] = useState([]);
-    const [defaultRoles , setDefaultRoles]=useState([]);
-    const [roles , setRoles]=useState([]);
-    const [errors, setErrors] = useState({});
-    const [checkedRoles, setCheckRoles] = useState([]);
+
+
+// --------------------------------------- useEffect ---------------------------------------------------
     useEffect(() => {
         getUser();
     }, []);
+    useEffect(() => {
+        getWholeRoles();
+    }, []);
+
 // ----------------------------------------------------- get User ---------------------------------------------------------
     let getUser = () => {
         let url = `http://sitesaz99.rbp/web/user/${id}?_format=json`;
@@ -127,13 +132,12 @@ export default function BaseFormComponent() {
         };
         axios.get(url, config).then((response) => {
             let user = response.data;
-            let rolesWithData=user.roles;
-            let roles=[];
-            rolesWithData.map(item=>{
+            let rolesWithData = user.roles;
+            let roles = [];
+            rolesWithData.map(item => {
                 roles.push(item.target_id);
             });
             setDefaultRoles([...roles]);
-            debugger
             setUser({
                 name: {value: (user.name.length > 0 ? user.name[0].value : '')},
                 field_name: {value: (user.field_name.length > 0 ? user.field_name[0].value : '')},
@@ -148,17 +152,8 @@ export default function BaseFormComponent() {
             console.log(error);
         });
     };
-    // ---------------------------------- upload -------------------------------------------------------
-    const [files, setFiles] = useState([]);
-    const uploadFiles = (files) => {
-        return files.map(uploadFile);
-    };
-    // ----------------------------------- get roles ----------------------------------------------------
-    useEffect(() => {
-        getRoles();
-    }, []);
-
-    let getRoles = () => {
+// -------------------------------------------- get whole roles --------------------------------------------------------------
+    let getWholeRoles = () => {
         const url = "http://sitesaz99.rbp/web/api/rest/role?_format=json";
         const config = {
             headers: {
@@ -166,26 +161,70 @@ export default function BaseFormComponent() {
             }
         };
         axios.get(url, config).then((response) => {
-            let keyRoles=Object.keys(response.data);
-            let valueRoles=Object.values(response.data);
-            let roles=Object.entries(response.data);
-            setKeyRoles([...keyRoles]);
-            setValueRoles([...valueRoles]);
-            debugger
-            setRoles([...roles]);
+            let roles = Object.entries(response.data);
+            setWholeRoles(roles);
         }).catch((error) => {
             console.log(error);
         });
     };
-
-    useEffect(() => {
+// ---------------------------------- upload -------------------------------------------------------
+    const uploadFiles = (files) => {
+        return files.map(uploadFile);
+    };
+// --------------------------------------- handle changes ----------------------------------------------------------
+    let handleChange = (e, field) => {
+        let currentName;
+        currentName = e.currentTarget.value;
+        if (currentName === "") {
+            delete user[field];
+        }
         setUser(prevState => {
             return {
-                ...prevState, roles: checkedRoles
+                ...prevState, [field]: {value: currentName}
             }
         });
-    }, [checkedRoles]);
+    };
 
+    let handleCheckRoles = (e) => {
+        let checked = e.target.checked;
+        let currentValue = e.target.value;
+        let checkedRolesArr = [];
+        if (checked) {
+            checkedRolesArr = [currentValue, ...defaultRoles];
+        } else {
+            let newCheckedRoles = defaultRoles.filter(role => role !== currentValue);
+            checkedRolesArr = [...newCheckedRoles];
+        }
+        setDefaultRoles([...checkedRolesArr]);
+        let formatedRoles = [];
+        for (let item of checkedRolesArr) {
+            formatedRoles.push({
+                "target_id": item,
+                "target_type": "user_role",
+            })
+        }
+        setUser((prevState) => {
+            return {
+                ...prevState, roles: formatedRoles
+            }
+        });
+    };
+
+    let handleStatusChange = (e) => {
+        let currentStatus = e.target.value;
+        let status;
+        if (currentStatus === "false") {
+            status = false;
+        } else {
+            status = true;
+        }
+        setUser((prevState) => {
+            return {
+                ...prevState, status: {value: status}
+            }
+        });
+    };
+// ---------------------------------------------- upload file --------------------------------------------------
     const uploadFile = (file) => {
         return (
             <FileUploader
@@ -203,11 +242,6 @@ export default function BaseFormComponent() {
             </FileUploader>
         )
     };
-
-    const removeUploadedImg = () => {
-        setFiles([]);
-    };
-
     const fileProgress = ({fileData}) => {
         return (
             <div>
@@ -219,21 +253,29 @@ export default function BaseFormComponent() {
 
         )
     };
+// ---------------------------------------------- remove uploadedimg file --------------------------------------------------
+    const removeUploadedImg = () => {
+        setFiles([]);
+    };
 
     const saveUser = (getUser) => {
+        let registeredUser;
+        if (getUser === undefined) {//if no img
+            registeredUser = user;
+        } else {
+            registeredUser = getUser;
+        }
         const headers = {
             headers: {
                 "Content-Type": "application/json",
-                'Authorization':
-                    'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjAxMWI3YzY0NTNiMTgzNWRlMDk1YmYwNjFmM2U1NWNmZWVkM2MzNzhmNmFhNmI2NjJjNGRjNjIzNDRlYzNjYjE0ZmFmODUyMmJjNDQ4MjIwIn0.eyJhdWQiOiI4YmY5M2Y0Yi00YmRjLTQ3Y2QtYTdkNS0xZmQ4MTE0Y2JjOWMiLCJqdGkiOiIwMTFiN2M2NDUzYjE4MzVkZTA5NWJmMDYxZjNlNTVjZmVlZDNjMzc4ZjZhYTZiNjYyYzRkYzYyMzQ0ZWMzY2IxNGZhZjg1MjJiYzQ0ODIyMCIsImlhdCI6MTU5MjIyMzA4MywibmJmIjoxNTkyMjIzMDgzLCJleHAiOjE2MDA5MjMwODMsInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCJdfQ.qof5zlJbRKFMFeDSKW0uzFKt3QdSp8P59VTRPT9O1OZDU72yQ1g1JMEM36iJqx7TDcIz0DGY-aYr891w2Lf6GURqcfyY2v_fDq63gsiqIAcNG5VCS_2DNogdXIsnO0xWjfilL3X8hvUMm6gS25foJf7vNlkxlOw0M0EqgnCrwZAMGSz_8r3AY9ZAKEcSwYPp4vqYUZJHknSFFMdAizCdCsuUiy9YB2mACHFtr7lNtHC23ysqD_givl6oxcfwALdvF0aWHT7u_wJ_CZzDhra3b2gZAEzho3s72sv3UNOtKIqYDgg1r5rs-Np0XSiw3w7XnFtuDkYV6Ue4xNhhMdQn6Q',
+                'Authorization':appContext.token,
                 'Accept': 'application/json'
             }
         };
-        // console.log(JSON.stringify(registeredUser));
-        // axios.patch('http://sitesaz99.rbp/web/file/upload/user/user/user_picture?_format=json', JSON.stringify(registeredUser), headers)
-        //     .then((response) => {
-        //     }).catch((error) => {
-        // })
+        axios.patch('http://sitesaz99.rbp/web/file/upload/user/user/user_picture?_format=json', JSON.stringify(registeredUser), headers)
+            .then((response) => {
+            }).catch((error) => {
+        })
     };
 
     const saveFile = () => {
@@ -247,16 +289,16 @@ export default function BaseFormComponent() {
         };
         axios.post('http://sitesaz99.rbp/web/file/upload/user/user/user_picture?_format=json', files[0], config).then(
             (response) => {
-                // setUser(prevState => {
-                //     return {
-                //         ...prevState,
-                //         user_picture: [{
-                //             target_type: "file",
-                //             target_uuid: response.data.uuid[0],
-                //             url: response.data.uri[0].url
-                //         }],
-                //     }
-                // });
+                setUser(prevState => {
+                    return {
+                        ...prevState,
+                        user_picture: [{
+                            target_type: "file",
+                            target_uuid: response.data.uuid[0],
+                            url: response.data.uri[0].url
+                        }],
+                    }
+                });
 
                 user.user_picture = [{
                     target_type: "file",
@@ -271,69 +313,13 @@ export default function BaseFormComponent() {
     };
 
     const register = () => {
-        if (checkedRoles.length === 0) {
-            // setUser(prevState => {
-            //     return {
-            //         ...prevState, roles: []
-            //     }
-            // });
-        }
+
         if (files.length === 0) {
-            // setUser(prevState => {
-            //     return {
-            //         ...prevState, user_picture: ''
-            //     }
-            // });
             saveUser();
         } else {
             saveFile();
         }
-
     };
-
-    let handleChange = (e, field) => {
-        let currentName;
-        currentName = e.currentTarget.value;
-        if (currentName === "") {
-            delete user[field];
-        }
-        // setUser(prevState => {
-        //     return {
-        //         ...prevState, [field]: {value: currentName}
-        //     }
-        // });
-    };
-
-    let handleCheckRoles = (e) => {
-        let checked = e.target.checked;
-        let currentValue = e.target.value;
-        if (checked) {
-            setCheckRoles(prevState => {
-                return [
-                    ...prevState, currentValue
-                ]
-            });
-        } else {
-            let newCheckedRoles = checkedRoles.filter(role => role !== currentValue);
-            setCheckRoles([...newCheckedRoles]);
-        }
-    };
-
-    let handleStatusChange = (e) => {
-        let currentStatus = e.target.value;
-        let status;
-        if (currentStatus === "false") {
-             status = false;
-        } else {
-            status = true;
-        }
-        setUser((prevState)=>{
-            return {
-                ...prevState,status:{value:status}
-            }
-        });
-    };
-
     return (<>
         <Box>
             <Paper className={classes.paper}>
@@ -367,8 +353,10 @@ export default function BaseFormComponent() {
                     <FormControl component="fieldset">
                         <label>وضعیت</label>
                         {/*<Box>status:{user.status}</Box>*/}
-                        <RadioGroup aria-label="gender" name="gender1" value={user.status.value} onChange={handleStatusChange}>
-                            <FormControlLabel value="false" control={<Radio checked={!user.status.value ? true : false}/>}
+                        <RadioGroup aria-label="gender" name="gender1" value={user.status.value}
+                                    onChange={handleStatusChange}>
+                            <FormControlLabel value="false"
+                                              control={<Radio checked={!user.status.value ? true : false}/>}
                                               label="بلاک"/>
                             <FormControlLabel value="true" control={<Radio checked={user.status.value ? true : false}/>}
                                               label="تایید"/>
@@ -378,32 +366,19 @@ export default function BaseFormComponent() {
                     <Box className="role">
                         <label>رول مورد نظر را انتخاب کنید:</label>
                         <br/>
-                        {valueRoles ?
-                            Object.keys(valueRoles).map((keyName, index) => (
-                                <FormControlLabel key={index}
-                                                  control={<Checkbox onChange={(e) => handleCheckRoles(e)}
-                                                                     name="roles"/>}
-                                                  label={valueRoles[keyName]}
-                                                  value={valueRoles[keyName]}
-                                                  checked={!defaultRoles.includes(valueRoles[keyName])}
-                                />
+                        {wholeRoles ?
+                            wholeRoles.map((key, index) => (
+                                <div>
+                                    <FormControlLabel
+                                        control={<Checkbox onChange={(e) => handleCheckRoles(e)}
+                                                           name="roles"/>}
+                                        label={key[1]}
+                                        value={key[0]}
+                                        checked={defaultRoles.includes(key[0])}
+                                    />
+                                </div>
                             ))
                             : ''}
-                        {/*{roles ?*/}
-                        {/*  roles.map((key,index)=>(*/}
-                        {/*      <div>*/}
-                        {/*          <span>{key}</span>*/}
-                        {/*          /!*<span>{index}</span>*!/*/}
-                        {/*      <FormControlLabel*/}
-                        {/*                            control={<Checkbox onChange={(e) => handleCheckRoles(e)}*/}
-                        {/*                                               name="roles"/>}*/}
-                        {/*                            // label={key}*/}
-                        {/*                            value={key}*/}
-                        {/*                            checked={defaultRoles.includes(key)}*/}
-                        {/*          />*/}
-                        {/*          </div>*/}
-                        {/*  ))*/}
-                        {/*    : ''}*/}
                     </Box>
                     {/*------------------------------------------------------ upload image -----------------------------------------*/}
 
