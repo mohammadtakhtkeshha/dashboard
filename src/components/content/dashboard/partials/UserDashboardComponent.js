@@ -5,7 +5,7 @@ import axios from "axios/index";
 import * as colors from './../../../partials/Colors';
 import {CardMedia} from '@material-ui/core/index';
 import AppContext from './../../../../contexts/AppContext';
-import userImg from './../../../../assets/media/image/user.jpg'
+import userImg from './../../../../assets/media/image/user.jpg';
 
 
 import ButtonComponent from "../../../partials/ButtonComponent";

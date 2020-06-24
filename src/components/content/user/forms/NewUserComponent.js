@@ -16,6 +16,7 @@ import AppContext from './../../../../contexts/AppContext';
 const useStyles = makeStyles((theme) => ({
     paper: {
         padding: theme.spacing(2),
+        margin: theme.spacing(2),
         '& .MuiBox-root': {
             '& input[type=file]': {
                 position: 'relative',
@@ -23,6 +24,15 @@ const useStyles = makeStyles((theme) => ({
                     content: 'negar',
                     width: '100px',
                 },
+            }
+        },
+        '& .inputBlock': {
+            position: 'relative',
+            '& .error': {
+                position: 'relative',
+                top: '-25px',
+                textAlign: 'right',
+                color: 'red'
             }
         },
         '& .upload': {
@@ -41,8 +51,8 @@ const useStyles = makeStyles((theme) => ({
                 border: '1px solid green',
                 opacity: 0,
                 position: 'absolute!important',
-                width:'100%',
-                height:'100%',
+                width: '100%',
+                height: '100%',
                 top: 0,
             }
         },
@@ -91,9 +101,9 @@ export default function BaseFormComponent() {
     const appContext = useContext(AppContext);
     const [keyRoles, setKeyRoles] = useState([]);
     const [valueRoles, setValueRoles] = useState();
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({errorName: {}, errorPass: {},specialChar:{}});
     const [checkedRoles, setCheckRoles] = useState([]);
-    const [status, setStatus] = useState('false');
+    const [status, setStatus] = useState(false);
     const [files, setFiles] = useState([]);
     const [user, setUser] = useState({
         _links: {
@@ -121,7 +131,7 @@ export default function BaseFormComponent() {
         const config = {
             headers: {
                 'Content-Type': 'application/hal+json',
-                'Authorization':appContext.token,
+                'Authorization': appContext.token,
                 'Accept': 'application/hal+json'
             }
         };
@@ -200,22 +210,75 @@ export default function BaseFormComponent() {
         let registeredUser;
         if (getUser === undefined) {//if no img
             registeredUser = user;
+
         } else {
             registeredUser = getUser;
         }
-        const headers = {
-            headers: {
-                'Content-Type': "application/hal+json",
-                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImI3ZmI2MThjZTIzYTdlOWUzOWRmMzcyZWUxYTNhMTNmZmE2NzJkZjEzZWQyM2E5NzI1NTQwYzU5YTJlNzgyYzIwMWJiZWJhM2QyOTAzNmQxIn0.eyJhdWQiOiI4YmY5M2Y0Yi00YmRjLTQ3Y2QtYTdkNS0xZmQ4MTE0Y2JjOWMiLCJqdGkiOiJiN2ZiNjE4Y2UyM2E3ZTllMzlkZjM3MmVlMWEzYTEzZmZhNjcyZGYxM2VkMjNhOTcyNTU0MGM1OWEyZTc4MmMyMDFiYmViYTNkMjkwMzZkMSIsImlhdCI6MTU5MjgwMTE1MywibmJmIjoxNTkyODAxMTUzLCJleHAiOjE2MDE1MDExNTMsInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCJdfQ.XWLBEzC8fX2hr9hNXiez8v5bS1gcZvIWm95j3PdHiAoiEBdhLivJLXI-oCnQgkGT5kzW1ZcPVPg4tSicYM64x-ebQWDi54jBEOaGAV6we_hSpU_cV-7IdGtUCOQFuQ6iZJV2UEG9662rIXIcarf-_KyqnJ6liA9Ps4MSpyRqzaOQG9Jm1duqpfP5IOrGAvJ-tL5iWlePIIBS_mSFG8McO2HCTfn13B9FGajpNR6daACxsIsx6l0HojMZRv1cou45HWnL_hqCc6y9QCpKTb35yOXKmNF434TnzreT0w4o4b1cRu3HOyp_08BtK1GSBHahCzQ3vIbWe5_CeENZSRT0zw',
-                'Accept': 'application/hal+json'
-            }
-        };
-        axios.post('http://sitesaz99.rbp/web/entity/user?_format=hal_json', JSON.stringify(registeredUser), headers)
-            .then((response) => {
-debugger
-            }).catch((error) => {
+        let nameValid = nameValidation(registeredUser.name);
+        let passValid = passValidation(registeredUser.pass);
 
-        })
+        if (nameValid || passValid) {
+            return
+        }
+
+        // const headers = {
+        //     headers: {
+        //         'Content-Type': "application/hal+json",
+        //         'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImI3ZmI2MThjZTIzYTdlOWUzOWRmMzcyZWUxYTNhMTNmZmE2NzJkZjEzZWQyM2E5NzI1NTQwYzU5YTJlNzgyYzIwMWJiZWJhM2QyOTAzNmQxIn0.eyJhdWQiOiI4YmY5M2Y0Yi00YmRjLTQ3Y2QtYTdkNS0xZmQ4MTE0Y2JjOWMiLCJqdGkiOiJiN2ZiNjE4Y2UyM2E3ZTllMzlkZjM3MmVlMWEzYTEzZmZhNjcyZGYxM2VkMjNhOTcyNTU0MGM1OWEyZTc4MmMyMDFiYmViYTNkMjkwMzZkMSIsImlhdCI6MTU5MjgwMTE1MywibmJmIjoxNTkyODAxMTUzLCJleHAiOjE2MDE1MDExNTMsInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCJdfQ.XWLBEzC8fX2hr9hNXiez8v5bS1gcZvIWm95j3PdHiAoiEBdhLivJLXI-oCnQgkGT5kzW1ZcPVPg4tSicYM64x-ebQWDi54jBEOaGAV6we_hSpU_cV-7IdGtUCOQFuQ6iZJV2UEG9662rIXIcarf-_KyqnJ6liA9Ps4MSpyRqzaOQG9Jm1duqpfP5IOrGAvJ-tL5iWlePIIBS_mSFG8McO2HCTfn13B9FGajpNR6daACxsIsx6l0HojMZRv1cou45HWnL_hqCc6y9QCpKTb35yOXKmNF434TnzreT0w4o4b1cRu3HOyp_08BtK1GSBHahCzQ3vIbWe5_CeENZSRT0zw',
+        //         'Accept': 'application/hal+json'
+        //     }
+        // };
+        // axios.post('http://sitesaz99.rbp/web/entity/user?_format=hal_json', JSON.stringify(registeredUser), headers)
+        //     .then((response) => {
+        //
+        //     }).catch((error) => {
+        //     console.log(error)
+        // });
+    };
+    let nameValidation = (name) => {
+        let valid;
+        if (name.value.length < 2) {
+            setErrors(prevState => {
+                return {
+                    ...prevState,
+                    errorName: {
+                        length: 'حداقل کاراکتر های انتخابی 3 میباشد!'
+                    }
+                }
+            });
+            valid = true;
+        }
+        return valid;
+    };
+    let passValidation = (password) => {
+        let lengthValid;
+        let nanValid;
+        let message = {};
+        // debugger
+        if (password.value.length < 7) {
+            lengthValid = 'حداقل تعداد کاراکترهای انتخابی 8 میباشد!';
+            message.length = lengthValid;
+        }
+
+
+        let regex=/^(?=.*[0-9+-/*])(?=.*[a-zA-Z])([a-zA-Z0-9*-*]+)$/;
+        if (!regex.test(password.value)) {
+            let specialChar = 'پسورد مورد نظر باید شامل اعداد حروف بزرگ و کوچک و علامت ها خاص باشد!';
+            message.specialChar = specialChar;
+        }
+
+        setErrors(prevState => {
+            return {
+                ...prevState,
+                errorPass: message
+            }
+        });
+        let valid;
+        //
+        // if (lengthValid || ) {
+        //     valid = true;
+        // }
+        return valid;
     };
 // ----------------------------------------------- save File ---------------------------------------------------------------
     const saveFile = () => {
@@ -230,20 +293,23 @@ debugger
         };
         axios.post('http://sitesaz99.rbp/web/file/upload/user/user/user_picture?_format=json', files[0], config).then(
             (response) => {
+                debugger
                 setUser(prevState => {
                     return {
                         ...prevState,
                         user_picture: [{
                             target_type: "file",
                             target_uuid: response.data.uuid[0],
+                            target_id: response.data.fid[0].value,
                             url: response.data.uri[0].url
-                        }],
+                        }]
                     }
                 });
 
                 user.user_picture = [{
                     target_type: "file",
                     target_uuid: response.data.uuid[0],
+                    target_id: response.data.fid[0].value,
                     url: response.data.uri[0].url
                 }];
 
@@ -270,7 +336,7 @@ debugger
         if (currentName === "") {
             delete user[field];
         }
-        if(field==='confirm_pass'){
+        if (field === 'confirm_pass') {
             return
         }
         setUser(prevState => {
@@ -308,12 +374,12 @@ debugger
     let handleStatusChange = (e) => {
         let currentStatus = e.target.value;
         let status;
-        if(currentStatus==="true"){
-             status= true;
-        }else{
-            status=false;
+        if (currentStatus === "true") {
+            status = true;
+        } else {
+            status = false;
         }
-        setStatus(currentStatus);
+        setStatus(status);
         setUser((prevState) => {
             return {
                 ...prevState, status: [{value: status}]
@@ -332,15 +398,22 @@ debugger
                     <Input type="text" placeholder='نام خانوادگی' label='نام خانوادگی خود را وارد کنید'
                            error={errors.family}
                            small='' handleClick={e => handleChange(e, "field_last_name")}/>
+                    <Box className="inputBlock">
+                        <Input type="text" placeholder='نام کاربری' label='نام کاربری خود را وارد کنید'
+                               small='' handleClick={e => handleChange(e, "name")}/>
+                        {errors.errorName.length ? <div className="error">{errors.errorName.length}</div> : ''}
+                        {errors.errorName.unique ? <div className="error">{errors.errorName.length}</div> : ''}
+                    </Box>
 
-                    <Input type="text" placeholder='نام کاربری' label='نام کاربری خود را وارد کنید'
-                           small='' handleClick={e => handleChange(e, "name")}/>
 
                     <Input type="email" placeholder='ایمیل' label='ایمیل خود را وارد کنید'
                            small='' handleClick={e => handleChange(e, "mail")}/>
-
-                    <Input type="password" placeholder='رمز عبور' label='رمز عبور'
-                           small='' handleClick={e => handleChange(e, "pass")} error={errors.pass}/>
+                    <Box className="inputBlock">
+                        <Input type="password" placeholder='رمز عبور' label='رمز عبور'
+                               small='' handleClick={e => handleChange(e, "pass")} error={errors.pass}/>
+                        {errors.errorPass.length ? <div className="error">{errors.errorPass.length}</div> : ''}
+                        {errors.errorPass.specialChar? <div className="error">{errors.errorPass.specialChar}</div> : ''}
+                    </Box>
 
                     <Input type="password" placeholder='تکرار رمز عبور' label='تکرار رمز عبور'
                            small='' handleClick={e => handleChange(e, "confirm_pass")} error={errors.confirm_pass}/>
@@ -348,8 +421,8 @@ debugger
                     <FormControl component="fieldset">
                         <label>وضعیت</label>
                         <RadioGroup aria-label="status" name="status" value={status} onChange={handleStatusChange}>
-                            <FormControlLabel value="false" control={<Radio/>} label="بلاک"/>
-                            <FormControlLabel value="true" control={<Radio/>} label="تایید"/>
+                            <FormControlLabel value={false} control={<Radio/>} label="بلاک"/>
+                            <FormControlLabel value={true} control={<Radio/>} label="تایید"/>
                         </RadioGroup>
                     </FormControl>
                     {/*-------------------------------------------------- role -----------------------------------------------------*/}

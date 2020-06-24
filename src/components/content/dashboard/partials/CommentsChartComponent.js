@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Box,Typography,Grid,Paper} from "@material-ui/core";
+import {Box, Typography, Grid, Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import Highcharts from 'highcharts';
 import moment from 'jalali-moment';
@@ -9,9 +9,9 @@ import * as colors from './../../../partials/Colors'
 
 const useStyles = makeStyles((theme) => (
     {
-        paper:{
-            padding:theme.spacing(2),
-            margin:theme.spacing(2),
+        paper: {
+            padding: theme.spacing(2),
+            margin: theme.spacing(2),
         }
     }
 ));
@@ -53,7 +53,7 @@ export default function CommentsChartComponent() {
         let arrayOfBlockComments = [];
         let arrayOfConfirmComments = [];
         for (let comment of arrayOfSortedComment) {
-            let date=getYearAndMonth(comment[0]);
+            let date = getYearAndMonth(comment[0]);
             arrayOfDates.push(date);
             sortCommentByStatus(comment[1]);
             let sorted = Object.entries(sortCommentByStatus(comment[1]));
@@ -83,7 +83,7 @@ export default function CommentsChartComponent() {
             }
 
         }
-        highChartsRender(arrayOfDates,arrayOfConfirmComments,arrayOfBlockComments);
+        highChartsRender(arrayOfDates, arrayOfConfirmComments, arrayOfBlockComments);
     }
     let sortCommentByStatus = (newComm) => {
         return newComm.reduce((initial, current) => {
@@ -102,7 +102,7 @@ export default function CommentsChartComponent() {
     }
 
     // --------------------- high charts -----------------------
-    let highChartsRender = (dates,confirmComment,blockedComment) => {
+    let highChartsRender = (dates, confirmComment, blockedComment) => {
         Highcharts.chart('commentchart', {
             chart: {
                 type: 'line'
@@ -144,11 +144,11 @@ export default function CommentsChartComponent() {
 
 
     let getYearAndMonth = (dates) => {
-        let getYear = dates.substr(0,4);
+        let getYear = dates.substr(0, 4);
         let m = moment(getYear, 'YYYY');
         let sal = m.jYear();
-        let getMonth=dates.substr(5,2);
-        let mah=convertMonthToFa(getMonth);
+        let getMonth = dates.substr(5, 2);
+        let mah = convertMonthToFa(getMonth);
         return `${sal} ${mah}`;
     };
 
@@ -197,15 +197,11 @@ export default function CommentsChartComponent() {
 
     return (
         <>
-            <Grid container>
-                <Grid item xs={12}>
-                    <Paper className={classes.paper}>
-                        <figure className="highcharts-figure">
-                            <div id="commentchart"></div>
-                        </figure>
-                    </Paper>
-                </Grid>
-            </Grid>
+            <Paper className={classes.paper}>
+                <figure className="highcharts-figure">
+                    <div id="commentchart"></div>
+                </figure>
+            </Paper>
         </>
     );
 

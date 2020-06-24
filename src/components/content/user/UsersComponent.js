@@ -9,6 +9,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Pagination from '@material-ui/lab/Pagination';
 import * as colors from './../../../components/partials/Colors';
 import AppContext from './../../../contexts/AppContext';
+import userImg from "../../../assets/media/image/user.jpg";
 
 import {
     Link
@@ -81,6 +82,10 @@ const useStyles = makeStyles((theme) => ({
             color: 'white',
             border: '0'
         }
+    },
+    paper:{
+        margin:theme.spacing(2),
+        padding:theme.spacing(2),
     }
 }));
 
@@ -99,7 +104,7 @@ export default function BaseFormComponent() {
         };
         axios.get(`http://sitesaz99.rbp/web/api/user/v2?page=${page}`, config).then(
             function (response) {
-                let currentList = [];debugger
+                let currentList = [];
                 response.data.rows.map((item) => {
                     currentList.push({
                         uid: item.uid,
@@ -174,7 +179,7 @@ export default function BaseFormComponent() {
     };
     console.log(users);
     return (<>
-        <Paper>
+        <Paper className={classes.paper}>
             <Box className={classes.userBlock}>
                 <Box className="item">
                     <Checkbox
@@ -216,10 +221,9 @@ export default function BaseFormComponent() {
                     </Box>
                     <Box className="item firstName">
                         <Box className="imgBlock">
-                        <CardMedia
-                            image={require('./../../../assets/media/image/avatar.jpg')}
-                            style={{width: '100px', height: '100px'}}
-                        />
+                            <CardMedia id="img">
+                                { user.user_picture ? <img src={user.user_picture} alt={user.name}/>:<img src={userImg}/>}
+                            </CardMedia>
                         </Box>
                         <Box className="name">
                             {user.field_name}

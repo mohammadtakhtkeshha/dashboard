@@ -17,7 +17,7 @@ export default function LoginComponent() {
     const context = useContext(AppContext);
     let login = () => {
         let url = "http://sitesaz99.rbp/web/user/login?_format=json";
-        let config = {headers: {'content-type': 'application/json'}};
+        let config = {headers: {'Content-Type': 'application/json'}};
         if (context.user.name === "" || context.user.pass === "") {
             if (context.user.name === "") {
                 setErrors(prevState => {

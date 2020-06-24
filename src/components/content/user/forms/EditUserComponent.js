@@ -102,13 +102,14 @@ export default function BaseFormComponent() {
     const [errors, setErrors] = useState({});
     const [files, setFiles] = useState([]);
     const [user, setUser] = useState({
+        uid: {value: ''},
         name: {value: ''},
         field_name: {value: ''},
         field_last_name: {value: ''},
         mail: {value: ''},
         pass: {value: ''},
         confirm_pass: {value: ''},
-        user_picture: {value: ''},
+        user_picture: {value: []},
         roles: [],
         status: {value: ''},
     });
@@ -139,11 +140,12 @@ export default function BaseFormComponent() {
             });
             setDefaultRoles([...roles]);
             setUser({
+                uid: {value: (user.uid.length > 0 ? user.uid[0].value : '')},
                 name: {value: (user.name.length > 0 ? user.name[0].value : '')},
                 field_name: {value: (user.field_name.length > 0 ? user.field_name[0].value : '')},
                 field_last_name: {value: (user.field_last_name.length > 0 ? user.field_last_name[0].value : '')},
                 mail: {value: (user.mail.length > 0 ? user.mail[0].value : '')},
-                user_picture: {value: (user.user_picture.length > 0 ? user.user_picture[0].value : '')},
+                user_picture: {value: (user.user_picture.length > 0 ? user.user_picture[0].value : [])},
                 roles: (user.roles ? user.roles : []),
                 status: {value: (user.status.length > 0 ? user.status[0].value : '')},
             });
@@ -258,7 +260,7 @@ export default function BaseFormComponent() {
         setFiles([]);
     };
 
-    const saveUser = (getUser) => {
+    const saveUser = (getUser) => {debugger
         let registeredUser;
         if (getUser === undefined) {//if no img
             registeredUser = user;
@@ -268,14 +270,18 @@ export default function BaseFormComponent() {
         const headers = {
             headers: {
                 "Content-Type": "application/json",
-                'Authorization':appContext.token,
-                'Accept': 'application/json'
+                'Authorization': appContext.token,
             }
         };
-        axios.patch('http://sitesaz99.rbp/web/file/upload/user/user/user_picture?_format=json', JSON.stringify(registeredUser), headers)
+        let id = user.uid.value;
+        let url = `http://sitesaz99.rbp/web/user/${id}?_format=json`;
+        axios.patch(url, JSON.stringify(registeredUser), headers)
             .then((response) => {
+                setUser(response.data);
             }).catch((error) => {
-        })
+                console.log(error);
+        });
+
     };
 
     const saveFile = () => {
@@ -284,7 +290,7 @@ export default function BaseFormComponent() {
                 "Content-Type": "application/octet-stream",
                 "Accept": "application/vnd.api+json",
                 "Content-Disposition": 'file; filename="' + files[0].name + '"',
-                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImI1NWI0ZTlmN2U3YjhlY2Q2NDdkNDljMjY3ZDJhNWIwNmZmNGZiMjFkZmIyNTk2MzM1OGRhNTdhZjUyODJlNjZiNWY1MTE3NTc5ZWZhODAxIn0.eyJhdWQiOiI4YmY5M2Y0Yi00YmRjLTQ3Y2QtYTdkNS0xZmQ4MTE0Y2JjOWMiLCJqdGkiOiJiNTViNGU5ZjdlN2I4ZWNkNjQ3ZDQ5YzI2N2QyYTViMDZmZjRmYjIxZGZiMjU5NjMzNThkYTU3YWY1MjgyZTY2YjVmNTExNzU3OWVmYTgwMSIsImlhdCI6MTU5MjE5NDI3OCwibmJmIjoxNTkyMTk0Mjc4LCJleHAiOjE2MDA4OTQyNzgsInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCJdfQ.BIbSg0tz2j4qghu8Qm_S2vEIDnPf8gggOnSypg_DD3Q4JBcXGmT0FgFbqYTMocFpmCjWHofhcaE2eGx_X5kkKE2FiZhLiM8Mg0vuO2KdqlTBHqV1SH288s9E6GPHCATLh3pvH_7H8k9iPV4cNJqeTN8ngDaFhkQWXPGOEWJEZLYNDyo2Zj78hFpQ6ihsSP_Jan7xOM0PhNQaQ5If1IQsu0cW6lWDV98FcETBOdYJCD58ecLZdDe9Gk7NII_mrWsR9FBsiBgG5Sje2xSIg1y5ogxx0ulXazZSt3uDMhGpmwAvW0CviGFAPLC8016OILfZqKuSuPEFyx4w6qGVQeDRlQ'
+                'Authorization':appContext.token,
             }
         };
         axios.post('http://sitesaz99.rbp/web/file/upload/user/user/user_picture?_format=json', files[0], config).then(
@@ -295,16 +301,19 @@ export default function BaseFormComponent() {
                         user_picture: [{
                             target_type: "file",
                             target_uuid: response.data.uuid[0],
+                            target_id: response.data.fid[0].value,
                             url: response.data.uri[0].url
-                        }],
+                        }]
                     }
                 });
 
                 user.user_picture = [{
                     target_type: "file",
                     target_uuid: response.data.uuid[0],
+                    target_id: response.data.fid[0].value,
                     url: response.data.uri[0].url
                 }];
+
                 saveUser(user);
             }
         ).catch((error) => {
@@ -313,17 +322,21 @@ export default function BaseFormComponent() {
     };
 
     const register = () => {
-
         if (files.length === 0) {
             saveUser();
         } else {
             saveFile();
         }
     };
+    console.log(user);
     return (<>
         <Box>
             <Paper className={classes.paper}>
                 <form method="post" encType="multipart/form-data">
+                    <span style={{display: 'none'}}>
+                    <Input type="text" value={user.uid.value}/>
+                    </span>
+
                     <Input type="text" placeholder='نام' label='نام خود را وارد کنید'
                            error={errors.name ? errors.name : ''}
                            value={user.field_name.value}
@@ -368,7 +381,7 @@ export default function BaseFormComponent() {
                         <br/>
                         {wholeRoles ?
                             wholeRoles.map((key, index) => (
-                                <div>
+                                <div key={index}>
                                     <FormControlLabel
                                         control={<Checkbox onChange={(e) => handleCheckRoles(e)}
                                                            name="roles"/>}
