@@ -9,8 +9,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BaseFormComponent() {
     const classes = useStyles();
-    function register(){
-    }
     return (<>
         <Box>
             <Paper className={classes.paper}>

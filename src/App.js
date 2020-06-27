@@ -5,10 +5,8 @@ import AppContext from './contexts/AppContext';
 import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import './App.css';
 import axios from "axios/index";
-
-import {create} from 'jss';
+import font from './assets/css/font.css';//fonts
 import rtl from 'jss-rtl';
-import {StylesProvider, jssPreset} from '@material-ui/core/styles';
 
 
 import UseWindowDimensions from './main/useWindowDimensions';
@@ -73,7 +71,6 @@ export function App() {
     const {width} = UseWindowDimensions();
     const [showUserDrawer, setShowUserDrawer] = useState(false);
     const [token, setToken] = useState(localStorage.getItem('token') || '');
-    // const [token, setToken] = useState('Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImE1M2E3N2FmODc3ZDg4YTZjN2FlZWU5M2ZiMDkwMzEyNmM3OWI1NzA3YjI2NmVhZDVkYTc2NjdjMDY1NDg2M2Y3MDQ4MmU0ZjQzNzI4NmNmIn0.eyJhdWQiOiI4YmY5M2Y0Yi00YmRjLTQ3Y2QtYTdkNS0xZmQ4MTE0Y2JjOWMiLCJqdGkiOiJhNTNhNzdhZjg3N2Q4OGE2YzdhZWVlOTNmYjA5MDMxMjZjNzliNTcwN2IyNjZlYWQ1ZGE3NjY3YzA2NTQ4NjNmNzA0ODJlNGY0MzcyODZjZiIsImlhdCI6MTU5MjcyODkwMywibmJmIjoxNTkyNzI4OTAzLCJleHAiOjE2MDE0Mjg5MDMsInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCJdfQ.uNKJpZnwQRP_L8XJNSjIrD7-gRTlPsvBa0VOOK8TZl8G61ucmc0L0QiWngSrfXgbijmgEGrfYv2rSVLblURtZaLra535sUp_v56kIvY9e2p-6cMHwbzbN_2Mgm8_HWwg_8f8WrmWinvEriElIzwTMMDP1_rjG4xXbXNwP3f9JPcW2N3FrZnYAcqsQExcsuQjEYfUmA4bvl55iV4T78IHLi207eJhKyhDOMyTXGWbUGr41QrWJvSArPt2U3boxmoHR2H9sNScNV0WAyS1c0B3ZJ0LSdCxA21LFy_FRrjK9CvbLifd54DfcsunDDp7JfsJjaL4B4TljSnprX5iS1fOOg')
     const [user, setUser] = useState({
         name: '',
         field_name: '',
@@ -81,7 +78,7 @@ export function App() {
         mail: '',
         pass: '',
         confirm_pass: '',
-        user_picture:'',
+        user_picture: '',
     });
     const classes = useStyle();
     let toggleUserDrawer = (boolean) => {
@@ -91,12 +88,16 @@ export function App() {
         setToken(param);
         if (param === "") {
             localStorage.removeItem('token');
-            let url='http://sitesaz99.rbp/web/user/logout';
+            let url = 'http://sitesaz99.rbp/web/user/logout';
             let config = {headers: {'Content-Type': 'application/json'}};
-            axios.post(url,config).then((response)=>{debugger}).catch((error)=>{console.log(error)});
+            axios.post(url, config).then((response) => {
+                debugger
+            }).catch((error) => {
+                console.log(error)
+            });
         }
     };
-    let changeUser = (keyName , value) => {
+    let changeUser = (keyName, value) => {
         setUser(prevState => {
             return {
                 ...prevState, [keyName]: value
@@ -116,7 +117,7 @@ export function App() {
                         setTokenHandler: setTokenHandler,
                         changeUser: changeUser,
                         user: user,
-                        token:token,
+                        token: token,
                     }}>
                     <div dir="rtl">
                         <Box display="flex" flexDirection="row">

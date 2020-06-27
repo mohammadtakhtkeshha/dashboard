@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from "react";
-import {Box, Typography, Grid, Paper} from "@material-ui/core";
+import React, {useEffect} from "react";
+import {Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import Highcharts from 'highcharts';
 import moment from 'jalali-moment';
 import axios from "axios/index";
-import * as colors from './../../../partials/Colors'
 
 
 const useStyles = makeStyles((theme) => (

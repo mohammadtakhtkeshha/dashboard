@@ -1,13 +1,14 @@
 import {makeStyles} from '@material-ui/core/styles';
 import * as  colors from './../../components/partials/Colors'
+
 export const styles = makeStyles((theme) => ({
-    active:{
-        color:`${colors.primary}!important`,
+    active: {
+        color: `${colors.primary}!important`,
     },
     root: {
-        '& a':{
-          textDecoration: 'none',
-          color: 'black',
+        '& a': {
+            textDecoration: 'none',
+            color: 'black',
         },
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
@@ -39,13 +40,13 @@ export const styles = makeStyles((theme) => ({
             }
         },
 
-        '& .tabcontent':{
-            display : 'none',
+        '& .tabcontent': {
+            display: 'none',
         },
-        '& .tab':{
+        '& .tab': {
             '& .tablinks': {
-                '&.active':{
-                    backgroundColor : 'red'
+                '&.active': {
+                    backgroundColor: 'red'
                 }
             },
         },
@@ -57,6 +58,7 @@ export const styles = makeStyles((theme) => ({
                 marginRight: '26px',
                 borderRadius: '10px',
                 marginBottom: '1px',
+
                 '& ~ div': {
                     width: '100%'
                 },
@@ -72,18 +74,19 @@ export const styles = makeStyles((theme) => ({
             },
             '& .MuiBox-root': {
                 paddingTop: '0',
-                // paddingRight: '8px'
                 '& span': {
                     '& li': {
                         padding: 0
                     }
                 },
-                '& .MuiListItem-gutters': {
-                    paddingRight: 0,
-                    paddingLeft: 0,
-                },
-                '& .MuiExpansionPanelSummary-root':{
-                    padding:'0 0!important'
+                '@media(min-width : 992px)': {
+                    '& .MuiListItem-gutters': {
+                        paddingRight: 0,
+                        paddingLeft: 0,
+                    },
+                    '& .MuiExpansionPanelSummary-root': {
+                        padding: '0 0!important',
+                    }
                 }
             },
         }
@@ -103,10 +106,10 @@ export const styles = makeStyles((theme) => ({
         },
         '& .MuiPaper-root': {
             backgroundColor: 'white',
-            '& li':{
-                '& a':{
-                    textDecoration : 'none',
-                    color:'inherit'
+            '& li': {
+                '& a': {
+                    textDecoration: 'none',
+                    color: 'inherit'
                 }
             }
 

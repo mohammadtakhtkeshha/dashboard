@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import moment from 'jalali-moment';
 import Highcharts from 'highcharts';
 import { Paper} from "@material-ui/core";
 import axios from "axios";
@@ -13,7 +12,6 @@ const useStyles = makeStyles(theme => ({
 }));
 export default function UserChartComponent() {
     const classes = useStyles();
-
     useEffect(() => {
         getUsers();
     }, []);

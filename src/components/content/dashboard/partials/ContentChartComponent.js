@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Box, Typography, Paper} from "@material-ui/core";
-import * as contentChart from './../../../../assets/js/dashboard/ContentChart'
+import * as contentChart from './../../../../assets/js/dashboard/ContentChart';
 
 export default function ContentDashboardComponent({contents}) {
     const [customContents, setCustomContents] = useState([]);
@@ -14,11 +14,11 @@ export default function ContentDashboardComponent({contents}) {
         getTotalNumberOfContent();
     }, [contents]);
 
-
     let getTotalNumberOfContent = () => {
         let length = contents.length;
         setTotalNumberOfContents(length);
     };
+
     let customizedContents = (value) => {
         return value.reduce((initial, currentValue) => {
             let key = currentValue.type;
@@ -28,8 +28,8 @@ export default function ContentDashboardComponent({contents}) {
             initial[key].push(currentValue);
             return initial;
         }, {});
-
     };
+
     let setCustomContentHandler = (value) => {
         let getCustomContents = customizedContents(value);
         let contents = Object.entries(getCustomContents);
@@ -39,6 +39,7 @@ export default function ContentDashboardComponent({contents}) {
     };
 
     const classes = contentChart.useStyles();
+
     return (
         <>
             <Paper className={classes.paper}>
@@ -49,7 +50,9 @@ export default function ContentDashboardComponent({contents}) {
                         return (
                             <Box key={index} className="block">
                                 <Box className="text">
-                                    <Box>{content[0]}</Box>
+                                    <Box>
+                                        <Typography>{content[0]}</Typography>
+                                    </Box>
                                     <Box> {length}</Box>
                                 </Box>
                                 <Box className="chart">
@@ -67,7 +70,6 @@ export default function ContentDashboardComponent({contents}) {
                         )
                     })
                     }
-
                 </div>
             </Paper>
         </>

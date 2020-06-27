@@ -125,7 +125,7 @@ export default function BaseFormComponent() {
     useEffect(() => {
         getRoles();
     }, []);
-    // ------------------------------------------- get roles -----------------------------------------
+// ------------------------------------------- get roles -----------------------------------------
     let getRoles = () => {
         const url = "http://sitesaz99.rbp/web/api/rest/role?_format=json";
         const config = {
@@ -145,7 +145,7 @@ export default function BaseFormComponent() {
             console.log(error);
         });
     };
-    // ------------------------------------------------ register -----------------------------------------------------------
+// ------------------------------------------------ register -----------------------------------------------------------
     const register = () => {
         // if (checkedRoles.length === 0) {
         //     setUser(prevState => {
@@ -252,16 +252,12 @@ export default function BaseFormComponent() {
     };
     let passValidation = (password) => {
         let lengthValid;
-        let nanValid;
         let message = {};
-        // debugger
-        if (password.value.length < 7) {
+        if (password.value.length < 8) {
             lengthValid = 'حداقل تعداد کاراکترهای انتخابی 8 میباشد!';
             message.length = lengthValid;
         }
-
-
-        let regex=/^(?=.*[0-9+-/*])(?=.*[a-zA-Z])([a-zA-Z0-9*-*]+)$/;
+        let regex=/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}\[\]:;؟|,\.?~_+-=\|])/;
         if (!regex.test(password.value)) {
             let specialChar = 'پسورد مورد نظر باید شامل اعداد حروف بزرگ و کوچک و علامت ها خاص باشد!';
             message.specialChar = specialChar;

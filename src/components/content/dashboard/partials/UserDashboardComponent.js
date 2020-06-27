@@ -1,85 +1,41 @@
 import React, {useState, useEffect,useContext} from "react";
-import {Box, Typography, Grid, Paper} from "@material-ui/core";
-import {makeStyles} from "@material-ui/styles";
+import {Box, Typography, Paper} from "@material-ui/core";
 import axios from "axios/index";
-import * as colors from './../../../partials/Colors';
 import {CardMedia} from '@material-ui/core/index';
 import AppContext from './../../../../contexts/AppContext';
 import userImg from './../../../../assets/media/image/user.jpg';
+import * as UserDashboard from './../../../../assets/js/dashboard/UserDashboard';
+import * as colors from './../../../../components/partials/Colors';
+import TableContainer from "@material-ui/core/TableContainer";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableBody from "@material-ui/core/TableBody";
 
-
-import ButtonComponent from "../../../partials/ButtonComponent";
-import EditIcon from "@material-ui/core/SvgIcon/SvgIcon";
-import Pagination from "@material-ui/lab/Pagination/Pagination";
-import {Link} from "react-router-dom";
-
-
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        padding: theme.spacing(2),
-        margin: theme.spacing(2),
+const StyledTableCell = withStyles((theme) => ({
+    head: {
+        backgroundColor: colors.primary,
+        color: theme.palette.common.white,
     },
-    userBlock: {
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '11px 0px',
-        '& .MuiCheckbox-root': {
-            padding: '0 0 0 15px',
+    body: {
+        fontSize: 14,
+    },
+}))(TableCell);
+const StyledTableRow = withStyles((theme) => ({
+    root: {
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
         },
-        '&:not(:last-child)': {
-            borderBottom: '1px solid #d9dbe4',
-        },
-        '& .item': {
-            width: '100%',
-            '& .imgBlock':{
-                width:'50px!important',
-                height:'50px',
-                borderRadius:'100%',
-                overflow:'hidden',
-                '& img':{
-                    width:'100%'
-                }
-            }
-        }
     },
-    pagination: {
-        display: 'flex',
-        justifyContent: 'center',
-        padding: '20px',
-        '& ul': {
-            '& li': {
-                '& button': {
-                    borderRadius: '0',
-                    margin: '0',
-                    borderColor: colors.grey.tooLight,
-                    color: colors.primary,
-                    padding: '13px'
-                }
-            }
-        },
-        '& .MuiPaginationItem-page.Mui-selected': {
-            backgroundColor: colors.primary,
-            color: 'white',
-            border: '0'
-        }
-    },
-    title: {
-        marginBottom: '10px',
-        fontSize: '14px',
-        fontWeight: '500'
-    },
-}));
-
+}))(TableRow);
 export default function UserDashboardComponent() {
-    const classes = useStyles();
+    const classes = UserDashboard.useStyles();
     const appContext = useContext(AppContext);
     const [users , setUsers]=useState([]);
     useEffect(()=>{
         getTenNumberOfUsers();
     },[]);
+
     let getTenNumberOfUsers=()=>{
         let url = 'http://sitesaz99.rbp/web/api/user/v2/dashboard';
         let config={
@@ -94,6 +50,7 @@ export default function UserDashboardComponent() {
             console.log(error);
         });
     };
+
     return (
         <>
             <Paper className={classes.paper}>
@@ -132,7 +89,36 @@ export default function UserDashboardComponent() {
                         </Box>
                     </Box>
                 )}
-
+                {/*---------------------------*/}
+                <TableContainer component={Paper} className={classes.userBlock}>
+                    <Table className={classes.table} aria-label="customized table">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell align="right">تصویر</StyledTableCell>
+                                <StyledTableCell align="right">نام کاربری</StyledTableCell>
+                                <StyledTableCell align="right">ایمیل</StyledTableCell>
+                                <StyledTableCell align="right">تاریخ</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {users.map((user, index) =>
+                                <StyledTableRow key={index}>
+                                    {/*<StyledTableCell align="right" >{row.name}</StyledTableCell>*/}
+                                    <StyledTableCell align="right">
+                                        <Box className="imgBlock">
+                                            <CardMedia id="img">
+                                                { user.user_picture ? <img src={user.user_picture} alt="user.name"/>:<img src={userImg}/>}
+                                            </CardMedia>
+                                        </Box>
+                                    </StyledTableCell>
+                                    <StyledTableCell align="right"> {comment.subject}</StyledTableCell>
+                                    <StyledTableCell align="right"> {comment.last_updated}</StyledTableCell>
+                                    <StyledTableCell align="right">  {comment.status ? 'تایید شده':'رد شده'}</StyledTableCell>
+                                </StyledTableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </Paper>
         </>
     );
