@@ -101,10 +101,17 @@ export default function BaseFormComponent() {
     const appContext = useContext(AppContext);
     const [keyRoles, setKeyRoles] = useState([]);
     const [valueRoles, setValueRoles] = useState();
-    const [errors, setErrors] = useState({errorName: {}, errorPass: {},specialChar:{}});
+    const [errors, setErrors] = useState({
+        errorName: {},
+        errorPass: {},
+        specialChar: {},
+        errorMail: {},
+        confirmPass: {},
+    });
     const [checkedRoles, setCheckRoles] = useState([]);
     const [status, setStatus] = useState(false);
     const [files, setFiles] = useState([]);
+    const [confirmPass, setConfirmPass] = useState('');
     const [user, setUser] = useState({
         _links: {
             "type": {
@@ -216,8 +223,9 @@ export default function BaseFormComponent() {
         }
         let nameValid = nameValidation(registeredUser.name);
         let passValid = passValidation(registeredUser.pass);
-
-        if (nameValid || passValid) {
+        let mail = mailValidation(registeredUser.mail);
+        let confirmPass = confirmPassValidation(registeredUser.pass, registeredUser);
+        if (nameValid || passValid || mail || confirmPass) {
             return
         }
 
@@ -237,30 +245,36 @@ export default function BaseFormComponent() {
     };
     let nameValidation = (name) => {
         let valid;
+        let length;
         if (name.value.length < 2) {
-            setErrors(prevState => {
-                return {
-                    ...prevState,
-                    errorName: {
-                        length: 'حداقل کاراکتر های انتخابی 3 میباشد!'
-                    }
-                }
-            });
+            length = 'حداقل کاراکتر انتخابی 3 میباشد!'
             valid = true;
         }
+        setErrors(prevState => {
+            return {
+                ...prevState,
+                errorName: {
+                    length: length
+                }
+            }
+        });
         return valid;
     };
     let passValidation = (password) => {
         let lengthValid;
+        let regexValid;
+        let valid;
         let message = {};
         if (password.value.length < 8) {
             lengthValid = 'حداقل تعداد کاراکترهای انتخابی 8 میباشد!';
             message.length = lengthValid;
+            lengthValid = true;
         }
-        let regex=/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}\[\]:;؟|,\.?~_+-=\|])/;
+        let regex = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}:;؟|,\.?~_+-=\|])/;
         if (!regex.test(password.value)) {
             let specialChar = 'پسورد مورد نظر باید شامل اعداد حروف بزرگ و کوچک و علامت ها خاص باشد!';
             message.specialChar = specialChar;
+            regexValid = true;
         }
 
         setErrors(prevState => {
@@ -269,13 +283,44 @@ export default function BaseFormComponent() {
                 errorPass: message
             }
         });
-        let valid;
-        //
-        // if (lengthValid || ) {
-        //     valid = true;
-        // }
+
+
+        if (lengthValid || regexValid) {
+            valid = true;
+        }
         return valid;
     };
+    let mailValidation = (mail) => {
+        let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+        let message = {};
+        let valid;
+        if (!regex.test(mail.value)) {
+            let mail = 'ایمیل وارد شده معتبر نمیباشد!';
+            message.mail = mail;
+            valid = true;
+        }
+        setErrors(prevState => {
+            return {
+                ...prevState,
+                errorMail: message
+            }
+        });
+        return valid;
+    }
+    let confirmPassValidation = () => {
+        let valid;
+        let message = {};
+        if (confirmPass !== user.pass.value) {
+            message.harmony = 'پسوردهای وارد شده باهم همخوانی ندارند!'
+            valid = true;
+        }
+        setErrors(prevState => {
+            return {
+                ...prevState,confirmPass:message
+            }
+        });
+        return valid;
+    }
 // ----------------------------------------------- save File ---------------------------------------------------------------
     const saveFile = () => {
 
@@ -287,32 +332,32 @@ export default function BaseFormComponent() {
                 "Content-Disposition": `file;filename="${files[0].name}"`,
             }
         };
-        axios.post('http://sitesaz99.rbp/web/file/upload/user/user/user_picture?_format=json', files[0], config).then(
-            (response) => {
-                debugger
-                setUser(prevState => {
-                    return {
-                        ...prevState,
-                        user_picture: [{
-                            target_type: "file",
-                            target_uuid: response.data.uuid[0],
-                            target_id: response.data.fid[0].value,
-                            url: response.data.uri[0].url
-                        }]
-                    }
-                });
+        axios.post('http://sitesaz99.rbp/web/file/upload/user/user/user_picture?_format=json', files[0], config)
+            .then(
+                (response) => {
+                    setUser(prevState => {
+                        return {
+                            ...prevState,
+                            user_picture: [{
+                                target_type: "file",
+                                target_uuid: response.data.uuid[0],
+                                target_id: response.data.fid[0].value,
+                                url: response.data.uri[0].url
+                            }]
+                        }
+                    });
 
-                user.user_picture = [{
-                    target_type: "file",
-                    target_uuid: response.data.uuid[0],
-                    target_id: response.data.fid[0].value,
-                    url: response.data.uri[0].url
-                }];
+                    user.user_picture = [{
+                        target_type: "file",
+                        target_uuid: response.data.uuid[0],
+                        target_id: response.data.fid[0].value,
+                        url: response.data.uri[0].url
+                    }];
 
 
-                saveUser(user);
-            }
-        ).catch((error) => {
+                    saveUser(user);
+                }
+            ).catch((error) => {
             console.log(error);
         });
     };
@@ -332,15 +377,18 @@ export default function BaseFormComponent() {
         if (currentName === "") {
             delete user[field];
         }
-        if (field === 'confirm_pass') {
-            return
-        }
         setUser(prevState => {
             return {
                 ...prevState, [field]: {value: currentName}
             }
         });
     };
+
+
+    let handleConfirmPass = (e) => {
+        let confirmPass = e.target.value;
+        setConfirmPass(confirmPass);
+    }
 // ------------------------------------------------ handle checkbox changes -----------------------------------------------------------
     let handleCheckRoles = (e) => {
         let checked = e.target.checked;
@@ -401,18 +449,25 @@ export default function BaseFormComponent() {
                         {errors.errorName.unique ? <div className="error">{errors.errorName.length}</div> : ''}
                     </Box>
 
+                    <Box className="inputBlock">
+                        <Input type="email" placeholder='ایمیل' label='ایمیل خود را وارد کنید'
+                               small='' handleClick={e => handleChange(e, "mail")}/>
+                        {errors.errorMail.mail ? <div className="error">{errors.errorMail.mail}</div> : ''}
+                    </Box>
 
-                    <Input type="email" placeholder='ایمیل' label='ایمیل خود را وارد کنید'
-                           small='' handleClick={e => handleChange(e, "mail")}/>
+
                     <Box className="inputBlock">
                         <Input type="password" placeholder='رمز عبور' label='رمز عبور'
                                small='' handleClick={e => handleChange(e, "pass")} error={errors.pass}/>
                         {errors.errorPass.length ? <div className="error">{errors.errorPass.length}</div> : ''}
-                        {errors.errorPass.specialChar? <div className="error">{errors.errorPass.specialChar}</div> : ''}
+                        {errors.errorPass.specialChar ?
+                            <div className="error">{errors.errorPass.specialChar}</div> : ''}
                     </Box>
-
-                    <Input type="password" placeholder='تکرار رمز عبور' label='تکرار رمز عبور'
-                           small='' handleClick={e => handleChange(e, "confirm_pass")} error={errors.confirm_pass}/>
+                    <Box className="inputBlock">
+                        <Input type="password" placeholder='تکرار رمز عبور' label='تکرار رمز عبور'
+                               small='' handleClick={e => handleConfirmPass(e)} error={errors.confirm_pass}/>
+                        {errors.confirmPass.harmony ? <div className="error">{errors.confirmPass.harmony}</div> : ''}
+                    </Box>
                     {/*----------------------------------------------------------- status ------------------------------------------*/}
                     <FormControl component="fieldset">
                         <label>وضعیت</label>

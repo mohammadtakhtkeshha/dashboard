@@ -106,6 +106,7 @@ export default function BaseFormComponent() {
             function (response) {
                 let currentList = [];
                 response.data.rows.map((item) => {
+
                     currentList.push({
                         uid: item.uid,
                         name: item.name,
