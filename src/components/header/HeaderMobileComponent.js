@@ -6,7 +6,6 @@ import {CardMedia} from '@material-ui/core/index';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs/index';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import HeaderLeftWeb from './LeftWebHeaderComponent';
-import SearchIcon from '@material-ui/icons/Search';
 
 
 //styles of make style

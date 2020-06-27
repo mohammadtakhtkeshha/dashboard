@@ -24,8 +24,6 @@ export default function ContentDashboardComponent({contents}) {
         getTotalNumberOfContent();
     }, [contents]);
 
-
-
     let customizedContents = (value) => {
         return value.reduce((initial, currentValue) => {
             let key = currentValue.type;
