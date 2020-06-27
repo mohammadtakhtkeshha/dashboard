@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import {Box, Button, Paper} from '@material-ui/core/index';
+import React from "react";
+import {Box, Paper} from '@material-ui/core/index';
 import {makeStyles} from "@material-ui/core/styles/index";
 
 

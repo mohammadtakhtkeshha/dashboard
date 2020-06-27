@@ -12,7 +12,7 @@ import rtl from 'jss-rtl';
 import UseWindowDimensions from './main/useWindowDimensions';
 
 import {
-    BrowserRouter as Router,
+   Router,
 } from "react-router-dom";
 // added components
 import * as components from './assets/js/AppImports'

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Box, Typography, Grid, Paper} from "@material-ui/core";
+import {Box, Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import axios from "axios/index";
 import * as colors from './../../partials/Colors'

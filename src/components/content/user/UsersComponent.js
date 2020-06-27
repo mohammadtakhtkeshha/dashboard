@@ -106,7 +106,6 @@ export default function BaseFormComponent() {
             function (response) {
                 let currentList = [];
                 response.data.rows.map((item) => {
-
                     currentList.push({
                         uid: item.uid,
                         name: item.name,
@@ -149,7 +148,7 @@ export default function BaseFormComponent() {
     let allCheckboxHandler = (e) => {
         let ids = users.map(user => user.uid);
         let usersLength = users.length;
-        if (selectedCheckBoxes.length == usersLength) {
+        if (selectedCheckBoxes.length === usersLength) {
             setSelectedCheckBoxes(
                 []
             );
@@ -223,7 +222,7 @@ export default function BaseFormComponent() {
                     <Box className="item firstName">
                         <Box className="imgBlock">
                             <CardMedia id="img">
-                                { user.user_picture ? <img src={user.user_picture} alt={user.name}/>:<img src={userImg}/>}
+                                { user.user_picture ? <img src={user.user_picture} alt={user.name}/>:<img src={userImg} alt={user.name}/>}
                             </CardMedia>
                         </Box>
                         <Box className="name">

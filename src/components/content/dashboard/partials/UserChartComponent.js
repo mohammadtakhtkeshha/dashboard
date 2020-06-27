@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import Highcharts from 'highcharts';
 import { Paper} from "@material-ui/core";
 import axios from "axios";
@@ -12,6 +12,15 @@ const useStyles = makeStyles(theme => ({
 }));
 export default function UserChartComponent() {
     const classes = useStyles();
+    let getUsers = () => {
+        let url = "http://sitesaz99.rbp/web/api/user/v2/dashboard/chart";
+        axios.get(url).then((response) => {
+            let sortUserByDate= response.data.sort((a,b)=>(a.created>b.created)?1:-1);
+            setDatesAndNumberOfUsers(sortUserByDate);
+        }).catch((error) => {
+            console.log(error);
+        });
+    };
     useEffect(() => {
         getUsers();
     }, []);
@@ -55,15 +64,7 @@ export default function UserChartComponent() {
     }, []);
     // ----------------- end highchart --------------------
 
-    let getUsers = () => {
-        let url = "http://sitesaz99.rbp/web/api/user/v2/dashboard/chart";
-        axios.get(url).then((response) => {
-            let sortUserByDate= response.data.sort((a,b)=>(a.created>b.created)?1:-1);
-            setDatesAndNumberOfUsers(sortUserByDate);
-        }).catch((error) => {
-            console.log(error);
-        });
-    };
+
 
     let customizeByDate = (users) => {
         return users.reduce((initial,current)=>{

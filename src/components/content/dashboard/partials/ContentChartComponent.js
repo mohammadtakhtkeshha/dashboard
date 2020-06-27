@@ -6,18 +6,25 @@ export default function ContentDashboardComponent({contents}) {
     const [customContents, setCustomContents] = useState([]);
 
     const [totalNumberOfContents, setTotalNumberOfContents] = useState('');
-
+    let setCustomContentHandler = (value) => {
+        let getCustomContents = customizedContents(value);
+        let contents = Object.entries(getCustomContents);
+        let arr = [...contents];
+        setCustomContents([...arr]);
+        return arr;
+    };
     useEffect(() => {
         setCustomContentHandler(contents);
     }, [contents]);
-    useEffect(() => {
-        getTotalNumberOfContent();
-    }, [contents]);
-
     let getTotalNumberOfContent = () => {
         let length = contents.length;
         setTotalNumberOfContents(length);
     };
+    useEffect(() => {
+        getTotalNumberOfContent();
+    }, [contents]);
+
+
 
     let customizedContents = (value) => {
         return value.reduce((initial, currentValue) => {
@@ -30,13 +37,7 @@ export default function ContentDashboardComponent({contents}) {
         }, {});
     };
 
-    let setCustomContentHandler = (value) => {
-        let getCustomContents = customizedContents(value);
-        let contents = Object.entries(getCustomContents);
-        let arr = [...contents];
-        setCustomContents([...arr]);
-        return arr;
-    };
+
 
     const classes = contentChart.useStyles();
 

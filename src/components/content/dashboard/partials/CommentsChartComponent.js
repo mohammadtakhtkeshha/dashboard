@@ -17,9 +17,6 @@ const useStyles = makeStyles((theme) => (
 
 export default function CommentsChartComponent() {
     const classes = useStyles();
-    useEffect(() => {
-        getContents();
-    }, []);
     let getContents = () => {
         let url = 'http://sitesaz99.rbp/web/last_comment/chart?_format=json';
         axios.get(url).then((response) => {
@@ -31,6 +28,10 @@ export default function CommentsChartComponent() {
             console.log(error);
         });
     };
+    useEffect(() => {
+        getContents();
+    }, []);
+
     let getCustomComment = (comments) => {
         sortCommentByDate(comments);
         let sortedCommentsByDate = sortCommentByDate(comments);

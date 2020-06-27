@@ -126,7 +126,6 @@ export default function BaseFormComponent() {
         user_picture: {value: []},
         roles: keyRoles,
         status: {value: status},
-
     });
 // --------------------------------------------------- use effects ------------------------------------------------------
     useEffect(() => {
@@ -147,7 +146,6 @@ export default function BaseFormComponent() {
             let keyRoles = Object.keys(response.data);
             setKeyRoles(keyRoles);
             setValueRoles(valueRoles);
-
         }).catch((error) => {
             console.log(error);
         });

@@ -18,7 +18,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import AddIcon from '@material-ui/icons/Add';
 import MinimizeIcon from '@material-ui/icons/Minimize';
-import {Link , NavLink} from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import * as useStyles from './../../assets/js/SidebarContent';
 import AppContext from './../../contexts/AppContext'
 
