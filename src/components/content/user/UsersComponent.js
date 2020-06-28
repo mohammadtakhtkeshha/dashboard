@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from "react";
-import {Box, CardMedia, Paper} from '@material-ui/core';
+import {Box, CardMedia, Paper,Typography} from '@material-ui/core';
 import {makeStyles} from "@material-ui/core/styles/index";
 import EditIcon from '@material-ui/icons/Edit';
 import axios from "axios/index";
@@ -14,6 +14,9 @@ import userImg from "../../../assets/media/image/user.jpg";
 import {
     Link
 } from "react-router-dom";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
 
 const useStyles = makeStyles((theme) => ({
     userBlock: {
@@ -83,10 +86,21 @@ const useStyles = makeStyles((theme) => ({
             border: '0'
         }
     },
-    paper:{
+    mypaper:{
         margin:theme.spacing(2),
         padding:theme.spacing(2),
-    }
+    },
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paper: {
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    },
 }));
 
 export default function BaseFormComponent() {
@@ -96,6 +110,16 @@ export default function BaseFormComponent() {
     const [totalPage, setTotalPage] = useState(1);
     const [users, setUsers] = useState([]);
     const appContext = useContext(AppContext);
+
+    // ------------------  modal --------------------------
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+    // ------------------  modal --------------------------
     let getUsers = (page) => {
         const config = {
             headers: {
@@ -179,7 +203,35 @@ export default function BaseFormComponent() {
     };
     console.log(users);
     return (<>
-        <Paper className={classes.paper}>
+        <Paper className={classes.mypaper}>
+            <button type="button" onClick={handleOpen}>
+                <Typography>ایجاد کاربر</Typography>
+            </button>
+            <Box>
+
+                {/*-------------------------modal---------------------------*/}
+                <Modal
+                    aria-labelledby="transition-modal-title"
+                    aria-describedby="transition-modal-description"
+                    className={classes.modal}
+                    open={open}
+                    onClose={handleClose}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}
+                >
+                    <Fade in={open}>
+                        <div className={classes.paper}>
+                            <h2 id="transition-modal-title">Transition modal</h2>
+                            <p id="transition-modal-description">react-transition-group animates me.</p>
+                            <button onClick={handleClose}>cancel</button>
+                        </div>
+                    </Fade>
+                </Modal>
+                {/*-------------------------modal---------------------------*/}
+</Box>
             <Box className={classes.userBlock}>
                 <Box className="item">
                     <Checkbox

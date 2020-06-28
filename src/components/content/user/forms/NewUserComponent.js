@@ -12,92 +12,12 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import AppContext from './../../../../contexts/AppContext';
+import * as newUser from './../../../../assets/js/user/NewUser';
+import Grid from '@material-ui/core/Grid/index';
 
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        padding: theme.spacing(2),
-        margin: theme.spacing(2),
-        '& .MuiBox-root': {
-            '& input[type=file]': {
-                position: 'relative',
-                '&::before': {
-                    content: 'negar',
-                    width: '100px',
-                },
-            }
-        },
-        '& .inputBlock': {
-            position: 'relative',
-            '& .error': {
-                position: 'relative',
-                top: '-25px',
-                textAlign: 'right',
-                color: 'red'
-            }
-        },
-        '& .upload': {
-            position: 'relative',
-            border: `1px solid ${colors.primary}`,
-            '& #label': {
-                minHeight: '150px',
-                background: '#fff',
-                padding: '20px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                cursor: 'pointer',
-            },
-            '& input': {
-                border: '1px solid green',
-                opacity: 0,
-                position: 'absolute!important',
-                width: '100%',
-                height: '100%',
-                top: 0,
-            }
-        },
-        '& .role': {
-            '& label': {
-                display: 'block'
-            }
-        }
-
-    },
-    uploadedImgBlock: {
-        position: 'relative',
-        borderRadius: '20px',
-        width: '120px',
-        height: '120px',
-        '& img': {
-            border: '1px solid green',
-            width: '100%',
-            height: '100%',
-            borderRadius: '20px',
-
-        },
-        '& .removeImgIcon': {
-            position: 'absolute',
-            top: '0',
-            left: '0',
-            color: 'rgba(255,255,255,.4)',
-            // backgroundColor: 'red',
-            cursor: 'pointer',
-            width: '120px',
-            height: '120px',
-            // '&:hover':{
-            //     backgroundColor:'rgba(255,255,255,.8)'
-            // },
-            // '& svg':{
-            //     width:'100%!important',
-            //     height:'100%!important',
-            // }
-        }
-
-    }
-}));
 
 export default function BaseFormComponent() {
-    const classes = useStyles();
+    const classes = newUser.useStyles();
     const appContext = useContext(AppContext);
     const [keyRoles, setKeyRoles] = useState([]);
     const [valueRoles, setValueRoles] = useState();
@@ -314,7 +234,7 @@ export default function BaseFormComponent() {
         }
         setErrors(prevState => {
             return {
-                ...prevState,confirmPass:message
+                ...prevState, confirmPass: message
             }
         });
         return valid;
@@ -432,85 +352,101 @@ export default function BaseFormComponent() {
     return (<>
         <Box>
             <Paper className={classes.paper}>
-                <form method="post" encType="multipart/form-data">
-                    <Input type="text" placeholder='نام' label='نام خود را وارد کنید'
-                           error={errors.name ? errors.name : ''}
-                           small='' handleClick={e => handleChange(e, "field_name")}/>
+                <Grid container>
+                    {/*<form method="post" encType="multipart/form-data">*/}
+                        {/*----------------------------------------------------------- status ------------------------------------------*/}
+                        <Grid xs={3}>
+                            <Input type="text" placeholder='نام' label='نام خود را وارد کنید'
+                                   error={errors.name ? errors.name : ''}
+                                   small='' handleClick={e => handleChange(e, "field_name")}/>
 
-                    <Input type="text" placeholder='نام خانوادگی' label='نام خانوادگی خود را وارد کنید'
-                           error={errors.family}
-                           small='' handleClick={e => handleChange(e, "field_last_name")}/>
-                    <Box className="inputBlock">
-                        <Input type="text" placeholder='نام کاربری' label='نام کاربری خود را وارد کنید'
-                               small='' handleClick={e => handleChange(e, "name")}/>
-                        {errors.errorName.length ? <div className="error">{errors.errorName.length}</div> : ''}
-                        {errors.errorName.unique ? <div className="error">{errors.errorName.length}</div> : ''}
-                    </Box>
+                            <Input type="text" placeholder='نام خانوادگی' label='نام خانوادگی خود را وارد کنید'
+                                   error={errors.family}
+                                   small='' handleClick={e => handleChange(e, "field_last_name")}/>
+                            <Box className="inputBlock">
+                                <Input type="text" placeholder='نام کاربری' label='نام کاربری خود را وارد کنید'
+                                       small='' handleClick={e => handleChange(e, "name")}/>
+                                {errors.errorName.length ?
+                                    <Typography className="error">{errors.errorName.length}</Typography> : ''}
+                                {errors.errorName.unique ?
+                                    <Typography className="error">{errors.errorName.length}</Typography> : ''}
+                            </Box>
 
-                    <Box className="inputBlock">
-                        <Input type="email" placeholder='ایمیل' label='ایمیل خود را وارد کنید'
-                               small='' handleClick={e => handleChange(e, "mail")}/>
-                        {errors.errorMail.mail ? <div className="error">{errors.errorMail.mail}</div> : ''}
-                    </Box>
+                        </Grid>
 
+                        <Grid xs={3}>
+                            <Box className="inputBlock">
+                                <Input type="email" placeholder='ایمیل' label='ایمیل خود را وارد کنید'
+                                       small='' handleClick={e => handleChange(e, "mail")}/>
+                                {errors.errorMail.mail ?
+                                    <Typography className="error">{errors.errorMail.mail}</Typography> : ''}
+                            </Box>
 
-                    <Box className="inputBlock">
-                        <Input type="password" placeholder='رمز عبور' label='رمز عبور'
-                               small='' handleClick={e => handleChange(e, "pass")} error={errors.pass}/>
-                        {errors.errorPass.length ? <div className="error">{errors.errorPass.length}</div> : ''}
-                        {errors.errorPass.specialChar ?
-                            <div className="error">{errors.errorPass.specialChar}</div> : ''}
-                    </Box>
-                    <Box className="inputBlock">
-                        <Input type="password" placeholder='تکرار رمز عبور' label='تکرار رمز عبور'
-                               small='' handleClick={e => handleConfirmPass(e)} error={errors.confirm_pass}/>
-                        {errors.confirmPass.harmony ? <div className="error">{errors.confirmPass.harmony}</div> : ''}
-                    </Box>
-                    {/*----------------------------------------------------------- status ------------------------------------------*/}
-                    <FormControl component="fieldset">
-                        <label>وضعیت</label>
-                        <RadioGroup aria-label="status" name="status" value={status} onChange={handleStatusChange}>
-                            <FormControlLabel value={false} control={<Radio/>} label="بلاک"/>
-                            <FormControlLabel value={true} control={<Radio/>} label="تایید"/>
-                        </RadioGroup>
-                    </FormControl>
-                    {/*-------------------------------------------------- role -----------------------------------------------------*/}
-                    <Box className="role">
-                        <label>رول مورد نظر را انتخاب کنید:</label>
-                        <br/>
-                        {valueRoles ?
-                            Object.keys(valueRoles).map((keyName, index) => (
-                                <FormControlLabel key={index}
-                                                  control={<Checkbox onChange={(e) => handleCheckRoles(e)}
-                                                                     name="roles"/>}
-                                                  label={valueRoles[keyName]}
-                                                  value={keyRoles[keyName]}
+                            <Box className="inputBlock">
+                                <Input type="password" placeholder='رمز عبور' label='رمز عبور'
+                                       small='' handleClick={e => handleChange(e, "pass")} error={errors.pass}/>
+                                {errors.errorPass.length ?
+                                    <Typography className="error">{errors.errorPass.length}</Typography> : ''}
+                                {errors.errorPass.specialChar ?
+                                    <Typography className="error">{errors.errorPass.specialChar}</Typography> : ''}
+                            </Box>
+                            <Box className="inputBlock">
+                                <Input type="password" placeholder='تکرار رمز عبور' label='تکرار رمز عبور'
+                                       small='' handleClick={e => handleConfirmPass(e)} error={errors.confirm_pass}/>
+                                {errors.confirmPass.harmony ?
+                                    <Typography className="error">{errors.confirmPass.harmony}</Typography> : ''}
+                            </Box>
+                        </Grid>
+
+                        <Grid xs={3}>
+                            <FormControl component="fieldset">
+                                <label><Typography>وضعیت</Typography></label>
+                                <RadioGroup aria-label="status" name="status" value={status}
+                                            onChange={handleStatusChange}>
+                                    <FormControlLabel value={false} control={<Radio/>} label="بلاک"/>
+                                    <FormControlLabel value={true} control={<Radio/>} label="تایید"/>
+                                </RadioGroup>
+                            </FormControl>
+                            {/*-------------------------------------------------- role -----------------------------------------------------*/}
+                            <Box className="role">
+                                <label><Typography>رول مورد نظر را انتخاب کنید:</Typography></label>
+                                <br/>
+                                {valueRoles ?
+                                    Object.keys(valueRoles).map((keyName, index) => (
+                                        <FormControlLabel key={index}
+                                                          control={<Checkbox onChange={(e) => handleCheckRoles(e)}
+                                                                             name="roles"/>}
+                                                          label={valueRoles[keyName]}
+                                                          value={keyRoles[keyName]}
+                                        />
+                                    ))
+                                    : ''}
+                            </Box>
+                            {/*------------------------------------------------------ upload image -----------------------------------------*/}
+                            <Box className="upload">
+                                {files.length == 0 ?
+                                    <label id="label" htmlFor="file"> <Typography>عکس مد نظر خود را انتخاب
+                                        کنید</Typography></label> : ''}
+                                <input
+                                    id="file"
+                                    type="file"
+                                    accept="image/*"
+                                    name="avatar"
+                                    onChange={event => handleFileChange(files.concat(Array.from(event.target.files)))}
                                 />
-                            ))
-                            : ''}
-                    </Box>
-                    {/*------------------------------------------------------ upload image -----------------------------------------*/}
+                                <FileManager
+                                    files={files}
+                                >
+                                    {uploadFiles}
+                                </FileManager>
+                            </Box>
+                            <Box mt={2}>
+                                <ButtonComponent color="primary" clicked={register} text="ثبت"/>
+                            </Box>
+                        </Grid>
 
-                    <Box className="upload">
-                        {files.length == 0 ?
-                            <label id="label" htmlFor="file"> عکس مد نظر خود را انتخاب کنید</label> : ''}
-                        <input
-                            id="file"
-                            type="file"
-                            accept="image/*"
-                            name="avatar"
-                            onChange={event => handleFileChange(files.concat(Array.from(event.target.files)))}
-                        />
-                        <FileManager
-                            files={files}
-                        >
-                            {uploadFiles}
-                        </FileManager>
-                    </Box>
-                    <Box mt={2}>
-                        <ButtonComponent color="primary" clicked={register} text="ثبت"/>
-                    </Box>
-                </form>
+                    {/*</form>*/}
+                </Grid>
             </Paper>
         </Box>
     </>);

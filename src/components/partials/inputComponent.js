@@ -45,14 +45,14 @@ function Input(props) {
     };
     return (<>
         <Box className={classes.inputBlock}>
-            <label htmlFor="">{props.label}</label>
+            <label htmlFor=""><Typography>{props.label}</Typography></label>
             <input name={props.name} type={props.type} onChange={(e,param)=>handleClick(e,param)}
                    // className={classes.redBorder}
                    className={(props.border==='red'? classes.redBorder : '')}
                     placeholder={props.placeholder}
                    value={props.value}
             />
-            {props.small?   <small>{props.small}</small> : ''}
+            {props.small?   <Typography>{props.small}</Typography> : ''}
             <Typography>{props.error}</Typography>
 
         </Box>

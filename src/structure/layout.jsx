@@ -1,22 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import {Box} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid/index';
-import AppContext from './contexts/AppContext';
+import AppContext from './../contexts/AppContext';
 import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
-import './App.css';
+import './../App.css';
 import axios from "axios/index";
-import font from './assets/css/font.css';//fonts
+import font from './../assets/css/font.css';//fonts
 import rtl from 'jss-rtl';
-
-
-import UseWindowDimensions from './main/useWindowDimensions';
+import UseWindowDimensions from './../configs/useWindowDimensions';
 
 import {
-   Router,
+    Router,
 } from "react-router-dom";
 // added components
-import * as components from './assets/js/AppImports'
-import history from './main/History';
+import * as components from './../assets/js/AppImports'
+import history from './../configs/History';
 
 
 const styles = {
