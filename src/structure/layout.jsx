@@ -5,11 +5,14 @@ import AppContext from './../contexts/AppContext';
 import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import './../App.css';
 import axios from "axios/index";
+import local from './../libraries/local-storage';
+
 import font from './../assets/css/font.css';//fonts
 import rtl from 'jss-rtl';
 import UseWindowDimensions from './../configs/useWindowDimensions';
 
 import {
+    Route,
     Router,
 } from "react-router-dom";
 // added components
@@ -27,20 +30,7 @@ const styles = {
     }
 };
 
-const useStyle = makeStyles(() => ({
-    sidebar: {
-        position: 'fixed',
-        width: '300px'
-    },
-    content: {
-        marginRight: 'auto',
-        width: 'calc(100% - 300px)',
-        '@media (max-width: 992px)': {
-            width: '100%'
-        },
-        padding: theme.spacing(2),
-    }
-}));
+
 
 const theme = createMuiTheme({
     direction: 'rtl',
@@ -66,9 +56,8 @@ const theme = createMuiTheme({
 });
 
 export function App() {
-    const {width} = UseWindowDimensions();
     const [showUserDrawer, setShowUserDrawer] = useState(false);
-    const [token, setToken] = useState(localStorage.getItem('token') || '');
+    const [token, setToken] = useState(local.retrieve('token') || '');
     const [user, setUser] = useState({
         name: '',
         field_name: '',
@@ -78,14 +67,15 @@ export function App() {
         confirm_pass: '',
         user_picture: '',
     });
-    const classes = useStyle();
+
     let toggleUserDrawer = (boolean) => {
         setShowUserDrawer(boolean)
     };
+
     let setTokenHandler = (param) => {
         setToken(param);
         if (param === "") {
-            localStorage.removeItem('token');
+            local.remove('token');
             let url = 'http://sitesaz99.rbp/web/user/logout';
             let config = {headers: {'Content-Type': 'application/json'}};
             axios.post(url, config).then((response) => {
@@ -95,6 +85,7 @@ export function App() {
             });
         }
     };
+
     let changeUser = (keyName, value) => {
         setUser(prevState => {
             return {
@@ -102,9 +93,11 @@ export function App() {
             }
         });
     };
+
     useEffect(() => {
-        localStorage.setItem('token', token);
+        local.store('token', token);
     }, [token]);
+
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -120,23 +113,9 @@ export function App() {
                     <div dir="rtl">
                         <Box display="flex" flexDirection="row">
                             <Router history={history}>
-                                {token ? (
-                                        <Grid container>
-                                            <Grid item className={classes.sidebar}>
-                                                {width > 992 ? <Box style={styles.sidebar}>
-                                                    <components.SidebarComponent/>
-                                                </Box> : ''}
-                                            </Grid>
-                                            <Grid item className={classes.content}>
-                                                <Box style={styles.content}>
-                                                    {width > 992 ? <components.HeaderWebComponent/> :
-                                                        <components.HeaderMobileComponent/>}
-                                                    <components.ContentComponent/>
-                                                </Box>
-                                            </Grid>
-                                        </Grid>)
-                                    : (<components.LoginComponent/>)
-                                } </Router>
+                                <Route path="/login" component={components.LoginComponent}/>
+                                <Route path="/" component={components.AuthorizedComponent}/>
+                               </Router>
                         </Box>
                     </div>
                 </AppContext.Provider>

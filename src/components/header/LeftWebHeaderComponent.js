@@ -7,9 +7,12 @@ import {Box} from '@material-ui/core/index';
 import * as styles from './../../assets/js/LeftWebHeader';
 import UserDrawerComponent from "../content/user/partials/UserDrawerComponent";
 import AvatarComponent from "../partials/AvatarComponent";
-import AppContext from './../../contexts/AppContext'
+import AppContext from './../../contexts/AppContext';
+//mulit lang
+import { withNamespaces } from 'react-i18next';
+import i18n from  './../../configs/locales/locales';
 
-export default function LeftWebHeaderComponent() {
+function LeftWebHeaderComponent({t}) {
     const classes = styles.useStyles();
     const appContext= useContext(AppContext);
 
@@ -17,13 +20,19 @@ export default function LeftWebHeaderComponent() {
         appContext.toggleUserDrawer(true);
     };
 
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+    };
+
     return (<>
         <Box display="flex" justifyContent="flex-end" className={classes.leftBlock}>
+            <button onClick={() => changeLanguage('fa')}>fa</button>
+            <button onClick={() => changeLanguage('en')}>en</button>
             <Box className={classes.headerInput}>
                 <label htmlFor="" id="label">
                     <SearchIcon fontSize="small"/>
                 </label>
-                <input type="text" placeholder="جستجو"/>
+                <input type="text" placeholder={t('translation:search')}/>
             </Box>
             <Box className={classes.icons}>
                 <AddIcon/>
@@ -43,3 +52,4 @@ export default function LeftWebHeaderComponent() {
         <UserDrawerComponent/>
     </>);
 }
+export default withNamespaces(['sidebar','users','translation'])(LeftWebHeaderComponent);

@@ -10,6 +10,9 @@ import Pagination from '@material-ui/lab/Pagination';
 import * as colors from './../../../components/partials/Colors';
 import AppContext from './../../../contexts/AppContext';
 import userImg from "../../../assets/media/image/user.jpg";
+//locales
+import { withNamespaces } from 'react-i18next';
+import i18n from  './../../../configs/locales/locales';
 
 import {
     Link
@@ -17,6 +20,8 @@ import {
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
+
+
 
 const useStyles = makeStyles((theme) => ({
     userBlock: {
@@ -103,7 +108,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function BaseFormComponent() {
+function BaseFormComponent({t}) {
+
     const classes = useStyles();
     const [selectedCheckBoxes, setSelectedCheckBoxes] = useState([]);
     const [page, setPage] = useState(1);
@@ -205,7 +211,7 @@ export default function BaseFormComponent() {
     return (<>
         <Paper className={classes.mypaper}>
             <button type="button" onClick={handleOpen}>
-                <Typography>ایجاد کاربر</Typography>
+                <Typography>{t('users:newUser')}</Typography>
             </button>
             <Box>
 
@@ -241,25 +247,25 @@ export default function BaseFormComponent() {
                     />
                 </Box>
                 <Box className="item">
-                    نام
+                    {t('users:name')}
                 </Box>
                 <Box className="item">
-                    نام خانوادگی
+                    {t('users:family')}
                 </Box>
                 <Box className="item">
-                    نام کاربری
+                    {t('users:username')}
                 </Box>
                 <Box className="item">
-                    نقش
+                    {t('users:role')}
                 </Box>
                 <Box className="item">
-                    ایمیل
+                    {t('users:email')}
                 </Box>
                 <Box className="item">
-                    وضعیت
+                    {t('users:status')}
                 </Box>
                 <Box className="item">
-                    عملیات
+                    {t('users:actions')}
                 </Box>
             </Box>
             {users.map((user, index) =>
@@ -312,3 +318,6 @@ export default function BaseFormComponent() {
         </Paper>
     </>);
 }
+
+
+export default withNamespaces('users')(BaseFormComponent);

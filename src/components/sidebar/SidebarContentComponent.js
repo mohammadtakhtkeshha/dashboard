@@ -1,4 +1,4 @@
-import React, {useState,useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -18,9 +18,15 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import AddIcon from '@material-ui/icons/Add';
 import MinimizeIcon from '@material-ui/icons/Minimize';
-import { NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import * as useStyles from './../../assets/js/SidebarContent';
 import AppContext from './../../contexts/AppContext'
+//multi lang
+import {withNamespaces} from "react-i18next";
+import i18n from './../../configs/locales/locales';
+// import { withTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
+
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -55,7 +61,8 @@ function a11yProps(index) {
     };
 }
 
-export default function SimpleTabs() {
+function SimpleTabs({t}) {
+    // const {t} = useTranslation(['translation', 'users']);
     const classes = useStyles.styles();
     const [value, setValue] = useState(0);
     const [extandedCart, setExtandedCart] = useState(false);
@@ -89,7 +96,7 @@ export default function SimpleTabs() {
         }
 
     };
-    let logOut = () =>{
+    let logOut = () => {
         appContext.setTokenHandler('');
     };
     return (
@@ -103,7 +110,7 @@ export default function SimpleTabs() {
                         <Tab label={<LayersIcon/>} {...a11yProps(3)} />
                         <Tab label={<PersonIcon/>} {...a11yProps(4)} />
                         <Tab label={<SettingsIcon/>} {...a11yProps(5)} />
-                        <Tab label={<PowerSettingsNewIcon/>} {...a11yProps(6)} onClick={logOut} />
+                        <Tab label={<PowerSettingsNewIcon/>} {...a11yProps(6)} onClick={logOut}/>
                     </Tabs>
                 </AppBar>
                 <TabPanel value={value} index={0} className={classes.tab} variant="div">
@@ -111,7 +118,7 @@ export default function SimpleTabs() {
                         <List aria-label="main mailbox folders">
                             <ListItem button>
                                 <NavLink to='/dashboard' activeClassName={classes.active}>
-                                <ListItemText primary="داشبورد"/>
+                                    <ListItemText primary={t('sidebar:dashboard')}/>
                                 </NavLink>
                             </ListItem>
                             <ListItem button>
@@ -125,7 +132,7 @@ export default function SimpleTabs() {
                                                                aria-controls="panel1a-content"
                                                                id="panel1a-header"
                                         >
-                                            <Typography className={classes.heading}>داشبورد</Typography>
+                                            <Typography className={classes.heading}>{t('dashboard')}</Typography>
                                         </ExpansionPanelSummary>
                                         <ExpansionPanelDetails>
                                             <List component="nav" aria-label="main mailbox folders">
@@ -175,7 +182,7 @@ export default function SimpleTabs() {
                                                 </ListItem>
                                                 <ListItem>
                                                     {/*<Link to="/custom">*/}
-                                                        <NavLink to="/custom" activeClassName={classes.active}>
+                                                    <NavLink to="/custom" activeClassName={classes.active}>
                                                         <ListItemText primary="فرم سفارشی"/>
                                                     </NavLink>
                                                 </ListItem>
@@ -277,7 +284,7 @@ export default function SimpleTabs() {
                         <List component="nav" aria-label="main mailbox folders">
                             <ListItem button>
                                 <NavLink to='/users' activeClassName={classes.active}>
-                                    <ListItemText primary="کاربران"/>
+                                    <ListItemText primary={t('users')}/>
                                 </NavLink>
                             </ListItem>
                             <ListItem button>
@@ -300,3 +307,5 @@ export default function SimpleTabs() {
         </>
     );
 }
+
+export default withNamespaces('sidebar')(SimpleTabs);

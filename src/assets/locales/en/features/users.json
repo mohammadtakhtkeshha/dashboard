@@ -1,0 +1,10 @@
+{
+  "users": "users",
+  "newUser": "add user",
+  "name": "name",
+  "family": "last name",
+  "email": "email",
+  "role": "role",
+  "status": "status",
+  "actions": "actions"
+}

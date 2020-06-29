@@ -14,10 +14,13 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "highcharts": "^8.1.2",
+    "i18next": "^19.5.1",
+    "i18next-browser-languagedetector": "^5.0.0",
     "jalali-moment": "^3.3.8",
     "jss-rtl": "^0.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-i18next": "^9.0.10",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "reactjs-file-uploader": "^1.0.8"
