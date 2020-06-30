@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import Highcharts from 'highcharts';
 import { Paper} from "@material-ui/core";
-import axios from "axios";
+import dashboardService from "./../../../../core/services/dashboard.service";
 import {makeStyles} from "@material-ui/styles";
 
 const useStyles = makeStyles(theme => ({
@@ -13,8 +13,7 @@ const useStyles = makeStyles(theme => ({
 export default function UserChartComponent() {
     const classes = useStyles();
     let getUsers = () => {
-        let url = "http://sitesaz99.rbp/web/api/user/v2/dashboard/chart";
-        axios.get(url).then((response) => {
+        dashboardService.getUsers().then((response) => {
             let sortUserByDate= response.data.sort((a,b)=>(a.created>b.created)?1:-1);
             setDatesAndNumberOfUsers(sortUserByDate);
         }).catch((error) => {

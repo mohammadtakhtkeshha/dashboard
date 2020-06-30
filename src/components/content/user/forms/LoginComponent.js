@@ -1,23 +1,24 @@
 import React, {useState, useContext} from 'react';
 import {Link,} from "react-router-dom";
-import axios from 'axios/index';
 import {Box, CardMedia, Checkbox, Grid, Paper, Typography} from "@material-ui/core/index";
 import iconImg from '../../../../assets/media/image/logo-sm.png';
 import InputComponent from '../../../partials/inputComponent'
 import ButtonComponent from "../../../partials/ButtonComponent";
-import AppContext from './../../../../contexts/AppContext'
+import AppContext from './../../../../contexts/AppContext';
 //JSS file
 import * as useStyles from './../../../../assets/js/login';
+//requests
+import authService from './../../../../core/services/auth.service';
 
 
 export default function LoginComponent() {
     const classes = useStyles.styles();
-    // const [user, setUser] = useState({name: '', pass: ''});
-    const [errors, setErrors] = useState({errorName: '', errorPass: '',loginError:''});
+
+    const [errors, setErrors] = useState({errorName: '', errorPass: '', loginError: ''});
+
     const context = useContext(AppContext);
+
     let login = () => {
-        let url = "http://sitesaz99.rbp/web/user/login?_format=json";
-        let config = {headers: {'Content-Type': 'application/json'}};
         if (context.user.name === "" || context.user.pass === "") {
             if (context.user.name === "") {
                 setErrors(prevState => {
@@ -47,19 +48,19 @@ export default function LoginComponent() {
             }
             return;
         }
-        axios.post(url, context.user, config).then((response) => {
-            console.log(context);
-            context.setTokenHandler(response.data.csrf_token);
-            setErrors({errorName: false, errorPass: false,loginError: false});
+        authService.login(context.user).then((response) => {
+            setErrors({errorName: false, errorPass: false, loginError: false});
+            window.location = "/";
         }).catch((error) => {
-            setErrors({errorName: false, errorPass: false,loginError: true});
+            setErrors({errorName: false, errorPass: false, loginError: true});
         });
     };
+
     let changeInput = (e, keyName) => {
         let value = e.target.value;
-
-        context.changeUser(keyName,value);
+        context.changeUser(keyName, value);
     };
+
     return (<div className={classes.login}>
         <Grid container style={{justifyContent: 'center'}}>
             <Grid item sm className="grid">
@@ -73,10 +74,12 @@ export default function LoginComponent() {
                         <Typography variant="h5" className="title">
                             ورود
                         </Typography>
-                        {errors.loginError?<Typography className="loginError"> نام کاربری یا رمز عبور اشتباه میباشد!</Typography>
-                            :''}
+                        {errors.loginError ?
+                            <Typography className="loginError"> نام کاربری یا رمز عبور اشتباه میباشد!</Typography>
+                            : ''}
                         <Box className="inputBlock">
-                            <InputComponent name="name" type="text" placeholder="نام کاربری" border={errors.errorName?'red':''}
+                            <InputComponent name="name" type="text" placeholder="نام کاربری"
+                                            border={errors.errorName ? 'red' : ''}
                                             handleClick={e => changeInput(e, 'name')}/>
                             {errors.errorName ? <div className="error">واردکرن نام کاربری الزامی میباشد</div> : ''}
 
@@ -84,7 +87,7 @@ export default function LoginComponent() {
                         <Box className="inputBlock">
                             <InputComponent name="pass" type="password" placeholder="رمز عبور"
                                             handleClick={e => changeInput(e, 'pass')}
-                                            border={errors.errorPass?'red':''}
+                                            border={errors.errorPass ? 'red' : ''}
                             />
                             {errors.errorPass ? <div className="error">واردکرن رمز عبور الزامی میباشد</div> : ''}
 
@@ -113,8 +116,5 @@ export default function LoginComponent() {
                 </Paper>
             </Grid>
         </Grid>
-
     </div>);
-
-
 }

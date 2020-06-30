@@ -7,7 +7,7 @@ import CommentsChartComponent from "./partials/CommentsChartComponent";
 import ContentChartComponent from "./partials/ContentChartComponent";
 import ContentDashboardComponent from "./partials/ContentDashboardComponent";
 import UserDashboardComponent from "./partials/UserDashboardComponent";
-import axios from "axios";
+import dashboardService from "../../../core/services/dashboard.service.js";
 
 
 export default function DashboardComponent() {
@@ -16,8 +16,7 @@ export default function DashboardComponent() {
         getContentList();
     }, []);
     let getContentList = () => {
-        let url = 'http://sitesaz99.rbp/web/api/all_content?_format=json'
-        axios.get(url).then((response) => {
+            dashboardService.getContentLis().then((response) => {
             let contents = response.data;
             setContents([...contents]);
         }).catch((error) => {

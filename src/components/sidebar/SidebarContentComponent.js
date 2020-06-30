@@ -20,7 +20,10 @@ import AddIcon from '@material-ui/icons/Add';
 import MinimizeIcon from '@material-ui/icons/Minimize';
 import {NavLink} from 'react-router-dom';
 import * as useStyles from './../../assets/js/SidebarContent';
-import AppContext from './../../contexts/AppContext'
+import AppContext from './../../contexts/AppContext';
+import authSevice from './../../core/services/auth.service';
+import { useHistory } from "react-router-dom";
+
 //multi lang
 import {withNamespaces} from "react-i18next";
 import i18n from './../../configs/locales/locales';
@@ -63,6 +66,7 @@ function a11yProps(index) {
 
 function SimpleTabs({t}) {
     // const {t} = useTranslation(['translation', 'users']);
+    let history=useHistory();
     const classes = useStyles.styles();
     const [value, setValue] = useState(0);
     const [extandedCart, setExtandedCart] = useState(false);
@@ -96,9 +100,7 @@ function SimpleTabs({t}) {
         }
 
     };
-    let logOut = () => {
-        appContext.setTokenHandler('');
-    };
+
     return (
         <>
             <Box className={classes.root} id="myheader">
@@ -110,7 +112,7 @@ function SimpleTabs({t}) {
                         <Tab label={<LayersIcon/>} {...a11yProps(3)} />
                         <Tab label={<PersonIcon/>} {...a11yProps(4)} />
                         <Tab label={<SettingsIcon/>} {...a11yProps(5)} />
-                        <Tab label={<PowerSettingsNewIcon/>} {...a11yProps(6)} onClick={logOut}/>
+                        <Tab label={<PowerSettingsNewIcon/>} {...a11yProps(6)}  onClick={() => authSevice.logout(history)}/>
                     </Tabs>
                 </AppBar>
                 <TabPanel value={value} index={0} className={classes.tab} variant="div">

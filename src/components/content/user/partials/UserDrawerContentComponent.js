@@ -4,6 +4,7 @@ import {Box, Typography} from "@material-ui/core/index";
 import SettingsIcon from '@material-ui/icons/Settings';
 import * as colors from '../../../partials/Colors.js';
 import EditIcon from '@material-ui/icons/Edit';
+import storage from './../../../../libraries/local-storage';
 import {
     Link
 } from "react-router-dom";
@@ -12,6 +13,7 @@ import {
 import AvatarComponent from "../../../partials/AvatarComponent";
 import ButtonComponent from "../../../partials/ButtonComponent";
 import AppContext from "../../../../contexts/AppContext";
+import {withNamespaces} from "react-i18next";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -87,13 +89,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function UserDrawerContentComponent(props) {
+function UserDrawerContentComponent({t}) {
     const classes = useStyles();
-    const appContext= React.useContext(AppContext);
-
+    const appContext = React.useContext(AppContext);
+    const currentUser = JSON.parse(storage.get('user'));
     let changeUserDrawer = () => {
         appContext.toggleUserDrawer(false);
     };
+
     return (<>
         <Box className={classes.content}>
             <Box className="item avatar">
@@ -102,7 +105,14 @@ export default function UserDrawerContentComponent(props) {
                 <Typography variant="h4" id="name">{appContext.user.field_last_name}</Typography>
                 <Box id="roleBlock">
                     <SettingsIcon id="setting"/>
-                    <span id="role">رهبر تیم</span>
+                    <Typography id="role" variant='h5'>
+                        {currentUser.name}
+                    </Typography>
+                </Box>
+                <Box id="roleBlock">
+                    <Typography id="role" variant='h5'>
+                        {currentUser.roles.toString()}
+                    </Typography>
                 </Box>
                 <Typography variant="h4" id="username">{appContext.user.name}</Typography>
                 <Typography variant="h3" id="email">{appContext.user.mail}</Typography>
@@ -114,7 +124,7 @@ export default function UserDrawerContentComponent(props) {
                 <Link className="link" to="/contents" onClick={changeUserDrawer}>
                     <ButtonComponent
                         className="button" text="مشاهده محتوا ها" color="secondary"
-                                     startIcon={<EditIcon/>}/>
+                        startIcon={<EditIcon/>}/>
                 </Link>
                 <Link className="link" to="/edit-user"
                       onClick={changeUserDrawer}
@@ -129,3 +139,5 @@ export default function UserDrawerContentComponent(props) {
         </Box>
     </>);
 }
+
+export default withNamespaces()(UserDrawerContentComponent);

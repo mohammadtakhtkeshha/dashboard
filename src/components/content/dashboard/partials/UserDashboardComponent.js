@@ -1,6 +1,6 @@
 import React, {useState, useEffect,useContext} from "react";
 import {Box, Typography, Paper} from "@material-ui/core";
-import axios from "axios/index";
+import dashboardService from "./../../../../core/services/dashboard.service";
 import {CardMedia} from '@material-ui/core/index';
 import AppContext from './../../../../contexts/AppContext';
 import userImg from './../../../../assets/media/image/user.jpg';
@@ -43,13 +43,7 @@ export default function UserDashboardComponent() {
     },[]);
 
     let getTenNumberOfUsers=()=>{
-        let url = 'http://sitesaz99.rbp/web/api/user/v2/dashboard';
-        let config={
-            headers:{
-                'Authorization':appContext.token,
-            }
-        };
-        axios.get(url,config).then((response)=>{
+         dashboardService.getTenNumberOfUsers(appContext.token).then((response)=>{
             let users=response.data;
             setUsers([...users]);
         }).catch((error)=>{

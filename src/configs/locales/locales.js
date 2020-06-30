@@ -6,8 +6,8 @@ import sidebarEn from './../../assets/locales/en/features/sidebar.json';
 import sidebarFa from './../../assets/locales/fa/features/sidebar.json';
 import usersFa from './../../assets/locales/fa/features/users.json';
 import usersEn from './../../assets/locales/en/features/users.json';
-import translationEn from './../../assets/locales/en/features/users.json';
-import translationFn from './../../assets/locales/en/features/users.json';
+import translationEn from './../../assets/locales/en/features/translation.json';
+import translationFn from './../../assets/locales/fa/features/translation.json';
 
 // the translations
 const resources = {

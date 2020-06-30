@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from "react";
 import {Box, Typography, Paper} from "@material-ui/core";
 import {CardMedia} from '@material-ui/core/index';
-import axios from "axios/index";
+import dashboardService from "./../../../../core/services/dashboard.service";
 import * as ContentDashboard from './../../../../assets/js/dashboard/ContentDashboar';
 import AppContext from "../../../../contexts/AppContext";
 import userImg from "../../../../assets/media/image/user.jpg";
@@ -41,21 +41,16 @@ export default function ContentDashboardComponent() {
     useEffect(()=>{
         getTenNumberOfContents();
     },[]);
-    let getTenNumberOfContents=()=>{
-        let url='http://sitesaz99.rbp/web/api/all_content/dashboard?_format=json';
-        let config={
-            headers:{
-                Authorization:appContext.token,
-            }
-        };
-      axios.get(url,config).then((response)=>{
-          let contents=response.data;
 
+    let getTenNumberOfContents=()=>{
+        dashboardService.getTenNumberOfContents(appContext.token).then((response)=>{
+          let contents=response.data;
             setContents([...contents]);
       }).catch((error)=>{
             console.log(error);
       });
     };
+
     return (
         <>
             <Paper className={classes.paper}>

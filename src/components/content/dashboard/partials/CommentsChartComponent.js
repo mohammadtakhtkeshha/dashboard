@@ -3,7 +3,7 @@ import {Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import Highcharts from 'highcharts';
 import moment from 'jalali-moment';
-import axios from "axios/index";
+import dashboardService from "./../../../../core/services/dashboard.service";
 
 
 const useStyles = makeStyles((theme) => (
@@ -18,8 +18,7 @@ const useStyles = makeStyles((theme) => (
 export default function CommentsChartComponent() {
     const classes = useStyles();
     let getContents = () => {
-        let url = 'http://sitesaz99.rbp/web/last_comment/chart?_format=json';
-        axios.get(url).then((response) => {
+        dashboardService.getContents().then((response) => {
             let comments = response.data;
             let sortCommentsByDate = comments.sort((a, b) => (a.created > b.created) ? 1 : -1);
             getCustomComment([...sortCommentsByDate]);

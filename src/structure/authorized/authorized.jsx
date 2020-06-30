@@ -4,6 +4,7 @@ import {Box} from "@material-ui/core";
 import * as components from "../../assets/js/AppImports";
 import {makeStyles} from "@material-ui/core/styles";
 import UseWindowDimensions from "../../configs/useWindowDimensions";
+
 const useStyle = makeStyles((theme) => ({
     sidebar: {
         position: 'fixed',
@@ -18,6 +19,7 @@ const useStyle = makeStyles((theme) => ({
         padding: theme.spacing(2),
     }
 }));
+
 const styles = {
     sidebar: {
         height: '100vh',
@@ -27,6 +29,7 @@ const styles = {
         flexGrow: 5
     }
 };
+
 export default function AuthorizedComponent() {
     const classes = useStyle();
     const {width} = UseWindowDimensions();

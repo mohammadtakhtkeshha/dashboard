@@ -1,3 +1,8 @@
 {
-  "search": "search"
+  "search": "search",
+  "operator": "actions",
+  "filter": "filter",
+  "delete": "delete",
+  "block": "block",
+  "notBlock": "not block"
 }

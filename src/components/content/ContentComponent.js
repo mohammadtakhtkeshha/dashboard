@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid/index';
 import {makeStyles} from "@material-ui/core/styles/index";
 import {Paper} from '@material-ui/core/index';
 import TestComponent from './../TestComponent'
+import SecondTestComponent from './../SecondTestComponent';
 
 
 import {
@@ -51,7 +52,8 @@ function HeaderComponent() {
             </Grid>
             {/*<div className={classes.test} style={{paddingTop:'60px'}}>*/}
             {/*    this is for test*/}
-            {/*    <TestComponent></TestComponent>*/}
+                {/*<TestComponent></TestComponent>*/}
+                {/*<SecondTestComponent/>*/}
             {/*</div>*/}
         </>
     );

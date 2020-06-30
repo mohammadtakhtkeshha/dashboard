@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Box, Typography, Grid, Paper} from "@material-ui/core";
-import axios from "axios/index";
+import dashboardService from "./../../../../core/services/dashboard.service";
 import {CardMedia} from '@material-ui/core/index';
 import userImg from "../../../../assets/media/image/user.jpg";
 import * as CommentDashboard from './../../../../assets/js/dashboard/CommentDashboard';
@@ -36,8 +36,7 @@ export default function CommentDashboardComponent() {
         getTenNumberOfComments();
     },[]);
     let getTenNumberOfComments=()=>{
-        let url = 'http://sitesaz99.rbp/web/last_comment/dashboard?_format=json';
-        axios.get(url).then((response)=>{
+        dashboardService.getTenNumberOfComments().then((response)=>{
             let comments=response.data;
             setComments([...comments]);
         }).catch((error)=>{

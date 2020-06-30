@@ -5,7 +5,10 @@ import AppContext from './../contexts/AppContext';
 import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import './../App.css';
 import axios from "axios/index";
-import local from './../libraries/local-storage';
+import storage from './../libraries/local-storage';
+import ProtectedRoute from'./../shared/routes/protected-routes';
+import { tokenKey } from "../config.json";
+
 
 import font from './../assets/css/font.css';//fonts
 import rtl from 'jss-rtl';
@@ -29,7 +32,6 @@ const styles = {
         flexGrow: 5
     }
 };
-
 
 
 const theme = createMuiTheme({
@@ -57,7 +59,6 @@ const theme = createMuiTheme({
 
 export function App() {
     const [showUserDrawer, setShowUserDrawer] = useState(false);
-    const [token, setToken] = useState(local.retrieve('token') || '');
     const [user, setUser] = useState({
         name: '',
         field_name: '',
@@ -72,19 +73,7 @@ export function App() {
         setShowUserDrawer(boolean)
     };
 
-    let setTokenHandler = (param) => {
-        setToken(param);
-        if (param === "") {
-            local.remove('token');
-            let url = 'http://sitesaz99.rbp/web/user/logout';
-            let config = {headers: {'Content-Type': 'application/json'}};
-            axios.post(url, config).then((response) => {
-                debugger
-            }).catch((error) => {
-                console.log(error)
-            });
-        }
-    };
+
 
     let changeUser = (keyName, value) => {
         setUser(prevState => {
@@ -94,9 +83,9 @@ export function App() {
         });
     };
 
-    useEffect(() => {
-        local.store('token', token);
-    }, [token]);
+    // useEffect(() => {
+    //     local.store(tokenKey, token);
+    // }, [token]);
 
     return (
         <>
@@ -105,17 +94,16 @@ export function App() {
                     value={{
                         showUserDrawer: showUserDrawer,
                         toggleUserDrawer: toggleUserDrawer,
-                        setTokenHandler: setTokenHandler,
                         changeUser: changeUser,
                         user: user,
-                        token: token,
+                        token: storage.get(tokenKey),
                     }}>
                     <div dir="rtl">
                         <Box display="flex" flexDirection="row">
                             <Router history={history}>
                                 <Route path="/login" component={components.LoginComponent}/>
-                                <Route path="/" component={components.AuthorizedComponent}/>
-                               </Router>
+                                <ProtectedRoute path="/" component={components.AuthorizedComponent}/>
+                            </Router>
                         </Box>
                     </div>
                 </AppContext.Provider>
