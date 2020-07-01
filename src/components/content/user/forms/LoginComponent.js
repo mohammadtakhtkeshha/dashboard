@@ -49,9 +49,11 @@ export default function LoginComponent() {
             return;
         }
         authService.login(context.user).then((response) => {
+            debugger
             setErrors({errorName: false, errorPass: false, loginError: false});
             window.location = "/";
         }).catch((error) => {
+            debugger
             setErrors({errorName: false, errorPass: false, loginError: true});
         });
     };

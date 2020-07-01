@@ -7,19 +7,23 @@ import sidebarFa from './../../assets/locales/fa/features/sidebar.json';
 import usersFa from './../../assets/locales/fa/features/users.json';
 import usersEn from './../../assets/locales/en/features/users.json';
 import translationEn from './../../assets/locales/en/features/translation.json';
-import translationFn from './../../assets/locales/fa/features/translation.json';
+import translationFa from './../../assets/locales/fa/features/translation.json';
+import contentsFa from './../../assets/locales/fa/features/contents.json';
+import contentsEn from './../../assets/locales/en/features/contents.json';
 
 // the translations
 const resources = {
     en: {
         sidebar:sidebarEn,
         users:usersEn,
-        translation:translationEn
+        translation:translationEn,
+        contents:contentsEn
     },
     fa:{
         sidebar: sidebarFa,
         users:usersFa,
-        translation:translationFn
+        translation:translationFa,
+        contents:contentsFa
     }
 };
 

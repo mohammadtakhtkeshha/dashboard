@@ -12,6 +12,12 @@ import AppContext from './../../../contexts/AppContext';
 import userImg from "../../../assets/media/image/user.jpg";
 import Input from "./../../partials/inputComponent";
 
+import NewUser from './forms/NewUserComponent';
+
+//icons
+import CancelIcon from '@material-ui/icons/Cancel';
+
+
 // import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 // import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 // import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -32,171 +38,45 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import TextField from "@material-ui/core/TextField";
-
-
-const useStyles = makeStyles((theme) => ({
-    userBlock: {
-        overflow: 'auto',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '11px 0px',
-        '& .MuiCheckbox-root': {
-            padding: '0 0 0 15px',
-        },
-        '&:not(:last-child)': {
-            borderBottom: '1px solid #d9dbe4',
-        },
-        '& .item': {
-            width: '100%',
-            '&:first-child': {
-                flexShrink: 2
-            },
-            '&.firstName': {
-                display: 'flex',
-                '& .name': {
-                    paddingRight: '5px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                },
-                '& .imgBlock': {
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: '100%',
-                    overflow: 'hidden',
-                    width: '50px',
-                    height: '50px',
-                    '& .MuiCardMedia-root': {
-                        width: '50px!important',
-                        height: '50px!important',
-                    },
-                    '& img': {
-                        width: '100%',
-                        height: '100%',
-                    }
-                },
-            }
-        }
-    },
-    pagination: {
-        display: 'flex',
-        justifyContent: 'center',
-        padding: '20px',
-        '& ul': {
-            '& li': {
-                '& button': {
-                    borderRadius: '0',
-                    margin: '0',
-                    borderColor: colors.grey.tooLight,
-                    color: colors.primary,
-                    padding: '13px'
-                }
-            }
-        },
-        '& .MuiPaginationItem-page.Mui-selected': {
-            backgroundColor: colors.primary,
-            color: 'white',
-            border: '0'
-        }
-    },
-    mypaper: {
-        margin: theme.spacing(2),
-        padding: theme.spacing(2),
-        '& .head': {
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: "center",
-            '& button': {
-                backgroundColor: colors.primary,
-                border: 0,
-                cursor: 'pointer',
-                padding: '10px 15px',
-                lineHeight: '14px',
-                color: colors.white,
-                borderRadius: '5px',
-            },
-            '& .text': {
-                fontSize: '14px',
-                fontWeight: 600,
-            }
-        },
-        '& .actions': {
-            '& #actions': {
-                '& .MuiTextField-root': {
-                    width: '100%',
-                }
-            }
-        },
-        '& .filter': {
-            '& #details': {
-                '& .inputBlock': {
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    width:'100%',
-                    '& input': {
-                        margin:'5px 5px',
-                        padding: '18.5px 14px'
-                    },
-                    '& div': {
-                        width:'24%',
-                        padding: '2px 5px',
-                    }
-
-                }
-            }
-
-        }
-    },
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    paper: {
-        backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-    },
-}));
-const currencies = [
-    {
-        value: 'USD',
-        label: '$',
-    },
-    {
-        value: 'EUR',
-        label: '€',
-    },
-    {
-        value: 'BTC',
-        label: '฿',
-    },
-    {
-        value: 'JPY',
-        label: '¥',
-    },
-];
+//styles
+import styles from './../../../assets/js/user/users'
 
 
 function BaseFormComponent({t}) {
-    const [currency, setCurrency] = React.useState('EUR');
+    const [role, setRole] = React.useState('EUR');
+    const [keyRoles, setKeyRoles] = useState([]);
+    const [valueRoles, setValueRoles] = useState();
     const [action, setAction] = React.useState('EUR');
+    const roles = [
+        {
+            value: 'USD',
+            label: '$',
+        },
+        {
+            value: 'EUR',
+            label: '€',
+        },
+        {
+            value: 'BTC',
+            label: '฿',
+        },
+        {
+            value: 'JPY',
+            label: '¥',
+        },
+    ];
     const actions = [
         {value: 'delete', label: t('translation:delete')},
         {value: 'block', label: t('translation:block')},
         {value: 'noBlock', label: t('translation:notBlock')}
     ];
     const handleFilterChange = (event) => {
-        setCurrency(event.target.value);
+        setRole(event.target.value);
     };
     const handleActionChange = (event) => {
         setAction(event.target.value);
-    }
-    const classes = useStyles();
+    };
+    const classes = styles.useStyles();
     const [selectedCheckBoxes, setSelectedCheckBoxes] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
@@ -212,13 +92,15 @@ function BaseFormComponent({t}) {
         setOpen(false);
     };
     // ------------------  modal --------------------------
+
+    // ------------------ get roles ---------------------------
     let getUsers = (page) => {
         const config = {
             headers: {
                 Authorization: appContext.token
             }
         };
-        axios.get(`http://sitesaz99.rbp/web/api/user/v2?page=${page}`, config).then(
+        axios.get(`http://dash.webrbp.ir/api/user/v2?page=${page}`, config).then(
             function (response) {
                 let currentList = [];
                 response.data.rows.map((item) => {
@@ -260,7 +142,6 @@ function BaseFormComponent({t}) {
         getUsers(page);
     }, []);
 
-    // console.log(totalPage);
     let allCheckboxHandler = (e) => {
         let ids = users.map(user => user.uid);
         let usersLength = users.length;
@@ -275,7 +156,6 @@ function BaseFormComponent({t}) {
         }
 
     };
-    console.log(appContext.token);
     let isCheckedHandler = (e, user) => {
         let currentId = user.uid;
         if (e.currentTarget.checked) {
@@ -293,7 +173,6 @@ function BaseFormComponent({t}) {
         setPage(value);
         getUsers(value);
     };
-    console.log(users);
     return (<>
         <Paper className={classes.mypaper}>
             <Box className="head">
@@ -315,23 +194,25 @@ function BaseFormComponent({t}) {
                         <Box className="inputBlock">
                             <Input placeholder={t('users:name')}/>
                             <Input placeholder={t('users:family')}/>
+                            <Input placeholder={t('users:role')}/>
                             <Input placeholder={t('users:username')}/>
                             <Input placeholder={t('users:email')}/>
+
                             <TextField
-                                id="outlined-select-currency-native"
+                                id="outlined-select-role-native"
                                 select
-                                value={currency}
+                                value={role}
                                 onChange={handleFilterChange}
                                 SelectProps={{
                                     native: true,
                                 }}
                                 variant="outlined"
                             >
-                                {currencies.map((option) => (
-                                    <option key={option.value} value={option.value}>
-                                        {option.label}
+                                {valueRoles?Object.keys(valueRoles).map((keyname,index) => (
+                                    <option key={valueRoles[keyname]} value={valueRoles[keyname]}>
+                                        {valueRoles[keyname]}
                                     </option>
-                                ))}
+                                )):''}
                             </TextField>
                         </Box>
 
@@ -349,7 +230,7 @@ function BaseFormComponent({t}) {
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails id="actions">
                         <TextField
-                            id="outlined-select-currency-native"
+                            id="outlined-select-role-native"
                             select
                             value={action}
                             onChange={handleActionChange}
@@ -382,11 +263,16 @@ function BaseFormComponent({t}) {
                         timeout: 500,
                     }}
                 >
-                    <Fade in={open}>
-                        <div className={classes.paper}>
-                            <h2 id="transition-modal-title">Transition modal</h2>
-                            <p id="transition-modal-description">react-transition-group animates me.</p>
-                            <button onClick={handleClose}>cancel</button>
+                    <Fade in={open}  id="modal">
+                        <div className={classes.paper} dir="rtl">
+                            <Box className="header">
+                                <button onClick={handleClose}>
+                                    <CancelIcon/>
+                                </button>
+                            </Box>
+                            <Box className="body">
+                            <NewUser/>
+                            </Box>
                         </div>
                     </Fade>
                 </Modal>
@@ -419,7 +305,7 @@ function BaseFormComponent({t}) {
                     {t('users:status')}
                 </Box>
                 <Box className="item">
-                    {t('users:actions')}
+                    {t('translation:actions')}
                 </Box>
             </Box>
             {users.map((user, index) =>

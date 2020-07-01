@@ -7,6 +7,7 @@ import EditUserComponent from '../components/content/user/forms/EditUserComponen
 import ContentsComponent from '../components/content/content/ContentsComponent';
 import CommentsComponent from '../components/content/comment/CommentsComponent';
 import DashboardComponent from '../components/content/dashboard/DashboardComponent';
+import NewContentComponent from '../components/content/content/forms/NewContentComponent';
 
 import React from "react";
 
@@ -47,6 +48,11 @@ export const routes = [
         path: '/contents',
         breadcrumbs: () => <BreadcrumbsComponent bread="محتواها"/>,
         component: () => <ContentsComponent/>
+    },
+    {
+        path: '/new-content',
+        breadcrumbs: () => <BreadcrumbsComponent bread="محتواها"/>,
+        component: () => <NewContentComponent/>
     },
     {
         path: '/dashboard',

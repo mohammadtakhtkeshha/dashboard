@@ -6,7 +6,6 @@
   "email": "email",
   "role": "role",
   "status": "status",
-  "actions": "actions",
   "username": "username",
   "usersList": "users list"
 }

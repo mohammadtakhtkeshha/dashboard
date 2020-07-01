@@ -3,8 +3,8 @@ import * as colors from "../../../components/partials/Colors";
 
 export const useStyles = makeStyles((theme) => ({
     paper: {
-        padding: theme.spacing(2),
-        margin: theme.spacing(2),
+        // padding: theme.spacing(2),
+        // margin: theme.spacing(2),
         '& .MuiBox-root': {
             '& input[type=file]': {
                 position: 'relative',
@@ -48,7 +48,8 @@ export const useStyles = makeStyles((theme) => ({
             '& label': {
                 display: 'block'
             }
-        }
+        },
+
 
     },
     uploadedImgBlock: {
@@ -81,5 +82,8 @@ export const useStyles = makeStyles((theme) => ({
             // }
         }
 
+    },
+    block:{
+        margin:'20px'
     }
 }));

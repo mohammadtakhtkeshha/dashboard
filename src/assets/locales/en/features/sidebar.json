@@ -1,4 +1,8 @@
 {
   "dashboard": "dashboard",
-  "users":"users"
+  "users":"users",
+  "content": "content",
+  "newContent": "new content"
+
+
 }

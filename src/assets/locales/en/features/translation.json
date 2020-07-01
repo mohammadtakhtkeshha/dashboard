@@ -4,5 +4,9 @@
   "filter": "filter",
   "delete": "delete",
   "block": "block",
-  "notBlock": "not block"
+  "notBlock": "not block",
+  "actions": "actions",
+  "date": "date",
+  "published": "published",
+  "unpublished": "unpublished"
 }

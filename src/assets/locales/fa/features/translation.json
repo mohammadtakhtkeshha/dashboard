@@ -4,5 +4,9 @@
   "filter": "جستجوی پیشرفته",
   "delete": "حذف",
   "block": "مسدود",
-  "notBlock": "غیر مسدود"
+  "notBlock": "غیر مسدود",
+  "actions": "عملیات",
+  "date": "تاریخ",
+  "published": "منتشر شده",
+  "unpublished": "بلاک"
 }
