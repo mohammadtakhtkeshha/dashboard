@@ -118,7 +118,7 @@ function BaseFormComponent({t}) {
                 setUsers(currentList);
                 setTotalPage(response.data.pager.total_pages);
             }
-        ).catch(function (error) {
+        ).catch( (error)=> {
             console.log(error);
         });
     };
@@ -173,6 +173,15 @@ function BaseFormComponent({t}) {
         setPage(value);
         getUsers(value);
     };
+
+    const headers =[
+        {name: 'srgvsege',className:'esgrtg'},
+        {name: 'srgvsege',className:'esgrtg'},
+        {name: 'srgvsege',className:'esgrtg'},
+        {name: 'srgvsege',className:'esgrtg'},
+        {name: 'srgvsege',className:'esgrtg'},
+        {name: 'srgvsege',className:'esgrtg'},
+    ]
     return (<>
         <Paper className={classes.mypaper}>
             <Box className="head">

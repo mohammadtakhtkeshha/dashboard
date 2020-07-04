@@ -8,6 +8,7 @@ import ContentChartComponent from "./partials/ContentChartComponent";
 import ContentDashboardComponent from "./partials/ContentDashboardComponent";
 import UserDashboardComponent from "./partials/UserDashboardComponent";
 import dashboardService from "../../../core/services/dashboard.service.js";
+import {Get} from "../../../utils/authFetch";
 
 
 export default function DashboardComponent() {
@@ -15,13 +16,17 @@ export default function DashboardComponent() {
     useEffect(() => {
         getContentList();
     }, []);
-    let getContentList = () => {
-            dashboardService.getContentLis().then((response) => {
-            let contents = response.data;
-            setContents([...contents]);
-        }).catch((error) => {
-            console.log(error);
-        });
+    let getContentList =async () => {
+        const data =await Get('rhrdhrd',);
+        if(data){
+
+        }
+        //     dashboardService.getContentLis().then((response) => {
+        //     let contents = response.data;
+        //     setContents([...contents]);
+        // }).catch((error) => {
+        //     console.log(error);
+        // });
     };
     return (
         <>

@@ -106,12 +106,12 @@ function UserDrawerContentComponent({t}) {
                 <Box id="roleBlock">
                     <SettingsIcon id="setting"/>
                     <Typography id="role" variant='h5'>
-                        {currentUser.name}
+                        {/*{currentUser.name}*/}
                     </Typography>
                 </Box>
                 <Box id="roleBlock">
                     <Typography id="role" variant='h5'>
-                        {currentUser.roles.toString()}
+                        {/*{currentUser.roles.toString()}*/}
                     </Typography>
                 </Box>
                 <Typography variant="h4" id="username">{appContext.user.name}</Typography>

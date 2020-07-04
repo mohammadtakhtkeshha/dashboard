@@ -8,7 +8,7 @@ const ProtectedRoute = ({ component: Component, render, ...rest }) => {
         <Route
             {...rest}
             render={(props) => {
-                if (!storage.get(tokenKey)) {
+                if (!storage.get('user')) {
                     return <Redirect to="/login" />;
                 } else {
                     return Component ? <Component {...props} /> : render(props);

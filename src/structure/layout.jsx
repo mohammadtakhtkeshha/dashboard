@@ -21,6 +21,7 @@ import {
 // added components
 import * as components from './../assets/js/AppImports'
 import history from './../configs/History';
+//notification
 
 
 const styles = {
@@ -73,8 +74,6 @@ export function App() {
         setShowUserDrawer(boolean)
     };
 
-
-
     let changeUser = (keyName, value) => {
         setUser(prevState => {
             return {
@@ -86,6 +85,7 @@ export function App() {
     // useEffect(() => {
     //     local.store(tokenKey, token);
     // }, [token]);
+
 
     return (
         <>

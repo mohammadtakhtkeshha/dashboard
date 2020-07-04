@@ -37,3 +37,11 @@
     url("../fonts/iran-yekan-700.ttf") format("truetype");
     font-weight: 700;
 }
+
+*{
+    font-family: primary-font !important;
+}
+
+::placeholder{
+    font-size: .6rem;
+}

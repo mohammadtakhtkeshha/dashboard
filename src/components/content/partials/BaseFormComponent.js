@@ -1,9 +1,11 @@
-import React, {useEffect} from "react";
+import React, {useEffect,useContext } from "react";
 import Grid from '@material-ui/core/Grid/index';
 import {Paper} from '@material-ui/core/index';
-import { ToastProvider, useToasts } from 'react-toast-notifications';
 import {makeStyles} from "@material-ui/core/styles";
-
+//notificaiton
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import storage from './../../../libraries/local-storage';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -15,24 +17,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const { addToast } = useToasts();
-useEffect(()=>{
-    addToast('error.message', { appearance: 'error' })
-},[]);
-// const App = () => (
-//     <ToastProvider>
-//         <BaseFormComponent />
-//     </ToastProvider>
-// )
 export default function BaseFormComponent() {
+    console.log(storage.get('token'));
     const classes = useStyles();
-    return (<ToastProvider>
+    useEffect(()=>{
+        toast(`welcome `);
+    },[storage.user]);
+    return (<>
         <Grid container>
             <Grid item xs={12} sm={12}>
                 <Paper className={classes.paper}>
-                    base
+                    <ToastContainer />
                 </Paper>
             </Grid>
         </Grid>
-    </ToastProvider>);
+    </>);
 }
