@@ -23,7 +23,6 @@ import * as useStyles from './../../assets/js/SidebarContent';
 import AppContext from './../../contexts/AppContext';
 import authSevice from './../../core/services/auth.service';
 import {useHistory} from "react-router-dom";
-
 //multi lang
 import {withNamespaces} from "react-i18next";
 import i18n from './../../configs/locales/locales';
@@ -73,6 +72,7 @@ function SimpleTabs({t}) {
     const [extandedDashboard, setExtandedDashboard] = useState(false);
     const [extandedForm, setExtandedForm] = useState(false);
     const appContext = useContext(AppContext);
+    const dir = t('translation:direction');
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -100,10 +100,9 @@ function SimpleTabs({t}) {
         }
 
     };
-
     return (
         <>
-            <Box className={classes.root} id="myheader">
+            <Box className={classes.sidebar}>
                 <AppBar position="static">
                     <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                         <Tab label={<PieChartIcon/>} {...a11yProps(0)} />
@@ -111,141 +110,158 @@ function SimpleTabs({t}) {
                         <Tab label={<PersonIcon/>} {...a11yProps(2)} />
                         <Tab label={<LayersIcon/>} {...a11yProps(3)} />
                         <Tab label={<BrushIcon/>} {...a11yProps(4)} />
-
                         <Tab label={<SettingsIcon/>} {...a11yProps(5)} />
                         <Tab label={<PowerSettingsNewIcon/>} {...a11yProps(6)}
                              onClick={() => authSevice.logout(history)}/>
                     </Tabs>
                 </AppBar>
-                <TabPanel value={value} index={0} className={classes.tab} variant="div">
-                    <Box className={classes.list}>
-                        <List aria-label="main mailbox folders">
-                            <ListItem button>
-                                <NavLink to='/dashboard' activeClassName={classes.active}>
-                                    <ListItemText primary={t('sidebar:dashboard')}/>
-                                </NavLink>
-                            </ListItem>
-                            <ListItem style={{textAlign: "right"}}>
-                                <Box className={classes.collapsible}>
-                                    <ExpansionPanel>
-                                        <ExpansionPanelSummary onClick={toggleCartIcon}
-                                                               expandIcon={extandedCart ? <AddIcon/> : <MinimizeIcon/>}
-                                                               aria-controls="panel1a-content"
-                                                               id="panel1a-header"
-                                        >
-                                            <Typography className={classes.heading}>{t('dashboard')}</Typography>
-                                        </ExpansionPanelSummary>
-                                        <ExpansionPanelDetails>
-                                            <List component="nav" aria-label="main mailbox folders">
-                                                <ListItem button>
-                                                    <ListItemText primary="ایتم "/>
-                                                </ListItem>
-                                            </List>
-                                        </ExpansionPanelDetails>
-                                    </ExpansionPanel>
-                                </Box>
-                            </ListItem>
-                            <ListItem style={{textAlign: "right"}}>
-                                <Box className={classes.collapsible}>
-                                    <ExpansionPanel>
-                                        <ExpansionPanelSummary onClick={toggleDashboarIcon}
-                                                               expandIcon={extandedDashboard ? <AddIcon/> :
-                                                                   <MinimizeIcon/>}
-                                                               aria-controls="panel1a-content"
-                                                               id="panel1a-header">
-                                            <Typography className={classes.heading}>ساختن کارت</Typography>
-                                        </ExpansionPanelSummary>
-                                        <ExpansionPanelDetails>
-                                            <List component="nav" aria-label="main mailbox folders">
-                                                <ListItem button>
-                                                    <ListItemText primary="کارت"/>
-                                                </ListItem>
-                                            </List>
-                                        </ExpansionPanelDetails>
-                                    </ExpansionPanel>
-                                </Box>
-                            </ListItem>
-                            <ListItem style={{textAlign: "right"}}>
-                                <Box className={classes.collapsible}>
-                                    <ExpansionPanel>
-                                        <ExpansionPanelSummary onClick={toggleFormIcon}
-                                                               expandIcon={extandedForm ? <AddIcon/> : <MinimizeIcon/>}
-                                                               aria-controls="panel1a-content"
-                                                               id="panel1a-header">
-                                            <Typography className={classes.heading}>فرم پایه اصلی</Typography>
-                                        </ExpansionPanelSummary>
-                                        <ExpansionPanelDetails>
-                                            <List component="nav" aria-label="main mailbox folders">
-                                                <ListItem>
-                                                    <NavLink to="/" activeClassName={classes.active} exact>
-                                                        <ListItemText primary="فرم پایه"/>
-                                                    </NavLink>
-                                                </ListItem>
-                                                <ListItem>
-                                                    {/*<Link to="/custom">*/}
-                                                    <NavLink to="/custom" activeClassName={classes.active}>
-                                                        <ListItemText primary="فرم سفارشی"/>
-                                                    </NavLink>
-                                                </ListItem>
-                                            </List>
-                                        </ExpansionPanelDetails>
-                                    </ExpansionPanel>
-                                </Box>
-                            </ListItem>
-                        </List>
-                    </Box>
-                </TabPanel>
-                <TabPanel value={value} index={1} className={classes.tab}>
-                    <Box className={classes.list}>
-                        <List component="nav" aria-label="main mailbox folders">
-                            <ListItem button>
-                                <Link className="link" to="/contents">
-                                    <ListItemText primary={t('sidebar:content')}/>
-                                </Link>
-                            </ListItem>
-                            <ListItem button>
-                                <Link className="link" to="/new-content">
-                                    <ListItemText primary={t('sidebar:newContent')}/>
-                                </Link>
-                            </ListItem>
-                        </List>
-                    </Box>
-                </TabPanel>
-                <TabPanel value={value} index={2} className={classes.tab}>
-                    <Box className={classes.list}>
-                        <List component="nav" aria-label="main mailbox folders">
-                            <ListItem button>
-                                <NavLink to='/users' activeClassName={classes.active}>
-                                    <ListItemText primary={t('users')}/>
-                                </NavLink>
-                            </ListItem>
-                            <ListItem button>
-                                <NavLink to='/new-user' activeClassName={classes.active}>
-                                    <ListItemText primary="افزودن کاربر جدید"/>
-                                </NavLink>
-                            </ListItem>
+                <TabPanel value={value} index={0} id="fiiiiiiiiiiiiiiiiiiiiiiiiiiiirst"
+                          className={[classes.tab, dir === 'rtl' ? classes.marginLeft : classes.marginRight]}
+                          variant="div">
+                    <List aria-label="main mailbox folders" className="list">
+                        <ListItem className={["navLink", "items"]}>
+                            <NavLink to='/dashboard' activeClassName={classes.active}>
+                                <ListItemText primary={t('sidebar:dashboard')}/>
+                            </NavLink>
+                        </ListItem>
+                        <ListItem className={["collapsible", "items"]} id="collllllllllllllllllllllapse"
+                                  style={{textAlign: "right"}}>
+                            <ExpansionPanel>
+                                <ExpansionPanelSummary className="summary" onClick={toggleCartIcon}
+                                                       expandIcon={extandedCart ? <AddIcon/> : <MinimizeIcon/>}
+                                                       aria-controls="panel1a-content"
+                                                       id="panel1a-header"
+                                >
+                                    <Typography className={classes.heading}>{t('dashboard')}</Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails id="detaaaaaaaaaaaaaaaaaaaaaaaaaaaails" className="details">
+                                    <List component="nav" aria-label="main mailbox folders">
+                                        <ListItem>
+                                            <NavLink to='/comments' activeClassName={classes.active}>
+                                                <ListItemText primary={t('sidebar:comments')}/>
+                                            </NavLink>
+                                        </ListItem>
+                                    </List>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        </ListItem>
+                        <ListItem button className={["collapsible", "items"]}
+                                  style={{textAlign: "right"}}>
+                            <ExpansionPanel>
+                                <ExpansionPanelSummary className="summary"
+                                                       onClick={toggleDashboarIcon}
+                                                       expandIcon={extandedDashboard ? <AddIcon/> :
+                                                           <MinimizeIcon/>}
+                                                       aria-controls="panel1a-content"
+                                                       id="panel1a-header">
+                                    <Typography className={classes.heading}>ساختن کارت</Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails className="details">
+                                    <List component="nav" aria-label="main mailbox folders">
+                                        <ListItem button>
+                                            <NavLink to="/contents" activeClassName={classes.active}>
+                                                <ListItemText primary={t('sidebar:contents')}/>
+                                            </NavLink>
+                                        </ListItem>
+                                        <ListItem button>
+                                            <NavLink to="/comments" activeClassName={classes.active}>
+                                                <ListItemText primary={t('sidebar:comments')}/>
+                                            </NavLink>
+                                        </ListItem>
+                                    </List>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        </ListItem>
+                        {/*<ListItem button className={["collapsible", "items"]}*/}
+                        {/*          style={{textAlign: "right"}}>*/}
+                        {/*    <ExpansionPanel>*/}
+                        {/*        <ExpansionPanelSummary className="summary"*/}
+                        {/*                               onClick={toggleFormIcon}*/}
+                        {/*                               expandIcon={extandedForm ? <AddIcon/> : <MinimizeIcon/>}*/}
+                        {/*                               aria-controls="panel1a-content"*/}
+                        {/*                               id="panel1a-header">*/}
+                        {/*            <Typography className={classes.heading}>فرم پایه اصلی</Typography>*/}
+                        {/*        </ExpansionPanelSummary>*/}
+                        {/*        <ExpansionPanelDetails className="details">*/}
+                        {/*            <List component="nav" aria-label="main mailbox folders">*/}
+                        {/*                <ListItem className={["collapsible", "items"]}>*/}
+                        {/*                    <NavLink to="/" activeClassName={classes.active} exact>*/}
+                        {/*                        <ListItemText primary="فرم پایه"/>*/}
+                        {/*                    </NavLink>*/}
+                        {/*                </ListItem>*/}
+                        {/*                <ListItem>*/}
+                        {/*                    <NavLink to="/custom" activeClassName={classes.active}>*/}
+                        {/*                        <ListItemText primary="فرم سفارشی"/>*/}
+                        {/*                    </NavLink>*/}
+                        {/*                </ListItem>*/}
+                        {/*            </List>*/}
+                        {/*        </ExpansionPanelDetails>*/}
+                        {/*    </ExpansionPanel>*/}
+                        {/*</ListItem>*/}
+                    </List>
 
-                        </List>
-                    </Box>
                 </TabPanel>
 
-                <TabPanel value={value} index={3} className={classes.tab}>
-                    Item Three
-                </TabPanel>
-                <TabPanel value={value} index={4} className={classes.tab}>
-                    Item Three
+
+                <TabPanel value={value} index={1}
+                          className={[classes.tab, dir === 'rtl' ? classes.marginLeft : classes.marginRight]}
+                          id="secooooooooooooooooooooooond">
+                    <List className="list" aria-label="main mailbox folders">
+                        <ListItem button className={["navLink", "items"]}>
+                            <NavLink to="/contents" activeClassName={classes.active}>
+                                <ListItemText primary={t('sidebar:content')}/>
+                            </NavLink>
+                        </ListItem>
+                        <ListItem button className={["navLink", "items"]}>
+                            <NavLink to="/new-content" activeClassName={classes.active}>
+                                <ListItemText primary={t('sidebar:newContent')}/>
+                            </NavLink>
+                        </ListItem>
+                    </List>
                 </TabPanel>
 
-                <TabPanel value={value} index={5} className={classes.tab}>
-                    Item Three
-                </TabPanel>
-                <TabPanel value={value} index={6} className={classes.tab}>
-                    Item Three
-                </TabPanel>
+
+                {/*<TabPanel value={value} index={2} className={classes.tab}>*/}
+                {/*    <Box className={classes.list}>*/}
+                {/*        <List component="nav" aria-label="main mailbox folders">*/}
+                {/*            <ListItem button>*/}
+                {/*                <NavLink to='/users' activeClassName={classes.active}>*/}
+                {/*                    <ListItemText primary={t('users')}/>*/}
+                {/*                </NavLink>*/}
+                {/*            </ListItem>*/}
+                {/*            <ListItem button>*/}
+                {/*                <NavLink to='/new-user' activeClassName={classes.active}>*/}
+                {/*                    <ListItemText primary="افزودن کاربر جدید"/>*/}
+                {/*                </NavLink>*/}
+                {/*            </ListItem>*/}
+
+                {/*        </List>*/}
+                {/*    </Box>*/}
+                {/*</TabPanel>*/}
+                {/*<TabPanel value={value} index={3} className={classes.tab}>*/}
+                {/*    <Box>*/}
+                {/*        item three*/}
+                {/*    </Box>*/}
+                {/*</TabPanel>*/}
+                {/*<TabPanel value={value} index={4} className={classes.tab}>*/}
+                {/*   <Box>*/}
+                {/*       item four*/}
+                {/*   </Box>*/}
+                {/*</TabPanel>*/}
+                {/*<TabPanel value={value} index={5} className={classes.tab}>*/}
+                {/*    <Box>*/}
+                {/*        item*/}
+                {/*    </Box>*/}
+                {/*</TabPanel>*/}
+                {/*<TabPanel value={value} index={6} className={classes.tab}>*/}
+                {/*    <Box>*/}
+                {/*        Item Three*/}
+                {/*    </Box>*/}
+                {/*</TabPanel>*/}
             </Box>
 
         </>
     );
 }
 
-export default withNamespaces('sidebar')(SimpleTabs);
+export default withNamespaces(['sidebar', 'translation'])(SimpleTabs);

@@ -7,5 +7,14 @@
   "role": "نقش",
   "status": "وضعیت",
   "username": "نام کاربری",
-  "usersList": "لیست کاربران"
+  "usersList": "لیست کاربران",
+  "enter your name":"نام خود را وارد کنید",
+  "enter your family": "نام خانوادگی خود را وارد کنید",
+  "enter your username": "نام کاربری خود را وارد کنید",
+  "enter your password": "پسورد خود را وارد کنید",
+  "choose role": "رول مورد نظر خود را انتخاب کنید:",
+  "enter your email": "ایمیل خود را وارد کنید ",
+  "password": "رمزعبور",
+  "confirm password": "تکرار رمزعبور",
+  "choose your picture": "عکس خود را انتخاب کنید"
 }

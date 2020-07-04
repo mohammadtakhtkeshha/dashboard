@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid/index';
 import {Paper} from '@material-ui/core/index';
 import {makeStyles} from "@material-ui/core/styles";
 //notificaiton
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer , toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import storage from './../../../libraries/local-storage';
 

@@ -4,6 +4,7 @@ import {Box} from "@material-ui/core";
 import * as components from "../../assets/js/AppImports";
 import {makeStyles} from "@material-ui/core/styles";
 import UseWindowDimensions from "../../configs/useWindowDimensions";
+import {withNamespaces} from "react-i18next";
 
 const useStyle = makeStyles((theme) => ({
     sidebar: {
@@ -11,12 +12,17 @@ const useStyle = makeStyles((theme) => ({
         width: '300px'
     },
     content: {
-        marginRight: 'auto',
         width: 'calc(100% - 300px)',
         '@media (max-width: 992px)': {
             width: '100%'
         },
         padding: theme.spacing(2),
+    },
+    marginLeft: {
+        marginLeft: 'auto',
+    },
+    marginRight: {
+        marginRight: 'auto',
     }
 }));
 
@@ -30,9 +36,10 @@ const styles = {
     }
 };
 
-export default function AuthorizedComponent() {
+function AuthorizedComponent({t}) {
     const classes = useStyle();
     const {width} = UseWindowDimensions();
+    let dir =t('translation:marginDir');
 
     return (
         <Grid container>
@@ -41,12 +48,15 @@ export default function AuthorizedComponent() {
                     <components.SidebarComponent/>
                 </Box> : ''}
             </Grid>
-            <Grid item className={classes.content}>
+            <Grid item className={[dir==="marginLeft"?classes.marginRight:classes.marginLeft,classes.content]}>
                 <Box style={styles.content}>
                     {width > 992 ? <components.HeaderWebComponent/> :
                         <components.HeaderMobileComponent/>}
                     <components.ContentComponent/>
                 </Box>
             </Grid>
+
         </Grid>)
 }
+
+export default withNamespaces(['translation', 'sidebar'])(AuthorizedComponent);

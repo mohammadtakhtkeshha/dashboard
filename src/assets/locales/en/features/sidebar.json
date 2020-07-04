@@ -2,7 +2,10 @@
   "dashboard": "dashboard",
   "users":"users",
   "content": "content",
-  "newContent": "new content"
+  "newContent": "new content",
+  "main-page": "main page",
+  "comments": "comments",
+  "contents": "contents"
 
 
 }

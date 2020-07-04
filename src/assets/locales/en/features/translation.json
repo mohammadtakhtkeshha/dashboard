@@ -8,5 +8,9 @@
   "actions": "actions",
   "date": "date",
   "published": "published",
-  "unpublished": "unpublished"
+  "unpublished": "unpublished",
+  "confirm": "confirm",
+  "register": "register",
+  "direction": "ltr",
+  "marginDir": "marginRight"
 }

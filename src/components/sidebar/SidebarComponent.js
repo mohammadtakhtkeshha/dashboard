@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SimpleTabs() {
 
 const classes=useStyles();
+
     return (
         <>
             <Paper>

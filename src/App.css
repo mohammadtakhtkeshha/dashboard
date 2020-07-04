@@ -20,6 +20,8 @@ body {
 /*    !*url('../../public/fonts/iransans/woff2/IRANSansWeb.woff2') format('woff2')*!*/
 /*}*/
 
-
+a{
+    text-decoration: none!important;
+}
 
 /*@import url('https://fonts.googleapis.com/css?family=Lato');*/

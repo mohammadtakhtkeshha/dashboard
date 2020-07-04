@@ -15,7 +15,7 @@ export const routes = [
     {
         path: '/',
         exact: true,
-        breadcrumbs: () => <BreadcrumbsComponent bread="صفحه اصلی"/>,
+        breadcrumbs: () => <BreadcrumbsComponent bread="main-page"/>,
         component: () => <BaseFormComponent/>
     },
     {
@@ -25,7 +25,7 @@ export const routes = [
     },
     {
         path: '/users',
-        breadcrumbs: () => <BreadcrumbsComponent bread="کاربران"/>,
+        breadcrumbs: () => <BreadcrumbsComponent bread="users"/>,
         component: () => <UsersComponent/>
     },
     {

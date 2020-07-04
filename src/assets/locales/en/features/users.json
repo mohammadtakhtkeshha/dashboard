@@ -7,5 +7,14 @@
   "role": "role",
   "status": "status",
   "username": "username",
-  "usersList": "users list"
+  "usersList": "users list",
+  "enter your name": "enter you name",
+  "enter your family": "enter you last name",
+  "enter your username": "enter you username",
+  "enter your password": "enter you password",
+  "choose role": "choose your role",
+  "enter your email": "enter your email",
+  "password": "password",
+  "confirm password": "confirm password",
+  "choose your picture": "choose your picture"
 }

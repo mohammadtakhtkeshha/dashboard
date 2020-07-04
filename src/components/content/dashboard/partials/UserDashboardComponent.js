@@ -57,7 +57,7 @@ export default function UserDashboardComponent() {
                 <Typography variant="h4" className={classes.title}>لیست کاربران</Typography>
                 {/*---------------------------*/}
                 <TableContainer component={Paper} className={classes.userBlock}>
-                    <Table className={classes.table} aria-label="customized table">
+                    <Table className="table" aria-label="customized table">
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell align="right">تصویر</StyledTableCell>
@@ -69,7 +69,6 @@ export default function UserDashboardComponent() {
                         <TableBody>
                             {users.map((user, index) =>
                                 <StyledTableRow key={index}>
-                                    {/*<StyledTableCell align="right" >{row.name}</StyledTableCell>*/}
                                     <StyledTableCell align="right">
                                         <Box className="imgBlock">
                                             <CardMedia id="img">

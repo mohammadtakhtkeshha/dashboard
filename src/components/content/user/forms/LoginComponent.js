@@ -9,9 +9,10 @@ import AppContext from './../../../../contexts/AppContext';
 import * as useStyles from './../../../../assets/js/login';
 //requests
 import authService from './../../../../core/services/auth.service';
+import {withNamespaces} from "react-i18next";
 
 
-export default function LoginComponent() {
+ function LoginComponent() {
     const classes = useStyles.styles();
 
     const [errors, setErrors] = useState({errorName: '', errorPass: '', loginError: ''});
@@ -120,3 +121,6 @@ export default function LoginComponent() {
         </Grid>
     </div>);
 }
+
+export default LoginComponent;
+// export default withNamespaces(['translation'])(LoginComponent);

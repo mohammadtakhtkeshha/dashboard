@@ -19,7 +19,7 @@ export const useStyles = makeStyles((theme) => ({
         '&:not(:last-child)': {
             borderBottom: '1px solid #d9dbe4',
         },
-        '& .item': {
+        '& .table': {
             width: '100%',
             '& .imgBlock':{
                 width:'50px!important',

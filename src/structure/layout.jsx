@@ -1,27 +1,17 @@
 import React, {useState, useEffect} from 'react';
+import Direction from './direction';
+import i18n from './../configs/locales/locales';
 import {Box} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid/index';
 import AppContext from './../contexts/AppContext';
 import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import './../App.css';
-import axios from "axios/index";
 import storage from './../libraries/local-storage';
-import ProtectedRoute from'./../shared/routes/protected-routes';
 import { tokenKey } from "../config.json";
-
-
+//font
 import font from './../assets/css/font.css';//fonts
 import rtl from 'jss-rtl';
-import UseWindowDimensions from './../configs/useWindowDimensions';
-
-import {
-    Route,
-    Router,
-} from "react-router-dom";
 // added components
-import * as components from './../assets/js/AppImports'
-import history from './../configs/History';
-//notification
 
 
 const styles = {
@@ -98,14 +88,15 @@ export function App() {
                         user: user,
                         token: storage.get(tokenKey),
                     }}>
-                    <div dir="rtl">
-                        <Box display="flex" flexDirection="row">
-                            <Router history={history}>
-                                <Route path="/login" component={components.LoginComponent}/>
-                                <ProtectedRoute path="/" component={components.AuthorizedComponent}/>
-                            </Router>
-                        </Box>
-                    </div>
+                    {/*<div dir="rtl">*/}
+                    {/*    <Box display="flex" flexDirection="row">*/}
+                    {/*        <Router history={history}>*/}
+                    {/*            <Route path="/login" component={components.LoginComponent}/>*/}
+                    {/*            <ProtectedRoute path="/" component={components.AuthorizedComponent}/>*/}
+                    {/*        </Router>*/}
+                    {/*    </Box>*/}
+                    {/*</div>*/}
+                    <Direction/>
                 </AppContext.Provider>
             </ThemeProvider>
         </>

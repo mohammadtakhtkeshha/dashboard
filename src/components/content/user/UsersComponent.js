@@ -100,7 +100,7 @@ function BaseFormComponent({t}) {
                 Authorization: appContext.token
             }
         };
-        axios.get(`http://dash.webrbp.ir/api/user/v2?page=${page}`, config).then(
+        axios.get(`http://sitesaz99.rbp/web/api/user/v2?page=${page}`, config).then(
             function (response) {
                 let currentList = [];
                 response.data.rows.map((item) => {
@@ -122,6 +122,7 @@ function BaseFormComponent({t}) {
             console.log(error);
         });
     };
+
     let deleteUser = (e) => {
         let id = e.currentTarget.value;
         let url = `http://sitesaz99.rbp/web/user/${id}?_format=json`;

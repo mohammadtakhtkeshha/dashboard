@@ -20,9 +20,10 @@ import * as newUser from './../../../../assets/js/user/NewUser';
 //configs
 import {tokenKey} from './../../../../config.json';
 import storage from './../../../../libraries/local-storage';
+import {withNamespaces} from 'react-i18next';
 
 
-export default function BaseFormComponent() {
+ function BaseFormComponent({t}) {
     const classes = newUser.useStyles();
     const appContext = useContext(AppContext);
     const [keyRoles, setKeyRoles] = useState([]);
@@ -366,15 +367,15 @@ export default function BaseFormComponent() {
                     {/*----------------------------------------------------------- status ------------------------------------------*/}
                     <Grid xs={6}>
                         <Box className={classes.block}>
-                            <Input type="text" placeholder='نام' label='نام خود را وارد کنید'
+                            <Input type="text" placeholder={t('users:name')} label={t('users:enter your name')}
                                    error={errors.name ? errors.name : ''}
                                    small='' handleClick={e => handleChange(e, "field_name")}/>
 
-                            <Input type="text" placeholder='نام خانوادگی' label='نام خانوادگی خود را وارد کنید'
+                            <Input type="text" placeholder={t('users:family')} label={t('users:enter your family')}
                                    error={errors.family}
                                    small='' handleClick={e => handleChange(e, "field_last_name")}/>
                             <Box className="inputBlock">
-                                <Input type="text" placeholder='نام کاربری' label='نام کاربری خود را وارد کنید'
+                                <Input type="text" placeholder={t('users:username')} label={t('users:enter your username')}
                                        small='' handleClick={e => handleChange(e, "name")}/>
                                 {errors.errorName.length ?
                                     <Typography className="error">{errors.errorName.length}</Typography> : ''}
@@ -382,16 +383,16 @@ export default function BaseFormComponent() {
                                     <Typography className="error">{errors.errorName.length}</Typography> : ''}
                             </Box>
                             <FormControl component="fieldset">
-                                <label><Typography>وضعیت</Typography></label>
+                                <label><Typography>{t('users:status')}</Typography></label>
                                 <RadioGroup aria-label="status" name="status" value={status}
                                             onChange={handleStatusChange}>
-                                    <FormControlLabel value={false} control={<Radio/>} label="بلاک"/>
-                                    <FormControlLabel value={true} control={<Radio/>} label="تایید"/>
+                                    <FormControlLabel value={false} control={<Radio/>} label={t('translation:block')}/>
+                                    <FormControlLabel value={true} control={<Radio/>} label={t('translation:confirm')}/>
                                 </RadioGroup>
                             </FormControl>
                             {/*-------------------------------------------------- role -----------------------------------------------------*/}
                             <Box className="role">
-                                <label><Typography>رول مورد نظر را انتخاب کنید:</Typography></label>
+                                <label><Typography>{t('users:choose role')}</Typography></label>
                                 <br/>
                                 {valueRoles ?
                                     Object.keys(valueRoles).map((keyName, index) => (
@@ -411,13 +412,13 @@ export default function BaseFormComponent() {
                     <Grid xs={6}>
                         <Box className={classes.block}>
                             <Box className="inputBlock">
-                                <Input type="email" placeholder='ایمیل' label='ایمیل خود را وارد کنید'
+                                <Input type="email" placeholder={t('users:email')} label={t('users:enter your email')}
                                        small='' handleClick={e => handleChange(e, "mail")}/>
                                 {errors.errorMail.mail ?
                                     <Typography className="error">{errors.errorMail.mail}</Typography> : ''}
                             </Box>
                             <Box className="inputBlock">
-                                <Input type="password" placeholder='رمز عبور' label='رمز عبور'
+                                <Input type="password" placeholder={t('users:password')} label={t('users:password')}
                                        small='' handleClick={e => handleChange(e, "pass")} error={errors.pass}/>
                                 {errors.errorPass.length ?
                                     <Typography className="error">{errors.errorPass.length}</Typography> : ''}
@@ -425,7 +426,7 @@ export default function BaseFormComponent() {
                                     <Typography className="error">{errors.errorPass.specialChar}</Typography> : ''}
                             </Box>
                             <Box className="inputBlock">
-                                <Input type="password" placeholder='تکرار رمز عبور' label='تکرار رمز عبور'
+                                <Input type="password" placeholder={t('users:confirm password')} label={t('users:confirm password')}
                                        small='' handleClick={e => handleConfirmPass(e)} error={errors.confirm_pass}/>
                                 {errors.confirmPass.harmony ?
                                     <Typography className="error">{errors.confirmPass.harmony}</Typography> : ''}
@@ -433,8 +434,9 @@ export default function BaseFormComponent() {
                             {/*------------------------------------------------------ upload image -----------------------------------------*/}
                             <Box className="upload">
                                 {files.length == 0 ?
-                                    <label id="label" htmlFor="file"> <Typography>عکس مد نظر خود را انتخاب
-                                        کنید</Typography></label> : ''}
+                                    <label id="label" htmlFor="file"> <Typography>
+                                        {t('users:choose your picture')}
+                                    </Typography></label> : ''}
                                 <input
                                     id="file"
                                     type="file"
@@ -449,7 +451,7 @@ export default function BaseFormComponent() {
                                 </FileManager>
                             </Box>
                             <Box mt={2}>
-                                <ButtonComponent color="primary" clicked={register} text="ثبت"/>
+                                <ButtonComponent color="primary" clicked={register} text={t('translation:register')}/>
                             </Box>
                         </Box>
                     </Grid>
@@ -459,3 +461,5 @@ export default function BaseFormComponent() {
         </Box>
     </>);
 }
+
+export default withNamespaces (['users','translation']) (BaseFormComponent);

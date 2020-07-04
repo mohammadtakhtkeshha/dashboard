@@ -8,5 +8,10 @@
   "actions": "عملیات",
   "date": "تاریخ",
   "published": "منتشر شده",
-  "unpublished": "بلاک"
+  "unpublished": "بلاک",
+  "confirm": "تایید",
+  "register": "ثبت",
+  "direction": "rtl",
+  "marginDir": "marginLeft"
+
 }

@@ -29,7 +29,10 @@ const grey = {
     light:'#a7abc3 ',
     veryLight : 'rgba(0,0,0,.1)',
     tooLight : '#dee2e6',
-    base:'#e9ecef'
+    base:'#e9ecef',
+    sidebarHover:'rgba(0, 0, 0, 0.04)',
+    sidebarActive:'#ebebeb',
+
 };
 const danger={
     base:'#e04b4b',

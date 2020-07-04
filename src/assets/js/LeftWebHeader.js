@@ -21,7 +21,12 @@ export const useStyles = makeStyles((theme) => ({
         flexGrow: 2,
         textAlign: 'left',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent:'flex-end',
+        '& .item':{
+            marginLeft:'6px',
+            marginRight:'6px',
+        }
     },
     headerInput: {
         position: 'relative',
@@ -38,20 +43,19 @@ export const useStyles = makeStyles((theme) => ({
             },
         },
         '& #label': {
-            top: '54%',
-            left: '4%',
+            top: '50%',
+            height:'1rem',
             color: 'blue',
             position: 'absolute',
-            transform: 'translateY(-50%)'
-        }
-
+            transform: 'translateY(-50%)',
+        },
     },
     icons: {
         backgroundColor: 'white',
         [theme.breakpoints.down('md')]: {
             backgroundColor: '#e1e1e1',
         },
-        marginRight: '12px',
+        // marginRight: '12px',
         borderRadius: '5px',
         width: '40px',
         height: '35px',
@@ -75,8 +79,14 @@ export const useStyles = makeStyles((theme) => ({
         }
     },
     avatar: {
-        marginRight: '12px',
+        // marginRight: '12px',
         cursor : 'pointer'
-    }
+    },
+    leftInputLabel:{
+        left: '4%',
+    },
+    rightInputLabel:{
+        right: '4%',
+    },
 }));
 

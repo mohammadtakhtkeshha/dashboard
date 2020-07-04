@@ -25,7 +25,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 // import TextField from '@material-ui/core/TextField';
 //locales
 import {withNamespaces} from 'react-i18next';
-import i18n from './../../../configs/locales/locales';
+// import i18n from './../../../configs/locales/locales';
 
 import {
     Link

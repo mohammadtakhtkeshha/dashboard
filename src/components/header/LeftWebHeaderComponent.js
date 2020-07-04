@@ -23,29 +23,29 @@ function LeftWebHeaderComponent({t}) {
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
     };
-
+let dir = t('translation:direction');
+console.log(dir);
     return (<>
-        <Box display="flex" justifyContent="flex-end" className={classes.leftBlock}>
+        <Box className={classes.leftBlock}>
             <button onClick={() => changeLanguage('fa')}>fa</button>
             <button onClick={() => changeLanguage('en')}>en</button>
-            <Box className={classes.headerInput}>
-                <label htmlFor="" id="label">
+            <Box className={[classes.headerInput,"item"]}>
+                <label htmlFor="" id="label" className={dir==='rtl'?classes.leftInputLabel:classes.rightInputLabel}>
                     <SearchIcon fontSize="small"/>
                 </label>
                 <input type="text" placeholder={t('translation:search')}/>
             </Box>
-            <Box className={classes.icons}>
+            <Box className={[classes.icons ,"item"]}>
                 <AddIcon/>
             </Box>
-            <Box className={classes.icons} id="message">
+            <Box className={ [classes.icons ,"item"]} id="message">
                 <Box></Box>
                 <MessageIcon/>
-
             </Box>
-            <Box className={classes.icons}>
+            <Box className={ [classes.icons ,"item"]}>
                 <NotificationImportantIcon fontSize="small"/>
             </Box>
-            <Box className={classes.avatar}  onClick={changeDrawerUser}>
+            <Box className={ [classes.avatar ,"item"]}  onClick={changeDrawerUser}>
                 <AvatarComponent/>
             </Box>
         </Box>

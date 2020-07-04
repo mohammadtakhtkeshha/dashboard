@@ -6,6 +6,7 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
+import {withNamespaces} from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
     breadcrumbs: {
@@ -24,12 +25,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function RightWebHeaderComponent() {
+ function RightWebHeaderComponent({t}) {
     const classes = useStyles();
     return (
         <>
             <Box display="flex" flexDirection="column" className={classes.breadcrumbs}>
-                <Typography variant="h3" component="h3">داشبورد</Typography>
+                <Typography variant="h3" component="h3">{t('sidebar:dashboard')}</Typography>
                 <Switch>
                     {routes.routes.map((route) => (
                         <Route
@@ -44,3 +45,5 @@ export default function RightWebHeaderComponent() {
         </>
     );
 }
+
+export default withNamespaces(['sidebar'])(RightWebHeaderComponent);
