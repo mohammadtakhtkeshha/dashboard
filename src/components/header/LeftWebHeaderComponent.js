@@ -12,9 +12,13 @@ import AppContext from './../../contexts/AppContext';
 import { withNamespaces } from 'react-i18next';
 import i18n from  './../../configs/locales/locales';
 
+//local storage
+import storage from './../../libraries/local-storage'
+
 function LeftWebHeaderComponent({t}) {
     const classes = styles.useStyles();
     const appContext= useContext(AppContext);
+    let lang=storage.get('lang');
 
     let changeDrawerUser = () => {
         appContext.toggleUserDrawer(true);
@@ -22,15 +26,16 @@ function LeftWebHeaderComponent({t}) {
 
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
+        storage.store('lang',lng);
     };
-let dir = t('translation:direction');
-console.log(dir);
+
+
     return (<>
         <Box className={classes.leftBlock}>
             <button onClick={() => changeLanguage('fa')}>fa</button>
             <button onClick={() => changeLanguage('en')}>en</button>
             <Box className={[classes.headerInput,"item"]}>
-                <label htmlFor="" id="label" className={dir==='rtl'?classes.leftInputLabel:classes.rightInputLabel}>
+                <label htmlFor="" id="label" className={lang==='fa'?classes.leftInputLabel:classes.rightInputLabel}>
                     <SearchIcon fontSize="small"/>
                 </label>
                 <input type="text" placeholder={t('translation:search')}/>

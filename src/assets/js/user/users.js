@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
         '& .item': {
             width: '100%',
             '&:first-child': {
-                flexShrink: 2
+                flexShrink: 2,
+
             },
             '&.firstName': {
                 display: 'flex',

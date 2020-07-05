@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
 function UserDrawerContentComponent({t}) {
     const classes = useStyles();
     const appContext = React.useContext(AppContext);
-    const currentUser = JSON.parse(storage.get('user'));
+    // const currentUser = JSON.parse(storage.get('user'));
     let changeUserDrawer = () => {
         appContext.toggleUserDrawer(false);
     };

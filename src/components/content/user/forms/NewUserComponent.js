@@ -18,7 +18,7 @@ import Grid from '@material-ui/core/Grid/index';
 import * as newUser from './../../../../assets/js/user/NewUser';
 
 //configs
-import {tokenKey} from './../../../../config.json';
+import {tokenKey} from '../../../../adf';
 import storage from './../../../../libraries/local-storage';
 import {withNamespaces} from 'react-i18next';
 

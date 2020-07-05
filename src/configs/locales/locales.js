@@ -10,6 +10,8 @@ import translationEn from './../../assets/locales/en/features/translation.json';
 import translationFa from './../../assets/locales/fa/features/translation.json';
 import contentsFa from './../../assets/locales/fa/features/contents.json';
 import contentsEn from './../../assets/locales/en/features/contents.json';
+//localstorage
+import storage from './../../libraries/local-storage'
 
 // the translations
 const resources = {
@@ -32,7 +34,7 @@ i18n
     .use(detector)
     .init({
         resources,
-        lng: "fa",
+        lng: storage.get('lang') || 'fa',
         ns: ['sidebar', 'users','translation'],
         keySeparator: false, // we do not use keys in form messages.welcome
         interpolation: {

@@ -1,25 +1,37 @@
 import axios from "axios";
-import {apiUrl, tokenKey} from "../../config.json";
+import {apiUrl} from "../../adf";
 import storage from "../../libraries/local-storage";
+import authUrl from './../../utils/urls/auth.urls'
 
 export async function login(user) {
-    let url = `${apiUrl}/user/login?_format=json`;
+    let url = authUrl.login;
     let config = {headers: {'content-type': 'application/json'}};
-    const result = await axios.post(url, user, config);
-    const {current_user, csrf_token} = result.data;
-    storage.store(tokenKey, csrf_token);
-    storage.store('user', JSON.stringify(current_user));
+    const data = new URLSearchParams();
+    data.append('grant_type',  'password');
+    data.append('client_id',  '8bf93f4b-4bdc-47cd-a7d5-1fd8114cbc9c');
+    data.append('client_secret', '147/*');
+    data.append('username', user.name);
+    data.append('password', user.pass);
+
+    const result = await axios.post(url, data);
+    const {access_token} = result.data;
+    debugger
+    storage.store(process.env.REACT_APP_TOKEN_KEY, access_token);
     return result;
 }
 
 export async function logout(history) {
-    // let url = 'http://sitesaz99.rbp/web/user/logout';
-    let url = `${apiUrl}/user/logout`;
-    let config = {headers: {'content-type': 'application/json'}};
+    let url = authUrl.logOut;
+    let config = {
+        headers: {
+            'content-type': 'application/json',
+        }
+    };
+
     await axios.post(url, config);
-    storage.remove(tokenKey);
+    storage.remove(process.env.REACT_APP_TOKEN_KEY);
     history.push("/login");
     storage.remove('token');
 }
 
-export default {login,logout};
+export default {login, logout};

@@ -23,5 +23,11 @@ body {
 a{
     text-decoration: none!important;
 }
+.textRight{
+    text-align: right;
+}
+.textLeft{
+    text-align: left;
+}
 
 /*@import url('https://fonts.googleapis.com/css?family=Lato');*/

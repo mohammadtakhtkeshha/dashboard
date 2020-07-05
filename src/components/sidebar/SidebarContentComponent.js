@@ -18,16 +18,17 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import AddIcon from '@material-ui/icons/Add';
 import MinimizeIcon from '@material-ui/icons/Minimize';
-import {Link, NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import * as useStyles from './../../assets/js/SidebarContent';
-import AppContext from './../../contexts/AppContext';
+import * as global from './../../assets/js/CssGlobal';
 import authSevice from './../../core/services/auth.service';
 import {useHistory} from "react-router-dom";
+//local storage
+import storage from './../../libraries/local-storage'
 //multi lang
 import {withNamespaces} from "react-i18next";
-import i18n from './../../configs/locales/locales';
-// import { withTranslation } from 'react-i18next';
-// import { useTranslation } from 'react-i18next';
+import AppContext from "../../contexts/AppContext";
+
 
 
 function TabPanel(props) {
@@ -49,7 +50,6 @@ function TabPanel(props) {
         </Box>
     );
 }
-
 TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.any.isRequired,
@@ -62,17 +62,24 @@ function a11yProps(index) {
         'aria-controls': `simple-tabpanel-${index}`,
     };
 }
-
 function SimpleTabs({t}) {
-    // const {t} = useTranslation(['translation', 'users']);
     let history = useHistory();
     const classes = useStyles.styles();
+    const gClasses = global.styles();
     const [value, setValue] = useState(0);
     const [extandedCart, setExtandedCart] = useState(false);
     const [extandedDashboard, setExtandedDashboard] = useState(false);
     const [extandedForm, setExtandedForm] = useState(false);
-    const appContext = useContext(AppContext);
-    const dir = t('translation:direction');
+    const lang = storage.get('lang');
+    let isFa = (lang) => {
+        if (lang === 'fa') {
+            return true;
+        }
+        return false;
+    }
+    let currrentAlign = () => {
+        return isFa(lang) ? gClasses.textRight : gClasses.textLeft;
+    };
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -100,6 +107,12 @@ function SimpleTabs({t}) {
         }
 
     };
+    let clearLocal=()=>{
+        storage.remove(process.env.REACT_APP_TOKEN_KEY);
+        console.log('remover');
+    }
+    console.log(storage.get(process.env.REACT_APP_TOKEN_KEY));
+
     return (
         <>
             <Box className={classes.sidebar}>
@@ -110,22 +123,24 @@ function SimpleTabs({t}) {
                         <Tab label={<PersonIcon/>} {...a11yProps(2)} />
                         <Tab label={<LayersIcon/>} {...a11yProps(3)} />
                         <Tab label={<BrushIcon/>} {...a11yProps(4)} />
-                        <Tab label={<SettingsIcon/>} {...a11yProps(5)} />
+                        <Tab label={<SettingsIcon/>} {...a11yProps(5)}
+                             onClick={() => clearLocal()}
+                        />
                         <Tab label={<PowerSettingsNewIcon/>} {...a11yProps(6)}
                              onClick={() => authSevice.logout(history)}/>
                     </Tabs>
                 </AppBar>
                 <TabPanel value={value} index={0} id="fiiiiiiiiiiiiiiiiiiiiiiiiiiiirst"
-                          className={[classes.tab, dir === 'rtl' ? classes.marginLeft : classes.marginRight]}
+                          className={[classes.tab, lang === 'fa' ? classes.marginLeft : classes.marginRight]}
                           variant="div">
                     <List aria-label="main mailbox folders" className="list">
                         <ListItem className={["navLink", "items"]}>
-                            <NavLink to='/dashboard' activeClassName={classes.active}>
+                            <NavLink to='/dashboard' id="test" activeClassName={classes.active}
+                                     className={currrentAlign()}>
                                 <ListItemText primary={t('sidebar:dashboard')}/>
                             </NavLink>
                         </ListItem>
-                        <ListItem className={["collapsible", "items"]} id="collllllllllllllllllllllapse"
-                                  style={{textAlign: "right"}}>
+                        <ListItem className={["collapsible", "items"]}>
                             <ExpansionPanel>
                                 <ExpansionPanelSummary className="summary" onClick={toggleCartIcon}
                                                        expandIcon={extandedCart ? <AddIcon/> : <MinimizeIcon/>}
@@ -137,7 +152,8 @@ function SimpleTabs({t}) {
                                 <ExpansionPanelDetails id="detaaaaaaaaaaaaaaaaaaaaaaaaaaaails" className="details">
                                     <List component="nav" aria-label="main mailbox folders">
                                         <ListItem>
-                                            <NavLink to='/comments' activeClassName={classes.active}>
+                                            <NavLink to='/comments' activeClassName={classes.active}
+                                                     className={currrentAlign()}>
                                                 <ListItemText primary={t('sidebar:comments')}/>
                                             </NavLink>
                                         </ListItem>
@@ -145,8 +161,7 @@ function SimpleTabs({t}) {
                                 </ExpansionPanelDetails>
                             </ExpansionPanel>
                         </ListItem>
-                        <ListItem button className={["collapsible", "items"]}
-                                  style={{textAlign: "right"}}>
+                        <ListItem button className={["collapsible", "items"]}>
                             <ExpansionPanel>
                                 <ExpansionPanelSummary className="summary"
                                                        onClick={toggleDashboarIcon}
@@ -154,17 +169,19 @@ function SimpleTabs({t}) {
                                                            <MinimizeIcon/>}
                                                        aria-controls="panel1a-content"
                                                        id="panel1a-header">
-                                    <Typography className={classes.heading}>ساختن کارت</Typography>
+                                    <Typography className={classes.heading}>{t('sidebar:dashboard')}</Typography>
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails className="details">
                                     <List component="nav" aria-label="main mailbox folders">
                                         <ListItem button>
-                                            <NavLink to="/contents" activeClassName={classes.active}>
+                                            <NavLink to="/contents" activeClassName={classes.active}
+                                                     className={currrentAlign()}>
                                                 <ListItemText primary={t('sidebar:contents')}/>
                                             </NavLink>
                                         </ListItem>
                                         <ListItem button>
-                                            <NavLink to="/comments" activeClassName={classes.active}>
+                                            <NavLink to="/comments" activeClassName={classes.active}
+                                                     className={currrentAlign()}>
                                                 <ListItemText primary={t('sidebar:comments')}/>
                                             </NavLink>
                                         </ListItem>
@@ -204,7 +221,7 @@ function SimpleTabs({t}) {
 
 
                 <TabPanel value={value} index={1}
-                          className={[classes.tab, dir === 'rtl' ? classes.marginLeft : classes.marginRight]}
+                          className={[classes.tab, lang === 'fa' ? classes.marginLeft : classes.marginRight]}
                           id="secooooooooooooooooooooooond">
                     <List className="list" aria-label="main mailbox folders">
                         <ListItem button className={["navLink", "items"]}>
@@ -248,11 +265,11 @@ function SimpleTabs({t}) {
                 {/*       item four*/}
                 {/*   </Box>*/}
                 {/*</TabPanel>*/}
-                {/*<TabPanel value={value} index={5} className={classes.tab}>*/}
-                {/*    <Box>*/}
-                {/*        item*/}
-                {/*    </Box>*/}
-                {/*</TabPanel>*/}
+                <TabPanel value={value} index={5} className={classes.tab}>
+                    <Box>
+                        item
+                    </Box>
+                </TabPanel>
                 {/*<TabPanel value={value} index={6} className={classes.tab}>*/}
                 {/*    <Box>*/}
                 {/*        Item Three*/}

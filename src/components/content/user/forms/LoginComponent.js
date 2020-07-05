@@ -5,6 +5,7 @@ import iconImg from '../../../../assets/media/image/logo-sm.png';
 import InputComponent from '../../../partials/inputComponent'
 import ButtonComponent from "../../../partials/ButtonComponent";
 import AppContext from './../../../../contexts/AppContext';
+import axios from "axios";
 //JSS file
 import * as useStyles from './../../../../assets/js/login';
 //requests
@@ -12,7 +13,7 @@ import authService from './../../../../core/services/auth.service';
 import {withNamespaces} from "react-i18next";
 
 
- function LoginComponent() {
+function LoginComponent() {
     const classes = useStyles.styles();
 
     const [errors, setErrors] = useState({errorName: '', errorPass: '', loginError: ''});
@@ -49,12 +50,15 @@ import {withNamespaces} from "react-i18next";
             }
             return;
         }
-        authService.login(context.user).then((response) => {
-            debugger
+
+
+
+
+        authService.login(context.user).then((response) => {debugger
+            console.log(response);
             setErrors({errorName: false, errorPass: false, loginError: false});
             window.location = "/";
-        }).catch((error) => {
-            debugger
+        }).catch((error) => {debugger
             setErrors({errorName: false, errorPass: false, loginError: true});
         });
     };

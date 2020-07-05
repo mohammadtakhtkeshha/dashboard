@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function BaseFormComponent() {
-    console.log(storage.get('token'));
     const classes = useStyles();
     useEffect(()=>{
         toast(`welcome `);

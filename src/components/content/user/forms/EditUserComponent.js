@@ -19,6 +19,7 @@ import {
     Route,
     useParams
 } from "react-router-dom";
+import {withNamespaces} from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -93,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function BaseFormComponent() {
+function BaseFormComponent({t}) {
     const {id} = useParams();//params
     const appContext = useContext(AppContext);
     const classes = useStyles();
@@ -337,47 +338,46 @@ export default function BaseFormComponent() {
                     <Input type="text" value={user.uid.value}/>
                     </span>
 
-                    <Input type="text" placeholder='نام' label='نام خود را وارد کنید'
+                    <Input type="text" placeholder={t('users:name')} label={t('users:enter your name')}
                            error={errors.name ? errors.name : ''}
                            value={user.field_name.value}
                            small='' handleClick={e => handleChange(e, "field_name")}/>
 
-                    <Input type="text" placeholder='نام خانوادگی' label='نام خانوادگی خود را وارد کنید'
+                    <Input type="text" placeholder={t('users:family')} label={t('users:enter your family')}
                            error={errors.family}
                            value={user.field_last_name.value}
                            small='' handleClick={e => handleChange(e, "field_last_name")}/>
 
-                    <Input type="text" placeholder='نام کاربری' label='نام کاربری خود را وارد کنید'
+                    <Input type="text" placeholder={t('users:username')} label={t('users:enter your username')}
                            small='' handleClick={e => handleChange(e, "name")}
                            value={user.name.value}
                     />
 
-                    <Input type="email" placeholder='ایمیل' label='ایمیل خود را وارد کنید'
+                    <Input type="email" placeholder={t('users:email')} label={t('users:enter your email')}
                            small='' handleClick={e => handleChange(e, "mail")}
                            value={user.mail.value}
                     />
 
-                    <Input type="password" placeholder='رمز عبور' label='رمز عبور'
+                    <Input type="password" placeholder={t('users:password')} label={t('users:enter your password')}
                            small='' handleClick={e => handleChange(e, "pass")} error={errors.pass}/>
 
-                    <Input type="password" placeholder='تکرار رمز عبور' label='تکرار رمز عبور'
+                    <Input type="password" placeholder={t('users:confirm password')} label={t('users:confirm password')}
                            small='' handleClick={e => handleChange(e, "confirm_pass")} error={errors.confirm_pass}/>
                     {/*----------------------------------------------------------- show status ------------------------------------------*/}
                     <FormControl component="fieldset">
-                        <label>وضعیت</label>
-                        {/*<Box>status:{user.status}</Box>*/}
+                        <label>{t('users:status')}</label>
                         <RadioGroup aria-label="gender" name="gender1" value={user.status.value}
                                     onChange={handleStatusChange}>
                             <FormControlLabel value="false"
                                               control={<Radio checked={!user.status.value ? true : false}/>}
-                                              label="بلاک"/>
+                                              label={t('translation:block')} />
                             <FormControlLabel value="true" control={<Radio checked={user.status.value ? true : false}/>}
-                                              label="تایید"/>
+                                              label={t('translation:confirm')} />
                         </RadioGroup>
                     </FormControl>
                     {/*-------------------------------------------------- show role -----------------------------------------------------*/}
                     <Box className="role">
-                        <label>رول مورد نظر را انتخاب کنید:</label>
+                        <label>{t('users:choose role')}</label>
                         <br/>
                         {wholeRoles ?
                             wholeRoles.map((key, index) => (
@@ -397,7 +397,7 @@ export default function BaseFormComponent() {
 
                     <Box className="upload">
                         {files.length == 0 ?
-                            <label id="label" htmlFor="file"> عکس مد نظر خود را انتخاب کنید</label> : ''}
+                            <label id="label" htmlFor="file">{t('users:choose your picture')}</label> : ''}
                         <input
                             id="file"
                             type="file"
@@ -411,13 +411,13 @@ export default function BaseFormComponent() {
                             {uploadFiles}
                         </FileManager>
                     </Box>
-
-
                     <Box mt={2}>
-                        <ButtonComponent color="primary" clicked={register} text="ثبت"/>
+                        <ButtonComponent color="primary" clicked={register} text={t('translation:register')}/>
                     </Box>
                 </form>
             </Paper>
         </Box>
     </>);
 }
+
+export default withNamespaces(['users','translation'])(BaseFormComponent);

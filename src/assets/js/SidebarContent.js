@@ -1,13 +1,12 @@
 import {makeStyles} from '@material-ui/core/styles';
 import * as  colors from './../../components/partials/Colors';
 
-
 export const styles = makeStyles((theme) => ({
     marginLeft: {
         marginLeft: '16px',
     },
     marginRight: {
-        marginLeft: '16px'
+        marginRight: '16px'
     },
     tab: {
         '& .MuiBox-root': {
@@ -23,18 +22,17 @@ export const styles = makeStyles((theme) => ({
                         '& .summary': {
                             '&:hover': {
                                 backgroundColor: colors.grey.sidebarHover,
-                            }
+                            },
                         },
                         '& .details': {
-                            padding:'0!important',
-                            '& .MuiList-padding':{
-                                padding:'0!important',
-                                width:'100%',
-                                '& a':{
+                            padding: '0!important',
+                            '& .MuiList-padding': {
+                                padding: '0!important',
+                                width: '100%',
+                                '& a': {
                                     width: '100%',
                                     margin: '-8px -16px',
                                     padding: '8px 33px',
-                                    // textAlign:'right'
                                 }
                             }
                         },
@@ -43,7 +41,14 @@ export const styles = makeStyles((theme) => ({
 
                     }
                 },
-                '& .navLink': {},
+                '& .navLink': {
+                    '& a': {
+                        width: '100%',
+                        margin: '-8px -16px',
+                        padding: '8px 16px',
+                        // textAlign:'right'
+                    }
+                },
                 '& .items': {
                     borderRadius: '5px',
                     overflow: 'hidden',
@@ -57,10 +62,6 @@ export const styles = makeStyles((theme) => ({
     },
     active: {//when link is active
         color: `${colors.primary}!important`,
-        // width: '100%',
-        // margin: '-8px -16px',
-        // padding: '8px 16px',
-        // textAlign: 'right',
         backgroundColor: colors.grey.sidebarActive,
     },
     sidebar: {//whole part of sidebar
@@ -78,7 +79,6 @@ export const styles = makeStyles((theme) => ({
             marginBottom: '1px',
             backgroundColor: '#5867dd',
             width: '61px',
-            border: '1px solid blue',
             '& ~ div': {
                 width: '100%'
             },
@@ -117,28 +117,7 @@ export const styles = makeStyles((theme) => ({
                 }
             },
         },
-        // *************************************************************************
 
-        // **************************************************************************
-        // '& .MuiBox-root': {
-        //     padding: '0',
-        //     '& span': {
-        //         '& li': {
-        //             padding: 0,
-        //         },
-        //     },
-        //     '@media(min-width : 992px)': {
-        //         '& .MuiListItem-gutters': {
-        //             border: '1px solid green',
-        //             paddingRight: 0,
-        //             paddingLeft: 0,
-        //         },
-        //         '& .MuiExpansionPanelSummary-root': {
-        //             padding: '0 0!important',
-        //         }
-        //     }
-        // },
     },
-
 
 }));

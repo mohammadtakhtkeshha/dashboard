@@ -7,7 +7,7 @@ import AppContext from './../contexts/AppContext';
 import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import './../App.css';
 import storage from './../libraries/local-storage';
-import { tokenKey } from "../config.json";
+import { tokenKey,lang } from "../adf";
 //font
 import font from './../assets/css/font.css';//fonts
 import rtl from 'jss-rtl';
@@ -72,11 +72,6 @@ export function App() {
         });
     };
 
-    // useEffect(() => {
-    //     local.store(tokenKey, token);
-    // }, [token]);
-
-
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -88,14 +83,6 @@ export function App() {
                         user: user,
                         token: storage.get(tokenKey),
                     }}>
-                    {/*<div dir="rtl">*/}
-                    {/*    <Box display="flex" flexDirection="row">*/}
-                    {/*        <Router history={history}>*/}
-                    {/*            <Route path="/login" component={components.LoginComponent}/>*/}
-                    {/*            <ProtectedRoute path="/" component={components.AuthorizedComponent}/>*/}
-                    {/*        </Router>*/}
-                    {/*    </Box>*/}
-                    {/*</div>*/}
                     <Direction/>
                 </AppContext.Provider>
             </ThemeProvider>

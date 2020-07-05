@@ -1,5 +1,5 @@
 import axios from "axios";
-import {apiUrl} from './../../config.json';
+import {apiUrl} from '../../adf';
 
 export function getContentLis() {
     let url = `${apiUrl}/api/all_content?_format=json`;
