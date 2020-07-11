@@ -12,6 +12,9 @@
   "confirm": "تایید",
   "register": "ثبت",
   "direction": "rtl",
-  "marginDir": "marginLeft"
+  "marginDir": "marginLeft",
+  "name": "نام",
+  "description": "توضیحات",
+  "action": "فعالیت"
 
 }

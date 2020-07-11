@@ -17,15 +17,12 @@ import NewContent from './forms/NewContentComponent';
 //icons
 import CancelIcon from '@material-ui/icons/Cancel';
 
+//for browser title
+import {Helmet} from "react-helmet";
 
-// import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-// import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-// import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-// import TextField from '@material-ui/core/TextField';
 //locales
 import {withNamespaces} from 'react-i18next';
-// import i18n from './../../../configs/locales/locales';
+
 
 import {
     Link
@@ -44,7 +41,9 @@ import styles from './../../../assets/js/content/contents'
 
 function BaseFormComponent({t}) {
     const [role, setRole] = React.useState('EUR');
+
     const [action, setAction] = React.useState('EUR');
+
     const roles = [
         {
             value: 'USD',
@@ -63,47 +62,59 @@ function BaseFormComponent({t}) {
             label: '¥',
         },
     ];
-    const statuses=[{
+
+    const statuses = [{
         value: 'published',
         label: t('translation:unpublished'),
-    },{
+    }, {
         value: 'unpublished',
         label: t('translation:published'),
     }];
-    const contentTypes=[{
+
+    const contentTypes = [{
         value: 'published',
         label: t('translation:unpublished'),
-    },{
+    }, {
         value: 'unpublished',
         label: t('translation:published'),
     }];
+
     const actions = [
         {value: 'delete', label: t('translation:delete')},
         {value: 'block', label: t('translation:published')},
         {value: 'noBlock', label: t('translation:unpublished')}
     ];
+
     const handleFilterChange = (event) => {
         setRole(event.target.value);
     };
+
     const handleActionChange = (event) => {
         setAction(event.target.value);
     };
+
     const classes = styles.useStyles();
+
     const [selectedCheckBoxes, setSelectedCheckBoxes] = useState([]);
+
     const [page, setPage] = useState(1);
+
     const [totalPage, setTotalPage] = useState(1);
+
     const [contents, setContents] = useState([]);
+
     const appContext = useContext(AppContext);
 
     // ------------------  modal --------------------------
     const [open, setOpen] = React.useState(false);
+
     const handleOpen = () => {
         setOpen(true);
     };
+
     const handleClose = () => {
         setOpen(false);
     };
-    // ------------------  modal --------------------------
 
     // ------------------ get roles ---------------------------
     let getContents = (page) => {
@@ -134,6 +145,7 @@ function BaseFormComponent({t}) {
             console.log(error);
         });
     };
+
     let deleteContent = (e) => {
         let id = e.currentTarget.value;
         let url = `http://sitesaz99.rbp/web/content/${id}?_format=json`;
@@ -168,6 +180,7 @@ function BaseFormComponent({t}) {
         }
 
     };
+
     let isCheckedHandler = (e, content) => {
         let currentId = content.uid;
         if (e.currentTarget.checked) {
@@ -181,11 +194,18 @@ function BaseFormComponent({t}) {
             );
         }
     };
+
     let paginate = (e, value) => {
         setPage(value);
         getContents(value);
     };
+
     return (<>
+        <Helmet>
+            <title>
+                {t('sidebar:contents')}
+            </title>
+        </Helmet>
         <Paper className={classes.mypaper}>
             <Box className="head">
                 <Typography className="text">{t('contents:contentList')}</Typography>
@@ -217,11 +237,11 @@ function BaseFormComponent({t}) {
                                 }}
                                 variant="outlined"
                             >
-                                {statuses?statuses.map((option,index) => (
+                                {statuses ? statuses.map((option, index) => (
                                     <option key={index} value={option.value}>
                                         {option.label}
                                     </option>
-                                )):''}
+                                )) : ''}
                             </TextField>
                             <TextField
                                 id="outlined-select-role-native"
@@ -233,11 +253,11 @@ function BaseFormComponent({t}) {
                                 }}
                                 variant="outlined"
                             >
-                                {contentTypes?contentTypes.map((option,index) => (
+                                {contentTypes ? contentTypes.map((option, index) => (
                                     <option key={index} value={option.value}>
                                         {option.label}
                                     </option>
-                                )):''}
+                                )) : ''}
                             </TextField>
                         </Box>
 
@@ -288,7 +308,7 @@ function BaseFormComponent({t}) {
                         timeout: 500,
                     }}
                 >
-                    <Fade in={open}  id="modal">
+                    <Fade in={open} id="modal">
                         <div className={classes.paper} dir="rtl">
                             <Box className="header">
                                 <button onClick={handleClose}>

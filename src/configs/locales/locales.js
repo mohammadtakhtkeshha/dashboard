@@ -10,6 +10,10 @@ import translationEn from './../../assets/locales/en/features/translation.json';
 import translationFa from './../../assets/locales/fa/features/translation.json';
 import contentsFa from './../../assets/locales/fa/features/contents.json';
 import contentsEn from './../../assets/locales/en/features/contents.json';
+import termsEn from './../../assets/locales/en/features/terms.json';
+import termsFa from './../../assets/locales/fa/features/terms.json';
+import vocabsFa from './../../assets/locales/fa/features/vocabs.json';
+import vocabsEn from './../../assets/locales/en/features/vocabs.json';
 //localstorage
 import storage from './../../libraries/local-storage'
 
@@ -19,13 +23,17 @@ const resources = {
         sidebar:sidebarEn,
         users:usersEn,
         translation:translationEn,
-        contents:contentsEn
+        contents:contentsEn,
+        temrs:termsEn,
+        vocabs:vocabsEn,
     },
     fa:{
         sidebar: sidebarFa,
         users:usersFa,
         translation:translationFa,
-        contents:contentsFa
+        contents:contentsFa,
+        terms:termsFa,
+        vocabs:vocabsFa,
     }
 };
 

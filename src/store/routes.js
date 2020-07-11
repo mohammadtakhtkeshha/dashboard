@@ -8,6 +8,8 @@ import ContentsComponent from '../components/content/content/ContentsComponent';
 import CommentsComponent from '../components/content/comment/CommentsComponent';
 import DashboardComponent from '../components/content/dashboard/DashboardComponent';
 import NewContentComponent from '../components/content/content/forms/NewContentComponent';
+import TermsComponent from "../components/content/content/TermsComponent";
+import VocabsComponent from "../components/content/content/VocabsComponent";
 
 import React from "react";
 
@@ -30,33 +32,42 @@ export const routes = [
     },
     {
         path: '/new-user',
-        breadcrumbs: () => <BreadcrumbsComponent bread="ایجاد کاربر جدید"/>,
+        breadcrumbs: () => <BreadcrumbsComponent bread="new user"/>,
         component: () => <NewUserComponent/>
     },
     {
         path: '/edit-user/:id',
-        breadcrumbs: () => <BreadcrumbsComponent bread="ویرایش پروفایل"/>,
+        breadcrumbs: () => <BreadcrumbsComponent bread="edit profile"/>,
         // component: (props) => <EditUserComponent {...props}/>
         component: () => <EditUserComponent/>
     },
     {
         path: '/comments',
-        breadcrumbs: () => <BreadcrumbsComponent bread="کامنت ها"/>,
+        breadcrumbs: () => <BreadcrumbsComponent bread="comments"/>,
         component: () => <CommentsComponent/>
     },
     {
         path: '/contents',
-        breadcrumbs: () => <BreadcrumbsComponent bread="محتواها"/>,
+        breadcrumbs: () => <BreadcrumbsComponent bread="contents"/>,
         component: () => <ContentsComponent/>
     },
     {
         path: '/new-content',
-        breadcrumbs: () => <BreadcrumbsComponent bread="محتواها"/>,
+        breadcrumbs: () => <BreadcrumbsComponent bread="new content"/>,
         component: () => <NewContentComponent/>
     },
     {
         path: '/dashboard',
-        breadcrumbs: () => <BreadcrumbsComponent bread="داشبورد"/>,
+        breadcrumbs: () => <BreadcrumbsComponent bread="dashboard"/>,
         component: () => <DashboardComponent/>
+    },
+    {
+        path: '/terms',
+        breadcrumbs: () => <BreadcrumbsComponent bread="terms"/>,
+        component: () => <TermsComponent/>
+    },{
+        path: '/vocabs',
+        breadcrumbs: () => <BreadcrumbsComponent bread="vocabs"/>,
+        component: () => <VocabsComponent/>
     }
 ];

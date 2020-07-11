@@ -16,6 +16,8 @@ import NewUser from './forms/NewUserComponent';
 
 //icons
 import CancelIcon from '@material-ui/icons/Cancel';
+//for browser title
+import {Helmet} from "react-helmet";
 
 
 // import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -118,7 +120,7 @@ function BaseFormComponent({t}) {
                 setUsers(currentList);
                 setTotalPage(response.data.pager.total_pages);
             }
-        ).catch( (error)=> {
+        ).catch((error) => {
             console.log(error);
         });
     };
@@ -140,13 +142,14 @@ function BaseFormComponent({t}) {
     };
 
     useEffect(() => {
+
         getUsers(page);
     }, []);
 
     let allCheckboxHandler = (e) => {
         let ids = users.map(user => user.uid);
         let usersLength = users.length;
-        if (selectedCheckBoxes.length === usersLength) {
+        if (selectedCheckBoxes.length === usersLength) {debugger
             setSelectedCheckBoxes(
                 []
             );
@@ -175,15 +178,20 @@ function BaseFormComponent({t}) {
         getUsers(value);
     };
 
-    const headers =[
-        {name: 'srgvsege',className:'esgrtg'},
-        {name: 'srgvsege',className:'esgrtg'},
-        {name: 'srgvsege',className:'esgrtg'},
-        {name: 'srgvsege',className:'esgrtg'},
-        {name: 'srgvsege',className:'esgrtg'},
-        {name: 'srgvsege',className:'esgrtg'},
+    const headers = [
+        {name: 'srgvsege', className: 'esgrtg'},
+        {name: 'srgvsege', className: 'esgrtg'},
+        {name: 'srgvsege', className: 'esgrtg'},
+        {name: 'srgvsege', className: 'esgrtg'},
+        {name: 'srgvsege', className: 'esgrtg'},
+        {name: 'srgvsege', className: 'esgrtg'},
     ]
     return (<>
+        <Helmet>
+            <title>
+                {t('sidebar:users')}
+            </title>
+        </Helmet>
         <Paper className={classes.mypaper}>
             <Box className="head">
                 <Typography className="text">{t('users:usersList')}</Typography>
@@ -218,11 +226,11 @@ function BaseFormComponent({t}) {
                                 }}
                                 variant="outlined"
                             >
-                                {valueRoles?Object.keys(valueRoles).map((keyname,index) => (
+                                {valueRoles ? Object.keys(valueRoles).map((keyname, index) => (
                                     <option key={valueRoles[keyname]} value={valueRoles[keyname]}>
                                         {valueRoles[keyname]}
                                     </option>
-                                )):''}
+                                )) : ''}
                             </TextField>
                         </Box>
 
@@ -273,7 +281,7 @@ function BaseFormComponent({t}) {
                         timeout: 500,
                     }}
                 >
-                    <Fade in={open}  id="modal">
+                    <Fade in={open} id="modal">
                         <div className={classes.paper} dir="rtl">
                             <Box className="header">
                                 <button onClick={handleClose}>
@@ -281,7 +289,7 @@ function BaseFormComponent({t}) {
                                 </button>
                             </Box>
                             <Box className="body">
-                            <NewUser/>
+                                <NewUser/>
                             </Box>
                         </div>
                     </Fade>

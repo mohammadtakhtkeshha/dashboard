@@ -12,5 +12,8 @@
   "confirm": "confirm",
   "register": "register",
   "direction": "ltr",
-  "marginDir": "marginRight"
+  "marginDir": "marginRight",
+  "name": "name",
+  "description": "description",
+  "action": "action"
 }

@@ -43,7 +43,7 @@ const theme = createMuiTheme({
             elevation1: {
                 boxShadow: '0 0 0 0',
             }
-        },
+        }
     }
 
 });

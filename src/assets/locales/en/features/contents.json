@@ -4,5 +4,8 @@
   "contentType": "content type",
   "author": "author",
   "status": "status",
-  "date": "date"
+  "date": "date",
+  "tag": "tag",
+  "category": "category",
+  "titr": "titr"
 }

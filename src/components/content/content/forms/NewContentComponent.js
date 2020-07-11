@@ -13,16 +13,18 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import AppContext from './../../../../contexts/AppContext';
 import Grid from '@material-ui/core/Grid/index';
-
+import TextField from '@material-ui/core/TextField';
 //styles
 import * as newUser from './../../../../assets/js/user/NewUser';
 
 //configs
 import {tokenKey} from '../../../../adf';
 import storage from './../../../../libraries/local-storage';
+import {withNamespaces} from "react-i18next";
+import contents from "../../../../assets/js/content/contents";
 
 
-export default function BaseFormComponent() {
+ function NewContentComponent({t}) {
     const classes = newUser.useStyles();
     const appContext = useContext(AppContext);
     const [keyRoles, setKeyRoles] = useState([]);
@@ -366,13 +368,23 @@ export default function BaseFormComponent() {
                     {/*----------------------------------------------------------- status ------------------------------------------*/}
                     <Grid xs={6}>
                         <Box className={classes.block}>
-                            <Input type="text" placeholder='نام' label='نام خود را وارد کنید'
+                            <Input type="text" placeholder={t('contents:name')}
                                    error={errors.name ? errors.name : ''}
                                    small='' handleClick={e => handleChange(e, "field_name")}/>
 
-                            <Input type="text" placeholder='نام خانوادگی' label='نام خانوادگی خود را وارد کنید'
+                            <Input type="text" placeholder={t('translation:description')} label='نام خانوادگی خود را وارد کنید'
                                    error={errors.family}
                                    small='' handleClick={e => handleChange(e, "field_last_name")}/>
+                            <TextField
+                                id="date"
+                                label="Birthday"
+                                type="date"
+                                defaultValue="2017-05-24"
+                                className={classes.textField}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
                             <Box className="inputBlock">
                                 <Input type="text" placeholder='نام کاربری' label='نام کاربری خود را وارد کنید'
                                        small='' handleClick={e => handleChange(e, "name")}/>
@@ -459,3 +471,4 @@ export default function BaseFormComponent() {
         </Box>
     </>);
 }
+export default withNamespaces('translation,contents')(NewContentComponent);

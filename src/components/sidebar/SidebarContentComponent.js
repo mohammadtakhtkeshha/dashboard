@@ -23,12 +23,12 @@ import * as useStyles from './../../assets/js/SidebarContent';
 import * as global from './../../assets/js/CssGlobal';
 import authSevice from './../../core/services/auth.service';
 import {useHistory} from "react-router-dom";
+import Tooltip from '@material-ui/core/Tooltip';
 //local storage
 import storage from './../../libraries/local-storage'
 //multi lang
 import {withNamespaces} from "react-i18next";
 import AppContext from "../../contexts/AppContext";
-
 
 
 function TabPanel(props) {
@@ -50,6 +50,7 @@ function TabPanel(props) {
         </Box>
     );
 }
+
 TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.any.isRequired,
@@ -62,6 +63,7 @@ function a11yProps(index) {
         'aria-controls': `simple-tabpanel-${index}`,
     };
 }
+
 function SimpleTabs({t}) {
     let history = useHistory();
     const classes = useStyles.styles();
@@ -107,7 +109,7 @@ function SimpleTabs({t}) {
         }
 
     };
-    let clearLocal=()=>{
+    let clearLocal = () => {
         storage.remove(process.env.REACT_APP_TOKEN_KEY);
         console.log('remover');
     }
@@ -118,9 +120,15 @@ function SimpleTabs({t}) {
             <Box className={classes.sidebar}>
                 <AppBar position="static">
                     <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-                        <Tab label={<PieChartIcon/>} {...a11yProps(0)} />
-                        <Tab label={<LayersIcon/>} {...a11yProps(1)} />
+                        <Tooltip title={t('sidebar:dashboard')}>
+                            <Tab label={<PieChartIcon/>} {...a11yProps(0)} />
+                        </Tooltip>
+                        <Tooltip title={t('sidebar:contents')}>
+                            <Tab label={<LayersIcon/>} {...a11yProps(1)} />
+                        </Tooltip>
+                        <Tooltip title={t('sidebar:users')}>
                         <Tab label={<PersonIcon/>} {...a11yProps(2)} />
+                        </Tooltip>
                         <Tab label={<LayersIcon/>} {...a11yProps(3)} />
                         <Tab label={<BrushIcon/>} {...a11yProps(4)} />
                         <Tab label={<SettingsIcon/>} {...a11yProps(5)}
@@ -225,56 +233,67 @@ function SimpleTabs({t}) {
                           id="secooooooooooooooooooooooond">
                     <List className="list" aria-label="main mailbox folders">
                         <ListItem button className={["navLink", "items"]}>
-                            <NavLink to="/contents" activeClassName={classes.active}>
+                            <NavLink to="/contents" activeClassName={classes.active} className={currrentAlign()}>
                                 <ListItemText primary={t('sidebar:content')}/>
                             </NavLink>
                         </ListItem>
                         <ListItem button className={["navLink", "items"]}>
-                            <NavLink to="/new-content" activeClassName={classes.active}>
+                            <NavLink to="/new-content" activeClassName={classes.active} className={currrentAlign()}>
                                 <ListItemText primary={t('sidebar:newContent')}/>
+                            </NavLink>
+                        </ListItem>
+                        <ListItem button className={["navLink", "items"]}>
+                            <NavLink to="/terms" activeClassName={classes.active} className={currrentAlign()}>
+                                <ListItemText primary={t('sidebar:terms')}/>
+                            </NavLink>
+                        </ListItem>
+                        <ListItem button className={["navLink", "items"]}>
+                            <NavLink to="/vocabs" activeClassName={classes.active} className={currrentAlign()}>
+                                <ListItemText primary={t('sidebar:vocabs')}/>
                             </NavLink>
                         </ListItem>
                     </List>
                 </TabPanel>
 
 
-                {/*<TabPanel value={value} index={2} className={classes.tab}>*/}
-                {/*    <Box className={classes.list}>*/}
-                {/*        <List component="nav" aria-label="main mailbox folders">*/}
-                {/*            <ListItem button>*/}
-                {/*                <NavLink to='/users' activeClassName={classes.active}>*/}
-                {/*                    <ListItemText primary={t('users')}/>*/}
-                {/*                </NavLink>*/}
-                {/*            </ListItem>*/}
-                {/*            <ListItem button>*/}
-                {/*                <NavLink to='/new-user' activeClassName={classes.active}>*/}
-                {/*                    <ListItemText primary="افزودن کاربر جدید"/>*/}
-                {/*                </NavLink>*/}
-                {/*            </ListItem>*/}
+                <TabPanel value={value} index={2}
+                          className={[classes.tab, lang === 'fa' ? classes.marginLeft : classes.marginRight]}>
+                        <List className="list" aria-label="main mailbox folders">
+                            <ListItem button className={["navLink", "items"]}>
+                                <NavLink to='/users' activeClassName={classes.active} className={currrentAlign()}>
+                                    <ListItemText primary={t('users')}/>
+                                </NavLink>
+                            </ListItem>
+                            <ListItem button className={["navLink", "items"]}>
+                                <NavLink to='/new-user' activeClassName={classes.active} className={currrentAlign()}>
+                                    <ListItemText primary="افزودن کاربر جدید"/>
+                                </NavLink>
+                            </ListItem>
 
-                {/*        </List>*/}
-                {/*    </Box>*/}
-                {/*</TabPanel>*/}
-                {/*<TabPanel value={value} index={3} className={classes.tab}>*/}
-                {/*    <Box>*/}
-                {/*        item three*/}
-                {/*    </Box>*/}
-                {/*</TabPanel>*/}
-                {/*<TabPanel value={value} index={4} className={classes.tab}>*/}
-                {/*   <Box>*/}
-                {/*       item four*/}
-                {/*   </Box>*/}
-                {/*</TabPanel>*/}
+                        </List>
+
+                </TabPanel>
+
+                <TabPanel value={value} index={3} className={classes.tab}>
+                    <Box>
+                        item three
+                    </Box>
+                </TabPanel>
+                <TabPanel value={value} index={4} className={classes.tab}>
+                    <Box>
+                        item four
+                    </Box>
+                </TabPanel>
                 <TabPanel value={value} index={5} className={classes.tab}>
                     <Box>
                         item
                     </Box>
                 </TabPanel>
-                {/*<TabPanel value={value} index={6} className={classes.tab}>*/}
-                {/*    <Box>*/}
-                {/*        Item Three*/}
-                {/*    </Box>*/}
-                {/*</TabPanel>*/}
+                <TabPanel value={value} index={6} className={classes.tab}>
+                    <Box>
+                        Item Three
+                    </Box>
+                </TabPanel>
             </Box>
 
         </>

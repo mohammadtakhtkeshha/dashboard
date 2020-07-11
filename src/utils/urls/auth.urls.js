@@ -4,6 +4,8 @@ export const logOut = `${url}/user/logout`;
 
 export const login = `${url}/oauth/token`;
 
+export const currentUserUrl = `${url}/user/1?_format=json`;
+
 export default {
-    logOut,login
+    logOut,login,currentUserUrl
 }
