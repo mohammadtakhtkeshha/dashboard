@@ -113,8 +113,9 @@ export const styles = makeStyles({
                     paddingTop: '1rem',
                     '& button': {
                         width: '100%',
-                        color: 'white',
-                        background: colors.primary
+                       '&:hover':{
+                            backgroundColor:colors.primary
+                       }
                     }
                 },
                 '& .hr': {

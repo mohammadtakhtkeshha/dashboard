@@ -5,9 +5,9 @@ import Layout from './structure/layout';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <>
     <Layout />
-  </React.StrictMode>,
+  </>,
   document.getElementById('root')
 );
 

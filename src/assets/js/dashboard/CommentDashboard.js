@@ -2,10 +2,16 @@ import {makeStyles} from "@material-ui/styles";
 
 export const useStyles = makeStyles((theme) => ({
     paper: {
-        padding: theme.spacing(2),
         margin: theme.spacing(2),
+        padding: theme.spacing(2),
+        '@media(max-width:992px)': {
+            margin: `${theme.spacing(2)}px 0`,
+        }
     },
     commentBlock: {
+        '& th': {
+                padding:'10px!important'
+        },
         '& td': {
             '& .imgBlock':{
                 width:'50px!important',

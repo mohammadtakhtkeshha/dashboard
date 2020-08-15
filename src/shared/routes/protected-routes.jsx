@@ -9,7 +9,8 @@ const ProtectedRoute = ({ component: Component, render, ...rest }) => {
             {...rest}
             render={(props) => {
                 if (!storage.get(process.env.REACT_APP_TOKEN_KEY)) {
-                    return <Redirect to="/login" />;
+                    // return (<Redirect to="/forget-password"/>);
+                    return (<Redirect to="/login"/> || <Redirect to="/forget-password"/>);
                 } else {
                     return Component ? <Component {...props} /> : render(props);
                 }

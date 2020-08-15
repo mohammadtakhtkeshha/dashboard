@@ -8,43 +8,13 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '11px 0px',
-        '& .MuiCheckbox-root': {
-            padding: '0 0 0 15px',
-        },
-        '&:not(:last-child)': {
-            borderBottom: '1px solid #d9dbe4',
-        },
-        '& .item': {
-            width: '100%',
-            '&:first-child': {
-                flexShrink: 2
-            },
-            '&.firstName': {
-                display: 'flex',
-                '& .name': {
-                    paddingRight: '5px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                },
-                '& .imgBlock': {
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: '100%',
-                    overflow: 'hidden',
-                    width: '50px',
-                    height: '50px',
-                    '& .MuiCardMedia-root': {
-                        width: '50px!important',
-                        height: '50px!important',
-                    },
-                    '& img': {
-                        width: '100%',
-                        height: '100%',
-                    }
-                },
+        '& .imgBlock':{
+            width:'50px!important',
+            height:'50px',
+            borderRadius:'100%',
+            overflow:'hidden',
+            '& img':{
+                width:'100%'
             }
         }
     },
@@ -72,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     mypaper: {
         margin: theme.spacing(2),
         padding: theme.spacing(2),
+        backgroundColor:'transparent',
         '& .head': {
             display: 'flex',
             justifyContent: 'space-between',
@@ -84,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
                 lineHeight: '14px',
                 color: colors.white,
                 borderRadius: '5px',
-                '&:focus':{
+                '&:focus': {
                     outline: '0!important',
                 }
             },
@@ -113,11 +84,11 @@ const useStyles = makeStyles((theme) => ({
                     '& div': {
                         width: '24%',
                         padding: '2px 5px',
-                        '@media(max-width:1385px)':{
-                            width:'30%',
+                        '@media(max-width:1385px)': {
+                            width: '30%',
                         },
-                        '@media(max-width:471px)':{
-                            width:'100%',
+                        '@media(max-width:471px)': {
+                            width: '100%',
                         }
                     },
                     '& .MuiTextField-root': {
@@ -125,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
                         justifyContent: 'center',
                         marginBottom: '1rem',
                         '& div': {
-                            width:'100%',
+                            width: '100%',
                             height: '60px',
                             marginTop: '8px'
                         }
@@ -133,40 +104,69 @@ const useStyles = makeStyles((theme) => ({
                 }
             }
 
+        },
+        '& .box':{
+            borderRadius:'4px',
+            backgroundColor:colors.white,
+            margin:'1rem 0',
+            boxShadow: '0px 2px 4px 0px #999f9d',
         }
     },
     modal: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        '& #modal':{
+        '& #modal': {
             border: '0!important',
-            '&:focus':{
+            minWidth:'100px',
+            marginTop: '5rem 5rem',
+            maxWidth: '650px',
+            '&:focus': {
                 outline: '0!important',
             },
-            position:'relative',
-            '& .header':{
-                position:'absolute',
-                top:'0',
-                left:0,
-                right:0,
-                height:'40px',
-                backgroundColor:colors.primary,
-                '& button':{
-                    background:'transparent',
-                    cursor:'pointer',
-                    border:0,
-                    '&:focus':{
-                        outline:'0!important',
+            position: 'relative',
+            '& .header': {
+                display:'flex',
+                justifyContent:'space-between',
+                position: 'absolute',
+                top: '0',
+                left: 0,
+                right: 0,
+                height: '40px',
+                zIndex:'100',
+                backgroundColor: colors.primary,
+                '& .button': {
+                    background: 'transparent',
+                    cursor: 'pointer',
+                    border: 0,
+                    '&:focus': {
+                        outline: '0!important',
                     },
-                    '& svg':{
-                        color:colors.white,
-                        margin:'9px 9px',
+                    '& svg': {
+                        color: colors.white,
+                        margin: '9px 9px',
                     }
+                },
+                '& .title': {
+                    margin: '9px 13px',
+                    color:colors.white
                 }
             },
-            '& .body':{
-                marginTop:'16px',
+            '& .flexDirL':{
+                flexDirection:'row-reverse'
+            },
+            '& .flexDirR':{
+                flexDirection:'row'
+
+            },
+            '& .body': {
+                marginTop: '16px',
+                height: 'calc(100vh - 5rem)',
+                overflow: 'scroll',
+                scrollbar: 'none',
+                '&::-webkit-scrollbar': {
+                    display: 'none',
+                }
             }
         }
     },

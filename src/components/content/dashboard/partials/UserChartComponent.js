@@ -3,14 +3,21 @@ import Highcharts from 'highcharts';
 import { Paper} from "@material-ui/core";
 import dashboardService from "./../../../../core/services/dashboard.service";
 import {makeStyles} from "@material-ui/styles";
+import {withNamespaces} from "react-i18next";
 
 const useStyles = makeStyles(theme => ({
     paper: {
+        '& text':{
+            fontFamily:'primary-font',
+        },
         padding: theme.spacing(2),
         margin: theme.spacing(2),
+        '@media(max-width:992px)': {
+            margin: `${theme.spacing(2)}px 0`,
+        }
     }
 }));
-export default function UserChartComponent() {
+function UserChartComponent({t}) {
     const classes = useStyles();
     let getUsers = () => {
         dashboardService.getUsers().then((response) => {
@@ -31,7 +38,7 @@ export default function UserChartComponent() {
                 type: 'line'
             },
             title: {
-                text: 'لیست کاربران'
+                text: t('users:usersStatistic')
             },
             subtitle: {
                 text: ''
@@ -57,6 +64,7 @@ export default function UserChartComponent() {
                 data: numberOfUser
             }]
         });
+        Highcharts.color('red');
     };
     useEffect(() => {
         highChartsRender();
@@ -95,3 +103,4 @@ export default function UserChartComponent() {
         </Paper>
     );
 }
+export default withNamespaces('users')(UserChartComponent);

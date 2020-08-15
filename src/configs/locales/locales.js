@@ -14,6 +14,10 @@ import termsEn from './../../assets/locales/en/features/terms.json';
 import termsFa from './../../assets/locales/fa/features/terms.json';
 import vocabsFa from './../../assets/locales/fa/features/vocabs.json';
 import vocabsEn from './../../assets/locales/en/features/vocabs.json';
+import tagsEn from './../../assets/locales/en/features/tags.json';
+import tagsFa from './../../assets/locales/fa/features/tags.json';
+import categoriesFa from './../../assets/locales/fa/features/categories.json';
+import categoriesEn from './../../assets/locales/en/features/categories.json';
 //localstorage
 import storage from './../../libraries/local-storage'
 
@@ -26,6 +30,7 @@ const resources = {
         contents:contentsEn,
         temrs:termsEn,
         vocabs:vocabsEn,
+        categories:categoriesEn,
     },
     fa:{
         sidebar: sidebarFa,
@@ -34,6 +39,9 @@ const resources = {
         contents:contentsFa,
         terms:termsFa,
         vocabs:vocabsFa,
+        tags:tagsFa,
+        categories:categoriesFa,
+
     }
 };
 

@@ -23,6 +23,9 @@ const StyledTableCell = withStyles((theme) => ({
     body: {
         fontSize: 14,
     },
+    root:{
+        padding:'0',
+    }
 }))(TableCell);
 
 const StyledTableRow = withStyles((theme) => ({
@@ -30,6 +33,9 @@ const StyledTableRow = withStyles((theme) => ({
         '&:nth-of-type(odd)': {
             backgroundColor: theme.palette.action.hover,
         },
+        '&:tr':{
+            border: '1px solid red',
+        }
     },
 }))(TableRow);
 

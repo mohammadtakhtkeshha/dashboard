@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -6,34 +6,31 @@ import Tab from '@material-ui/core/Tab';
 import PieChartIcon from '@material-ui/icons/PieChart';
 import BrushIcon from '@material-ui/icons/Brush';
 import LayersIcon from '@material-ui/icons/Layers';
-import SettingsIcon from '@material-ui/icons/Settings';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import PersonIcon from '@material-ui/icons/Person';
 import {Typography, Box} from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import AddIcon from '@material-ui/icons/Add';
-import MinimizeIcon from '@material-ui/icons/Minimize';
 import {NavLink} from 'react-router-dom';
 import * as useStyles from './../../assets/js/SidebarContent';
-import * as global from './../../assets/js/CssGlobal';
+import {globalCss} from '../../assets/js/globalCss';
 import authSevice from './../../core/services/auth.service';
 import {useHistory} from "react-router-dom";
-import Tooltip from '@material-ui/core/Tooltip';
 //local storage
 import storage from './../../libraries/local-storage'
 //multi lang
 import {withNamespaces} from "react-i18next";
 import AppContext from "../../contexts/AppContext";
 
+//for two classess in className
+import clsx from 'clsx';
+import i18next from "i18next";
+import {makeStyles} from "@material-ui/styles";
+
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
-
     return (
         <Box
             role="tabpanel"
@@ -64,15 +61,17 @@ function a11yProps(index) {
     };
 }
 
+const gClass = makeStyles(globalCss);
+
 function SimpleTabs({t}) {
+    const gClasses = gClass();
     let history = useHistory();
     const classes = useStyles.styles();
-    const gClasses = global.styles();
     const [value, setValue] = useState(0);
     const [extandedCart, setExtandedCart] = useState(false);
     const [extandedDashboard, setExtandedDashboard] = useState(false);
     const [extandedForm, setExtandedForm] = useState(false);
-    const lang = storage.get('lang');
+    const lang = i18next.language;
     let isFa = (lang) => {
         if (lang === 'fa') {
             return true;
@@ -111,92 +110,64 @@ function SimpleTabs({t}) {
     };
     let clearLocal = () => {
         storage.remove(process.env.REACT_APP_TOKEN_KEY);
-        console.log('remover');
     }
-    console.log(storage.get(process.env.REACT_APP_TOKEN_KEY));
 
     return (
         <>
             <Box className={classes.sidebar}>
                 <AppBar position="static">
                     <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-                        <Tooltip title={t('sidebar:dashboard')}>
-                            <Tab label={<PieChartIcon/>} {...a11yProps(0)} />
-                        </Tooltip>
-                        <Tooltip title={t('sidebar:contents')}>
-                            <Tab label={<LayersIcon/>} {...a11yProps(1)} />
-                        </Tooltip>
-                        <Tooltip title={t('sidebar:users')}>
+                        <Tab label={<PieChartIcon/>} {...a11yProps(0)} />
+                        <Tab label={<LayersIcon/>} {...a11yProps(1)} />
                         <Tab label={<PersonIcon/>} {...a11yProps(2)} />
-                        </Tooltip>
-                        <Tab label={<LayersIcon/>} {...a11yProps(3)} />
-                        <Tab label={<BrushIcon/>} {...a11yProps(4)} />
-                        <Tab label={<SettingsIcon/>} {...a11yProps(5)}
-                             onClick={() => clearLocal()}
-                        />
-                        <Tab label={<PowerSettingsNewIcon/>} {...a11yProps(6)}
+                        <Tab label={<PowerSettingsNewIcon/>} {...a11yProps(4)}
                              onClick={() => authSevice.logout(history)}/>
                     </Tabs>
                 </AppBar>
-                <TabPanel value={value} index={0} id="fiiiiiiiiiiiiiiiiiiiiiiiiiiiirst"
-                          className={[classes.tab, lang === 'fa' ? classes.marginLeft : classes.marginRight]}
+                <TabPanel value={value} index={0}
+                          className={clsx(classes.tab, lang === 'fa' ? classes.marginLeft : classes.marginRight)}
                           variant="div">
                     <List aria-label="main mailbox folders" className="list">
-                        <ListItem className={["navLink", "items"]}>
+                        <ListItem className={clsx('navLink', 'items')}>
                             <NavLink to='/dashboard' id="test" activeClassName={classes.active}
                                      className={currrentAlign()}>
                                 <ListItemText primary={t('sidebar:dashboard')}/>
                             </NavLink>
                         </ListItem>
-                        <ListItem className={["collapsible", "items"]}>
-                            <ExpansionPanel>
-                                <ExpansionPanelSummary className="summary" onClick={toggleCartIcon}
-                                                       expandIcon={extandedCart ? <AddIcon/> : <MinimizeIcon/>}
-                                                       aria-controls="panel1a-content"
-                                                       id="panel1a-header"
-                                >
-                                    <Typography className={classes.heading}>{t('dashboard')}</Typography>
-                                </ExpansionPanelSummary>
-                                <ExpansionPanelDetails id="detaaaaaaaaaaaaaaaaaaaaaaaaaaaails" className="details">
-                                    <List component="nav" aria-label="main mailbox folders">
-                                        <ListItem>
-                                            <NavLink to='/comments' activeClassName={classes.active}
-                                                     className={currrentAlign()}>
-                                                <ListItemText primary={t('sidebar:comments')}/>
-                                            </NavLink>
-                                        </ListItem>
-                                    </List>
-                                </ExpansionPanelDetails>
-                            </ExpansionPanel>
+                        <ListItem className={clsx('navLink', 'items')}>
+                            <NavLink to='/comments' activeClassName={classes.active}
+                                     className={currrentAlign()}>
+                                <ListItemText primary={t('sidebar:comments')}/>
+                            </NavLink>
                         </ListItem>
-                        <ListItem button className={["collapsible", "items"]}>
-                            <ExpansionPanel>
-                                <ExpansionPanelSummary className="summary"
-                                                       onClick={toggleDashboarIcon}
-                                                       expandIcon={extandedDashboard ? <AddIcon/> :
-                                                           <MinimizeIcon/>}
-                                                       aria-controls="panel1a-content"
-                                                       id="panel1a-header">
-                                    <Typography className={classes.heading}>{t('sidebar:dashboard')}</Typography>
-                                </ExpansionPanelSummary>
-                                <ExpansionPanelDetails className="details">
-                                    <List component="nav" aria-label="main mailbox folders">
-                                        <ListItem button>
-                                            <NavLink to="/contents" activeClassName={classes.active}
-                                                     className={currrentAlign()}>
-                                                <ListItemText primary={t('sidebar:contents')}/>
-                                            </NavLink>
-                                        </ListItem>
-                                        <ListItem button>
-                                            <NavLink to="/comments" activeClassName={classes.active}
-                                                     className={currrentAlign()}>
-                                                <ListItemText primary={t('sidebar:comments')}/>
-                                            </NavLink>
-                                        </ListItem>
-                                    </List>
-                                </ExpansionPanelDetails>
-                            </ExpansionPanel>
+                        <ListItem className={clsx('navLink', 'items')}>
+                            <NavLink to="/contents" activeClassName={classes.active}
+                                     className={currrentAlign()}>
+                                <ListItemText primary={t('sidebar:contents')}/>
+                            </NavLink>
                         </ListItem>
+                        {/*<ListItem className={clsx('collapsible', 'items')}>*/}
+                        {/*    <ExpansionPanel>*/}
+                        {/*        <ExpansionPanelSummary className="summary" onClick={toggleCartIcon}*/}
+                        {/*                               expandIcon={extandedCart ? <AddIcon/> : <MinimizeIcon/>}*/}
+                        {/*                               aria-controls="panel1a-content"*/}
+                        {/*                               id="panel1a-header"*/}
+                        {/*        >*/}
+                        {/*            <Typography className={classes.heading}>{t('dashboard')}</Typography>*/}
+                        {/*        </ExpansionPanelSummary>*/}
+                        {/*        <ExpansionPanelDetails id="detaaaaaaaaaaaaaaaaaaaaaaaaaaaails" className="details">*/}
+                        {/*            <List component="nav" aria-label="main mailbox folders">*/}
+                        {/*                <ListItem>*/}
+                        {/*                    <NavLink to='/comments' activeClassName={classes.active}*/}
+                        {/*                             className={currrentAlign()}>*/}
+                        {/*                        <ListItemText primary={t('sidebar:comments')}/>*/}
+                        {/*                    </NavLink>*/}
+                        {/*                </ListItem>*/}
+                        {/*            </List>*/}
+                        {/*        </ExpansionPanelDetails>*/}
+                        {/*    </ExpansionPanel>*/}
+                        {/*</ListItem>*/}
+
                         {/*<ListItem button className={["collapsible", "items"]}*/}
                         {/*          style={{textAlign: "right"}}>*/}
                         {/*    <ExpansionPanel>*/}
@@ -226,74 +197,56 @@ function SimpleTabs({t}) {
                     </List>
 
                 </TabPanel>
-
-
                 <TabPanel value={value} index={1}
-                          className={[classes.tab, lang === 'fa' ? classes.marginLeft : classes.marginRight]}
-                          id="secooooooooooooooooooooooond">
+                          className={clsx(classes.tab, lang === 'fa' ? classes.marginLeft : classes.marginRight)}
+                >
                     <List className="list" aria-label="main mailbox folders">
-                        <ListItem button className={["navLink", "items"]}>
+                        <ListItem button className={clsx("navLink", "items")}>
                             <NavLink to="/contents" activeClassName={classes.active} className={currrentAlign()}>
                                 <ListItemText primary={t('sidebar:content')}/>
                             </NavLink>
                         </ListItem>
-                        <ListItem button className={["navLink", "items"]}>
+                        <ListItem button className={clsx("navLink", "items")}>
                             <NavLink to="/new-content" activeClassName={classes.active} className={currrentAlign()}>
                                 <ListItemText primary={t('sidebar:newContent')}/>
                             </NavLink>
                         </ListItem>
-                        <ListItem button className={["navLink", "items"]}>
+                        <ListItem button className={clsx("navLink", "items")}>
                             <NavLink to="/terms" activeClassName={classes.active} className={currrentAlign()}>
                                 <ListItemText primary={t('sidebar:terms')}/>
                             </NavLink>
                         </ListItem>
-                        <ListItem button className={["navLink", "items"]}>
+                        <ListItem button className={clsx("navLink", "items")}>
                             <NavLink to="/vocabs" activeClassName={classes.active} className={currrentAlign()}>
                                 <ListItemText primary={t('sidebar:vocabs')}/>
+                            </NavLink>
+                        </ListItem>
+                        <ListItem button className={clsx("navLink", "items")}>
+                            <NavLink to="/tags" activeClassName={classes.active} className={currrentAlign()}>
+                                <ListItemText primary={t('sidebar:tags')}/>
                             </NavLink>
                         </ListItem>
                     </List>
                 </TabPanel>
 
-
                 <TabPanel value={value} index={2}
-                          className={[classes.tab, lang === 'fa' ? classes.marginLeft : classes.marginRight]}>
-                        <List className="list" aria-label="main mailbox folders">
-                            <ListItem button className={["navLink", "items"]}>
-                                <NavLink to='/users' activeClassName={classes.active} className={currrentAlign()}>
-                                    <ListItemText primary={t('users')}/>
-                                </NavLink>
-                            </ListItem>
-                            <ListItem button className={["navLink", "items"]}>
-                                <NavLink to='/new-user' activeClassName={classes.active} className={currrentAlign()}>
-                                    <ListItemText primary="افزودن کاربر جدید"/>
-                                </NavLink>
-                            </ListItem>
+                          className={clsx(classes.tab, lang === 'fa' ? classes.marginLeft : classes.marginRight)}>
+                    <List className="list" aria-label="main mailbox folders">
+                        <ListItem button className={clsx("navLink", "items")}>
+                            <NavLink to='/users' activeClassName={classes.active} className={currrentAlign()}>
+                                <ListItemText primary={t('users')}/>
+                            </NavLink>
+                        </ListItem>
+                        <ListItem button className={clsx("navLink", "items")}>
+                            <NavLink to='/new-user' activeClassName={classes.active} className={currrentAlign()}>
+                                <ListItemText primary="افزودن کاربر جدید"/>
+                            </NavLink>
+                        </ListItem>
 
-                        </List>
+                    </List>
 
                 </TabPanel>
 
-                <TabPanel value={value} index={3} className={classes.tab}>
-                    <Box>
-                        item three
-                    </Box>
-                </TabPanel>
-                <TabPanel value={value} index={4} className={classes.tab}>
-                    <Box>
-                        item four
-                    </Box>
-                </TabPanel>
-                <TabPanel value={value} index={5} className={classes.tab}>
-                    <Box>
-                        item
-                    </Box>
-                </TabPanel>
-                <TabPanel value={value} index={6} className={classes.tab}>
-                    <Box>
-                        Item Three
-                    </Box>
-                </TabPanel>
             </Box>
 
         </>

@@ -3,22 +3,29 @@ import {Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import Highcharts from 'highcharts';
 import moment from 'jalali-moment';
+import './../../../../assets/css/yekanFont.css';
 import dashboardService from "./../../../../core/services/dashboard.service";
 
 
 const useStyles = makeStyles((theme) => (
     {
         paper: {
+            '& text':{
+                fontFamily:'primary-font',
+            },
             padding: theme.spacing(2),
             margin: theme.spacing(2),
+            '@media(max-width:992px)': {
+                margin: `${theme.spacing(2)}px 0`,
+            }
         }
     }
 ));
 
 export default function CommentsChartComponent() {
     const classes = useStyles();
-    let getContents = () => {
-        dashboardService.getContents().then((response) => {
+    let getCommentChart = () => {
+        dashboardService.getCommentChart().then((response) => {
             let comments = response.data;
             let sortCommentsByDate = comments.sort((a, b) => (a.created > b.created) ? 1 : -1);
             getCustomComment([...sortCommentsByDate]);
@@ -28,7 +35,7 @@ export default function CommentsChartComponent() {
         });
     };
     useEffect(() => {
-        getContents();
+        getCommentChart();
     }, []);
 
     let getCustomComment = (comments) => {

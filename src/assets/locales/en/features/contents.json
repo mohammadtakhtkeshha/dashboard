@@ -1,11 +1,24 @@
 {
   "contentList": "content list",
-  "name": "title",
   "contentType": "content type",
   "author": "author",
-  "status": "status",
-  "date": "date",
+  "publishDate": "publish date",
+  "indexImg": "Index Image",
+  "imgGallery": "Gallery Image",
+  "videoGallery": "Gallery Video",
+  "voiceGallery": "Gallery Voice",
   "tag": "tag",
   "category": "category",
-  "titr": "titr"
+  "published": "published",
+  "unpublished": "unpublished",
+  "lidkhabar": "lidkhabar",
+  "showPlace": "show place",
+  "show": "show",
+  "notShow": "not show",
+  "domainAccess": "domain access",
+  "domainSource": "domain source",
+  "metaTag": "meta tag",
+  "keywords": "keywords",
+  "summary": "summary",
+  "rotitr": "rotitr"
 }

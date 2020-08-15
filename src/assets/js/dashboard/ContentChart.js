@@ -1,5 +1,6 @@
 import {makeStyles} from "@material-ui/styles";
 import * as colors from './../../../components/partials/Colors';
+
 export const useStyles = makeStyles((theme) => (
     {
         content: {
@@ -59,9 +60,12 @@ export const useStyles = makeStyles((theme) => (
             fontSize: '14px',
             fontWeight: '500'
         },
-        paper: {
+        myPaper: {
             margin: theme.spacing(2),
             padding: theme.spacing(2),
+            '@media(max-width:992px)': {
+                margin: `${theme.spacing(2)}px 0`,
+            }
         }
     }
 ));

@@ -1,5 +1,5 @@
 import {makeStyles} from '@material-ui/core/styles/index';
-
+import {primary} from './../../components/partials/Colors'
 
 export const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,8 +24,18 @@ export const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent:'flex-end',
         '& .item':{
+            cursor:'pointer',
             marginLeft:'6px',
             marginRight:'6px',
+            '& button':{
+                cursor:'pointer',
+                backgroundColor:'transparent',
+                border:'0!important',
+                color:primary,
+                '&:focus':{
+                    outline:'0!important',
+                }
+            }
         }
     },
     headerInput: {
@@ -45,7 +55,7 @@ export const useStyles = makeStyles((theme) => ({
         '& #label': {
             top: '50%',
             height:'1rem',
-            color: 'blue',
+            color: primary,
             position: 'absolute',
             transform: 'translateY(-50%)',
         },

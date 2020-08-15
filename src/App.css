@@ -11,13 +11,18 @@ body {
     border: none;
 }
 
+
+::placeholder,select{
+    font-size: .8rem!important;
+}
+
 /*@font-face{*/
 /*    font-family: "IRANSansWeb";*/
 /*    src: url('./assets/fonts/iran-sans-300.ttf') format('ttf');*/
-/*    !*src: url('./../public/fonts/iransans/ttf/IRANSansWeb.ttf') format('ttf'),*!*/
-/*    !*url('./../public/fonts/iransans/eot/IRANSansWeb.eot') format('eot'),*!*/
-/*    !*url('./../public/fonts/iransans/woff/IRANSansWeb.woff') format('woff'),*!*/
-/*    !*url('../../public/fonts/iransans/woff2/IRANSansWeb.woff2') format('woff2')*!*/
+    /*src: url('./../public/fonts/iransans/ttf/IRANSansWeb.ttf') format('ttf'),*/
+    /*url('./../public/fonts/iransans/eot/IRANSansWeb.eot') format('eot'),*/
+    /*url('./../public/fonts/iransans/woff/IRANSansWeb.woff') format('woff'),*/
+    /*url('../../public/fonts/iransans/woff2/IRANSansWeb.woff2') format('woff2')*/
 /*}*/
 
 a{

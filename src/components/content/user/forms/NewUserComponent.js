@@ -1,31 +1,26 @@
-import React, {useState, useEffect, useContext} from "react";
-import {Box, Checkbox, Paper, Typography} from '@material-ui/core/index';
-import * as colors from './../../../../components/partials/Colors';
+import React, {useState, useEffect} from "react";
+import {Box, Checkbox, Typography} from '@material-ui/core/index';
 import ButtonComponent from './../../../../components/partials/ButtonComponent'
-import {makeStyles} from "@material-ui/core/styles/index";
 import Input from "../../../partials/inputComponent";
-import axios from "axios/index";
-import {FileManager, FileUploader} from 'reactjs-file-uploader';
-import CancelIcon from '@material-ui/icons/Cancel';
+import {makeStyles} from "@material-ui/core/styles/index";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
-import AppContext from './../../../../contexts/AppContext';
-import Grid from '@material-ui/core/Grid/index';
-
-//styles
+import userService from './../../../../core/services/user.service';
+import {primary, white} from "../../../partials/Colors";
+import swal from "sweetalert";
+import {globalCss} from "../../../../assets/js/globalCss";
 import * as newUser from './../../../../assets/js/user/NewUser';
-
-//configs
-import {tokenKey} from '../../../../adf';
 import storage from './../../../../libraries/local-storage';
 import {withNamespaces} from 'react-i18next';
+import UploadImg from "../../../partials/UploadImg";
 
+const gClass = makeStyles(globalCss);
 
- function BaseFormComponent({t}) {
+function BaseFormComponent({t, getRegisteredUser}) {
     const classes = newUser.useStyles();
-    const appContext = useContext(AppContext);
+    const gClasses = gClass();
     const [keyRoles, setKeyRoles] = useState([]);
     const [valueRoles, setValueRoles] = useState();
     const [errors, setErrors] = useState({
@@ -36,117 +31,50 @@ import {withNamespaces} from 'react-i18next';
         confirmPass: {},
     });
     const [checkedRoles, setCheckRoles] = useState([]);
-    const [status, setStatus] = useState(false);
-    const [files, setFiles] = useState([]);
     const [confirmPass, setConfirmPass] = useState('');
     const [user, setUser] = useState({
-        _links: {
-            "type": {
-                "href": "http://sitesaz99.rbp/web/rest/type/user/user"
-            }
-        },
-        name: {value: ''},
-        field_name: {value: ''},
-        field_last_name: {value: ''},
-        mail: {value: ''},
-        pass: {value: ''},
-        user_picture: {value: []},
-        roles: keyRoles,
-        status: {value: status},
+        name: '',
+        field_name: '',
+        field_last_name: '',
+        mail: '',
+        pass: '',
+        user_picture: '',
+        roles: '',
+        status: false,
     });
-// --------------------------------------------------- use effects ------------------------------------------------------
+
     useEffect(() => {
         getRoles();
     }, []);
-// ------------------------------------------- get roles -----------------------------------------
+
     let getRoles = () => {
-        const url = "http://sitesaz99.rbp/web/api/rest/role?_format=json";
-        const config = {
-            headers: {
-                'Content-Type': 'application/hal+json',
-                'Authorization': storage.get(tokenKey),
-                'Accept': 'application/hal+json'
-            }
-        };
-        axios.get(url, config).then((response) => {
+        userService.getRoles().then((response) => {
             let valueRoles = Object.values(response.data);
             let keyRoles = Object.keys(response.data);
             setKeyRoles(keyRoles);
             setValueRoles(valueRoles);
-            debugger
         }).catch((error) => {
-            debugger
             console.log(error);
         });
     };
-// ------------------------------------------------ register -----------------------------------------------------------
+
     const register = () => {
-        // if (checkedRoles.length === 0) {
-        //     setUser(prevState => {
-        //         return {
-        //             ...prevState, roles: []
-        //         }
-        //     });
-        // }
-        if (files.length === 0) {
+        if (user.user_picture.length === 0) {//if no file
             setUser(prevState => {
                 return {
                     ...prevState, user_picture: ''
                 }
             });
             saveUser();
-
         } else {
             saveFile();
         }
+    };
 
-    };
-// ---------------------------------- upload -------------------------------------------------------
-    const uploadFiles = (files) => {
-        return files.map(uploadFile);
-    };
-// --------------------------------------- upload file --------------------------------------------------
-    const uploadFile = (file) => {
-        return (
-            <FileUploader
-                key={file.key}
-                file={file}
-                url='https://api.cloudinary.com/v1_1/dpdenton/upload'
-                formData={{
-                    file,
-                    upload_preset: 'public',
-                    tags: 'vanilla',
-                }}
-                readFile
-            >
-                {fileProgress}
-            </FileUploader>
-        )
-    };
-// --------------------------------------- remove upload img --------------------------------------------------
-    const removeUploadedImg = () => {
-        setFiles([]);
-    };
-// --------------------------------------- fileProgress --------------------------------------------------
-    const fileProgress = ({fileData}) => {
-        return (
-            <div>
-                <Box className={classes.uploadedImgBlock}>
-                    {fileData && <img src={fileData} width={200} alt="Preview"/>}
-                    <div onClick={removeUploadedImg} className="removeImgIcon">
-                        <CancelIcon/>
-                    </div>
-                </Box>
-            </div>
-
-        )
-    };
-// --------------------------------------- save user--------------------------------------------------
     const saveUser = (getUser) => {
         let registeredUser;
         if (getUser === undefined) {//if no img
             registeredUser = user;
-
         } else {
             registeredUser = getUser;
         }
@@ -157,25 +85,43 @@ import {withNamespaces} from 'react-i18next';
         if (nameValid || passValid || mail || confirmPass) {
             return
         }
+        userService.registerUser(registeredUser).then((response) => {debugger
+            let currentUser;
+            let item = response.data;
 
-        // const headers = {
-        //     headers: {
-        //         'Content-Type': "application/hal+json",
-        //         'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImI3ZmI2MThjZTIzYTdlOWUzOWRmMzcyZWUxYTNhMTNmZmE2NzJkZjEzZWQyM2E5NzI1NTQwYzU5YTJlNzgyYzIwMWJiZWJhM2QyOTAzNmQxIn0.eyJhdWQiOiI4YmY5M2Y0Yi00YmRjLTQ3Y2QtYTdkNS0xZmQ4MTE0Y2JjOWMiLCJqdGkiOiJiN2ZiNjE4Y2UyM2E3ZTllMzlkZjM3MmVlMWEzYTEzZmZhNjcyZGYxM2VkMjNhOTcyNTU0MGM1OWEyZTc4MmMyMDFiYmViYTNkMjkwMzZkMSIsImlhdCI6MTU5MjgwMTE1MywibmJmIjoxNTkyODAxMTUzLCJleHAiOjE2MDE1MDExNTMsInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCJdfQ.XWLBEzC8fX2hr9hNXiez8v5bS1gcZvIWm95j3PdHiAoiEBdhLivJLXI-oCnQgkGT5kzW1ZcPVPg4tSicYM64x-ebQWDi54jBEOaGAV6we_hSpU_cV-7IdGtUCOQFuQ6iZJV2UEG9662rIXIcarf-_KyqnJ6liA9Ps4MSpyRqzaOQG9Jm1duqpfP5IOrGAvJ-tL5iWlePIIBS_mSFG8McO2HCTfn13B9FGajpNR6daACxsIsx6l0HojMZRv1cou45HWnL_hqCc6y9QCpKTb35yOXKmNF434TnzreT0w4o4b1cRu3HOyp_08BtK1GSBHahCzQ3vIbWe5_CeENZSRT0zw',
-        //         'Accept': 'application/hal+json'
-        //     }
-        // };
-        // axios.post('http://sitesaz99.rbp/web/entity/user?_format=hal_json', JSON.stringify(registeredUser), headers)
-        //     .then((response) => {
-        //
-        //     }).catch((error) => {
-        //     console.log(error)
-        // });
+
+            currentUser = {
+                uid: `${item.uid}`,
+                name: item.name,
+                field_name: item.field_name.target_id !== "" ? item.field_name : '',
+                field_last_name: item.field_last_name.target_id !== '' ? item.field_last_name : '',
+                role: (item.roles.target_id === ""  ? 'بدون نقش' : item.roles.target_id),
+                status: item.status,
+                // user_picture: item._links['http://dash.webrbp.ir/rest/relation/user/user/user_picture'] !== undefined ? item._links['http://dash.webrbp.ir/rest/relation/user/user/user_picture'][0].href : '',
+                mail: item.mail,
+            };
+debugger
+            getRegisteredUser(currentUser);
+
+            swal({
+                text: t('translation:successRegistered'),
+                button: {
+                    text: t('translation:ok')
+                    , className: gClasses.confirmSwalButton
+                },
+                className: gClasses.makeSwalButtonCenter,
+                icon: "success"
+            });
+
+        }).catch((response) => {
+            // do later
+        });
     };
+
     let nameValidation = (name) => {
         let valid;
         let length;
-        if (name.value.length < 2) {
+        if (name.length < 3) {
             length = 'حداقل کاراکتر انتخابی 3 میباشد!'
             valid = true;
         }
@@ -189,23 +135,24 @@ import {withNamespaces} from 'react-i18next';
         });
         return valid;
     };
+
     let passValidation = (password) => {
         let lengthValid;
         let regexValid;
         let valid;
         let message = {};
-        if (password.value.length < 8) {
+
+        if (password.length < 8) {
             lengthValid = 'حداقل تعداد کاراکترهای انتخابی 8 میباشد!';
             message.length = lengthValid;
             lengthValid = true;
         }
         let regex = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}:;؟|,\.?~_+-=\|])/;
-        if (!regex.test(password.value)) {
+        if (!regex.test(password)) {
             let specialChar = 'پسورد مورد نظر باید شامل اعداد حروف بزرگ و کوچک و علامت ها خاص باشد!';
             message.specialChar = specialChar;
             regexValid = true;
         }
-
         setErrors(prevState => {
             return {
                 ...prevState,
@@ -219,11 +166,12 @@ import {withNamespaces} from 'react-i18next';
         }
         return valid;
     };
+
     let mailValidation = (mail) => {
         let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         let message = {};
         let valid;
-        if (!regex.test(mail.value)) {
+        if (!regex.test(mail)) {
             let mail = 'ایمیل وارد شده معتبر نمیباشد!';
             message.mail = mail;
             valid = true;
@@ -235,11 +183,13 @@ import {withNamespaces} from 'react-i18next';
             }
         });
         return valid;
-    }
-    let confirmPassValidation = () => {
+    };
+
+    let confirmPassValidation = (confirm) => {
         let valid;
         let message = {};
-        if (confirmPass !== user.pass.value) {
+        let confirmPassword = confirm || confirmPass;
+        if (confirmPassword !== user.pass) {
             message.harmony = 'پسوردهای وارد شده باهم همخوانی ندارند!'
             valid = true;
         }
@@ -250,56 +200,38 @@ import {withNamespaces} from 'react-i18next';
         });
         return valid;
     }
-// ----------------------------------------------- save File ---------------------------------------------------------------
-    const saveFile = () => {
 
-        const config = {
-            headers: {
-                'Content-Type': 'application/octet-stream',
-                'Authorization': appContext.token,
-                'Accept': 'application/vnd.api+json',
-                "Content-Disposition": `file;filename="${files[0].name}"`,
-            }
-        };
-        axios.post('http://sitesaz99.rbp/web/file/upload/user/user/user_picture?_format=json', files[0], config)
-            .then(
-                (response) => {
+    let saveFile = () => {
+        userService.saveUserImage(user.user_picture)
+            .then((response) => {
+                    let url = `http://dash.webrbp.ir/sites/default/files/userpic/${response.data.filename}`;
                     setUser(prevState => {
                         return {
                             ...prevState,
                             user_picture: [{
                                 target_type: "file",
-                                target_uuid: response.data.uuid[0],
-                                target_id: response.data.fid[0].value,
-                                url: response.data.uri[0].url
+                                target_uuid: response.data.uuid,
+                                target_id: response.data.fid,
+                                url: url
                             }]
                         }
                     });
 
                     user.user_picture = [{
                         target_type: "file",
-                        target_uuid: response.data.uuid[0],
-                        target_id: response.data.fid[0].value,
-                        url: response.data.uri[0].url
+                        target_uuid: response.data.uuid,
+                        target_id: response.data.fid,
+                        url: url
                     }];
-
-
                     saveUser(user);
                 }
             ).catch((error) => {
-            console.log(error);
+            setErrors(prevState => {
+                return {...prevState, errorName: error}
+            });
         });
     };
-// ---------------------------------- handlerFileChange ------------------------------------------------------------
-    let handleFileChange = (e) => {
-        setFiles([e[0]]);
-        // setUser((prevState) => {
-        //     return {
-        //         ...prevState, user_picture: [{value: e[0]}]
-        //     }
-        // });
-    };
-// ------------------------------------------------ handle inputs changes -----------------------------------------------------------
+
     let handleChange = (e, field) => {
         let currentName;
         currentName = e.currentTarget.value;
@@ -308,17 +240,27 @@ import {withNamespaces} from 'react-i18next';
         }
         setUser(prevState => {
             return {
-                ...prevState, [field]: {value: currentName}
+                ...prevState, [field]: currentName
             }
         });
-    };
+        if (field === 'name') {
+            nameValidation(currentName);
+        }
+        if (field === 'mail') {
+            mailValidation(currentName);
+        }
+        if (field === 'pass') {
+            passValidation(currentName);
+        }
 
+    };
 
     let handleConfirmPass = (e) => {
         let confirmPass = e.target.value;
         setConfirmPass(confirmPass);
-    }
-// ------------------------------------------------ handle checkbox changes -----------------------------------------------------------
+        confirmPassValidation(confirmPass);
+    };
+
     let handleCheckRoles = (e) => {
         let checked = e.target.checked;
         let currentValue = e.target.value;
@@ -331,19 +273,14 @@ import {withNamespaces} from 'react-i18next';
         }
         setCheckRoles([...checkedRolesArr]);
         let formatedRoles = [];
-        for (let item of checkedRolesArr) {
-            formatedRoles.push({
-                "target_id": item,
-                "target_type": "user_role",
-            })
-        }
+        formatedRoles=checkedRolesArr.toString();
         setUser((prevState) => {
             return {
-                ...prevState, roles: formatedRoles
+                ...prevState, roles: {target_id:formatedRoles}
             }
         });
     };
-// ------------------------------------------------ handle status changes -----------------------------------------------------------
+
     let handleStatusChange = (e) => {
         let currentStatus = e.target.value;
         let status;
@@ -352,114 +289,96 @@ import {withNamespaces} from 'react-i18next';
         } else {
             status = false;
         }
-        setStatus(status);
+
         setUser((prevState) => {
             return {
-                ...prevState, status: [{value: status}]
+                ...prevState, status: status
             }
         });
     };
+
+    let uploadedFile = (file) => {
+        setUser(prevState => {
+            return {...prevState, user_picture: file[0]}
+        });
+    }
+
+    console.log(user);
     return (<>
-        <Box>
-            <Paper className={classes.paper}>
-                <Grid container>
-                    {/*<form method="post" encType="multipart/form-data">*/}
-                    {/*----------------------------------------------------------- status ------------------------------------------*/}
-                    <Grid xs={6}>
-                        <Box className={classes.block}>
-                            <Input type="text" placeholder={t('users:name')} label={t('users:enter your name')}
-                                   error={errors.name ? errors.name : ''}
-                                   small='' handleClick={e => handleChange(e, "field_name")}/>
+        <Box className={classes.paper}>
+            <Box className='block'>
+                <Input type="text" placeholder={t('translation:name')} label={t('users:enter your name')}
+                       error={errors.name ? errors.name : ''}
+                       small='' handleClick={e => handleChange(e, "field_name")}/>
 
-                            <Input type="text" placeholder={t('users:family')} label={t('users:enter your family')}
-                                   error={errors.family}
-                                   small='' handleClick={e => handleChange(e, "field_last_name")}/>
-                            <Box className="inputBlock">
-                                <Input type="text" placeholder={t('users:username')} label={t('users:enter your username')}
-                                       small='' handleClick={e => handleChange(e, "name")}/>
-                                {errors.errorName.length ?
-                                    <Typography className="error">{errors.errorName.length}</Typography> : ''}
-                                {errors.errorName.unique ?
-                                    <Typography className="error">{errors.errorName.length}</Typography> : ''}
-                            </Box>
-                            <FormControl component="fieldset">
-                                <label><Typography>{t('users:status')}</Typography></label>
-                                <RadioGroup aria-label="status" name="status" value={status}
-                                            onChange={handleStatusChange}>
-                                    <FormControlLabel value={false} control={<Radio/>} label={t('translation:block')}/>
-                                    <FormControlLabel value={true} control={<Radio/>} label={t('translation:confirm')}/>
-                                </RadioGroup>
-                            </FormControl>
-                            {/*-------------------------------------------------- role -----------------------------------------------------*/}
-                            <Box className="role">
-                                <label><Typography>{t('users:choose role')}</Typography></label>
-                                <br/>
-                                {valueRoles ?
-                                    Object.keys(valueRoles).map((keyName, index) => (
-                                        <FormControlLabel key={index}
-                                                          control={<Checkbox onChange={(e) => handleCheckRoles(e)}
-                                                                             name="roles"/>}
-                                                          label={valueRoles[keyName]}
-                                                          value={keyRoles[keyName]}
-                                        />
-                                    ))
-                                    : ''}
-                            </Box>
-                        </Box>
-
-                    </Grid>
-
-                    <Grid xs={6}>
-                        <Box className={classes.block}>
-                            <Box className="inputBlock">
-                                <Input type="email" placeholder={t('users:email')} label={t('users:enter your email')}
-                                       small='' handleClick={e => handleChange(e, "mail")}/>
-                                {errors.errorMail.mail ?
-                                    <Typography className="error">{errors.errorMail.mail}</Typography> : ''}
-                            </Box>
-                            <Box className="inputBlock">
-                                <Input type="password" placeholder={t('users:password')} label={t('users:password')}
-                                       small='' handleClick={e => handleChange(e, "pass")} error={errors.pass}/>
-                                {errors.errorPass.length ?
-                                    <Typography className="error">{errors.errorPass.length}</Typography> : ''}
-                                {errors.errorPass.specialChar ?
-                                    <Typography className="error">{errors.errorPass.specialChar}</Typography> : ''}
-                            </Box>
-                            <Box className="inputBlock">
-                                <Input type="password" placeholder={t('users:confirm password')} label={t('users:confirm password')}
-                                       small='' handleClick={e => handleConfirmPass(e)} error={errors.confirm_pass}/>
-                                {errors.confirmPass.harmony ?
-                                    <Typography className="error">{errors.confirmPass.harmony}</Typography> : ''}
-                            </Box>
-                            {/*------------------------------------------------------ upload image -----------------------------------------*/}
-                            <Box className="upload">
-                                {files.length == 0 ?
-                                    <label id="label" htmlFor="file"> <Typography>
-                                        {t('users:choose your picture')}
-                                    </Typography></label> : ''}
-                                <input
-                                    id="file"
-                                    type="file"
-                                    accept="image/*"
-                                    name="avatar"
-                                    onChange={event => handleFileChange(files.concat(Array.from(event.target.files)))}
-                                />
-                                <FileManager
-                                    files={files}
-                                >
-                                    {uploadFiles}
-                                </FileManager>
-                            </Box>
-                            <Box mt={2}>
-                                <ButtonComponent color="primary" clicked={register} text={t('translation:register')}/>
-                            </Box>
-                        </Box>
-                    </Grid>
-                    {/*</form>*/}
-                </Grid>
-            </Paper>
+                <Input type="text" placeholder={t('users:family')} label={t('users:enter your family')}
+                       error={errors.family}
+                       small='' handleClick={e => handleChange(e, "field_last_name")}/>
+                <Box className="inputBlock">
+                    <Input type="text" placeholder={t('users:username')} label={t('users:enter your username')}
+                           small='' handleClick={e => handleChange(e, "name")}/>
+                    {errors.errorName.length ?
+                        <Typography className="error">{errors.errorName.length}</Typography> : ''}
+                    {errors.errorName.unique ?
+                        <Typography className="error">{errors.errorName.length}</Typography> : ''}
+                </Box>
+                <FormControl component="fieldset">
+                    <label><Typography>{t('translation:status')}</Typography></label>
+                    <RadioGroup aria-label="status" name="status" value={user.status}
+                                onChange={handleStatusChange}>
+                        <FormControlLabel value={false} control={<Radio/>} label={t('translation:block')}/>
+                        <FormControlLabel value={true} control={<Radio/>} label={t('translation:confirm')}/>
+                    </RadioGroup>
+                </FormControl>
+                {/*-------------------------------------------------- role -----------------------------------------------------*/}
+                <Box className="role">
+                    <label><Typography>{t('users:choose role')}</Typography></label>
+                    <br/>
+                    {valueRoles ?
+                        Object.keys(valueRoles).map((keyName, index) => (
+                            <FormControlLabel key={index}
+                                              control={<Checkbox onChange={(e) => handleCheckRoles(e)}
+                                                                 name="roles"/>}
+                                              label={valueRoles[keyName]}
+                                              value={keyRoles[keyName]}
+                            />
+                        ))
+                        : ''}
+                </Box>
+            </Box>
+            <Box className='block'>
+                <Box className="inputBlock">
+                    <Input type="email" placeholder={t('users:email')} label={t('users:enter your email')}
+                           small='' handleClick={e => handleChange(e, "mail")}/>
+                    {errors.errorMail.mail ?
+                        <Typography className="error">{errors.errorMail.mail}</Typography> : ''}
+                </Box>
+                <Box className="inputBlock">
+                    <Input type="password" placeholder={t('users:password')} label={t('users:password')}
+                           small='' handleClick={e => handleChange(e, "pass")} error={errors.pass}/>
+                    {errors.errorPass.length ?
+                        <Typography className="error">{errors.errorPass.length}</Typography> : ''}
+                    {errors.errorPass.specialChar ?
+                        <Typography className="error">{errors.errorPass.specialChar}</Typography> : ''}
+                </Box>
+                <Box className="inputBlock">
+                    <Input type="password" placeholder={t('users:confirm password')}
+                           label={t('users:confirm password')}
+                           small='' handleClick={e => handleConfirmPass(e)} error={errors.confirm_pass}/>
+                    {errors.confirmPass.harmony ?
+                        <Typography className="error">{errors.confirmPass.harmony}</Typography> : ''}
+                </Box>
+                {/*------------------------------------------------------ upload image -----------------------------------------*/}
+                <Box>
+                    <UploadImg multiple={false} title={t('translation:choosePic')} getFile={uploadedFile}/>
+                </Box>
+                <Box mt={2}>
+                    <ButtonComponent color={white} background={primary} clicked={register}
+                                     text={t('translation:register')}/>
+                </Box>
+            </Box>
         </Box>
     </>);
 }
 
-export default withNamespaces (['users','translation']) (BaseFormComponent);
+export default withNamespaces(['users', 'translation'])(BaseFormComponent);

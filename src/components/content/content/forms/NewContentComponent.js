@@ -1,474 +1,857 @@
-import React, {useState, useEffect, useContext} from "react";
-import {Box, Checkbox, Paper, Typography} from '@material-ui/core/index';
-import * as colors from './../../../../components/partials/Colors';
-import ButtonComponent from './../../../../components/partials/ButtonComponent'
-import {makeStyles} from "@material-ui/core/styles/index";
-import Input from "../../../partials/inputComponent";
-import axios from "axios/index";
-import {FileManager, FileUploader} from 'reactjs-file-uploader';
-import CancelIcon from '@material-ui/icons/Cancel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import React, {useState, useEffect} from "react";
+import {Box, Paper, Typography} from '@material-ui/core/index';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControl from '@material-ui/core/FormControl';
-import AppContext from './../../../../contexts/AppContext';
-import Grid from '@material-ui/core/Grid/index';
+import FormLabel from '@material-ui/core/FormLabel';
 import TextField from '@material-ui/core/TextField';
-//styles
-import * as newUser from './../../../../assets/js/user/NewUser';
-
-//configs
-import {tokenKey} from '../../../../adf';
-import storage from './../../../../libraries/local-storage';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import FormControl from "@material-ui/core/FormControl";
+import InputBase from '@material-ui/core/InputBase';
+import {makeStyles, withStyles} from '@material-ui/core/styles';
+import NativeSelect from '@material-ui/core/NativeSelect';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import PropTypes from 'prop-types';
+import moment from "moment";
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import contentSercice from './../../../../core/services/content.serveice';
+import tagService from './../../../../core/services/tag.service';
+import * as newContent from './../../../../assets/js/content/newContent';
 import {withNamespaces} from "react-i18next";
-import contents from "../../../../assets/js/content/contents";
+import UploadImg from "../../../partials/UploadImg";
+import ButtonComponent from './../../../../components/partials/ButtonComponent'
+import Input from "../../../partials/inputComponent";
+import DatePickerr from "../../../partials/DatePickerr";
+import clsx from "clsx";
+import EditorComponent from "../../../partials/EditorComponent";
+import i18next from "i18next";
+import axios from 'axios';
+import storage from './../../../../libraries/local-storage';
+import UploadVideo from "../../../partials/UploadVideo";
+import UploadVoice from "../../../partials/UploadVoice";
+import {globalCss} from '../../../../assets/js/globalCss';
+import {primary} from "../../../partials/Colors";
 
+const useTabStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+        backgroundColor: theme.palette.background.paper,
+    },
+}));
 
- function NewContentComponent({t}) {
-    const classes = newUser.useStyles();
-    const appContext = useContext(AppContext);
-    const [keyRoles, setKeyRoles] = useState([]);
-    const [valueRoles, setValueRoles] = useState();
-    const [errors, setErrors] = useState({
-        errorName: {},
-        errorPass: {},
-        specialChar: {},
-        errorMail: {},
-        confirmPass: {},
-    });
-    const [checkedRoles, setCheckRoles] = useState([]);
-    const [status, setStatus] = useState(false);
-    const [files, setFiles] = useState([]);
-    const [confirmPass, setConfirmPass] = useState('');
-    const [user, setUser] = useState({
-        _links: {
-            "type": {
-                "href": "http://sitesaz99.rbp/web/rest/type/user/user"
-            }
-        },
-        name: {value: ''},
-        field_name: {value: ''},
-        field_last_name: {value: ''},
-        mail: {value: ''},
-        pass: {value: ''},
-        user_picture: {value: []},
-        roles: keyRoles,
-        status: {value: status},
-    });
-// --------------------------------------------------- use effects ------------------------------------------------------
-    useEffect(() => {
-        getRoles();
-    }, []);
-// ------------------------------------------- get roles -----------------------------------------
-    let getRoles = () => {
-        const url = "http://sitesaz99.rbp/web/api/rest/role?_format=json";
-        const config = {
-            headers: {
-                'Content-Type': 'application/hal+json',
-                'Authorization': storage.get(tokenKey),
-                'Accept': 'application/hal+json'
-            }
-        };
-        axios.get(url, config).then((response) => {
-            let valueRoles = Object.values(response.data);
-            let keyRoles = Object.keys(response.data);
-            setKeyRoles(keyRoles);
-            setValueRoles(valueRoles);
-            debugger
-        }).catch((error) => {
-            debugger
-            console.log(error);
-        });
+const gClass=makeStyles(globalCss);
+
+function TabPanel(props) {
+    const {children, value, index, ...other} = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box p={3}>
+                    <Typography variant="h4">{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+    return {
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
     };
-// ------------------------------------------------ register -----------------------------------------------------------
-    const register = () => {
-        // if (checkedRoles.length === 0) {
-        //     setUser(prevState => {
-        //         return {
-        //             ...prevState, roles: []
-        //         }
-        //     });
-        // }
-        if (files.length === 0) {
-            setUser(prevState => {
-                return {
-                    ...prevState, user_picture: ''
+}
+
+function sleep(delay = 0) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, delay);
+    });
+}
+
+function NewContentComponent({t}) {
+    const lang = i18next.language;
+    const [tags, setTags] = useState([]);
+    const gClasses=gClass();
+
+    // -----auto complete ------
+    const [openAutoComplete, setOpenAutoComplete] = useState(false);
+    const loading = openAutoComplete && tags.length === 0;
+
+    useEffect(() => {
+        let active = true;
+        if (!loading) {
+            return undefined;
+        }
+        (async () => {
+            tagService.getTags().then((response) => {
+                if (active) {
+                    setTags(response.data.map((key) => key));
                 }
             });
-            saveUser();
+        })();
 
-        } else {
-            saveFile();
-        }
-
-    };
-// ---------------------------------- upload -------------------------------------------------------
-    const uploadFiles = (files) => {
-        return files.map(uploadFile);
-    };
-// --------------------------------------- upload file --------------------------------------------------
-    const uploadFile = (file) => {
-        return (
-            <FileUploader
-                key={file.key}
-                file={file}
-                url='https://api.cloudinary.com/v1_1/dpdenton/upload'
-                formData={{
-                    file,
-                    upload_preset: 'public',
-                    tags: 'vanilla',
-                }}
-                readFile
-            >
-                {fileProgress}
-            </FileUploader>
-        )
-    };
-// --------------------------------------- remove upload img --------------------------------------------------
-    const removeUploadedImg = () => {
-        setFiles([]);
-    };
-// --------------------------------------- fileProgress --------------------------------------------------
-    const fileProgress = ({fileData}) => {
-        return (
-            <div>
-                <Box className={classes.uploadedImgBlock}>
-                    {fileData && <img src={fileData} width={200} alt="Preview"/>}
-                    <div onClick={removeUploadedImg} className="removeImgIcon">
-                        <CancelIcon/>
-                    </div>
-                </Box>
-            </div>
-
-        )
-    };
-// --------------------------------------- save user--------------------------------------------------
-    const saveUser = (getUser) => {
-        let registeredUser;
-        if (getUser === undefined) {//if no img
-            registeredUser = user;
-
-        } else {
-            registeredUser = getUser;
-        }
-        let nameValid = nameValidation(registeredUser.name);
-        let passValid = passValidation(registeredUser.pass);
-        let mail = mailValidation(registeredUser.mail);
-        let confirmPass = confirmPassValidation(registeredUser.pass, registeredUser);
-        if (nameValid || passValid || mail || confirmPass) {
-            return
-        }
-
-        // const headers = {
-        //     headers: {
-        //         'Content-Type': "application/hal+json",
-        //         'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImI3ZmI2MThjZTIzYTdlOWUzOWRmMzcyZWUxYTNhMTNmZmE2NzJkZjEzZWQyM2E5NzI1NTQwYzU5YTJlNzgyYzIwMWJiZWJhM2QyOTAzNmQxIn0.eyJhdWQiOiI4YmY5M2Y0Yi00YmRjLTQ3Y2QtYTdkNS0xZmQ4MTE0Y2JjOWMiLCJqdGkiOiJiN2ZiNjE4Y2UyM2E3ZTllMzlkZjM3MmVlMWEzYTEzZmZhNjcyZGYxM2VkMjNhOTcyNTU0MGM1OWEyZTc4MmMyMDFiYmViYTNkMjkwMzZkMSIsImlhdCI6MTU5MjgwMTE1MywibmJmIjoxNTkyODAxMTUzLCJleHAiOjE2MDE1MDExNTMsInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCJdfQ.XWLBEzC8fX2hr9hNXiez8v5bS1gcZvIWm95j3PdHiAoiEBdhLivJLXI-oCnQgkGT5kzW1ZcPVPg4tSicYM64x-ebQWDi54jBEOaGAV6we_hSpU_cV-7IdGtUCOQFuQ6iZJV2UEG9662rIXIcarf-_KyqnJ6liA9Ps4MSpyRqzaOQG9Jm1duqpfP5IOrGAvJ-tL5iWlePIIBS_mSFG8McO2HCTfn13B9FGajpNR6daACxsIsx6l0HojMZRv1cou45HWnL_hqCc6y9QCpKTb35yOXKmNF434TnzreT0w4o4b1cRu3HOyp_08BtK1GSBHahCzQ3vIbWe5_CeENZSRT0zw',
-        //         'Accept': 'application/hal+json'
-        //     }
-        // };
-        // axios.post('http://sitesaz99.rbp/web/entity/user?_format=hal_json', JSON.stringify(registeredUser), headers)
-        //     .then((response) => {
-        //
-        //     }).catch((error) => {
-        //     console.log(error)
-        // });
-    };
-    let nameValidation = (name) => {
-        let valid;
-        let length;
-        if (name.value.length < 2) {
-            length = 'حداقل کاراکتر انتخابی 3 میباشد!'
-            valid = true;
-        }
-        setErrors(prevState => {
-            return {
-                ...prevState,
-                errorName: {
-                    length: length
-                }
-            }
-        });
-        return valid;
-    };
-    let passValidation = (password) => {
-        let lengthValid;
-        let regexValid;
-        let valid;
-        let message = {};
-        if (password.value.length < 8) {
-            lengthValid = 'حداقل تعداد کاراکترهای انتخابی 8 میباشد!';
-            message.length = lengthValid;
-            lengthValid = true;
-        }
-        let regex = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}:;؟|,\.?~_+-=\|])/;
-        if (!regex.test(password.value)) {
-            let specialChar = 'پسورد مورد نظر باید شامل اعداد حروف بزرگ و کوچک و علامت ها خاص باشد!';
-            message.specialChar = specialChar;
-            regexValid = true;
-        }
-
-        setErrors(prevState => {
-            return {
-                ...prevState,
-                errorPass: message
-            }
-        });
-
-
-        if (lengthValid || regexValid) {
-            valid = true;
-        }
-        return valid;
-    };
-    let mailValidation = (mail) => {
-        let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-        let message = {};
-        let valid;
-        if (!regex.test(mail.value)) {
-            let mail = 'ایمیل وارد شده معتبر نمیباشد!';
-            message.mail = mail;
-            valid = true;
-        }
-        setErrors(prevState => {
-            return {
-                ...prevState,
-                errorMail: message
-            }
-        });
-        return valid;
-    }
-    let confirmPassValidation = () => {
-        let valid;
-        let message = {};
-        if (confirmPass !== user.pass.value) {
-            message.harmony = 'پسوردهای وارد شده باهم همخوانی ندارند!'
-            valid = true;
-        }
-        setErrors(prevState => {
-            return {
-                ...prevState, confirmPass: message
-            }
-        });
-        return valid;
-    }
-// ----------------------------------------------- save File ---------------------------------------------------------------
-    const saveFile = () => {
-
-        const config = {
-            headers: {
-                'Content-Type': 'application/octet-stream',
-                'Authorization': appContext.token,
-                'Accept': 'application/vnd.api+json',
-                "Content-Disposition": `file;filename="${files[0].name}"`,
-            }
+        return () => {
+            active = false;
         };
-        axios.post('http://sitesaz99.rbp/web/file/upload/user/user/user_picture?_format=json', files[0], config)
-            .then(
-                (response) => {
-                    setUser(prevState => {
-                        return {
-                            ...prevState,
-                            user_picture: [{
-                                target_type: "file",
-                                target_uuid: response.data.uuid[0],
-                                target_id: response.data.fid[0].value,
-                                url: response.data.uri[0].url
-                            }]
-                        }
-                    });
+    }, [loading]);
 
-                    user.user_picture = [{
-                        target_type: "file",
-                        target_uuid: response.data.uuid[0],
-                        target_id: response.data.fid[0].value,
-                        url: response.data.uri[0].url
-                    }];
+    useEffect(() => {
+        if (!openAutoComplete) {
+            setTags([]);
+        }
+    }, [openAutoComplete]);
+    // -----auto complete ------
 
-
-                    saveUser(user);
+    const BootstrapInput = withStyles((theme) => ({
+        root: {
+            'label + &': {
+                marginTop: theme.spacing(3),
+            },
+        },
+        input: {
+            borderRadius: 4,
+            position: 'relative',
+            backgroundColor: theme.palette.background.paper,
+            border: '1px solid #ced4da',
+            fontSize: 16,
+            padding: '10px 26px 10px 12px',
+            transition: theme.transitions.create(['border-color', 'box-shadow']),
+            // Use the system font instead of the default Roboto font.
+            fontFamily: [
+                '-apple-system',
+                'BlinkMacSystemFont',
+                '"Segoe UI"',
+                'Roboto',
+                '"Helvetica Neue"',
+                'Arial',
+                'sans-serif',
+                '"Apple Color Emoji"',
+                '"Segoe UI Emoji"',
+                '"Segoe UI Symbol"',
+            ].join(','),
+            '&:focus': {
+                borderRadius: 4,
+                borderColor: '#80bdff',
+                boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+            },
+        },
+    }))(InputBase);
+    const classes = newContent.useStyles();
+    const [value, setValue] = useState(0);
+    const [categories, setCategories] = useState([]);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedJalaliDate, setSelectedJalaliDate] = useState(moment());
+    const [content, setContent] = useState({
+            _links: {
+                type: {
+                    href: "http://dash.webrbp.ir/rest/type/node/article"
                 }
-            ).catch((error) => {
-            console.log(error);
+            },
+            type: [
+                {
+                    target_id: "article"
+                }
+            ],
+            title: [
+                {
+                    value: "اين عنوان براي تست مقاله مي باشد"
+                }
+            ],
+            body: [
+                {
+                    value: "این بادی برای تست مقاله می باشد",
+                    summary: "این خلاصه برای مقاله و تست می باشد"
+                }
+            ],
+            field_rotitr: [
+                {
+                    value: "این روتیتر برای تست مقاله از پست من میباشد"
+                }
+            ],
+            field_seo_list: [
+                {
+                    value: {
+                        title: "این عنوان در بالای صفحه برای سئو نمایش داده می شود",
+                        description: "این یک توضیح برای ربات های گوگل می باشد",
+                        abstract: "ابسترکت برای تست می باشد",
+                        keywords: "کلمه یک , كلمه دو , كلمه سه"
+                    }
+                }
+            ],
+            field_sotitr: [
+                {
+                    value: " سوتيتر مقاله ىر اين قسمت نوشته شده است"
+                }
+            ],
+            field_tags: [
+                {
+                    target_id: 9,
+                    target_type: "taxonomy_term",
+                    target_uuid: "a53e7020-ebda-40a3-b985-ea89c6cafa97",
+                    url: "/web/taxonomy/term/9"
+                }
+            ],
+            field_domain_access: [
+                {
+                    target_id: "dash_webrbp_ir",
+                    target_type: "domain",
+                    target_uuid: "67f5f76f-7730-4aa5-8504-8d00e44bc720"
+                }
+            ],
+            field_domain_all_affiliates: [
+                {
+                    value: true
+                }
+            ],
+            field_domain_source: [
+                {
+                    target_id: "dash_webrbp_ir",
+                    target_type: "domain",
+                    target_uuid: "67f5f76f-7730-4aa5-8504-8d00e44bc720"
+                }
+            ],
+            field_image: [
+                {
+                    target_id: 158,
+                    alt: "سشیسیش",
+                    title: "",
+                    width: 520,
+                    height: 410,
+                    target_type: "file",
+                    target_uuid: "2e2838d5-21e7-44ef-8f20-05c74ca043a0",
+                    url: "http://dash.webrbp.ir/sites/default/files/2020-08/78456985.jpg"
+                }
+            ],
+            status: [
+                {
+                    value: false
+                }
+            ],
+            field_files: [
+                {
+                    target_id: 161,
+                    display: true,
+                    target_type: "file",
+                    target_uuid: "12671557-e624-473a-8443-3caba3725706",
+                    url: "http://dash.webrbp.ir/sites/default/files/2020-08/file.zip"
+                },
+                {
+                    target_id: 161,
+                    display: true,
+                    target_type: "file",
+                    target_uuid: "12671557-e624-473a-8443-3caba3725706",
+                    url: "http://dash.webrbp.ir/sites/default/files/2020-08/file.zip"
+                }
+            ],
+            field_field_galeries: [
+                {
+                    target_id: 162,
+                    target_type: "file",
+                    target_uuid: "0baa638b-5472-428b-abed-9a53417c299a",
+                    url: "http://dash.webrbp.ir/sites/default/files/2020-08/gallery1_0.jpg"
+                },
+                {
+                    target_id: 162,
+                    target_type: "file",
+                    target_uuid: "0baa638b-5472-428b-abed-9a53417c299a",
+                    url: "http://dash.webrbp.ir/sites/default/files/2020-08/gallery1_0.jpg"
+                }
+            ],
+            field_sounds: [
+                {
+                    target_id: 163,
+                    target_type: "file",
+                    target_uuid: "8cb1f7da-9695-4a70-916d-22f799cbcc8b",
+                    url: "http://dash.webrbp.ir/sites/default/files/2020-08/test11.mp3"
+
+                },
+                {
+                    target_id: 163,
+                    target_type: "file",
+                    target_uuid: "8cb1f7da-9695-4a70-916d-22f799cbcc8b",
+                    url: "http://dash.webrbp.ir/sites/default/files/2020-08/test11.mp3"
+                }
+            ],
+            publish_on: [
+                {
+                    value: "2020/08/30T11:43:00+00:00",
+                    format: "Y/m/d\\TH:i:sP"
+                }
+            ],
+            unpublish_on: [
+                {
+                    value: "2020/09/29T11:45:00+00:00",
+                    format: "Y/m/d\\TH:i:sP"
+                }
+            ],
+            // "showPlace": {value: false},
+
+        }
+    );
+    // const [content, setContent] = useState({
+    //     title: {value: ''},
+    //     // author: {value: storage.get('user').name},
+    //     author: {value: 'admin'},
+    //     description: {value: ''},
+    //     status: {value: 'published'},
+    //     currentDate: {value: ''},
+    //     domainSource: {value: ''},
+    //     showPlace: {value: false},
+    //     publishDate: {value: selectedDate},
+    //     registerDate: {value: ''},
+    //     rotitr: {value: ''},
+    //     lidkhabar: {value: ''},
+    //     field_seo_list: [
+    //         {
+    //             value: {
+    //                 title: "",
+    //                 description: "",
+    //                 abstract: "",
+    //                 keywords: ""
+    //             }
+    //         }
+    //     ],
+    //     category: '',
+    //     tags: '',
+    //     singleImg: '',
+    //     voice: '',
+    //     video: '',
+    // });
+    const [multiImg, setMultiImg] = useState([]);
+    const [video, setVideo] = useState([]);
+    const [voice, setVoice] = useState([]);
+    const [errors, setErrors] = useState({
+        errorName: {},
+        errorMail: {},
+    });
+    const [domainAccesses, setDomainAccesses] = useState([]);
+    const [selectedDomainAccess, setSelectedDomainAccesses] = useState([]);
+
+    useEffect(() => {
+        tagService.getTags().then((response) => {
+            let tags = response.data;
+            setTags(tags);
+        }).catch((error) => {
+            console.log(error)
         });
-    };
-// ---------------------------------- handlerFileChange ------------------------------------------------------------
-    let handleFileChange = (e) => {
-        setFiles([e[0]]);
-        // setUser((prevState) => {
-        //     return {
-        //         ...prevState, user_picture: [{value: e[0]}]
-        //     }
-        // });
-    };
-// ------------------------------------------------ handle inputs changes -----------------------------------------------------------
+    }, []);
+
+    useEffect(() => {
+        getCategories();
+    }, []);
+
+    useEffect(() => {
+        getDomainSource();
+    }, []);
+
+    let handleDateChange = (date) => {
+        if (lang === 'fa') {
+            setSelectedJalaliDate(date);
+        } else {
+            setSelectedDate(date);
+        }
+        setContent(prevState => {
+            return {
+                ...prevState, publishDate: {value: date.toLocaleString()},
+            }
+        })
+    }
+
     let handleChange = (e, field) => {
         let currentName;
         currentName = e.currentTarget.value;
-        if (currentName === "") {
-            delete user[field];
-        }
-        setUser(prevState => {
+        setContent(prevState => {
             return {
                 ...prevState, [field]: {value: currentName}
             }
         });
     };
 
+    let handleTabChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
-    let handleConfirmPass = (e) => {
-        let confirmPass = e.target.value;
-        setConfirmPass(confirmPass);
-    }
-// ------------------------------------------------ handle checkbox changes -----------------------------------------------------------
-    let handleCheckRoles = (e) => {
-        let checked = e.target.checked;
-        let currentValue = e.target.value;
-        let checkedRolesArr = [];
-        if (checked) {
-            checkedRolesArr = [currentValue, ...checkedRoles];
-        } else {
-            let newCheckedRoles = checkedRoles.filter(role => role !== currentValue);
-            checkedRolesArr = [...newCheckedRoles];
-        }
-        setCheckRoles([...checkedRolesArr]);
-        let formatedRoles = [];
-        for (let item of checkedRolesArr) {
-            formatedRoles.push({
-                "target_id": item,
-                "target_type": "user_role",
-            })
-        }
-        setUser((prevState) => {
+    let handleTagChange = (event) => {
+        let currentTag = event.target.value;
+        setContent(prevState => {
             return {
-                ...prevState, roles: formatedRoles
+                ...prevState, tag: currentTag
             }
         });
     };
-// ------------------------------------------------ handle status changes -----------------------------------------------------------
+
+    let handleCategoryChange = (event) => {
+        let currentCat = event.target.value;
+        setContent(prevState => {
+            return {
+                ...prevState, category: currentCat
+            }
+        });
+    };
+
+    let handleFileChange = () => {
+        console.log('change');
+    };
+
+    let register = () => {
+        // let date = new Date();
+        // let currentDate = date.toDateString();
+        // let arrDate = currentDate.split(' ');
+        // setContent((prevState) => {
+        //     return {
+        //         ...prevState, arrDate
+        //     }
+        // });
+        let data = JSON.stringify(content);
+        let url = 'http://dash.webrbp.ir/entity/node?_format=hal_json';
+        let config = {
+            headers: {
+                'Content-Type': 'application/hal+json',
+                'Authorization': storage.get(process.env.REACT_APP_TOKEN_KEY),
+                'Accept': 'application/hal+json'
+            }
+        };
+        axios.post(url, content, config).then((response) => {
+
+        }).catch((error) => {
+        });
+    };
+
     let handleStatusChange = (e) => {
-        let currentStatus = e.target.value;
-        let status;
-        if (currentStatus === "true") {
-            status = true;
-        } else {
-            status = false;
-        }
-        setStatus(status);
-        setUser((prevState) => {
+        setContent(prevState => {
             return {
-                ...prevState, status: [{value: status}]
+                ...prevState, status: {value: e.currentTarget.value},
             }
         });
     };
+
+    let getDomainSource = () => {
+        contentSercice.getDomainSource().then((response) => {
+            setDomainAccesses(response.data);
+        }).catch((error) => {
+            console.log(error)
+        });
+    };
+
+    // let getTags = () => {
+    //     let url = `http://dash.webrbp.ir/vocabularies/tags`;
+    //     let config = {
+    //         headers: {
+    //             'Content-Type': 'application/hal+json',
+    //             'Authorization': storage.get(process.env.REACT_APP_TOKEN_KEY),
+    //             'Accept': 'application/hal+json'
+    //         }
+    //     }
+    //     return axios.get(url, config);
+    //
+    // };
+
+    let getCategories = () => {
+        contentSercice.getCategories().then((response) => {debugger
+            let categories = response.data.rows;
+            setCategories(categories);
+        }).catch((error) => {
+            console.log(error)
+        });
+
+    };
+
+    // let handleShowPlaceChange = (e) => {
+    //     let val;
+    //     let showPlace = e.currentTarget.value;
+    //     if (showPlace === "true") {
+    //         val = true;
+    //     } else {
+    //         val = false;
+    //     }
+    //     setContent(prevState => {
+    //         return {
+    //             ...prevState, showPlace: {value: val},
+    //         }
+    //     });
+    // };
+
+    let getPublishDate = (date) => {
+        setContent(prevState => {
+            return {
+                ...prevState, publishDate: {value: date},
+            }
+        });
+    };
+
+    let handleDomainAccessChange = (e, domain) => {
+        if (e.target.checked) {
+            setSelectedDomainAccesses(prevState => {
+                return [...prevState, domain];
+            });
+        } else {
+            let exSelectedDomainAccess = selectedDomainAccess;
+            let newSelectedDomainAccess = exSelectedDomainAccess.filter(item => item !== domain);
+            setSelectedDomainAccesses([...newSelectedDomainAccess]);
+        }
+
+    };
+
+    let handleDomainResourceChange = (e) => {
+        let currentDomainResource = e.target.value;
+        setContent(prevState => {
+            return {
+                ...prevState, domainSource: currentDomainResource
+            }
+        });
+    };
+
+    let uploadSingImg = (e) => {
+        contentSercice.uploadSingImg(e).then((response) => {
+            let item = response.data;
+            setContent(prevState => {
+                return {
+                    ...prevState, singleImg: `http://dash.webrbp.ir/${item.uri[0].url}`
+                }
+            });
+        }).catch((error) => {
+            console.log(error);
+        });
+    };
+
+    let uploadMultiImg = (file) => {
+        setMultiImg(file);
+    };
+
+    let uploadVideo = (e) => {
+        contentSercice.uploadVideo(e).then((response) => {
+            let item = response.data;
+            setContent(prevState => {
+                return {
+                    ...prevState, video: `http://dash.webrbp.ir/${item.uri[0].url}`
+                }
+            });
+        }).catch((error) => {
+            console.log(error);
+        });
+    };
+
+    let uploadVoice = (e) => {
+        contentSercice.uploadVoice(e).then((response) => {
+            let item = response.data;
+            setContent(prevState => {
+                return {
+                    ...prevState, voice: `http://dash.webrbp.ir/${item.uri[0].url}`
+                }
+            });
+        }).catch((error) => {
+            console.log(error);
+        });
+    };
+
+    let clickEditorDescription = (e) => {
+        setContent(prevState => {
+            return {
+                ...prevState, description: e
+            }
+        });
+    };
+
+    let clickEditorMetaTag = (e, keyName) => {
+        if (keyName === "description") {
+            setContent(prevState => {
+                return {
+                    ...prevState, field_seo_list: [{
+                        value: {
+                            title: prevState.field_seo_list[0].value.title,
+                            description: e,
+                            abstract: prevState.field_seo_list[0].value.abstract,
+                            keywords: prevState.field_seo_list[0].value.keywords
+                        }
+                    }]
+                }
+            });
+        } else {
+            setContent(prevState => {
+                return {
+                    ...prevState, field_seo_list: [{
+                        value: {
+                            title: prevState.field_seo_list[0].value.title,
+                            description: prevState.field_seo_list[0].value.description,
+                            abstract: e,
+                            keywords: prevState.field_seo_list[0].value.keywords
+                        }
+                    }]
+                }
+            });
+        }
+    };
+
+    let onTagsChange = (event, values) => {
+        let tags = values.map(item => item.name);
+        setContent(prevState => {
+            return {
+                ...prevState, field_tags: [...tags]
+            }
+        });
+    };
+
+    console.log(content);
     return (<>
         <Box>
             <Paper className={classes.paper}>
-                <Grid container>
-                    {/*<form method="post" encType="multipart/form-data">*/}
-                    {/*----------------------------------------------------------- status ------------------------------------------*/}
-                    <Grid xs={6}>
-                        <Box className={classes.block}>
-                            <Input type="text" placeholder={t('contents:name')}
-                                   error={errors.name ? errors.name : ''}
-                                   small='' handleClick={e => handleChange(e, "field_name")}/>
-
-                            <Input type="text" placeholder={t('translation:description')} label='نام خانوادگی خود را وارد کنید'
-                                   error={errors.family}
-                                   small='' handleClick={e => handleChange(e, "field_last_name")}/>
-                            <TextField
-                                id="date"
-                                label="Birthday"
-                                type="date"
-                                defaultValue="2017-05-24"
-                                className={classes.textField}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                            />
-                            <Box className="inputBlock">
-                                <Input type="text" placeholder='نام کاربری' label='نام کاربری خود را وارد کنید'
-                                       small='' handleClick={e => handleChange(e, "name")}/>
-                                {errors.errorName.length ?
-                                    <Typography className="error">{errors.errorName.length}</Typography> : ''}
-                                {errors.errorName.unique ?
-                                    <Typography className="error">{errors.errorName.length}</Typography> : ''}
+                <Box className="tabs">
+                    <Tabs className='tabButtons' value={value} onChange={handleTabChange}
+                          aria-label="simple tabs example">
+                        <Tab label={t('translation:description')} {...a11yProps(0)} />
+                        <Tab label={t('translation:files')} {...a11yProps(1)} />
+                    </Tabs>
+                    <TabPanel value={value} index={0} className="tabContent">
+                        <Box className='block'>
+                            <Box className="items">
+                                <Input
+                                    lang={lang}
+                                    type="text" placeholder={t('translation:title')} label={t('translation:title')}
+                                       error={errors.title ? errors.title : ''}
+                                       small='' handleClick={e => handleChange(e, "title")}/>
+                                <Input
+                                    lang={lang}
+                                    type="text" placeholder={t('contents:rotitr')}
+                                       label={t('contents:rotitr')}
+                                       error={errors.family}
+                                       small='' handleClick={e => handleChange(e, "rotitr")}/>
                             </Box>
-                            <FormControl component="fieldset">
-                                <label><Typography>وضعیت</Typography></label>
-                                <RadioGroup aria-label="status" name="status" value={status}
-                                            onChange={handleStatusChange}>
-                                    <FormControlLabel value={false} control={<Radio/>} label="بلاک"/>
-                                    <FormControlLabel value={true} control={<Radio/>} label="تایید"/>
-                                </RadioGroup>
-                            </FormControl>
-                            {/*-------------------------------------------------- role -----------------------------------------------------*/}
-                            <Box className="role">
-                                <label><Typography>رول مورد نظر را انتخاب کنید:</Typography></label>
-                                <br/>
-                                {valueRoles ?
-                                    Object.keys(valueRoles).map((keyName, index) => (
-                                        <FormControlLabel key={index}
-                                                          control={<Checkbox onChange={(e) => handleCheckRoles(e)}
-                                                                             name="roles"/>}
-                                                          label={valueRoles[keyName]}
-                                                          value={keyRoles[keyName]}
+                            <Box className="editor">
+                                <EditorComponent textAlign={lang==='en'?gClasses.textLeft:gClasses.textRight} lang={lang} title={t('translation:description')} onClick={(e) => {
+                                    clickEditorDescription(e)
+                                }}/>
+                            </Box>
+                            <Box className="items">
+                                <Input lang={lang} type="text" placeholder={t('contents:lidkhabar')}
+                                       label={t('contents:lidkhabar')}
+                                       error={errors.family}
+                                       small='' handleClick={e => handleChange(e, "lidkhabar")}/>
+                                <Box className={clsx("publishDate", "card")}>
+                                    <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('contents:publishDate')}</Typography>
+                                    <div className={clsx("number",lang==='en'?gClasses.ltr:gClasses.rtl)} >
+                                        <DatePickerr
+                                            selectedDate={lang === 'fa' ? selectedJalaliDate : selectedDate}
+                                            onChange={handleDateChange}
+                                            // locale={lang === 'fa' ? 'primary-font' : 'byekan'}
+                                            lang={lang}/>
+                                    </div>
+                                </Box>
+                            </Box>
+                            <Box className="items">
+                                <Box className={clsx('select', 'card', lang === 'fa' ? 'faTag' : 'enTag')}>
+                                    <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('tags:tags')}</Typography>
+                                    <Autocomplete
+                                        id="asynchronous-demo"
+                                        multiple={true}
+                                        style={{width: '100%'}}
+                                        open={openAutoComplete}
+                                        onOpen={() => {
+                                            setOpenAutoComplete(true);
+                                        }}
+                                        onClose={() => {
+                                            setOpenAutoComplete(false);
+                                        }}
+                                        getOptionSelected={(option, value) => option.name === value.name}
+                                        getOptionLabel={(option) => option.name}
+                                        options={tags}
+                                        loading={loading}
+                                        onChange={onTagsChange}
+                                        renderInput={(params) => (
+                                            <TextField
+                                                {...params}
+                                                variant="outlined"
+                                                InputProps={{
+                                                    ...params.InputProps,
+                                                    endAdornment: (
+                                                        <>
+                                                            {loading ?
+                                                                <CircularProgress color="inherit" size={20}/> : null}
+                                                            {params.InputProps.endAdornment}
+                                                        </>
+                                                    ),
+                                                }}
+                                            />
+                                        )}
+                                    />
+                                </Box>
+                                <Box className={clsx('select', 'card')}>
+                                    <FormControl className={classes.margin}>
+                                        <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('categories:categories')}</Typography>
+                                        <NativeSelect
+                                            value={content.category}
+                                            onChange={handleCategoryChange}
+                                            input={<BootstrapInput/>}
+                                            className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}
+                                        >
+                                            <option aria-label="None" value="">{t('translation:none')}</option>
+                                            {categories.map((item) => (
+                                                <option key={item.tid} value={item.name}>{item.name}</option>
+                                            ))}
+
+                                        </NativeSelect>
+                                    </FormControl>
+                                </Box>
+                            </Box>
+                            <Box className={clsx('items',lang==='en'?gClasses.ltr:gClasses.rtl )}>
+                                <Box  className={clsx('card',lang==='en'?gClasses.textLeft:gClasses.textRight )}>
+                                    <FormControl component="fieldset">
+                                        <FormLabel component="legend">{t('translation:status')}</FormLabel>
+                                        <RadioGroup aria-label="status" value={content.status.value}
+                                                    onChange={e => handleStatusChange(e)}>
+                                            <FormControlLabel value="published" control={<Radio/>}
+                                                              label={t('contents:published')}/>
+                                            <FormControlLabel value="unpublished" control={<Radio/>}
+                                                              label={t('contents:unpublished')}/>
+                                        </RadioGroup>
+                                    </FormControl>
+                                </Box>
+                                <Box className="card">
+                                    <FormControl component="fieldset">
+                                        {/*<FormLabel component="legend">{t('contents:showPlace')}</FormLabel>*/}
+                                        {/*<RadioGroup aria-label="showPlace" value={content.showPlace.value}*/}
+                                        {/*            onChange={e => handleShowPlaceChange(e)}>*/}
+                                        {/*    <FormControlLabel value={true} control={<Radio/>}*/}
+                                        {/*                      label={t('contents:show')}/>*/}
+                                        {/*    <FormControlLabel value={false} control={<Radio/>}*/}
+                                        {/*                      label={t('contents:notShow')}/>*/}
+
+                                        {/*</RadioGroup>*/}
+                                    </FormControl>
+                                </Box>
+                            </Box>
+                            <Box className={clsx('items',lang==='en'?gClasses.ltr:gClasses.rtl )}>
+                                <Box  className={clsx('select','card',lang==='en'?gClasses.textLeft:gClasses.textRight )}>
+                                    <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('contents:domainAccess')}</Typography>
+
+                                    <FormGroup row>
+                                        {domainAccesses.map(domain => (
+                                            <Box key={domain.id}>
+                                                <FormControlLabel
+                                                    control={<Checkbox checked={selectedDomainAccess.includes(domain)}
+                                                                       onChange={(e) => handleDomainAccessChange(e, domain)}
+                                                                       name={domain.name}
+                                                    />}
+                                                    label={domain.name}
+                                                />
+                                            </Box>
+                                        ))}
+                                    </FormGroup>
+                                </Box>
+                                <Box className={clsx('select', 'card')}>
+                                    <FormControl className={classes.margin}>
+                                        <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('contents:domainSource')}</Typography>
+                                        <NativeSelect
+                                            value={content.domainSource}
+                                            onChange={e => handleDomainResourceChange(e)}
+                                            input={<BootstrapInput/>}
+                                        >
+                                            <option aria-label="None" value="">{t('translation:none')}</option>
+                                            {selectedDomainAccess.map((item) => (
+                                                <option key={item.id} value={item.name}>{item.name}</option>
+                                            ))}
+                                        </NativeSelect>
+                                    </FormControl>
+                                </Box>
+                            </Box>
+
+                            <Box className="card">
+                                <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('contents:metaTag')}</Typography>
+                                <Box className="metaTag">
+                                    <Box className="right">
+                                        <Input lang={lang} type="text" placeholder={t('translation:title')}
+                                               label={t('translation:title')}
+                                               error={errors.family}
+                                               small='' handleClick={e => handleChange(e, "lidkhabar")}/>
+                                        <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('translation:description')}</Typography>
+                                        <TextField
+                                            id="outlined-size-normal"
+                                            placeholder="Normal"
+                                            variant="outlined"
+                                            rows={10}
+                                            rowsMax={10}
+                                            fullWidth
+                                            multiline
+                                            onChange={(e) => {
+                                                clickEditorMetaTag(e, 'description')
+                                            }}
                                         />
-                                    ))
-                                    : ''}
+                                    </Box>
+                                    <Box className="left">
+                                        <Input lang={lang} type="text" placeholder={t('contents:keywords')}
+                                               label={t('contents:keywords')}
+                                               error={errors.family}
+                                               small='' handleClick={e => handleChange(e, "lidkhabar")}/>
+                                        <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('contents:summary')}</Typography>
+                                        <TextField
+                                            id="outlined-size-normal"
+                                            placeholder="Normal"
+                                            variant="outlined"
+                                            rows={10}
+                                            rowsMax={10}
+                                            fullWidth
+                                            multiline
+                                            onChange={(e) => {
+                                                clickEditorMetaTag(e, 'abstract')
+                                            }}
+                                        />
+                                    </Box>
+                                    {/*<EditorComponent title={t('translation:description')} onClick={(e) => {*/}
+                                    {/*    clickEditorMetaTag(e, 'description')*/}
+                                    {/*}}/>*/}
+                                    {/*<EditorComponent title={t('contents:summary')} onClick={(e) => {*/}
+                                    {/*    clickEditorMetaTag(e, 'abstract')*/}
+                                    {/*}}/>*/}
+                                </Box>
                             </Box>
-                        </Box>
 
-                    </Grid>
-
-                    <Grid xs={6}>
-                        <Box className={classes.block}>
-                            <Box className="inputBlock">
-                                <Input type="email" placeholder='ایمیل' label='ایمیل خود را وارد کنید'
-                                       small='' handleClick={e => handleChange(e, "mail")}/>
-                                {errors.errorMail.mail ?
-                                    <Typography className="error">{errors.errorMail.mail}</Typography> : ''}
-                            </Box>
-                            <Box className="inputBlock">
-                                <Input type="password" placeholder='رمز عبور' label='رمز عبور'
-                                       small='' handleClick={e => handleChange(e, "pass")} error={errors.pass}/>
-                                {errors.errorPass.length ?
-                                    <Typography className="error">{errors.errorPass.length}</Typography> : ''}
-                                {errors.errorPass.specialChar ?
-                                    <Typography className="error">{errors.errorPass.specialChar}</Typography> : ''}
-                            </Box>
-                            <Box className="inputBlock">
-                                <Input type="password" placeholder='تکرار رمز عبور' label='تکرار رمز عبور'
-                                       small='' handleClick={e => handleConfirmPass(e)} error={errors.confirm_pass}/>
-                                {errors.confirmPass.harmony ?
-                                    <Typography className="error">{errors.confirmPass.harmony}</Typography> : ''}
-                            </Box>
-                            {/*------------------------------------------------------ upload image -----------------------------------------*/}
-                            <Box className="upload">
-                                {files.length == 0 ?
-                                    <label id="label" htmlFor="file"> <Typography>عکس مد نظر خود را انتخاب
-                                        کنید</Typography></label> : ''}
-                                <input
-                                    id="file"
-                                    type="file"
-                                    accept="image/*"
-                                    name="avatar"
-                                    onChange={event => handleFileChange(files.concat(Array.from(event.target.files)))}
-                                />
-                                <FileManager
-                                    files={files}
-                                >
-                                    {uploadFiles}
-                                </FileManager>
-                            </Box>
-                            <Box mt={2}>
-                                <ButtonComponent color="primary" clicked={register} text="ثبت"/>
-                            </Box>
                         </Box>
-                    </Grid>
-                    {/*</form>*/}
-                </Grid>
+                    </TabPanel>
+                    <TabPanel value={value} index={1} className="tabContent">
+                        <Box className='block'>
+                            <Box className="card">
+                                <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('contents:indexImg')}</Typography>
+                                <UploadImg multiple={false} title={t('translation:choosePic')} getFile={uploadSingImg}/>
+                            </Box>
+                            <Box className="card">
+                                <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('contents:imgGallery')}</Typography>
+                                <UploadImg multiple={true} title={t('translation:choosePic')} getFile={uploadMultiImg}/>
+                            </Box>
+                            <Box className="card">
+                                <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('contents:videoGallery')}</Typography>
+                                {/*<UploadImg multiple={true} title={t('translation:chooseVideo')} getFile={uploadVideo}/>*/}
+                                <UploadVideo multiple={true} title={t('translation:chooseVideo')}
+                                             getFile={uploadVideo}/>
+                            </Box>
+                            <Box className="card">
+                                <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('contents:voiceGallery')}</Typography>
+                                <UploadVoice multiple={true} title={t('translation:chooseVoice')}
+                                             getFile={uploadVoice}/>
+                            </Box>
+                            <Box mt={2} className={lang==='en'?gClasses.textLeft:gClasses.textRight}>
+                                <ButtonComponent background={primary} color="primary" clicked={register} text={t('translation:register')}/>
+                            </Box>
+
+                        </Box>
+                    </TabPanel>
+                </Box>
             </Paper>
         </Box>
     </>);
 }
-export default withNamespaces('translation,contents')(NewContentComponent);
+
+export default withNamespaces('translation,contents,tags,categories')(NewContentComponent);

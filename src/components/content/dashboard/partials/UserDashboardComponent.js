@@ -13,6 +13,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import {withStyles} from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
+import {withNamespaces} from "react-i18next";
 
 
 
@@ -24,6 +25,9 @@ const StyledTableCell = withStyles((theme) => ({
     body: {
         fontSize: 14,
     },
+    root:{
+        padding:'0',
+    }
 }))(TableCell);
 
 const StyledTableRow = withStyles((theme) => ({
@@ -34,7 +38,7 @@ const StyledTableRow = withStyles((theme) => ({
     },
 }))(TableRow);
 
-export default function UserDashboardComponent() {
+function UserDashboardComponent({t}) {
     const classes = UserDashboard.useStyles();
     const appContext = useContext(AppContext);
     const [users , setUsers]=useState([]);
@@ -54,7 +58,7 @@ export default function UserDashboardComponent() {
     return (
         <>
             <Paper className={classes.paper}>
-                <Typography variant="h4" className={classes.title}>لیست کاربران</Typography>
+                <Typography variant="h4" className={classes.title}>{t('users:users')}</Typography>
                 {/*---------------------------*/}
                 <TableContainer component={Paper} className={classes.userBlock}>
                     <Table className="table" aria-label="customized table">
@@ -89,3 +93,6 @@ export default function UserDashboardComponent() {
     );
 
 }
+
+
+export default withNamespaces('translation')(UserDashboardComponent);

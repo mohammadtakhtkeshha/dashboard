@@ -41,7 +41,7 @@ export default function ContentDashboardComponent({contents}) {
 
     return (
         <>
-            <Paper className={classes.paper}>
+            <Paper className={classes.myPaper}>
                 <Typography variant="h4" className={classes.title}>محتواها</Typography>
                 <div className={classes.content}>
                     {customContents.map(function (content, index) {

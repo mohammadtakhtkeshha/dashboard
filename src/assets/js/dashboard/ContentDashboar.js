@@ -2,16 +2,22 @@ import {makeStyles} from "@material-ui/styles";
 
 export const useStyles = makeStyles((theme) => ({
     paper: {
-        padding: theme.spacing(2),
         margin: theme.spacing(2),
+        padding: theme.spacing(2),
+        '@media(max-width:992px)': {
+            margin: `${theme.spacing(2)}px 0`,
+
+        }
     },
     userBlock: {
+        '& th': {
+            padding:'10px'
+        },
         '& td': {
             '& .imgBlock':{
                 width:'50px!important',
                 height:'50px',
                 borderRadius:'100%',
-                display:'flex',
                 overflow:'hidden',
                 '& img':{
                     width:'100%',
@@ -20,27 +26,7 @@ export const useStyles = makeStyles((theme) => ({
             }
         }
     },
-    // pagination: {
-    //     display: 'flex',
-    //     justifyContent: 'center',
-    //     padding: '20px',
-    //     '& ul': {
-    //         '& li': {
-    //             '& button': {
-    //                 borderRadius: '0',
-    //                 margin: '0',
-    //                 borderColor: colors.grey.tooLight,
-    //                 color: colors.primary,
-    //                 padding: '13px'
-    //             }
-    //         }
-    //     },
-    //     '& .MuiPaginationItem-page.Mui-selected': {
-    //         backgroundColor: colors.primary,
-    //         color: 'white',
-    //         border: '0'
-    //     }
-    // },
+
     title: {
         marginBottom: '10px',
         fontSize: '14px',

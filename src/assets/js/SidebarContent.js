@@ -77,7 +77,7 @@ export const styles = makeStyles((theme) => ({
             margin: '0 19px',
             borderRadius: '10px',
             marginBottom: '1px',
-            backgroundColor: '#5867dd',
+            backgroundColor: colors.primary,
             width: '61px',
             '& ~ div': {
                 width: '100%'
@@ -93,7 +93,7 @@ export const styles = makeStyles((theme) => ({
                 flexDirection: 'column',
                 alignItems: 'center',
                 height: 'calc(100vh - 75px)',
-                '& button:nth-of-type(6)': {
+                '& button:nth-of-type(4)': {
                     marginTop: 'auto'
                 },
                 '& .Mui-selected': {

@@ -1,10 +1,13 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import {Box} from "@material-ui/core";
+import {Box,Paper} from "@material-ui/core";
 import * as components from "../../assets/js/AppImports";
 import {makeStyles} from "@material-ui/core/styles";
 import UseWindowDimensions from "../../configs/useWindowDimensions";
 import {withNamespaces} from "react-i18next";
+import SecondTestComponent from "../../components/SecondTestComponent";
+//for array of className
+import clsx from "clsx";
 
 const useStyle = makeStyles((theme) => ({
     sidebar: {
@@ -23,6 +26,13 @@ const useStyle = makeStyles((theme) => ({
     },
     marginRight: {
         marginRight: 'auto',
+    },
+    paper:{
+        backgroundColor:'transparent',
+        boxShadow: '0 0 0 0',
+        '@media(min-width : 992px)': {
+            marginTop: '64px',
+        }
     }
 }));
 
@@ -48,12 +58,14 @@ function AuthorizedComponent({t}) {
                     <components.SidebarComponent/>
                 </Box> : ''}
             </Grid>
-            <Grid item className={[dir==="marginLeft"?classes.marginRight:classes.marginLeft,classes.content]}>
+            <Grid item className={clsx(dir==="marginLeft"?classes.marginRight:classes.marginLeft,classes.content)}>
+                <Paper className={classes.paper}>
                 <Box style={styles.content}>
                     {width > 992 ? <components.HeaderWebComponent/> :
                         <components.HeaderMobileComponent/>}
                     <components.ContentComponent/>
                 </Box>
+                </Paper>
             </Grid>
 
         </Grid>)

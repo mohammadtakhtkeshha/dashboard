@@ -10,8 +10,11 @@ import HeaderLeftWeb from './LeftWebHeaderComponent';
 
 //styles of make style
 import * as HeaderMobile from './../../assets/js/HeaderMobile';
+import clsx from "clsx";
+import i18next from "i18next";
 
 export default function HeaderMobileComponent() {
+    let lang = i18next.language;
     const [showDrawer, setShowDrawer] = useState(false);
     const [showWebHeader, setshowWebHeader] = useState(false);
     const classes = HeaderMobile.styles();
@@ -42,13 +45,15 @@ export default function HeaderMobileComponent() {
                         </Link>
                     </Breadcrumbs>
                 </Box>
-                <button style={{marginRight: 'auto'}} className={classes.headerButton}
+                <Box className={clsx(classes.buttonBlock,lang==='en'?'leftAuto':'rightAuto')}>
+                <button className={clsx('headerButton',lang==='en'?'marginLeft':'marginRight')}
                         onClick={() => setShowDrawer(true)}>
                     <MenuIcon/>
                 </button>
-                <button className={classes.headerButton}>
+                <button className={clsx('headerButton',lang==='en'?'marginLeft':'marginRight')}>
                     <ArrowDownwardIcon onClick={toggleWebHeader}/>
                 </button>
+                </Box>
                 <SidebarMobile changeDrawer={changeDrawer} showDrawer={showDrawer}/>
             </Box>
             {showWebHeader ? <Box className={classes.showWebHeader}>

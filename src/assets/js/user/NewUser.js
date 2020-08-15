@@ -2,56 +2,53 @@ import {makeStyles} from "@material-ui/core/styles";
 import * as colors from "../../../components/partials/Colors";
 
 export const useStyles = makeStyles((theme) => ({
-    paper: {
-        // padding: theme.spacing(2),
-        // margin: theme.spacing(2),
-        '& .MuiBox-root': {
-            '& input[type=file]': {
-                position: 'relative',
-                '&::before': {
-                    content: 'negar',
-                    width: '100px',
-                },
-            }
-        },
-        '& .inputBlock': {
-            position: 'relative',
-            '& .error': {
-                position: 'relative',
-                top: '-25px',
-                textAlign: 'right',
-                color: 'red'
-            }
-        },
-        '& .upload': {
-            position: 'relative',
-            border: `1px solid ${colors.primary}`,
-            '& #label': {
-                minHeight: '150px',
-                background: '#fff',
-                padding: '20px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                cursor: 'pointer',
-            },
-            '& input': {
-                border: '1px solid green',
-                opacity: 0,
-                position: 'absolute!important',
-                width: '100%',
-                height: '100%',
-                top: 0,
-            }
-        },
-        '& .role': {
-            '& label': {
-                display: 'block'
-            }
-        },
+   paper:{
+       display:'flex',
+       justifyContent:'space-between',
+       alignItems:'space-between',
+       padding: theme.spacing(2),
+       margin: theme.spacing(2),
+       '& .block': {
+           width: '48%',
+           '& .inputBlock': {
+               position: 'relative',
+               '& .error': {
+                   position: 'relative',
+                   top: '-25px',
+                   textAlign: 'right',
+                   color: 'red'
+               }
+           },
+           '& .upload': {
+               position: 'relative',
+               border: `1px solid ${colors.primary}`,
+               '& #label': {
+                   minHeight: '150px',
+                   background: '#fff',
+                   padding: '20px',
+                   display: 'flex',
+                   justifyContent: 'center',
+                   alignItems: 'center',
+                   cursor: 'pointer',
+               },
+               '& input': {
+                   border: '1px solid green',
+                   opacity: 0,
+                   position: 'absolute!important',
+                   width: '100%',
+                   height: '100%',
+                   top: 0,
+               }
+           },
+           '& .role': {
+               '& label': {
+                   display: 'block'
+               }
+           },
 
 
-    },
+       }
+   },
     uploadedImgBlock: {
         position: 'relative',
         borderRadius: '20px',
@@ -83,7 +80,5 @@ export const useStyles = makeStyles((theme) => ({
         }
 
     },
-    block:{
-        margin:'20px'
-    }
+
 }));

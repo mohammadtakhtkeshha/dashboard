@@ -15,8 +15,7 @@ const useStyles = makeStyles((theme) => ({
         appBar: {
             position: 'fixed',
             width: 'calc(100% - 300px)',
-
-
+            zIndex: '10!important',
             '&.MuiAppBar-colorPrimary': {
                 backgroundColor: '#e7ebee',
                 boxShadow: '0 0 0 0',
@@ -39,11 +38,10 @@ function HeaderWebComponent({t}) {
             <AppContext.Consumer>
                 {context => (
                     <AppBar
-                        className={[classes.appBar, dir === 'marginLeft' ? classes.marginLeft : classes.marginRight]}>
+                        className={`${classes.appBar} ${dir === 'marginLeft' ? classes.marginLeft : classes.marginRight}`}>
                         <Toolbar>
                             <RightWebHeaderComponent/>
                             <LeftWebHeaderComponent/>
-
                         </Toolbar>
                     </AppBar>
                 )}

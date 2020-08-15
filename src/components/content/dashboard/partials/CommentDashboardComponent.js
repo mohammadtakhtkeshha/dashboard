@@ -21,6 +21,9 @@ const StyledTableCell = withStyles((theme) => ({
     body: {
         fontSize: 14,
     },
+    root:{
+        padding:'0'
+    }
 }))(TableCell);
 const StyledTableRow = withStyles((theme) => ({
     root: {

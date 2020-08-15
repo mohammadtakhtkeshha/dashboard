@@ -1,11 +1,9 @@
 {
   "users": "users",
   "newUser": "add user",
-  "name": "name",
   "family": "last name",
   "email": "email",
   "role": "role",
-  "status": "status",
   "username": "username",
   "usersList": "users list",
   "enter your name": "enter you name",
@@ -15,6 +13,14 @@
   "choose role": "choose your role",
   "enter your email": "enter your email",
   "password": "password",
+  "forcepassword": "you must enter your password",
+  "forceUserName": "you must enter your username",
+  "wrongUserNameOrPass": "your username or password is not correct!",
+  "changePass": "change password",
   "confirm password": "confirm password",
-  "choose your picture": "choose your picture"
+  "rememberMe":"remember me",
+  "usersStatistic": "registered users statistic",
+  "registerNow": "register now?",
+  "notAcount": "don't have an acount?",
+  "editUser": "edit user"
 }

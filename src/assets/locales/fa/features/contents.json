@@ -1,7 +1,22 @@
 {
   "contentList": "لیست محتوا",
-  "name": "عنوان",
   "contentType": "نوع محتوا",
   "author": "نویسنده",
-  "status": "وضعیت"
+  "indexImg": "عکس شاخص",
+  "imgGallery": "گالری عکس",
+  "videoGallery": "گالری ویدیو",
+  "voiceGallery": "گالری صدا",
+  "published": "منتشر شده",
+  "unpublished": "عدم انتشار",
+  "rotitr": "روتیتر",
+  "lidkhabar": "لید خبر",
+  "showPlace": "محل نمایش",
+  "show": "نمایش",
+  "domainAccess": "دسترسی دامنه",
+  "domainSource": "منبع دامنه",
+  "metaTag": "موارد سئو",
+  "notShow": "عدم نمایش",
+  "keywords": "کلمات کلیدی",
+  "summary": "خلاصه",
+  "publishDate": "زمان انتشار"
 }

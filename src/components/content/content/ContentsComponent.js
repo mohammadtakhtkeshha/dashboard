@@ -1,6 +1,5 @@
 import React, {useEffect, useState, useContext} from "react";
 import {Box, CardMedia, Paper, Typography} from '@material-ui/core';
-import {makeStyles} from "@material-ui/core/styles/index";
 import EditIcon from '@material-ui/icons/Edit';
 import axios from "axios/index";
 import ButtonComponent from '../../partials/ButtonComponent';
@@ -9,21 +8,18 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Pagination from '@material-ui/lab/Pagination';
 import * as colors from './../../../components/partials/Colors';
 import AppContext from './../../../contexts/AppContext';
-// import contentImg from "../../../assets/media/image/content.jpg";
+import TableContainer from "@material-ui/core/TableContainer";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import contentImg from "./../../../assets/media/image/user.jpg";
 import Input from "./../../partials/inputComponent";
-
 import NewContent from './forms/NewContentComponent';
-
-//icons
 import CancelIcon from '@material-ui/icons/Cancel';
-
-//for browser title
 import {Helmet} from "react-helmet";
-
-//locales
 import {withNamespaces} from 'react-i18next';
-
-
 import {
     Link
 } from "react-router-dom";
@@ -35,15 +31,34 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import TextField from "@material-ui/core/TextField";
-//styles
 import styles from './../../../assets/js/content/contents'
+import clsx from "clsx";
+import i18next from "i18next";
+import {withStyles} from "@material-ui/core/styles";
+
+const StyledTableCell = withStyles((theme) => ({
+    head: {
+        backgroundColor: colors.primary,
+        color: theme.palette.common.white,
+    },
+    body: {
+        fontSize: 14,
+    },
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+    root: {
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
+    },
+}))(TableRow);
 
 
 function BaseFormComponent({t}) {
+    let lang =i18next.language;
     const [role, setRole] = React.useState('EUR');
-
     const [action, setAction] = React.useState('EUR');
-
     const roles = [
         {
             value: 'USD',
@@ -62,7 +77,6 @@ function BaseFormComponent({t}) {
             label: '¥',
         },
     ];
-
     const statuses = [{
         value: 'published',
         label: t('translation:unpublished'),
@@ -70,7 +84,6 @@ function BaseFormComponent({t}) {
         value: 'unpublished',
         label: t('translation:published'),
     }];
-
     const contentTypes = [{
         value: 'published',
         label: t('translation:unpublished'),
@@ -78,7 +91,6 @@ function BaseFormComponent({t}) {
         value: 'unpublished',
         label: t('translation:published'),
     }];
-
     const actions = [
         {value: 'delete', label: t('translation:delete')},
         {value: 'block', label: t('translation:published')},
@@ -123,19 +135,23 @@ function BaseFormComponent({t}) {
                 Authorization: appContext.token
             }
         };
-        axios.get(`http://sitesaz99.rbp/web/api/content/v2?page=${page}`, config).then(
+        axios.get(`http://dash.webrbp.ir/api/all_content?page=${page}`, config).then(
             function (response) {
                 let currentList = [];
                 response.data.rows.map((item) => {
                     currentList.push({
-                        uid: item.uid,
-                        name: item.name,
-                        field_name: item.field_name,
-                        field_last_name: item.field_last_name,
-                        role: (item.roles_target_id === "[]" ? 'بدون نقش' : item.roles_target_id),
-                        status: item.status,
-                        content_picture: item.content_picture,
-                        mail: item.mail,
+                        nid: item.nid[0].value,
+                        title: item.title.length>0?item.title[0].value:'',
+                        body: item.body.length>0?item.body[0]:'',
+                        status: item.status[0].value,
+                        field_tags: item.field_tags.length>0?item.field_tags[0].target_type:[],
+                        field_rotitr: item.field_rotitr.length>0?item.field_rotitr[0].value:[],
+                        field_sotitr: item.field_sotitr.length>0?item.field_sotitr[0].value:[],
+                        field_image: item.field_image.length>0?item.field_image[0].url:[],
+                        field_galeries: item.field_field_galeries.length>0?item.field_field_galeries:[],
+                        field_files: item.field_files.length>0?item.field_files:[],
+                        field_sounds: item.field_sounds.length>0?item.field_sounds:[],
+                        field_domain_access: item.field_domain_access.length>0?item.field_domain_access:[]
                     });
                 });
                 setContents(currentList);
@@ -210,10 +226,10 @@ function BaseFormComponent({t}) {
             <Box className="head">
                 <Typography className="text">{t('contents:contentList')}</Typography>
                 <button type="button" onClick={handleOpen}>
-                    <Typography>{t('contents:newContent')}</Typography>
+                    <Typography>{t('translation:registerContent')}</Typography>
                 </button>
             </Box>
-            <Box className="filter">
+            <Box className={clsx("filter","box")}>
                 <ExpansionPanel>
                     <ExpansionPanelSummary
                         expandIcon={<ExpandMoreIcon/>}
@@ -224,9 +240,8 @@ function BaseFormComponent({t}) {
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails id="details">
                         <Box className="inputBlock">
-                            <Input placeholder={t('contents:name')}/>
+                            <Input placeholder={t('translation:name')}/>
                             <Input placeholder={t('contents:contentType')}/>
-
                             <TextField
                                 id="outlined-select-role-native"
                                 select
@@ -264,7 +279,7 @@ function BaseFormComponent({t}) {
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
             </Box>
-            <Box className="actions">
+            <Box className={clsx("actions","box")}>
                 <ExpansionPanel>
                     <ExpansionPanelSummary
                         expandIcon={<ExpandMoreIcon/>}
@@ -293,112 +308,189 @@ function BaseFormComponent({t}) {
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
             </Box>
-            <Box>
+            <TableContainer component={Paper} className={classes.contentBlock}>
+                <Table className="table" aria-label="customized table">
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell align="right">
+                                <Checkbox
+                                    checked={selectedCheckBoxes.length === contents.length}
+                                    onChange={(e) => allCheckboxHandler(e)}
+                                    inputProps={{'aria-label': 'primary checkbox'}}
+                                />
+                            </StyledTableCell>
+                            <StyledTableCell align="right">{t('translation:image')}</StyledTableCell>
+                            <StyledTableCell align="right">{t('translation:title')}</StyledTableCell>
+                            <StyledTableCell align="right">{t('translation:description')}</StyledTableCell>
+                            <StyledTableCell align="right">{t('contents:tag')}</StyledTableCell>
+                            <StyledTableCell align="right"> {t('contents:rotitr')}</StyledTableCell>
+                            <StyledTableCell align="right">{t('contents:domainAccess')}</StyledTableCell>
+                            <StyledTableCell align="right">{t('translation:status')}</StyledTableCell>
+                            <StyledTableCell align="right">{t('translation:actions')}</StyledTableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {contents.map((content, index) =>
+                            <StyledTableRow key={index}>
+                                <StyledTableCell align="right">
+                                    <Checkbox
+                                        onChange={(e) => isCheckedHandler(e, content)}
+                                        inputProps={{'aria-label': 'primary checkbox'}}
+                                        // checked={selectedCheckBoxes.includes(content.uid)}
+                                    />
+                                </StyledTableCell>
+                                <StyledTableCell align="right">
+                                    <Box className="imgBlock">
+                                        <CardMedia id="img">
+                                            { content.field_image ? <img src={content.field_image} alt="content.name"/>:<img src={contentImg}/>}
+                                        </CardMedia>
+                                    </Box>
+                                </StyledTableCell>
+                                <StyledTableCell align="right"> {content.title}</StyledTableCell>
+                                <StyledTableCell align="right"><div dangerouslySetInnerHTML={{__html:(content.body.value)}}></div></StyledTableCell>
+                                <StyledTableCell align="right"> {content.field_tags}</StyledTableCell>
+                                <StyledTableCell align="right"> {content.field_rotitr}</StyledTableCell>
+                                <StyledTableCell align="right"> {content.field_domain_access.map(access=>access.target_id)}</StyledTableCell>
+                                <StyledTableCell align="right"> {content.status ?t('translation:confirmed'):t('translation:block')}</StyledTableCell>
+                                <StyledTableCell align="right">
+                                    <Link to={`edit-content/${content.uid}`}>
+                                        <ButtonComponent value={content.uid} text="ویرایش" color="primary" startIcon={<EditIcon/>}/>
+                                    </Link>
+                                    <ButtonComponent value={content.uid} text="حذف" color="secondary" startIcon={<DeleteIcon/>}
+                                                     clicked={deleteContent}/>
+                                </StyledTableCell>
+                            </StyledTableRow>
+                        )}
+                    </TableBody>
+                </Table>
+            </TableContainer>
 
-                {/*-------------------------modal---------------------------*/}
-                <Modal
-                    aria-labelledby="transition-modal-title"
-                    aria-describedby="transition-modal-description"
-                    className={classes.modal}
-                    open={open}
-                    onClose={handleClose}
-                    closeAfterTransition
-                    BackdropComponent={Backdrop}
-                    BackdropProps={{
-                        timeout: 500,
-                    }}
-                >
-                    <Fade in={open} id="modal">
-                        <div className={classes.paper} dir="rtl">
-                            <Box className="header">
-                                <button onClick={handleClose}>
-                                    <CancelIcon/>
-                                </button>
-                            </Box>
-                            <Box className="body">
-                                <NewContent/>
-                            </Box>
-                        </div>
-                    </Fade>
-                </Modal>
-                {/*-------------------------modal---------------------------*/}
-            </Box>
-            <Box className={classes.contentBlock}>
-                <Box className="item">
-                    <Checkbox
-                        checked={selectedCheckBoxes.length === contents.length}
-                        onChange={(e) => allCheckboxHandler(e)}
-                        inputProps={{'aria-label': 'primary checkbox'}}
-                    />
-                </Box>
-                <Box className="item">
-                    {t('contents:name')}
-                </Box>
-                <Box className="item">
-                    {t('contents:contentType')}
-                </Box>
-                <Box className="item">
-                    {t('contents:author')}
-                </Box>
-                <Box className="item">
-                    {t('translation:date')}
-                </Box>
-                <Box className="item">
-                    {t('contents:status')}
-                </Box>
-                <Box className="item">
-                    {t('translation:actions')}
-                </Box>
-            </Box>
-            {contents.map((content, index) =>
-                <Box key={index} className={classes.contentBlock}>
-                    <Box className="item">
-                        <Checkbox
-                            onChange={(e) => isCheckedHandler(e, content)}
-                            inputProps={{'aria-label': 'primary checkbox'}}
-                            checked={selectedCheckBoxes.includes(content.uid)}
-                        />
-                    </Box>
-                    <Box className="item firstName">
-                        <Box className="imgBlock">
-                            <CardMedia id="img">
-                                {content.content_picture ? <img src={content.content_picture} alt={content.name}/> :
-                                    <img alt={content.name}/>}
-                            </CardMedia>
-                        </Box>
-                        <Box className="name">
-                            {content.field_name}
-                        </Box>
-                    </Box>
-                    <Box className="item">
-                        {content.field_last_name}
-                    </Box>
-                    <Box className="item">
-                        {content.name}
-                    </Box>
-                    <Box className="item">
-                        {content.role}
-                    </Box>
-                    <Box className="item">
-                        {content.mail}
-                    </Box>
-                    <Box className="item">
-                        {content.status ? 'تایید شده' : 'در انتظار تایید'}
-                    </Box>
 
-                    <Box className="item">
-                        <Link to={`edit-content/${content.uid}`}>
-                            <ButtonComponent value={content.uid} text="ویرایش" color="primary" startIcon={<EditIcon/>}/>
-                        </Link>
-                        <ButtonComponent value={content.uid} text="حذف" color="secondary" startIcon={<DeleteIcon/>}
-                                         clicked={deleteContent}/>
-                    </Box>
-                </Box>)}
+
+
+
+
+
+
+
+            {/*<Box className={clsx((classes.contentBlock),("box"))}>*/}
+            {/*    <Box className="item">*/}
+            {/*        <Checkbox*/}
+            {/*            checked={selectedCheckBoxes.length === contents.length}*/}
+            {/*            onChange={(e) => allCheckboxHandler(e)}*/}
+            {/*            inputProps={{'aria-label': 'primary checkbox'}}*/}
+            {/*        />*/}
+            {/*    </Box>*/}
+            {/*    <Box className="item">*/}
+            {/*        {t('contents:name')}*/}
+            {/*    </Box>*/}
+            {/*    <Box className="item">*/}
+            {/*        {t('contents:contentType')}*/}
+            {/*    </Box>*/}
+            {/*    <Box className="item">*/}
+            {/*        {t('contents:author')}*/}
+            {/*    </Box>*/}
+            {/*    <Box className="item">*/}
+            {/*        {t('translation:date')}*/}
+            {/*    </Box>*/}
+            {/*    <Box className="item">*/}
+            {/*        {t('contents:status')}*/}
+            {/*    </Box>*/}
+            {/*    <Box className="item">*/}
+            {/*        {t('translation:actions')}*/}
+            {/*    </Box>*/}
+            {/*</Box>*/}
+            {/*{contents.map((content, index) =>*/}
+            {/*    <Box key={index} className={classes.contentBlock}>*/}
+            {/*        <Box className="item">*/}
+            {/*            <Checkbox*/}
+            {/*                onChange={(e) => isCheckedHandler(e, content)}*/}
+            {/*                inputProps={{'aria-label': 'primary checkbox'}}*/}
+            {/*                checked={selectedCheckBoxes.includes(content.uid)}*/}
+            {/*            />*/}
+            {/*        </Box>*/}
+            {/*        <Box className="item firstName">*/}
+            {/*            <Box className="imgBlock">*/}
+            {/*                <CardMedia id="img">*/}
+            {/*                    {content.content_picture ? <img src={content.content_picture} alt={content.name}/> :*/}
+            {/*                        <img alt={content.name}/>}*/}
+            {/*                </CardMedia>*/}
+            {/*            </Box>*/}
+            {/*            <Box className="name">*/}
+            {/*                {content.field_name}*/}
+            {/*            </Box>*/}
+            {/*        </Box>*/}
+            {/*        <Box className="item">*/}
+            {/*            {content.field_last_name}*/}
+            {/*        </Box>*/}
+            {/*        <Box className="item">*/}
+            {/*            {content.name}*/}
+            {/*        </Box>*/}
+            {/*        <Box className="item">*/}
+            {/*            {content.role}*/}
+            {/*        </Box>*/}
+            {/*        <Box className="item">*/}
+            {/*            {content.mail}*/}
+            {/*        </Box>*/}
+            {/*        <Box className="item">*/}
+            {/*            {content.status ? 'تایید شده' : 'در انتظار تایید'}*/}
+            {/*        </Box>*/}
+
+            {/*        <Box className="item">*/}
+            {/*            <Link to={`edit-content/${content.uid}`}>*/}
+            {/*                <ButtonComponent value={content.uid} text="ویرایش" color="primary" startIcon={<EditIcon/>}/>*/}
+            {/*            </Link>*/}
+            {/*            <ButtonComponent value={content.uid} text="حذف" color="secondary" startIcon={<DeleteIcon/>}*/}
+            {/*                             clicked={deleteContent}/>*/}
+            {/*        </Box>*/}
+            {/*    </Box>)}*/}
+
+
+
+
+
+
+
             <Box className={classes.pagination}>
                 <Pagination count={(totalPage - 1)}
                             onChange={paginate}/>
             </Box>
         </Paper>
+
+
+
+
+
+        <Box>
+            {/*-------------------------modal---------------------------*/}
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
+            >
+                <Fade in={open} id="modal">
+                    <div className={classes.paper} dir="rtl">
+                        <Box className={clsx('header',(lang==='en'?'flexDirL':'flexDirR'))}>
+                            <Typography className="title">{t('translation:registerContent')}</Typography>
+                            <button onClick={handleClose} className='button'>
+                                <CancelIcon/>
+                            </button>
+                        </Box>
+                        <Box className="body">
+                            <NewContent/>
+                        </Box>
+                    </div>
+                </Fade>
+            </Modal>
+            {/*-------------------------modal---------------------------*/}
+        </Box>
     </>);
 }
 

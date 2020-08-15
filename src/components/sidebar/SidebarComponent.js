@@ -1,8 +1,11 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles/index';
-import {Paper, Typography, Link} from '@material-ui/core/index';
+import {Paper, Typography} from '@material-ui/core/index';
 import {CardMedia} from '@material-ui/core/index';
 import SidebarContent from './SidebarContentComponent';
+import {Link} from "react-router-dom";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItem from "@material-ui/core/ListItem";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -16,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
         height: '47px',
         marginTop: '30px'
     },
+    mypaper:{
+        borderRadius:'0!important'
+    }
 }));
 
 export default function SimpleTabs() {
@@ -24,9 +30,9 @@ const classes=useStyles();
 
     return (
         <>
-            <Paper>
+            <Paper className={classes.mypaper}>
                 <Typography variant="h6" className={classes.img}>
-                    <Link>
+                    <Link to="/">
                         <CardMedia>
                             <img src={require('../../assets/media/image/logo.png')} alt="recipe thumbnail"/>
                         </CardMedia>

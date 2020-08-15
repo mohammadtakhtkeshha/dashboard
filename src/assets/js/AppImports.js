@@ -7,5 +7,6 @@ const ContentComponent = loadable(() => import('../../components/content/Content
 const SidebarComponent = loadable(() => import('../../components/sidebar/SidebarComponent'));
 const TestComponent = loadable(() => import('../../components/TestComponent'));
 const LoginComponent = loadable(() => import('../../components/content/user/forms/LoginComponent'));
+const ForgetPasswordComponent = loadable(() => import('../../components/content/user/forms/ForgetPasswordComponent'));
 const AuthorizedComponent = loadable(() => import('../../structure/authorized/authorized.jsx'));
-export {HeaderWebComponent,HeaderMobileComponent,ContentComponent,SidebarComponent,TestComponent,LoginComponent,AuthorizedComponent}
+export {HeaderWebComponent,HeaderMobileComponent,ContentComponent,SidebarComponent,TestComponent,LoginComponent,AuthorizedComponent,ForgetPasswordComponent}

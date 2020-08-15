@@ -1,0 +1,23 @@
+@font-face {
+    font-family: byekan;
+    src: url("../fonts/byekan/BYekan+.ttf");
+    src: url("../fonts/byekan/BYekan+ Bold.ttf");
+}
+
+div[class='number'] input {
+    border: 1px solid red;
+    font-family: byekan !important;
+
+}
+.MuiPickersToolbarText-toolbarTxt{
+    font-family: byekan!important;
+}
+.MuiPickersModal-dialogRoot div,
+MuiPickersModal-dialogRoot button,
+.MuiPickersModal-dialogRoot h4,
+.MuiPickersModal-dialogRoot h6,
+.MuiPickersModal-dialogRoot p
+{
+    color:red;
+}
+

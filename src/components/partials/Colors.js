@@ -1,4 +1,4 @@
-const primary = '#5867dd';
+const primary = '#12a56d';
 const primaryBright = 'rgba(88, 103, 221, 0.3)';
 const secondary = '#6a6e92 ';
 const secondaryBright = 'rgba(106, 110, 146, 0.3)';
@@ -39,9 +39,12 @@ const danger={
     light:'#f8d7da',
     dark:'#721c24',
 };
+const red={
+    dark:'rgb(221, 51, 51)',
+};
 
 export {
     primary, primaryBright, secondary, secondaryBright, success, successBright, danger,dangerBright,
     warning,warningBright,info,infoBright,light, dark, facebook, google, instagram, linkedin, twitter,
-    whatsapp, dribbble, youtube,darkBlue,grey,black,white
+    whatsapp, dribbble, youtube,darkBlue,grey,black,white,red
 };

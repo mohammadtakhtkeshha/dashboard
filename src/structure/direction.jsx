@@ -8,14 +8,14 @@ import {withNamespaces} from "react-i18next";
 
 function Direction({t}) {
     return (
-        <div dir={t('translation:direction')}>
-        <Box display="flex" flexDirection="row">
+        <Box display="flex" flexDirection="row" dir={t('translation:direction')}>
             <Router history={history}>
                 <Route path="/login" component={components.LoginComponent}/>
+                <Route path="/forget-password" component={components.ForgetPasswordComponent}/>
                 <ProtectedRoute path="/" component={components.AuthorizedComponent}/>
             </Router>
         </Box>
-    </div>
     );
 }
+
 export default withNamespaces('translation')(Direction);

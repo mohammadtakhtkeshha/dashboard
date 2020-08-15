@@ -7,11 +7,18 @@ import AppContext from './../contexts/AppContext';
 import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import './../App.css';
 import storage from './../libraries/local-storage';
-import { tokenKey,lang } from "../adf";
-//font
-import font from './../assets/css/font.css';//fonts
+
 import rtl from 'jss-rtl';
-// added components
+
+// ------------- mamato ---------
+import {MatomoProvider, createInstance} from '@datapunt/matomo-tracker-react'
+import i18next from "i18next";
+
+const instance = createInstance({
+    urlBase: 'https://reactwebrbpir.matomo.cloud/',
+})
+
+const lang = i18next.language;
 
 
 const styles = {
@@ -23,7 +30,6 @@ const styles = {
         flexGrow: 5
     }
 };
-
 
 const theme = createMuiTheme({
     direction: 'rtl',
@@ -64,28 +70,30 @@ export function App() {
         setShowUserDrawer(boolean)
     };
 
-    let changeUser = (keyName, value) => {
-        setUser(prevState => {
-            return {
-                ...prevState, [keyName]: value
-            }
-        });
-    };
+    // let changeUser = (keyName, value) => {
+    //     setUser(prevState => {
+    //         return {
+    //             ...prevState, [keyName]: value
+    //         }
+    //     });
+    // };
+
 
     return (
         <>
-            <ThemeProvider theme={theme}>
-                <AppContext.Provider
-                    value={{
-                        showUserDrawer: showUserDrawer,
-                        toggleUserDrawer: toggleUserDrawer,
-                        changeUser: changeUser,
-                        user: user,
-                        token: storage.get(tokenKey),
-                    }}>
-                    <Direction/>
-                </AppContext.Provider>
-            </ThemeProvider>
+            <MatomoProvider value={instance}>
+                <ThemeProvider theme={theme}>
+                    <AppContext.Provider
+                        value={{
+                            showUserDrawer: showUserDrawer,
+                            toggleUserDrawer: toggleUserDrawer,
+                            user: user,
+                            isLoginSuccess:false
+                        }}>
+                        <Direction/>
+                    </AppContext.Provider>
+                </ThemeProvider>
+            </MatomoProvider>
         </>
     );
 

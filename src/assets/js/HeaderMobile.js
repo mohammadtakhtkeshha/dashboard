@@ -25,24 +25,40 @@ export const styles = makeStyles((theme) => ({
         },
 
     },
-    headerButton: {
-        display: 'flex',
-        alignItems: 'center',
-        fontSize: '18px',
-        width: '40px',
-        height: '35px',
-        borderRadius: '5px',
-        backgroundColor: 'white',
-        marginRight: '12px',
-        border: '0',
-        color: '#5867dd',
-        '&:hover': {
-            cursor: 'pointer'
+    buttonBlock:{
+        display:'flex',
+        '&.rightAuto':{
+            marginRight:'auto',
         },
-        '&:focus': {
-            outline: '0',
+        '&.leftAuto':{
+            marginLeft:'auto',
+
+        },
+        '& .headerButton': {
+            display: 'flex',
+            alignItems: 'center',
+            fontSize: '18px',
+            width: '40px',
+            height: '35px',
+            borderRadius: '5px',
+            backgroundColor: 'white',
+            border: '0',
+            color: '#5867dd',
+            '&:hover': {
+                cursor: 'pointer'
+            },
+            '&:focus': {
+                outline: '0',
+            },
+        },
+        '& .marginRight':{
+            marginRight: '12px!important',
+        },
+        '& .marginLeft':{
+            marginLeft: '12px',
         },
     },
+
     showWebHeader: {
         backgroundColor: '#f5f5f5',
         padding: '10px 10px',

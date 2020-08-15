@@ -48,12 +48,19 @@ const useStyles = makeStyles((theme) => ({
                 fontSize: '20px',
                 paddingTop: theme.spacing(1),
             },
-
             '& #roleBlock': {
+                '& .role': {
+                    color: colors.grey.light,
+                    fontSize: '14px',
+                    paddingLeft: '5px',
+                },
+            },
+
+            '& #nameBlock': {
                 display: 'flex',
                 justifyContent: 'center',
                 paddingTop: theme.spacing(2),
-                '& #role': {
+                '& .role': {
                     color: colors.grey.light,
                     fontSize: '14px',
                     paddingLeft: '5px',
@@ -92,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
 function UserDrawerContentComponent({t}) {
     const classes = useStyles();
     const appContext = React.useContext(AppContext);
-    // const currentUser = JSON.parse(storage.get('user'));
+    const currentUser = JSON.parse(storage.get('user'));
     let changeUserDrawer = () => {
         appContext.toggleUserDrawer(false);
     };
@@ -103,15 +110,16 @@ function UserDrawerContentComponent({t}) {
                 <AvatarComponent width="4.8rem" height="4.8rem" style={{justifyContent: 'center'}}/>
                 <Typography variant="h4" id="name">{appContext.user.field_name}</Typography>
                 <Typography variant="h4" id="name">{appContext.user.field_last_name}</Typography>
-                <Box id="roleBlock">
+                <Box id="nameBlock">
                     <SettingsIcon id="setting"/>
-                    <Typography id="role" variant='h5'>
-                        {/*{currentUser.name}*/}
+                    <Typography className="role" variant='h5'>
+                        {currentUser?currentUser.name:''}
                     </Typography>
                 </Box>
                 <Box id="roleBlock">
-                    <Typography id="role" variant='h5'>
-                        {/*{currentUser.roles.toString()}*/}
+                    <Typography className="role" variant="h6">{t('users:role')}</Typography>
+                    <Typography className="role" variant='h5'>
+                        {currentUser?currentUser.roles.target_id:''}
                     </Typography>
                 </Box>
                 <Typography variant="h4" id="username">{appContext.user.name}</Typography>
@@ -140,4 +148,4 @@ function UserDrawerContentComponent({t}) {
     </>);
 }
 
-export default withNamespaces()(UserDrawerContentComponent);
+export default withNamespaces('users')(UserDrawerContentComponent);

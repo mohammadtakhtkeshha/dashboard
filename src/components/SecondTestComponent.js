@@ -1,83 +1,88 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import TextField from '@material-ui/core/TextField';
-import Input from "./partials/inputComponent";
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
-const currencies = [
-    {
-        value: 'USD',
-        label: '$',
+const StyledTableCell = withStyles((theme) => ({
+    head: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
     },
-    {
-        value: 'EUR',
-        label: '€',
+    body: {
+        fontSize: 14,
     },
-    {
-        value: 'BTC',
-        label: '฿',
-    },
-    {
-        value: 'JPY',
-        label: '¥',
-    },
-];
-const useStyles = makeStyles((theme) => ({
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
     root: {
-        width: '100%',
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
     },
-    heading: {
-        fontSize: theme.typography.pxToRem(15),
-        fontWeight: theme.typography.fontWeightRegular,
-    },
-}));
+}))(TableRow);
 
-export default function SimpleExpansionPanel() {
+function createData(name, calories, fat, carbs, protein) {
+    return { name, calories, fat, carbs, protein };
+}
+
+const rows = [
+    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+    createData('Eclair', 262, 16.0, 24, 6.0),
+    createData('Cupcake', 305, 3.7, 67, 4.3),
+    createData('Gingerbread', 356, 16.0, 49, 3.9),
+];
+
+const useStyles = makeStyles({
+    table: {
+        minWidth: 700,
+    },
+});
+
+export default function CustomizedTables() {
     const classes = useStyles();
-    const [currency, setCurrency] = React.useState('EUR');
 
-    const handleExpansionChange = (event) => {
-        setCurrency(event.target.value);
-    };
     return (
-        <div className={classes.root}>
-            <ExpansionPanel>
-                <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                >
-                    <Typography className={classes.heading}>فیلتر</Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                    <Typography>
-                        <TextField
-                            id="outlined-select-currency-native"
-                            select
-                            label="Native select"
-                            value={currency}
-                            onChange={handleExpansionChange}
-                            SelectProps={{
-                                native: true,
-                            }}
-                            helperText="Please select your currency"
-                            variant="outlined"
-                        >
-                            {currencies.map((option) => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
-                        </TextField>
-                       <button>حذف</button>
-                    </Typography>
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
-
-        </div>
+        <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label="customized table">
+                <TableHead>
+                    <TableRow>
+                        <StyledTableCell>Dessert (100g serving)</StyledTableCell>
+                        <StyledTableCell align="right">Calories</StyledTableCell>
+                        <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
+                        <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
+                        <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {rows.map((row) => (<>
+                        <StyledTableRow key={row.name}>
+                            <StyledTableCell component="th" scope="row">
+                                {row.name}
+                            </StyledTableCell>
+                            <StyledTableCell align="right">{row.calories}</StyledTableCell>
+                            <StyledTableCell align="right">{row.fat}</StyledTableCell>
+                            <StyledTableCell align="right">{row.carbs}</StyledTableCell>
+                            <StyledTableCell align="right">{row.protein}</StyledTableCell>
+                        </StyledTableRow>
+                        <StyledTableRow key={row.name}>
+                            <StyledTableCell component="th" scope="row">
+                                {row.name}
+                            </StyledTableCell>
+                            <StyledTableCell align="right">{row.calories}</StyledTableCell>
+                            <StyledTableCell align="right">{row.fat}</StyledTableCell>
+                            <StyledTableCell align="right">{row.carbs}</StyledTableCell>
+                            <StyledTableCell align="right">{row.protein}</StyledTableCell>
+                        </StyledTableRow>
+                        </>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
     );
 }

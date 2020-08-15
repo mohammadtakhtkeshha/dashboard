@@ -1,14 +1,15 @@
 import React from 'react';
-import '../../App.css';
 import Grid from '@material-ui/core/Grid/index';
+import {Paper} from '@material-ui/core';
 import {makeStyles} from "@material-ui/core/styles/index";
+import '../../App.css';
 
 import {
     Switch,
     Route,
 } from "react-router-dom";
 
-import * as routes from '../../store/routes'
+import {routes} from '../../store/routes'
 
 const useStyles = makeStyles((theme) => ({
     content: {
@@ -26,35 +27,25 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function HeaderComponent() {
+function ContentComponent() {
     const classes = useStyles();
     return (
         <>
-            <Grid container>
-                <Grid item xs={12} sm={12}>
-                    <div className={classes.content}>
-                        <Switch>
-                            {routes.routes.map((route) => (
-                                <Route
-                                    key={route.path}
-                                    path={route.path}
-                                    exact={route.exact}
-                                    component={route.component}
-                                />
-                            ))}
-                        </Switch>
-                    </div>
-                </Grid>
-            </Grid>
-            {/*<div className={classes.test} style={{paddingTop:'60px'}}>*/}
-            {/*    this is for test*/}
-            {/*    <TestComponent></TestComponent>*/}
-            {/*    <SecondTestComponent/>*/}
-            {/*</div>*/}
+            <Switch>
+                {routes.map((route) => (
+                    <Route
+                        key={route.path}
+                        path={route.path}
+                        exact={route.exact}
+                        component={route.component}
+                    />
+                ))}
+            </Switch>
         </>
     );
 }
-export default HeaderComponent;
+
+export default ContentComponent;
 
 
 

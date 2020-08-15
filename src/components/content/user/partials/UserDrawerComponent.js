@@ -3,8 +3,9 @@ import React, {useEffect, useRef, useCallback} from "react";
 import {makeStyles} from '@material-ui/core/styles/index';
 import {Box} from '@material-ui/core/index'
 import AppContext from "../../../../contexts/AppContext";
-//import styles from make style
-// import * as useStyle from './../../../assets/js/SidebarMobile.js'
+import storage from './../../../../libraries/local-storage'
+import clsx from "clsx";
+import i18next from "i18next";
 
 export const styles = makeStyles((theme) => ({
     openedSidebar: {
@@ -18,7 +19,7 @@ export const styles = makeStyles((theme) => ({
         left: 0,
         width: '100vw',
         height: '100vh',
-        direction: 'ltr',
+        direction: (storage.get('lang') === 'fa' ? 'ltr' : 'rtl'),
         marginTop: 0,
         backgroundColor: 'rgba(0, 0, 0, 0.3)',
         zIndex: 90000000000000,
@@ -35,13 +36,19 @@ export const styles = makeStyles((theme) => ({
         zIndex: 8000000000000,
         overflow: 'hidden',
 
+    },
+    dirLeft:{
+        direction:'ltr'
+    },
+    dirRight:{
+        direction:'rtl'
     }
 }));
-
 export default function (props) {
     const node = useRef();
     const classes = styles();
-    const appContext= React.useContext(AppContext);
+    const appContext = React.useContext(AppContext);
+    let lang=i18next.language;
 
     const handleClick = useCallback((e) => {
         if (!node.current.contains(e.target)) {
@@ -60,8 +67,8 @@ export default function (props) {
 
     return (
         <>
-            <Box className={appContext.showUserDrawer? classes.show : classes.notShow}>
-                <Box id="openedSidebar" ref={node} className={classes.openedSidebar}>
+            <Box className={clsx((appContext.showUserDrawer ? classes.show : classes.notShow),(lang==='fa'?classes.dirLeft:classes.dirRight))}>
+                <Box  id="openedSidebar" ref={node} className={classes.openedSidebar}>
                     <UserDrawerContentComponent changeUserDrawer={handleClick}/>
                 </Box>
             </Box>

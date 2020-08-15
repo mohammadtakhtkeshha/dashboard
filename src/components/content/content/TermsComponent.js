@@ -12,7 +12,7 @@ import * as colors from "../../partials/Colors";
 import TableCell from "@material-ui/core/TableCell";
 import {withNamespaces} from "react-i18next";
 import storage from "../../../libraries/local-storage";
-import * as global from "../../../assets/js/CssGlobal";
+import {globalCss} from "../../../assets/js/globalCss";
 import Checkbox from "@material-ui/core/Checkbox";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from "@material-ui/core/Backdrop";
@@ -20,6 +20,8 @@ import Fade from "@material-ui/core/Fade";
 import CancelIcon from "@material-ui/icons/Cancel";
 import NewUser from "../user/forms/NewUserComponent";
 import NewTermsComponent from "./forms/NewTermsComponent";
+import i18next from "i18next";
+
 const styles = makeStyles((theme) => ({
     mainpaper: {
         margin: theme.spacing(2),
@@ -89,6 +91,7 @@ const styles = makeStyles((theme) => ({
         }
     },
 }));
+const gClass=makeStyles(globalCss);
 const StyledTableCell = withStyles((theme) => ({
     head: {
         backgroundColor: colors.primary,
@@ -107,6 +110,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 function TermsComponent({t}) {
+    const gClasses=gClass();
     const [selectedCheckBoxes, setSelectedCheckBoxes] = useState([]);
     let allCheckboxHandler = (e) => {
         let ids = terms.map(term => term.id);
@@ -136,8 +140,7 @@ function TermsComponent({t}) {
         }
     };
     const classes = styles();
-    const gClasses = global.styles();
-    const lang = storage.get('lang');
+    const lang =i18next.language;
     const [terms, setTerms] = useState([
         {id: 0, name: 'first', description: 'description 1'},
         {id: 1, name: 'second', description: 'description 2'},
@@ -167,7 +170,6 @@ function TermsComponent({t}) {
     };
     return (
         <>
-
             <Paper className={classes.mainpaper}>
                 <Box className="head">
                     <Typography className="text">{t('terms:terms')}</Typography>

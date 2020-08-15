@@ -2,6 +2,7 @@ import React from 'react';
 import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
+import storage from './../../libraries/local-storage';
 
 const StyledBadge = withStyles((theme) => ({
     badge: {
@@ -45,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
         }
     }),
 }));
-
 export default function AvatarComponent(props) {
     const classes = useStyles(props);
     return (
@@ -58,7 +58,7 @@ export default function AvatarComponent(props) {
                 }}
                 variant="dot"
             >
-                <Avatar alt="Remy Sharp" src={require("./../../assets/media/image/avatar.jpg")}/>
+                <Avatar alt="Remy Sharp" src={JSON.parse(storage.get('user'))?JSON.parse(storage.get('user')).user_picture.url:''}/>
             </StyledBadge>
 
 

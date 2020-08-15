@@ -10,12 +10,14 @@ import DashboardComponent from '../components/content/dashboard/DashboardCompone
 import NewContentComponent from '../components/content/content/forms/NewContentComponent';
 import TermsComponent from "../components/content/content/TermsComponent";
 import VocabsComponent from "../components/content/content/VocabsComponent";
+import TagsComponent from "../components/content/content/TagsComponent";
+import ForgetPasswordComponent from "../components/content/user/forms/ForgetPasswordComponent";
+
 
 import React from "react";
-
 export const routes = [
     {
-        path: '/',
+        path: '/base',
         exact: true,
         breadcrumbs: () => <BreadcrumbsComponent bread="main-page"/>,
         component: () => <BaseFormComponent/>
@@ -30,14 +32,14 @@ export const routes = [
         breadcrumbs: () => <BreadcrumbsComponent bread="users"/>,
         component: () => <UsersComponent/>
     },
-    {
-        path: '/new-user',
-        breadcrumbs: () => <BreadcrumbsComponent bread="new user"/>,
-        component: () => <NewUserComponent/>
-    },
+    // {
+    //     path: '/new-user',
+    //     breadcrumbs: () => <BreadcrumbsComponent bread="new user"/>,
+    //     component: () => <NewUserComponent/>
+    // },
     {
         path: '/edit-user/:id',
-        breadcrumbs: () => <BreadcrumbsComponent bread="edit profile"/>,
+        breadcrumbs: () => <BreadcrumbsComponent bread="editProfile"/>,
         // component: (props) => <EditUserComponent {...props}/>
         component: () => <EditUserComponent/>
     },
@@ -56,11 +58,7 @@ export const routes = [
         breadcrumbs: () => <BreadcrumbsComponent bread="new content"/>,
         component: () => <NewContentComponent/>
     },
-    {
-        path: '/dashboard',
-        breadcrumbs: () => <BreadcrumbsComponent bread="dashboard"/>,
-        component: () => <DashboardComponent/>
-    },
+
     {
         path: '/terms',
         breadcrumbs: () => <BreadcrumbsComponent bread="terms"/>,
@@ -69,5 +67,19 @@ export const routes = [
         path: '/vocabs',
         breadcrumbs: () => <BreadcrumbsComponent bread="vocabs"/>,
         component: () => <VocabsComponent/>
-    }
+    },{
+        path: '/tags',
+        breadcrumbs: () => <BreadcrumbsComponent bread="vocabs"/>,
+        component: () => <TagsComponent/>
+    },
+    {
+        path: '/',
+        breadcrumbs: () => <BreadcrumbsComponent bread="dashboard" />,
+        component: () => <DashboardComponent isLoginSuccess={false}/>
+    },
+    // ,{
+    //     path: '/forget-password',
+    //     // breadcrumbs: () => <BreadcrumbsComponent bread="forgetPass"/>,
+    //     component: () => <ForgetPasswordComponent/>
+    // }
 ];

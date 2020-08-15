@@ -1,8 +1,7 @@
 import React, {useState} from "react";
 import {Box, Paper, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
-import * as global from "../../../assets/js/CssGlobal";
-import storage from "../../../libraries/local-storage";
+import {globalCss} from "../../../assets/js/globalCss";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
@@ -18,6 +17,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import CancelIcon from "@material-ui/icons/Cancel";
 import NewVocabsComponent from "./forms/NewVocabsComponent";
+import i18next from "i18next";
 
 const styles=makeStyles((theme)=>({
     mainpaper:{
@@ -88,6 +88,8 @@ const styles=makeStyles((theme)=>({
         }
     },
 }));
+const gClass=makeStyles(globalCss);
+
 const StyledTableCell = withStyles((theme) => ({
     head: {
         backgroundColor: colors.primary,
@@ -104,7 +106,9 @@ const StyledTableRow = withStyles((theme) => ({
         },
     },
 }))(TableRow);
+
 function VocabsComponent({t}) {
+    const gClasses=gClass();
     const classes=styles();
     const [selectedCheckBoxes, setSelectedCheckBoxes] = useState([]);
     let allCheckboxHandler = (e) => {
@@ -134,8 +138,7 @@ function VocabsComponent({t}) {
             );
         }
     };
-    const gClasses = global.styles();
-    const lang = storage.get('lang');
+    const lang = i18next.language;
     const [vocabs,setVocabs]=useState([
         {id: 0, name: 'first', description: 'description 1'},
         {id: 1, name: 'second', description: 'description 2'},
