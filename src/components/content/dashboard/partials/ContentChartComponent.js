@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from "react";
 import {Box, Typography, Paper} from "@material-ui/core";
-import * as contentChart from './../../../../assets/js/dashboard/ContentChart';
+import * as contentChart from 'assets/js/dashboard/ContentChart';
 
 export default function ContentDashboardComponent({contents}) {
     const [customContents, setCustomContents] = useState([]);
 
     const [totalNumberOfContents, setTotalNumberOfContents] = useState('');
+
     let setCustomContentHandler = (value) => {
         let getCustomContents = customizedContents(value);
         let contents = Object.entries(getCustomContents);
@@ -13,6 +14,7 @@ export default function ContentDashboardComponent({contents}) {
         setCustomContents([...arr]);
         return arr;
     };
+
     useEffect(() => {
         setCustomContentHandler(contents);
     }, [contents]);
@@ -42,7 +44,7 @@ export default function ContentDashboardComponent({contents}) {
 
     return (
         <>
-            <Paper className={classes.myPaper}>
+            {customContents.length>0 ? <Paper className={classes.myPaper}>
                 <Typography variant="h4" className={classes.title}>محتواها</Typography>
                 <div className={classes.content}>
                     {customContents.map(function (content, index) {
@@ -71,7 +73,7 @@ export default function ContentDashboardComponent({contents}) {
                     })
                     }
                 </div>
-            </Paper>
+            </Paper>:''}
         </>
     );
 

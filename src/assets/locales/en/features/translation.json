@@ -58,6 +58,8 @@
   "error": "error",
   "type": "type",
   "edit": "edit",
-  "delete": "delete",
-  "noRole": "no role"
+  "noRole": "no role",
+  "notAble": "you don't have permission to do this action!",
+  "requiredValid": "this field is required !"
+
 }

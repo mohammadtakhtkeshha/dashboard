@@ -29,9 +29,9 @@ import {makeStyles} from "@material-ui/styles";
 
 const StyledTableCell = withStyles(styledTableCell)(TableCell);
 const StyledTableRow = withStyles(styledTableRow)(TableRow);
-const currentStyles=makeStyles(useStyles);
+const currentStyles = makeStyles(useStyles);
 
-function UsersTableComponent({t,roles,valueRoles, chunckUserList}) {
+function UsersTableComponent({t, roles, valueRoles, chunckUserList}) {
     let id = '';
     const classes = currentStyles();
     const lang = i18next.language;
@@ -221,11 +221,13 @@ function UsersTableComponent({t,roles,valueRoles, chunckUserList}) {
                                     </StyledTableCell>
                                     <StyledTableCell align="right">
                                         <Box className='buttonBlock'>
-                                            <ButtonComponent value={user.uid} text={t('translation:edit')}
+                                            <ButtonComponent value={user.uid}
+                                                             text={t('translation:edit')}
                                                              color="primary"
                                                              startIcon={<EditIcon/>}
                                                              clicked={() => handleEditFormOpen(user.uid)}/>
-                                            <ButtonComponent value={user.uid} text={t('translation:delete')}
+                                            <ButtonComponent value={user.uid}
+                                                             text={t('translation:delete')}
                                                              color="secondary"
                                                              startIcon={<DeleteIcon/>}
                                                              clicked={(e) => confirmDeleteHandler(e)}/>
@@ -299,4 +301,5 @@ function UsersTableComponent({t,roles,valueRoles, chunckUserList}) {
         </>
     );
 }
+
 export default withNamespaces('users', 'translation')(UsersTableComponent);

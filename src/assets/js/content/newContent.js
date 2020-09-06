@@ -1,13 +1,14 @@
 export const useStyles = (theme) => ({
     paper: {
         '& .tabs': {
-            minWidth: 'calc(100vh - 5rem)',
             '& .tabButtons': {
                 '& .MuiTabs-flexContainer': {
                     justifyContent: 'center',
                 }
             },
             '& .tabContent': {
+                width:'100%',
+                textAlign:'center',
                 '& .block': {
                     display: 'flex',
                     flexDirection: 'column',
@@ -99,6 +100,7 @@ export const useStyles = (theme) => ({
     },
 
 });
+
 export const bootstrapInput =(theme) => ({
     root: {
         'label + &': {
@@ -133,6 +135,7 @@ export const bootstrapInput =(theme) => ({
         },
     },
 });
+
 export const useTabStyless =(theme) => ({
     root: {
         flexGrow: 1,

@@ -7,6 +7,24 @@ export const useStyles = (theme) => ({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        '& .buttonBlock': {
+            direction:'rtl',
+            '& button': {
+                '& span':{
+                    padding:'2px 0',
+                },
+                margin: '0',
+                padding: '0',
+                boxShadow: '0 0 0 0 !important',
+                '&:first-child': {
+                    borderRadius: '0 4px 4px 0',
+                },
+                '&:nth-child(2)': {
+                    borderRadius: '4px 0 0 4px',
+                },
+
+            }
+        },
         '& .imgBlock': {
             width: '50px!important',
             height: '50px',

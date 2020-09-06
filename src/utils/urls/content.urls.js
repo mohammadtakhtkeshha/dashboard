@@ -23,8 +23,11 @@ export const registerContentUrl = 'http://dash.webrbp.ir/entity/node?_format=jso
 export const deleteContentUrl = (id) => {
     return `http://dash.webrbp.ir/node/${id}?_format=json`;
 }
+export const getContentUrl = (id) => {
+    return `http://dash.webrbp.ir/node/${id}?_format=json`;
+}
 
 
 export default {getTagsUrl,domainSourceUrl,getCategoriesUrl,uploadSingImgUrl,
     uploadVideoUrl,uploadVoiceUrl,uploadMultiImgUrl,uploadFileUrl,getContentsUrl,registerContentUrl,
-    deleteContentUrl};
+    deleteContentUrl,getContentUrl};

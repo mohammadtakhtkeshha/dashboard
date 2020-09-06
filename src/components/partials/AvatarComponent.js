@@ -13,6 +13,7 @@ const useStyles = makeStyles(avatarStyles);
 export default function AvatarComponent(props) {
     const classes = useStyles(props);
     const currentUser = JSON.parse(storage.get('user'));
+
     return (
         <div className={classes.root}>
             <StyledBadge
@@ -23,10 +24,8 @@ export default function AvatarComponent(props) {
                 }}
                 variant="dot"
             >
-                <Avatar alt="Remy Sharp" src={currentUser !== null && currentUser.user_picture !== undefined ? JSON.parse(storage.get('user')).user_picture.url : ''}/>
+                <Avatar alt="Remy Sharp" src={currentUser !== null && currentUser.image !== undefined ? JSON.parse(storage.get('user')).image : ''}/>
             </StyledBadge>
-
-
         </div>
     );
 }

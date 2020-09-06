@@ -58,38 +58,39 @@ export default function ContentDashboardComponent() {
 
     return (
         <>
-            <Paper className={classes.paper}>
-                <Typography variant="h4" className={classes.title}>محتواها</Typography>
-                {/*----------*/}
-                <TableContainer component={Paper} className={classes.userBlock}>
-                    <Table className={classes.table} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="right" style={{width:'10%'}}>تصویر</StyledTableCell>
-                                <StyledTableCell align="right">عنوان</StyledTableCell>
-                                <StyledTableCell align="right">نوع</StyledTableCell>
-                                <StyledTableCell align="right">تاریخ</StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {contents.map((content, index) =>
-                                <StyledTableRow key={index}>
-                                    <StyledTableCell align="right" >
-                                        <Box className="imgBlock">
-                                        <CardMedia id="img">
-                                            { content.field_image ? <img src={content.field_image}/>:<img src={userImg}/>}
-                                        </CardMedia>
-                                    </Box></StyledTableCell>
-                                    <StyledTableCell align="right">{content.title}</StyledTableCell>
-                                    <StyledTableCell align="right"> {content.type}</StyledTableCell>
-                                    <StyledTableCell align="right"> {content.created}</StyledTableCell>
-                                </StyledTableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                {/*---------*/}
-            </Paper>
+            {contents.length>0?<Paper className={classes.paper}>
+                    <Typography variant="h4" className={classes.title}>محتواها</Typography>
+                    {/*----------*/}
+                    <TableContainer component={Paper} className={classes.userBlock}>
+                        <Table className={classes.table} aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell align="right" style={{width:'10%'}}>تصویر</StyledTableCell>
+                                    <StyledTableCell align="right">عنوان</StyledTableCell>
+                                    <StyledTableCell align="right">نوع</StyledTableCell>
+                                    <StyledTableCell align="right">تاریخ</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {contents.map((content, index) =>
+                                    <StyledTableRow key={index}>
+                                        <StyledTableCell align="right" >
+                                            <Box className="imgBlock">
+                                                <CardMedia id="img">
+                                                    { content.field_image ? <img src={content.field_image}/>:<img src={userImg}/>}
+                                                </CardMedia>
+                                            </Box></StyledTableCell>
+                                        <StyledTableCell align="right">{content.title}</StyledTableCell>
+                                        <StyledTableCell align="right"> {content.type}</StyledTableCell>
+                                        <StyledTableCell align="right"> {content.created}</StyledTableCell>
+                                    </StyledTableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    {/*---------*/}
+                </Paper>
+                :''}
         </>
     );
 

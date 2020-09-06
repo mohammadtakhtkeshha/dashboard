@@ -26,6 +26,8 @@ const useStyles=makeStyles({
     }
 });
 
+console.log();
+
 function DashboardComponent({t}) {
     const [contents, setContents] = useState([]);
     const classes = useStyles();

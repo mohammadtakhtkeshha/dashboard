@@ -6,6 +6,7 @@ export const useStyles={
         alignItems: 'center',
         justifyContent: 'center',
         '& #modal': {
+            width:'75%',
             border: '0!important',
             minWidth:'100px',
             marginTop: '5rem 5rem',

@@ -21,7 +21,6 @@ function ContentActionComponent({t}) {
     const handleActionChange = (event) => {
         setAction(event.target.value);
     };
-
     const actions = [
         {value: 'delete', label: t('translation:delete')},
         {value: 'block', label: t('translation:published')},

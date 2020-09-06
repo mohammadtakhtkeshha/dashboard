@@ -1,6 +1,7 @@
 import axios from "axios";
 import storage from "../../libraries/local-storage";
-import authUrl from './../../utils/urls/auth.urls'
+import authUrl from './../../utils/urls/auth.urls';
+import {authHeader} from 'utils/headers';
 
 export async function login(user) {
     let loginUrl = authUrl.loginUrl;
@@ -17,15 +18,14 @@ export async function login(user) {
     const {access_token} = result.data;
     storage.store(process.env.REACT_APP_TOKEN_KEY, `Bearer ${access_token}`);
     // ---------- login ---------------
-    let loginConfig = {headers: {'Content-Type': 'application/json'}};
-    let loginData = {name: user.name, pass: user.pass};
-    const loginResult = await axios.post(loginUrl, loginData, loginConfig);
-    const {logout_token} = loginResult.data;
-    storage.store(process.env.REACT_APP_LOGOUT_TOKEN, logout_token);
-    // ---------- loginedUser ---------
-    let config = {headers: {'Authorization': `Bearer ${access_token}`}};
-    let loginedUser = await axios.get(loginedUserUrl, config);
-    storage.store('user', JSON.stringify(loginedUser.data));
+    let config = {
+        headers: {
+            Authorization: `Bearer ${access_token}`
+        }
+    }
+    const loginResult = await axios.get('http://dash.webrbp.ir/oauth/debug', config);
+    storage.store('user', JSON.stringify(loginResult.data));
+    debugger
     return result;
 }
 
@@ -34,11 +34,11 @@ export async function logout(history) {
     let config = {
         headers:
             {
-                'Authorization':storage.get(process.env.REACT_APP_TOKEN_KEY),
+                'Authorization': storage.get(process.env.REACT_APP_TOKEN_KEY),
             },
         withCredentials: true,
     };
-     axios.post(url, null, config);
+    axios.post(url, null, config);
     storage.remove(process.env.REACT_APP_TOKEN_KEY);
     storage.remove('lang');
     history.push("/login");

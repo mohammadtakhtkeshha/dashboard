@@ -41,55 +41,75 @@ export function getContents() {
     let url = contentUrl.getContentsUrl
     return axios.get(url, authHeader);
 }
+
 export function deleteContent(id) {
     let url = contentUrl.deleteContentUrl(id);
-    return axios.delete(url, authHeader);
+    return axios.delete(url, ahchauthHeader);
 }
 
+export function getContent(id) {
+    let url = contentUrl.getContentUrl(id);
+    return axios.get(url);
+}
 
 export function registerContent(content) {
     let url = contentUrl.registerContentUrl;
     let data = {
-        type: {
-            target_id: "article"
+        "type": {
+            "target_id": "article"
         },
-        title: "six",
-        body: "dxfcgvhjkلرالالراذlmس",
-        field_domain_access: {
-            target_id: "dash_webrbp_ir",
-            target_type: "domain",
-            target_uuid: "67f5f76f-7730-4aa5-8504-8d00e44bc720"
+        "title": "test",
+        "body": "dxfcgvhjkلرالالربیبیباذlmس",
+        "field_domain_access": {
+            "target_id": "1_dash_webrbp_ir,dash_webrbp_ir,3_dash_webrbp_ir",
+            "target_type": "domain"
         },
-        field_domain_all_affiliates: true,
-        field_domain_source: {
-            target_id: "dash_webrbp_ir",
-            target_type: "domain",
-            target_uuid: "67f5f76f-7730-4aa5-8504-8d00e44bc720"
+        "field_domain_all_affiliates": true,
+        "field_domain_source": {
+            "target_id": "dash_webrbp_ir",
+            "target_type": "domain",
+            "target_uuid": "67f5f76f-7730-4aa5-8504-8d00e44bc720"
         },
-        field_field_galeries: {
-            target_id: "162,344,345",
-            target_type: "file"
+        "field_field_galeries": {
+            "target_id": "1141,1142,1143",
+            "display": true,
+            "target_type": "file"
         },
-        field_videos: {},
-        field_files: {
-            target_id: "161",
-            target_type: "file"
+        "field_files": {
+            "target_id": "161",
+            "display": true,
+            "target_type": "file"
         },
-        field_image: {
-            target_id: "158",
-            target_type: "file"
+        "field_image": {
+            "target_id": "158",
+            "target_type": "file"
         },
-        field_rotitr: "این روتیتر برای تست مقاله از پست من میباشد",
-        field_sotitr: " سوتيتر مقاله ىر اين قسمت نوشته شده است",
-        field_sounds: {
-            target_id: "346",
-            target_type: "file"
+        "field_rotitr": "روتیتر",
+        "field_sotitr": "سوتیتر",
+        "field_sounds": {
+            // "target_id": "346",
+            // "target_type": "file"
         },
-        field_tags: {
-            target_id: "25"
-        }
+
+        "field_tags": {
+            // "target_id": "25,50,68"
+        },
+        "field_seo_list": {
+            "title": "عنوان پیج برای سئو",
+            "description": "خلاصه برای سئو",
+            "abstract": "چکیده برای سئو",
+            "keywords": "کلمه کلیدی اول , کلمه کلیدی دوم , کلمه کلیدی سوم"
+        },
+        "field_videos": {
+            "target_id": "1140",
+            "target_type": "file"
+        },
+
+        "status": false,
+        "publish_on": "2022-11-29T21:33:09+00:00",
+        "unpublish_on": "2023-11-29T21:33:09+00:00"
     }
-    return axios.post(url, data, aacaAuthauHeader);
+    return axios.post(url, content, aacaAuthauHeader);
 }
 
 export default {
@@ -102,5 +122,6 @@ export default {
     uploadMultiFile,
     registerContent,
     getContents,
-    deleteContent
+    deleteContent,
+    getContent
 };

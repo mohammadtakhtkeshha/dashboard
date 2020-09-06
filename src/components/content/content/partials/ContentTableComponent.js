@@ -28,26 +28,33 @@ const useStyle = makeStyles(useStyles);
 function ContentTableComponent({t, selectedCheckBoxes, contents, setContents, setSelectedCheckBoxes, perPage, setTotalPage, page}) {
     const classes = useStyle();
     const appContext = useContext(AppContext);
-    const [chuckContents, setChunckContents] = useState();
+    const [chunckContents, setChunckContents] = useState();
+    const [content, setContent] = useState();
 
-    let editClicked = () => {
-
+    let editClicked = (e) => {
+        let id = e.currentTarget.value;
+        contentService.getContent(id).then((response) => {
+            setContent(response.data);
+        }).catch((error) => {
+            handleError(error);
+        });
     };
+
     useEffect(() => {
-        chuckHandler();
-        debugger
+        chuckHandler(contents);
     }, [contents]);
 
-    let chuckHandler = () => {
-        let contentLength=contents.length;
+    let chuckHandler = (currentContents) => {
+        let contentLength = currentContents.length;
         if (contentLength > 0) {
             let newList = [];
-            for (let i = 0; i < contents.length; ) {
-                newList.push(contents[i]);
+            for (let i = 0; i < contentLength; i += perPage) {
+                let myChunk = currentContents.slice(i, i + perPage);
+                newList.push(myChunk);
             }
-            debugger
+            setChunckContents(newList);
         }
-    }
+    };
 
     let handleError = (error) => {
         danger(t('translation:error'), t('translation:ok'));
@@ -93,13 +100,16 @@ function ContentTableComponent({t, selectedCheckBoxes, contents, setContents, se
 
     let deleteContent = (id) => {
         contentService.deleteContent(id).then((response) => {
+            let currentLength = contents.length - 1;
             let newContents = contents.filter(content => content.nid !== id);
             setContents([...newContents]);
-            let currentTotalPage = Math.ceil(response.data.length / perPage);
+            let currentTotalPage = Math.ceil(currentLength / perPage);
             setTotalPage(currentTotalPage);
+            chuckHandler(newContents);
             success(t('translation:deletedSuccessfully'), t('translation:ok'));
         }).catch((error) => {
-            handleError(error);
+            let customizeError = t('translation:notAble')
+            handleError(customizeError);
         });
     };
 
@@ -123,53 +133,61 @@ function ContentTableComponent({t, selectedCheckBoxes, contents, setContents, se
                         <StyledTableCell align="right">{t('translation:actions')}</StyledTableCell>
                     </TableRow>
                 </TableHead>
-                <TableBody>
-                    {contents.map((content, index) =>
-                        <StyledTableRow key={index}>
-                            <StyledTableCell align="right">
-                                <Checkbox
-                                    onChange={(e) => isCheckedHandler(e, content)}
-                                    inputProps={{'aria-label': 'primary checkbox'}}
-                                    // checked={selectedCheckBoxes.includes(content.nid)}
-                                />
-                            </StyledTableCell>
-                            <StyledTableCell align="right">
-                                <Box className="imgBlock">
-                                    <CardMedia id="img">
-                                        {content.field_image ? <img src={content.field_image} alt="content.name"/> :
-                                            <img src={contentImg}/>}
-                                    </CardMedia>
-                                </Box>
-                            </StyledTableCell>
-                            <StyledTableCell align="right">
-                                <div dangerouslySetInnerHTML={{__html: (content.title)}}></div>
-                            </StyledTableCell>
-                            <StyledTableCell align="right">
-                                {content.type}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">
-                                {content.status ? t('translation:confirmed') : t('translation:block')}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">
-                                {content.changed}
-                            </StyledTableCell>
+                {chunckContents !== undefined ?
+                    <TableBody>
+                        {chunckContents[page].map((content, index) =>
+                            <StyledTableRow key={index}>
+                                <StyledTableCell align="right">
+                                    <Checkbox
+                                        onChange={(e) => isCheckedHandler(e, content)}
+                                        inputProps={{'aria-label': 'primary checkbox'}}
+                                        // checked={selectedCheckBoxes.includes(content.nid)}
+                                    />
+                                </StyledTableCell>
+                                <StyledTableCell align="right">
+                                    <Box className="imgBlock">
+                                        <CardMedia id="img">
+                                            {content.field_image ? <img src={content.field_image} alt="content.name"/> :
+                                                <img src={contentImg}/>}
+                                        </CardMedia>
+                                    </Box>
+                                </StyledTableCell>
+                                <StyledTableCell align="right">
+                                    <div dangerouslySetInnerHTML={{__html: (content.title)}}></div>
+                                </StyledTableCell>
+                                <StyledTableCell align="right">
+                                    {content.type}
+                                </StyledTableCell>
+                                <StyledTableCell align="right">
+                                    {content.status ? t('translation:confirmed') : t('translation:block')}
+                                </StyledTableCell>
+                                <StyledTableCell align="right">
+                                    {content.changed}
+                                </StyledTableCell>
 
-                            {/*<StyledTableCell*/}
-                            {/*    align="right">*/}
-                            {/*    {content.field_domain_access.map(access => access.target_id)}</StyledTableCell>*/}
+                                {/*<StyledTableCell*/}
+                                {/*    align="right">*/}
+                                {/*    {content.field_domain_access.map(access => access.target_id)}</StyledTableCell>*/}
 
-                            <StyledTableCell align="right">
-                                <ButtonComponent value={content.nid} text="ویرایش" color="primary"
-                                                 startIcon={<EditIcon/>}
-                                                 clicked={editClicked}
-                                />
-                                <ButtonComponent value={content.nid} text="حذف" color="secondary"
-                                                 startIcon={<DeleteIcon/>}
-                                                 clicked={confirmDeleteHandler}/>
-                            </StyledTableCell>
-                        </StyledTableRow>
-                    )}
-                </TableBody>
+                                <StyledTableCell align="right">
+                                    <Box className='buttonBlock'>
+                                        <ButtonComponent value={content.nid}
+                                                         text={t('translation:edit')}
+                                                         color="primary"
+                                                         startIcon={<EditIcon/>}
+                                                         clicked={editClicked}
+                                        />
+                                        <ButtonComponent value={content.nid}
+                                                         text={t('translation:delete')}
+                                                         color="secondary"
+                                                         startIcon={<DeleteIcon/>}
+                                                         clicked={confirmDeleteHandler}/>
+                                    </Box>
+                                </StyledTableCell>
+                            </StyledTableRow>
+                        )}
+                    </TableBody>
+                    : <TableBody></TableBody>}
             </Table>
         </TableContainer>
 
