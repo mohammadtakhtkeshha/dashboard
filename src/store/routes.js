@@ -1,20 +1,19 @@
 import BaseFormComponent from "../components/content/partials/BaseFormComponent";
 import CustomizedForm from "../components/content/partials/CustomizedForm";
 import BreadcrumbsComponent from './../components/header/BreadcrumbsComponent';
-import UsersComponent from '../components/content/user/UsersComponent';
-import NewUserComponent from '../components/content/user/forms/NewUserComponent';
-import EditUserComponent from '../components/content/user/forms/EditUserComponent';
-import ContentsComponent from '../components/content/content/ContentsComponent';
+import UsersComponent from '../components/content/user/usersList/index';
+import EditUserComponent from '../components/content/user/usersList/forms/EditUserComponent';
+import ContentsComponent from '../components/content/content/index';
 import CommentsComponent from '../components/content/comment/CommentsComponent';
 import DashboardComponent from '../components/content/dashboard/DashboardComponent';
-import NewContentComponent from '../components/content/content/forms/NewContentComponent';
-import TermsComponent from "../components/content/content/TermsComponent";
-import VocabsComponent from "../components/content/content/VocabsComponent";
-import TagsComponent from "../components/content/content/TagsComponent";
-import ForgetPasswordComponent from "../components/content/user/forms/ForgetPasswordComponent";
+import NewContentComponent from '../components/content/content/forms/newContent';
+import TermsComponent from "../components/content/content/partials/TermsComponent";
+import VocabsComponent from "../components/content/content/partials/VocabsComponent";
+import TagsComponent from "../components/content/content/partials/TagsComponent";
 
 
 import React from "react";
+
 export const routes = [
     {
         path: '/base',
@@ -32,11 +31,6 @@ export const routes = [
         breadcrumbs: () => <BreadcrumbsComponent bread="users"/>,
         component: () => <UsersComponent/>
     },
-    // {
-    //     path: '/new-user',
-    //     breadcrumbs: () => <BreadcrumbsComponent bread="new user"/>,
-    //     component: () => <NewUserComponent/>
-    // },
     {
         path: '/edit-user/:id',
         breadcrumbs: () => <BreadcrumbsComponent bread="editProfile"/>,

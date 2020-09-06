@@ -1,4 +1,4 @@
-import {primary} from "./../../components/partials/Colors";
+import {primary} from "components/partials/Colors";
 
 export const globalCss = {
     textLeft:{
@@ -13,12 +13,28 @@ export const globalCss = {
     rtl:{
         direction:'rtl'
     },
-    makeSwalButtonCenter:{
-        '& .swal-footer':{
-            textAlign:'center'
-        }
+    none:{
+        display:'none'
     },
-    confirmSwalButton:{
-        backgroundColor:primary
+    block:{
+        display:'block'
+    },
+    validation:{
+        color:'red',
+    },
+    doButtonBlock:{
+        direction:'rtl',
+        '& button': {
+            margin: '0',
+            padding: '0',
+            boxShadow: '0 0 0 0 !important',
+            '&:first-child': {
+                borderRadius: '0 4px 4px 0',
+            },
+            '&:nth-child(2)': {
+                borderRadius: '4px 0 0 4px',
+            },
+
+    }
     }
 };

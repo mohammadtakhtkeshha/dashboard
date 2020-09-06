@@ -39,7 +39,6 @@ export default function Asynchronous() {
                 }
             }
            axios.get(url, config).then((res)=>{
-               debugger
                if(active){
                    setOptions(res.data.map((key)=>key));
                }
@@ -58,7 +57,6 @@ export default function Asynchronous() {
         }
     }, [open]);
     let uploadVideo=(e)=>{
-        debugger
     }
     return (
       <div>

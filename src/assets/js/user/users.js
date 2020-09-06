@@ -1,7 +1,6 @@
-import {makeStyles} from "@material-ui/core/styles";
-import {primary, white, grey} from "../../../components/partials/Colors";
+import {primary, white} from "../../../components/partials/Colors";
 
-const useStyles = makeStyles((theme) => ({
+export const useStyles =(theme) => ({
     userBlock: {
         overflowX: 'inherit!important',
         '& table': {
@@ -88,27 +87,6 @@ const useStyles = makeStyles((theme) => ({
                     }
                 }
             }
-        }
-    },
-    pagination: {
-        display: 'flex',
-        justifyContent: 'center',
-        padding: '20px',
-        '& ul': {
-            '& li': {
-                '& button': {
-                    borderRadius: '0',
-                    margin: '0',
-                    borderColor: grey.tooLight,
-                    color: primary,
-                    padding: '13px'
-                }
-            }
-        },
-        '& .MuiPaginationItem-page.Mui-selected': {
-            backgroundColor: primary,
-            color: 'white',
-            border: '0'
         }
     },
     mypaper: {
@@ -268,6 +246,24 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
     }
-}));
+});
 
-export default {useStyles};
+export const styledTableCell =(theme) => ({
+    head: {
+        backgroundColor: primary,
+        color: theme.palette.common.white,
+    },
+    body: {
+        fontSize: 14,
+    },
+});
+
+export const styledTableRow = (theme) => ({
+    root: {
+        '&:nth-of-type(even)': {
+            backgroundColor: theme.palette.action.hover,
+        },
+    },
+});
+
+export default {useStyles,styledTableCell,styledTableRow};

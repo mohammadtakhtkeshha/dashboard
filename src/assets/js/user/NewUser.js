@@ -1,7 +1,6 @@
-import {makeStyles} from "@material-ui/core/styles";
-import * as colors from "../../../components/partials/Colors";
+import * as colors from "components/partials/Colors";
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles =(theme) => ({
    paper:{
        display:'flex',
        justifyContent:'space-between',
@@ -66,19 +65,11 @@ export const useStyles = makeStyles((theme) => ({
             top: '0',
             left: '0',
             color: 'rgba(255,255,255,.4)',
-            // backgroundColor: 'red',
             cursor: 'pointer',
             width: '120px',
             height: '120px',
-            // '&:hover':{
-            //     backgroundColor:'rgba(255,255,255,.8)'
-            // },
-            // '& svg':{
-            //     width:'100%!important',
-            //     height:'100%!important',
-            // }
         }
 
     },
 
-}));
+});

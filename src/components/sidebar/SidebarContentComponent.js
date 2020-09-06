@@ -237,12 +237,6 @@ function SimpleTabs({t}) {
                                 <ListItemText primary={t('users')}/>
                             </NavLink>
                         </ListItem>
-                        <ListItem button className={clsx("navLink", "items")}>
-                            <NavLink to='/new-user' activeClassName={classes.active} className={currrentAlign()}>
-                                <ListItemText primary="افزودن کاربر جدید"/>
-                            </NavLink>
-                        </ListItem>
-
                     </List>
 
                 </TabPanel>

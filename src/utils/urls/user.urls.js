@@ -10,7 +10,7 @@ export const getUserUrl =(id)=>{
     return `${baseUrl}/user/${id}?_format=json`;
 };
 
-export const deleteUserUrl =(id)=>{
+export const deleteUserAndGetUserForEditUrl =(id)=>{
     return `${baseUrl}/user/${id}?_format=json`;
 };
 
@@ -20,6 +20,8 @@ export const registerUserUrl =`${baseUrl}/entity/user?_format=json`;
 
 export const saveUserImageUrl =`${baseUrl}/file/upload/user/user/user_picture?_format=json`;
 
+export const  getNotPaginateUserUrl = `${baseUrl}/api/user/v3`;
+
 export default {
-    deleteUserUrl,getRolesUrl,getUsersUrl,multiActionUrl,getUserUrl,registerUserUrl,saveUserImageUrl
+    deleteUserAndGetUserForEditUrl,getRolesUrl,getUsersUrl,multiActionUrl,getUserUrl,registerUserUrl,saveUserImageUrl,getNotPaginateUserUrl
 }

@@ -1,24 +1,32 @@
 import React, {useState, useContext} from 'react';
 import {Link,} from "react-router-dom";
 import {Box, CardMedia, Checkbox, Grid, Paper, Typography} from "@material-ui/core/index";
-import iconImg from '../../../../assets/media/image/logo-login.png';
-import InputComponent from '../../../partials/inputComponent'
-import ButtonComponent from "../../../partials/ButtonComponent";
-import AppContext from './../../../../contexts/AppContext';
+import iconImg from 'assets/media/image/logo-login.png';
+import InputComponent from 'components/partials/inputComponent'
+import ButtonComponent from "components/partials/ButtonComponent";
+import AppContext from 'contexts/AppContext';
 import {useHistory} from "react-router-dom";
-import * as useStyles from './../../../../assets/js/login';
-import authService from './../../../../core/services/auth.service';
+import * as useStyles from 'assets/js/login';
+import authService from 'core/services/auth.service';
 import {withNamespaces} from "react-i18next";
-import {primary} from "../../../partials/Colors";
+import {primary} from "components/partials/Colors";
+import Loading from "../../../partials/loading";
+import {makeStyles} from "@material-ui/styles";
+import {globalCss} from "../../../../../assets/js/globalCss";
+
+const gClass = makeStyles(globalCss);
 
 function LoginComponent({t}) {
     const classes = useStyles.styles();
     const [errors, setErrors] = useState({errorName: false, errorPass: false, loginError: false});
     const history = useHistory();
-    const context = useContext(AppContext);
+    const appContext = useContext(AppContext);
     const [user, setUser] = useState({name: '', pass: ''});
+    const gClasses = gClass();
+
 
     let login = () => {
+        setErrors({errorName: false, errorPass: false, loginError: false});
         if (user.name === "" || user.pass === "") {
             if (user.name === "") {
                 setErrors(prevState => {
@@ -48,12 +56,16 @@ function LoginComponent({t}) {
             }
             return;
         }
+        appContext.toggleLoading(true);
+
         authService.login(user).then((response) => {
+            appContext.toggleLoading(false);
             setErrors({errorName: false, errorPass: false, loginError: false});
-            context.isLoginSuccess = true;
+            appContext.isLoginSuccess = true;
             history.push("/");
         }).catch((error) => {
             setErrors({errorName: false, errorPass: false, loginError: true});
+            appContext.toggleLoading(false);
         });
     };
 
@@ -67,7 +79,7 @@ function LoginComponent({t}) {
     };
 
     document.onkeydown = function (event) {
-        if (window.event.keyCode == '13') {
+        if (window.event.keyCode == '13') { //hit enter
             login();
         }
     }
@@ -113,7 +125,8 @@ function LoginComponent({t}) {
                         </Box>
                     </Box>
                     <Box className="loginButton">
-                        <ButtonComponent color={'primary'} background={primary} text={t('translation:enter')} clicked={login}/>
+                        <ButtonComponent color={'primary'} background={primary} text={t('translation:enter')}
+                                         clicked={login}/>
                     </Box>
                     <Box className="hr">
                         <hr/>
@@ -128,4 +141,4 @@ function LoginComponent({t}) {
     </div>);
 }
 
-export default withNamespaces('translation')(LoginComponent);
+export default withNamespaces('users','translation')(LoginComponent);

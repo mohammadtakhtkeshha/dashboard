@@ -21,7 +21,6 @@ export function addTag(body) {
             'Content-Type': 'application/hal+json',
             'Authorization': storage.get(process.env.REACT_APP_TOKEN_KEY),
             'Accept': 'application/hal+json',
-            'X-CSRF-Token': storage.get(process.env.REACT_APP_CSRF_TOKEN),
         }
     };
     return axios.post(url, body, config);
@@ -34,7 +33,6 @@ export function deleteTag(id) {
             'Content-Type': 'application/hal+json',
             'Authorization': storage.get(process.env.REACT_APP_TOKEN_KEY),
             'Accept': 'application/hal+json',
-            'X-CSRF-Token': storage.get(process.env.REACT_APP_CSRF_TOKEN),
         }
     };
     return axios.delete(url, config);
@@ -58,7 +56,6 @@ export function editTag(id,body){
             'Content-Type': 'application/hal+json',
             'Authorization': storage.get(process.env.REACT_APP_TOKEN_KEY),
             'Accept': 'application/hal+json',
-            'X-CSRF-Token': storage.get(process.env.REACT_APP_CSRF_TOKEN),
         }
     };
     return axios.patch(url,body,config);

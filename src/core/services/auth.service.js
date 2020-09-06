@@ -6,7 +6,7 @@ export async function login(user) {
     let loginUrl = authUrl.loginUrl;
     let accessTokenUrl = authUrl.accessTokenUrl;
     let loginedUserUrl = authUrl.loginedUserUrl;
-    // ---------- accessToken ---------------
+    // ---------- accessToken ---------
     const data = new URLSearchParams();
     data.append('grant_type', 'password');
     data.append('client_id', '15b03cb4-b4a9-4b80-96d4-3050583515a0');
@@ -20,14 +20,12 @@ export async function login(user) {
     let loginConfig = {headers: {'Content-Type': 'application/json'}};
     let loginData = {name: user.name, pass: user.pass};
     const loginResult = await axios.post(loginUrl, loginData, loginConfig);
-    const {csrf_token, logout_token} = loginResult.data;
-    storage.store(process.env.REACT_APP_CSRF_TOKEN, `${csrf_token}`);
+    const {logout_token} = loginResult.data;
     storage.store(process.env.REACT_APP_LOGOUT_TOKEN, logout_token);
-    // ---------- loginedUser ---------------
+    // ---------- loginedUser ---------
     let config = {headers: {'Authorization': `Bearer ${access_token}`}};
     let loginedUser = await axios.get(loginedUserUrl, config);
     storage.store('user', JSON.stringify(loginedUser.data));
-    debugger
     return result;
 }
 
@@ -37,13 +35,11 @@ export async function logout(history) {
         headers:
             {
                 'Authorization':storage.get(process.env.REACT_APP_TOKEN_KEY),
-                'X-CSRF-Token':storage.get(process.env.REACT_APP_CSRF_TOKEN),
             },
         withCredentials: true,
     };
      axios.post(url, null, config);
     storage.remove(process.env.REACT_APP_TOKEN_KEY);
-    storage.remove(process.env.REACT_APP_CSRF_TOKEN);
     storage.remove('lang');
     history.push("/login");
     storage.remove('user');

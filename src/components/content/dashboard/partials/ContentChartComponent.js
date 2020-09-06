@@ -16,6 +16,7 @@ export default function ContentDashboardComponent({contents}) {
     useEffect(() => {
         setCustomContentHandler(contents);
     }, [contents]);
+
     let getTotalNumberOfContent = () => {
         let length = contents.length;
         setTotalNumberOfContents(length);

@@ -1,129 +1,50 @@
-import React from 'react';
-import {makeStyles, withStyles} from '@material-ui/core/styles/index';
+import React , {useContext} from 'react';
+import {makeStyles} from '@material-ui/core/styles/index';
 import {Box, Typography} from "@material-ui/core/index";
 import SettingsIcon from '@material-ui/icons/Settings';
-import * as colors from '../../../partials/Colors.js';
 import EditIcon from '@material-ui/icons/Edit';
-import storage from './../../../../libraries/local-storage';
-import {
-    Link
-} from "react-router-dom";
-
-
-import AvatarComponent from "../../../partials/AvatarComponent";
-import ButtonComponent from "../../../partials/ButtonComponent";
-import AppContext from "../../../../contexts/AppContext";
 import {withNamespaces} from "react-i18next";
+import { Link } from "react-router-dom";
+import storage from 'libraries/local-storage';
+import UserDrawerContentStyle from "assets/js/user/UserDrawerContent";
+import AvatarComponent from "components/partials/AvatarComponent";
+import ButtonComponent from "components/partials/ButtonComponent";
+import AppContext from "contexts/AppContext";
 
 
-const useStyles = makeStyles((theme) => ({
-    content: {
-        color: 'black',
-        width: '300px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        height: '100%',
-        overflow: 'scroll',
-        alignItems: 'center',
-        '& .avatar': {
-            borderBottom: `1px solid ${colors.grey.veryLight}`,
-            '& > :first-child': {
-                justifyContent: 'center!important',
-            },
-            textAlign: 'center',
-            '& #name': {
-                color: colors.primary,
-                fontSize: '20px',
-                paddingTop: theme.spacing(3),
-            },
-            '& #email': {
-                color: colors.primary,
-                fontSize: '14px',
-                paddingTop: theme.spacing(1),
-                paddingBottom: theme.spacing(2),
-            },
-            '& #username': {
-                color: colors.primary,
-                fontSize: '20px',
-                paddingTop: theme.spacing(1),
-            },
-            '& #roleBlock': {
-                '& .role': {
-                    color: colors.grey.light,
-                    fontSize: '14px',
-                    paddingLeft: '5px',
-                },
-            },
-
-            '& #nameBlock': {
-                display: 'flex',
-                justifyContent: 'center',
-                paddingTop: theme.spacing(2),
-                '& .role': {
-                    color: colors.grey.light,
-                    fontSize: '14px',
-                    paddingLeft: '5px',
-                },
-                '& #setting': {
-                    color: colors.darkBlue,
-                    fontSize: '14px',
-                    paddingTop: '2px',
-                    height: '20px',
-                },
-            },
-
-        },
-
-        '& .buttons': {
-            padding: theme.spacing(2),
-            display: 'flex',
-            flexDirection: 'column',
-            '& .link': {
-                margin: theme.spacing(1),
-                textDecoration: 'none',
-                display: 'block',
-                '& button': {
-                    margin: theme.spacing(1),
-                    width: '100%',
-                },
-            },
-
-
-        },
-    }
-
-}));
+const useStyles = makeStyles(UserDrawerContentStyle);
 
 
 function UserDrawerContentComponent({t}) {
     const classes = useStyles();
-    const appContext = React.useContext(AppContext);
-    const currentUser = JSON.parse(storage.get('user'));
+    const appContext = useContext(AppContext);
+    // const currentUser = JSON.parse(storage.get('user'));
+
     let changeUserDrawer = () => {
         appContext.toggleUserDrawer(false);
     };
 
-    return (<>
+    return (
+    <>
         <Box className={classes.content}>
             <Box className="item avatar">
                 <AvatarComponent width="4.8rem" height="4.8rem" style={{justifyContent: 'center'}}/>
-                <Typography variant="h4" id="name">{appContext.user.field_name}</Typography>
-                <Typography variant="h4" id="name">{appContext.user.field_last_name}</Typography>
+                {/*<Typography variant="h4" id="name">{currentUser !== null ? currentUser.field_name : ''}</Typography>*/}
+                {/*<Typography variant="h4" id="name">{currentUser !== null ? currentUser.field_last_name:''}</Typography>*/}
                 <Box id="nameBlock">
                     <SettingsIcon id="setting"/>
                     <Typography className="role" variant='h5'>
-                        {currentUser?currentUser.name:''}
+                        {/*{currentUser !==null && currentUser.roles !== undefined ?currentUser.name:''}*/}
                     </Typography>
                 </Box>
                 <Box id="roleBlock">
                     <Typography className="role" variant="h6">{t('users:role')}</Typography>
                     <Typography className="role" variant='h5'>
-                        {currentUser?currentUser.roles.target_id:''}
+                        {/*{currentUser !== null && currentUser.roles !== undefined ?currentUser.roles.target_id:''}*/}
                     </Typography>
                 </Box>
-                <Typography variant="h4" id="username">{appContext.user.name}</Typography>
-                <Typography variant="h3" id="email">{appContext.user.mail}</Typography>
+                {/*<Typography variant="h4" id="username">{currentUser !== null && currentUser.name}</Typography>*/}
+                {/*<Typography variant="h3" id="email">{currentUser !== null && currentUser.mail}</Typography>*/}
             </Box>
             <Box className="buttons">
                 <Link className="link" to="/comments" onClick={changeUserDrawer}>

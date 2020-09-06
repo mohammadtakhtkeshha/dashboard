@@ -104,7 +104,6 @@ function CommentDashboardComponent({t}) {
     let getTenNumberOfComments = () => {
         let url = 'http://dash.webrbp.ir/last_comment?_format=json';
         axios.get(url).then((response) => {
-            debugger
             let comments = response.data.rows;
             setComments([...comments]);
             setTotalPage(response.data.pager.total_pages);

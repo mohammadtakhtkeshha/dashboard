@@ -48,3 +48,7 @@ export {
     warning,warningBright,info,infoBright,light, dark, facebook, google, instagram, linkedin, twitter,
     whatsapp, dribbble, youtube,darkBlue,grey,black,white,red
 };
+
+// const colors ={
+//     gray: ['#541562','erfewf']
+// }

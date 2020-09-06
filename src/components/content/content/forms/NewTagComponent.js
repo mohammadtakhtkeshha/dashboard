@@ -61,7 +61,7 @@ function NewTagsCompnent({t,getRegisteredTag,currentTag,type}) {
                             type="text" placeholder={t('translation:name')}
                                error={errors.name ? errors.name : ''}
                                small='' handleClick={e => handleChange(e, "name")}/>
-                    
+
                         <ButtonComponent background={primary} color={white} clicked={register} text={t('translation:register')}/>
                     </Box>
                 </Grid>

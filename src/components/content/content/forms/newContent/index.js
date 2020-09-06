@@ -1,4 +1,12 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
+import PropTypes from 'prop-types';
+import moment from "moment";
+import {withNamespaces} from "react-i18next";
+import swal from "sweetalert";
+import clsx from "clsx";
+import i18next from "i18next";
+import axios from 'axios';
+
 import {Box, Paper, Typography} from '@material-ui/core/index';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -12,37 +20,28 @@ import {makeStyles, withStyles} from '@material-ui/core/styles';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import PropTypes from 'prop-types';
-import moment from "moment";
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
-import contentSercice from './../../../../core/services/content.serveice';
-import tagService from './../../../../core/services/tag.service';
-import * as newContent from './../../../../assets/js/content/newContent';
-import {withNamespaces} from "react-i18next";
-import UploadImg from "../../../partials/UploadImg";
-import ButtonComponent from './../../../../components/partials/ButtonComponent'
-import Input from "../../../partials/inputComponent";
-import DatePickerr from "../../../partials/DatePickerr";
-import clsx from "clsx";
-import EditorComponent from "../../../partials/EditorComponent";
-import i18next from "i18next";
-import axios from 'axios';
-import storage from './../../../../libraries/local-storage';
-import UploadVideo from "../../../partials/UploadVideo";
-import UploadVoice from "../../../partials/UploadVoice";
-import {globalCss} from '../../../../assets/js/globalCss';
-import {primary} from "../../../partials/Colors";
 
-const useTabStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
-    },
-}));
+import contentService from 'core/services/content.service';
+import tagService from 'core/services/tag.service';
+import {useStyles, bootstrapInput, useTabStyless} from 'assets/js/content/newContent';
+import UploadImg from "components/partials/UploadImg";
+import UploadFile from "components/partials/UploadFile";
+import ButtonComponent from 'components/partials/ButtonComponent'
+import Input from "components/partials/inputComponent";
+import DatePickerr from "components/partials/DatePickerr";
+import EditorComponent from "components/partials/EditorComponent";
+import storage from 'libraries/local-storage';
+import {globalCss} from 'assets/js/globalCss';
+import AppContext from "contexts/AppContext";
+import FileContentTabComponent from "./partials/FileContentTabComponent";
 
-const gClass=makeStyles(globalCss);
+const useTabStyles = makeStyles(useTabStyless);
+
+const gClass = makeStyles(globalCss);
+const styles = makeStyles(useStyles);
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -77,16 +76,12 @@ function a11yProps(index) {
     };
 }
 
-function sleep(delay = 0) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, delay);
-    });
-}
 
-function NewContentComponent({t}) {
+function Index({t}) {
     const lang = i18next.language;
+    const appContext = useContext(AppContext);
     const [tags, setTags] = useState([]);
-    const gClasses=gClass();
+    const gClasses = gClass();
 
     // -----auto complete ------
     const [openAutoComplete, setOpenAutoComplete] = useState(false);
@@ -100,7 +95,7 @@ function NewContentComponent({t}) {
         (async () => {
             tagService.getTags().then((response) => {
                 if (active) {
-                    setTags(response.data.map((key) => key));
+                    setTags(response.data.rows.map((key) => key));
                 }
             });
         })();
@@ -115,237 +110,72 @@ function NewContentComponent({t}) {
             setTags([]);
         }
     }, [openAutoComplete]);
+
     // -----auto complete ------
 
-    const BootstrapInput = withStyles((theme) => ({
-        root: {
-            'label + &': {
-                marginTop: theme.spacing(3),
-            },
-        },
-        input: {
-            borderRadius: 4,
-            position: 'relative',
-            backgroundColor: theme.palette.background.paper,
-            border: '1px solid #ced4da',
-            fontSize: 16,
-            padding: '10px 26px 10px 12px',
-            transition: theme.transitions.create(['border-color', 'box-shadow']),
-            // Use the system font instead of the default Roboto font.
-            fontFamily: [
-                '-apple-system',
-                'BlinkMacSystemFont',
-                '"Segoe UI"',
-                'Roboto',
-                '"Helvetica Neue"',
-                'Arial',
-                'sans-serif',
-                '"Apple Color Emoji"',
-                '"Segoe UI Emoji"',
-                '"Segoe UI Symbol"',
-            ].join(','),
-            '&:focus': {
-                borderRadius: 4,
-                borderColor: '#80bdff',
-                boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-            },
-        },
-    }))(InputBase);
-    const classes = newContent.useStyles();
+    const BootstrapInput = withStyles(bootstrapInput)(InputBase);
+    const classes = styles();
     const [value, setValue] = useState(0);
     const [categories, setCategories] = useState([]);
+
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedJalaliDate, setSelectedJalaliDate] = useState(moment());
     const [content, setContent] = useState({
-            _links: {
-                type: {
-                    href: "http://dash.webrbp.ir/rest/type/node/article"
-                }
-            },
-            type: [
-                {
-                    target_id: "article"
-                }
-            ],
-            title: [
-                {
-                    value: "اين عنوان براي تست مقاله مي باشد"
-                }
-            ],
-            body: [
-                {
-                    value: "این بادی برای تست مقاله می باشد",
-                    summary: "این خلاصه برای مقاله و تست می باشد"
-                }
-            ],
-            field_rotitr: [
-                {
-                    value: "این روتیتر برای تست مقاله از پست من میباشد"
-                }
-            ],
-            field_seo_list: [
-                {
-                    value: {
-                        title: "این عنوان در بالای صفحه برای سئو نمایش داده می شود",
-                        description: "این یک توضیح برای ربات های گوگل می باشد",
-                        abstract: "ابسترکت برای تست می باشد",
-                        keywords: "کلمه یک , كلمه دو , كلمه سه"
-                    }
-                }
-            ],
-            field_sotitr: [
-                {
-                    value: " سوتيتر مقاله ىر اين قسمت نوشته شده است"
-                }
-            ],
-            field_tags: [
-                {
-                    target_id: 9,
-                    target_type: "taxonomy_term",
-                    target_uuid: "a53e7020-ebda-40a3-b985-ea89c6cafa97",
-                    url: "/web/taxonomy/term/9"
-                }
-            ],
-            field_domain_access: [
-                {
-                    target_id: "dash_webrbp_ir",
-                    target_type: "domain",
-                    target_uuid: "67f5f76f-7730-4aa5-8504-8d00e44bc720"
-                }
-            ],
-            field_domain_all_affiliates: [
-                {
-                    value: true
-                }
-            ],
-            field_domain_source: [
-                {
-                    target_id: "dash_webrbp_ir",
-                    target_type: "domain",
-                    target_uuid: "67f5f76f-7730-4aa5-8504-8d00e44bc720"
-                }
-            ],
-            field_image: [
-                {
-                    target_id: 158,
-                    alt: "سشیسیش",
-                    title: "",
-                    width: 520,
-                    height: 410,
-                    target_type: "file",
-                    target_uuid: "2e2838d5-21e7-44ef-8f20-05c74ca043a0",
-                    url: "http://dash.webrbp.ir/sites/default/files/2020-08/78456985.jpg"
-                }
-            ],
-            status: [
-                {
-                    value: false
-                }
-            ],
-            field_files: [
-                {
-                    target_id: 161,
-                    display: true,
-                    target_type: "file",
-                    target_uuid: "12671557-e624-473a-8443-3caba3725706",
-                    url: "http://dash.webrbp.ir/sites/default/files/2020-08/file.zip"
-                },
-                {
-                    target_id: 161,
-                    display: true,
-                    target_type: "file",
-                    target_uuid: "12671557-e624-473a-8443-3caba3725706",
-                    url: "http://dash.webrbp.ir/sites/default/files/2020-08/file.zip"
-                }
-            ],
-            field_field_galeries: [
-                {
-                    target_id: 162,
-                    target_type: "file",
-                    target_uuid: "0baa638b-5472-428b-abed-9a53417c299a",
-                    url: "http://dash.webrbp.ir/sites/default/files/2020-08/gallery1_0.jpg"
-                },
-                {
-                    target_id: 162,
-                    target_type: "file",
-                    target_uuid: "0baa638b-5472-428b-abed-9a53417c299a",
-                    url: "http://dash.webrbp.ir/sites/default/files/2020-08/gallery1_0.jpg"
-                }
-            ],
-            field_sounds: [
-                {
-                    target_id: 163,
-                    target_type: "file",
-                    target_uuid: "8cb1f7da-9695-4a70-916d-22f799cbcc8b",
-                    url: "http://dash.webrbp.ir/sites/default/files/2020-08/test11.mp3"
-
-                },
-                {
-                    target_id: 163,
-                    target_type: "file",
-                    target_uuid: "8cb1f7da-9695-4a70-916d-22f799cbcc8b",
-                    url: "http://dash.webrbp.ir/sites/default/files/2020-08/test11.mp3"
-                }
-            ],
-            publish_on: [
-                {
-                    value: "2020/08/30T11:43:00+00:00",
-                    format: "Y/m/d\\TH:i:sP"
-                }
-            ],
-            unpublish_on: [
-                {
-                    value: "2020/09/29T11:45:00+00:00",
-                    format: "Y/m/d\\TH:i:sP"
-                }
-            ],
-            // "showPlace": {value: false},
-
+        type: {
+            target_id: "article"
+        },
+        title: "title",
+        body: "dxfcgvhjkلرالالراذlmس",
+        field_domain_access: {
+            target_id: "dash_webrbp_ir",
+            target_type: "domain",
+            target_uuid: "67f5f76f-7730-4aa5-8504-8d00e44bc720"
+        },
+        field_domain_all_affiliates: true,
+        field_domain_source: {
+            target_id: "dash_webrbp_ir",
+            target_type: "domain",
+            target_uuid: "67f5f76f-7730-4aa5-8504-8d00e44bc720"
+        },
+        field_field_galeries: {
+            target_id: "162,344,345",
+            target_type: "file"
+        },
+        field_files: {
+            target_id: "161",
+            target_type: "file"
+        },
+        field_image: {
+            target_id: "158",
+            target_type: "file"
+        },
+        field_rotitr: "این روتیتر برای تست مقاله از پست من میباشد",
+        field_sotitr: " سوتيتر مقاله ىر اين قسمت نوشته شده است",
+        field_sounds: {
+            target_id: "346",
+            target_type: "file"
+        },
+        field_tags: {
+            target_id: "25"
+        },
+        field_seo_list: {
+            title: "article116",
+            description: "a",
+            bstract: "a",
+            keywords: "a"
         }
-    );
-    // const [content, setContent] = useState({
-    //     title: {value: ''},
-    //     // author: {value: storage.get('user').name},
-    //     author: {value: 'admin'},
-    //     description: {value: ''},
-    //     status: {value: 'published'},
-    //     currentDate: {value: ''},
-    //     domainSource: {value: ''},
-    //     showPlace: {value: false},
-    //     publishDate: {value: selectedDate},
-    //     registerDate: {value: ''},
-    //     rotitr: {value: ''},
-    //     lidkhabar: {value: ''},
-    //     field_seo_list: [
-    //         {
-    //             value: {
-    //                 title: "",
-    //                 description: "",
-    //                 abstract: "",
-    //                 keywords: ""
-    //             }
-    //         }
-    //     ],
-    //     category: '',
-    //     tags: '',
-    //     singleImg: '',
-    //     voice: '',
-    //     video: '',
-    // });
-    const [multiImg, setMultiImg] = useState([]);
-    const [video, setVideo] = useState([]);
-    const [voice, setVoice] = useState([]);
+    });
     const [errors, setErrors] = useState({
         errorName: {},
         errorMail: {},
     });
     const [domainAccesses, setDomainAccesses] = useState([]);
-    const [selectedDomainAccess, setSelectedDomainAccesses] = useState([]);
+    const [selectedDomainAccess, setSelectedDomainAccess] = useState([]);
 
     useEffect(() => {
         tagService.getTags().then((response) => {
             let tags = response.data;
-            setTags(tags);
+            setTags(tags.rows);
         }).catch((error) => {
             console.log(error)
         });
@@ -377,7 +207,7 @@ function NewContentComponent({t}) {
         currentName = e.currentTarget.value;
         setContent(prevState => {
             return {
-                ...prevState, [field]: {value: currentName}
+                ...prevState, [field]: currentName
             }
         });
     };
@@ -404,34 +234,6 @@ function NewContentComponent({t}) {
         });
     };
 
-    let handleFileChange = () => {
-        console.log('change');
-    };
-
-    let register = () => {
-        // let date = new Date();
-        // let currentDate = date.toDateString();
-        // let arrDate = currentDate.split(' ');
-        // setContent((prevState) => {
-        //     return {
-        //         ...prevState, arrDate
-        //     }
-        // });
-        let data = JSON.stringify(content);
-        let url = 'http://dash.webrbp.ir/entity/node?_format=hal_json';
-        let config = {
-            headers: {
-                'Content-Type': 'application/hal+json',
-                'Authorization': storage.get(process.env.REACT_APP_TOKEN_KEY),
-                'Accept': 'application/hal+json'
-            }
-        };
-        axios.post(url, content, config).then((response) => {
-
-        }).catch((error) => {
-        });
-    };
-
     let handleStatusChange = (e) => {
         setContent(prevState => {
             return {
@@ -441,7 +243,7 @@ function NewContentComponent({t}) {
     };
 
     let getDomainSource = () => {
-        contentSercice.getDomainSource().then((response) => {
+        contentService.getDomainSource().then((response) => {
             setDomainAccesses(response.data);
         }).catch((error) => {
             console.log(error)
@@ -462,7 +264,7 @@ function NewContentComponent({t}) {
     // };
 
     let getCategories = () => {
-        contentSercice.getCategories().then((response) => {debugger
+        contentService.getCategories().then((response) => {
             let categories = response.data.rows;
             setCategories(categories);
         }).catch((error) => {
@@ -496,13 +298,26 @@ function NewContentComponent({t}) {
 
     let handleDomainAccessChange = (e, domain) => {
         if (e.target.checked) {
-            setSelectedDomainAccesses(prevState => {
+            setSelectedDomainAccess(prevState => {
                 return [...prevState, domain];
+            });
+            setContent(prevState => {
+                let domainAccessArray = prevState.field_domain_access === "" ? [] : prevState.field_domain_access.target_id.split(',');
+                domainAccessArray.push(domain.id);
+                let domainAccessString = domainAccessArray.toString();
+                return {...prevState, field_domain_access: {target_id: domainAccessString, target_type: 'domain'}};
             });
         } else {
             let exSelectedDomainAccess = selectedDomainAccess;
             let newSelectedDomainAccess = exSelectedDomainAccess.filter(item => item !== domain);
-            setSelectedDomainAccesses([...newSelectedDomainAccess]);
+            setSelectedDomainAccess([...newSelectedDomainAccess]);
+            setContent(prevState => {
+                let domainAccessArray = prevState.field_domain_access.target_id.split(',');
+                let currentIndex = domainAccessArray.indexOf(domain.id);
+                domainAccessArray.splice(currentIndex, 1);
+                let domainAccessString = domainAccessArray.toString();
+                return {...prevState, field_domain_access: {target_id: domainAccessString, target_type: 'domain'}};
+            });
         }
 
     };
@@ -511,51 +326,11 @@ function NewContentComponent({t}) {
         let currentDomainResource = e.target.value;
         setContent(prevState => {
             return {
-                ...prevState, domainSource: currentDomainResource
+                ...prevState, field_domain_source: {
+                    "target_id": currentDomainResource,
+                    "target_type": "domain"
+                }
             }
-        });
-    };
-
-    let uploadSingImg = (e) => {
-        contentSercice.uploadSingImg(e).then((response) => {
-            let item = response.data;
-            setContent(prevState => {
-                return {
-                    ...prevState, singleImg: `http://dash.webrbp.ir/${item.uri[0].url}`
-                }
-            });
-        }).catch((error) => {
-            console.log(error);
-        });
-    };
-
-    let uploadMultiImg = (file) => {
-        setMultiImg(file);
-    };
-
-    let uploadVideo = (e) => {
-        contentSercice.uploadVideo(e).then((response) => {
-            let item = response.data;
-            setContent(prevState => {
-                return {
-                    ...prevState, video: `http://dash.webrbp.ir/${item.uri[0].url}`
-                }
-            });
-        }).catch((error) => {
-            console.log(error);
-        });
-    };
-
-    let uploadVoice = (e) => {
-        contentSercice.uploadVoice(e).then((response) => {
-            let item = response.data;
-            setContent(prevState => {
-                return {
-                    ...prevState, voice: `http://dash.webrbp.ir/${item.uri[0].url}`
-                }
-            });
-        }).catch((error) => {
-            console.log(error);
         });
     };
 
@@ -568,33 +343,22 @@ function NewContentComponent({t}) {
     };
 
     let clickEditorMetaTag = (e, keyName) => {
-        if (keyName === "description") {
-            setContent(prevState => {
-                return {
-                    ...prevState, field_seo_list: [{
-                        value: {
-                            title: prevState.field_seo_list[0].value.title,
-                            description: e,
-                            abstract: prevState.field_seo_list[0].value.abstract,
-                            keywords: prevState.field_seo_list[0].value.keywords
-                        }
-                    }]
+        let currentValue = e.currentTarget.value;
+        let titleValue = keyName === "title" ? currentValue : '';
+        let desciptionValue = keyName === "desciptionValue" ? currentValue : '';
+        let abstractValue = keyName === "abstract" ? currentValue : '';
+        let keywordsValue = keyName === "keywords" ? currentValue : '';
+
+        setContent(prevState => {
+            return {
+                ...prevState, field_seo_list: {
+                    title: titleValue === '' ? prevState.field_seo_list.title : titleValue,
+                    description: desciptionValue === "" ? prevState.field_seo_list.description : desciptionValue,
+                    abstract: abstractValue === "" ? prevState.field_seo_list.abstract : abstractValue,
+                    keywords: keywordsValue === "" ? prevState.field_seo_list.keywords : keywordsValue
                 }
-            });
-        } else {
-            setContent(prevState => {
-                return {
-                    ...prevState, field_seo_list: [{
-                        value: {
-                            title: prevState.field_seo_list[0].value.title,
-                            description: prevState.field_seo_list[0].value.description,
-                            abstract: e,
-                            keywords: prevState.field_seo_list[0].value.keywords
-                        }
-                    }]
-                }
-            });
-        }
+            }
+        });
     };
 
     let onTagsChange = (event, values) => {
@@ -607,6 +371,7 @@ function NewContentComponent({t}) {
     };
 
     console.log(content);
+
     return (<>
         <Box>
             <Paper className={classes.paper}>
@@ -622,17 +387,18 @@ function NewContentComponent({t}) {
                                 <Input
                                     lang={lang}
                                     type="text" placeholder={t('translation:title')} label={t('translation:title')}
-                                       error={errors.title ? errors.title : ''}
-                                       small='' handleClick={e => handleChange(e, "title")}/>
+                                    error={errors.title ? errors.title : ''}
+                                    small='' handleClick={e => handleChange(e, "title")}/>
                                 <Input
                                     lang={lang}
                                     type="text" placeholder={t('contents:rotitr')}
-                                       label={t('contents:rotitr')}
-                                       error={errors.family}
-                                       small='' handleClick={e => handleChange(e, "rotitr")}/>
+                                    label={t('contents:rotitr')}
+                                    error={errors.family}
+                                    small='' handleClick={e => handleChange(e, "rotitr")}/>
                             </Box>
                             <Box className="editor">
-                                <EditorComponent textAlign={lang==='en'?gClasses.textLeft:gClasses.textRight} lang={lang} title={t('translation:description')} onClick={(e) => {
+                                <EditorComponent textAlign={lang === 'en' ? gClasses.textLeft : gClasses.textRight}
+                                                 lang={lang} title={t('translation:description')} onClick={(e) => {
                                     clickEditorDescription(e)
                                 }}/>
                             </Box>
@@ -642,8 +408,9 @@ function NewContentComponent({t}) {
                                        error={errors.family}
                                        small='' handleClick={e => handleChange(e, "lidkhabar")}/>
                                 <Box className={clsx("publishDate", "card")}>
-                                    <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('contents:publishDate')}</Typography>
-                                    <div className={clsx("number",lang==='en'?gClasses.ltr:gClasses.rtl)} >
+                                    <Typography
+                                        className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:publishDate')}</Typography>
+                                    <div className={clsx("number", lang === 'en' ? gClasses.ltr : gClasses.rtl)}>
                                         <DatePickerr
                                             selectedDate={lang === 'fa' ? selectedJalaliDate : selectedDate}
                                             onChange={handleDateChange}
@@ -654,7 +421,8 @@ function NewContentComponent({t}) {
                             </Box>
                             <Box className="items">
                                 <Box className={clsx('select', 'card', lang === 'fa' ? 'faTag' : 'enTag')}>
-                                    <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('tags:tags')}</Typography>
+                                    <Typography
+                                        className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('tags:tags')}</Typography>
                                     <Autocomplete
                                         id="asynchronous-demo"
                                         multiple={true}
@@ -691,7 +459,8 @@ function NewContentComponent({t}) {
                                 </Box>
                                 <Box className={clsx('select', 'card')}>
                                     <FormControl className={classes.margin}>
-                                        <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('categories:categories')}</Typography>
+                                        <Typography
+                                            className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('categories:categories')}</Typography>
                                         <NativeSelect
                                             value={content.category}
                                             onChange={handleCategoryChange}
@@ -707,18 +476,18 @@ function NewContentComponent({t}) {
                                     </FormControl>
                                 </Box>
                             </Box>
-                            <Box className={clsx('items',lang==='en'?gClasses.ltr:gClasses.rtl )}>
-                                <Box  className={clsx('card',lang==='en'?gClasses.textLeft:gClasses.textRight )}>
-                                    <FormControl component="fieldset">
-                                        <FormLabel component="legend">{t('translation:status')}</FormLabel>
-                                        <RadioGroup aria-label="status" value={content.status.value}
-                                                    onChange={e => handleStatusChange(e)}>
-                                            <FormControlLabel value="published" control={<Radio/>}
-                                                              label={t('contents:published')}/>
-                                            <FormControlLabel value="unpublished" control={<Radio/>}
-                                                              label={t('contents:unpublished')}/>
-                                        </RadioGroup>
-                                    </FormControl>
+                            <Box className={clsx('items', lang === 'en' ? gClasses.ltr : gClasses.rtl)}>
+                                <Box className={clsx('card', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
+                                    {/*<FormControl component="fieldset">*/}
+                                    {/*    <FormLabel component="legend">{t('translation:status')}</FormLabel>*/}
+                                    {/*    <RadioGroup aria-label="status" value={content.status.value}*/}
+                                    {/*                onChange={e => handleStatusChange(e)}>*/}
+                                    {/*        <FormControlLabel value="published" control={<Radio/>}*/}
+                                    {/*                          label={t('contents:published')}/>*/}
+                                    {/*        <FormControlLabel value="unpublished" control={<Radio/>}*/}
+                                    {/*                          label={t('contents:unpublished')}/>*/}
+                                    {/*    </RadioGroup>*/}
+                                    {/*</FormControl>*/}
                                 </Box>
                                 <Box className="card">
                                     <FormControl component="fieldset">
@@ -734,9 +503,11 @@ function NewContentComponent({t}) {
                                     </FormControl>
                                 </Box>
                             </Box>
-                            <Box className={clsx('items',lang==='en'?gClasses.ltr:gClasses.rtl )}>
-                                <Box  className={clsx('select','card',lang==='en'?gClasses.textLeft:gClasses.textRight )}>
-                                    <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('contents:domainAccess')}</Typography>
+                            <Box className={clsx('items', lang === 'en' ? gClasses.ltr : gClasses.rtl)}>
+                                <Box
+                                    className={clsx('select', 'card', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
+                                    <Typography
+                                        className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:domainAccess')}</Typography>
 
                                     <FormGroup row>
                                         {domainAccesses.map(domain => (
@@ -754,7 +525,8 @@ function NewContentComponent({t}) {
                                 </Box>
                                 <Box className={clsx('select', 'card')}>
                                     <FormControl className={classes.margin}>
-                                        <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('contents:domainSource')}</Typography>
+                                        <Typography
+                                            className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:domainSource')}</Typography>
                                         <NativeSelect
                                             value={content.domainSource}
                                             onChange={e => handleDomainResourceChange(e)}
@@ -762,25 +534,26 @@ function NewContentComponent({t}) {
                                         >
                                             <option aria-label="None" value="">{t('translation:none')}</option>
                                             {selectedDomainAccess.map((item) => (
-                                                <option key={item.id} value={item.name}>{item.name}</option>
+                                                <option key={item.id} value={item.id}>{item.name}</option>
                                             ))}
                                         </NativeSelect>
                                     </FormControl>
                                 </Box>
                             </Box>
-
                             <Box className="card">
-                                <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('contents:metaTag')}</Typography>
+                                <Typography
+                                    className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:metaTag')}</Typography>
                                 <Box className="metaTag">
                                     <Box className="right">
                                         <Input lang={lang} type="text" placeholder={t('translation:title')}
                                                label={t('translation:title')}
                                                error={errors.family}
-                                               small='' handleClick={e => handleChange(e, "lidkhabar")}/>
-                                        <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('translation:description')}</Typography>
+                                               small='' handleClick={e => clickEditorMetaTag(e, 'title')}/>
+                                        <Typography
+                                            className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('translation:description')}</Typography>
                                         <TextField
                                             id="outlined-size-normal"
-                                            placeholder="Normal"
+                                            placeholder={t('translation:description')}
                                             variant="outlined"
                                             rows={10}
                                             rowsMax={10}
@@ -795,11 +568,12 @@ function NewContentComponent({t}) {
                                         <Input lang={lang} type="text" placeholder={t('contents:keywords')}
                                                label={t('contents:keywords')}
                                                error={errors.family}
-                                               small='' handleClick={e => handleChange(e, "lidkhabar")}/>
-                                        <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('contents:summary')}</Typography>
+                                               small='' handleClick={e => clickEditorMetaTag(e, 'keywords')}/>
+                                        <Typography
+                                            className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:summary')}</Typography>
                                         <TextField
                                             id="outlined-size-normal"
-                                            placeholder="Normal"
+                                            placeholder={t('contents:summary')}
                                             variant="outlined"
                                             rows={10}
                                             rowsMax={10}
@@ -818,34 +592,11 @@ function NewContentComponent({t}) {
                                     {/*}}/>*/}
                                 </Box>
                             </Box>
-
                         </Box>
                     </TabPanel>
                     <TabPanel value={value} index={1} className="tabContent">
                         <Box className='block'>
-                            <Box className="card">
-                                <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('contents:indexImg')}</Typography>
-                                <UploadImg multiple={false} title={t('translation:choosePic')} getFile={uploadSingImg}/>
-                            </Box>
-                            <Box className="card">
-                                <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('contents:imgGallery')}</Typography>
-                                <UploadImg multiple={true} title={t('translation:choosePic')} getFile={uploadMultiImg}/>
-                            </Box>
-                            <Box className="card">
-                                <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('contents:videoGallery')}</Typography>
-                                {/*<UploadImg multiple={true} title={t('translation:chooseVideo')} getFile={uploadVideo}/>*/}
-                                <UploadVideo multiple={true} title={t('translation:chooseVideo')}
-                                             getFile={uploadVideo}/>
-                            </Box>
-                            <Box className="card">
-                                <Typography className={lang==='en'?gClasses.textLeft:gClasses.textRight}>{t('contents:voiceGallery')}</Typography>
-                                <UploadVoice multiple={true} title={t('translation:chooseVoice')}
-                                             getFile={uploadVoice}/>
-                            </Box>
-                            <Box mt={2} className={lang==='en'?gClasses.textLeft:gClasses.textRight}>
-                                <ButtonComponent background={primary} color="primary" clicked={register} text={t('translation:register')}/>
-                            </Box>
-
+                            <FileContentTabComponent setContent={setContent} content={content}/>
                         </Box>
                     </TabPanel>
                 </Box>
@@ -854,4 +605,4 @@ function NewContentComponent({t}) {
     </>);
 }
 
-export default withNamespaces('translation,contents,tags,categories')(NewContentComponent);
+export default withNamespaces('translation,contents,tags,categories')(Index);

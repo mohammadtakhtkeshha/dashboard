@@ -6,20 +6,20 @@ import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
-import userImg from "../../../assets/media/image/user.jpg";
+import userImg from "../../../../assets/media/image/user.jpg";
 import {withStyles} from "@material-ui/core/styles";
-import * as colors from "../../partials/Colors";
+import * as colors from "../../../partials/Colors";
 import TableCell from "@material-ui/core/TableCell";
 import {withNamespaces} from "react-i18next";
-import storage from "../../../libraries/local-storage";
-import {globalCss} from "../../../assets/js/globalCss";
+import storage from "../../../../libraries/local-storage";
+import {globalCss} from "../../../../assets/js/globalCss";
 import Checkbox from "@material-ui/core/Checkbox";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import CancelIcon from "@material-ui/icons/Cancel";
-import NewUser from "../user/forms/NewUserComponent";
-import NewTermsComponent from "./forms/NewTermsComponent";
+import NewUser from "../../user/usersList/forms/NewUserComponent";
+import NewTermsComponent from "../forms/NewTermsComponent";
 import i18next from "i18next";
 
 const styles = makeStyles((theme) => ({

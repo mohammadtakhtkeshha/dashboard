@@ -17,17 +17,10 @@ const useStyles = makeStyles((theme) => ({
         '@media(min-width : 992px)': {
             marginTop: '64px',
         }
-    },
-    test: {
-        border: '2px solid red',
-        display: 'flex',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        alignItems: 'flex-end'
     }
 }));
 
-function ContentComponent() {
+function Index() {
     const classes = useStyles();
     return (
         <>
@@ -45,7 +38,7 @@ function ContentComponent() {
     );
 }
 
-export default ContentComponent;
+export default Index;
 
 
 

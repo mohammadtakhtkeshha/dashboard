@@ -1,5 +1,5 @@
 import axios from "axios";
-import storage from './../../libraries/local-storage'
+import storage from './../../../src/libraries/local-storage'
 const apiUrl=process.env.REACT_APP_API_URL;
 
 export function getContentLis() {

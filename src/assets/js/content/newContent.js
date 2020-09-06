@@ -1,7 +1,4 @@
-import {makeStyles} from "@material-ui/core/styles";
-import * as colors from "../../../components/partials/Colors";
-
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = (theme) => ({
     paper: {
         '& .tabs': {
             minWidth: 'calc(100vh - 5rem)',
@@ -25,8 +22,8 @@ export const useStyles = makeStyles((theme) => ({
                                 '& .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"]': {
                                     padding: '3px 0 3px 50px !important',
                                     '& .MuiAutocomplete-endAdornment': {
-                                        left:0,
-                                        right:'unset',
+                                        left: 0,
+                                        right: 'unset',
                                     },
                                 },
                             }
@@ -36,7 +33,7 @@ export const useStyles = makeStyles((theme) => ({
                                 '& .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"]': {
                                     padding: '3px 50px 3px 0 !important',
                                     '& .MuiAutocomplete-endAdornment': {
-                                        right:'0',
+                                        right: '0',
                                     },
                                 },
                             }
@@ -101,4 +98,46 @@ export const useStyles = makeStyles((theme) => ({
 
     },
 
-}));
+});
+export const bootstrapInput =(theme) => ({
+    root: {
+        'label + &': {
+            marginTop: theme.spacing(3),
+        },
+    },
+    input: {
+        borderRadius: 4,
+        position: 'relative',
+        backgroundColor: theme.palette.background.paper,
+        border: '1px solid #ced4da',
+        fontSize: 16,
+        padding: '10px 26px 10px 12px',
+        transition: theme.transitions.create(['border-color', 'box-shadow']),
+        // Use the system font instead of the default Roboto font.
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ].join(','),
+        '&:focus': {
+            borderRadius: 4,
+            borderColor: '#80bdff',
+            boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+        },
+    },
+});
+export const useTabStyless =(theme) => ({
+    root: {
+        flexGrow: 1,
+        backgroundColor: theme.palette.background.paper,
+    },
+});
+
+export default {useStyles,bootstrapInput,useTabStyless};

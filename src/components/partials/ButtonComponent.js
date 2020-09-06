@@ -11,6 +11,9 @@ const useClass =makeStyles(()=>({
         color:props.color,
         fontSize :'14px',
         backgroundColor :props.background,
+        '&:hover':{
+            backgroundColor :props.background,
+        },
         '& .MuiButton-startIcon':{//icon
             marginLeft:'1px',
             marginRight:'0',

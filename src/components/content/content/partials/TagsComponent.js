@@ -8,23 +8,23 @@ import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import swal from "sweetalert";
 import {withStyles} from "@material-ui/core/styles";
-import * as colors from "../../partials/Colors";
+import * as colors from "../../../partials/Colors";
 import TableCell from "@material-ui/core/TableCell";
 import {withNamespaces} from "react-i18next";
-import {globalCss} from "../../../assets/js/globalCss";
+import {globalCss} from "../../../../assets/js/globalCss";
 import Checkbox from "@material-ui/core/Checkbox";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import CancelIcon from "@material-ui/icons/Cancel";
-import NewTagComponent from "./forms/NewTagComponent";
+import NewTagComponent from "../forms/NewTagComponent";
 import i18next from "i18next";
-import tagService from './../../../core/services/tag.service'
-import ButtonComponent from "../../partials/ButtonComponent";
+import tagService from '../../../../core/services/tag.service'
+import ButtonComponent from "../../../partials/ButtonComponent";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import userService from "../../../core/services/user.service";
-import {tags} from './../../../assets/js/tags/tags';
+import userService from "../../../../core/services/user.service";
+import {tags} from '../../../../assets/js/tags/tags';
 import {getCurrentTime} from "material-ui-audio-player/dist/components/state/helpers";
 import Pagination from "@material-ui/lab/Pagination";
 
@@ -70,10 +70,9 @@ function TagsCompnent({t}) {
     let handleCloseError = ()=>{
         setOpenError(false);
     }
-   
+
     let getTags=(page)=>{
         tagService.getTags(page).then((response) => {
-            debugger
             let currentTags = response.data.rows;
             setTags([...currentTags]);
             setTotalPage(response.data.pager.total_pages);
@@ -83,7 +82,7 @@ function TagsCompnent({t}) {
     useState(() => {
         getTags(page);
       }, []);
-  
+
     let allCheckboxHandler = (e) => {
         let ids = tags.map(term => term.tid);
         let contentsLength = tags.length;
@@ -140,13 +139,13 @@ function TagsCompnent({t}) {
         setOpenError(true);
     }
 
-    const handleOpenEditForm = (e) => {debugger
+    const handleOpenEditForm = (e) => {
         setOpenEdit(true);
         let id = e.currentTarget.value;
         setTag('');
         tagService.getTag(id).then((response)=>{
             setTag(response.data);
-        }).catch((error)=>{debugger
+        }).catch((error)=>{
             console.log(error);
             setOpenError(true);
             setModalError(error);
@@ -162,7 +161,7 @@ function TagsCompnent({t}) {
     };
 
     let getTag = (e) => {
-        
+
         let tag = {
             "name": e.name,
             "uuid": e.uuid,

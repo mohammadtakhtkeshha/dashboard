@@ -1,15 +1,15 @@
 import React, {useState, useContext} from 'react';
 import {Link,} from "react-router-dom";
 import {Box, CardMedia, Checkbox, Grid, Paper, Typography} from "@material-ui/core/index";
-import iconImg from '../../../../assets/media/image/logo-login.png';
-import InputComponent from '../../../partials/inputComponent'
-import ButtonComponent from "../../../partials/ButtonComponent";
-import AppContext from './../../../../contexts/AppContext';
+import iconImg from '../../../../../assets/media/image/logo-login.png';
+import InputComponent from '../../../../partials/inputComponent'
+import ButtonComponent from "../../../../partials/ButtonComponent";
+import AppContext from '../../../../../contexts/AppContext';
 import {useHistory} from "react-router-dom";
-import * as useStyles from './../../../../assets/js/login';
-import authService from './../../../../core/services/auth.service';
+import * as useStyles from '../../../../../assets/js/login';
+import authService from '../../../../../core/services/auth.service';
 import {withNamespaces} from "react-i18next";
-import {primary} from "../../../partials/Colors";
+import {primary} from "../../../../partials/Colors";
 
 function LoginComponent({t}) {
     const classes = useStyles.styles();

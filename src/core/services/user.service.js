@@ -1,99 +1,53 @@
 import axios from "axios";
-import storage from "../../libraries/local-storage";
-import userUrl from './../../utils/urls/user.urls';
-import swal from "sweetalert";
+import userUrl from 'utils/urls/user.urls';
+import {aacaauthHeader, authHeader, caauthHeader, ahchauthHeader, chauthHeader,avcoAuthcdHeader} from "utils/headers";
 
 export function getRoles() {
     let url = userUrl.getRolesUrl;
-    const config = {
-        headers: {
-            'Content-Type': 'application/hal+json',
-            'Authorization': storage.get(process.env.REACT_APP_TOKEN_KEY),
-            'Accept': 'application/hal+json'
-        }
-    };
-    return axios.get(url, config);
+    return axios.get(url, ahchauthHeader);
 }
 
 export function deleteUser(id) {
-    let url = userUrl.deleteUserUrl(id);
-    let config = {
-        headers: {
-            Authorization: storage.get(process.env.REACT_APP_TOKEN_KEY),
-        }
-    };
-    return axios.delete(url, config);
+    let url = userUrl.deleteUserAndGetUserForEditUrl(id);
+    return axios.delete(url, authHeader);
 }
 
 export function getUsers(page) {
-    const config = {
-        headers: {
-            Authorization: storage.get(process.env.REACT_APP_TOKEN_KEY)
-        }
-    };
     let url =userUrl.getUsersUrl(page);
-   return axios.get(url, config);
+   return axios.get(url, authHeader);
 };
+
+export function getNotPaginateUser(){
+    let url =userUrl.getNotPaginateUserUrl;
+   return axios.get(url, authHeader);
+}
 
 export function multiAction(data) {
     let url = userUrl.multiActionUrl;
-    let config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': storage.get(process.env.REACT_APP_TOKEN_KEY),
-            'Accept': 'application/json',
-            'X-CSRF-Token': storage.get(process.env.REACT_APP_CSRF_TOKEN),
-        }
-    };
-    return  axios.post(url, data, config);
+    return  axios.post(url, data, aacaauthHeader);
 };
 
 export function getUser(id) {
     let url = userUrl.getUserUrl(id);
-    let config = {
-        headers: {
-            Authorization: storage.get(process.env.REACT_APP_TOKEN_KEY)
-        }
-    };
-    return axios.get(url, config);
+    return axios.get(url, authHeader);
 };
 
 export function editUser(id,data) {
-    let url = `http://dash.webrbp.ir/user/${id}?_format=json`;
-    const config = {
-        headers: {
-            "Content-Type": "application/json",
-            'Authorization': storage.get(process.env.REACT_APP_TOKEN_KEY),
-            'X-CSRF-Token': storage.get(process.env.REACT_APP_CSRF_TOKEN),
-        }
-    };
-    return axios.patch(url, data, config);
+    let url = userUrl.deleteUserAndGetUserForEditUrl(id);
+    return axios.patch(url, data, caauthHeader);
 };
 
 export function registerUser(data) {
     let url= userUrl.registerUserUrl;
-    const headers = {
-        headers: {
-            'Content-Type': "application/hal+json",
-            'Authorization': storage.get(process.env.REACT_APP_TOKEN_KEY),
-            // 'Accept': 'application/hal+json',
-            // 'X-CSRF-Token': storage.get(process.env.REACT_APP_CSRF_TOKEN)
-        }
-    };
-    return axios.post(url, data, headers);
+    return axios.post(url, data, chauthHeader);
 }
 
-export function saveUserImage(img) {debugger
-    const config = {
-        headers: {
-            'Content-Type': 'application/octet-stream',
-            'Authorization': storage.get(process.env.REACT_APP_TOKEN_KEY),
-            'Accept': 'application/vnd.api+json',
-            "Content-Disposition": `file;filename="${img.name}"`,
-        }
-    };
+export function saveUserImage(img) {
     let url =userUrl.saveUserImageUrl;
-    return axios.post(url, img, config);
+    return axios.post(url, img, avcoAuthcdHeader(img));
 }
 
-export default { getRoles , deleteUser ,getUsers,multiAction,getUser,editUser,registerUser,saveUserImage};
+export default { getRoles , deleteUser ,
+    getUsers,multiAction,getUser,editUser,
+    registerUser,
+    saveUserImage,getNotPaginateUser};

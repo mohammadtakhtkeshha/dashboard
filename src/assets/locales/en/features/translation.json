@@ -6,6 +6,7 @@
   "block": "block",
   "active": "active",
   "confirmed": "confirmed",
+  "notConfirmed": "not confirmed",
   "actions": "actions",
   "date": "date",
   "published": "published",
@@ -47,6 +48,16 @@
   "imgValidation": "just files with .jpg .jpeg .png extension is acceptable",
   "videoValidation": "just files with .mp4 extension is acceptable",
   "voiceValidation": "just files with .mp3 extension is acceptable",
-  "files": "files"
-
+  "files": "files",
+  "chooseFile": "select your file",
+  "fileValidation":"just files with .jpg , .jpeg , .txt , .rar ,.text extension is acceptable!",
+  "loginDelete": "you cant delete logined user",
+  "loginChangeStatus": "you cant do this action for admin",
+  "uniqueValidation": "!this value already exists",
+  "3LeastNumber": "the least charachter is 3",
+  "error": "error",
+  "type": "type",
+  "edit": "edit",
+  "delete": "delete",
+  "noRole": "no role"
 }

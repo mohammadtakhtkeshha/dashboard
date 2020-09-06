@@ -17,8 +17,6 @@ export const Get = async (url, param) => {
         });
         return res;
     } catch (error) {
-        console.log(error.response); // this is the main part. Use the response property from the error object
-
         return error.response;
     }
 }

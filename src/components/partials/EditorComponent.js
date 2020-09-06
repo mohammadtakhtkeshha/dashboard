@@ -71,17 +71,14 @@ function EditorComponent({title, onClick,lang,textAlign}) {
                     reader.readAsDataURL(uploadFile);
                 }
             ).catch((error) => {
-            debugger
         });
     }
 
     let changeEditorContent = (e) => {
-        console.log(src);
         onClick(e);
-        // setContent(e)
     }
 
-    let imageUploadHandler = (xmlHttpRequest, info, core,url) => {debugger
+    let imageUploadHandler = (xmlHttpRequest, info, core,url) => {
         xmlHttpRequest.setAttribute('src',src) ;
     }
 

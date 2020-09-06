@@ -1,88 +1,32 @@
-import React, {useEffect, useState} from "react";
-import {Box, Typography} from "@material-ui/core";
-import {makeStyles} from "@material-ui/styles";
+import React, {useContext, useEffect, useState} from "react";
+import { Box, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 import CancelIcon from '@material-ui/icons/Cancel';
 import * as colors from './Colors.js';
-import {withNamespaces} from "react-i18next";
+import { withNamespaces } from "react-i18next";
 import ReactPlayer from 'react-player';
 import AddIcon from '@material-ui/icons/Add';
-import {primary} from "./Colors";
+import { primary } from "./Colors";
 import clsx from "clsx";
-import {globalCss} from "../../assets/js/globalCss";
+import { globalCss } from "../../assets/js/globalCss";
 import i18next from "i18next";
+import uploadStyles from 'assets/js/partials/upload';
+import AppContext from "../../contexts/AppContext";
 
 
-const styles = makeStyles({
-    UploadVideo: {
-        '& input': {
-            height: '100%',
-            cursor: 'pointer',
-        },
-        position: 'relative',
-        minHeight: '120px',
-        border: `1px solid ${colors.primary}`,
-        '& .file': {
-            position: 'absolute',
-            top: '0',
-            bottom: 0,
-            width: '100%',
-            opacity: 0,
-        },
-        '& .video': {
-            minHeight: '120px',
-            display: 'flex',
-            alignItems: 'center',
-            '& .blockPart': {
-                textAlign: 'center',
-                width: '100%',
-                '& .addIcon': {
-                    cursor: 'pointer',
-                    zIndex: '100',
-                    '& svg': {
-                        borderRadius: '100%',
-                        color: 'white',
-                        backgroundColor: primary,
-                    }
-                },
-                '& #videoBlock': {
-                    position: 'relative',
-                    display: 'inline-block',
-                    width: '100%',
-                    '& #cancel': {
-                        cursor: 'pointer',
-                        position: 'absolute',
-                        top: '10px',
-                        left: '12px',
-                        color: colors.primary,
-                        zIndex: '100',
-                    },
-                    '& div': {
-                        boxSizing: 'border-box',
-                        width: '100%!important',
-                        padding: '10px',
-                        height: '260px!important',
-                    }
-                },
-                '& .previewText': {
-                    textAlign: 'center',
-                    width: '100%',
-                }
-            }
-        }
-    },
-    validation:{
-        color:'red',
-    }
-});
-const gClass=makeStyles(globalCss);
+const styles = makeStyles(uploadStyles);
 
-function UploadVideo({t,multiple, title, getFile, videos}) {
+const gClass = makeStyles(globalCss);
+
+function UploadVideo({ t, multiple, title, getFile,removedFileId, videos, sendIdAfterUpload }) {
     const classes = styles();
-    const gClasses=gClass();
-    const lang=i18next.language;
+    const gClasses = gClass();
+    const appContext = useContext(AppContext);
+    const lang = i18next.language;
     const [videoPreviewUrl, setvideoPreviewUrl] = useState([]);
     const [files, setFiles] = useState([]);
     const [validation, setValidation] = useState('');
+    const [currentId, setCurrentId] = useState('');
 
 
     useEffect(() => {
@@ -95,7 +39,30 @@ function UploadVideo({t,multiple, title, getFile, videos}) {
         }
     }, [videos]);
 
+    useEffect(() => {
+        appContext.toggleLoading(false);
+        if (sendIdAfterUpload !== undefined && sendIdAfterUpload !== "") {
+            setCurrentId(prevState => {
+                return [...prevState, sendIdAfterUpload.id]
+            });
+
+           let file=sendIdAfterUpload.file;
+                let reader = new FileReader();
+                reader.onload = () => {
+                    setFiles(prevState => {
+                        return [...prevState, file];
+                    });
+                    setvideoPreviewUrl(prevState => {
+                        return [...prevState, reader.result]
+                    });
+                }
+                reader.readAsDataURL(file);
+
+        }
+    }, [sendIdAfterUpload]);
+
     let uploadFile = (e) => {
+        appContext.toggleLoading(true);
         let extention = (e.currentTarget.files[0].name).split('.').pop();
         setValidation('');
         setFiles(prevState => {
@@ -106,6 +73,7 @@ function UploadVideo({t,multiple, title, getFile, videos}) {
         });
         if (extention !== ('mp4')) {
             setValidation(t('translation:videoValidation'));
+            appContext.toggleLoading(false);
             return
         }
 
@@ -118,63 +86,51 @@ function UploadVideo({t,multiple, title, getFile, videos}) {
             arrayOfFiles.push(e.currentTarget.files[0]);
         }
         getFile([...arrayOfFiles]);
-        for (let i = 0; i < arrayOfFiles.length; i++) {
-            let reader = new FileReader();
-            reader.onload = () => {
-                setFiles(prevState => {
-                    return [...prevState, arrayOfFiles[i]];
-                });
-                setvideoPreviewUrl(prevState => {
-                    return [...prevState, reader.result]
-                });
-            }
-            reader.readAsDataURL(arrayOfFiles[i]);
-        }
+
     }
 
     let handleRemovevideo = (e, src, fileItem) => {
-        debugger
         let index = videoPreviewUrl.indexOf(src);
         let newvideoPreview = videoPreviewUrl.filter(item => item !== src);
         let deletedFile = files.splice(index, 1);
         let newFiles = files.filter(item => item !== deletedFile);
         setvideoPreviewUrl(newvideoPreview);
         setFiles(newFiles);
-        getFile([...newFiles]);
+        removedFileId(e.currentTarget.id);
     }
 
     let $videoPreview = [];
+
     if (videoPreviewUrl.length > 0) {
         for (let i = 0; i < (videoPreviewUrl.length); i++) {
-            $videoPreview.push(<div id="videoBlock">
-                    <span id='cancel' onClick={e => handleRemovevideo(e, videoPreviewUrl[i], files[i])}>
-                        <CancelIcon/>
-                    </span>
+            $videoPreview.push(<div id="fileBlock" className={classes.video}>
+                <span className="cancel" id={currentId[i]} onClick={e => handleRemovevideo(e, videoPreviewUrl[i], files[i])}>
+                    <CancelIcon />
+                </span>
                 <ReactPlayer
                     controls={true}
-                    url={videoPreviewUrl[i]}/>
+                    url={videoPreviewUrl[i]} />
             </div>);
         }
     } else {
         $videoPreview.push(<div className="previewText">{title}</div>);
     }
-    console.log($videoPreview[0].props.className === 'previewText');
     return (
         <Box>
-        <Box className={classes.UploadVideo}>
-            <input type='file' className="file" multiple={multiple} onChange={e => uploadFile(e)}/>
-            <div className='video'>
-                <div className='blockPart'>
-                    {$videoPreview.map((item, index) => (<span key={index}>{item}</span>))}
-                    {$videoPreview[0].props.className === 'previewText' ? '' : <div className="addIcon">
-                        <AddIcon/>
-                    </div>}
+            <Box className={classes.uploadFile}>
+                <input type='file' className="input" multiple={multiple} onChange={e => uploadFile(e)} />
+                <div className='file'>
+                    <div className='blockPart'>
+                        {$videoPreview.map((item, index) => (<span key={index}>{item}</span>))}
+                        {$videoPreview[0].props.className === 'previewText' ? '' : <div className="addIcon">
+                            <AddIcon />
+                        </div>}
+                    </div>
                 </div>
-            </div>
+            </Box>
+            <Typography className={clsx(gClasses.validation, lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>{validation}</Typography>
         </Box>
-    <Typography className={clsx(classes.validation, lang==='en'?gClasses.textLeft:gClasses.textRight) }>{validation}</Typography>
-        </Box>
-);
+    );
 }
 
-export default withNamespaces('users','translation')(UploadVideo);
+export default withNamespaces('users', 'translation')(UploadVideo);

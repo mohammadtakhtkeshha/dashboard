@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import {Box, Paper, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
-import {globalCss} from "../../../assets/js/globalCss";
+import {globalCss} from "../../../../assets/js/globalCss";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
-import * as colors from "../../partials/Colors";
+import * as colors from "../../../partials/Colors";
 import {withStyles} from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
 import {withNamespaces} from "react-i18next";
@@ -16,7 +16,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import CancelIcon from "@material-ui/icons/Cancel";
-import NewVocabsComponent from "./forms/NewVocabsComponent";
+import NewVocabsComponent from "../forms/NewVocabsComponent";
 import i18next from "i18next";
 
 const styles=makeStyles((theme)=>({

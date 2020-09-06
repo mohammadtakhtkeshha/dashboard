@@ -5,8 +5,6 @@ import * as components from "../../assets/js/AppImports";
 import {makeStyles} from "@material-ui/core/styles";
 import UseWindowDimensions from "../../configs/useWindowDimensions";
 import {withNamespaces} from "react-i18next";
-import SecondTestComponent from "../../components/SecondTestComponent";
-//for array of className
 import clsx from "clsx";
 
 const useStyle = makeStyles((theme) => ({

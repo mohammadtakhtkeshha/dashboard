@@ -1,169 +1,128 @@
-import React, {useEffect, useState} from "react";
-import {Box,Typography} from "@material-ui/core";
-import {makeStyles} from "@material-ui/styles";
-import CancelIcon from '@material-ui/icons/Cancel';
-import * as colors from './Colors.js';
-import {withNamespaces} from "react-i18next";
-import AddIcon from "@material-ui/icons/Add";
-import {primary} from "./Colors";
-import clsx from "clsx";
-import {globalCss} from '../../assets/js/globalCss';
+import React, {useContext, useEffect, useState} from "react";
+import AppContext from "contexts/AppContext";
+import { withNamespaces } from "react-i18next";
 import i18next from "i18next";
+import clsx from "clsx";
 
-const styles = makeStyles({
-    uploadImg: {
-        position: 'relative',
-        minHeight: '120px',
-        border: `1px solid ${colors.primary}`,
-        '& input': {
-            cursor: 'pointer',
-        },
-        '& .file': {
-            position: 'absolute',
-            top: '0',
-            bottom: '0',
-            width: '100%',
-            opacity: 0,
-        },
-        '& .img': {
-            minHeight: '120px',
-            display: 'flex',
-            // justifyContent:'center',
-            alignItems: 'center',
-            '& .blockPart': {
-                textAlign: 'center',
-                width: '100%',
-                '& .addIcon': {
-                    cursor: 'pointer',
-                    zIndex: '100',
-                    '& svg': {
-                        borderRadius: '100%',
-                        color: 'white',
-                        backgroundColor: primary,
-                    }
-                },
-                '& #imgBlock': {
-                    position: 'relative',
-                    display: 'inline-block',
-                    width: '100%',
-                    '& #cancel': {
-                        cursor: 'pointer',
-                        position: 'absolute',
-                        top: '10px',
-                        left: '12px',
-                        color: colors.primary,
-                    },
-                    '& img': {
-                        width: '100%',
-                        padding: '10px',
-                        height: '120px',
-                        boxSizing: 'border-box',
-                    }
-                },
-                '& .previewText': {
-                    textAlign: 'center',
-                    width: '100%',
-                }
-            }
-        },
-    },
-    validation:{
-        color:'red',
-    }
-});
+import { Box, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+import CancelIcon from '@material-ui/icons/Cancel';
+import AddIcon from "@material-ui/icons/Add";
 
-const gClass=makeStyles(globalCss);
+import uploadStyles from "assets/js/partials/upload";
+import { globalCss } from 'assets/js/globalCss';
 
-function UploadImg({t,multiple, title, getFile, imgs}) {
+
+const styles=makeStyles(uploadStyles);
+const gClass = makeStyles(globalCss);
+
+function UploadImg({ t, multiple, title, getFile, imgs, removedFileId, sendIdAfterUpload }) {
     const classes = styles();
-    const gClasses=gClass();
-    const lang=i18next.language;
+    const gClasses = gClass();
+    const lang = i18next.language;
+    const appContext = useContext(AppContext);
     const [imagePreviewUrl, setImagePreviewUrl] = useState([]);
     const [files, setFiles] = useState([]);
     const [validation, setValidation] = useState('');
+    const [currentId, setCurrentId] = useState('');
+
     useEffect(() => {
         if (imgs && imgs[0] !== undefined && imgs.length > 0) {//for edit user
             let urls = [];
             for (let img of imgs) {
-                urls.push(img.url);
+                urls.push(img);
             }
             setImagePreviewUrl([...urls]);
         }
     }, [imgs]);
-    let uploadFile = (e) => {
-        let extention = (e.currentTarget.files[0].name).split('.').pop();
-        setValidation('');
-        setFiles((prevState => {
-            return [...prevState]
-        }));
-        setImagePreviewUrl((prevState => {
-            return [...prevState]
-        }));
-        if (extention !== ('jpg' || 'jpeg' || 'png')) {
-                setValidation(t('translation:imgValidation'));
-            return
-        }
-        let arrayOfFiles = [];
 
-        if (multiple) {//check mutliple img or not
-            arrayOfFiles = e.currentTarget.files;
-        } else {
-            setFiles([]);
-            setImagePreviewUrl([]);
-            arrayOfFiles.push(e.currentTarget.files[0]);
+    let uploadFile = (e) => {debugger
+        appContext.toggleLoading(true);
+        if (e.currentTarget.files[0] !== undefined) {
+            let extention = (e.currentTarget.files[0].name).split('.').pop();
+            setValidation('');
+            setFiles((prevState => {
+                return [...prevState]
+            }));
+            setImagePreviewUrl((prevState => {
+                return [...prevState]
+            }));
+            if (!['jpg', 'png', 'jpeg'].includes(extention)) {
+                appContext.toggleLoading(false);
+                setValidation(t('translation:imgValidation'));
+                return
+            }
+            let arrayOfFiles = [];
+            if (multiple) {//check mutliple img or not
+                arrayOfFiles = e.currentTarget.files;
+            } else {
+                setFiles([]);
+                setImagePreviewUrl([]);
+                arrayOfFiles.push(e.currentTarget.files[0]);
+            }
+            getFile([...arrayOfFiles]);
         }
-        getFile([...arrayOfFiles]);
-        for (let i = 0; i < arrayOfFiles.length; i++) {
+    }
+
+    useEffect(() => {
+        if (sendIdAfterUpload !== undefined && sendIdAfterUpload !== "") {
+            appContext.toggleLoading(false);
+            setCurrentId(prevState => {
+                return [...prevState, sendIdAfterUpload.id]
+            });
+            let e = sendIdAfterUpload.file;
             let reader = new FileReader();
             reader.onload = () => {
                 setFiles(prevState => {
-                    return [...prevState, arrayOfFiles[i]];
+                    return [...prevState, e];
                 });
                 setImagePreviewUrl(prevState => {
                     return [...prevState, reader.result]
                 });
             }
-            reader.readAsDataURL(arrayOfFiles[i]);
+            reader.readAsDataURL(e);
         }
-    }
+    }, [sendIdAfterUpload]);
 
-    let handleRemoveImg = (e, src) => {
+    let handleRemoveImg = (e, src, file) => {
         let index = imagePreviewUrl.indexOf(src);
         let newImgPreview = imagePreviewUrl.filter(item => item !== src);
         let deletedFile = files.splice(index, 1);
         let newFiles = files.filter(item => item !== deletedFile);
         setImagePreviewUrl(newImgPreview);
         setFiles(newFiles);
-        getFile([...newFiles]);
+        removedFileId(e.currentTarget.id);
     }
 
     let $imagePreview = [];
+
     if (imagePreviewUrl.length > 0) {
         for (let i = 0; i < (imagePreviewUrl.length); i++) {
-            $imagePreview.push(<div id="imgBlock">
-                    <span id='cancel' onClick={e => handleRemoveImg(e, imagePreviewUrl[i], files[i])}>
-                        <CancelIcon/>
-                    </span>
-                <img src={imagePreviewUrl[i]}/>
+            $imagePreview.push(<div id="fileBlock">
+                <span className="cancel" id={currentId[i]} onClick={e => handleRemoveImg(e, imagePreviewUrl[i], files[i])}>
+                    <CancelIcon />
+                </span>
+                <img  src={imagePreviewUrl[i]} className="item"/>
             </div>);
         }
     } else {
         $imagePreview.push(<div className="previewText">{title}</div>);
     }
+
     return (
         <Box>
-            <Box className={classes.uploadImg}>
-                <input type='file' className="file" multiple={multiple} onChange={e => uploadFile(e)}/>
-                <div className='img'>
+            <Box className={classes.uploadFile}>
+                <input type='file' className="input" multiple={multiple} onChange={e => uploadFile(e)} />
+                <div className='file'>
                     <div className='blockPart'>
                         {$imagePreview.map((item, index) => (<span key={index}>{item}</span>))}
                         {$imagePreview[0].props.className === 'previewText' ? '' : <div className="addIcon">
-                            <AddIcon/>
+                            <AddIcon />
                         </div>}
                     </div>
                 </div>
             </Box>
-            <Typography className={clsx(classes.validation, lang==='en'?gClasses.textLeft:gClasses.textRight) }>{validation}</Typography>
+            <Typography className={clsx(gClasses.validation, lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>{validation}</Typography>
         </Box>
     );
 }

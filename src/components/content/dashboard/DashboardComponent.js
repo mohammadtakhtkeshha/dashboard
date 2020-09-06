@@ -34,7 +34,7 @@ function DashboardComponent({t}) {
 
     let getContentList = async () => {
         dashboardService.getContentLis().then((response) => {
-            let contents = response.data;
+            let contents = response.data.rows;
             setContents([...contents]);
         }).catch((error) => {
             console.log(error);

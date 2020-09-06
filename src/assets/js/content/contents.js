@@ -1,20 +1,19 @@
-import {makeStyles} from "@material-ui/core/styles";
-import * as colors from "../../../components/partials/Colors";
+import * as colors from "components/partials/Colors";
 
-const useStyles = makeStyles((theme) => ({
+export const useStyles = (theme) => ({
     contentBlock: {
         overflow: 'auto',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        '& .imgBlock':{
-            width:'50px!important',
-            height:'50px',
-            borderRadius:'100%',
-            overflow:'hidden',
-            '& img':{
-                width:'100%'
+        '& .imgBlock': {
+            width: '50px!important',
+            height: '50px',
+            borderRadius: '100%',
+            overflow: 'hidden',
+            '& img': {
+                width: '100%'
             }
         }
     },
@@ -42,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     mypaper: {
         margin: theme.spacing(2),
         padding: theme.spacing(2),
-        backgroundColor:'transparent',
+        backgroundColor: 'transparent',
         '& .head': {
             display: 'flex',
             justifyContent: 'space-between',
@@ -105,69 +104,11 @@ const useStyles = makeStyles((theme) => ({
             }
 
         },
-        '& .box':{
-            borderRadius:'4px',
-            backgroundColor:colors.white,
-            margin:'1rem 0',
+        '& .box': {
+            borderRadius: '4px',
+            backgroundColor: colors.white,
+            margin: '1rem 0',
             boxShadow: '0px 2px 4px 0px #999f9d',
-        }
-    },
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        '& #modal': {
-            border: '0!important',
-            minWidth:'100px',
-            marginTop: '5rem 5rem',
-            maxWidth: '650px',
-            '&:focus': {
-                outline: '0!important',
-            },
-            position: 'relative',
-            '& .header': {
-                display:'flex',
-                justifyContent:'space-between',
-                position: 'absolute',
-                top: '0',
-                left: 0,
-                right: 0,
-                height: '40px',
-                zIndex:'100',
-                backgroundColor: colors.primary,
-                '& .button': {
-                    background: 'transparent',
-                    cursor: 'pointer',
-                    border: 0,
-                    '&:focus': {
-                        outline: '0!important',
-                    },
-                    '& svg': {
-                        color: colors.white,
-                        margin: '9px 9px',
-                    }
-                },
-                '& .title': {
-                    margin: '9px 13px',
-                    color:colors.white
-                }
-            },
-            '& .flexDirL':{
-                flexDirection:'row-reverse'
-            },
-            '& .flexDirR':{
-                flexDirection:'row'
-
-            },
-            '& .body': {
-                marginTop: '16px',
-                height: 'calc(100vh - 5rem)',
-                overflow: 'scroll',
-                scrollbar: 'none',
-                '&::-webkit-scrollbar': {
-                    display: 'none',
-                }
-            }
         }
     },
     paper: {
@@ -176,6 +117,34 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
     },
-}));
+});
 
-export default {useStyles};
+export const styledTableCell = (theme) => ({
+    head: {
+        backgroundColor: colors.primary,
+        color: theme.palette.common.white,
+        '&:first-child': { //for checkbox
+            width: '1%',
+            paddingLeft: 0,
+            paddingRight: 0,
+        }
+    },
+    body: {
+        fontSize: 14,
+        '&:first-child': { //for checkbox
+            width: '1%',
+            paddingLeft: 0,
+            paddingRight: 0,
+        }
+    },
+});
+
+export const styledTableRow = (theme) => ({
+    root: {
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
+    },
+});
+
+export default {useStyles, styledTableCell, styledTableRow};
