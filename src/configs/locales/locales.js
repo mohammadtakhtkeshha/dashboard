@@ -10,14 +10,8 @@ import translationEn from './../../assets/locales/en/features/translation.json';
 import translationFa from './../../assets/locales/fa/features/translation.json';
 import contentsFa from './../../assets/locales/fa/features/contents.json';
 import contentsEn from './../../assets/locales/en/features/contents.json';
-import termsEn from './../../assets/locales/en/features/terms.json';
-import termsFa from './../../assets/locales/fa/features/terms.json';
 import vocabsFa from './../../assets/locales/fa/features/vocabs.json';
 import vocabsEn from './../../assets/locales/en/features/vocabs.json';
-import tagsEn from './../../assets/locales/en/features/tags.json';
-import tagsFa from './../../assets/locales/fa/features/tags.json';
-import categoriesFa from './../../assets/locales/fa/features/categories.json';
-import categoriesEn from './../../assets/locales/en/features/categories.json';
 //localstorage
 import storage from './../../libraries/local-storage'
 
@@ -28,19 +22,14 @@ const resources = {
         users:usersEn,
         translation:translationEn,
         contents:contentsEn,
-        temrs:termsEn,
         vocabs:vocabsEn,
-        categories:categoriesEn,
     },
     fa:{
         sidebar: sidebarFa,
         users:usersFa,
         translation:translationFa,
         contents:contentsFa,
-        terms:termsFa,
         vocabs:vocabsFa,
-        tags:tagsFa,
-        categories:categoriesFa,
 
     }
 };

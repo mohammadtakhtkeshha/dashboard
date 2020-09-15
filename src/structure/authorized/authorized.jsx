@@ -40,7 +40,7 @@ const styles = {
         flexGrow: 1
     },
     content: {
-        flexGrow: 5
+        flexGrow: 5,
     }
 };
 

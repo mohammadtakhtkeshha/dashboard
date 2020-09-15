@@ -1,19 +1,24 @@
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
+import SunEditor from 'suneditor-react';
+import axios from "axios";
+
 import {Typography, Box} from "@material-ui/core";
-import SunEditor, {buttonList} from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css';
 import {makeStyles} from "@material-ui/styles";
-import storage from "../../libraries/local-storage";
-import axios from "axios"; // Import Sun Editor's CSS File
+
+import storage from "libraries/local-storage";
+import NewContentContext from "../../contexts/NewContentContext";
+
 const useStyles = makeStyles({
     editorBox: {
         margin: '.5rem 0'
     }
 });
 
-function EditorComponent({title, onClick,lang,textAlign}) {
+function EditorComponent({title, onClick,textAlign}) {
     const classes = useStyles();
     // const [content,setContent]=useState('<div>in the name of god</div>');
+    const newContentContext=useContext(NewContentContext);
     const canvas = document.createElement('canvas');
     let src="src";
 
@@ -89,6 +94,7 @@ function EditorComponent({title, onClick,lang,textAlign}) {
                 <Typography className={textAlign}>{title}</Typography>
                 <Box className={classes.editorBox}>
                     <SunEditor
+                        setContents={newContentContext.content.body}
                         showToolbar={true}
                         enableToolbar={true}
                         setOptions={{
@@ -98,11 +104,11 @@ function EditorComponent({title, onClick,lang,textAlign}) {
                                 ['fontColor', 'hiliteColor', 'outdent', 'indent', 'align', 'horizontalRule', 'list', 'table'],
                                 ['link', 'image', 'video', 'fullScreen', 'showBlocks', 'codeView', 'preview', 'print', 'save']] // Or Array of button list, eg. [['font', 'align'], ['image']]
                         }}
-
                         onImageUploadBefore={beforeUploading}
                         onImageUpload={imageUploadHandler}
                         onChange={(e) => changeEditorContent(e)}
-                        lang="en" name="my-editor" placeholder="Please type here..."
+                        lang="en" name="my-editor"
+                        placeholder="Please type here..."
                     />
                 </Box>
             </div>

@@ -1,28 +1,29 @@
-import React from "react";
+import React,{useState} from "react";
 import {withNamespaces} from 'react-i18next';
 import clsx from "clsx";
 import i18next from "i18next";
-
 
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import {Box, Typography} from "@material-ui/core";
 import CancelIcon from "@material-ui/icons/Cancel";
-
-import NewContent from "../forms/newContent";
-import {useStyles} from 'assets/js/content/contentRegisterModal';
 import {makeStyles} from "@material-ui/styles";
+
+import NewContent from "../newContent";
+import {useStyles} from 'assets/js/content/contentRegisterModal';
+import ContentListOfContentType from "./ContentListOfContentType";
 
 const useStyle= makeStyles(useStyles);
 
  function ContentRegisterModalComponent({t,openRegisterForm,clickCloseRegisterForm}) {
-     let lang = i18next.language;
+     const lang = i18next.language;
      const classes=useStyle();
+     const [contentType,setContentType]=useState('');
 
-
-     let handleCloseRegisterForm = () => {
+     const handleCloseRegisterForm = () => {
          clickCloseRegisterForm();
+         setContentType('');
      };
 
     return (<Modal
@@ -46,7 +47,8 @@ const useStyle= makeStyles(useStyles);
                     </button>
                 </Box>
                 <Box className="body">
-                    <NewContent/>
+                    {contentType === '' ? <ContentListOfContentType setContentType={setContentType}/>:<NewContent contentType={contentType}/>}
+                    {/*<NewContent contentType={contentType}/>*/}
                 </Box>
             </div>
         </Fade>

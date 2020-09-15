@@ -2,7 +2,7 @@ import React, {useContext, useState, useEffect} from "react";
 import {withNamespaces} from "react-i18next";
 
 import TableContainer from "@material-ui/core/TableContainer";
-import {Box, CardMedia, Paper} from "@material-ui/core";
+import {Box, CardMedia, Paper, Typography} from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
@@ -16,68 +16,53 @@ import {withStyles} from "@material-ui/core/styles";
 
 import contentImg from "assets/media/image/user.jpg";
 import ButtonComponent from "components/partials/ButtonComponent";
-import {styledTableCell, styledTableRow, useStyles} from "assets/js/content/contents";
+import {useStyles} from "assets/js/content/contents";
 import contentService from "core/services/content.service";
 import {danger, success, warning} from "methods/swal";
 import AppContext from "contexts/AppContext";
+import ContentsContext from "../../../../contexts/ContentsContext";
+import {styledTableCell, styledTableRow, StyledActionButtonBlock} from "../../../../assets/js/App";
 
 const StyledTableCell = withStyles(styledTableCell)(TableCell);
 const StyledTableRow = withStyles(styledTableRow)(TableRow);
 const useStyle = makeStyles(useStyles);
 
-function ContentTableComponent({t, selectedCheckBoxes, contents, setContents, setSelectedCheckBoxes, perPage, setTotalPage, page}) {
+function ContentTableComponent({t,afterUpdateAction, selectedCheckBoxes, setContents, setSelectedCheckBoxes, perPage, setTotalPage, page}) {
     const classes = useStyle();
     const appContext = useContext(AppContext);
-    const [chunckContents, setChunckContents] = useState();
+    const contentsContext = useContext(ContentsContext);
     const [content, setContent] = useState();
 
-    let editClicked = (e) => {
+    const editClicked = (e) => {
         let id = e.currentTarget.value;
         contentService.getContent(id).then((response) => {
             setContent(response.data);
         }).catch((error) => {
-            handleError(error);
+            appContext.handleError(error);
         });
     };
 
     useEffect(() => {
-        chuckHandler(contents);
-    }, [contents]);
+        contentsContext.chunckHandler(contentsContext.contents);
+    }, [contentsContext.contents]);
 
-    let chuckHandler = (currentContents) => {
-        let contentLength = currentContents.length;
-        if (contentLength > 0) {
-            let newList = [];
-            for (let i = 0; i < contentLength; i += perPage) {
-                let myChunk = currentContents.slice(i, i + perPage);
-                newList.push(myChunk);
-            }
-            setChunckContents(newList);
-        }
+
+    // const afterUpdateAction = (newContents,currentLength,action) => {
+    //     setContents([...newContents]);
+    //     let currentTotalPage = Math.ceil(currentLength / perPage);
+    //     setTotalPage(currentTotalPage);
+    //     chuckHandler(newContents);
+    //     success(t(`translation:${action}`), t('translation:ok'));
+    // }
+
+    const allCheckboxHandler = (e) => {
+        const isChecked = e.currentTarget.checked;
+        const currentchunkCheckBox = contentsContext.chunckContents[page];
+        const ids = currentchunkCheckBox.map(content => content.nid);
+        isChecked ? setSelectedCheckBoxes([...ids]) : setSelectedCheckBoxes([]);
     };
 
-    let handleError = (error) => {
-        danger(t('translation:error'), t('translation:ok'));
-        appContext.toggleLoading(false);
-        console.log(error);
-    };
-
-    let allCheckboxHandler = (e) => {
-        let ids = contents.map(content => content.nid);
-        let contentsLength = contents.length;
-        if (selectedCheckBoxes.length === contentsLength) {
-            setSelectedCheckBoxes(
-                []
-            );
-        } else {
-            setSelectedCheckBoxes(
-                [...ids]
-            );
-        }
-
-    };
-
-    let isCheckedHandler = (e, content) => {
+    const isCheckedHandler = (e, content) => {
         let currentId = content.nid;
         if (e.currentTarget.checked) {
             setSelectedCheckBoxes(
@@ -91,25 +76,21 @@ function ContentTableComponent({t, selectedCheckBoxes, contents, setContents, se
         }
     };
 
-    let confirmDeleteHandler = (e) => {
+    const confirmDeleteHandler = (e) => {
         let id = e.currentTarget.value;
         warning(t('translation:sureQuestion'), t('translation:ok'), t('translation:cancel'), t('translation:notDone'), function () {
             deleteContent(id)
         });
     };
 
-    let deleteContent = (id) => {
+    const deleteContent = (id) => {
         contentService.deleteContent(id).then((response) => {
-            let currentLength = contents.length - 1;
-            let newContents = contents.filter(content => content.nid !== id);
-            setContents([...newContents]);
-            let currentTotalPage = Math.ceil(currentLength / perPage);
-            setTotalPage(currentTotalPage);
-            chuckHandler(newContents);
-            success(t('translation:deletedSuccessfully'), t('translation:ok'));
+            let currentLength = contentsContext.contents.length - 1;
+            let newContents = contentsContext.contents.filter(content => content.nid !== id);
+            afterUpdateAction(newContents,currentLength,'deletedSuccessfully');
         }).catch((error) => {
             let customizeError = t('translation:notAble')
-            handleError(customizeError);
+            appContext.handleError(customizeError);
         });
     };
 
@@ -120,8 +101,8 @@ function ContentTableComponent({t, selectedCheckBoxes, contents, setContents, se
                     <TableRow>
                         <StyledTableCell align="right">
                             <Checkbox
-                                checked={selectedCheckBoxes.length === contents.length}
-                                onChange={(e) => allCheckboxHandler(e)}
+                                checked={selectedCheckBoxes.length === perPage}
+                                onChange={allCheckboxHandler}
                                 inputProps={{'aria-label': 'primary checkbox'}}
                             />
                         </StyledTableCell>
@@ -133,15 +114,15 @@ function ContentTableComponent({t, selectedCheckBoxes, contents, setContents, se
                         <StyledTableCell align="right">{t('translation:actions')}</StyledTableCell>
                     </TableRow>
                 </TableHead>
-                {chunckContents !== undefined ?
+                {contentsContext.chunckContents !== undefined ?
                     <TableBody>
-                        {chunckContents[page].map((content, index) =>
+                        {contentsContext.chunckContents[page]?.map((content, index) =>
                             <StyledTableRow key={index}>
                                 <StyledTableCell align="right">
                                     <Checkbox
                                         onChange={(e) => isCheckedHandler(e, content)}
                                         inputProps={{'aria-label': 'primary checkbox'}}
-                                        // checked={selectedCheckBoxes.includes(content.nid)}
+                                        checked={selectedCheckBoxes.includes(content.nid)}
                                     />
                                 </StyledTableCell>
                                 <StyledTableCell align="right">
@@ -159,30 +140,24 @@ function ContentTableComponent({t, selectedCheckBoxes, contents, setContents, se
                                     {content.type}
                                 </StyledTableCell>
                                 <StyledTableCell align="right">
-                                    {content.status ? t('translation:confirmed') : t('translation:block')}
+                                    {content.status === "On" ? t('translation:published') : t('translation:unpublished')}
                                 </StyledTableCell>
                                 <StyledTableCell align="right">
                                     {content.changed}
                                 </StyledTableCell>
-
-                                {/*<StyledTableCell*/}
-                                {/*    align="right">*/}
-                                {/*    {content.field_domain_access.map(access => access.target_id)}</StyledTableCell>*/}
-
                                 <StyledTableCell align="right">
-                                    <Box className='buttonBlock'>
-                                        <ButtonComponent value={content.nid}
-                                                         text={t('translation:edit')}
-                                                         color="primary"
-                                                         startIcon={<EditIcon/>}
-                                                         clicked={editClicked}
-                                        />
-                                        <ButtonComponent value={content.nid}
-                                                         text={t('translation:delete')}
-                                                         color="secondary"
-                                                         startIcon={<DeleteIcon/>}
-                                                         clicked={confirmDeleteHandler}/>
-                                    </Box>
+                                    <StyledActionButtonBlock>
+                                        <button onClick={confirmDeleteHandler}>
+                                            <EditIcon/>
+                                            <Typography variant="span">
+                                                {t('translation:edit')}
+                                            </Typography>
+                                        </button>
+                                        <button onClick={confirmDeleteHandler}>
+                                            <DeleteIcon/>
+                                            {t('translation:delete')}
+                                        </button>
+                                    </StyledActionButtonBlock>
                                 </StyledTableCell>
                             </StyledTableRow>
                         )}

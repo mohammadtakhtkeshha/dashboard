@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Direction from './direction';
 import i18ne from './../configs/locales/locales';
 import {Box} from '@material-ui/core';
@@ -13,12 +13,13 @@ import {MatomoProvider, createInstance} from '@datapunt/matomo-tracker-react'
 import i18next from "i18next";
 import Loading from "../components/content/partials/loading";
 import {globalCss} from "../assets/js/globalCss";
+import {withNamespaces} from "react-i18next";
+import {danger} from "../methods/swal";
 
 const instance = createInstance({
     urlBase: 'https://reactwebrbpir.matomo.cloud/',
 })
 
-const lang = i18next.language;
 
 
 const styles = {
@@ -55,10 +56,13 @@ const theme = createMuiTheme({
 });
 const gClass = makeStyles(globalCss);
 
-export function App() {
+export function App({t}) {
+    const lang = i18next.language;
     const [showUserDrawer, setShowUserDrawer] = useState(false);
     const [loading,setLoading]=useState(false);
     const gClasses = gClass();
+    const appContext=useContext(AppContext);
+    const perPage = 5 ;
 
     // const [user, setUser] = useState({
     //     name: '',
@@ -77,6 +81,7 @@ export function App() {
     let toggleLoading = (boolean) => {
       setLoading(boolean);
     }
+
     // let changeUser = (keyName, value) => {
     //     setUser(prevState => {
     //         return {
@@ -84,6 +89,27 @@ export function App() {
     //         }
     //     });
     // };
+
+    let handleError = (error) => {
+        danger(t('translation:error'), t('translation:ok'));
+        toggleLoading(false);
+        console.log(error);
+    };
+
+    const isFa = (lang) => {
+        if (lang === 'fa') {
+            return true;
+        }
+        return false;
+    }
+
+    // const currentAlign = () => {
+    //     return isFa(lang) ? gClasses.textRight : gClasses.textLeft;
+    // }
+
+    const currentAlign = () => {
+        return isFa(lang) ? 'right' : 'left';
+    }
 
 
     return (
@@ -96,11 +122,14 @@ export function App() {
                 <ThemeProvider theme={theme}>
                     <AppContext.Provider
                         value={{
+                            handleError:handleError,
                             showUserDrawer: showUserDrawer,
                             toggleUserDrawer: toggleUserDrawer,
                             isLoginSuccess:false,
                             loading:loading,
-                            toggleLoading:toggleLoading
+                            toggleLoading:toggleLoading,
+                            currentAlign:currentAlign,
+                            perPage:perPage,
                         }}>
                         <Direction/>
                     </AppContext.Provider>
@@ -111,4 +140,4 @@ export function App() {
 
 }
 
-export default App;
+export default withNamespaces('translation')(App);

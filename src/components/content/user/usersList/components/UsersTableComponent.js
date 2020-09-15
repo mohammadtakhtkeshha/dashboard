@@ -4,7 +4,7 @@ import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
 
 import TableContainer from "@material-ui/core/TableContainer";
-import {Box, CardMedia, Paper} from "@material-ui/core";
+import {Box, CardMedia, Paper,Typography} from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
@@ -15,17 +15,17 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import TableCell from "@material-ui/core/TableCell";
 import {withStyles} from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/styles";
 
-import ButtonComponent from "components/partials/ButtonComponent";
 import userImg from "assets/media/image/user.jpg";
-import {useStyles, styledTableCell, styledTableRow} from 'assets/js/user/users';
+import {useStyles} from 'assets/js/user/users';
 import AppContext from "contexts/AppContext";
 import UserContext from "contexts/UserContext";
 import userService from "core/services/user.service";
 import {danger, success, warning} from "methods/swal";
 import storage from "libraries/local-storage";
 import UserEditModalComponent from "./UserEditModalComponent";
-import {makeStyles} from "@material-ui/styles";
+import {StyledActionButtonBlock, styledTableCell, styledTableRow} from "assets/js/App";
 
 const StyledTableCell = withStyles(styledTableCell)(TableCell);
 const StyledTableRow = withStyles(styledTableRow)(TableRow);
@@ -38,26 +38,18 @@ function UsersTableComponent({t, roles, valueRoles, chunckUserList}) {
     const anchorRef = useRef(null);
     const [openDetail, setOpenDetail] = useState(false);
     const prevOpenDetail = useRef(openDetail);
-
     const node = useRef(id);
     const appContext = useContext(AppContext);
     const userContext = useContext(UserContext);
     const [openEditForm, setOpenEditForm] = useState({show: false, id: ''});
-    let loginedUser = JSON.parse(storage.get('user'));
+    const loginedUser = JSON.parse(storage.get('user'));
     const [showUserDetail, setShowUserDetail] = useState();
-    let handleEditFormClose = () => {
+
+    const handleEditFormClose = () => {
         setOpenEditForm({show: false, id: ''});
     };
 
-    useEffect(() => {
-        if (prevOpenDetail.current === true && openDetail === false) {
-            anchorRef.current.focus();
-        }
-
-        prevOpenDetail.current = openDetail;
-    }, [openDetail]);
-
-    let editedUser = (user) => {
+    const editedUser = (user) => {
         let changedUser = chunckUserList[userContext.page].filter(item => item.uid === user.uid);
         let editedUserIndex = chunckUserList[userContext.page].findIndex(item => item === changedUser[0]);
         if (user.role !== "") {
@@ -74,14 +66,7 @@ function UsersTableComponent({t, roles, valueRoles, chunckUserList}) {
         setOpenEditForm({show: false, id: ''});
     };
 
-    useEffect(() => {
-        document.addEventListener("mousedown", clickOutSide);  // return function to be called when unmounted
-        return () => {
-            document.removeEventListener("mousedown", clickOutSide);
-        };
-    }, [node]);
-
-    let handleUserDetail = (e) => {
+    const handleUserDetail = (e) => {
         id = e.currentTarget.value;
         setShowUserDetail(id);
     };
@@ -94,11 +79,11 @@ function UsersTableComponent({t, roles, valueRoles, chunckUserList}) {
         setShowUserDetail(false);
     };
 
-    let handleEditFormOpen = (id) => {
+    const handleEditFormOpen = (id) => {
         setOpenEditForm({show: true, id: id});
     };
 
-    let doPaginateActionAfterUpdate = (users) => {
+    const doPaginateActionAfterUpdate = (users) => {
         let currentTotalNumber = users.length;
         userContext.passTotalPage(Math.ceil(currentTotalNumber / userContext.perPage));
         let chunckedUsers = userContext.chunckUserHandler(users, userContext.perPage);
@@ -106,7 +91,7 @@ function UsersTableComponent({t, roles, valueRoles, chunckUserList}) {
         handlePaginateUser(chunckedUsers, currentTotalNumber, userContext.page);
     }
 
-    let allCheckboxHandler = (e) => {
+    const allCheckboxHandler = (e) => {
         let isChecked = e.currentTarget.checked;
         let currentUserList = chunckUserList[userContext.page];
         let ids = currentUserList.map(user => user.uid);
@@ -122,11 +107,11 @@ function UsersTableComponent({t, roles, valueRoles, chunckUserList}) {
 
     };
 
-    let handlePaginateUser = (currentUsers, totalNumberr, currentPage) => {
+    const handlePaginateUser = (currentUsers, totalNumberr, currentPage) => {
         userContext.passTotalPage(Math.ceil(totalNumberr / userContext.perPage));
     };
 
-    let isCheckedHandler = (e, user) => {
+    const isCheckedHandler = (e, user) => {
         let currentId = user.uid;
         if (e.currentTarget.checked) {
             userContext.handleSelectedCheckBoxes(
@@ -140,7 +125,7 @@ function UsersTableComponent({t, roles, valueRoles, chunckUserList}) {
         }
     };
 
-    let deleteUser = (id) => {
+    const deleteUser = (id) => {
         appContext.toggleLoading(true);
         let loginUserId = loginedUser.uid;
         if (id === loginUserId) {
@@ -156,16 +141,30 @@ function UsersTableComponent({t, roles, valueRoles, chunckUserList}) {
             success(t('translation:deletedSuccessfully'), t('translation:ok'));
 
         }).catch((error) => {
-            userContext.handleError(error);
+            appContext.handleError(error);
         });
     };
 
-    let confirmDeleteHandler = (e) => {
+    const confirmDeleteHandler = (e) => {
         let id = e.currentTarget.value;
         warning(t('translation:sureQuestion'), t('translation:ok'), t('translation:cancel'), t('translation:notDone'), function () {
             deleteUser(id)
         });
     };
+
+    useEffect(() => {
+        if (prevOpenDetail.current === true && openDetail === false) {
+            anchorRef.current.focus();
+        }
+        prevOpenDetail.current = openDetail;
+    }, [openDetail]);
+
+    useEffect(() => {
+        document.addEventListener("mousedown", clickOutSide);  // return function to be called when unmounted
+        return () => {
+            document.removeEventListener("mousedown", clickOutSide);
+        };
+    }, [node]);
 
     return (
         <>
@@ -220,18 +219,18 @@ function UsersTableComponent({t, roles, valueRoles, chunckUserList}) {
                                         </Box>
                                     </StyledTableCell>
                                     <StyledTableCell align="right">
-                                        <Box className='buttonBlock'>
-                                            <ButtonComponent value={user.uid}
-                                                             text={t('translation:edit')}
-                                                             color="primary"
-                                                             startIcon={<EditIcon/>}
-                                                             clicked={() => handleEditFormOpen(user.uid)}/>
-                                            <ButtonComponent value={user.uid}
-                                                             text={t('translation:delete')}
-                                                             color="secondary"
-                                                             startIcon={<DeleteIcon/>}
-                                                             clicked={(e) => confirmDeleteHandler(e)}/>
-                                        </Box>
+                                        <StyledActionButtonBlock>
+                                            <button onClick={()=>handleEditFormOpen(user.uid)}>
+                                                <EditIcon/>
+                                                <Typography variant="span">
+                                                    {t('translation:edit')}
+                                                </Typography>
+                                            </button>
+                                            <button onClick={(e) => confirmDeleteHandler(e)}>
+                                                <DeleteIcon/>
+                                                {t('translation:delete')}
+                                            </button>
+                                        </StyledActionButtonBlock>
                                     </StyledTableCell>
                                 </StyledTableRow>
                                 {showUserDetail === user.uid ?
@@ -273,7 +272,6 @@ function UsersTableComponent({t, roles, valueRoles, chunckUserList}) {
                                                                 {user.roles_target_id === "[]" ? t('translation:noRole') : user.roles_target_id}
                                                             </TableCell>
                                                         </TableRow>
-
                                                     </TableBody>
                                                 </Table>
                                             </Box>
@@ -302,4 +300,4 @@ function UsersTableComponent({t, roles, valueRoles, chunckUserList}) {
     );
 }
 
-export default withNamespaces('users', 'translation')(UsersTableComponent);
+export default withNamespaces('users, translation')(UsersTableComponent);

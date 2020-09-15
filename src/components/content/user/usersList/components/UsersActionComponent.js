@@ -16,6 +16,8 @@ import userService from "core/services/user.service";
 import AppContext from "contexts/AppContext";
 import storage from "libraries/local-storage";
 import UserContext from "contexts/UserContext";
+import {StyledButton} from "assets/js/App";
+import {StyledActionBlock} from "assets/js/user/users";
 
 function UsersActionComponent({t, action, handleActionChange}) {
     const actions = [
@@ -57,8 +59,9 @@ function UsersActionComponent({t, action, handleActionChange}) {
                     userContext.users.splice(currentIndex, 1);
                 });
                 doPaginateActionAfterUpdate(userContext.users);
+                success(t('translation:successDone'), t('translation:ok'));
             }).catch((error) => {
-                userContext.handleError(error);
+                appContext.handleError(error);
             });
         } else if (action === "block") {
             let data = [];
@@ -84,7 +87,7 @@ function UsersActionComponent({t, action, handleActionChange}) {
                 doPaginateActionAfterUpdate([...userContext.users]);
                 success(t('translation:successDone'), t('translation:ok'));
             }).catch((error) => {
-                userContext.handleError(error);
+                appContext.handleError(error);
             });
         } else {
             let data = [];
@@ -106,7 +109,7 @@ function UsersActionComponent({t, action, handleActionChange}) {
                 doPaginateActionAfterUpdate([...userContext.users]);
                 success(t('translation:successDone'), t('translation:ok'));
             }).catch((error) => {
-                userContext.handleError(error);
+                appContext.handleError(error);
             });
         }
     };
@@ -120,14 +123,12 @@ function UsersActionComponent({t, action, handleActionChange}) {
             <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon/>}
                 aria-controls="panel1a-content"
-                id="panel1a-header"
             >
                 <Typography>{t('translation:operator')}</Typography>
             </ExpansionPanelSummary>
-            <ExpansionPanelDetails id="actions">
-                <Box className="inputBlock">
+            <ExpansionPanelDetails>
+                <StyledActionBlock>
                     <TextField
-                        id="outlined-select-role-native"
                         select
                         value={action}
                         onChange={handleActionChange}
@@ -142,14 +143,10 @@ function UsersActionComponent({t, action, handleActionChange}) {
                             </option>
                         ))}
                     </TextField>
-                </Box>
-                <Box className="buttonBlock">
-                    <ButtonComponent text={t('translation:do')}
-                                     color="primary"
-                                     background={primary}
-                                     startIcon={<EditIcon/>}
-                                     clicked={() => handleMultiAction()}/>
-                </Box>
+                <StyledButton onClick={handleMultiAction}>
+                    {t('translation:do')}
+                </StyledButton>
+                </StyledActionBlock>
             </ExpansionPanelDetails>
         </ExpansionPanel>
 

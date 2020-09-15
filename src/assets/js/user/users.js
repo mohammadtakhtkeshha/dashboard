@@ -1,4 +1,5 @@
 import {primary, white} from "../../../components/partials/Colors";
+import styled from "styled-components";
 
 export const useStyles =(theme) => ({
     userBlock: {
@@ -93,27 +94,6 @@ export const useStyles =(theme) => ({
         backgroundColor: 'transparent',
         margin: theme.spacing(2),
         padding: theme.spacing(2),
-        '& .head': {
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: "center",
-            '& button': {
-                backgroundColor: primary,
-                border: 0,
-                cursor: 'pointer',
-                padding: '10px 15px',
-                lineHeight: '14px',
-                color: white,
-                borderRadius: '5px',
-                '&:focus': {
-                    outline: '0!important',
-                }
-            },
-            '& .text': {
-                fontSize: '14px',
-                fontWeight: 600,
-            }
-        },
         '& .actions': {
             '& #actions': {
                 display: 'flex',
@@ -134,56 +114,8 @@ export const useStyles =(theme) => ({
                 }
             }
         },
-        '& .filter': {
-            '& #details': {
-                display: 'flex',
-                flexDirection: 'column',
-                '& .inputBlock': {
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    width: '100%',
-                    '& input': {
-                        margin: '5px 5px',
-                        padding: '7.5px 14px'
-                    },
-                    '& div': {
-                        width: '24%',
-                        padding: '2px 5px',
-                        '@media(max-width:1385px)': {
-                            width: '30%',
-                        },
-                        '@media(max-width:471px)': {
-                            width: '100%',
-                        }
-                    },
-                    '& .MuiTextField-root': {
-                        display: 'flex',
-                        justifyContent: 'center',
-                        marginBottom: '1rem',
-                        '& div': {
-                            width: '100%',
-                            height: '40px',
-                            marginTop: '8px'
-                        }
-                    }
-                },
-                '& .buttonBlock': {
-                    margin: '2px 10px',
-                    '& button':{
-                        '&:hover':{
-                            backgroundColor:primary
-                        }
-                    }
-                }
-            }
 
-        },
-        '& .box': {
-            borderRadius: '4px',
-            backgroundColor: white,
-            margin: '1rem 0',
-            boxShadow: '0px 2px 4px 0px #999f9d',
-        }
+
     },
     modal: {
         display: 'flex',
@@ -248,22 +180,39 @@ export const useStyles =(theme) => ({
     }
 });
 
-export const styledTableCell =(theme) => ({
-    head: {
-        backgroundColor: primary,
-        color: theme.palette.common.white,
-    },
-    body: {
-        fontSize: 14,
-    },
-});
 
-export const styledTableRow = (theme) => ({
-    root: {
-        '&:nth-of-type(even)': {
-            backgroundColor: theme.palette.action.hover,
-        },
-    },
-});
 
-export default {useStyles,styledTableCell,styledTableRow};
+
+
+
+
+
+export const StyledActionBlock = styled.div`
+        display: flex;
+        flex-direction: column;
+        width : 100%;
+            &>div{
+             margin-bottom: 1rem!important;
+         }
+`
+export const StyledFilterBlock = styled.div`
+            display:flex;
+            flex-direction:column;
+            & > div{
+            margin-bottom:1rem;
+              display:flex;
+              flex-wrap:wrap;
+              & input ,select {
+              width :11rem;
+              }
+              & input {
+              margin:.2rem;
+              height:30px;
+              } 
+                & select {
+                padding: 12.5px 0;
+              }
+            }
+`
+
+export default {useStyles,StyledActionBlock};

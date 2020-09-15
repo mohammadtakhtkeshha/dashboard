@@ -39,14 +39,14 @@ const danger={
     light:'#f8d7da',
     dark:'#721c24',
 };
-const red={
-    dark:'rgb(221, 51, 51)',
-};
+const red=['#f50057'];
+
+const blue= ['#303f9f'];
 
 export {
     primary, primaryBright, secondary, secondaryBright, success, successBright, danger,dangerBright,
     warning,warningBright,info,infoBright,light, dark, facebook, google, instagram, linkedin, twitter,
-    whatsapp, dribbble, youtube,darkBlue,grey,black,white,red
+    whatsapp, dribbble, youtube,darkBlue,grey,black,white,red,blue
 };
 
 // const colors ={

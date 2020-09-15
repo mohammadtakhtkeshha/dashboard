@@ -36,7 +36,7 @@ function UploadImg({ t, multiple, title, getFile, imgs, removedFileId, sendIdAft
         }
     }, [imgs]);
 
-    let uploadFile = (e) => {debugger
+    let uploadFile = (e) => {
         appContext.toggleLoading(true);
         if (e.currentTarget.files[0] !== undefined) {
             let extention = (e.currentTarget.files[0].name).split('.').pop();

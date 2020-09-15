@@ -7,18 +7,17 @@ import {makeStyles} from "@material-ui/core/styles/index";
 import FormControl from '@material-ui/core/FormControl';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-
+import {Typography} from "@material-ui/core";
 
 import ButtonComponent from 'components/partials/ButtonComponent'
 import Input from "components/partials/inputComponent";
 import UploadImg from "components/partials/UploadImg";
 import {primary, white} from 'components/partials/Colors';
 import userService from "core/services/user.service";
-import {danger, success} from "methods/swal";
+import { success} from "methods/swal";
 import editUserStyle from 'assets/js/user/editUser'
 import AppContext from 'contexts/AppContext';
 import UserContext from "contexts/UserContext";
-import {Typography} from "@material-ui/core";
 
 const useStyles = makeStyles(editUserStyle);
 
@@ -44,12 +43,6 @@ function EditUserComponent({t, id, keyRoles, valueRoles, editedUser}) {
     const [sendIdAfterUpload, setSendIdAfterUpload] = useState('');
     const [gottenName,setGottenName]=useState('');
     const [gottenMail,setGottenMail]=useState('');
-
-    let handleError = (error) => {
-        danger(t('translation:error'), t('translation:ok'));
-        appContext.toggleLoading(false);
-        console.log(error);
-    }
 
     useEffect(() => {
         getUser();
@@ -85,7 +78,7 @@ function EditUserComponent({t, id, keyRoles, valueRoles, editedUser}) {
             setGottenMail(response.data.mail);
             setCurrentImg(user.user_picture === undefined ? '' : user.user_picture.url);
         }).catch((error) => {
-            handleError(error);
+            appContext.handleError(error);
         });
     };
 
@@ -133,11 +126,13 @@ function EditUserComponent({t, id, keyRoles, valueRoles, editedUser}) {
         });
         // -----
     };
+
     let handleConfirmPass = (e) => {
         let currentCofrimPass = e.target.value;
         setConfirmPass(currentCofrimPass);
         userContext.confirmPassValidation(user.pass,currentCofrimPass);
     };
+
     let handleStatusChange = (e) => {
         let currentStatus = e.target.value;
         let status;
@@ -181,7 +176,7 @@ function EditUserComponent({t, id, keyRoles, valueRoles, editedUser}) {
             setUser(currentEditedUser);
             success(t('translation:successRegistered'), t('translation:ok'));
         }).catch((error) => {
-            handleError(error)
+            appContext.handleError(error)
         });
 
     };
@@ -209,7 +204,7 @@ function EditUserComponent({t, id, keyRoles, valueRoles, editedUser}) {
                 setSendIdAfterUpload({id: response.data.uuid, file: currentFile});
             }
         ).catch((error) => {
-            handleError(error);
+            appContext.handleError(error);
         });
     };
 
@@ -297,7 +292,6 @@ function EditUserComponent({t, id, keyRoles, valueRoles, editedUser}) {
                     {/*------------------------------------------------------ upload image -----------------------------------------*/}
                     <Box>
                         <UploadImg multiple={false} title={t('translation:choosePic')} getFile={saveFile}
-                            // imgs={user.user_picture && user.user_picture !== "" ? [user.user_picture] : []}
                                    imgs={currentImg !== "" ? [currentImg] : []}
                                    removedFileId={removedFileId}
                                    sendIdAfterUpload={sendIdAfterUpload}

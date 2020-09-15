@@ -1,27 +1,31 @@
-import {grey, primary} from "../../components/partials/Colors";
+import {grey, primary,white} from "../../components/partials/Colors";
+import styled from "styled-components";
 
-export const paginationStyle = {
-    pagination: {
-        display: 'flex',
-        justifyContent: 'center',
-        padding: '20px',
-        '& ul': {
-            '& li': {
-                '& button': {
-                    borderRadius: '0',
-                    margin: '0',
-                    borderColor: grey.tooLight,
-                    color: primary,
-                    padding: '13px'
+export const StyledPaginationBox = styled.div`
+          &>nav {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            & ul{
+                & li {
+                    & button {
+                        border-radius: 0;
+                        margin: 0;
+                        border-color: ${grey.tooLight};
+                        color: ${primary};
+                        padding: 13px;
+                    }
                 }
             }
-        },
-        '& .MuiPaginationItem-page.Mui-selected': {
-            backgroundColor: primary,
-            color: 'white',
-            border: '0'
+            & .MuiPaginationItem-page.Mui-selected {
+                background-color: ${primary};
+                color: ${white};
+                border: 0;
+            }
         }
-    }
-}
+`
+
+export default {StyledPaginationBox};
+
 
 

@@ -12,7 +12,6 @@
   "published": "published",
   "unpublished": "unpublished",
   "lidkhabar": "lidkhabar",
-  "showPlace": "show place",
   "show": "show",
   "notShow": "not show",
   "domainAccess": "domain access",
@@ -21,6 +20,9 @@
   "keywords": "keywords",
   "summary": "summary",
   "rotitr": "rotitr",
-  "fileGallery":"gallery file"
+  "sendToAllAffiliates": "send to all affiliates",
+  "availableOnAllDomain": "make this content available on all domains",
+  "fileGallery":"gallery file",
+  "specialNewsDisplay":"special news display"
 
 }

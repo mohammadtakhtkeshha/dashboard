@@ -13,16 +13,15 @@ import ButtonComponent from "components/partials/ButtonComponent";
 import {primary} from "components/partials/Colors";
 import {globalCss} from "assets/js/globalCss";
 import contentService from "core/services/content.service";
-import {danger} from "methods/swal";
 import AppContext from "contexts/AppContext";
-import ContentContext from "contexts/ContentContext";
+import NewContentContext from "contexts/NewContentContext";
 
 const gClass = makeStyles(globalCss);
 
 function FileContentTabComponent({t}) {
     let lang = i18next.language;
     const appContext = useContext(AppContext);
-    const contentContext = useContext(ContentContext);
+    const newContentContext = useContext(NewContentContext);
     const gClasses = gClass();
     const [multiImgFids, setMultiImgFids] = useState([]);
     const [singleImgToSendFid, setSingleImgToSendFid] = useState('');
@@ -36,19 +35,19 @@ function FileContentTabComponent({t}) {
             contentService.uploadSingImg(e).then((response) => {
                 let item = response.data;
                 setSingleImgToSendFid({id: item.fid, file: e[0]});
-                contentContext.setContent(prevState => {
+                newContentContext.setContent(prevState => {
                     return {
                         ...prevState, field_image: {
-                            target_id: response.data.fid,
+                            target_id: `${response.data.fid}`,
                             target_type: 'file'
                         }
                     }
                 });
             }).catch((error) => {
-                handleError(error)
+                appContext.handleError(error)
             });
         } else {
-            contentContext.setContent(prevState => {
+            newContentContext.setContent(prevState => {
                 return {
                     ...prevState, field_image: ''
                 }
@@ -66,7 +65,7 @@ function FileContentTabComponent({t}) {
                     setMultiImgFids(prevState => {
                         return [...prevState, {fid: response.data.fid, name: e.name}];
                     });
-                    contentContext.setContent(prevState => {
+                    newContentContext.setContent(prevState => {
                         let fids = [];
                         if (prevState.field_field_galeries.target_id !== undefined) {
 
@@ -83,22 +82,16 @@ function FileContentTabComponent({t}) {
                         }
                     });
                 }).catch((error) => {
-                    handleError(error);
+                    appContext.handleError(error);
                 });
             }
         } else {
-            contentContext.setContent(prevState => {
+            newContentContext.setContent(prevState => {
                 return {
                     ...prevState, multiImg: ''
                 }
             });
         }
-    }
-
-    let handleError = (error) => {
-        danger(t('translation:error'), t('translation:ok'));
-        appContext.toggleLoading(false);
-        console.log(error);
     }
 
     let uploadMultiFile = (files) => {
@@ -112,7 +105,7 @@ function FileContentTabComponent({t}) {
                     setMultiImgFids(prevState => {
                         return [...prevState, {fid: item.fid, name: e.name}];
                     });
-                    contentContext.setContent(prevState => {
+                    newContentContext.setContent(prevState => {
                         let fids = [];
                         if (prevState.field_files.target_id !== undefined) {
                             fids.push(prevState.field_files.target_id, item.fid);
@@ -128,20 +121,11 @@ function FileContentTabComponent({t}) {
                         }
                     });
                 }).catch((error) => {
-                    handleError(error);
-                    // swal({
-                    //     text: t('translation:notDone'),
-                    //     button: {
-                    //         text: t('translation:ok')
-                    //         , className: gClasses.confirmSwalButton
-                    //     },
-                    //     className: gClasses.makeSwalButtonCenter,
-                    //     icon: "success"
-                    // });
+                    appContext.handleError(error);
                 });
             }
         } else {
-            contentContext.setContent(prevState => {
+            newContentContext.setContent(prevState => {
                 return {
                     ...prevState, multiImg: ''
                 }
@@ -153,11 +137,12 @@ function FileContentTabComponent({t}) {
     let uploadVideo = (files) => {
         for (let e of files) {
             contentService.uploadVideo(e).then((response) => {
+                debugger
                 let item = response.data;
                 setMultiVideoToSend({id: item.fid, file: e});
-                contentContext.setContent(prevState => {
+                newContentContext.setContent(prevState => {
                     let fids = [];
-                    if (prevState.field_videos.target_id !== undefined) {
+                    if (prevState.field_videos !== undefined) {
                         fids.push(prevState.field_videos.target_id, item.fid);
                     } else {
                         fids.push(item.fid);
@@ -171,10 +156,9 @@ function FileContentTabComponent({t}) {
                     }
                 });
             }).catch((error) => {
-                handleError(error)
+                appContext.handleError(error)
             });
         }
-
     }
 
     let register = () => {
@@ -187,15 +171,15 @@ function FileContentTabComponent({t}) {
         //     }
         // });
 
-        if(contentContext.content.title === ""){
-            contentContext.setErrors({title:t('translation:requiredValid')});
+        if (newContentContext.content.title === "") {
+            newContentContext.setErrors({title: t('translation:requiredValid')});
         }
 
-        contentService.registerContent(contentContext.content).then((response) => {
+        contentService.registerContent(newContentContext.content).then((response) => {
             debugger
         }).catch((error) => {
             debugger
-            handleError(error);
+            appContext.handleError(error);
         });
 
     };
@@ -206,7 +190,7 @@ function FileContentTabComponent({t}) {
                 contentService.uploadVoice(e).then((response) => {
                     let item = response.data;
                     setMultiVoiceToSend({id: response.data.fid, file: e});
-                    contentContext.setContent(prevState => {
+                    newContentContext.setContent(prevState => {
                         let fids = [];
                         if (prevState.field_sounds.target_id !== undefined) {
                             fids.push(prevState.field_sounds.target_id, response.data.fid);
@@ -223,12 +207,12 @@ function FileContentTabComponent({t}) {
                         }
                     });
                 }).catch((error) => {
-                    handleError(error);
+                    appContext.handleError(error);
                 });
             }
 
         } else {
-            contentContext.setContent(prevState => {
+            newContentContext.setContent(prevState => {
                 return {
                     ...prevState, field_sounds: ''
                 }
@@ -237,7 +221,7 @@ function FileContentTabComponent({t}) {
     }
 
     let removeMultiImg = (currentId) => {
-        let fidsString = contentContext.content.field_field_galeries.target_id;
+        let fidsString = newContentContext.content.field_field_galeries.target_id;
         let fidsArray = fidsString.split(',');
         let currentIndex = fidsArray.indexOf(currentId);
         fidsArray.splice(currentIndex, 1);
@@ -247,7 +231,7 @@ function FileContentTabComponent({t}) {
         } else {
             field_gallery = '';
         }
-        contentContext.setContent(prevState => {
+        newContentContext.setContent(prevState => {
             return {
                 ...prevState, field_field_galeries: field_gallery
             }
@@ -255,7 +239,7 @@ function FileContentTabComponent({t}) {
     }
 
     let removeMultiFile = (currentId) => {
-        let fidsString = contentContext.content.field_files.target_id;
+        let fidsString = newContentContext.content.field_files.target_id;
         let fidsArray = fidsString.split(',');
         let currentIndex = fidsArray.indexOf(currentId);
         fidsArray.splice(currentIndex, 1);
@@ -265,7 +249,7 @@ function FileContentTabComponent({t}) {
         } else {
             field_file = '';
         }
-        contentContext.setContent(prevState => {
+        newContentContext.setContent(prevState => {
             return {
                 ...prevState, field_files: field_file
             }
@@ -274,7 +258,7 @@ function FileContentTabComponent({t}) {
     }
 
     let removeMultiVideo = (currentId) => {
-        let fidsString = contentContext.content.field_videos.target_id;
+        let fidsString = newContentContext.content.field_videos.target_id;
         let fidsArray = fidsString.split(',');
         let currentIndex = fidsArray.indexOf(currentId);
         fidsArray.splice(currentIndex, 1);
@@ -284,7 +268,7 @@ function FileContentTabComponent({t}) {
         } else {
             field_file = '';
         }
-        contentContext.setContent(prevState => {
+        newContentContext.setContent(prevState => {
             return {
                 ...prevState, field_videos: field_file
             }
@@ -292,7 +276,7 @@ function FileContentTabComponent({t}) {
     }
 
     let removeMultiVoice = (currentId) => {
-        let fidsString = contentContext.content.field_sounds.target_id;
+        let fidsString = newContentContext.content.field_sounds.target_id;
         let fidsArray = fidsString.split(',');
         let currentIndex = fidsArray.indexOf(currentId);
         fidsArray.splice(currentIndex, 1);
@@ -302,7 +286,7 @@ function FileContentTabComponent({t}) {
         } else {
             field_file = '';
         }
-        contentContext.setContent(prevState => {
+        newContentContext.setContent(prevState => {
             return {
                 ...prevState, field_sounds: field_file
             }
@@ -310,14 +294,12 @@ function FileContentTabComponent({t}) {
     }
 
     let removedSingleImg = (id) => {
-        contentContext.setContent(prevState => {
+        newContentContext.setContent(prevState => {
             return {
                 ...prevState, field_image: ''
             }
         });
-    }
-
-    console.log(contentContext.content);
+    };
 
     return (<>
         <Box className="card">

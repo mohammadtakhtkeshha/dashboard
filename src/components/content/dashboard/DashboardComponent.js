@@ -26,7 +26,6 @@ const useStyles=makeStyles({
     }
 });
 
-console.log();
 
 function DashboardComponent({t}) {
     const [contents, setContents] = useState([]);
@@ -46,6 +45,7 @@ function DashboardComponent({t}) {
     useEffect(() => {
         getContentList();
     }, []);
+
     useEffect(() => {
         if(context.isLoginSuccess){
             swal({

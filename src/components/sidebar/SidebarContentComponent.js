@@ -118,9 +118,8 @@ function SimpleTabs({t}) {
                 <AppBar position="static">
                     <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                         <Tab label={<PieChartIcon/>} {...a11yProps(0)} />
-                        <Tab label={<LayersIcon/>} {...a11yProps(1)} />
-                        <Tab label={<PersonIcon/>} {...a11yProps(2)} />
-                        <Tab label={<PowerSettingsNewIcon/>} {...a11yProps(4)}
+                        <Tab label={<PersonIcon/>} {...a11yProps(1)} />
+                        <Tab label={<PowerSettingsNewIcon/>} {...a11yProps(2)}
                              onClick={() => authSevice.logout(history)}/>
                     </Tabs>
                 </AppBar>
@@ -144,6 +143,11 @@ function SimpleTabs({t}) {
                             <NavLink to="/contents" activeClassName={classes.active}
                                      className={currrentAlign()}>
                                 <ListItemText primary={t('sidebar:contents')}/>
+                            </NavLink>
+                        </ListItem>
+                        <ListItem button className={clsx("navLink", "items")}>
+                            <NavLink to="/vocabs" activeClassName={classes.active} className={currrentAlign()}>
+                                <ListItemText primary={t('sidebar:vocabs')}/>
                             </NavLink>
                         </ListItem>
                         {/*<ListItem className={clsx('collapsible', 'items')}>*/}
@@ -198,38 +202,6 @@ function SimpleTabs({t}) {
 
                 </TabPanel>
                 <TabPanel value={value} index={1}
-                          className={clsx(classes.tab, lang === 'fa' ? classes.marginLeft : classes.marginRight)}
-                >
-                    <List className="list" aria-label="main mailbox folders">
-                        <ListItem button className={clsx("navLink", "items")}>
-                            <NavLink to="/contents" activeClassName={classes.active} className={currrentAlign()}>
-                                <ListItemText primary={t('sidebar:content')}/>
-                            </NavLink>
-                        </ListItem>
-                        <ListItem button className={clsx("navLink", "items")}>
-                            <NavLink to="/new-content" activeClassName={classes.active} className={currrentAlign()}>
-                                <ListItemText primary={t('sidebar:newContent')}/>
-                            </NavLink>
-                        </ListItem>
-                        <ListItem button className={clsx("navLink", "items")}>
-                            <NavLink to="/terms" activeClassName={classes.active} className={currrentAlign()}>
-                                <ListItemText primary={t('sidebar:terms')}/>
-                            </NavLink>
-                        </ListItem>
-                        <ListItem button className={clsx("navLink", "items")}>
-                            <NavLink to="/vocabs" activeClassName={classes.active} className={currrentAlign()}>
-                                <ListItemText primary={t('sidebar:vocabs')}/>
-                            </NavLink>
-                        </ListItem>
-                        <ListItem button className={clsx("navLink", "items")}>
-                            <NavLink to="/tags" activeClassName={classes.active} className={currrentAlign()}>
-                                <ListItemText primary={t('sidebar:tags')}/>
-                            </NavLink>
-                        </ListItem>
-                    </List>
-                </TabPanel>
-
-                <TabPanel value={value} index={2}
                           className={clsx(classes.tab, lang === 'fa' ? classes.marginLeft : classes.marginRight)}>
                     <List className="list" aria-label="main mailbox folders">
                         <ListItem button className={clsx("navLink", "items")}>

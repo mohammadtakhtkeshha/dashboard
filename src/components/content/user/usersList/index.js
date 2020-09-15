@@ -11,13 +11,16 @@ import userService from "core/services/user.service";
 import Loading from 'components/content/partials/loading';
 import AppContext from 'contexts/AppContext';
 import {danger} from 'methods/swal';
-import PaginationComponent from "components/partials/PaginationComponent";
+
 import UsersTableComponent from "./components/UsersTableComponent";
 import UsersFilterComponent from "./components/UsersFilterComponent";
 import UsersActionComponent from "./components/UsersActionComponent";
 import UsersRegisterModalComponent from "./components/UsersRegisterModalComponent";
 import {useStyles} from 'assets/js/user/users';
 import UserContext from "contexts/UserContext";
+import {StyledPaper,StyledHead,StyledHeadTypography,StyledButton,StyledBox} from "assets/js/App";
+import Pagination from "@material-ui/lab/Pagination";
+import {StyledPaginationBox} from "../../../../assets/js/pagination";
 
 const gClass = makeStyles(globalCss);
 const currentStyles = makeStyles(useStyles);
@@ -47,12 +50,6 @@ function UsersComponent({t}) {
         confirmPass: {},
     });
 
-    let handleError = (error) => {
-        danger(t('translation:error'), t('translation:ok'));
-        appContext.toggleLoading(false);
-        console.log(error);
-    }
-
     let getUsers = () => {
         userService.getNotPaginateUser().then((response) => {
             let nameList = [];
@@ -70,7 +67,7 @@ function UsersComponent({t}) {
             setTotalPage(Math.ceil(totalNumberr / perPage));
             setChunckUserList(usersPaginatedList);
         }).catch((error) => {
-            handleError(error)
+            appContext.handleError(error)
         });
     };
 
@@ -98,7 +95,7 @@ function UsersComponent({t}) {
             setValueRoles(valueRoles);
             setRoles(response.data);
         }).catch((error) => {
-            handleError(error);
+            appContext.handleError(error);
         });
     };
 
@@ -291,7 +288,6 @@ function UsersComponent({t}) {
 
     return (
         <UserContext.Provider value={{
-            handleError: handleError,
             perPage: perPage,
             page: page,
             totalPage: totalPage,
@@ -316,27 +312,28 @@ function UsersComponent({t}) {
                     {t('sidebar:users')}
                 </title>
             </Helmet>
-            <Paper className={classes.mypaper}>
+            <StyledPaper>
                 <Box className={appContext.loading === false ? gClasses.none : gClasses.block}>
                     <Loading/>
                 </Box>
-                <Box className="head">
-                    <Typography className="text">{t('users:usersList')}</Typography>
-                    <button type="button" onClick={openNewUserForm}>
+                <StyledHead>
+                    <StyledHeadTypography>{t('users:usersList')}</StyledHeadTypography>
+                    <StyledButton onClick={openNewUserForm}>
                         <Typography>{t('users:newUser')}</Typography>
-                    </button>
-                </Box>
+                    </StyledButton>
+                </StyledHead>
+                <StyledBox>
                 <UsersFilterComponent chunckUser={chunckUser}
                                       changeChunckUserList={changeChunckUserList}
                                       chuckUserList={chunckUserList}
                 />
-                <Box className={clsx("actions", "box")}>
+                </StyledBox>
+                <StyledBox>
                     <UsersActionComponent action={action}
-                                          handleError={handleError}
                                           handleActionChange={handleActionChange}
 
                     />
-                </Box>
+                </StyledBox>
                 <UsersTableComponent roles={roles}
                                      valueRoles={valueRoles}
                                      chunckUserList={chunckUserList}
@@ -347,8 +344,12 @@ function UsersComponent({t}) {
                                                  getRegisteredUser={getRegisteredUser} userNameList={userNameList}
                                                  userMailList={userMailList}/>
                 </Box>
-                <PaginationComponent onChange={paginate}/>
-            </Paper>
+
+                <StyledPaginationBox>
+                    <Pagination count={(totalPage)} onChange={paginate}/>
+                </StyledPaginationBox>
+            </StyledPaper>
+
         </UserContext.Provider>);
 }
 

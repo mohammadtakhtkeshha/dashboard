@@ -40,6 +40,7 @@
     "react-scripts": "3.4.1",
     "react-toastify": "^6.0.8",
     "reactjs-file-uploader": "^1.0.8",
+    "styled-components": "^5.2.0",
     "suneditor-react": "^2.12.5",
     "sweetalert": "^2.1.2"
   },
@@ -66,5 +67,8 @@
   },
   "_moduleAliases": {
     "foo": "dist"
+  },
+    "resolutions": {
+    "styled-components": "^5"
   }
 }

@@ -143,7 +143,7 @@ function CommentDashboardComponent({t}) {
     };
 
     let deleteComment =()=>{
-        console.log('delete');
+
     }
     return (
         <>

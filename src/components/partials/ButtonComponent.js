@@ -1,7 +1,6 @@
 import React from 'react';
 import {Button , Typography} from '@material-ui/core';
 import {makeStyles} from "@material-ui/core/styles/index";
-import {primary} from "./Colors";
 
 const useClass =makeStyles(()=>({
     button:props=>({
@@ -39,8 +38,7 @@ export default function ButtonComponent(props) {
             startIcon={props.startIcon}
             endIcon={props.endIcon}
             background={props.background}
-            value={props.value}
-        >
+            value={props.value}>
             <Typography>{props.text}</Typography>
         </Button>);
 }

@@ -2,117 +2,127 @@ import React, {useContext, useEffect, useState} from "react";
 import clsx from "clsx";
 import {withNamespaces} from 'react-i18next';
 
-
 import {makeStyles} from "@material-ui/styles";
-import {Box, Paper, Typography} from '@material-ui/core';
+import {Box, Typography} from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 
 import {useStyles} from "assets/js/content/contents"
 import ContentRegisterModalComponent from "./partials/ContentRegisterModalComponent";
-import ContentSearchExpansion from "./partials/ContentSearchExpansion";
+import ContentSearchExpansion from "./partials/ContentsFilterComponent";
 import TitleComponent from "components/partials/TitleComponent";
 import contentService from "core/services/content.service";
-import {danger} from "methods/swal";
 import AppContext from "contexts/AppContext";
 import ContentActionComponent from "./partials/ContentActionComponent";
 import ContentTableComponent from "./partials/ContentTableComponent";
-import ContentContext from "../../../contexts/ContentContext";
+import {success} from "methods/swal";
+import ContentsContext from "contexts/ContentsContext";
+import {StyledPaper, StyledHead, StyledHeadTypography, StyledButton, StyledBox} from "../../../assets/js/App";
+import {StyledPaginationBox} from "assets/js/pagination";
 
 const useStyle = makeStyles(useStyles);
 
 function ContentsComponent({t}) {
     let perPage = 5;
     const appContext = useContext(AppContext);
-    const contentContext = useContext(ContentContext);
     const classes = useStyle();
     const [openRegisterForm, setOpenRegisterForm] = React.useState(false);
     const [selectedCheckBoxes, setSelectedCheckBoxes] = useState([]);
     const [page, setPage] = useState(0);
     const [totalPage, setTotalPage] = useState(1);
     const [contents, setContents] = useState([]);
-    const [errors, setErrors] = useState({});
-    const [content, setContent] = useState({
-        type: {
-            target_id: "article"
-        },
-        title: "",
-        body: "",
-        field_domain_access: {},
-        field_domain_all_affiliates: true,
-        field_domain_source: {},
-        field_field_galeries: {},
-        field_files: {},
-        field_image: {},
-        field_rotitr: "",
-        field_sotitr: "",
-        field_sounds: {},
-        field_tags: {},
-        field_seo_list: {}
-    });
-
-
-    let handleError = (error) => {
-        danger(t('translation:error'), t('translation:ok'));
-        appContext.toggleLoading(false);
-        console.log(error);
-    };
+    const [contentTypeList, setContentTypeList] = useState([]);
+    const [chunckContents, setChunckContents] = useState();
 
     let getContents = () => {
         contentService.getContents().then((response) => {
-                debugger
                 let contents = response.data;
                 setContents(contents);
                 let currentTotalPage = Math.ceil(response.data.length / perPage);
                 setTotalPage(currentTotalPage);
             }
         ).catch(function (error) {
-            handleError(error);
+            appContext.handleError(error);
         });
     };
-
-    useEffect(() => {
-        getContents(page);
-    }, []);
 
     let paginate = (e, value) => {
         setPage(value - 1);
         getContents(value);
     };
 
-    return (<ContentContext.Provider value={{content: content , setContent: setContent , setErrors: setErrors , errors: errors}}>
-        <TitleComponent title="contents"/>
-        <Paper className={classes.mypaper}>
-            <Box className="head">
-                <Typography className="text">{t('contents:contentList')}</Typography>
-                <button type="button" onClick={() => setOpenRegisterForm(true)}>
-                    <Typography>{t('translation:registerContent')}</Typography>
-                </button>
-            </Box>
-            <Box className={clsx("filter", "box")}>
-                <ContentSearchExpansion/>
-            </Box>
+    const afterUpdateHandler = (newContents, currentLength, changeContent, action) => {
+        changeContent && setContents([...newContents]);
+        let currentTotalPage = Math.ceil(currentLength / perPage);
+        setTotalPage(currentTotalPage);
+        chunckHandler(newContents);
+        action && success(t(`translation:${action}`), t('translation:ok'));
+    }
 
-            <Box className={clsx("box")}>
-                <ContentActionComponent/>
-            </Box>
-            <ContentTableComponent selectedCheckBoxes={selectedCheckBoxes} contents={contents}
-                                   setSelectedCheckBoxes={setSelectedCheckBoxes}
-                                   perPage={perPage}
-                                   setTotalPage={setTotalPage}
-                                   page={page}
-                                   setContents={setContents}/>
-            <Box className={classes.pagination}>
-                <Pagination count={(totalPage)} onChange={paginate}/>
-            </Box>
-        </Paper>
+    let getContentType = () => {
+        contentService.getContentTypeList().then((response) => {
+            setContentTypeList(response.data);
+        }).catch((error) => {
+            appContext.handleError(error);
+        });
+    }
 
-        <Box>
-            <ContentRegisterModalComponent
-                clickCloseRegisterForm={() => setOpenRegisterForm(false)}
-                openRegisterForm={openRegisterForm}
-            />
-        </Box>
-    </ContentContext.Provider>);
+    const chunckHandler = (currentContents) => {
+        let contentLength = currentContents.length;
+        let newList = [];
+        for (let i = 0; i < contentLength; i += perPage) {
+            let myChunk = currentContents.slice(i, i + perPage);
+            newList.push(myChunk);
+        }
+        setChunckContents(newList);
+    };
+
+    useEffect(() => {
+        getContents(page);
+        getContentType();
+    }, []);
+
+    return (<ContentsContext.Provider value={{
+            contents: contents,
+            chunckHandler: chunckHandler,
+            chunckContents: chunckContents,
+            afterUpdateHandler: afterUpdateHandler,
+            contentTypeList: contentTypeList
+        }}>
+            <StyledPaper>
+                <StyledHead>
+                    <StyledHeadTypography>{t('contents:contentList')}</StyledHeadTypography>
+                    <StyledButton onClick={() => setOpenRegisterForm(true)}>
+                        <Typography>{t('translation:registerContent')}</Typography>
+                    </StyledButton>
+                </StyledHead>
+                <StyledBox>
+                    <ContentSearchExpansion/>
+                </StyledBox>
+                <StyledBox>
+                    <ContentActionComponent selectedCheckBoxes={selectedCheckBoxes}/>
+                </StyledBox>
+                <StyledBox>
+                    <ContentTableComponent selectedCheckBoxes={selectedCheckBoxes} contents={contents}
+                                           setSelectedCheckBoxes={setSelectedCheckBoxes}
+                                           perPage={perPage}
+                                           setTotalPage={setTotalPage}
+                                           page={page}
+                                           setContents={setContents}
+                    />
+                </StyledBox>
+                <StyledPaginationBox>
+                    <Pagination count={(totalPage)} onChange={paginate}/>
+                </StyledPaginationBox>
+            </StyledPaper>
+            <TitleComponent title="contents"/>
+            <Box>
+                <ContentRegisterModalComponent
+                    clickCloseRegisterForm={() => setOpenRegisterForm(false)}
+                    openRegisterForm={openRegisterForm}
+                />
+            </Box>
+        </ContentsContext.Provider>
+    );
 }
 
 export default withNamespaces('contents')(ContentsComponent);

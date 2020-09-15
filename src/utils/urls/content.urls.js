@@ -19,15 +19,17 @@ export const uploadFileUrl=`${baseUrl}/file/upload/node/article/field_files?_for
 export const getContentsUrl = 'http://dash.webrbp.ir/api/all_content?_format=json';
 
 export const registerContentUrl = 'http://dash.webrbp.ir/entity/node?_format=json';
-
 export const deleteContentUrl = (id) => {
+
     return `http://dash.webrbp.ir/node/${id}?_format=json`;
 }
 export const getContentUrl = (id) => {
     return `http://dash.webrbp.ir/node/${id}?_format=json`;
 }
 
+export const getContentTypeListUrl = 'http://dash.webrbp.ir/api/content_types';
+
 
 export default {getTagsUrl,domainSourceUrl,getCategoriesUrl,uploadSingImgUrl,
     uploadVideoUrl,uploadVoiceUrl,uploadMultiImgUrl,uploadFileUrl,getContentsUrl,registerContentUrl,
-    deleteContentUrl,getContentUrl};
+    deleteContentUrl,getContentUrl,getContentTypeListUrl};

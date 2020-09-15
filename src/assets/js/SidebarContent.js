@@ -93,8 +93,8 @@ export const styles = makeStyles((theme) => ({
                 flexDirection: 'column',
                 alignItems: 'center',
                 height: 'calc(100vh - 75px)',
-                '& button:nth-of-type(4)': {
-                    marginTop: 'auto'
+                '& button:last-child': {
+                    marginTop: 'auto',
                 },
                 '& .Mui-selected': {
                     '&::after': {

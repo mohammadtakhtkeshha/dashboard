@@ -2,9 +2,9 @@ import React, {useState, useEffect} from "react";
 import {Box, Typography, Paper} from "@material-ui/core";
 import * as contentChart from 'assets/js/dashboard/ContentChart';
 
-export default function ContentDashboardComponent({contents}) {
+export default function ContentChartComponent({contents}) {
+    const classes = contentChart.useStyles();
     const [customContents, setCustomContents] = useState([]);
-
     const [totalNumberOfContents, setTotalNumberOfContents] = useState('');
 
     let setCustomContentHandler = (value) => {
@@ -13,19 +13,12 @@ export default function ContentDashboardComponent({contents}) {
         let arr = [...contents];
         setCustomContents([...arr]);
         return arr;
-    };
-
-    useEffect(() => {
-        setCustomContentHandler(contents);
-    }, [contents]);
+    }
 
     let getTotalNumberOfContent = () => {
         let length = contents.length;
         setTotalNumberOfContents(length);
-    };
-    useEffect(() => {
-        getTotalNumberOfContent();
-    }, [contents]);
+    }
 
     let customizedContents = (value) => {
         return value.reduce((initial, currentValue) => {
@@ -36,11 +29,15 @@ export default function ContentDashboardComponent({contents}) {
             initial[key].push(currentValue);
             return initial;
         }, {});
-    };
+    }
 
+    useEffect(() => {
+        getTotalNumberOfContent();
+    }, [contents]);
 
-
-    const classes = contentChart.useStyles();
+    useEffect(() => {
+        setCustomContentHandler(contents);
+    }, [contents]);
 
     return (
         <>

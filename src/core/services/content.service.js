@@ -51,7 +51,6 @@ export function getContent(id) {
     let url = contentUrl.getContentUrl(id);
     return axios.get(url);
 }
-
 export function registerContent(content) {
     let url = contentUrl.registerContentUrl;
     let data = {
@@ -112,6 +111,11 @@ export function registerContent(content) {
     return axios.post(url, content, aacaAuthauHeader);
 }
 
+export function getContentTypeList() {
+    let url = contentUrl.getContentTypeListUrl;
+    return axios.get(url);
+}
+
 export default {
     getDomainSource,
     getCategories,
@@ -123,5 +127,6 @@ export default {
     registerContent,
     getContents,
     deleteContent,
+    getContentTypeList,
     getContent
 };

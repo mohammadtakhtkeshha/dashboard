@@ -6,6 +6,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import {Box, Checkbox, Typography} from '@material-ui/core/index';
+import {makeStyles} from "@material-ui/styles";
 
 import ButtonComponent from 'components/partials/ButtonComponent'
 import Input from "components/partials/inputComponent";
@@ -15,7 +16,6 @@ import {danger, success} from "methods/swal";
 import {useStyles} from 'assets/js/user/NewUser';
 import UploadImg from "components/partials/UploadImg";
 import AppContext from 'contexts/AppContext';
-import {makeStyles} from "@material-ui/styles";
 import UserContext from "contexts/UserContext";
 
 const currentStyles=makeStyles(useStyles);

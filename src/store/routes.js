@@ -6,10 +6,9 @@ import EditUserComponent from '../components/content/user/usersList/forms/EditUs
 import ContentsComponent from '../components/content/content/index';
 import CommentsComponent from '../components/content/comment/CommentsComponent';
 import DashboardComponent from '../components/content/dashboard/DashboardComponent';
-import NewContentComponent from '../components/content/content/forms/newContent';
-import TermsComponent from "../components/content/content/partials/TermsComponent";
-import VocabsComponent from "../components/content/content/partials/VocabsComponent";
-import TagsComponent from "../components/content/content/partials/TagsComponent";
+import NewContentComponent from '../components/content/content/newContent';
+import VocabsComponent from "../components/content/vacabs/index";
+import TermsComponent from "../components/content/vacabs/terms/index";
 
 
 import React from "react";
@@ -52,19 +51,15 @@ export const routes = [
         breadcrumbs: () => <BreadcrumbsComponent bread="new content"/>,
         component: () => <NewContentComponent/>
     },
-
     {
-        path: '/terms',
+        path: '/vocabs/terms',
         breadcrumbs: () => <BreadcrumbsComponent bread="terms"/>,
         component: () => <TermsComponent/>
-    },{
+    },
+    {
         path: '/vocabs',
         breadcrumbs: () => <BreadcrumbsComponent bread="vocabs"/>,
         component: () => <VocabsComponent/>
-    },{
-        path: '/tags',
-        breadcrumbs: () => <BreadcrumbsComponent bread="vocabs"/>,
-        component: () => <TagsComponent/>
     },
     {
         path: '/',

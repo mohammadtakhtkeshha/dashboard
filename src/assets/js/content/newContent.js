@@ -7,8 +7,8 @@ export const useStyles = (theme) => ({
                 }
             },
             '& .tabContent': {
-                width:'100%',
-                textAlign:'center',
+                width: '100%',
+                textAlign: 'center',
                 '& .block': {
                     display: 'flex',
                     flexDirection: 'column',
@@ -45,7 +45,12 @@ export const useStyles = (theme) => ({
                             }
                         }
                     },
-
+                    '& .date': {
+                        marginBottom: '1rem',
+                        '&>div': {
+                            width: '100%'
+                        }
+                    }
                 },
                 '& .card': {
                     marginBottom: '1rem',
@@ -101,7 +106,7 @@ export const useStyles = (theme) => ({
 
 });
 
-export const bootstrapInput =(theme) => ({
+export const bootstrapInput = (theme) => ({
     root: {
         'label + &': {
             marginTop: theme.spacing(3),
@@ -136,11 +141,11 @@ export const bootstrapInput =(theme) => ({
     },
 });
 
-export const useTabStyless =(theme) => ({
+export const useTabStyless = (theme) => ({
     root: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
     },
 });
 
-export default {useStyles,bootstrapInput,useTabStyless};
+export default {useStyles, bootstrapInput, useTabStyless};

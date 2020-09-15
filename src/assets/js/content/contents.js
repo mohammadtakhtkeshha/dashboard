@@ -88,40 +88,6 @@ export const useStyles = (theme) => ({
                 }
             }
         },
-        '& .filter': {
-            '& #details': {
-                '& .inputBlock': {
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    width: '100%',
-                    '& input': {
-                        margin: '5px 5px',
-                        padding: '18.5px 14px'
-                    },
-                    '& div': {
-                        width: '24%',
-                        padding: '2px 5px',
-                        '@media(max-width:1385px)': {
-                            width: '30%',
-                        },
-                        '@media(max-width:471px)': {
-                            width: '100%',
-                        }
-                    },
-                    '& .MuiTextField-root': {
-                        display: 'flex',
-                        justifyContent: 'center',
-                        marginBottom: '1rem',
-                        '& div': {
-                            width: '100%',
-                            height: '60px',
-                            marginTop: '8px'
-                        }
-                    }
-                }
-            }
-
-        },
         '& .box': {
             borderRadius: '4px',
             backgroundColor: colors.white,
@@ -137,32 +103,4 @@ export const useStyles = (theme) => ({
     },
 });
 
-export const styledTableCell = (theme) => ({
-    head: {
-        backgroundColor: colors.primary,
-        color: theme.palette.common.white,
-        '&:first-child': { //for checkbox
-            width: '1%',
-            paddingLeft: 0,
-            paddingRight: 0,
-        }
-    },
-    body: {
-        fontSize: 14,
-        '&:first-child': { //for checkbox
-            width: '1%',
-            paddingLeft: 0,
-            paddingRight: 0,
-        }
-    },
-});
-
-export const styledTableRow = (theme) => ({
-    root: {
-        '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.action.hover,
-        },
-    },
-});
-
-export default {useStyles, styledTableCell, styledTableRow};
+export default {useStyles};
