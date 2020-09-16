@@ -68,7 +68,7 @@
   "_moduleAliases": {
     "foo": "dist"
   },
-    "resolutions": {
+  "resolutions": {
     "styled-components": "^5"
   }
 }

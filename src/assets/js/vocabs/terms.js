@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import {primary} from "components/partials/Colors";
 
 export const styledTableCell =(theme) => ({
@@ -11,4 +12,8 @@ export const styledTableCell =(theme) => ({
     },
 });
 
-export default {styledTableCell};
+export const StyledNewTerm = styled.div`
+    border:1px solid red;
+`
+
+export default {styledTableCell,StyledNewTerm};

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {blue, primary, red, white} from "components/partials/Colors";
+import * as colors from "../../components/partials/Colors";
 
 export const StyledPaper = styled.div`
         margin: 1rem;
@@ -101,8 +102,55 @@ export const styledTableRow = (theme) => ({
         },
     },
 });
+export const modalStyles = (theme) => ({
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        '& #modal': {
+            width:'30%',
+            border: '0!important',
+            '&:focus': {
+                outline: '0!important',
+            },
+            position: 'relative',
+            '& .header': {
+                position: 'absolute',
+                top: '0',
+                left: 0,
+                right: 0,
+                height: '40px',
+                backgroundColor: colors.primary,
+                '& button': {
+                    background: 'transparent',
+                    cursor: 'pointer',
+                    border: 0,
+                    '&:focus': {
+                        outline: '0!important',
+                    },
+                    '& svg': {
+                        color: colors.white,
+                        margin: '9px 9px',
+                    }
+                }
+            },
+            '& .body': {
+                backgroundColor: colors.white,
+                marginTop: '2.5rem',
+            }
+        }
+    }
+});
+
+export const StyledInput = styled.input`
+    margin: .2rem;
+    height: 30px;
+    width: 99%;
+`
+
+
 
 export default {styledTableRow,styledTableCell,StyledPaper,StyledActionButtonBlock,
-    StyledHead, HeadButtonStyled, StyledHeadTypography,StyledButton,StyledBox};
+    StyledHead, HeadButtonStyled, StyledHeadTypography,StyledButton,StyledBox,StyledInput,modalStyles};
 
 

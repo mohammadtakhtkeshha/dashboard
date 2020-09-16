@@ -7,40 +7,36 @@ import {Box} from "@material-ui/core";
 import CancelIcon from "@material-ui/icons/Cancel";
 import {makeStyles} from "@material-ui/styles";
 
-import {currentStyles} from "assets/js/vocabs/vocabRegisterModal";
+import {modalStyles} from "assets/js/App";
+import NewTermComponent from "./NewTermComponent";
 
+const styles = makeStyles(modalStyles);
 
-const styles = makeStyles(currentStyles);
-
-function NewTermModalComponent({open, setOpen}) {
+function NewTermModalComponent({openTermForm,setOpenTermForm}) {
     const classes = styles();
-
-    const handleClose = () => {
-        setOpen(false);
-    };
 
     return (
         <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             className={classes.modal}
-            open={open}
-            onClose={handleClose}
+            open={openTermForm}
+            onClose={setOpenTermForm}
             closeAfterTransition
             BackdropComponent={Backdrop}
             BackdropProps={{
                 timeout: 500,
             }}
         >
-            <Fade in={open} id="modal">
+            <Fade in={openTermForm} id="modal">
                 <div className={classes.paper} dir="rtl">
                     <Box className="header">
-                        <button onClick={handleClose}>
+                        <button onClick={setOpenTermForm}>
                             <CancelIcon/>
                         </button>
                     </Box>
                     <Box className="body">
-                        {/*<NewVocabsComponent/>*/}
+                        <NewTermComponent/>
                     </Box>
                 </div>
             </Fade>

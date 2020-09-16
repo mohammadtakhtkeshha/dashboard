@@ -16,9 +16,10 @@ import {useStyles} from "assets/js/user/users";
 
 const useStyle=makeStyles(useStyles);
 
-function UserRegisterModalComponent({t,openNewUser,handleCloseUserForm,getRegisteredUser,userMailList,userNameList}) {
+function UserRegisterModalComponent({t, data, openNewUser,handleCloseUserForm,getRegisteredUser,userMailList,userNameList}) {
     let lang = i18next.language;
     const classes = useStyle();
+    console.log(data);
 
     return(<>
             <Modal
@@ -42,8 +43,8 @@ function UserRegisterModalComponent({t,openNewUser,handleCloseUserForm,getRegist
                             </button>
                         </Box>
                         <Box className="body">
-                            <NewUserComponent name="negar" getRegisteredUser={(user) => getRegisteredUser(user)}
-                                              userNameList={userNameList}
+                            <NewUserComponent
+                                            userNameList={userNameList}
                                               userMailList={userMailList}
                             />
                         </Box>

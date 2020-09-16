@@ -8,6 +8,7 @@ export const StyledPaginationBox = styled.div`
             padding: 20px;
             & ul{
                 & li {
+                    cursor:pointer;
                     & button {
                         border-radius: 0;
                         margin: 0;

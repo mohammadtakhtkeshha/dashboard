@@ -8,9 +8,6 @@ import {Box, Typography} from "@material-ui/core";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import TextField from "@material-ui/core/TextField";
 
-import Input from "components/partials/inputComponent";
-import ButtonComponent from "components/partials/ButtonComponent";
-import {primary} from "components/partials/Colors";
 import ContentsContext from "contexts/ContentsContext";
 import {StyledFilterBlock} from "assets/js/content/contentFilter";
 import {StyledButton} from "assets/js/App";
@@ -68,8 +65,8 @@ function ContentsFilterComponent({t}) {
         const currentValue = e.currentTarget.value;
         setContentType(currentValue);
         setSearchedContent(prevState => {
-            return{
-                ...prevState,contentType: currentValue
+            return {
+                ...prevState, contentType: currentValue
             }
         });
     }
@@ -96,42 +93,40 @@ function ContentsFilterComponent({t}) {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
                 <StyledFilterBlock>
-                  <Box>
-                      {/*<Input placeholder={t('translation:title')}*/}
-                      {/*       handleClick={changeTitle}/>*/}
-                             <input placeholder={t('translation:title')} onClick={changeTitle}/>
-                      <TextField
-                          id="outlined-select-role-native"
-                          select
-                          value={status}
-                          onChange={changeStatus}
-                          SelectProps={{
-                              native: true,
-                          }}
-                          variant="outlined"
-                      >
-                          <option value="">{t('translation:status')}</option>
-                          <option value="published">{t('translation:published')}</option>
-                          <option value="unpublished">{t('translation:unpublished')}</option>
-                      </TextField>
-                      <TextField
-                          id="outlined-select-role-native"
-                          select
-                          value={contentType}
-                          onChange={changeContentType}
-                          SelectProps={{
-                              native: true,
-                          }}
-                          variant="outlined"
-                      >
-                          <option>{t('contents:contentType')}</option>
-                          {contentsContext.contentTypeList?.map((item, index) => (
-                              <option key={index} value={item.name}>
-                                  {item.name}
-                              </option>
-                          )) || ''}
-                      </TextField>
-                  </Box>
+                    <Box>
+                        <input placeholder={t('translation:title')} onClick={changeTitle}/>
+                        <TextField
+                            id="outlined-select-role-native"
+                            select
+                            value={status}
+                            onChange={changeStatus}
+                            SelectProps={{
+                                native: true,
+                            }}
+                            variant="outlined"
+                        >
+                            <option value="">{t('translation:status')}</option>
+                            <option value="published">{t('translation:published')}</option>
+                            <option value="unpublished">{t('translation:unpublished')}</option>
+                        </TextField>
+                        <TextField
+                            id="outlined-select-role-native"
+                            select
+                            value={contentType}
+                            onChange={changeContentType}
+                            SelectProps={{
+                                native: true,
+                            }}
+                            variant="outlined"
+                        >
+                            <option>{t('contents:contentType')}</option>
+                            {contentsContext.contentTypeList?.map((item, index) => (
+                                <option key={index} value={item.name}>
+                                    {item.name}
+                                </option>
+                            )) || ''}
+                        </TextField>
+                    </Box>
                     <StyledButton onClick={doFilterHandler}>
                         {t('translation:do')}
                     </StyledButton>

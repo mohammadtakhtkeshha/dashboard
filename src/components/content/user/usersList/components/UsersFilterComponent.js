@@ -1,6 +1,5 @@
 import React, {useContext, useState} from "react";
 import {withNamespaces} from "react-i18next";
-import clsx from "clsx";
 
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
@@ -14,7 +13,7 @@ import UserContext from "contexts/UserContext";
 import {StyledFilterBlock} from "assets/js/user/users";
 import {StyledButton} from "assets/js/App";
 
-function UsersFilterComponent({t, chunckUser, changeChunckUserList}) {
+function UsersFilterComponent({t, chunkUsers, changeChunckUserList}) {
     const [role, setRole] = useState('');
     const userContext = useContext(UserContext);
     const [searchedUser, setSearcheUser] = useState({
@@ -47,7 +46,7 @@ function UsersFilterComponent({t, chunckUser, changeChunckUserList}) {
         });
         let currentTotalNumber = filteredUser.length;
         let currentTotalPage = Math.ceil(currentTotalNumber / userContext.perPage);
-        let chunckedUsers = chunckUser(filteredUser, userContext.perPage);
+        let chunckedUsers = chunkUsers(filteredUser, userContext.perPage);
         changeChunckUserList(chunckedUsers, currentTotalPage);
     }
 

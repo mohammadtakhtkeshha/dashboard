@@ -7,7 +7,7 @@ export function getVocabs() {
 }
 
 export function getTerms(term) {
-    return axios.get(getTermsUrl('tags'), ahchauthHeader);
+    return axios.get(getTermsUrl(term), ahchauthHeader);
 }
 
 export default { getVocabs,getTerms};

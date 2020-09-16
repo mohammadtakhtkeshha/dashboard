@@ -8,19 +8,18 @@ import FormControl from '@material-ui/core/FormControl';
 import {Box, Checkbox, Typography} from '@material-ui/core/index';
 import {makeStyles} from "@material-ui/styles";
 
-import ButtonComponent from 'components/partials/ButtonComponent'
 import Input from "components/partials/inputComponent";
 import userService from 'core/services/user.service';
-import {primary, white} from "components/partials/Colors";
 import {danger, success} from "methods/swal";
 import {useStyles} from 'assets/js/user/NewUser';
 import UploadImg from "components/partials/UploadImg";
 import AppContext from 'contexts/AppContext';
 import UserContext from "contexts/UserContext";
+import {StyledButton} from "assets/js/App";
 
-const currentStyles=makeStyles(useStyles);
+const currentStyles = makeStyles(useStyles);
 
-function NewUserComponent({t, getRegisteredUser, userNameList,userMailList}) {
+function NewUserComponent({t, userNameList, userMailList}) {
     const classes = currentStyles();
     const [keyRoles, setKeyRoles] = useState([]);
     const [valueRoles, setValueRoles] = useState();
@@ -38,12 +37,7 @@ function NewUserComponent({t, getRegisteredUser, userNameList,userMailList}) {
         roles: '',
         status: false,
     });
-    console.log(user);
     const [sendIdAfterUpload, setSendIdAfterUpload] = useState('');
-
-    useEffect(() => {
-        getRoles();
-    }, []);
 
     let getRoles = () => {
         userService.getRoles().then((response) => {
@@ -56,23 +50,17 @@ function NewUserComponent({t, getRegisteredUser, userNameList,userMailList}) {
         });
     };
 
-    const register = () => {
-        saveUser();
-    };
-
     const saveUser = () => {
-        let nameValid = userContext.nameValidation(user.name,'null');
-        let passValid = userContext.passValidation(user.pass,"add");
-        let mail = userContext.mailValidation(user.mail,"null");
-        let confirmPas = userContext.confirmPassValidation(user.pass,confirmPass);
-        if (nameValid || passValid || mail || confirmPas) {
+       userContext.allValidation(user,confirmPass);
+       debugger
+        if(true){
             return
         }
         appContext.toggleLoading(true);
         userService.registerUser(user).then((response) => {
             let item = response.data;
             appContext.toggleLoading(false);
-            getRegisteredUser({
+            userContext.getRegisteredUser({
                 uid: item.uid,
                 name: item.name !== undefined ? item.name : '',
                 field_name: item.field_name !== undefined ? item.field_name : '',
@@ -83,15 +71,14 @@ function NewUserComponent({t, getRegisteredUser, userNameList,userMailList}) {
                 user_picture: item.user_picture !== undefined ? item.user_picture.url : ''
             });
             success(t('translation:successRegistered'), t('translation:ok'));
-
-        }).catch((response) => {
-            danger(t('translation:error'),t('translation:ok'));
+        }).catch((error) => {
+            appContext.handleError(error);
         });
     };
 
     let removedFileId = (id) => {
-        setUser(prevState=>{
-            return {...prevState,user_picture: ""}
+        setUser(prevState => {
+            return {...prevState, user_picture: ""}
         });
     };
 
@@ -137,13 +124,13 @@ function NewUserComponent({t, getRegisteredUser, userNameList,userMailList}) {
             }
         });
         if (field === 'name') {
-            userContext.nameValidation(currentName,'null');
+            userContext.nameValidation(currentName, 'null');
         }
         if (field === 'mail') {
-            userContext.mailValidation(currentName,"null");
+            userContext.mailValidation(currentName, "null");
         }
         if (field === 'pass') {
-            userContext.passValidation(currentName,"add");
+            userContext.passValidation(currentName, "add");
         }
 
     };
@@ -151,7 +138,7 @@ function NewUserComponent({t, getRegisteredUser, userNameList,userMailList}) {
     let handleConfirmPass = (e) => {
         let currentCofrimPass = e.target.value;
         setConfirmPass(currentCofrimPass);
-        userContext.confirmPassValidation(user.pass,currentCofrimPass);
+        userContext.confirmPassValidation(user.pass, currentCofrimPass);
     };
 
     let handleCheckRoles = (e) => {
@@ -193,6 +180,10 @@ function NewUserComponent({t, getRegisteredUser, userNameList,userMailList}) {
     let uploadedFile = (file) => {
         saveFile(file);
     }
+
+    useEffect(() => {
+        getRoles();
+    }, []);
 
     return (
         <>
@@ -241,7 +232,7 @@ function NewUserComponent({t, getRegisteredUser, userNameList,userMailList}) {
                                small='' handleClick={e => handleChange(e, "mail")}/>
                         {userContext.errors.errorMail.mail ?
                             <Typography className="error">{userContext.errors.errorMail.mail}</Typography> : ''}
-                            {userContext.errors.errorMail.unique ?
+                        {userContext.errors.errorMail.unique ?
                             <Typography className="error">{userContext.errors.errorMail.unique}</Typography> : ''}
                     </Box>
                     <Box className="inputBlock">
@@ -255,19 +246,22 @@ function NewUserComponent({t, getRegisteredUser, userNameList,userMailList}) {
                     <Box className="inputBlock">
                         <Input type="password" placeholder={t('users:confirm password')}
                                label={t('users:confirm password')}
-                               small='' handleClick={e => handleConfirmPass(e)} error={userContext.errors.confirm_pass}/>
+                               small='' handleClick={e => handleConfirmPass(e)}
+                               error={userContext.errors.confirm_pass}/>
                         {userContext.errors.confirmPass.harmony ?
                             <Typography className="error">{userContext.errors.confirmPass.harmony}</Typography> : ''}
                     </Box>
                     {/*------------------------------------------------------ upload image -----------------------------------------*/}
                     <Box>
-                        <UploadImg multiple={false} title={t('translation:choosePic')} sendIdAfterUpload={sendIdAfterUpload}
+                        <UploadImg multiple={false} title={t('translation:choosePic')}
+                                   sendIdAfterUpload={sendIdAfterUpload}
                                    getFile={uploadedFile} removedFileId={removedFileId}
                         />
                     </Box>
                     <Box mt={2}>
-                        <ButtonComponent color={white} background={primary} clicked={register}
-                                         text={t('translation:register')}/>
+                        <StyledButton onClick={saveUser}>
+                            {t('translation:register')}
+                        </StyledButton>
                     </Box>
                 </Box>
             </Box>

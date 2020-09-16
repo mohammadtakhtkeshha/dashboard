@@ -1,12 +1,10 @@
 import React, {useContext, useEffect, useState} from "react";
-import clsx from "clsx";
 import {withNamespaces} from 'react-i18next';
 
-import {makeStyles} from "@material-ui/styles";
+//
 import {Box, Typography} from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 
-import {useStyles} from "assets/js/content/contents"
 import ContentRegisterModalComponent from "./partials/ContentRegisterModalComponent";
 import ContentSearchExpansion from "./partials/ContentsFilterComponent";
 import TitleComponent from "components/partials/TitleComponent";
@@ -18,13 +16,10 @@ import {success} from "methods/swal";
 import ContentsContext from "contexts/ContentsContext";
 import {StyledPaper, StyledHead, StyledHeadTypography, StyledButton, StyledBox} from "../../../assets/js/App";
 import {StyledPaginationBox} from "assets/js/pagination";
-
-const useStyle = makeStyles(useStyles);
+import {chunkItem} from "structure/layout";
 
 function ContentsComponent({t}) {
-    let perPage = 5;
     const appContext = useContext(AppContext);
-    const classes = useStyle();
     const [openRegisterForm, setOpenRegisterForm] = React.useState(false);
     const [selectedCheckBoxes, setSelectedCheckBoxes] = useState([]);
     const [page, setPage] = useState(0);
@@ -33,28 +28,32 @@ function ContentsComponent({t}) {
     const [contentTypeList, setContentTypeList] = useState([]);
     const [chunckContents, setChunckContents] = useState();
 
-    let getContents = () => {
+    const getContents = () => {
         contentService.getContents().then((response) => {
                 let contents = response.data;
-                setContents(contents);
-                let currentTotalPage = Math.ceil(response.data.length / perPage);
-                setTotalPage(currentTotalPage);
+                handlePagination(contents);
             }
         ).catch(function (error) {
             appContext.handleError(error);
         });
     };
 
-    let paginate = (e, value) => {
+    const paginate = (e, value) => {
         setPage(value - 1);
         getContents(value);
     };
 
+    const handlePagination = (contents) => {
+        setContents(contents);
+        let currentTotalPage = Math.ceil(contents.length / appContext.perPage);
+        setTotalPage(currentTotalPage);
+    }
+
     const afterUpdateHandler = (newContents, currentLength, changeContent, action) => {
         changeContent && setContents([...newContents]);
-        let currentTotalPage = Math.ceil(currentLength / perPage);
+        let currentTotalPage = Math.ceil(currentLength / appContext.perPage);
         setTotalPage(currentTotalPage);
-        chunckHandler(newContents);
+        chunkItem(newContents);
         action && success(t(`translation:${action}`), t('translation:ok'));
     }
 
@@ -69,8 +68,8 @@ function ContentsComponent({t}) {
     const chunckHandler = (currentContents) => {
         let contentLength = currentContents.length;
         let newList = [];
-        for (let i = 0; i < contentLength; i += perPage) {
-            let myChunk = currentContents.slice(i, i + perPage);
+        for (let i = 0; i < contentLength; i += appContext.perPage) {
+            let myChunk = currentContents.slice(i, i + appContext.perPage);
             newList.push(myChunk);
         }
         setChunckContents(newList);
@@ -104,7 +103,6 @@ function ContentsComponent({t}) {
                 <StyledBox>
                     <ContentTableComponent selectedCheckBoxes={selectedCheckBoxes} contents={contents}
                                            setSelectedCheckBoxes={setSelectedCheckBoxes}
-                                           perPage={perPage}
                                            setTotalPage={setTotalPage}
                                            page={page}
                                            setContents={setContents}

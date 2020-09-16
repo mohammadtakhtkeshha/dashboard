@@ -182,6 +182,12 @@
 //       ...
 //       @return (object) : like this: {id: 52, name: fdsf}
 //       */
+//     /* description
+//          @param(number) : id is uniqe ...
+//           ...
+//           @return (object) : like this: {id: 52, name: fdsf}
+//           */
+//
 //     const getCategories = (id) => {
 //         contentService.getCategories().then((response) => {
 //             let categories = response.data.rows;

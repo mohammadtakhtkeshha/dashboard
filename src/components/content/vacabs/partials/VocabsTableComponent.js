@@ -12,13 +12,15 @@ import {withStyles} from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
 
 import AppContext from "contexts/AppContext";
-import {styledTableCell, styledTableRow } from "assets/js/App";
+import {styledTableCell, styledTableRow} from "assets/js/App";
 
 const StyledTableCell = withStyles(styledTableCell)(TableCell);
 const StyledTableRow = withStyles(styledTableRow)(TableRow);
 
-function VocabsTableComponent({t,vocabs}) {
-    const appContext=useContext(AppContext);
+function VocabsTableComponent({t, chunks, page}) {
+    const appContext = useContext(AppContext);
+
+    console.log(chunks);
     return (<TableContainer component={Paper}>
         <Table aria-label="customized table">
             <TableHead>
@@ -32,13 +34,13 @@ function VocabsTableComponent({t,vocabs}) {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {vocabs.map((vocab, index) =>
+                {chunks[page]?.map((vocab, index) =>
                     <StyledTableRow key={index}>
                         <StyledTableCell align={appContext.currentAlign()}>
-                            {vocab.vid}
+                            {vocab.machine_name}
                         </StyledTableCell>
                         <StyledTableCell align={appContext.currentAlign()}>
-                            <Link to={{ pathname: '/vocabs/terms',state: {vocab: vocab}}}>
+                            <Link to={{pathname: '/vocabs/terms', state: {vocab: vocab.name}}}>
                                 <Typography>{t('vocabs:termList')}</Typography>
                             </Link>
                         </StyledTableCell>

@@ -31,7 +31,7 @@ const StyledTableCell = withStyles(styledTableCell)(TableCell);
 const StyledTableRow = withStyles(styledTableRow)(TableRow);
 const currentStyles = makeStyles(useStyles);
 
-function UsersTableComponent({t, roles, valueRoles, chunckUserList}) {
+function UsersTableComponent({t, roles, valueRoles, chunkUsers}) {
     let id = '';
     const classes = currentStyles();
     const lang = i18next.language;
@@ -50,8 +50,8 @@ function UsersTableComponent({t, roles, valueRoles, chunckUserList}) {
     };
 
     const editedUser = (user) => {
-        let changedUser = chunckUserList[userContext.page].filter(item => item.uid === user.uid);
-        let editedUserIndex = chunckUserList[userContext.page].findIndex(item => item === changedUser[0]);
+        let changedUser = chunkUsers[userContext.page].filter(item => item.uid === user.uid);
+        let editedUserIndex = chunkUsers[userContext.page].findIndex(item => item === changedUser[0]);
         if (user.role !== "") {
             let keyRoles = [];
             for (let role of (user.role.split(','))) {
@@ -61,8 +61,8 @@ function UsersTableComponent({t, roles, valueRoles, chunckUserList}) {
         } else {
             user.role = t('translation:noRole')
         }
-        chunckUserList[userContext.page][editedUserIndex] = user;
-        userContext.passChunckUserList([...chunckUserList]);
+        chunkUsers[userContext.page][editedUserIndex] = user;
+        userContext.passChunckUserList([...chunkUsers]);
         setOpenEditForm({show: false, id: ''});
     };
 
@@ -93,7 +93,7 @@ function UsersTableComponent({t, roles, valueRoles, chunckUserList}) {
 
     const allCheckboxHandler = (e) => {
         let isChecked = e.currentTarget.checked;
-        let currentUserList = chunckUserList[userContext.page];
+        let currentUserList = chunkUsers[userContext.page];
         let ids = currentUserList.map(user => user.uid);
         if (!isChecked) {
             userContext.handleSelectedCheckBoxes(
@@ -174,7 +174,7 @@ function UsersTableComponent({t, roles, valueRoles, chunckUserList}) {
                         <TableRow>
                             <StyledTableCell align="right">
                                 <Checkbox
-                                    checked={((userContext.selectedCheckBoxes.length) === ((chunckUserList[userContext.page] !== undefined) ? chunckUserList[userContext.page].length : 'zero'))}
+                                    checked={((userContext.selectedCheckBoxes.length) === ((chunkUsers[userContext.page] !== undefined) ? chunkUsers[userContext.page].length : 'zero'))}
                                     onChange={(e) => allCheckboxHandler(e)}
                                     inputProps={{'aria-label': 'primary checkbox'}}
                                 />
@@ -187,7 +187,7 @@ function UsersTableComponent({t, roles, valueRoles, chunckUserList}) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {chunckUserList[userContext.page] !== undefined && chunckUserList[userContext.page].length > 0 ? (chunckUserList[userContext.page].map((user, index) =>
+                        {chunkUsers[userContext.page] !== undefined && chunkUsers[userContext.page].length > 0 ? (chunkUsers[userContext.page].map((user, index) =>
                             (<React.Fragment key={index}>
                                 <StyledTableRow>
                                     <StyledTableCell align="right">
@@ -222,7 +222,7 @@ function UsersTableComponent({t, roles, valueRoles, chunckUserList}) {
                                         <StyledActionButtonBlock>
                                             <button onClick={()=>handleEditFormOpen(user.uid)}>
                                                 <EditIcon/>
-                                                <Typography variant="span">
+                                                <Typography>
                                                     {t('translation:edit')}
                                                 </Typography>
                                             </button>
