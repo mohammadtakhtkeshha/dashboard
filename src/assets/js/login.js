@@ -216,6 +216,7 @@ export const LoginBlock=styled.div`
                     margin-top: 2rem;
                 }
             }
+            
 `
 
 // & div{
