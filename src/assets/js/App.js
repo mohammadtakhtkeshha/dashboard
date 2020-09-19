@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import {blue, primary, red, white} from "components/partials/Colors";
-import * as colors from "../../components/partials/Colors";
 
 export const StyledPaper = styled.div`
         margin: 1rem;
-`;
+`
 
 export const StyledBox = styled.div`
             border-radius: 4px;
@@ -21,19 +20,19 @@ export const HeadButtonStyled = styled.button`
             line-height: 14px;
             border-radius: 5px;
             background-color: #12a56d;
-`;
+`
 
 export const StyledHead = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 1rem ;
-`;
+`
 
 export const StyledHeadTypography = styled.div`
        font-size: 14px;
        font-weight: 600;
-`;
+`
 
 export const StyledButton = styled.button`
             color: ${white};
@@ -42,12 +41,12 @@ export const StyledButton = styled.button`
             padding: 10px 15px;
             line-height: 14px;
             border-radius: 5px;
-            background-color: ${primary};
+            background-color: ${props => props.bg};
             width:fit-content;
             &:focus{
                 outline:0!important;
             }
-`;
+`
 
 export const StyledActionButtonBlock = styled.div`
             display:flex;
@@ -77,13 +76,13 @@ export const StyledActionButtonBlock = styled.div`
             }
             & button:nth-child(1){
                border-radius: 0 4px 4px 0;
-               background-color:${blue[0]}
+               background-color:${blue[1]}
             };
             & button:nth-child(2){
                border-radius:4px 0 0 4px;
-               background-color:${red[0]};
+               background-color:${red[1]};
             };
-`;
+`
 
 export const styledTableCell =(theme) => ({
     head: {
@@ -93,7 +92,7 @@ export const styledTableCell =(theme) => ({
     body: {
         fontSize: 14,
     },
-});
+})
 
 export const styledTableRow = (theme) => ({
     root: {
@@ -101,7 +100,8 @@ export const styledTableRow = (theme) => ({
             backgroundColor: theme.palette.action.hover,
         },
     },
-});
+})
+
 export const modalStyles = (theme) => ({
     modal: {
         display: 'flex',
@@ -120,7 +120,7 @@ export const modalStyles = (theme) => ({
                 left: 0,
                 right: 0,
                 height: '40px',
-                backgroundColor: colors.primary,
+                backgroundColor: primary,
                 '& button': {
                     background: 'transparent',
                     cursor: 'pointer',
@@ -129,28 +129,49 @@ export const modalStyles = (theme) => ({
                         outline: '0!important',
                     },
                     '& svg': {
-                        color: colors.white,
+                        color: white,
                         margin: '9px 9px',
                     }
                 }
             },
             '& .body': {
-                backgroundColor: colors.white,
+                backgroundColor: white,
                 marginTop: '2.5rem',
             }
         }
     }
-});
+})
 
 export const StyledInput = styled.input`
-    margin: .2rem;
-    height: 30px;
-    width: 99%;
+            display: block;
+            width:100%;
+            height: 1.75rem;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+            margin-bottom: .5rem;
+            &:focus{
+                border-color: #ced4da;
+                outline: 0;
+            }
 `
 
+export const StyledMultiButtonsBlock = styled.div`
+    display:flex;
+        & button{
+            cursor:pointer;
+            margin: ${props=>props.lang ==='fa'?'5px 0 5px 5px':'5px 5px 5px 0'};
+        }
+`
 
-
-export default {styledTableRow,styledTableCell,StyledPaper,StyledActionButtonBlock,
+export default {styledTableRow,styledTableCell,StyledPaper,StyledActionButtonBlock,StyledMultiButtonsBlock,
     StyledHead, HeadButtonStyled, StyledHeadTypography,StyledButton,StyledBox,StyledInput,modalStyles};
 
 

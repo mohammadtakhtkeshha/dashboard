@@ -1,19 +1,20 @@
 import React , {useContext} from 'react';
+import {withNamespaces} from "react-i18next";
+
+import { Link } from "react-router-dom";
 import {makeStyles} from '@material-ui/core/styles/index';
 import {Box, Typography} from "@material-ui/core/index";
 import SettingsIcon from '@material-ui/icons/Settings';
 import EditIcon from '@material-ui/icons/Edit';
-import {withNamespaces} from "react-i18next";
-import { Link } from "react-router-dom";
+
 import storage from 'libraries/local-storage';
 import UserDrawerContentStyle from "assets/js/user/UserDrawerContent";
 import AvatarComponent from "components/partials/AvatarComponent";
-import ButtonComponent from "components/partials/ButtonComponent";
 import AppContext from "contexts/AppContext";
-
+import {blue} from "components/partials/Colors";
+import {StyledButton} from "assets/js/App";
 
 const useStyles = makeStyles(UserDrawerContentStyle);
-
 
 function UserDrawerContentComponent({t}) {
     const classes = useStyles();
@@ -48,20 +49,20 @@ function UserDrawerContentComponent({t}) {
             </Box>
             <Box className="buttons">
                 <Link className="link" to="/comments" onClick={changeUserDrawer}>
-                    <ButtonComponent className="button" text="مشاهده کامنت ها" color="primary" startIcon={<EditIcon/>}/>
+                    <StyledButton className="button" text="مشاهده کامنت ها" color="primary" startIcon={<EditIcon/>}/>
                 </Link>
                 <Link className="link" to="/contents" onClick={changeUserDrawer}>
-                    <ButtonComponent
+                    <StyledButton
                         className="button" text="مشاهده محتوا ها" color="secondary"
                         startIcon={<EditIcon/>}/>
                 </Link>
                 <Link className="link" to="/edit-user"
                       onClick={changeUserDrawer}
                 >
-                    <ButtonComponent
+                    <StyledButton
                         className="button"
                         text="ویرایش پروفایل"
-                        color="secondary"
+                        bg={blue[1]}
                         startIcon={<EditIcon/>}/>
                 </Link>
             </Box>

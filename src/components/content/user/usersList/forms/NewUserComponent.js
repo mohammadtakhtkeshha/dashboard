@@ -8,14 +8,13 @@ import FormControl from '@material-ui/core/FormControl';
 import {Box, Checkbox, Typography} from '@material-ui/core/index';
 import {makeStyles} from "@material-ui/styles";
 
-import Input from "components/partials/inputComponent";
 import userService from 'core/services/user.service';
-import {danger, success} from "methods/swal";
+import {success} from "methods/swal";
 import {useStyles} from 'assets/js/user/NewUser';
 import UploadImg from "components/partials/UploadImg";
 import AppContext from 'contexts/AppContext';
 import UserContext from "contexts/UserContext";
-import {StyledButton} from "assets/js/App";
+import {StyledButton, StyledInput} from "assets/js/App";
 
 const currentStyles = makeStyles(useStyles);
 
@@ -189,13 +188,13 @@ function NewUserComponent({t, userNameList, userMailList}) {
         <>
             <Box className={classes.paper}>
                 <Box className='block'>
-                    <Input type="text" placeholder={t('translation:name')} label={t('users:enter your name')}
+                    <StyledInput type="text" placeholder={t('translation:name')} label={t('users:enter your name')}
                            small='' handleClick={e => handleChange(e, "field_name")}/>
 
-                    <Input type="text" placeholder={t('users:family')} label={t('users:enter your family')}
+                    <StyledInput type="text" placeholder={t('users:family')} label={t('users:enter your family')}
                            small='' handleClick={e => handleChange(e, "field_last_name")}/>
                     <Box className="inputBlock">
-                        <Input type="text" placeholder={t('users:username')} label={t('users:enter your username')}
+                        <StyledInput type="text" placeholder={t('users:username')} label={t('users:enter your username')}
                                small='' handleClick={e => handleChange(e, "name")}/>
                         {userContext.errors.errorName.length ?
                             <Typography className="error">{userContext.errors.errorName.length}</Typography> : ''}
@@ -228,7 +227,7 @@ function NewUserComponent({t, userNameList, userMailList}) {
                 </Box>
                 <Box className='block'>
                     <Box className="inputBlock">
-                        <Input type="email" placeholder={t('users:email')} label={t('users:enter your email')}
+                        <StyledInput type="email" placeholder={t('users:email')} label={t('users:enter your email')}
                                small='' handleClick={e => handleChange(e, "mail")}/>
                         {userContext.errors.errorMail.mail ?
                             <Typography className="error">{userContext.errors.errorMail.mail}</Typography> : ''}
@@ -236,7 +235,7 @@ function NewUserComponent({t, userNameList, userMailList}) {
                             <Typography className="error">{userContext.errors.errorMail.unique}</Typography> : ''}
                     </Box>
                     <Box className="inputBlock">
-                        <Input type="password" placeholder={t('users:password')} label={t('users:password')}
+                        <StyledInput type="password" placeholder={t('users:password')} label={t('users:password')}
                                small='' handleClick={e => handleChange(e, "pass")} error={userContext.errors.pass}/>
                         {userContext.errors.errorPass.length ?
                             <Typography className="error">{userContext.errors.errorPass.length}</Typography> : ''}
@@ -244,7 +243,7 @@ function NewUserComponent({t, userNameList, userMailList}) {
                             <Typography className="error">{userContext.errors.errorPass.specialChar}</Typography> : ''}
                     </Box>
                     <Box className="inputBlock">
-                        <Input type="password" placeholder={t('users:confirm password')}
+                        <StyledInput type="password" placeholder={t('users:confirm password')}
                                label={t('users:confirm password')}
                                small='' handleClick={e => handleConfirmPass(e)}
                                error={userContext.errors.confirm_pass}/>

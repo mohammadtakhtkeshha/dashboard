@@ -3,12 +3,13 @@ import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
 
 import {Box, Typography} from "@material-ui/core";
-import Input from "components/partials/inputComponent";
 import TextField from "@material-ui/core/TextField";
 import {makeStyles} from "@material-ui/core/styles";
 
 import {globalCss} from "assets/js/globalCss";
-import NewContentContext from "../../../../../../../contexts/NewContentContext";
+import NewContentContext from "contexts/NewContentContext";
+import {StyledButton,StyledInput} from "assets/js/App";
+
 const gClass = makeStyles(globalCss);
 
 function SeoFormContentComponent({t}) {
@@ -39,7 +40,7 @@ function SeoFormContentComponent({t}) {
                 className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:metaTag')}</Typography>
             <Box className="metaTag">
                 <Box className="right">
-                    <Input lang={lang} type="text" placeholder={t('translation:title')}
+                    <StyledButton lang={lang} type="text" placeholder={t('translation:title')}
                            label={t('translation:title')}
                            value={newContentContext.content.field_seo_list.title || ''}
                            small='' handleClick={e => clickEditorMetaTag(e, 'title')}/>
@@ -60,11 +61,10 @@ function SeoFormContentComponent({t}) {
                     />
                 </Box>
                 <Box className="left">
-                    <Input
+                    <StyledInput
                         value={newContentContext.content.field_seo_list.keywords || ''}
                         lang={lang} type="text" placeholder={t('contents:keywords')}
                            label={t('contents:keywords')}
-                        // error={errors.family}
                            small='' handleClick={e => clickEditorMetaTag(e, 'keywords')}/>
                     <Typography
                         className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:summary')}</Typography>

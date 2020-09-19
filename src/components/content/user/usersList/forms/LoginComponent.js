@@ -1,23 +1,22 @@
 import React, {useState, useContext} from 'react';
 import {Link,} from "react-router-dom";
+import {primary} from "components/partials/Colors";
+
+import {makeStyles} from "@material-ui/styles";
 import {Box, CardMedia, Checkbox, Grid, Paper, Typography} from "@material-ui/core/index";
+
 import iconImg from 'assets/media/image/logo-login.png';
-import InputComponent from 'components/partials/inputComponent'
-import ButtonComponent from "components/partials/ButtonComponent";
 import AppContext from 'contexts/AppContext';
 import {useHistory} from "react-router-dom";
-import * as useStyles from 'assets/js/login';
 import authService from 'core/services/auth.service';
 import {withNamespaces} from "react-i18next";
-import {primary} from "components/partials/Colors";
-import Loading from "../../../partials/loading";
-import {makeStyles} from "@material-ui/styles";
-import {globalCss} from "../../../../../assets/js/globalCss";
+import {globalCss} from "assets/js/globalCss";
+import {StyledButton, StyledInput} from "assets/js/App";
+import {LoginStyles,LoginPaper,LoginBlock} from 'assets/js/login'
 
 const gClass = makeStyles(globalCss);
 
 function LoginComponent({t}) {
-    const classes = useStyles.styles();
     const [errors, setErrors] = useState({errorName: false, errorPass: false, loginError: false});
     const history = useHistory();
     const appContext = useContext(AppContext);
@@ -84,61 +83,63 @@ function LoginComponent({t}) {
         }
     }
 
-    return (<div className={classes.login}>
-        <Grid container style={{justifyContent: 'center'}}>
-            <Grid item sm className="grid">
-                <Paper className="paper">
-                    <Box className="head-img">
-                        <CardMedia>
-                            <img src={iconImg} alt="recipe thumbnail"/>
-                        </CardMedia>
-                    </Box>
-                    <Box className="loginBlock">
-                        <Typography variant="h5" className="title">
-                            {t('translation:login')}
-                        </Typography>
-                        {errors.loginError ?
-                            <Typography className="loginError"> {t('users:wrongUserNameOrPass')}</Typography>
-                            : ''}
-                        <Box className="inputBlock">
-                            <InputComponent name="name" type="text" placeholder={t('users:username')}
-                                            border={errors.errorName ? 'red' : ''}
-                                            handleClick={e => changeInput(e, 'name')}/>
-                            {errors.errorName ? <div className="error">{t('users:forceUsername')}</div> : ''}
+    return (<LoginStyles>
+        <Grid container>
+            <Grid item sm>
+                <LoginPaper>
+                        <Box>
+                            <CardMedia>
+                                <img src={iconImg} alt="recipe thumbnail"/>
+                            </CardMedia>
+                        </Box>
+                        <LoginBlock>
+                            <Typography variant="h5" className="title">
+                                {t('translation:login')}
+                            </Typography>
+                            {errors.loginError ?
+                                <Typography className="loginError"> {t('users:wrongUserNameOrPass')}</Typography>
+                                : ''}
+                            <Box className="inputBlock">
+                                <StyledInput name="name" type="text" placeholder={t('users:username')}
+                                             border={errors.errorName ? 'red' : ''}
+                                             handleClick={e => changeInput(e, 'name')}/>
+                                {errors.errorName ? <div className="error">{t('users:forceUsername')}</div> : ''}
+
+                            </Box>
+                            <Box className="inputBlock">
+                                <StyledInput name="pass" type="password" placeholder={t('users:password')}
+                                             handleClick={e => changeInput(e, 'pass')}
+                                             border={errors.errorPass ? 'red' : ''}
+                                />
+                                {errors.errorPass ? <div className="error">{t('users:forcePassword')}</div> : ''}
+                            </Box>
+                        </LoginBlock>
+                        <Box display="flex" justifyContent="space-between" className="remember">
+                            <Box className="right">
+                                <Checkbox inputProps={{'aria-label': 'primary checkbox'}}/>
+                                <Typography>{t('users:rememberMe')}</Typography>
+                            </Box>
+                            <Box className="left">
+                                <Link to="/forget-password">{t('users:changePass')}</Link>
+                            </Box>
+                        </Box>
+                        <Box className="loginButton">
+                            <StyledButton bg={primary} onClick={login}>
+                                {t('translation:enter')}
+                            </StyledButton>
 
                         </Box>
-                        <Box className="inputBlock">
-                            <InputComponent name="pass" type="password" placeholder={t('users:password')}
-                                            handleClick={e => changeInput(e, 'pass')}
-                                            border={errors.errorPass ? 'red' : ''}
-                            />
-                            {errors.errorPass ? <div className="error">{t('users:forcePassword')}</div> : ''}
+                        <Box className="hr">
+                            <hr/>
                         </Box>
-                    </Box>
-                    <Box display="flex" justifyContent="space-between" className="remember">
-                        <Box className="right">
-                            <Checkbox inputProps={{'aria-label': 'primary checkbox'}}/>
-                            <Typography>{t('users:rememberMe')}</Typography>
+                        <Box className="register">
+                            <Typography>{t('users:notAcount')}</Typography>
+                            <Link to="#">{t('users:registerNow')}</Link>
                         </Box>
-                        <Box className="left">
-                            <Link to="/forget-password">{t('users:changePass')}</Link>
-                        </Box>
-                    </Box>
-                    <Box className="loginButton">
-                        <ButtonComponent color={'primary'} background={primary} text={t('translation:enter')}
-                                         clicked={login}/>
-                    </Box>
-                    <Box className="hr">
-                        <hr/>
-                    </Box>
-                    <Box className="register">
-                        <Typography>{t('users:notAcount')}</Typography>
-                        <Link to="#">{t('users:registerNow')}</Link>
-                    </Box>
-                </Paper>
+                </LoginPaper>
             </Grid>
         </Grid>
-    </div>);
+    </LoginStyles>);
 }
 
-export default withNamespaces('users','translation')(LoginComponent);
+export default withNamespaces('users', 'translation')(LoginComponent);

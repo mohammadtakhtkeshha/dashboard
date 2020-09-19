@@ -53,6 +53,7 @@ const gClass = makeStyles(globalCss);
 
 export function Layout({t}) {
     const lang = i18next.language;
+    const perPage = 5;
     const [showUserDrawer, setShowUserDrawer] = useState(false);
     const [loading,setLoading]=useState(false);
     const gClasses = gClass();
@@ -62,13 +63,9 @@ export function Layout({t}) {
         setShowUserDrawer(boolean)
     };
 
-    let toggleLoading = (boolean) => {
-      setLoading(boolean);
-    }
-
     let handleError = (error) => {
         danger(t('translation:error'), t('translation:ok'));
-        toggleLoading(false);
+        setLoading(false);
         console.log(error);
     };
 
@@ -93,12 +90,13 @@ export function Layout({t}) {
                 <ThemeProvider theme={theme}>
                     <AppContext.Provider
                         value={{
+                            perPage:perPage,
                             handleError:handleError,
                             showUserDrawer: showUserDrawer,
                             toggleUserDrawer: toggleUserDrawer,
                             isLoginSuccess:false,
                             loading:loading,
-                            toggleLoading:toggleLoading,
+                            setLoading:setLoading,
                             currentAlign:currentAlign,
                         }}>
                         <Direction/>

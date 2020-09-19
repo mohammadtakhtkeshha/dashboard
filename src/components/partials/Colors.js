@@ -39,9 +39,9 @@ const danger={
     light:'#f8d7da',
     dark:'#721c24',
 };
-const red=['#f50057'];
+const red=['#f50057','#D11A2A'];//delete = red[1]
 
-const blue= ['#303f9f'];
+const blue= ['#303f9f','#008CBA']; //edit = bue[1]
 
 export {
     primary, primaryBright, secondary, secondaryBright, success, successBright, danger,dangerBright,

@@ -15,49 +15,35 @@ import TableCell from "@material-ui/core/TableCell";
 import {withStyles} from "@material-ui/core/styles";
 
 import contentImg from "assets/media/image/user.jpg";
-import ButtonComponent from "components/partials/ButtonComponent";
 import {useStyles} from "assets/js/content/contents";
 import contentService from "core/services/content.service";
-import {danger, success, warning} from "methods/swal";
+import {warning} from "methods/swal";
 import AppContext from "contexts/AppContext";
-import ContentsContext from "../../../../contexts/ContentsContext";
-import {styledTableCell, styledTableRow, StyledActionButtonBlock} from "../../../../assets/js/App";
+import ContentsContext from "contexts/ContentsContext";
+import {styledTableCell, styledTableRow, StyledActionButtonBlock} from "assets/js/App";
 
 const StyledTableCell = withStyles(styledTableCell)(TableCell);
 const StyledTableRow = withStyles(styledTableRow)(TableRow);
 const useStyle = makeStyles(useStyles);
 
-function ContentTableComponent({t,afterUpdateAction, selectedCheckBoxes, setContents, setSelectedCheckBoxes, perPage, setTotalPage, page}) {
+function ContentTableComponent({t, selectedCheckBoxes, setSelectedCheckBoxes, page}) {
     const classes = useStyle();
     const appContext = useContext(AppContext);
     const contentsContext = useContext(ContentsContext);
     const [content, setContent] = useState();
 
-    const editClicked = (e) => {
-        let id = e.currentTarget.value;
-        contentService.getContent(id).then((response) => {
-            setContent(response.data);
-        }).catch((error) => {
-            appContext.handleError(error);
-        });
-    };
-
-    useEffect(() => {
-        contentsContext.chunckHandler(contentsContext.contents);
-    }, [contentsContext.contents]);
-
-
-    // const afterUpdateAction = (newContents,currentLength,action) => {
-    //     setContents([...newContents]);
-    //     let currentTotalPage = Math.ceil(currentLength / perPage);
-    //     setTotalPage(currentTotalPage);
-    //     chuckHandler(newContents);
-    //     success(t(`translation:${action}`), t('translation:ok'));
-    // }
+    // const editClicked = (e) => {
+    //     let id = e.currentTarget.value;
+    //     contentService.getContent(id).then((response) => {
+    //         setContent(response.data);
+    //     }).catch((error) => {
+    //         appContext.handleError(error);
+    //     });
+    // };
 
     const allCheckboxHandler = (e) => {
         const isChecked = e.currentTarget.checked;
-        const currentchunkCheckBox = contentsContext.chunckContents[page];
+        const currentchunkCheckBox = contentsContext.chunkContents[page];
         const ids = currentchunkCheckBox.map(content => content.nid);
         isChecked ? setSelectedCheckBoxes([...ids]) : setSelectedCheckBoxes([]);
     };
@@ -85,12 +71,8 @@ function ContentTableComponent({t,afterUpdateAction, selectedCheckBoxes, setCont
 
     const deleteContent = (id) => {
         contentService.deleteContent(id).then((response) => {
-            let currentLength = contentsContext.contents.length - 1;
             let newContents = contentsContext.contents.filter(content => content.nid !== id);
-            afterUpdateAction(newContents,currentLength,'deletedSuccessfully');
-        }).catch((error) => {
-            let customizeError = t('translation:notAble')
-            appContext.handleError(customizeError);
+            contentsContext.handlePagination(newContents, 'deletedSuccessfully');
         });
     };
 
@@ -101,7 +83,7 @@ function ContentTableComponent({t,afterUpdateAction, selectedCheckBoxes, setCont
                     <TableRow>
                         <StyledTableCell align="right">
                             <Checkbox
-                                checked={selectedCheckBoxes.length === perPage}
+                                checked={selectedCheckBoxes.length === appContext.perPage}
                                 onChange={allCheckboxHandler}
                                 inputProps={{'aria-label': 'primary checkbox'}}
                             />
@@ -114,9 +96,9 @@ function ContentTableComponent({t,afterUpdateAction, selectedCheckBoxes, setCont
                         <StyledTableCell align="right">{t('translation:actions')}</StyledTableCell>
                     </TableRow>
                 </TableHead>
-                {contentsContext.chunckContents !== undefined ?
+                {contentsContext.chunkContents !== undefined ?
                     <TableBody>
-                        {contentsContext.chunckContents[page]?.map((content, index) =>
+                        {contentsContext.chunkContents[page]?.map((content, index) =>
                             <StyledTableRow key={index}>
                                 <StyledTableCell align="right">
                                     <Checkbox
@@ -140,20 +122,20 @@ function ContentTableComponent({t,afterUpdateAction, selectedCheckBoxes, setCont
                                     {content.type}
                                 </StyledTableCell>
                                 <StyledTableCell align="right">
-                                    {content.status === "On" ? t('translation:published') : t('translation:unpublished')}
+                                    {content.status === "true" ? t('translation:published') : t('translation:unpublished')}
                                 </StyledTableCell>
                                 <StyledTableCell align="right">
                                     {content.changed}
                                 </StyledTableCell>
                                 <StyledTableCell align="right">
                                     <StyledActionButtonBlock>
-                                        <button onClick={confirmDeleteHandler}>
+                                        <button value={content.nid} onClick={confirmDeleteHandler}>
                                             <EditIcon/>
-                                            <Typography variant="span">
+                                            <Typography>
                                                 {t('translation:edit')}
                                             </Typography>
                                         </button>
-                                        <button onClick={confirmDeleteHandler}>
+                                        <button value={content.nid} onClick={confirmDeleteHandler}>
                                             <DeleteIcon/>
                                             {t('translation:delete')}
                                         </button>

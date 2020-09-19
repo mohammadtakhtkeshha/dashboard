@@ -3,7 +3,7 @@ import CustomizedForm from "../components/content/partials/CustomizedForm";
 import BreadcrumbsComponent from './../components/header/BreadcrumbsComponent';
 import UsersComponent from '../components/content/user/index.jsx';
 import EditUserComponent from '../components/content/user/usersList/forms/EditUserComponent';
-import ContentsComponent from '../components/content/content/index';
+import ContentsComponent from '../components/content/content/index.jsx';
 import CommentsComponent from '../components/content/comment/CommentsComponent';
 import DashboardComponent from '../components/content/dashboard/DashboardComponent';
 import NewContentComponent from '../components/content/content/newContent';

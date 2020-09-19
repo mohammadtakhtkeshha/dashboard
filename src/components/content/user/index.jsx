@@ -15,22 +15,19 @@ import UsersTableComponent from "./usersList/components/UsersTableComponent";
 import UsersFilterComponent from "./usersList/components/UsersFilterComponent";
 import UsersActionComponent from "./usersList/components/UsersActionComponent";
 import UsersRegisterModalComponent from "./usersList/components/UsersRegisterModalComponent";
-import {useStyles} from 'assets/js/user/users';
 import UserContext from "contexts/UserContext";
-import {StyledPaper, StyledHead, StyledHeadTypography, StyledButton, StyledBox} from "assets/js/App";
+import {StyledPaper, StyledBox} from "assets/js/App";
 import {StyledPaginationBox} from "assets/js/pagination";
 import {chunkItem, handleTotalPage} from "structure/layout";
 import {checkPassWithConfirm, checkMail, checkPass, checkName, getUsersNameAndMail} from './index';
+import UsersHeaderComponent from "./usersList/components/UsersHeaderComponent";
 
 const gClass = makeStyles(globalCss);
-const currentStyles = makeStyles(useStyles);
 
 function UsersComponent({t}) {
     const appContext = useContext(AppContext);
     const gClasses = gClass();
-    const classes = currentStyles();
     const [totalPage, setTotalPage] = useState(0);
-    const [action, setAction] = useState('delete');
     const [selectedCheckBoxes, setSelectedCheckBoxes] = useState([]);
     const [page, setPage] = useState(0);
     const [roles, setRoles] = useState([]);
@@ -53,7 +50,7 @@ function UsersComponent({t}) {
         userService.getNotPaginateUser().then((response) => {
             const currentUsers = response.data;
             handlePagination(currentUsers);
-            appContext.toggleLoading(false);
+            appContext.setLoading(false);
         }).catch((error) => {
             appContext.handleError(error)
         });
@@ -83,14 +80,6 @@ function UsersComponent({t}) {
         });
     };
 
-    const handleActionChange = (event) => {
-        setAction(event.target.value);
-    };
-
-    const handleCloseUserForm = () => {
-        setOpenNewUser(false);
-    };
-
     const paginate = (e, value) => {
         setPage(value - 1);
         setSelectedCheckBoxes([]);
@@ -100,21 +89,13 @@ function UsersComponent({t}) {
         user.uid = `${user.uid}`
         users.unshift(user);
         handlePagination(users);
-        handleCloseUserForm();
+        setOpenNewUser(false);
     }
 
     const changeChunckUserList = (value, currentTotalPage) => {
         setPage(0);
         setChunkUsers(value);
         setTotalPage(currentTotalPage);
-    };
-
-    const passChunckUserList = (list) => {
-        setChunkUsers(list)
-    };
-
-    const passTotalPage = (num) => {
-        setTotalPage(num);
     };
 
     const handleSelectedCheckBoxes = (array) => {
@@ -173,13 +154,13 @@ function UsersComponent({t}) {
         let mail = mailValidation(user.mail, "null");
         let confirmPas = confirmPassValidation(user.pass, confirmPass);
         if (nameValid || passValid || mail || confirmPas) {
-            appContext.toggleLoading(false);
+            appContext.setLoading(false);
             return;
         }
     }
 
     useEffect(() => {
-        appContext.toggleLoading(true);
+        appContext.setLoading(true);
         getUsers(page);
         getRoles();
     }, []);
@@ -188,11 +169,9 @@ function UsersComponent({t}) {
         <UserContext.Provider value={{
             page: page,
             totalPage: totalPage,
-            passTotalPage: passTotalPage,
             users: users,
             keyRoles: keyRoles,
             valueRoles: valueRoles,
-            passChunckUserList: passChunckUserList,
             selectedCheckBoxes: selectedCheckBoxes,
             errors: errors,
             handleSelectedCheckBoxes: handleSelectedCheckBoxes,
@@ -213,22 +192,11 @@ function UsersComponent({t}) {
                 <Box className={appContext.loading === false ? gClasses.none : gClasses.block}>
                     <Loading/>
                 </Box>
-                <StyledHead>
-                    <StyledHeadTypography>{t('users:usersList')}</StyledHeadTypography>
-                    <StyledButton onClick={() => setOpenNewUser(true)}>
-                        <Typography>{t('users:newUser')}</Typography>
-                    </StyledButton>
-                </StyledHead>
+                <UsersHeaderComponent setOpenNewUser={setOpenNewUser}/>
                 <StyledBox>
-                    <UsersFilterComponent changeChunckUserList={changeChunckUserList}
-                                          chunkUsers={chunkUsers}
-                    />
-                </StyledBox>
-                <StyledBox>
-                    <UsersActionComponent action={action}
-                                          handleActionChange={handleActionChange}
+                <UsersFilterComponent changeChunckUserList={changeChunckUserList} chunkUsers={chunkUsers}/>
 
-                    />
+
                 </StyledBox>
                 <UsersTableComponent roles={roles}
                                      valueRoles={valueRoles}
@@ -237,10 +205,11 @@ function UsersComponent({t}) {
                 />
                 <Box>
                     <UsersRegisterModalComponent
-                        openNewUser={openNewUser} handleCloseUserForm={handleCloseUserForm}
+                        openNewUser={openNewUser} handleCloseUserForm={() => setOpenNewUser(false)}
                         getRegisteredUser={getRegisteredUser} userNameList={userNameList}
                         userMailList={userMailList}/>
                 </Box>
+                <UsersActionComponent/>
 
                 <StyledPaginationBox>
                     <Pagination count={(totalPage)} onChange={paginate}/>
@@ -250,4 +219,4 @@ function UsersComponent({t}) {
         </UserContext.Provider>);
 }
 
-export default withNamespaces('users', 'translation')(UsersComponent);
+export default withNamespaces('users')(UsersComponent);

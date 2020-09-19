@@ -1,58 +1,45 @@
 import React, {useContext} from "react";
 import {withNamespaces} from "react-i18next";
 
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import {Box, Typography} from "@material-ui/core";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import TextField from "@material-ui/core/TextField";
-import EditIcon from "@material-ui/icons/Edit";
-
-import ButtonComponent from "components/partials/ButtonComponent";
-import {primary} from "components/partials/Colors";
+import {primary, red, blue} from "components/partials/Colors";
 import {danger, success, warning} from "methods/swal";
 import userService from "core/services/user.service";
 import AppContext from "contexts/AppContext";
 import storage from "libraries/local-storage";
 import UserContext from "contexts/UserContext";
-import {StyledButton} from "assets/js/App";
-import {StyledActionBlock} from "assets/js/user/users";
+import {StyledButton,StyledMultiButtonsBlock} from "assets/js/App";
 
-function UsersActionComponent({t, action, handleActionChange}) {
+function UsersActionComponent({t, handleActionChange}) {
     const actions = [
-        {value: 'delete', label: t('translation:delete')},
-        {value: 'block', label: t('translation:block')},
-        {value: 'active', label: t('translation:active')}
+        {value: 'delete', label: t('translation:delete'),color:red[1]},
+        {value: 'block', label: t('translation:block'),color:blue[1]},
+        {value: 'active', label: t('translation:active'),color: primary}
     ];
-
     const appContext = useContext(AppContext);
     const userContext = useContext(UserContext);
     let loginedUser = JSON.parse(storage.get('user'));
 
     let doPaginateActionAfterUpdate = (getUsers) => {
-        let currentTotalNumber = getUsers.length;
-        userContext.passTotalPage(Math.ceil(currentTotalNumber / userContext.perPage));
-        let chunckedUsers = userContext.chunckUserHandler(getUsers, userContext.perPage);
-        userContext.passChunckUserList(chunckedUsers);
+        let chunkedUsers = userContext.chunkItem(getUsers);
+        userContext.passChunckUserList(chunkedUsers);
     }
 
-    let multiActionMethod = () => {
-        appContext.toggleLoading(true);
+    let multiActionMethod = (action) => {debugger
         if (action === "delete") {
             let data = [];
-            if (userContext.selectedCheckBoxes.includes(`${loginedUser.uid}`)) {
+            if (userContext.selectedCheckBoxes.includes(`${loginedUser.uid}`)) {debugger
                 danger(t('translation:loginDelete'), t('translation:ok'));
-                return
+                return;
             }
+            appContext.setLoading(true);
             for (let id of userContext.selectedCheckBoxes) {
                 data.push({
                     "id": id,
                     "status": "deleted"
                 })
             }
-            userService.multiAction(data).then((response) => {
-                appContext.toggleLoading(false);
+            userService.multiAction(data).then((response) => {debugger
+                appContext.setLoading(false);
                 userContext.selectedCheckBoxes.map((id) => {
                     let currentUser = userContext.users.filter(user => user.uid === id);
                     let currentIndex = userContext.users.indexOf(currentUser[0]);
@@ -60,7 +47,7 @@ function UsersActionComponent({t, action, handleActionChange}) {
                 });
                 doPaginateActionAfterUpdate(userContext.users);
                 success(t('translation:successDone'), t('translation:ok'));
-            }).catch((error) => {
+            }).catch((error) => {debugger
                 appContext.handleError(error);
             });
         } else if (action === "block") {
@@ -76,7 +63,7 @@ function UsersActionComponent({t, action, handleActionChange}) {
                 })
             }
             userService.multiAction(data).then((response) => {
-                appContext.toggleLoading(false);
+                appContext.setLoading(false);
                 for (let i = 0; i < userContext.users.length; i++) {
                     userContext.selectedCheckBoxes.map((id) => {
                         if (userContext.users[i].uid === id) {
@@ -98,7 +85,7 @@ function UsersActionComponent({t, action, handleActionChange}) {
                 })
             }
             userService.multiAction(data).then((response) => {
-                appContext.toggleLoading(false);
+                appContext.setLoading(false);
                 for (let i = 0; i < userContext.users.length; i++) {
                     userContext.selectedCheckBoxes.map((id) => {
                         if (userContext.users[i].uid === id) {
@@ -114,41 +101,49 @@ function UsersActionComponent({t, action, handleActionChange}) {
         }
     };
 
-    let handleMultiAction = () => {
-        warning(t('translation:sureQuestion'), t('translation:ok'), t('translation:cancel'), t('translation:notDone'), multiActionMethod);
+    let handleMultiAction = (event) => {debugger
+        warning(t('translation:sureQuestion'), t('translation:ok'), t('translation:cancel')
+            , t('translation:notDone'),multiActionMethod(event.currentTarget.value));
     };
 
     return (<>
-        <ExpansionPanel>
-            <ExpansionPanelSummary
-                expandIcon={<ExpandMoreIcon/>}
-                aria-controls="panel1a-content"
-            >
-                <Typography>{t('translation:operator')}</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-                <StyledActionBlock>
-                    <TextField
-                        select
-                        value={action}
-                        onChange={handleActionChange}
-                        SelectProps={{
-                            native: true,
-                        }}
-                        variant="outlined"
-                    >
-                        {actions.map((option) => (
-                            <option key={option.value} value={option.value}>
-                                {option.label}
-                            </option>
-                        ))}
-                    </TextField>
-                <StyledButton onClick={handleMultiAction}>
-                    {t('translation:do')}
-                </StyledButton>
-                </StyledActionBlock>
-            </ExpansionPanelDetails>
-        </ExpansionPanel>
+        {/*<ExpansionPanel>*/}
+        {/*    <ExpansionPanelSummary*/}
+        {/*        expandIcon={<ExpandMoreIcon/>}*/}
+        {/*        aria-controls="panel1a-content"*/}
+        {/*    >*/}
+        {/*        <Typography>{t('translation:operator')}</Typography>*/}
+        {/*    </ExpansionPanelSummary>*/}
+        {/*    <ExpansionPanelDetails>*/}
+        {/*        <StyledActionBlock>*/}
+        {/*            <TextField*/}
+        {/*                select*/}
+        {/*                value={action}*/}
+        {/*                onChange={handleActionChange}*/}
+        {/*                SelectProps={{*/}
+        {/*                    native: true,*/}
+        {/*                }}*/}
+        {/*                variant="outlined"*/}
+        {/*            >*/}
+        {/*                {actions.map((option) => (*/}
+        {/*                    <option key={option.value} value={option.value}>*/}
+        {/*                        {option.label}*/}
+        {/*                    </option>*/}
+        {/*                ))}*/}
+        {/*            </TextField>*/}
+        {/*        <StyledButton onClick={handleMultiAction}>*/}
+        {/*            {t('translation:do')}*/}
+        {/*        </StyledButton>*/}
+        {/*        </StyledActionBlock>*/}
+        {/*    </ExpansionPanelDetails>*/}
+        {/*</ExpansionPanel>*/}
+        <StyledMultiButtonsBlock>
+        {actions.map((option) => (
+            <StyledButton onClick={handleMultiAction} bg={option.color} key={option.value} value={option.value}>
+                {option.label}
+            </StyledButton>
+        ))}
+        </StyledMultiButtonsBlock>
 
     </>);
 }

@@ -1,6 +1,7 @@
 import axios from "axios";
 import contentUrl from 'utils/urls/content.urls';
-import {aacaAuthauHeader, ahchauthHeader, authHeader, avcoAuthcdHeader} from "utils/headers";
+import {aacaAuthauHeader, ahchauthHeader, authHeader, avcoAuthcdHeader, caauthHeader} from "utils/headers";
+import {Method} from "structure/layout";
 
 export function getDomainSource() {
     let url = contentUrl.domainSourceUrl;
@@ -39,18 +40,20 @@ export function uploadMultiFile(e) {
 
 export function getContents() {
     let url = contentUrl.getContentsUrl
-    return axios.get(url, authHeader);
+    // return axios.get(url, authHeader);
+    return Method({method:'get',url:url,headers: authHeader});
 }
 
 export function deleteContent(id) {
     let url = contentUrl.deleteContentUrl(id);
-    return axios.delete(url, ahchauthHeader);
+    return Method({method:'delete',url:url,headers:ahchauthHeader});
 }
 
 export function getContent(id) {
     let url = contentUrl.getContentUrl(id);
     return axios.get(url);
 }
+
 export function registerContent(content) {
     let url = contentUrl.registerContentUrl;
     let data = {
@@ -111,9 +114,43 @@ export function registerContent(content) {
     return axios.post(url, content, aacaAuthauHeader);
 }
 
-export function getContentTypeList() {
+export function getContentTypeList(handleError) {
     let url = contentUrl.getContentTypeListUrl;
-    return axios.get(url);
+    return Method({method:'get',url:url,handleError:handleError});
+}
+
+export function handleContentAction(action, selectedCheckBoxes,handleError) {
+    let urlDelete = contentUrl.contentActionDeleteUrl;
+    let urlStatus = contentUrl.contentActionStatusUrl;
+    const body = [];
+    switch (action) {
+        case 'deleted':
+            for (let item of selectedCheckBoxes) {
+                body.push({
+                    "id": item,
+                    "setdelete": "deleted"
+                })
+            }
+            return Method({method:'post',url:urlDelete,headers:caauthHeader,body:body,handleError:handleError});
+            break;
+        case 'true':
+            for (let item of selectedCheckBoxes) {
+                body.push({
+                    "id": item,
+                    "setPublished": true
+                })
+            }
+            return Method({method:'post',url:urlStatus,headers:caauthHeader ,body:body,handleError:handleError});
+            break;
+        default:
+            for (let item of selectedCheckBoxes) {
+                body.push({
+                    "id": item,
+                    "setPublished": false
+                })
+            }
+            return Method({method:'post',url:urlStatus,headers: caauthHeader,body: body,handleError:handleError});
+    }
 }
 
 export default {
@@ -128,5 +165,6 @@ export default {
     getContents,
     deleteContent,
     getContentTypeList,
-    getContent
+    getContent,
+    handleContentAction
 };

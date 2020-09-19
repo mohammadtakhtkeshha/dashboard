@@ -4,14 +4,14 @@ import {withNamespaces} from "react-i18next";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import {Box, Typography} from "@material-ui/core";
+import {Box, Input, Typography} from "@material-ui/core";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import TextField from "@material-ui/core/TextField";
 
 import ContentsContext from "contexts/ContentsContext";
 import {StyledFilterBlock} from "assets/js/content/contentFilter";
-import {StyledButton} from "assets/js/App";
-
+import {StyledButton, StyledInput} from "assets/js/App";
+import {primary} from "components/partials/Colors";
 
 function ContentsFilterComponent({t}) {
     const contentsContext = useContext(ContentsContext);
@@ -94,7 +94,7 @@ function ContentsFilterComponent({t}) {
             <ExpansionPanelDetails>
                 <StyledFilterBlock>
                     <Box>
-                        <input placeholder={t('translation:title')} onClick={changeTitle}/>
+                        <StyledInput placeholder={t('translation:title')} onClick={changeTitle}/>
                         <TextField
                             id="outlined-select-role-native"
                             select
@@ -127,7 +127,7 @@ function ContentsFilterComponent({t}) {
                             )) || ''}
                         </TextField>
                     </Box>
-                    <StyledButton onClick={doFilterHandler}>
+                    <StyledButton bg={primary} onClick={doFilterHandler}>
                         {t('translation:do')}
                     </StyledButton>
                 </StyledFilterBlock>

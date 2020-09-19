@@ -8,17 +8,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import {Paper} from "@material-ui/core";
 
+import {styles} from "assets/js/content/contentType"
 import ContentsContext from "contexts/ContentsContext";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%',
-        backgroundColor: theme.palette.background.paper,
-        '& .MuiListItemText-root': {
-            textAlign: 'right'
-        }
-    },
-}));
+const useStyles = makeStyles(styles);
 
 export default function ContentListOfContentType({setContentType}) {
     const classes = useStyles();

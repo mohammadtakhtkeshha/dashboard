@@ -29,7 +29,11 @@ export const getContentUrl = (id) => {
 
 export const getContentTypeListUrl = 'http://dash.webrbp.ir/api/content_types';
 
+export const contentActionDeleteUrl = 'http://dash.webrbp.ir/api/rest/nodes/delete?_format=json';
+
+export const contentActionStatusUrl = 'http://dash.webrbp.ir/api/rest/nodes/status?_format=json';
+
 
 export default {getTagsUrl,domainSourceUrl,getCategoriesUrl,uploadSingImgUrl,
     uploadVideoUrl,uploadVoiceUrl,uploadMultiImgUrl,uploadFileUrl,getContentsUrl,registerContentUrl,
-    deleteContentUrl,getContentUrl,getContentTypeListUrl};
+    deleteContentUrl,getContentUrl,getContentTypeListUrl,contentActionDeleteUrl,contentActionStatusUrl};

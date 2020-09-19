@@ -9,12 +9,12 @@ import UploadImg from "components/partials/UploadImg";
 import UploadFile from "components/partials/UploadFile";
 import UploadVideo from "components/partials/UploadVideo";
 import UploadVoice from "components/partials/UploadVoice";
-import ButtonComponent from "components/partials/ButtonComponent";
 import {primary} from "components/partials/Colors";
 import {globalCss} from "assets/js/globalCss";
 import contentService from "core/services/content.service";
 import AppContext from "contexts/AppContext";
 import NewContentContext from "contexts/NewContentContext";
+import {StyledButton} from "../../../../../assets/js/App";
 
 const gClass = makeStyles(globalCss);
 
@@ -334,7 +334,7 @@ function FileContentTabComponent({t}) {
                          removedFileId={removeMultiVoice} sendIdAfterUpload={multiVoiceToSend}/>
         </Box>
         <Box mt={2} className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>
-            <ButtonComponent background={primary} color="primary" clicked={register} text={t('translation:register')}/>
+            <StyledButton bg={primary} color="primary" clicked={register} text={t('translation:register')}/>
         </Box>
     </>);
 }

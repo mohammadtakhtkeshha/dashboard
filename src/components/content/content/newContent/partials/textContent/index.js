@@ -21,10 +21,10 @@ import tagService from "core/services/tag.service";
 import contentService from "core/services/content.service";
 import EditorComponent from "components/partials/EditorComponent";
 import DatePickerrComponent from "components/partials/DatePickerrComponent";
-import Input from "components/partials/inputComponent";
 import {useStyles, bootstrapInput} from 'assets/js/content/newContent';
 import NewContentContext from "contexts/NewContentContext";
 import SeoFormContentComponent from "./partials/SeoFormContentComponent";
+import {StyledInput} from "../../../../../../assets/js/App";
 
 const gClass = makeStyles(globalCss);
 const styles = makeStyles(useStyles);
@@ -267,7 +267,7 @@ function TextContentTabComponent({t}) {
     return (<>
         <Box className="items">
             <Box className="inputBlock">
-                <Input
+                <StyledInput
                     value={newContentContext.content.title}
                     lang={lang}
                     type="text" placeholder={t('translation:title')} label={t('translation:title')}
@@ -276,7 +276,7 @@ function TextContentTabComponent({t}) {
                 {newContentContext.errors.title ?
                     <Typography className="error">{newContentContext.errors.title}</Typography> : ''}
             </Box>
-            <Input
+            <StyledInput
                 value={newContentContext.content.rotitr || ''}
                 lang={lang}
                 type="text" placeholder={t('contents:rotitr')}

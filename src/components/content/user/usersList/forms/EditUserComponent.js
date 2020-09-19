@@ -9,8 +9,6 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import {Typography} from "@material-ui/core";
 
-import ButtonComponent from 'components/partials/ButtonComponent'
-import Input from "components/partials/inputComponent";
 import UploadImg from "components/partials/UploadImg";
 import {primary, white} from 'components/partials/Colors';
 import userService from "core/services/user.service";
@@ -18,6 +16,7 @@ import { success} from "methods/swal";
 import editUserStyle from 'assets/js/user/editUser'
 import AppContext from 'contexts/AppContext';
 import UserContext from "contexts/UserContext";
+import {StyledButton, StyledInput} from "assets/js/App";
 
 const useStyles = makeStyles(editUserStyle);
 
@@ -213,18 +212,18 @@ function EditUserComponent({t, id, keyRoles, valueRoles, editedUser}) {
             <Paper className={classes.paper}>
                 <Box className="flexBox">
                       <span style={{display: 'none'}}>
-                    <Input type="text" value={user.uid}/>
+                    <StyledInput type="text" value={user.uid}/>
                     </span>
-                    <Input type="text" placeholder={t('translation:name')} label={t('users:enter your name')}
+                    <StyledInput type="text" placeholder={t('translation:name')} label={t('users:enter your name')}
                            value={user.field_name}
                            small='' handleClick={e => handleChange(e, "field_name")}/>
 
-                    <Input type="text" placeholder={t('users:family')} label={t('users:enter your family')}
+                    <StyledInput type="text" placeholder={t('users:family')} label={t('users:enter your family')}
                            value={user.field_last_name}
                            small='' handleClick={e => handleChange(e, "field_last_name")}/>
 
                            <Box className="inputBlock">
-                    <Input type="text" placeholder={t('users:username')} label={t('users:enter your username')}
+                    <StyledInput type="text" placeholder={t('users:username')} label={t('users:enter your username')}
                            small='' handleClick={e => handleChange(e, "name")}
                            value={user.name}
                     />
@@ -265,7 +264,7 @@ function EditUserComponent({t, id, keyRoles, valueRoles, editedUser}) {
                 </Box>
                 <Box className="flexBox">
                     <Box className="inputBlock">
-                    <Input type="email" placeholder={t('users:email')} label={t('users:enter your email')}
+                    <StyledInput type="email" placeholder={t('users:email')} label={t('users:enter your email')}
                            small='' handleClick={e => handleChange(e, "mail")}
                            value={user.mail}
                     />
@@ -275,7 +274,7 @@ function EditUserComponent({t, id, keyRoles, valueRoles, editedUser}) {
                         <Typography className="error">{userContext.errors.errorMail.unique}</Typography> : ''}
                     </Box>
                     <Box className="inputBlock">
-                    <Input type="password" placeholder={t('users:password')} label={t('users:enter your password')}
+                    <StyledInput type="password" placeholder={t('users:password')} label={t('users:enter your password')}
                            small='' handleClick={e => handleChange(e, "pass")} error={userContext.errors.pass}/>
                     {userContext.errors.errorPass.length ?
                         <Typography className="error">{userContext.errors.errorPass.length}</Typography> : ''}
@@ -284,7 +283,7 @@ function EditUserComponent({t, id, keyRoles, valueRoles, editedUser}) {
                     </Box>
                     <Box className="inputBlock">
 
-                    <Input type="password" placeholder={t('users:confirm password')} label={t('users:confirm password')}
+                    <StyledInput type="password" placeholder={t('users:confirm password')} label={t('users:confirm password')}
                            small='' handleClick={e => handleConfirmPass(e)} error={userContext.errors.confirm_pass}/>
                     {userContext.errors.confirmPass.harmony ?
                         <Typography className="error">{userContext.errors.confirmPass.harmony}</Typography> : ''}
@@ -298,7 +297,7 @@ function EditUserComponent({t, id, keyRoles, valueRoles, editedUser}) {
                         />
                     </Box>
                     <Box mt={2}>
-                        <ButtonComponent background={primary} color={white} clicked={saveUser}
+                        <StyledButton bg={primary} color={white} clicked={saveUser}
                                          text={t('translation:register')}/>
                     </Box>
                 </Box>

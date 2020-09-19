@@ -8,10 +8,9 @@ import {Box, Typography} from "@material-ui/core";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import TextField from "@material-ui/core/TextField";
 
-import Input from "components/partials/inputComponent";
 import UserContext from "contexts/UserContext";
 import {StyledFilterBlock} from "assets/js/user/users";
-import {StyledButton} from "assets/js/App";
+import {StyledButton, StyledInput} from "assets/js/App";
 
 function UsersFilterComponent({t, chunkUsers, changeChunckUserList}) {
     const [role, setRole] = useState('');
@@ -71,12 +70,12 @@ function UsersFilterComponent({t, chunkUsers, changeChunckUserList}) {
                     <ExpansionPanelDetails>
                         <StyledFilterBlock>
                             <Box>
-                                <Input placeholder={t('translation:name')}
+                                <StyledInput placeholder={t('translation:name')}
                                        handleClick={e => filterBy(e, 'field_name')}/>
-                                <Input placeholder={t('users:family')}
+                                <StyledInput placeholder={t('users:family')}
                                        handleClick={e => filterBy(e, 'field_last_name')}/>
-                                <Input placeholder={t('users:username')} handleClick={e => filterBy(e, 'name')}/>
-                                <Input placeholder={t('users:email')} handleClick={e => filterBy(e, 'mail')}/>
+                                <StyledInput placeholder={t('users:username')} handleClick={e => filterBy(e, 'name')}/>
+                                <StyledInput placeholder={t('users:email')} handleClick={e => filterBy(e, 'mail')}/>
                                 {userContext.valueRoles ? <TextField
                                     id="outlined-select-role-native"
                                     select

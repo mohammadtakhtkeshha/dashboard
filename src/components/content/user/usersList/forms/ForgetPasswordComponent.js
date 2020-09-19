@@ -1,18 +1,18 @@
 import React, {useState, useContext} from 'react';
 import {Link,} from "react-router-dom";
-import {Box, CardMedia, Checkbox, Grid, Paper, Typography} from "@material-ui/core/index";
-import iconImg from '../../../../../assets/media/image/logo-login.png';
-import InputComponent from '../../../../partials/inputComponent'
-import ButtonComponent from "../../../../partials/ButtonComponent";
-import AppContext from '../../../../../contexts/AppContext';
 import {useHistory} from "react-router-dom";
-import * as useStyles from '../../../../../assets/js/login';
-import authService from '../../../../../core/services/auth.service';
 import {withNamespaces} from "react-i18next";
-import {primary} from "../../../../partials/Colors";
+
+import {Box, CardMedia, Grid, Paper, Typography} from "@material-ui/core/index";
+
+import iconImg from 'assets/media/image/logo-login.png';
+import AppContext from 'contexts/AppContext';
+import authService from 'core/services/auth.service';
+import {primary} from "components/partials/Colors";
+import {StyledButton, StyledInput} from "assets/js/App";
+import {LoginStyles} from "assets/js/login";
 
 function LoginComponent({t}) {
-    const classes = useStyles.styles();
     const [errors, setErrors] = useState({errorName: false, errorPass: false, loginError: false});
     const history = useHistory();
     const context = useContext(AppContext);
@@ -72,7 +72,7 @@ function LoginComponent({t}) {
         }
     }
 
-    return (<div className={classes.login}>
+    return (<LoginStyles>
         <Grid container style={{justifyContent: 'center'}}>
             <Grid item sm className="grid">
                 <Paper className="paper">
@@ -89,7 +89,7 @@ function LoginComponent({t}) {
                             <Typography className="loginError"> {t('users:wrongUserNameOrPass')}</Typography>
                             : ''}
                         <Box className="inputBlock">
-                            <InputComponent name="name" type="text" placeholder={t('users:username')}
+                            <StyledInput name="name" type="text" placeholder={t('users:username')}
                                             border={errors.errorName ? 'red' : ''}
                                             handleClick={e => changeInput(e, 'name')}/>
                             {errors.errorName ? <div className="error">{t('users:forceUsername')}</div> : ''}
@@ -97,7 +97,10 @@ function LoginComponent({t}) {
                         </Box>
                     </Box>
                     <Box className="loginButton">
-                        <ButtonComponent color={'primary'} background={primary} text={t('translation:register')} clicked={login}/>
+                        <StyledButton bg={primary}  onClick={login}>
+                            {t('translation:register')}
+                        </StyledButton>
+
                     </Box>
                     <Box className="hr">
                         <hr/>
@@ -111,7 +114,7 @@ function LoginComponent({t}) {
                 </Paper>
             </Grid>
         </Grid>
-    </div>);
+    </LoginStyles>);
 }
 
 export default withNamespaces('translation')(LoginComponent);

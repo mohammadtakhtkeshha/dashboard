@@ -15,9 +15,10 @@ import {withStyles} from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
 import storage from "../../../libraries/local-storage";
 import {Link} from "react-router-dom";
-import ButtonComponent from "../../partials/ButtonComponent";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import {StyledButton} from "assets/js/App";
+import {primary,red} from "components/partials/Colors";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -177,9 +178,9 @@ function CommentDashboardComponent({t}) {
                                     <StyledTableCell align="right">
                                         <Box className="item">
                                             <Link to='#comment'>
-                                                <ButtonComponent value={comment.id} text="ویرایش" color="primary" startIcon={<EditIcon/>}/>
+                                                <StyledButton value={comment.id} text="ویرایش" bg={primary} startIcon={<EditIcon/>}/>
                                             </Link>
-                                            <ButtonComponent value={comment.id} text="حذف" color="secondary" startIcon={<DeleteIcon/>}
+                                            <StyledButton value={comment.id} text="حذف" bg={red[1]} startIcon={<DeleteIcon/>}
                                                              clicked={deleteComment}/>
                                         </Box>
                                     </StyledTableCell>
