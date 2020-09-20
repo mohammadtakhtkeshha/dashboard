@@ -10,7 +10,6 @@ import NewContentComponent from '../components/content/content/newContent';
 import VocabsComponent from "../components/content/vacabs/index";
 import TermsComponent from "../components/content/vacabs/terms/index";
 
-
 import React from "react";
 
 export const routes = [

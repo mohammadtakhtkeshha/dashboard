@@ -146,7 +146,7 @@ export const StyledInput = styled.input`
             display: block;
             width:100%;
             height: 1.75rem;
-            padding: .375rem .75rem;
+            padding: 1.3rem .75rem;
             font-size: 1rem;
             font-weight: 400;
             line-height: 1.5;
@@ -155,6 +155,7 @@ export const StyledInput = styled.input`
             background-clip: padding-box;
             border: 1px solid #ced4da;
             border-radius: .25rem;
+            box-sizing:border-box;
             transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
             margin-bottom: .5rem;
             &:focus{
@@ -171,7 +172,10 @@ export const StyledMultiButtonsBlock = styled.div`
         }
 `
 
-export default {styledTableRow,styledTableCell,StyledPaper,StyledActionButtonBlock,StyledMultiButtonsBlock,
-    StyledHead, HeadButtonStyled, StyledHeadTypography,StyledButton,StyledBox,StyledInput,modalStyles};
-
+export const StyledLabel=styled.div`
+        font-size:.75rem;
+        margin-bottom:.75rem;
+        display:inline-block;
+       
+`
 

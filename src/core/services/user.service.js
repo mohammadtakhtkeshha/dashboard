@@ -1,6 +1,7 @@
 import axios from "axios";
 import userUrl from 'utils/urls/user.urls';
 import {aacaauthHeader, authHeader, caauthHeader, ahchauthHeader, chauthHeader,avcoAuthcdHeader} from "utils/headers";
+import {Method} from "structure/layout";
 
 export function getRoles() {
     let url = userUrl.getRolesUrl;
@@ -22,9 +23,9 @@ export function getNotPaginateUser(){
    return axios.get(url, authHeader);
 }
 
-export function multiAction(data) {
+export function multiAction(data,handleError) {debugger
     let url = userUrl.multiActionUrl;
-    return  axios.post(url, data, aacaauthHeader);
+    return Method({method:'post',url:url,body: data,headers: aacaauthHeader,handleError:handleError});
 };
 
 export function getUser(id) {

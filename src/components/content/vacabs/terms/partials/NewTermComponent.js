@@ -9,7 +9,7 @@ function NewTermComponent({t}) {
 
     const changeName = (e) => {
         const name = e.currentTarget.value;
-        console.log(name);
+
     }
 
     return (

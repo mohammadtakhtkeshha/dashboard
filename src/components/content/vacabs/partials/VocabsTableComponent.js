@@ -20,7 +20,7 @@ const StyledTableRow = withStyles(styledTableRow)(TableRow);
 function VocabsTableComponent({t, chunks, page}) {
     const appContext = useContext(AppContext);
 
-    console.log(chunks);
+
     return (<TableContainer component={Paper}>
         <Table aria-label="customized table">
             <TableHead>

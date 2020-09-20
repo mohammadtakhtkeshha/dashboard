@@ -11,8 +11,9 @@ import TextField from "@material-ui/core/TextField";
 import UserContext from "contexts/UserContext";
 import {StyledFilterBlock} from "assets/js/user/users";
 import {StyledButton, StyledInput} from "assets/js/App";
+import {primary} from "components/partials/Colors";
 
-function UsersFilterComponent({t, chunkUsers, changeChunckUserList}) {
+function UsersFilterComponent({t}) {
     const [role, setRole] = useState('');
     const userContext = useContext(UserContext);
     const [searchedUser, setSearcheUser] = useState({
@@ -43,10 +44,7 @@ function UsersFilterComponent({t, chunkUsers, changeChunckUserList}) {
                 user['roles_target_id'].includes(role)
             return newUser;
         });
-        let currentTotalNumber = filteredUser.length;
-        let currentTotalPage = Math.ceil(currentTotalNumber / userContext.perPage);
-        let chunckedUsers = chunkUsers(filteredUser, userContext.perPage);
-        changeChunckUserList(chunckedUsers, currentTotalPage);
+        userContext.handlePagination(filteredUser, false);
     }
 
     let filterBy = (e, key) => {
@@ -71,11 +69,11 @@ function UsersFilterComponent({t, chunkUsers, changeChunckUserList}) {
                         <StyledFilterBlock>
                             <Box>
                                 <StyledInput placeholder={t('translation:name')}
-                                       handleClick={e => filterBy(e, 'field_name')}/>
+                                       onChange={e => filterBy(e, 'field_name')}/>
                                 <StyledInput placeholder={t('users:family')}
-                                       handleClick={e => filterBy(e, 'field_last_name')}/>
-                                <StyledInput placeholder={t('users:username')} handleClick={e => filterBy(e, 'name')}/>
-                                <StyledInput placeholder={t('users:email')} handleClick={e => filterBy(e, 'mail')}/>
+                                       onChange={e => filterBy(e, 'field_last_name')}/>
+                                <StyledInput placeholder={t('users:username')} onChange={e => filterBy(e, 'name')}/>
+                                <StyledInput placeholder={t('users:email')} onChange={e => filterBy(e, 'mail')}/>
                                 {userContext.valueRoles ? <TextField
                                     id="outlined-select-role-native"
                                     select
@@ -94,7 +92,7 @@ function UsersFilterComponent({t, chunkUsers, changeChunckUserList}) {
                                     ))}
                                 </TextField> : ''}
                             </Box>
-                            <StyledButton onClick={doFilterHandler}>
+                            <StyledButton bg={primary} onClick={doFilterHandler}>
                                 {t('translation:do')}
                             </StyledButton>
                         </StyledFilterBlock>

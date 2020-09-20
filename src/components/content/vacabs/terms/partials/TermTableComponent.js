@@ -42,7 +42,7 @@ function TermTableComponent({t, chunks, page}) {
         // }
     };
 
-    console.log(chunks[page])
+
 
     return (
         <TableContainer component={Paper}>

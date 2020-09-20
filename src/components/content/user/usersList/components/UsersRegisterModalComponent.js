@@ -19,7 +19,6 @@ const useStyle=makeStyles(useStyles);
 function UserRegisterModalComponent({t, data, openNewUser,handleCloseUserForm,getRegisteredUser,userMailList,userNameList}) {
     let lang = i18next.language;
     const classes = useStyle();
-    console.log(data);
 
     return(<>
             <Modal

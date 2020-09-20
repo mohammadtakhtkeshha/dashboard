@@ -40,7 +40,7 @@ function UploadVideo({ t, multiple, title, getFile,removedFileId, videos, sendId
     }, [videos]);
 
     useEffect(() => {
-        appContext.toggleLoading(false);
+        appContext.setLoading(false);
         if (sendIdAfterUpload !== undefined && sendIdAfterUpload !== "") {
             setCurrentId(prevState => {
                 return [...prevState, sendIdAfterUpload.id]
@@ -62,7 +62,7 @@ function UploadVideo({ t, multiple, title, getFile,removedFileId, videos, sendId
     }, [sendIdAfterUpload]);
 
     let uploadFile = (e) => {
-        appContext.toggleLoading(true);
+        appContext.setLoading(true);
         let extention = (e.currentTarget.files[0].name).split('.').pop();
         setValidation('');
         setFiles(prevState => {
@@ -73,7 +73,7 @@ function UploadVideo({ t, multiple, title, getFile,removedFileId, videos, sendId
         });
         if (extention !== ('mp4')) {
             setValidation(t('translation:videoValidation'));
-            appContext.toggleLoading(false);
+            appContext.setLoading(false);
             return
         }
 

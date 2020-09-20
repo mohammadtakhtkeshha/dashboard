@@ -1,24 +1,25 @@
 import React, {useState, useContext} from 'react';
 import {Link,} from "react-router-dom";
 import {useHistory} from "react-router-dom";
-import {withNamespaces} from "react-i18next";
 
-import {Box, CardMedia, Grid, Paper, Typography} from "@material-ui/core/index";
+import {Box, CardMedia, Checkbox, Grid, Typography} from "@material-ui/core/index";
 
 import iconImg from 'assets/media/image/logo-login.png';
 import AppContext from 'contexts/AppContext';
 import authService from 'core/services/auth.service';
+import {withNamespaces} from "react-i18next";
 import {primary} from "components/partials/Colors";
 import {StyledButton, StyledInput} from "assets/js/App";
-import {InputBlock, LoginBlock, StyledGridLogin,LoginButton,RegisterBlock} from "assets/js/login";
+import {RegisterBlock,LoginBlock,StyledGridLogin,LoginError,InputBlock, RememberBlock, LoginButton} from "assets/js/login";
 
 function LoginComponent({t}) {
     const [errors, setErrors] = useState({errorName: false, errorPass: false, loginError: false});
     const history = useHistory();
-    const context = useContext(AppContext);
+    const appContext = useContext(AppContext);
     const [user, setUser] = useState({name: '', pass: ''});
 
     let login = () => {
+        setErrors({errorName: false, errorPass: false, loginError: false});
         if (user.name === "" || user.pass === "") {
             if (user.name === "") {
                 setErrors(prevState => {
@@ -48,12 +49,16 @@ function LoginComponent({t}) {
             }
             return;
         }
+        appContext.setLoading(true);
+
         authService.login(user).then((response) => {
+            appContext.setLoading(false);
             setErrors({errorName: false, errorPass: false, loginError: false});
-            context.isLoginSuccess = true;
+            appContext.isLoginSuccess = true;
             history.push("/");
         }).catch((error) => {
             setErrors({errorName: false, errorPass: false, loginError: true});
+            appContext.setLoading(false);
         });
     };
 
@@ -67,7 +72,7 @@ function LoginComponent({t}) {
     };
 
     document.onkeydown = function (event) {
-        if (window.event.keyCode == '13') {
+        if (window.event.keyCode == '13') { //hit enter
             login();
         }
     }
@@ -83,30 +88,42 @@ function LoginComponent({t}) {
                     </Box>
                     <Box>
                         <Typography variant="h5">
-                            {t('users:changePass')}
+                            {t('translation:login')}
                         </Typography>
                         {errors.loginError ?
-                            <Typography> {t('users:wrongUserNameOrPass')}</Typography>
+                            <LoginError> {t('users:wrongUserNameOrPass')}</LoginError>
                             : ''}
                         <InputBlock>
                             <StyledInput name="name" type="text" placeholder={t('users:username')}
-                                            border={errors.errorName ? 'red' : ''}
-                                            onChange={e => changeInput(e, 'name')}/>
+                                         border={errors.errorName ? 'red' : ''}
+                                         onChange={e => changeInput(e, 'name')}/>
                             {errors.errorName ? <div>{t('users:forceUsername')}</div> : ''}
+
+                        </InputBlock>
+                        <InputBlock>
+                            <StyledInput name="pass" type="password" placeholder={t('users:password')}
+                                         onChange={e => changeInput(e, 'pass')}
+                                         border={errors.errorPass ? 'red' : ''}
+                            />
+                            {errors.errorPass ? <div>{t('users:forcePassword')}</div> : ''}
                         </InputBlock>
                     </Box>
+                    <RememberBlock>
+                        <Box>
+                            <Checkbox inputProps={{'aria-label': 'primary checkbox'}}/>
+                            <Typography>{t('users:rememberMe')}</Typography>
+                        </Box>
+                        <Box>
+                            <Link to="/forget-password">{t('users:changePass')}</Link>
+                        </Box>
+                    </RememberBlock>
                     <LoginButton>
-                        <StyledButton bg={primary}  onClick={login}>
-                            {t('translation:register')}
-                        </StyledButton>
-
+                        <StyledButton bg={primary} onClick={login}>{t('translation:enter')}</StyledButton>
                     </LoginButton>
-                     <hr/>
+                    <hr/>
                     <RegisterBlock>
-                        <Typography>{t('translation:anotherAction')}</Typography>
+                        <Typography>{t('users:notAcount')}</Typography>
                         <Link to="#">{t('users:registerNow')}</Link>
-                        <Typography style={{padding: '0 5px'}} variant="span">{t('translation:or')}</Typography>
-                        <Link to="/login">{t('translation:doEnter')}</Link>
                     </RegisterBlock>
                 </Box>
             </StyledGridLogin>
@@ -114,4 +131,4 @@ function LoginComponent({t}) {
     </LoginBlock>);
 }
 
-export default withNamespaces('translation')(LoginComponent);
+export default withNamespaces('users,translation')(LoginComponent);

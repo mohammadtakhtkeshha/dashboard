@@ -28,7 +28,7 @@ function UploadVoice({t,multiple, title, getFile, voices,removedFileId,sendIdAft
     const [currentId, setCurrentId] = useState('');
 
     useEffect(() => {
-        appContext.toggleLoading(false);
+        appContext.setLoading(false);
         if (voices && voices[0] !== undefined && voices.length > 0) {//for edit user
             let urls = [];
             for (let voice of voices) {
@@ -39,7 +39,7 @@ function UploadVoice({t,multiple, title, getFile, voices,removedFileId,sendIdAft
     }, [voices]);
 
     useEffect(()=>{
-        appContext.toggleLoading(false);
+        appContext.setLoading(false);
 
         if (sendIdAfterUpload !== undefined && sendIdAfterUpload !== "") {
             setCurrentId(prevState => {
@@ -60,7 +60,7 @@ function UploadVoice({t,multiple, title, getFile, voices,removedFileId,sendIdAft
     },[sendIdAfterUpload]);
 
     let uploadFile = (e) => {
-        appContext.toggleLoading(true);
+        appContext.setLoading(true);
         let extention = (e.currentTarget.files[0].name).split('.').pop();
         setValidation('');
         setFiles(prevState => {
@@ -71,7 +71,7 @@ function UploadVoice({t,multiple, title, getFile, voices,removedFileId,sendIdAft
         });
         if (extention !== ('mp3')) {
             setValidation(t('translation:voiceValidation'));
-            appContext.toggleLoading(false);
+            appContext.setLoading(false);
             return
         }
 

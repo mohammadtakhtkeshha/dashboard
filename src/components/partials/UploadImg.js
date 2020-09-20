@@ -37,7 +37,7 @@ function UploadImg({ t, multiple, title, getFile, imgs, removedFileId, sendIdAft
     }, [imgs]);
 
     let uploadFile = (e) => {
-        appContext.toggleLoading(true);
+        appContext.setLoading(true);
         if (e.currentTarget.files[0] !== undefined) {
             let extention = (e.currentTarget.files[0].name).split('.').pop();
             setValidation('');
@@ -48,7 +48,7 @@ function UploadImg({ t, multiple, title, getFile, imgs, removedFileId, sendIdAft
                 return [...prevState]
             }));
             if (!['jpg', 'png', 'jpeg'].includes(extention)) {
-                appContext.toggleLoading(false);
+                appContext.setLoading(false);
                 setValidation(t('translation:imgValidation'));
                 return
             }
@@ -66,7 +66,7 @@ function UploadImg({ t, multiple, title, getFile, imgs, removedFileId, sendIdAft
 
     useEffect(() => {
         if (sendIdAfterUpload !== undefined && sendIdAfterUpload !== "") {
-            appContext.toggleLoading(false);
+            appContext.setLoading(false);
             setCurrentId(prevState => {
                 return [...prevState, sendIdAfterUpload.id]
             });

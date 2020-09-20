@@ -13,7 +13,7 @@ export const useStyles =(theme) => ({
                position: 'relative',
                '& .error': {
                    position: 'relative',
-                   top: '-25px',
+                   top: '-11px',
                    textAlign: 'right',
                    color: 'red'
                }

@@ -37,7 +37,7 @@ function UploadFile({ t, multiple, title, getFile, imgs, removedFileId, sendIdAf
     }, [imgs]);
 
     useEffect(() => {
-        appContext.toggleLoading(false);
+        appContext.setLoading(false);
         if (sendIdAfterUpload !== undefined && sendIdAfterUpload !== "") {
             let currentFile=sendIdAfterUpload.file
             let fileName=currentFile.name;
@@ -75,7 +75,7 @@ function UploadFile({ t, multiple, title, getFile, imgs, removedFileId, sendIdAf
     }, [sendIdAfterUpload]);
 
     let uploadFile = (e) => {
-        appContext.toggleLoading(true);
+        appContext.setLoading(true);
         if (e.currentTarget.files[0] !== undefined) {
             let extention = (e.currentTarget.files[0].name).split('.').pop();
             setValidation('');
@@ -87,7 +87,7 @@ function UploadFile({ t, multiple, title, getFile, imgs, removedFileId, sendIdAf
             }));
             if (!['jpg', 'jpeg', 'txt', 'zip', 'rar'].includes(extention)) {
                 setValidation(t('translation:fileValidation'));
-                appContext.toggleLoading(false);
+                appContext.setLoading(false);
                 return
             }
             let arrayOfFiles = [];

@@ -15,10 +15,12 @@ import UploadImg from "components/partials/UploadImg";
 import AppContext from 'contexts/AppContext';
 import UserContext from "contexts/UserContext";
 import {StyledButton, StyledInput} from "assets/js/App";
+import {primary} from "components/partials/Colors";
+import {StyledLabel} from "assets/js/App";
 
 const currentStyles = makeStyles(useStyles);
 
-function NewUserComponent({t, userNameList, userMailList}) {
+function NewUserComponent({t, id,userNameList, userMailList}) {
     const classes = currentStyles();
     const [keyRoles, setKeyRoles] = useState([]);
     const [valueRoles, setValueRoles] = useState();
@@ -37,9 +39,15 @@ function NewUserComponent({t, userNameList, userMailList}) {
         status: false,
     });
     const [sendIdAfterUpload, setSendIdAfterUpload] = useState('');
+    const [defaultRoles, setDefaultRoles] = useState([]);
+    const [gottenName,setGottenName]=useState('');
+    const [gottenMail,setGottenMail]=useState('');
+    const [currentImg, setCurrentImg] = useState('');
+
+
 
     let getRoles = () => {
-        userService.getRoles().then((response) => {
+        userService.getRoles().then((response) => {debugger
             let valueRoles = Object.values(response.data);
             let keyRoles = Object.keys(response.data);
             setKeyRoles(keyRoles);
@@ -50,21 +58,21 @@ function NewUserComponent({t, userNameList, userMailList}) {
     };
 
     const saveUser = () => {
-       userContext.allValidation(user,confirmPass);
-       debugger
-        if(true){
+       let valid=userContext.allValidation(user,confirmPass);
+        if(valid){
             return
         }
-        appContext.toggleLoading(true);
+        appContext.setLoading(true);
         userService.registerUser(user).then((response) => {
             let item = response.data;
-            appContext.toggleLoading(false);
+            debugger
+            appContext.setLoading(false);
             userContext.getRegisteredUser({
                 uid: item.uid,
                 name: item.name !== undefined ? item.name : '',
                 field_name: item.field_name !== undefined ? item.field_name : '',
                 field_last_name: item.field_last_name !== undefined ? item.field_last_name : '',
-                role: (item.roles === undefined ? 'بدون نقش' : item.roles.target_id),
+                roles_target_id: (item.roles === undefined ? 'بدون نقش' : item.roles.target_id),
                 status: `${item.status}`,
                 mail: item.mail,
                 user_picture: item.user_picture !== undefined ? item.user_picture.url : ''
@@ -123,15 +131,14 @@ function NewUserComponent({t, userNameList, userMailList}) {
             }
         });
         if (field === 'name') {
-            userContext.nameValidation(currentName, 'null');
+            userContext.nameValidation(currentName,gottenName);
         }
         if (field === 'mail') {
-            userContext.mailValidation(currentName, "null");
+            userContext.mailValidation(currentName,gottenMail);
         }
         if (field === 'pass') {
-            userContext.passValidation(currentName, "add");
+            userContext.passValidation(currentName,"edit");
         }
-
     };
 
     let handleConfirmPass = (e) => {
@@ -141,16 +148,35 @@ function NewUserComponent({t, userNameList, userMailList}) {
     };
 
     let handleCheckRoles = (e) => {
+        // let checked = e.target.checked;
+        // let currentValue = e.target.value;
+        // let checkedRolesArr = [];
+        // if (checked) {
+        //     checkedRolesArr = [currentValue, ...checkedRoles];
+        // } else {
+        //     let newCheckedRoles = checkedRoles.filter(role => role !== currentValue);
+        //     checkedRolesArr = [...newCheckedRoles];
+        // }
+        // setCheckRoles([...checkedRolesArr]);
+        // let formatedRoles = [];
+        // formatedRoles = checkedRolesArr.toString();
+        // setUser((prevState) => {
+        //     return {
+        //         ...prevState, roles: {target_id: formatedRoles}
+        //     }
+        // });
         let checked = e.target.checked;
         let currentValue = e.target.value;
         let checkedRolesArr = [];
         if (checked) {
-            checkedRolesArr = [currentValue, ...checkedRoles];
+            checkedRolesArr = [currentValue, ...defaultRoles];
         } else {
-            let newCheckedRoles = checkedRoles.filter(role => role !== currentValue);
+            let newCheckedRoles = defaultRoles.filter(role => role !== currentValue);
             checkedRolesArr = [...newCheckedRoles];
         }
-        setCheckRoles([...checkedRolesArr]);
+        setDefaultRoles([...checkedRolesArr]);
+
+        // -----
         let formatedRoles = [];
         formatedRoles = checkedRolesArr.toString();
         setUser((prevState) => {
@@ -180,7 +206,37 @@ function NewUserComponent({t, userNameList, userMailList}) {
         saveFile(file);
     }
 
+    let getUser = () => {
+        if(id){
+            appContext.setLoading(true);
+            userService.getUser(id).then((response) => {
+                appContext.setLoading(false);
+                let user = response.data;
+                let roles = user.roles !== undefined ? user.roles.target_id.split(',') : [];
+                setDefaultRoles([...roles]);
+                setUser({
+                    uid: user.uid,
+                    name: user.name === undefined ? '' : user.name,
+                    field_name: user.field_name === undefined ? '' : user.field_name,
+                    field_last_name: user.field_last_name === undefined ? '' : user.field_last_name,
+                    mail: user.mail === undefined ? '' : user.mail,
+                    user_picture: user.user_picture === undefined ? '' : user.user_picture,
+                    roles: user.roles === "" ? user.roles : [],
+                    status: user.status === undefined ? '' : (user.status === true ? true : false)
+                });
+                setGottenName(response.data.name);
+                setGottenMail(response.data.mail);
+                setCurrentImg(user.user_picture === undefined ? '' : user.user_picture.url);
+            }).catch((error) => {
+                appContext.handleError(error);
+            });
+        }
+
+    };
+
+
     useEffect(() => {
+        getUser();
         getRoles();
     }, []);
 
@@ -188,14 +244,14 @@ function NewUserComponent({t, userNameList, userMailList}) {
         <>
             <Box className={classes.paper}>
                 <Box className='block'>
-                    <StyledInput type="text" placeholder={t('translation:name')} label={t('users:enter your name')}
-                           small='' handleClick={e => handleChange(e, "field_name")}/>
-
-                    <StyledInput type="text" placeholder={t('users:family')} label={t('users:enter your family')}
-                           small='' handleClick={e => handleChange(e, "field_last_name")}/>
+                    <StyledLabel>{t('users:enter your name')}</StyledLabel>
+                    <StyledInput type="text" placeholder={t('translation:name')} onChange={e => handleChange(e, "field_name")}/>
+                    <StyledLabel>{t('users:enter your family')}</StyledLabel>
+                    <StyledInput type="text" placeholder={t('users:family')} onChange={e => handleChange(e, "field_last_name")}/>
                     <Box className="inputBlock">
-                        <StyledInput type="text" placeholder={t('users:username')} label={t('users:enter your username')}
-                               small='' handleClick={e => handleChange(e, "name")}/>
+                        <StyledLabel>{t('users:enter your username')}</StyledLabel>
+                        <StyledInput type="text" placeholder={t('users:username')}
+                               small='' onChange={e => handleChange(e, "name")}/>
                         {userContext.errors.errorName.length ?
                             <Typography className="error">{userContext.errors.errorName.length}</Typography> : ''}
                         {userContext.errors.errorName.unique ?
@@ -227,38 +283,43 @@ function NewUserComponent({t, userNameList, userMailList}) {
                 </Box>
                 <Box className='block'>
                     <Box className="inputBlock">
-                        <StyledInput type="email" placeholder={t('users:email')} label={t('users:enter your email')}
-                               small='' handleClick={e => handleChange(e, "mail")}/>
+                        <StyledLabel>{t('users:enter your email')}</StyledLabel>
+                        <StyledInput type="email" placeholder={t('users:email')} onChange={e => handleChange(e, "mail")}/>
                         {userContext.errors.errorMail.mail ?
                             <Typography className="error">{userContext.errors.errorMail.mail}</Typography> : ''}
                         {userContext.errors.errorMail.unique ?
                             <Typography className="error">{userContext.errors.errorMail.unique}</Typography> : ''}
                     </Box>
                     <Box className="inputBlock">
-                        <StyledInput type="password" placeholder={t('users:password')} label={t('users:password')}
-                               small='' handleClick={e => handleChange(e, "pass")} error={userContext.errors.pass}/>
+                        <StyledLabel>{t('users:password')}</StyledLabel>
+                        <StyledInput type="password" placeholder={t('users:password')} onChange={e => handleChange(e, "pass")} error={userContext.errors.pass}/>
                         {userContext.errors.errorPass.length ?
                             <Typography className="error">{userContext.errors.errorPass.length}</Typography> : ''}
                         {userContext.errors.errorPass.specialChar ?
                             <Typography className="error">{userContext.errors.errorPass.specialChar}</Typography> : ''}
                     </Box>
                     <Box className="inputBlock">
+                        <StyledLabel>{t('users:confirm password')}</StyledLabel>
                         <StyledInput type="password" placeholder={t('users:confirm password')}
-                               label={t('users:confirm password')}
-                               small='' handleClick={e => handleConfirmPass(e)}
+                               onChange={e => handleConfirmPass(e)}
                                error={userContext.errors.confirm_pass}/>
                         {userContext.errors.confirmPass.harmony ?
                             <Typography className="error">{userContext.errors.confirmPass.harmony}</Typography> : ''}
                     </Box>
                     {/*------------------------------------------------------ upload image -----------------------------------------*/}
                     <Box>
-                        <UploadImg multiple={false} title={t('translation:choosePic')}
+                        {/*<UploadImg multiple={false} title={t('translation:choosePic')}*/}
+                        {/*           sendIdAfterUpload={sendIdAfterUpload}*/}
+                        {/*           getFile={uploadedFile} removedFileId={removedFileId}*/}
+                        {/*/>*/}
+                        <UploadImg multiple={false} title={t('translation:choosePic')} getFile={saveFile}
+                                   imgs={currentImg !== "" ? [currentImg] : []}
+                                   removedFileId={removedFileId}
                                    sendIdAfterUpload={sendIdAfterUpload}
-                                   getFile={uploadedFile} removedFileId={removedFileId}
                         />
                     </Box>
                     <Box mt={2}>
-                        <StyledButton onClick={saveUser}>
+                        <StyledButton bg={primary} onClick={saveUser}>
                             {t('translation:register')}
                         </StyledButton>
                     </Box>

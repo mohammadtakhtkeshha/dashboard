@@ -24,14 +24,14 @@ import UserContext from "contexts/UserContext";
 import userService from "core/services/user.service";
 import {danger, success, warning} from "methods/swal";
 import storage from "libraries/local-storage";
-import UserEditModalComponent from "./UserEditModalComponent";
+import UsersRegisterModalComponent from "./UsersRegisterModalComponent";
 import {StyledActionButtonBlock, styledTableCell, styledTableRow} from "assets/js/App";
 
 const StyledTableCell = withStyles(styledTableCell)(TableCell);
 const StyledTableRow = withStyles(styledTableRow)(TableRow);
 const currentStyles = makeStyles(useStyles);
 
-function UsersTableComponent({t, roles, valueRoles, chunkUsers}) {
+function UsersTableComponent({t, roles,setOpenNewUser, valueRoles, chunkUsers,setSelectedCheckBoxes}) {
     let id = '';
     const classes = currentStyles();
     const lang = i18next.language;
@@ -80,7 +80,7 @@ function UsersTableComponent({t, roles, valueRoles, chunkUsers}) {
     };
 
     const handleEditFormOpen = (id) => {
-        setOpenEditForm({show: true, id: id});
+        setOpenNewUser({show: true, id: id});
     };
 
     const doPaginateActionAfterUpdate = (users) => {
@@ -96,11 +96,11 @@ function UsersTableComponent({t, roles, valueRoles, chunkUsers}) {
         let currentUserList = chunkUsers[userContext.page];
         let ids = currentUserList.map(user => user.uid);
         if (!isChecked) {
-            userContext.handleSelectedCheckBoxes(
+            setSelectedCheckBoxes(
                 []
             );
         } else {
-            userContext.handleSelectedCheckBoxes(
+            setSelectedCheckBoxes(
                 [...ids]
             );
         }
@@ -114,38 +114,43 @@ function UsersTableComponent({t, roles, valueRoles, chunkUsers}) {
     const isCheckedHandler = (e, user) => {
         let currentId = user.uid;
         if (e.currentTarget.checked) {
-            userContext.handleSelectedCheckBoxes(
+            setSelectedCheckBoxes(
                 [...userContext.selectedCheckBoxes, currentId]
             );
         } else {
             let filteredSelected = userContext.selectedCheckBoxes.filter(item => item !== currentId);
-            userContext.handleSelectedCheckBoxes(
+            setSelectedCheckBoxes(
                 [...filteredSelected]
             );
         }
     };
 
-    const deleteUser = (id) => {
-        appContext.toggleLoading(true);
-        let loginUserId = loginedUser.uid;
+    const deleteUser = (id) => {debugger
+        appContext.setLoading(true);
+        let loginUserId = loginedUser.id;
         if (id === loginUserId) {
             danger(t('translation:loginDelete'), t('translation:ok'));
             return;
         }
-        userService.deleteUser(id).then((response) => {
-            appContext.toggleLoading(false);
-            let selectedUser = userContext.users.filter(user => user.uid == id);
+        userService.deleteUser(id).then((response) => {debugger
+            appContext.setLoading(false);
+            debugger
+            let selectedUser = userContext.users.filter(user => user.uid === id);
+            debugger
             let selectedUserIndex = userContext.users.indexOf(selectedUser[0]);
+            debugger
             userContext.users.splice(selectedUserIndex, 1);
-            doPaginateActionAfterUpdate(userContext.users);
+            debugger
+            // doPaginateActionAfterUpdate(userContext.users);
+            userContext.handlePagination(userContext.users,true);
             success(t('translation:deletedSuccessfully'), t('translation:ok'));
 
-        }).catch((error) => {
+        }).catch((error) => {debugger
             appContext.handleError(error);
         });
     };
 
-    const confirmDeleteHandler = (e) => {
+    const confirmDeleteHandler = (e) => {debugger
         let id = e.currentTarget.value;
         warning(t('translation:sureQuestion'), t('translation:ok'), t('translation:cancel'), t('translation:notDone'), function () {
             deleteUser(id)
@@ -226,7 +231,7 @@ function UsersTableComponent({t, roles, valueRoles, chunkUsers}) {
                                                     {t('translation:edit')}
                                                 </Typography>
                                             </button>
-                                            <button onClick={(e) => confirmDeleteHandler(e)}>
+                                            <button value={user.uid} onClick={ confirmDeleteHandler}>
                                                 <DeleteIcon/>
                                                 {t('translation:delete')}
                                             </button>
@@ -290,7 +295,8 @@ function UsersTableComponent({t, roles, valueRoles, chunkUsers}) {
                 </Table>
             </TableContainer>
             {/*-------------------------edit modal---------------------------*/}
-            <UserEditModalComponent openEditForm={openEditForm} handleEditFormClose={handleEditFormClose}
+            <UsersRegisterModalComponent openEditForm={openEditForm}
+                                    handleEditFormClose={handleEditFormClose}
                                     editedUser={editedUser}
                                     keyRoles={userContext.keyRoles}
                                     valueRoles={valueRoles}

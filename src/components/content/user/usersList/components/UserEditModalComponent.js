@@ -11,6 +11,7 @@ import {useStyles} from 'assets/js/user/users';
 import i18next from "i18next";
 import {withNamespaces} from "react-i18next";
 import {makeStyles} from "@material-ui/styles";
+import {StyledButton} from "../../../../../assets/js/App";
 
 const currentStyles=makeStyles(useStyles);
 
@@ -35,9 +36,9 @@ function userEditModalComponent({t,openEditForm,handleEditFormClose,valueRoles,k
                 <div className={classes.paper} dir="rtl">
                     <Box className={clsx('header', (lang === 'en' ? 'flexDirL' : 'flexDirR'))}>
                         <Typography className="title">{t('users:editUser')}</Typography>
-                        <button onClick={handleEditFormClose} className='button'>
+                        <StyledButton onClick={handleEditFormClose}>
                             <CancelIcon/>
-                        </button>
+                        </StyledButton>
                     </Box>
                     <Box className="body">
                         <EditUserComponent editedUser={editedUser} id={openEditForm.id} keyRoles={keyRoles}

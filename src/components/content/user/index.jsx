@@ -13,7 +13,7 @@ import Pagination from "@material-ui/lab/Pagination";
 
 import UsersTableComponent from "./usersList/components/UsersTableComponent";
 import UsersFilterComponent from "./usersList/components/UsersFilterComponent";
-import UsersActionComponent from "./usersList/components/UsersActionComponent";
+import UsersActionComponent from "./usersList/components/UsersActionComponent.jsx";
 import UsersRegisterModalComponent from "./usersList/components/UsersRegisterModalComponent";
 import UserContext from "contexts/UserContext";
 import {StyledPaper, StyledBox} from "assets/js/App";
@@ -49,22 +49,22 @@ function UsersComponent({t}) {
     const getUsers = () => {
         userService.getNotPaginateUser().then((response) => {
             const currentUsers = response.data;
-            handlePagination(currentUsers);
+            handlePagination(currentUsers, true);
             appContext.setLoading(false);
         }).catch((error) => {
             appContext.handleError(error)
         });
     };
 
-    const handlePagination = (items) => {
-        setUsers(items);
+    const handlePagination = (items, changeDefaultUsers) => {
+        changeDefaultUsers && setUsers(items);
         const chunks = chunkItem(items);
         setChunkUsers(chunks);
         const totalPage = handleTotalPage(items);
         setTotalPage(totalPage);
         const {nameList, mailList} = getUsersNameAndMail(items);
-        setUserNameList([...nameList]);
-        setUserMailList([...mailList]);
+        changeDefaultUsers && setUserNameList([...nameList]);
+        changeDefaultUsers && setUserMailList([...mailList]);
     }
 
     const getRoles = () => {
@@ -88,19 +88,9 @@ function UsersComponent({t}) {
     const getRegisteredUser = (user) => {
         user.uid = `${user.uid}`
         users.unshift(user);
-        handlePagination(users);
+        handlePagination(users, true);
         setOpenNewUser(false);
     }
-
-    const changeChunckUserList = (value, currentTotalPage) => {
-        setPage(0);
-        setChunkUsers(value);
-        setTotalPage(currentTotalPage);
-    };
-
-    const handleSelectedCheckBoxes = (array) => {
-        setSelectedCheckBoxes(array);
-    };
 
     const nameValidation = (name, exName) => {
         const {unique, length, valid} = checkName(name, exName, userNameList, t);
@@ -174,7 +164,6 @@ function UsersComponent({t}) {
             valueRoles: valueRoles,
             selectedCheckBoxes: selectedCheckBoxes,
             errors: errors,
-            handleSelectedCheckBoxes: handleSelectedCheckBoxes,
             nameValidation: nameValidation,
             passValidation: passValidation,
             mailValidation: mailValidation,
@@ -182,6 +171,7 @@ function UsersComponent({t}) {
             setErrors: setErrors,
             getRegisteredUser: getRegisteredUser,
             allValidation: allValidation,
+            handlePagination: handlePagination
         }}>
             <Helmet>
                 <title>
@@ -194,14 +184,14 @@ function UsersComponent({t}) {
                 </Box>
                 <UsersHeaderComponent setOpenNewUser={setOpenNewUser}/>
                 <StyledBox>
-                <UsersFilterComponent changeChunckUserList={changeChunckUserList} chunkUsers={chunkUsers}/>
-
-
+                    <UsersFilterComponent/>
                 </StyledBox>
-                <UsersTableComponent roles={roles}
-                                     valueRoles={valueRoles}
-                                     chunkUsers={chunkUsers}
-                                     handleSelectedCheckBoxes={handleSelectedCheckBoxes}
+                <UsersTableComponent
+                    setOpenNewUser={setOpenNewUser}
+                    roles={roles}
+                    valueRoles={valueRoles}
+                    chunkUsers={chunkUsers}
+                    setSelectedCheckBoxes={setSelectedCheckBoxes}
                 />
                 <Box>
                     <UsersRegisterModalComponent

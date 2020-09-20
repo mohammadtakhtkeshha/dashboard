@@ -57,9 +57,9 @@ function EditUserComponent({t, id, keyRoles, valueRoles, editedUser}) {
     }
 
     let getUser = () => {
-        appContext.toggleLoading(true);
+        appContext.setLoading(true);
         userService.getUser(id).then((response) => {
-            appContext.toggleLoading(false);
+            appContext.setLoading(false);
             let user = response.data;
             let roles = user.roles !== undefined ? user.roles.target_id.split(',') : [];
             setDefaultRoles([...roles]);
@@ -148,18 +148,18 @@ function EditUserComponent({t, id, keyRoles, valueRoles, editedUser}) {
     };
 
     let saveUser = () => {
-        appContext.toggleLoading(true);
+        appContext.setLoading(true);
         let id = user.uid;
         let nameValid = userContext.nameValidation(user.name,gottenName);
         let passValid = userContext.passValidation(user.pass?user.pass:'',"edit");
         let mail = userContext.mailValidation(user.mail,gottenMail);
         let confirmPas = userContext.confirmPassValidation(user.pass?user.pass:'',confirmPass);
         if (nameValid || passValid || mail || confirmPas) {
-            appContext.toggleLoading(false);
+            appContext.setLoading(false);
             return
         }
         userService.editUser(id, JSON.stringify(user)).then((response) => {
-            appContext.toggleLoading(false);
+            appContext.setLoading(false);
             let item = response.data;
             let currentEditedUser = {
                 uid: `${item.uid}`,
@@ -297,8 +297,7 @@ function EditUserComponent({t, id, keyRoles, valueRoles, editedUser}) {
                         />
                     </Box>
                     <Box mt={2}>
-                        <StyledButton bg={primary} color={white} clicked={saveUser}
-                                         text={t('translation:register')}/>
+                        <StyledButton bg={primary} onClick={saveUser}>{t('translation:register')}</StyledButton>
                     </Box>
                 </Box>
             </Paper>
@@ -306,4 +305,4 @@ function EditUserComponent({t, id, keyRoles, valueRoles, editedUser}) {
     </>);
 }
 
-export default withNamespaces(['users', 'translation'])(EditUserComponent);
+export default withNamespaces('users, translation')(EditUserComponent);
