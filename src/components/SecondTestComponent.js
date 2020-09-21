@@ -123,7 +123,7 @@
 //     //             return {...prevState, field_domain_access: {target_id: domainAccessString, target_type: 'domain'}};
 //     //         });
 //     //     } else {
-//     //         debugger
+//     //
 //     //         let exSelectedDomainAccess = contentContext.selectedDomainAccess;
 //     //         let newSelectedDomainAccess = exSelectedDomainAccess.filter(item => item !== domain);
 //     //         contentContext.setSelectedDomainAccess([...newSelectedDomainAccess]);

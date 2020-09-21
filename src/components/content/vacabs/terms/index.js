@@ -26,7 +26,6 @@ function TermsComponent({t}) {
 
     const getTerms = () => {
         vocabService.getTerms(location.state.vocab).then((response) => {
-            debugger
             const terms = response.data;
             handlePagination(terms);
         }).catch((error) => {

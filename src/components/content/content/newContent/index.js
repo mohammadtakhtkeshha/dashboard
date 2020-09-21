@@ -93,7 +93,7 @@ function Index({t,contentType}) {
     };
 
     let getDomainSource = () => {
-        contentService.getDomainSource().then((response) => {debugger
+        contentService.getDomainSource().then((response) => {
             setDomainAccesses(response.data);
         }).catch((error) => {
             console.log(error)

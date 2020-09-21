@@ -1,27 +1,27 @@
 import React, {useContext, useEffect, useState} from "react";
 import AppContext from "contexts/AppContext";
-import { withNamespaces } from "react-i18next";
+import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
 import clsx from "clsx";
 
-import { Box, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
+import {Box, Typography} from "@material-ui/core";
+import {makeStyles} from "@material-ui/styles";
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddIcon from "@material-ui/icons/Add";
 
 import uploadStyles from "assets/js/partials/upload";
-import { globalCss } from 'assets/js/globalCss';
+import {globalCss} from 'assets/js/globalCss';
 
 
-const styles=makeStyles(uploadStyles);
+const styles = makeStyles(uploadStyles);
 const gClass = makeStyles(globalCss);
 
-function UploadImg({ t, multiple, title, getFile, imgs, removedFileId, sendIdAfterUpload }) {
+function UploadImg({t, multiple, title, getFile, imgs, removedFileId, sendIdAfterUpload}) {
     const classes = styles();
     const gClasses = gClass();
     const lang = i18next.language;
     const appContext = useContext(AppContext);
-    const [imagePreviewUrl, setImagePreviewUrl] = useState([]);
+    const [imagePreviewUrl, setImagePreviewUrl] = useState([]);//base64
     const [files, setFiles] = useState([]);
     const [validation, setValidation] = useState('');
     const [currentId, setCurrentId] = useState('');
@@ -34,6 +34,7 @@ function UploadImg({ t, multiple, title, getFile, imgs, removedFileId, sendIdAft
             }
             setImagePreviewUrl([...urls]);
         }
+
     }, [imgs]);
 
     let uploadFile = (e) => {
@@ -99,10 +100,11 @@ function UploadImg({ t, multiple, title, getFile, imgs, removedFileId, sendIdAft
     if (imagePreviewUrl.length > 0) {
         for (let i = 0; i < (imagePreviewUrl.length); i++) {
             $imagePreview.push(<div id="fileBlock">
-                <span className="cancel" id={currentId[i]} onClick={e => handleRemoveImg(e, imagePreviewUrl[i], files[i])}>
-                    <CancelIcon />
+                <span className="cancel" id={currentId[i]}
+                      onClick={e => handleRemoveImg(e, imagePreviewUrl[i], files[i])}>
+                    <CancelIcon/>
                 </span>
-                <img  src={imagePreviewUrl[i]} className="item"/>
+                <img src={imagePreviewUrl[i]} className="item"/>
             </div>);
         }
     } else {
@@ -112,17 +114,18 @@ function UploadImg({ t, multiple, title, getFile, imgs, removedFileId, sendIdAft
     return (
         <Box>
             <Box className={classes.uploadFile}>
-                <input type='file' className="input" multiple={multiple} onChange={e => uploadFile(e)} />
+                <input type='file' className="input" multiple={multiple} onChange={e => uploadFile(e)}/>
                 <div className='file'>
                     <div className='blockPart'>
                         {$imagePreview.map((item, index) => (<span key={index}>{item}</span>))}
                         {$imagePreview[0].props.className === 'previewText' ? '' : <div className="addIcon">
-                            <AddIcon />
+                            <AddIcon/>
                         </div>}
                     </div>
                 </div>
             </Box>
-            <Typography className={clsx(gClasses.validation, lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>{validation}</Typography>
+            <Typography
+                className={clsx(gClasses.validation, lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>{validation}</Typography>
         </Box>
     );
 }

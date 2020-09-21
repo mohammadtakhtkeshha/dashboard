@@ -35,7 +35,7 @@ function UsersComponent({t}) {
     const [keyRoles, setKeyRoles] = useState([]);
     const [users, setUsers] = useState([]); //not paginatedUsers
     const [chunkUsers, setChunkUsers] = useState('');//paginatedUsers
-    const [openNewUser, setOpenNewUser] = useState(false);
+    const [openUserForm, setOpenUserForm] = useState({show: false, id: ''});
     const [userNameList, setUserNameList] = useState([]);
     const [userMailList, setUserMailList] = useState([]);
     const [errors, setErrors] = useState({
@@ -89,7 +89,15 @@ function UsersComponent({t}) {
         user.uid = `${user.uid}`
         users.unshift(user);
         handlePagination(users, true);
-        setOpenNewUser(false);
+        setOpenUserForm({show: false, id: ''});
+    }
+
+    const getEditedUser = (user) => {
+        const currentUser=users.filter(item=>item.uid === `${user.uid}`);
+        const index=users.indexOf(currentUser[0]);
+        users[index]=user;
+        handlePagination(users, true);
+        setOpenUserForm({show: false, id:''});
     }
 
     const nameValidation = (name, exName) => {
@@ -143,10 +151,13 @@ function UsersComponent({t}) {
         let passValid = passValidation(user.pass, "add");
         let mail = mailValidation(user.mail, "null");
         let confirmPas = confirmPassValidation(user.pass, confirmPass);
+        debugger
         if (nameValid || passValid || mail || confirmPas) {
             appContext.setLoading(false);
-            return;
+            debugger
+            return true;
         }
+        return false;
     }
 
     useEffect(() => {
@@ -164,12 +175,13 @@ function UsersComponent({t}) {
             valueRoles: valueRoles,
             selectedCheckBoxes: selectedCheckBoxes,
             errors: errors,
+            setErrors: setErrors,
             nameValidation: nameValidation,
             passValidation: passValidation,
             mailValidation: mailValidation,
             confirmPassValidation: confirmPassValidation,
-            setErrors: setErrors,
             getRegisteredUser: getRegisteredUser,
+            getEditedUser: getEditedUser,
             allValidation: allValidation,
             handlePagination: handlePagination
         }}>
@@ -182,25 +194,25 @@ function UsersComponent({t}) {
                 <Box className={appContext.loading === false ? gClasses.none : gClasses.block}>
                     <Loading/>
                 </Box>
-                <UsersHeaderComponent setOpenNewUser={setOpenNewUser}/>
+                <UsersHeaderComponent setOpenUserForm={setOpenUserForm}/>
                 <StyledBox>
                     <UsersFilterComponent/>
                 </StyledBox>
                 <UsersTableComponent
-                    setOpenNewUser={setOpenNewUser}
+                    setOpenUserForm={setOpenUserForm}
                     roles={roles}
                     valueRoles={valueRoles}
                     chunkUsers={chunkUsers}
                     setSelectedCheckBoxes={setSelectedCheckBoxes}
+                    openUserForm={openUserForm}
                 />
-                <Box>
-                    <UsersRegisterModalComponent
-                        openNewUser={openNewUser} handleCloseUserForm={() => setOpenNewUser(false)}
-                        getRegisteredUser={getRegisteredUser} userNameList={userNameList}
-                        userMailList={userMailList}/>
-                </Box>
+                <UsersRegisterModalComponent
+                    openUserForm={openUserForm}
+                    handleCloseUserForm={() => setOpenUserForm({show: false, id: ''})}
+                    userNameList={userNameList}
+                    userMailList={userMailList}
+                />
                 <UsersActionComponent/>
-
                 <StyledPaginationBox>
                     <Pagination count={(totalPage)} onChange={paginate}/>
                 </StyledPaginationBox>

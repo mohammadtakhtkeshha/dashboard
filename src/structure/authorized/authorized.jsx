@@ -10,10 +10,10 @@ import clsx from "clsx";
 const useStyle = makeStyles((theme) => ({
     sidebar: {
         position: 'fixed',
-        width: '300px'
+        width: '230px'
     },
     content: {
-        width: 'calc(100% - 300px)',
+        width: 'calc(100% - 230px)',
         '@media (max-width: 992px)': {
             width: '100%'
         },

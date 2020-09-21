@@ -3,6 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 import storage from "libraries/local-storage";
 
 const ProtectedRoute = ({ component: Component, render, ...rest }) => {
+
     return (
         <Route
             {...rest}

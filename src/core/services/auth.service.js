@@ -15,7 +15,6 @@ export async function login(user) {
     data.append('username', user.name);
     data.append('password', user.pass);
     const result = await axios.post(accessTokenUrl, data);
-    debugger
     const {access_token} = result.data;
     storage.store(process.env.REACT_APP_TOKEN_KEY, `Bearer ${access_token}`);
     // ---------- login ---------------
@@ -24,10 +23,8 @@ export async function login(user) {
             Authorization: `Bearer ${access_token}`
         }
     }
-    debugger
     const loginResult = await axios.get('http://dash.webrbp.ir/oauth/debug', config);
     storage.store('user', JSON.stringify(loginResult.data));
-    debugger
     return result;
 }
 

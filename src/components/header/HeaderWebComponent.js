@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         },
         appBar: {
             position: 'fixed',
-            width: 'calc(100% - 300px)',
+            width: 'calc(100% - 230px)',
             zIndex: '10!important',
             '&.MuiAppBar-colorPrimary': {
                 backgroundColor: '#e7ebee',
@@ -22,10 +22,10 @@ const useStyles = makeStyles((theme) => ({
             }
         },
         marginLeft: {
-            right: '300px',
+            right: '230px',
         },
         marginRight: {
-            left: '300px',
+            left: '230px',
         }
     }))
 ;

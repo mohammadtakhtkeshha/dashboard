@@ -94,7 +94,7 @@ function TextContentTabComponent({t}) {
     };
 
     let handleSpecialNewsDisplayChange = (e) => {
-        debugger
+
         newContentContext.setContent(prevState => {
             return {
                 ...prevState, field_special_news_display: e.currentTarget.value,
@@ -131,7 +131,7 @@ function TextContentTabComponent({t}) {
     //             return {...prevState, field_domain_access: {target_id: domainAccessString, target_type: 'domain'}};
     //         });
     //     } else {
-    //         debugger
+    //
     //         let exSelectedDomainAccess = newContentContext.selectedDomainAccess;
     //         let newSelectedDomainAccess = exSelectedDomainAccess.filter(item => item !== domain);
     //         newContentContext.setSelectedDomainAccess([...newSelectedDomainAccess]);

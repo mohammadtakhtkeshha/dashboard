@@ -5,10 +5,10 @@ import {primary} from "components/partials/Colors";
 import {withNamespaces} from "react-i18next";
 
 
-function UsersHeaderComponent({t,setOpenNewUser}) {
+function UsersHeaderComponent({t,setOpenUserForm}) {
     return (<StyledHead>
         <StyledHeadTypography>{t('users:usersList')}</StyledHeadTypography>
-        <StyledButton bg={primary} onClick={() => setOpenNewUser(true)}>
+        <StyledButton bg={primary} onClick={() => setOpenUserForm({show:true,id:''})}>
             <Typography>{t('users:newUser')}</Typography>
         </StyledButton>
     </StyledHead>);

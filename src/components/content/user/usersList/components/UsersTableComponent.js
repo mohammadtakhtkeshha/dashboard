@@ -31,7 +31,7 @@ const StyledTableCell = withStyles(styledTableCell)(TableCell);
 const StyledTableRow = withStyles(styledTableRow)(TableRow);
 const currentStyles = makeStyles(useStyles);
 
-function UsersTableComponent({t, roles,setOpenNewUser, valueRoles, chunkUsers,setSelectedCheckBoxes}) {
+function UsersTableComponent({t,roles,openUserForm,setOpenUserForm, valueRoles, chunkUsers,setSelectedCheckBoxes}) {
     let id = '';
     const classes = currentStyles();
     const lang = i18next.language;
@@ -41,12 +41,10 @@ function UsersTableComponent({t, roles,setOpenNewUser, valueRoles, chunkUsers,se
     const node = useRef(id);
     const appContext = useContext(AppContext);
     const userContext = useContext(UserContext);
-    const [openEditForm, setOpenEditForm] = useState({show: false, id: ''});
     const loginedUser = JSON.parse(storage.get('user'));
     const [showUserDetail, setShowUserDetail] = useState();
-
     const handleEditFormClose = () => {
-        setOpenEditForm({show: false, id: ''});
+        setOpenUserForm({show: false, id: ''});
     };
 
     const editedUser = (user) => {
@@ -63,7 +61,7 @@ function UsersTableComponent({t, roles,setOpenNewUser, valueRoles, chunkUsers,se
         }
         chunkUsers[userContext.page][editedUserIndex] = user;
         userContext.passChunckUserList([...chunkUsers]);
-        setOpenEditForm({show: false, id: ''});
+        setOpenUserForm({show: false, id: ''});
     };
 
     const handleUserDetail = (e) => {
@@ -80,7 +78,7 @@ function UsersTableComponent({t, roles,setOpenNewUser, valueRoles, chunkUsers,se
     };
 
     const handleEditFormOpen = (id) => {
-        setOpenNewUser({show: true, id: id});
+        setOpenUserForm({show: true, id: id});
     };
 
     const doPaginateActionAfterUpdate = (users) => {
@@ -125,32 +123,27 @@ function UsersTableComponent({t, roles,setOpenNewUser, valueRoles, chunkUsers,se
         }
     };
 
-    const deleteUser = (id) => {debugger
+    const deleteUser = (id) => {
         appContext.setLoading(true);
         let loginUserId = loginedUser.id;
         if (id === loginUserId) {
             danger(t('translation:loginDelete'), t('translation:ok'));
             return;
         }
-        userService.deleteUser(id).then((response) => {debugger
+        userService.deleteUser(id).then((response) => {
             appContext.setLoading(false);
-            debugger
             let selectedUser = userContext.users.filter(user => user.uid === id);
-            debugger
             let selectedUserIndex = userContext.users.indexOf(selectedUser[0]);
-            debugger
             userContext.users.splice(selectedUserIndex, 1);
-            debugger
-            // doPaginateActionAfterUpdate(userContext.users);
             userContext.handlePagination(userContext.users,true);
             success(t('translation:deletedSuccessfully'), t('translation:ok'));
 
-        }).catch((error) => {debugger
+        }).catch((error) => {
             appContext.handleError(error);
         });
     };
 
-    const confirmDeleteHandler = (e) => {debugger
+    const confirmDeleteHandler = (e) => {
         let id = e.currentTarget.value;
         warning(t('translation:sureQuestion'), t('translation:ok'), t('translation:cancel'), t('translation:notDone'), function () {
             deleteUser(id)
@@ -295,12 +288,12 @@ function UsersTableComponent({t, roles,setOpenNewUser, valueRoles, chunkUsers,se
                 </Table>
             </TableContainer>
             {/*-------------------------edit modal---------------------------*/}
-            <UsersRegisterModalComponent openEditForm={openEditForm}
+            <UsersRegisterModalComponent setOpenUserForm={setOpenUserForm}
                                     handleEditFormClose={handleEditFormClose}
                                     editedUser={editedUser}
                                     keyRoles={userContext.keyRoles}
                                     valueRoles={valueRoles}
-            />
+                                    openUserForm={openUserForm}/>
             {/*-------------------------- End edit modal ---------------------*/}
         </>
     );

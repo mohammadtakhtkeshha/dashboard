@@ -9,7 +9,7 @@ import {Box, Checkbox, Typography} from '@material-ui/core/index';
 import {makeStyles} from "@material-ui/styles";
 
 import userService from 'core/services/user.service';
-import {success} from "methods/swal";
+import {danger, success} from "methods/swal";
 import {useStyles} from 'assets/js/user/NewUser';
 import UploadImg from "components/partials/UploadImg";
 import AppContext from 'contexts/AppContext';
@@ -20,7 +20,7 @@ import {StyledLabel} from "assets/js/App";
 
 const currentStyles = makeStyles(useStyles);
 
-function NewUserComponent({t, id,userNameList, userMailList}) {
+function NewUserComponent({t, id, userNameList, userMailList}) {
     const classes = currentStyles();
     const [keyRoles, setKeyRoles] = useState([]);
     const [valueRoles, setValueRoles] = useState();
@@ -35,19 +35,17 @@ function NewUserComponent({t, id,userNameList, userMailList}) {
         mail: '',
         pass: '',
         user_picture: '',
-        roles: '',
+        roles: [],
         status: false,
     });
     const [sendIdAfterUpload, setSendIdAfterUpload] = useState('');
     const [defaultRoles, setDefaultRoles] = useState([]);
-    const [gottenName,setGottenName]=useState('');
-    const [gottenMail,setGottenMail]=useState('');
-    const [currentImg, setCurrentImg] = useState('');
-
-
+    const [gottenName, setGottenName] = useState('');
+    const [gottenMail, setGottenMail] = useState('');
+    const [currentImg, setCurrentImg] = useState([]);
 
     let getRoles = () => {
-        userService.getRoles().then((response) => {debugger
+        userService.getRoles().then((response) => {
             let valueRoles = Object.values(response.data);
             let keyRoles = Object.keys(response.data);
             setKeyRoles(keyRoles);
@@ -55,17 +53,19 @@ function NewUserComponent({t, id,userNameList, userMailList}) {
         }).catch((error) => {
             console.log(error);
         });
-    };
+    }
 
-    const saveUser = () => {
-       let valid=userContext.allValidation(user,confirmPass);
-        if(valid){
-            return
-        }
-        appContext.setLoading(true);
-        userService.registerUser(user).then((response) => {
-            let item = response.data;
+    const saveUser = () => {debugger
+        let valid = userContext.allValidation(user, confirmPass);
+        if (valid) {
             debugger
+            danger(t('translation:inputValidation'),t('translation:ok'));
+            return;
+        }
+        debugger
+        appContext.setLoading(true);
+        userService.registerUser(user).then((response) => {debugger
+            let item = response.data;
             appContext.setLoading(false);
             userContext.getRegisteredUser({
                 uid: item.uid,
@@ -81,13 +81,43 @@ function NewUserComponent({t, id,userNameList, userMailList}) {
         }).catch((error) => {
             appContext.handleError(error);
         });
-    };
+    }
 
-    let removedFileId = (id) => {
+    const editUser = () => {
+        debugger
+        userService.editUser(id, JSON.stringify(user)).then((response) => {
+            appContext.setLoading(false);
+            let item = response.data;
+            let currentEditedUser = {
+                uid: `${item.uid}`,
+                user_picture: item.user_picture !== undefined ? item.user_picture.url : "",
+                status: `${item.status}`,
+                roles_target_id: item.roles !== undefined ? item.roles.target_id : "بدون نقش",
+                name: item.name,
+                field_name: item.field_name,
+                field_last_name: item.field_last_name,
+                mail: item.mail,
+            };
+            userContext.getEditedUser(currentEditedUser);
+            success(t('translation:successRegistered'), t('translation:ok'));
+        }).catch((error) => {
+            appContext.handleError(error)
+        });
+    }
+
+    const register = () => {
+        if (id) {
+            editUser();
+        } else {
+            saveUser();
+        }
+    }
+
+    let removedFileId = () => {
         setUser(prevState => {
             return {...prevState, user_picture: ""}
         });
-    };
+    }
 
     let saveFile = (file) => {
         let currentFile = file[0];
@@ -117,7 +147,7 @@ function NewUserComponent({t, id,userNameList, userMailList}) {
                 return {...prevState, errorName: error}
             });
         });
-    };
+    }
 
     let handleChange = (e, field) => {
         let currentName;
@@ -131,21 +161,21 @@ function NewUserComponent({t, id,userNameList, userMailList}) {
             }
         });
         if (field === 'name') {
-            userContext.nameValidation(currentName,gottenName);
+            userContext.nameValidation(currentName, gottenName);
         }
         if (field === 'mail') {
-            userContext.mailValidation(currentName,gottenMail);
+            userContext.mailValidation(currentName, gottenMail);
         }
         if (field === 'pass') {
-            userContext.passValidation(currentName,"edit");
+            userContext.passValidation(currentName, "edit");
         }
-    };
+    }
 
     let handleConfirmPass = (e) => {
         let currentCofrimPass = e.target.value;
         setConfirmPass(currentCofrimPass);
         userContext.confirmPassValidation(user.pass, currentCofrimPass);
-    };
+    }
 
     let handleCheckRoles = (e) => {
         // let checked = e.target.checked;
@@ -184,7 +214,7 @@ function NewUserComponent({t, id,userNameList, userMailList}) {
                 ...prevState, roles: {target_id: formatedRoles}
             }
         });
-    };
+    }
 
     let handleStatusChange = (e) => {
         let currentStatus = e.target.value;
@@ -194,20 +224,19 @@ function NewUserComponent({t, id,userNameList, userMailList}) {
         } else {
             status = false;
         }
-
         setUser((prevState) => {
             return {
                 ...prevState, status: status
             }
         });
-    };
+    }
 
     let uploadedFile = (file) => {
         saveFile(file);
     }
 
     let getUser = () => {
-        if(id){
+        if (id) {
             appContext.setLoading(true);
             userService.getUser(id).then((response) => {
                 appContext.setLoading(false);
@@ -221,17 +250,16 @@ function NewUserComponent({t, id,userNameList, userMailList}) {
                     field_last_name: user.field_last_name === undefined ? '' : user.field_last_name,
                     mail: user.mail === undefined ? '' : user.mail,
                     user_picture: user.user_picture === undefined ? '' : user.user_picture,
-                    roles: user.roles === "" ? user.roles : [],
+                    roles: user.roles,
                     status: user.status === undefined ? '' : (user.status === true ? true : false)
                 });
                 setGottenName(response.data.name);
                 setGottenMail(response.data.mail);
-                setCurrentImg(user.user_picture === undefined ? '' : user.user_picture.url);
+                setCurrentImg(user.user_picture === undefined ? [] : [user.user_picture.url]);
             }).catch((error) => {
                 appContext.handleError(error);
             });
         }
-
     };
 
 
@@ -245,13 +273,15 @@ function NewUserComponent({t, id,userNameList, userMailList}) {
             <Box className={classes.paper}>
                 <Box className='block'>
                     <StyledLabel>{t('users:enter your name')}</StyledLabel>
-                    <StyledInput type="text" placeholder={t('translation:name')} onChange={e => handleChange(e, "field_name")}/>
+                    <StyledInput value={user.field_name} type="text" placeholder={t('translation:name')}
+                                 onChange={e => handleChange(e, "field_name")}/>
                     <StyledLabel>{t('users:enter your family')}</StyledLabel>
-                    <StyledInput type="text" placeholder={t('users:family')} onChange={e => handleChange(e, "field_last_name")}/>
+                    <StyledInput value={user.field_last_name} type="text" placeholder={t('users:family')}
+                                 onChange={e => handleChange(e, "field_last_name")}/>
                     <Box className="inputBlock">
                         <StyledLabel>{t('users:enter your username')}</StyledLabel>
-                        <StyledInput type="text" placeholder={t('users:username')}
-                               small='' onChange={e => handleChange(e, "name")}/>
+                        <StyledInput value={user.name} type="text" placeholder={t('users:username')}
+                                     onChange={e => handleChange(e, "name")}/>
                         {userContext.errors.errorName.length ?
                             <Typography className="error">{userContext.errors.errorName.length}</Typography> : ''}
                         {userContext.errors.errorName.unique ?
@@ -276,6 +306,7 @@ function NewUserComponent({t, id,userNameList, userMailList}) {
                                                                      name="roles"/>}
                                                   label={valueRoles[keyName]}
                                                   value={keyRoles[keyName]}
+                                                  checked={defaultRoles.includes(keyRoles[index])}
                                 />
                             ))
                             : ''}
@@ -284,7 +315,8 @@ function NewUserComponent({t, id,userNameList, userMailList}) {
                 <Box className='block'>
                     <Box className="inputBlock">
                         <StyledLabel>{t('users:enter your email')}</StyledLabel>
-                        <StyledInput type="email" placeholder={t('users:email')} onChange={e => handleChange(e, "mail")}/>
+                        <StyledInput value={user.mail} type="email" placeholder={t('users:email')}
+                                     onChange={e => handleChange(e, "mail")}/>
                         {userContext.errors.errorMail.mail ?
                             <Typography className="error">{userContext.errors.errorMail.mail}</Typography> : ''}
                         {userContext.errors.errorMail.unique ?
@@ -292,7 +324,8 @@ function NewUserComponent({t, id,userNameList, userMailList}) {
                     </Box>
                     <Box className="inputBlock">
                         <StyledLabel>{t('users:password')}</StyledLabel>
-                        <StyledInput type="password" placeholder={t('users:password')} onChange={e => handleChange(e, "pass")} error={userContext.errors.pass}/>
+                        <StyledInput type="password" placeholder={t('users:password')}
+                                     onChange={e => handleChange(e, "pass")} error={userContext.errors.pass}/>
                         {userContext.errors.errorPass.length ?
                             <Typography className="error">{userContext.errors.errorPass.length}</Typography> : ''}
                         {userContext.errors.errorPass.specialChar ?
@@ -301,25 +334,23 @@ function NewUserComponent({t, id,userNameList, userMailList}) {
                     <Box className="inputBlock">
                         <StyledLabel>{t('users:confirm password')}</StyledLabel>
                         <StyledInput type="password" placeholder={t('users:confirm password')}
-                               onChange={e => handleConfirmPass(e)}
-                               error={userContext.errors.confirm_pass}/>
+                                     onChange={e => handleConfirmPass(e)}
+                                     error={userContext.errors.confirm_pass}/>
                         {userContext.errors.confirmPass.harmony ?
                             <Typography className="error">{userContext.errors.confirmPass.harmony}</Typography> : ''}
                     </Box>
                     {/*------------------------------------------------------ upload image -----------------------------------------*/}
-                    <Box>
-                        {/*<UploadImg multiple={false} title={t('translation:choosePic')}*/}
-                        {/*           sendIdAfterUpload={sendIdAfterUpload}*/}
-                        {/*           getFile={uploadedFile} removedFileId={removedFileId}*/}
-                        {/*/>*/}
-                        <UploadImg multiple={false} title={t('translation:choosePic')} getFile={saveFile}
-                                   imgs={currentImg !== "" ? [currentImg] : []}
+                    <Box mt={4}>
+                        <UploadImg multiple={false}
+                                   title={t('translation:choosePic')}
+                                   getFile={saveFile}
+                                   imgs={currentImg}
                                    removedFileId={removedFileId}
                                    sendIdAfterUpload={sendIdAfterUpload}
                         />
                     </Box>
                     <Box mt={2}>
-                        <StyledButton bg={primary} onClick={saveUser}>
+                        <StyledButton bg={primary} onClick={register}>
                             {t('translation:register')}
                         </StyledButton>
                     </Box>
@@ -328,4 +359,4 @@ function NewUserComponent({t, id,userNameList, userMailList}) {
         </>);
 }
 
-export default withNamespaces(['users', 'translation'])(NewUserComponent);
+export default withNamespaces('users', 'translation')(NewUserComponent);

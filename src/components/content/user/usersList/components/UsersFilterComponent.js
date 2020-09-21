@@ -35,7 +35,7 @@ function UsersFilterComponent({t}) {
         let name = searchedUser.name;
         let mail = searchedUser.mail;
         let filteredUser;
-
+debugger
         filteredUser = userContext.users.filter((user) => {
             let newUser = user['field_name'].includes(fieldName) &&
                 user['field_last_name'].includes(fieldLastName) &&
@@ -44,6 +44,7 @@ function UsersFilterComponent({t}) {
                 user['roles_target_id'].includes(role)
             return newUser;
         });
+debugger
         userContext.handlePagination(filteredUser, false);
     }
 

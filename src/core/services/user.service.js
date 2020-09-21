@@ -23,7 +23,7 @@ export function getNotPaginateUser(){
    return axios.get(url, authHeader);
 }
 
-export function multiAction(data,handleError) {debugger
+export function multiAction(data,handleError) {
     let url = userUrl.multiActionUrl;
     return Method({method:'post',url:url,body: data,headers: aacaauthHeader,handleError:handleError});
 };

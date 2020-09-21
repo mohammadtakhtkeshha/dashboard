@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
 import clsx from "clsx";
@@ -13,27 +13,23 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import NewUserComponent from "../forms/NewUserComponent";
 import {useStyles} from "assets/js/user/users";
 
+const useStyle = makeStyles(useStyles);
 
-const useStyle=makeStyles(useStyles);
-
-function UserRegisterModalComponent({t, data, openNewUser,handleCloseUserForm,getRegisteredUser,userMailList,userNameList}) {
+function UserRegisterModalComponent({t, openUserForm, handleCloseUserForm, userMailList, userNameList}) {
     let lang = i18next.language;
     const classes = useStyle();
-
-    return(<>
+    return (<>
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
                 className={classes.modal}
-                open={openNewUser}
+                open={openUserForm.show}
                 onClose={handleCloseUserForm}
                 closeAfterTransition
                 BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                }}
+                BackdropProps={{timeout: 500}}
             >
-                <Fade in={openNewUser} id="modal">
+                <Fade in={openUserForm.show} id="modal">
                     <div className={classes.paper} dir="rtl">
                         <Box className={clsx('header', (lang === 'en' ? 'flexDirL' : 'flexDirR'))}>
                             <Typography className="title">{t('translation:registerUser')}</Typography>
@@ -43,8 +39,9 @@ function UserRegisterModalComponent({t, data, openNewUser,handleCloseUserForm,ge
                         </Box>
                         <Box className="body">
                             <NewUserComponent
-                                            userNameList={userNameList}
-                                              userMailList={userMailList}
+                                userNameList={userNameList}
+                                userMailList={userMailList}
+                                id={openUserForm.id}
                             />
                         </Box>
                     </div>

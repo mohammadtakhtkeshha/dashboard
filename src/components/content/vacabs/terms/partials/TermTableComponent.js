@@ -6,7 +6,6 @@ import {Paper, Typography} from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Checkbox from "@material-ui/core/Checkbox";
 import TableBody from "@material-ui/core/TableBody";
 import {withStyles} from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
@@ -27,33 +26,12 @@ function TermTableComponent({t, chunks, page}) {
         // setOpenTermForm(true);
     };
 
-    const allCheckboxHandler = (e) => {
-        // let isChecked = e.currentTarget.checked;
-        // // let currentUserList = chunckUserList[userContext.page];
-        // let ids = currentUserList.map(user => user.uid);
-        // if (!isChecked) {
-        //     // userContext.handleSelectedCheckBoxes(
-        //         []
-        //     );
-        // } else {
-        //     userContext.handleSelectedCheckBoxes(
-        //         [...ids]
-        //     );
-        // }
-    };
-
-
-
     return (
         <TableContainer component={Paper}>
             <Table aria-label="customized table">
                 <TableHead>
                     <TableRow>
                         <StyledTableCell align={appContext.currentAlign()} color='red'>
-                            <Checkbox
-                                checked={true}
-                                onChange={(e) => allCheckboxHandler(e)}
-                            />
                             {t('translation:name')}
                         </StyledTableCell>
                         <StyledTableCell align={appContext.currentAlign()}>
@@ -65,10 +43,6 @@ function TermTableComponent({t, chunks, page}) {
                     {chunks[page]?.map((term, index) =>
                         <StyledTableRow key={index}>
                             <StyledTableCell align={appContext.currentAlign()}>
-                                <Checkbox
-                                    checked={true}
-                                    onChange={(e) => allCheckboxHandler(e)}
-                                />
                                 {term.name}
                             </StyledTableCell>
                             <StyledTableCell align={appContext.currentAlign()}>
@@ -94,4 +68,3 @@ function TermTableComponent({t, chunks, page}) {
 }
 
 export default withNamespaces('vocabs')(TermTableComponent);
-

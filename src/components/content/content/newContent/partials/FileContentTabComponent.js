@@ -137,7 +137,7 @@ function FileContentTabComponent({t}) {
     let uploadVideo = (files) => {
         for (let e of files) {
             contentService.uploadVideo(e).then((response) => {
-                debugger
+
                 let item = response.data;
                 setMultiVideoToSend({id: item.fid, file: e});
                 newContentContext.setContent(prevState => {
@@ -176,7 +176,7 @@ function FileContentTabComponent({t}) {
         }
 
         contentService.registerContent(newContentContext.content).then((response) => {
-            debugger
+
         }).catch((error) => {
             debugger
             appContext.handleError(error);
