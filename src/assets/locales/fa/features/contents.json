@@ -9,6 +9,7 @@
   "published": "منتشر شده",
   "unpublished": "عدم انتشار",
   "rotitr": "روتیتر",
+  "sotitr": "سوتیتر",
   "lidkhabar": "لید خبر",
   "show": "نمایش",
   "domainAccess": "دسترسی دامنه",
@@ -21,5 +22,7 @@
   "sendToAllAffiliates": "ارسال برای تمام وابسته ها",
   "availableOnAllDomain": "در دسترس بودن محتوا در همه دامنه ها",
   "fileGallery":"گالری فایل",
-  "specialNewsDisplay":"محل نمایش"
+  "specialNewsDisplay":"محل نمایش",
+  "choosePublishDate":"تاریخ انتشار را انتخاب کنید",
+  "chooseUnpublishDate":"تاریخ عدم انتشار را انتخاب کنید"
 }

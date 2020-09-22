@@ -61,6 +61,8 @@
   "noRole": "no role",
   "notAble": "you don't have permission to do this action!",
   "requiredValid": "this field is required !",
-  "inputValidation": "your inputs are not valid"
+  "inputValidation": "your inputs are not valid",
+  "tags": "tags",
+  "categories": "categories"
 
 }

@@ -14,7 +14,7 @@ import {globalCss} from "assets/js/globalCss";
 import contentService from "core/services/content.service";
 import AppContext from "contexts/AppContext";
 import NewContentContext from "contexts/NewContentContext";
-import {StyledButton} from "../../../../../assets/js/App";
+import {StyledButton} from "assets/js/App";
 
 const gClass = makeStyles(globalCss);
 
@@ -30,7 +30,7 @@ function FileContentTabComponent({t}) {
     const [multiVideoToSend, setMultiVideoToSend] = useState('');
     const [multiVoiceToSend, setMultiVoiceToSend] = useState('');
 
-    let uploadSingImg = (e) => {
+    const uploadSingImg = (e) => {
         if (e.length > 0) {
             contentService.uploadSingImg(e).then((response) => {
                 let item = response.data;
@@ -55,7 +55,7 @@ function FileContentTabComponent({t}) {
         }
     }
 
-    let uploadMultiImg = (file) => {
+    const uploadMultiImg = (file) => {
         if (file.length > 0) {
             let fids = [];
             for (let e of file) {
@@ -94,7 +94,7 @@ function FileContentTabComponent({t}) {
         }
     }
 
-    let uploadMultiFile = (files) => {
+    const uploadMultiFile = (files) => {
         if (files.length > 0) {
             let fids = [];
             for (let e of files) {
@@ -134,7 +134,7 @@ function FileContentTabComponent({t}) {
 
     }
 
-    let uploadVideo = (files) => {
+    const uploadVideo = (files) => {
         for (let e of files) {
             contentService.uploadVideo(e).then((response) => {
 
@@ -161,20 +161,10 @@ function FileContentTabComponent({t}) {
         }
     }
 
-    let register = () => {
-        // let date = new Date();
-        // let currentDate = date.toDateString();
-        // let arrDate = currentDate.split(' ');
-        // contentContext.setContent((prevState) => {
-        //     return {
-        //         ...prevState, arrDate
-        //     }
-        // });
-
+    const register = () => {
         if (newContentContext.content.title === "") {
             newContentContext.setErrors({title: t('translation:requiredValid')});
         }
-
         contentService.registerContent(newContentContext.content).then((response) => {
 
         }).catch((error) => {
@@ -184,7 +174,7 @@ function FileContentTabComponent({t}) {
 
     };
 
-    let uploadVoice = (files) => {
+    const uploadVoice = (files) => {
         if (files.length > 0) {
             for (let e of files) {
                 contentService.uploadVoice(e).then((response) => {
@@ -220,7 +210,7 @@ function FileContentTabComponent({t}) {
         }
     }
 
-    let removeMultiImg = (currentId) => {
+    const removeMultiImg = (currentId) => {
         let fidsString = newContentContext.content.field_field_galeries.target_id;
         let fidsArray = fidsString.split(',');
         let currentIndex = fidsArray.indexOf(currentId);
@@ -238,7 +228,7 @@ function FileContentTabComponent({t}) {
         });
     }
 
-    let removeMultiFile = (currentId) => {
+    const removeMultiFile = (currentId) => {
         let fidsString = newContentContext.content.field_files.target_id;
         let fidsArray = fidsString.split(',');
         let currentIndex = fidsArray.indexOf(currentId);
@@ -257,7 +247,7 @@ function FileContentTabComponent({t}) {
 
     }
 
-    let removeMultiVideo = (currentId) => {
+    const removeMultiVideo = (currentId) => {
         let fidsString = newContentContext.content.field_videos.target_id;
         let fidsArray = fidsString.split(',');
         let currentIndex = fidsArray.indexOf(currentId);
@@ -275,7 +265,7 @@ function FileContentTabComponent({t}) {
         });
     }
 
-    let removeMultiVoice = (currentId) => {
+    const removeMultiVoice = (currentId) => {
         let fidsString = newContentContext.content.field_sounds.target_id;
         let fidsArray = fidsString.split(',');
         let currentIndex = fidsArray.indexOf(currentId);
@@ -293,7 +283,7 @@ function FileContentTabComponent({t}) {
         });
     }
 
-    let removedSingleImg = (id) => {
+    const removedSingleImg = (id) => {
         newContentContext.setContent(prevState => {
             return {
                 ...prevState, field_image: ''
@@ -334,7 +324,9 @@ function FileContentTabComponent({t}) {
                          removedFileId={removeMultiVoice} sendIdAfterUpload={multiVoiceToSend}/>
         </Box>
         <Box mt={2} className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>
-            <StyledButton bg={primary} color="primary" clicked={register} text={t('translation:register')}/>
+            <StyledButton bg={primary} onClick={register}>
+                {t('translation:register')}
+            </StyledButton>
         </Box>
     </>);
 }

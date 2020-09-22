@@ -178,4 +178,8 @@ export const StyledLabel=styled.div`
         display:inline-block;
        
 `
+export const StyledBoxMt1=styled.div`
+        margin-top:1rem;
+       
+`
 

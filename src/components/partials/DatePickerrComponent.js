@@ -4,7 +4,7 @@ import i18next from "i18next";
 import makeStyles from "@material-ui/styles/makeStyles";
 import LuxonUtils from '@date-io/luxon';
 import {ThemeProvider} from '@material-ui/styles';
-import { DatePicker,MuiPickersUtilsProvider} from '@material-ui/pickers';
+import {DatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 
 import {myStyles, themeEnn, themeFaa} from "assets/js/partials/datePicker";
 // ----------------------- jalali -------------------
@@ -13,6 +13,8 @@ import jMoment from "moment-jalaali";
 import JalaliUtils from "@date-io/jalaali";
 import {createMuiTheme} from '@material-ui/core/styles';
 
+import MomentUtils from '@date-io/moment';
+import DateFnsUtils from '@date-io/date-fns';
 // ----------------------- jalali -------------------
 jMoment.loadPersian({dialect: "persian-modern", usePersianDigits: true});
 
@@ -20,29 +22,33 @@ const styles = makeStyles(myStyles);
 const themeFa = createMuiTheme(themeFaa);
 const themeEn = createMuiTheme(themeEnn);
 
-function DatePickerrComponent(props) {
+function DatePickerrComponent({placeholder,passedDate}) {
     let lang = i18next.language;
-    const classes = styles(props);
-    const [selectedDate, setSelectedDate] = useState(props.selectedDate); //get the date from props
+    const classes = styles();
+    const [selectedDate, setSelectedDate] = useState(null); //get the date from props
 
     const handleDateChange = (e) => {
-        if (!props.selectedDate) {
-            setSelectedDate(e);
+        let date;
+        if( e === null){
+            date=null;
+        }else{
+            date=e.format();
         }
-        if (typeof props.onChange === 'function') {
-            props.onChange(e);
-        }
-    };
+        setSelectedDate(date);
+        passedDate(date);
+    }
+
 
     useEffect(() => {
-        setSelectedDate(props.selectedDate);
-    }, [props.selectedDate]); // handle date from props
+        setSelectedDate(selectedDate);
+    }, [selectedDate]); // handle date from props
 
     return (<>
         {lang === 'fa' ?
             <ThemeProvider theme={themeFa}>
                 <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
                     <DatePicker
+                        placeholder={placeholder}
                         InputProps={{className: classes.input}}
                         className={classes.dateFa}
                         clearable
@@ -52,24 +58,25 @@ function DatePickerrComponent(props) {
                         labelFunc={date => (date ? date.format("jYYYY/jMM/jDD") : "")}
                         value={selectedDate}
                         onChange={handleDateChange}
-                        DialogProps={{
-                            border: '10px solid red',
-                            backgroundColor: 'pink',
-                            PaperProps: {
-                                elevation: 6,
-                                backgroundColor: 'pink',
-                            }
-                        }}
                     />
                 </MuiPickersUtilsProvider>
             </ThemeProvider>
             :
             <ThemeProvider theme={themeEn}>
-                <MuiPickersUtilsProvider utils={LuxonUtils}>
-                    <DatePicker value={selectedDate} onChange={handleDateChange} className={classes.dateEn}/>
+                <MuiPickersUtilsProvider utils={MomentUtils}>
+                    <DatePicker
+                        placeholder={placeholder}
+                        value={selectedDate}
+                        onChange={handleDateChange}
+                        className={classes.dateEn}
+                        // labelFunc={date => (date ? date.format("jYYYY/jMM/jDD") : "")}
+                        clearLabel="clear"
+                        okLabel="ok"
+                        cancelLabel="cancel"
+                        clearable
+                        />
                 </MuiPickersUtilsProvider>
             </ThemeProvider>
-
         }
 
 

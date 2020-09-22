@@ -85,8 +85,7 @@ function ContentTableComponent({t, selectedCheckBoxes, setSelectedCheckBoxes, pa
                             <Checkbox
                                 checked={selectedCheckBoxes.length === appContext.perPage}
                                 onChange={allCheckboxHandler}
-                                inputProps={{'aria-label': 'primary checkbox'}}
-                            />
+                                inputProps={{'aria-label': 'primary checkbox'}}/>
                         </StyledTableCell>
                         <StyledTableCell align="right">{t('translation:image')}</StyledTableCell>
                         <StyledTableCell align="right">{t('translation:title')}</StyledTableCell>

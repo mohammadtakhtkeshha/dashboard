@@ -20,9 +20,12 @@
   "keywords": "keywords",
   "summary": "summary",
   "rotitr": "rotitr",
+  "sotitr": "sotitr",
   "sendToAllAffiliates": "send to all affiliates",
   "availableOnAllDomain": "make this content available on all domains",
   "fileGallery":"gallery file",
-  "specialNewsDisplay":"special news display"
+  "specialNewsDisplay":"special news display",
+  "choosePublishDate":"choose publish date",
+  "chooseUnpublishDate":"choose unpublish date"
 
 }

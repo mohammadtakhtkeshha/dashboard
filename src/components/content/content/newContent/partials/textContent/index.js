@@ -24,7 +24,7 @@ import DatePickerrComponent from "components/partials/DatePickerrComponent";
 import {useStyles, bootstrapInput} from 'assets/js/content/newContent';
 import NewContentContext from "contexts/NewContentContext";
 import SeoFormContentComponent from "./partials/SeoFormContentComponent";
-import {StyledInput} from "../../../../../../assets/js/App";
+import {StyledInput,StyledBoxMt1} from "assets/js/App";
 
 const gClass = makeStyles(globalCss);
 const styles = makeStyles(useStyles);
@@ -44,8 +44,7 @@ function TextContentTabComponent({t}) {
     const [errors, setErrors] = useState({});
 
     let handleChange = (e, field) => {
-        let currentName;
-        currentName = e.currentTarget.value;
+        const currentName = e.currentTarget.value;
         newContentContext.setContent(prevState => {
             return {
                 ...prevState, [field]: currentName
@@ -102,16 +101,17 @@ function TextContentTabComponent({t}) {
         });
     };
 
-    let handleCategoryChange = (event) => {
+    let handleCategoryChange = (event) => {debugger
         let currentCat = event.target.value;
         newContentContext.setContent(prevState => {
             return {
-                ...prevState, category: currentCat
+                ...prevState, field_article_cat: {target_id: event}
             }
         });
     };
 
     let getPublishDate = (date) => {
+        debugger
         newContentContext.setContent(prevState => {
             return {
                 ...prevState, publishDate: {value: date},
@@ -186,7 +186,7 @@ function TextContentTabComponent({t}) {
 
 
     let getCategories = () => {
-        contentService.getCategories().then((response) => {
+        contentService.getCategories().then((response) => {debugger
             let categories = response.data.rows;
             setCategories(categories);
         }).catch((error) => {
@@ -194,7 +194,6 @@ function TextContentTabComponent({t}) {
         });
 
     };
-
 
     useEffect(() => {
         tagService.getTags().then((response) => {
@@ -208,6 +207,7 @@ function TextContentTabComponent({t}) {
     useEffect(() => {
         getCategories();
     }, []);
+
     let handleDomainAccessChange = (e, domain) => {
         if (e.target.checked) {
             newContentContext.setSelectedDomainAccess(prevState => {
@@ -262,7 +262,22 @@ function TextContentTabComponent({t}) {
     }, [openAutoComplete]);
 
     // -----auto complete ------
-
+    const passedDate = (field, date) => {
+        if (date === null) {
+        newContentContext.setContent(prevState => {
+            delete prevState[field];
+            return{
+                ...prevState
+            }
+        });
+        } else {
+            newContentContext.setContent(prevState => {
+                return {
+                    ...prevState, [field]: date
+                }
+            });
+        }
+    }
 
     return (<>
         <Box className="items">
@@ -272,17 +287,17 @@ function TextContentTabComponent({t}) {
                     lang={lang}
                     type="text" placeholder={t('translation:title')} label={t('translation:title')}
                     error={errors.title ? errors.title : ''}
-                    small='' handleClick={e => handleChange(e, "title")}/>
+                    onChange={e => handleChange(e, "title")}/>
                 {newContentContext.errors.title ?
                     <Typography className="error">{newContentContext.errors.title}</Typography> : ''}
             </Box>
-            <StyledInput
-                value={newContentContext.content.rotitr || ''}
-                lang={lang}
-                type="text" placeholder={t('contents:rotitr')}
-                label={t('contents:rotitr')}
-                error={errors.family}
-                small='' handleClick={e => handleChange(e, "rotitr")}/>
+            <Box className="inputBlock">
+                <StyledInput
+                    value={newContentContext.content.field_rotitr || ''}
+                    type="text"
+                    placeholder={t('contents:rotitr')}
+                     onChange={e => handleChange(e, "field_rotitr")}/>
+            </Box>
         </Box>
         <Box className="editor">
             <EditorComponent textAlign={lang === 'en' ? gClasses.textLeft : gClasses.textRight}
@@ -290,10 +305,20 @@ function TextContentTabComponent({t}) {
                 clickEditorDescription(e)
             }}/>
         </Box>
+        <Box className={clsx('items', lang === 'en' ? gClasses.ltr : gClasses.rtl)}>
+            <Box className={clsx('date', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
+                <DatePickerrComponent
+                    placeholder={t('contents:choosePublishDate')} passedDate={(e) => passedDate('publish_on', e)}/>
+            </Box>
+            <Box className={clsx('date', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
+                <DatePickerrComponent passedDate={(e) => passedDate('unpublish_on', e)}
+                                      placeholder={t('contents:chooseUnpublishDate')}/>
+            </Box>
+        </Box>
         <Box className="items">
             <Box className={clsx('select', 'card', lang === 'fa' ? 'faTag' : 'enTag')}>
                 <Typography
-                    className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('tags:tags')}</Typography>
+                    className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('translation:tags')}</Typography>
                 <Autocomplete
                     id="asynchronous-demo"
                     multiple={true}
@@ -332,16 +357,16 @@ function TextContentTabComponent({t}) {
             <Box className={clsx('select', 'card')}>
                 <FormControl className={classes.margin}>
                     <Typography
-                        className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('categories:categories')}</Typography>
+                        className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('translation:categories')}</Typography>
                     <NativeSelect
-                        value={newContentContext.content.category}
+                        value={newContentContext.content.field_article_cat.target_id}
                         onChange={handleCategoryChange}
                         input={<BootstrapInput/>}
                         className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}
                     >
                         <option aria-label="None" value="">{t('translation:none')}</option>
                         {categories.map((item) => (
-                            <option key={item.tid} value={item.name}>{item.name}</option>
+                            <option key={item.tid} value={item.tid}>{item.name}</option>
                         ))}
 
                     </NativeSelect>
@@ -409,9 +434,17 @@ function TextContentTabComponent({t}) {
                         ))}
                     </NativeSelect>
                 </FormControl>
+                <StyledBoxMt1>
+                <StyledInput
+                    placeholder={t('contents:sotitr')}
+                    value={newContentContext.content.field_sotitr || ''}
+                    type="text"
+                    label={t('contents:sotitr')}
+                    onChange={e => handleChange(e, "field_sotitr")}/>
+                </StyledBoxMt1>
+
             </Box>
         </Box>
-
         {/*--------------------------------------------------------------------------------------------*/}
         <Box className={clsx('items', lang === 'en' ? gClasses.ltr : gClasses.rtl)}>
             <Box className={clsx('select', 'card', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
@@ -430,12 +463,9 @@ function TextContentTabComponent({t}) {
 
                 </FormGroup>
             </Box>
-            <Box className={clsx( 'date', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
-                <DatePickerrComponent/>
-            </Box>
+
         </Box>
         {/*-----------------------------------------------------------------------------------*/}
-
         <SeoFormContentComponent/>
     </>);
 }

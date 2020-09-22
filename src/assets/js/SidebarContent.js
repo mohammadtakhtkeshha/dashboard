@@ -21,6 +21,7 @@ export const StyledSidebar = styled.div`
             & li {
                 justify-content:center;
                 & a{
+                    cursor:pointer;
                     padding: 6px;
                     width: 100%;
                     text-align: center;

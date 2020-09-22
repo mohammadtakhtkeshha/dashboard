@@ -46,7 +46,7 @@ export const aacaAuthauHeader =  {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': storage.get(process.env.REACT_APP_TOKEN_KEY),
-            'Accept-Charset': 'utf-8',
+            // 'Accept-Charset': 'utf-8',
     }
 };
 

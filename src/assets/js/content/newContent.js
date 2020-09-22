@@ -47,6 +47,7 @@ export const useStyles = (theme) => ({
                     },
                     '& .date': {
                         marginBottom: '1rem',
+                        marginTop: '1rem',
                         '&>div': {
                             width: '100%'
                         }

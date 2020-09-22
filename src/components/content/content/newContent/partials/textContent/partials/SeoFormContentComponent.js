@@ -26,10 +26,10 @@ function SeoFormContentComponent({t}) {
         newContentContext.setContent(prevState => {
             return {
                 ...prevState, field_seo_list: {
-                    title: titleValue === '' ? (prevState.field_seo_list.title === undefined ? "" : prevState.field_seo_list.title) : titleValue,
-                    description: desciptionValue === "" ? (prevState.field_seo_list.description === undefined ? "" : prevState.field_seo_list.description) : desciptionValue,
-                    abstract: abstractValue === "" ? (prevState.field_seo_list.abstract === undefined ? "" : prevState.field_seo_list.abstract) : abstractValue,
-                    keywords: keywordsValue === "" ? (prevState.field_seo_list.keywords === undefined ? "" : prevState.field_seo_list.keywords) : keywordsValue
+                    title:  titleValue,
+                    description:desciptionValue,
+                    abstract: abstractValue,
+                    keywords:keywordsValue
                 }
             }
         });
@@ -40,10 +40,10 @@ function SeoFormContentComponent({t}) {
                 className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:metaTag')}</Typography>
             <Box className="metaTag">
                 <Box className="right">
-                    <StyledButton lang={lang} type="text" placeholder={t('translation:title')}
+                    <StyledInput lang={lang} type="text" placeholder={t('translation:title')}
                            label={t('translation:title')}
                            value={newContentContext.content.field_seo_list.title || ''}
-                           small='' handleClick={e => clickEditorMetaTag(e, 'title')}/>
+                            onChange={e => clickEditorMetaTag(e, 'title')}/>
                     <Typography
                         className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('translation:description')}</Typography>
                     <TextField
@@ -65,7 +65,7 @@ function SeoFormContentComponent({t}) {
                         value={newContentContext.content.field_seo_list.keywords || ''}
                         lang={lang} type="text" placeholder={t('contents:keywords')}
                            label={t('contents:keywords')}
-                           small='' handleClick={e => clickEditorMetaTag(e, 'keywords')}/>
+                           small='' onChange={e => clickEditorMetaTag(e, 'keywords')}/>
                     <Typography
                         className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:summary')}</Typography>
                     <TextField

@@ -16,6 +16,7 @@ export const uploadStyles = {
             bottom: '0',
             width: '100%',
             opacity: 0,
+            left:0,
         },
         '& .file': {
             minHeight: '120px',
