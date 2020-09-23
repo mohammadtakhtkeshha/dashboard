@@ -24,5 +24,7 @@
   "fileGallery":"گالری فایل",
   "specialNewsDisplay":"محل نمایش",
   "choosePublishDate":"تاریخ انتشار را انتخاب کنید",
-  "chooseUnpublishDate":"تاریخ عدم انتشار را انتخاب کنید"
+  "chooseUnpublishDate":"تاریخ عدم انتشار را انتخاب کنید",
+  "nullTitle":"!فیلد عنوان خالی میباشد"
+
 }

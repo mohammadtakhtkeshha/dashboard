@@ -24,7 +24,7 @@ import DatePickerrComponent from "components/partials/DatePickerrComponent";
 import {useStyles, bootstrapInput} from 'assets/js/content/newContent';
 import NewContentContext from "contexts/NewContentContext";
 import SeoFormContentComponent from "./partials/SeoFormContentComponent";
-import {StyledInput,StyledBoxMt1} from "assets/js/App";
+import {StyledInput, StyledBoxMt1} from "assets/js/App";
 
 const gClass = makeStyles(globalCss);
 const styles = makeStyles(useStyles);
@@ -87,27 +87,29 @@ function TextContentTabComponent({t}) {
     let handleStatusChange = (e) => {
         newContentContext.setContent(prevState => {
             return {
-                ...prevState, status: e.currentTarget.value,
+                ...prevState, status: (e.currentTarget.value === "true" ? true:false),
             }
         });
     };
 
-    let handleSpecialNewsDisplayChange = (e) => {
 
-        newContentContext.setContent(prevState => {
-            return {
-                ...prevState, field_special_news_display: e.currentTarget.value,
-            }
-        });
-    };
+    let handleCategoryChange = (item) => {
+        debugger
+        let id = item.target.value;
+        if (id === "") {
+            newContentContext.setContent(prevState => {
+                return {
+                    ...prevState, field_article_cat: {}
+                }
+            });
+        } else {
+            newContentContext.setContent(prevState => {
+                return {
+                    ...prevState, field_article_cat: {target_id: id}
+                }
+            });
+        }
 
-    let handleCategoryChange = (event) => {debugger
-        let currentCat = event.target.value;
-        newContentContext.setContent(prevState => {
-            return {
-                ...prevState, field_article_cat: {target_id: event}
-            }
-        });
     };
 
     let getPublishDate = (date) => {
@@ -149,26 +151,44 @@ function TextContentTabComponent({t}) {
     let handleDomainSourceChange = (e) => {
         let currentDomainSource = e.target.value;
         setSelectedDomainSource(currentDomainSource);
-        newContentContext.setContent(prevState => {
-            return {
-                ...prevState, field_domain_source: {
-                    "target_id": currentDomainSource,
-                    "target_type": "domain"
+        debugger
+        if (currentDomainSource === "") {
+            newContentContext.setContent(prevState => {
+                return {
+                    ...prevState, field_domain_source: {}
                 }
-            }
-        });
+            });
+        } else {
+            newContentContext.setContent(prevState => {
+                return {
+                    ...prevState, field_domain_source: {
+                        "target_id": currentDomainSource,
+                        "target_type": "domain"
+                    }
+                }
+            });
+        }
     };
 
     let handleTagChange = (event, values) => {
-        let tags = values.map(item => item.tid);
-        newContentContext.setSelectedTags([...values]);
-        newContentContext.setContent(prevState => {
-            return {
-                ...prevState, field_tags: {
-                    target_id: tags.toString()
+        if (values.length === 0) {
+            newContentContext.setContent(prevState => {
+                return {
+                    ...prevState, field_tags: {}
                 }
-            }
-        });
+            });
+        } else {
+            let tags = values.map(item => item.tid);
+            newContentContext.setSelectedTags([...values]);
+            newContentContext.setContent(prevState => {
+                return {
+                    ...prevState, field_tags: {
+                        target_id: tags.toString()
+                    }
+                }
+            });
+        }
+
     };
 
     let handleDateChange = (date) => {
@@ -186,7 +206,7 @@ function TextContentTabComponent({t}) {
 
 
     let getCategories = () => {
-        contentService.getCategories().then((response) => {debugger
+        contentService.getCategories().then((response) => {
             let categories = response.data.rows;
             setCategories(categories);
         }).catch((error) => {
@@ -195,18 +215,7 @@ function TextContentTabComponent({t}) {
 
     };
 
-    useEffect(() => {
-        tagService.getTags().then((response) => {
-            let tags = response.data;
-            setTags(tags.rows);
-        }).catch((error) => {
-            console.log(error)
-        });
-    }, []);
 
-    useEffect(() => {
-        getCategories();
-    }, []);
 
     let handleDomainAccessChange = (e, domain) => {
         if (e.target.checked) {
@@ -223,15 +232,25 @@ function TextContentTabComponent({t}) {
             let exSelectedDomainAccess = newContentContext.selectedDomainAccess;
             let newSelectedDomainAccess = exSelectedDomainAccess.filter(item => item !== domain);
             newContentContext.setSelectedDomainAccess([...newSelectedDomainAccess]);
-            newContentContext.setContent(prevState => {
-                let domainAccessArray = prevState.field_domain_access.target_id.split(',');
-                let currentIndex = domainAccessArray.indexOf(domain.id);
-                domainAccessArray.splice(currentIndex, 1);
-                let domainAccessString = domainAccessArray.toString();
-                return {...prevState, field_domain_access: {target_id: domainAccessString, target_type: 'domain'}};
-            });
+            if(domain.id === selectedDomainSource){
+                newContentContext.setContent(prevState => {
+                    return {...prevState, field_domain_source: {}};
+                });
+            }
+            if (exSelectedDomainAccess.length === 1) { //to delete target_id from field_domain_access
+                newContentContext.setContent(prevState => {
+                    return {...prevState, field_domain_access: {}};
+                });
+            } else {
+                newContentContext.setContent(prevState => {
+                    let domainAccessArray = prevState.field_domain_access.target_id.split(',');
+                    let currentIndex = domainAccessArray.indexOf(domain.id);
+                    domainAccessArray.splice(currentIndex, 1);
+                    let domainAccessString = domainAccessArray.toString();
+                    return {...prevState, field_domain_access: {target_id: domainAccessString, target_type: 'domain'}};
+                });
+            }
         }
-
     };
 
     // -----auto complete ------
@@ -264,12 +283,12 @@ function TextContentTabComponent({t}) {
     // -----auto complete ------
     const passedDate = (field, date) => {
         if (date === null) {
-        newContentContext.setContent(prevState => {
-            delete prevState[field];
-            return{
-                ...prevState
-            }
-        });
+            newContentContext.setContent(prevState => {
+                delete prevState[field];
+                return {
+                    ...prevState
+                }
+            });
         } else {
             newContentContext.setContent(prevState => {
                 return {
@@ -278,6 +297,19 @@ function TextContentTabComponent({t}) {
             });
         }
     }
+
+    useEffect(() => {
+        tagService.getTags().then((response) => {
+            let tags = response.data;
+            setTags(tags.rows);
+        }).catch((error) => {
+            console.log(error)
+        });
+    }, []);
+
+    useEffect(() => {
+        getCategories();
+    }, []);
 
     return (<>
         <Box className="items">
@@ -296,7 +328,7 @@ function TextContentTabComponent({t}) {
                     value={newContentContext.content.field_rotitr || ''}
                     type="text"
                     placeholder={t('contents:rotitr')}
-                     onChange={e => handleChange(e, "field_rotitr")}/>
+                    onChange={e => handleChange(e, "field_rotitr")}/>
             </Box>
         </Box>
         <Box className="editor">
@@ -317,8 +349,9 @@ function TextContentTabComponent({t}) {
         </Box>
         <Box className="items">
             <Box className={clsx('select', 'card', lang === 'fa' ? 'faTag' : 'enTag')}>
-                <Typography
-                    className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('translation:tags')}</Typography>
+                <Typography className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>
+                    {t('translation:tags')}
+                </Typography>
                 <Autocomplete
                     id="asynchronous-demo"
                     multiple={true}
@@ -374,32 +407,6 @@ function TextContentTabComponent({t}) {
             </Box>
         </Box>
         <Box className={clsx('items', lang === 'en' ? gClasses.ltr : gClasses.rtl)}>
-            <Box className={clsx('card', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
-                <FormControl component="fieldset">
-                    <FormLabel component="legend">{t('translation:status')}</FormLabel>
-                    <RadioGroup aria-label="status" value={newContentContext.content.status}
-                                onChange={e => handleStatusChange(e)}>
-                        <FormControlLabel value="true" control={<Radio/>}
-                                          label={t('contents:published')}/>
-                        <FormControlLabel value="false" control={<Radio/>}
-                                          label={t('contents:unpublished')}/>
-                    </RadioGroup>
-                </FormControl>
-            </Box>
-            <Box className={clsx('card', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
-                <FormControl component="fieldset">
-                    <FormLabel component="legend">{t('contents:specialNewsDisplay')}</FormLabel>
-                    <RadioGroup value={newContentContext.content.field_special_news_display}
-                                onChange={e => handleSpecialNewsDisplayChange(e)}>
-                        <FormControlLabel value="true" control={<Radio/>}
-                                          label={t('contents:show')}/>
-                        <FormControlLabel value="false" control={<Radio/>}
-                                          label={t('contents:notShow')}/>
-                    </RadioGroup>
-                </FormControl>
-            </Box>
-        </Box>
-        <Box className={clsx('items', lang === 'en' ? gClasses.ltr : gClasses.rtl)}>
             <Box
                 className={clsx('select', 'card', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
                 <Typography
@@ -435,12 +442,12 @@ function TextContentTabComponent({t}) {
                     </NativeSelect>
                 </FormControl>
                 <StyledBoxMt1>
-                <StyledInput
-                    placeholder={t('contents:sotitr')}
-                    value={newContentContext.content.field_sotitr || ''}
-                    type="text"
-                    label={t('contents:sotitr')}
-                    onChange={e => handleChange(e, "field_sotitr")}/>
+                    <StyledInput
+                        placeholder={t('contents:sotitr')}
+                        value={newContentContext.content.field_sotitr || ''}
+                        type="text"
+                        label={t('contents:sotitr')}
+                        onChange={e => handleChange(e, "field_sotitr")}/>
                 </StyledBoxMt1>
 
             </Box>
@@ -467,6 +474,18 @@ function TextContentTabComponent({t}) {
         </Box>
         {/*-----------------------------------------------------------------------------------*/}
         <SeoFormContentComponent/>
+        <Box className={clsx('card', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
+            <FormControl component="fieldset">
+                <FormLabel component="legend">{t('translation:status')}</FormLabel>
+                <RadioGroup aria-label="status" value={newContentContext.content.status}
+                            onChange={e => handleStatusChange(e)}>
+                    <FormControlLabel value={true} control={<Radio/>}
+                                      label={t('contents:published')}/>
+                    <FormControlLabel value={false} control={<Radio/>}
+                                      label={t('contents:unpublished')}/>
+                </RadioGroup>
+            </FormControl>
+        </Box>
     </>);
 }
 

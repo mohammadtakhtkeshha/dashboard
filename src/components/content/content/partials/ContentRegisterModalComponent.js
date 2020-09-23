@@ -13,6 +13,7 @@ import {makeStyles} from "@material-ui/styles";
 import NewContent from "../newContent";
 import {useStyles} from 'assets/js/content/contentRegisterModal';
 import ContentListOfContentType from "./ContentListOfContentType";
+import contentType from "../../../../assets/js/content/contentType";
 
 const useStyle= makeStyles(useStyles);
 
@@ -25,18 +26,17 @@ const useStyle= makeStyles(useStyles);
          clickCloseRegisterForm();
          setContentType('');
      };
-
     return (<Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={openRegisterForm}
-        onClose={handleCloseRegisterForm}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-            timeout: 500,
-        }}
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={openRegisterForm}
+                onClose={handleCloseRegisterForm}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                        }}
     >
         <Fade in={openRegisterForm} id="modal">
             <div className={classes.paper} dir="rtl">
@@ -48,7 +48,6 @@ const useStyle= makeStyles(useStyles);
                 </Box>
                 <Box className="body">
                     {contentType === '' ? <ContentListOfContentType setContentType={setContentType}/>:<NewContent contentType={contentType}/>}
-                    {/*<NewContent contentType={contentType}/>*/}
                 </Box>
             </div>
         </Fade>

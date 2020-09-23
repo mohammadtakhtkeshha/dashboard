@@ -17,6 +17,7 @@ import {StyledPaper, StyledBox} from "assets/js/App";
 import ContentHeaderComponent from "./partials/ContentHeaderComponent";
 import {StyledPaginationBox} from "assets/js/pagination";
 import {chunkItem, handleTotalPage} from "structure/layout";
+import contentType from "../../../assets/js/content/contentType";
 
 function ContentsComponent({t}) {
     const appContext = useContext(AppContext);
@@ -66,6 +67,7 @@ function ContentsComponent({t}) {
         getContents(page);
         getContentType();
     }, [])
+
 
     return (<ContentsContext.Provider value={{
             contents: contents,

@@ -26,6 +26,7 @@
   "fileGallery":"gallery file",
   "specialNewsDisplay":"special news display",
   "choosePublishDate":"choose publish date",
-  "chooseUnpublishDate":"choose unpublish date"
+  "chooseUnpublishDate":"choose unpublish date",
+  "nullTitle":"title can not be null"
 
 }

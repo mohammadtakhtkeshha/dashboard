@@ -166,10 +166,23 @@ function FileContentTabComponent({t}) {
             newContentContext.setErrors({title: t('translation:requiredValid')});
         }
         contentService.registerContent(newContentContext.content).then((response) => {
-
+            alert('registered');
         }).catch((error) => {
+            let objError = {};
+            const errorString = error.response.data.FailureReason.message.replace(/\n/g, 'a');
+            const errorArray = errorString.split('.');
+            for (let i in errorArray) {
+                let newErrorMessage = errorArray[i].split(':');
+                objError[newErrorMessage[0]] = newErrorMessage[1];
+            }
+            let titleError;
             debugger
-            appContext.handleError(error);
+            const arrayError = [];
+            if (objError.atitle === " This value should not be null") {
+                titleError = t('contents:nullTitle')
+            }
+            arrayError.push(titleError)
+            appContext.handleError(arrayError);
         });
 
     };

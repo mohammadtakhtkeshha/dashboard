@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
 
@@ -8,7 +8,7 @@ import {makeStyles} from "@material-ui/core/styles";
 
 import {globalCss} from "assets/js/globalCss";
 import NewContentContext from "contexts/NewContentContext";
-import {StyledButton,StyledInput} from "assets/js/App";
+import {StyledInput} from "assets/js/App";
 
 const gClass = makeStyles(globalCss);
 
@@ -16,38 +16,58 @@ function SeoFormContentComponent({t}) {
     const lang = i18next.language;
     const gClasses = gClass();
     const newContentContext = useContext(NewContentContext);
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [abstract, setAbstract] = useState('');
+    const [keywords, setKeywords] = useState('');
 
     let clickEditorMetaTag = (e, keyName) => {
         let currentValue = e.currentTarget.value;
-        let titleValue = keyName === "title" ? currentValue : '';
-        let desciptionValue = keyName === "description" ? currentValue : '';
-        let abstractValue = keyName === "abstract" ? currentValue : '';
-        let keywordsValue = keyName === "keywords" ? currentValue : '';
+        switch (keyName) {
+            case "title":
+                setTitle(currentValue);
+                break;
+            case "description":
+                setDescription(currentValue);
+                break;
+            case "abstract":
+               setAbstract(currentValue)
+                break;
+            default:
+             setKeywords(currentValue);
+        }
+    };
+
+    const seoChanged = () => {
         newContentContext.setContent(prevState => {
             return {
-                ...prevState, field_seo_list: {
-                    title:  titleValue,
-                    description:desciptionValue,
-                    abstract: abstractValue,
-                    keywords:keywordsValue
+                ...prevState,field_seo_list:{
+                    title: title,
+                    description:description,
+                    abstract: abstract,
+                    keywords: keywords
                 }
             }
         });
-    };
-    return (
-        <Box className="card">
+    }
+
+    useEffect(()=>{
+            seoChanged();
+        },[title,description,abstract,keywords]);
+
+    return (<Box className="card">
             <Typography
                 className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:metaTag')}</Typography>
             <Box className="metaTag">
                 <Box className="right">
-                    <StyledInput lang={lang} type="text" placeholder={t('translation:title')}
-                           label={t('translation:title')}
-                           value={newContentContext.content.field_seo_list.title || ''}
-                            onChange={e => clickEditorMetaTag(e, 'title')}/>
+                    <StyledInput type="text"
+                                 placeholder={t('translation:title')}
+                                 value={title}
+                                 onChange={e => clickEditorMetaTag(e, 'title')}/>
                     <Typography
                         className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('translation:description')}</Typography>
                     <TextField
-                        value={newContentContext.content.field_seo_list.description}
+                        value={description}
                         id="outlined-size-normal"
                         placeholder={t('translation:description')}
                         variant="outlined"
@@ -62,14 +82,14 @@ function SeoFormContentComponent({t}) {
                 </Box>
                 <Box className="left">
                     <StyledInput
-                        value={newContentContext.content.field_seo_list.keywords || ''}
+                        value={keywords}
                         lang={lang} type="text" placeholder={t('contents:keywords')}
-                           label={t('contents:keywords')}
-                           small='' onChange={e => clickEditorMetaTag(e, 'keywords')}/>
+                        label={t('contents:keywords')}
+                        small='' onChange={e => clickEditorMetaTag(e, 'keywords')}/>
                     <Typography
                         className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:summary')}</Typography>
                     <TextField
-                        value={newContentContext.content.field_seo_list.abstract}
+                        value={abstract}
                         id="outlined-size-normal"
                         placeholder={t('contents:summary')}
                         variant="outlined"
@@ -89,9 +109,7 @@ function SeoFormContentComponent({t}) {
                 {/*    clickEditorMetaTag(e, 'abstract')*/}
                 {/*}}/>*/}
             </Box>
-        </Box>
-
-    );
+        </Box>);
 }
 
 export default withNamespaces('contents,translation')(SeoFormContentComponent);

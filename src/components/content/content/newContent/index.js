@@ -56,17 +56,10 @@ function Index({t,contentType}) {
             "target_id": "article"
         },
         "title": "",
-        "body": "dيشيسيرxfcgvhjkلرالالربیبیباذlmس",
-        "field_domain_access": {
-            "target_id": "1_dash_webrbp_ir,dash_webrbp_ir,3_dash_webrbp_ir",
-            "target_type": "domain"
-        },
+        "body": "",
+        "field_domain_access": {},
         "field_domain_all_affiliates": true,
-        "field_domain_source": {
-            "target_id": "dash_webrbp_ir",
-            "target_type": "domain",
-            "target_uuid": "67f5f76f-7730-4aa5-8504-8d00e44bc720"
-        },
+        "field_domain_source": {},
         "field_field_galeries": {
             "target_id": "1141,1142,1143",
             "display": true,
@@ -81,19 +74,14 @@ function Index({t,contentType}) {
             "target_id": "158",
             "target_type": "file"
         },
-        "field_rotitr": "روتیتر",
-        "field_sotitr": "سوتیتر",
+        "field_rotitr": "",
+        "field_sotitr": "",
         "field_sounds": {
             "target_id": "346",
             "target_type": "file"
         },
-        "field_article_cat": {
-            "target_id": "51"
-
-        },
-        "field_tags": {
-            "target_id": "25,58"
-        },
+        "field_article_cat": {},
+        "field_tags": {},
         "field_seo_list": {
             "title": "",
             "description": "",
@@ -106,8 +94,6 @@ function Index({t,contentType}) {
         },
         "field_special_news_display": false,
         "status": false,
-        // "publish_on": "2022-11-29T21:33:09+00:00",
-        // "unpublish_on": "2023-11-29T21:33:09+00:00"
     });
     console.log(content);
     const [errors, setErrors] = useState({});

@@ -64,7 +64,12 @@ export function Layout({t}) {
     };
 
     let handleError = (error) => {
-        danger(t('translation:error'), t('translation:ok'));
+        let errorString;
+        if(error){
+            errorString = error.toString();
+        }
+        debugger
+        danger(error?errorString:t('translation:error'), t('translation:ok'));
         setLoading(false);
         console.log(error);
     };
