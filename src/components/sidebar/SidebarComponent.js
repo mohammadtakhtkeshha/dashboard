@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '30px'
     },
     mypaper:{
+
         borderRadius:'0!important'
     }
 }));

@@ -25,6 +25,7 @@ import {useStyles, bootstrapInput} from 'assets/js/content/newContent';
 import NewContentContext from "contexts/NewContentContext";
 import SeoFormContentComponent from "./partials/SeoFormContentComponent";
 import {StyledInput, StyledBoxMt1} from "assets/js/App";
+import {StyledTypographyError} from "assets/js/App";
 
 const gClass = makeStyles(globalCss);
 const styles = makeStyles(useStyles);
@@ -41,7 +42,7 @@ function TextContentTabComponent({t}) {
     const [selectedDomainSource, setSelectedDomainSource] = useState('');
     const BootstrapInput = withStyles(bootstrapInput)(InputBase);
     const [categories, setCategories] = useState([]);
-    const [errors, setErrors] = useState({});
+
 
     let handleChange = (e, field) => {
         const currentName = e.currentTarget.value;
@@ -282,14 +283,19 @@ function TextContentTabComponent({t}) {
 
     // -----auto complete ------
     const passedDate = (field, date) => {
-        if (date === null) {
+        if (date === null) { //delete field publish and unpublish from content
             newContentContext.setContent(prevState => {
                 delete prevState[field];
                 return {
                     ...prevState
                 }
             });
-        } else {
+        } else {debugger
+            if( field === 'unpublish_on' && newContentContext.content.publish_on !== undefined){
+                if(date < newContentContext.content.publish_on){
+                    newContentContext.setErrors({unpublish_on:t('contents:unPublishAfterPublishError')});
+                }
+            }
             newContentContext.setContent(prevState => {
                 return {
                     ...prevState, [field]: date
@@ -297,6 +303,7 @@ function TextContentTabComponent({t}) {
             });
         }
     }
+    console.log(newContentContext.content);
 
     useEffect(() => {
         tagService.getTags().then((response) => {
@@ -317,11 +324,10 @@ function TextContentTabComponent({t}) {
                 <StyledInput
                     value={newContentContext.content.title}
                     lang={lang}
-                    type="text" placeholder={t('translation:title')} label={t('translation:title')}
-                    error={errors.title ? errors.title : ''}
+                    type="text" placeholder={t('translation:title')}
                     onChange={e => handleChange(e, "title")}/>
-                {newContentContext.errors.title ?
-                    <Typography className="error">{newContentContext.errors.title}</Typography> : ''}
+                {newContentContext.errors?.title ?
+                    <StyledTypographyError className="error">{newContentContext.errors.title}</StyledTypographyError> : ''}
             </Box>
             <Box className="inputBlock">
                 <StyledInput
@@ -340,11 +346,21 @@ function TextContentTabComponent({t}) {
         <Box className={clsx('items', lang === 'en' ? gClasses.ltr : gClasses.rtl)}>
             <Box className={clsx('date', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
                 <DatePickerrComponent
-                    placeholder={t('contents:choosePublishDate')} passedDate={(e) => passedDate('publish_on', e)}/>
+                    placeholder={t('contents:choosePublishDate')}
+                    passedDate={(e) => passedDate('publish_on', e)}
+                    selectedDate={newContentContext.publishDate}
+                    setSelectedDate={newContentContext.setPublishDate}
+                />
+
             </Box>
             <Box className={clsx('date', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
                 <DatePickerrComponent passedDate={(e) => passedDate('unpublish_on', e)}
-                                      placeholder={t('contents:chooseUnpublishDate')}/>
+                                      placeholder={t('contents:chooseUnpublishDate')}
+                                      selectedDate={newContentContext.unpublishDate}
+                                      setSelectedDate={newContentContext.setUnpublishDate}
+                />
+                {newContentContext.errors.unpublish_on ?
+                    <StyledTypographyError className="error">{newContentContext.errors.unpublish_on}</StyledTypographyError> : ''}
             </Box>
         </Box>
         <Box className="items">

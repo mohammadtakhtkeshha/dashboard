@@ -9,22 +9,38 @@ import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import {withStyles} from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 import {StyledActionButtonBlock, styledTableRow} from "assets/js/App";
 import AppContext from "contexts/AppContext";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
 import {styledTableCell} from "assets/js/vocabs/terms";
+import {warning} from "methods/swal";
+import {deleteTermService} from "core/services/term.service";
+import TermsContext from "contexts/TermsContext";
 
 const StyledTableCell = withStyles(styledTableCell)(TableCell);
 const StyledTableRow = withStyles(styledTableRow)(TableRow);
 
-function TermTableComponent({t, chunks, page}) {
+function TermTableComponent({t, chunks, page, terms, setOpenTermForm}) {
     const appContext = useContext(AppContext);
+    const termsContext = useContext(TermsContext);
 
-    const handleOpenEditModal = (e) => {
-        // setOpenTermForm(true);
-    };
+    const deleteTerm = (id) => {
+        deleteTermService(id, appContext.handleError).then((response) => {
+            const newTerms = terms.filter(term => term.tid !== id);
+            termsContext.handlePagination(newTerms, t('translation:deletedSuccessfully'));
+        });
+    }
+
+    const confirmDeleteHandler = (e) => {
+        let id = e.currentTarget.value;
+        warning(t('translation:sureQuestion'), t('translation:ok'), t('translation:cancel'), t('translation:notDone'), function () {
+            deleteTerm(id)
+        });
+    }
+
+
 
     return (
         <TableContainer component={Paper}>
@@ -47,13 +63,13 @@ function TermTableComponent({t, chunks, page}) {
                             </StyledTableCell>
                             <StyledTableCell align={appContext.currentAlign()}>
                                 <StyledActionButtonBlock>
-                                    <button onClick={handleOpenEditModal}>
+                                    <button onClick={(e) => setOpenTermForm(e.currentTarget.value)} value={term.tid}>
                                         <EditIcon/>
                                         <Typography>
                                             {t('translation:edit')}
                                         </Typography>
                                     </button>
-                                    <button onClick={handleOpenEditModal}>
+                                    <button value={term.tid} onClick={confirmDeleteHandler}>
                                         <DeleteIcon/>
                                         {t('translation:delete')}
                                     </button>

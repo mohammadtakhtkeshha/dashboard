@@ -120,11 +120,11 @@ function ContentsFilterComponent({t}) {
                             variant="outlined"
                         >
                             <option>{t('contents:contentType')}</option>
-                            {contentsContext.contentTypeList?.map((item, index) => (
-                                <option key={index} value={item.name}>
-                                    {item.name}
-                                </option>
-                            )) || ''}
+                            {/*{contentsContext.contentTypeList?.map((item, index) => (*/}
+                            {/*    <option key={index} value={item.name}>*/}
+                            {/*        {item.name}*/}
+                            {/*    </option>*/}
+                            {/*)) || ''}*/}
                         </TextField>
                     </Box>
                     <StyledButton bg={primary} onClick={doFilterHandler}>

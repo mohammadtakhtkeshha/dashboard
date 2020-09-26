@@ -1,15 +1,21 @@
 {
   "dashboard": "داشبورد",
-  "users":"کاربران",
+  "usersManager":"مدیریت کاربران",
   "content":"محتوا",
   "newContent": "ایجاد محتوا",
   "main-page": "صفحه اصلی",
-  "comments": "کامنت ها",
-  "contents": "محتوا ها",
+  "commentsManager": "مدیریت نظرات",
+  "contentManager": "مدیریت محتوا",
   "new content": "ایجاد محتوا",
-  "vocabs": "لیست وکب ها",
+  "categories": "دسته بندی ها",
   "editProfile": "ویرایش پروفایل",
   "terms": "لیست ترم ها",
-  "tags": "لیست برچسب ها"
-
+  "tags": "لیست برچسب ها",
+  "home": "خانه",
+  "support": "پشتیبانی",
+  "reports": "گزارشات",
+  "settings": "تنظیمات",
+  "platformSettings": "مدیریت قالب",
+  "activities": "فعالیت ها",
+  "users": "کاربران"
 }

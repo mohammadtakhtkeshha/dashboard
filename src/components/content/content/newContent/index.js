@@ -51,6 +51,8 @@ function a11yProps(index) {
 function Index({t,contentType}) {
     const classes = styles();
     const [value, setValue] = useState(0);
+    const [publishDate, setPublishDate] = useState(null);
+    const [unpublishDate, setUnpublishDate] = useState(null);
     const [content, setContent] = useState({
         "type": {
             "target_id": "article"
@@ -95,7 +97,6 @@ function Index({t,contentType}) {
         "field_special_news_display": false,
         "status": false,
     });
-    console.log(content);
     const [errors, setErrors] = useState({});
     const [selectedTags, setSelectedTags] = useState([]);
     const [selectedDomainAccess, setSelectedDomainAccess] = useState([]);
@@ -126,15 +127,15 @@ function Index({t,contentType}) {
         getDomainSource();
     }, []);
 
-    // useEffect(() => {
-    //     setContent(prevState => {
-    //         return{
-    //             ...prevState,type: {
-    //                 target_id:contentType
-    //             }
-    //         }
-    //     });
-    // }, [contentType]);
+    useEffect(() => {
+        setContent(prevState => {
+            return{
+                ...prevState,type: {
+                    target_id:contentType
+                }
+            }
+        });
+    }, [contentType]);
 
     return (
         <NewContentContext.Provider
@@ -150,6 +151,10 @@ function Index({t,contentType}) {
                 setSelectedDomainAccess: setSelectedDomainAccess,
                 domainAccesses: domainAccesses,
                 setDomainAccesses: setDomainAccesses,
+                setUnpublishDate:setUnpublishDate,
+                setPublishDate:setPublishDate,
+                publishDate:publishDate,
+                unpublishDate:unpublishDate,
             }}>
             <Box>
                 <Paper className={classes.paper}>

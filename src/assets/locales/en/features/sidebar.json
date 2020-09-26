@@ -1,16 +1,23 @@
 {
   "dashboard": "dashboard",
-  "users":"users",
+  "usersManager":"users manager",
   "content": "content",
   "newContent": "new content",
   "main-page": "main page",
-  "comments": "comments",
-  "contents": "contents",
+  "commentsManager": "comments manager",
+  "contentManager": "content manager",
   "new content": "new content",
-  "vocabs": "vocabs",
+  "categories": "categories",
   "terms": "terms",
   "editProfile": "edit profile",
-  "tags": "tags"
+  "tags": "tags",
+  "home": "home",
+  "support": "support",
+  "reports": "reports",
+  "settings": "settings",
+  "platformSettings": "platform setting",
+  "activities": "activities",
+  "users": "users"
 
 
 }

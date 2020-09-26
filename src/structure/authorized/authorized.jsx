@@ -10,7 +10,8 @@ import clsx from "clsx";
 const useStyle = makeStyles((theme) => ({
     sidebar: {
         position: 'fixed',
-        width: '230px'
+        width: '230px',
+        zIndex:11,
     },
     content: {
         width: 'calc(100% - 230px)',
@@ -37,7 +38,8 @@ const useStyle = makeStyles((theme) => ({
 const styles = {
     sidebar: {
         height: '100vh',
-        flexGrow: 1
+        flexGrow: 1,
+
     },
     content: {
         flexGrow: 5,

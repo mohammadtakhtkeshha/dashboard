@@ -13,7 +13,7 @@ export const styledTableCell =(theme) => ({
 });
 
 export const StyledNewTerm = styled.div`
-    border:1px solid red;
+    padding:1rem;
 `
 
 export default {styledTableCell,StyledNewTerm};

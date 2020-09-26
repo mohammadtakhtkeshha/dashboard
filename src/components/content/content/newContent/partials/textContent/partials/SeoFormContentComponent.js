@@ -16,10 +16,10 @@ function SeoFormContentComponent({t}) {
     const lang = i18next.language;
     const gClasses = gClass();
     const newContentContext = useContext(NewContentContext);
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [abstract, setAbstract] = useState('');
-    const [keywords, setKeywords] = useState('');
+    const [title, setTitle] = useState(newContentContext.content.field_seo_list?.title);
+    const [description, setDescription] = useState(newContentContext.content.field_seo_list?.description);
+    const [abstract, setAbstract] = useState(newContentContext.content.field_seo_list?.abstract);
+    const [keywords, setKeywords] = useState(newContentContext.content.field_seo_list?.keywords);
 
     let clickEditorMetaTag = (e, keyName) => {
         let currentValue = e.currentTarget.value;
@@ -36,6 +36,7 @@ function SeoFormContentComponent({t}) {
             default:
              setKeywords(currentValue);
         }
+        // debugger
     };
 
     const seoChanged = () => {
@@ -54,6 +55,7 @@ function SeoFormContentComponent({t}) {
     useEffect(()=>{
             seoChanged();
         },[title,description,abstract,keywords]);
+
 
     return (<Box className="card">
             <Typography

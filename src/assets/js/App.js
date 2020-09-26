@@ -180,6 +180,10 @@ export const StyledLabel=styled.div`
 `
 export const StyledBoxMt1=styled.div`
         margin-top:1rem;
-       
+`
+
+export const StyledTypographyError =  styled.p`
+        color:${red[1]};
+        font-size:14px;
 `
 

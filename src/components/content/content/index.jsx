@@ -17,7 +17,6 @@ import {StyledPaper, StyledBox} from "assets/js/App";
 import ContentHeaderComponent from "./partials/ContentHeaderComponent";
 import {StyledPaginationBox} from "assets/js/pagination";
 import {chunkItem, handleTotalPage} from "structure/layout";
-import contentType from "../../../assets/js/content/contentType";
 
 function ContentsComponent({t}) {
     const appContext = useContext(AppContext);
@@ -28,6 +27,7 @@ function ContentsComponent({t}) {
     const [contents, setContents] = useState([]);
     const [contentTypeList, setContentTypeList] = useState([]);
     const [chunkContents, setChunkContents] = useState();
+
 
     const getContents = () => {
         appContext.setLoading(true);
@@ -57,10 +57,24 @@ function ContentsComponent({t}) {
 
     let getContentType = () => {
         appContext.setLoading(true);
-        contentService.getContentTypeList(appContext.handleError).then((response) => {
+        contentService.getContentTypeList(appContext.handleError).then((response) => {debugger
             appContext.setLoading(false);
             setContentTypeList(response.data);
         });
+    }
+
+    const getRegisteredContent = (content) => {
+        const newContent = {
+            type: content.target_id,
+            status: `${content.status}`,
+            title: content.title,
+            uid: content.uid.target_uuid,
+            changed: content.changed,
+            nid: `${content.nid}`,
+            field_image: content.field_image.url
+        }
+        contents.unshift(newContent);
+        handlePagination(contents,t('translation:successRegistered'));
     }
 
     useEffect(() => {
@@ -68,12 +82,12 @@ function ContentsComponent({t}) {
         getContentType();
     }, [])
 
-
     return (<ContentsContext.Provider value={{
             contents: contents,
             chunkContents: chunkContents,
             contentTypeList: contentTypeList,
             handlePagination: handlePagination,
+            getRegisteredContent: getRegisteredContent,
         }}>
             <StyledPaper>
                 <ContentHeaderComponent setOpenRegisterForm={() => setOpenRegisterForm(true)}/>

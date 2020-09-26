@@ -25,6 +25,8 @@
   "specialNewsDisplay":"محل نمایش",
   "choosePublishDate":"تاریخ انتشار را انتخاب کنید",
   "chooseUnpublishDate":"تاریخ عدم انتشار را انتخاب کنید",
-  "nullTitle":"!فیلد عنوان خالی میباشد"
+  "nullTitle":"!فیلد عنوان خالی میباشد",
+  "unPublishAfterPublishError":"تاریخ زمان عدم انتشار باید بعد از زمان انتشار باشد!"
+
 
 }

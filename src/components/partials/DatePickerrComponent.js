@@ -22,10 +22,9 @@ const styles = makeStyles(myStyles);
 const themeFa = createMuiTheme(themeFaa);
 const themeEn = createMuiTheme(themeEnn);
 
-function DatePickerrComponent({placeholder,passedDate}) {
+function DatePickerrComponent({placeholder,passedDate,selectedDate,setSelectedDate}) {
     let lang = i18next.language;
     const classes = styles();
-    const [selectedDate, setSelectedDate] = useState(null); //get the date from props
 
     const handleDateChange = (e) => {
         let date;

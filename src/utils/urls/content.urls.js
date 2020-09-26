@@ -27,7 +27,7 @@ export const getContentUrl = (id) => {
     return `http://dash.webrbp.ir/node/${id}?_format=json`;
 }
 
-export const getContentTypeListUrl = 'http://dash.webrbp.ir/api/content_types';
+export const getContentTypeListUrl = 'http://dash.webrbp.ir/api/rest/content_type';
 
 export const contentActionDeleteUrl = 'http://dash.webrbp.ir/api/rest/nodes/delete?_format=json';
 

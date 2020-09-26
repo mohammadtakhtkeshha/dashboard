@@ -12,7 +12,7 @@ import NewTermComponent from "./NewTermComponent";
 
 const styles = makeStyles(modalStyles);
 
-function NewTermModalComponent({openTermForm,setOpenTermForm}) {
+function NewTermModalComponent({openTermForm,setOpenTermForm,category}) {
     const classes = styles();
 
     return (
@@ -36,7 +36,7 @@ function NewTermModalComponent({openTermForm,setOpenTermForm}) {
                         </button>
                     </Box>
                     <Box className="body">
-                        <NewTermComponent/>
+                        <NewTermComponent category={category} />
                     </Box>
                 </div>
             </Fade>

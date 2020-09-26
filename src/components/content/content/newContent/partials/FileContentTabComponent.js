@@ -14,6 +14,7 @@ import {globalCss} from "assets/js/globalCss";
 import contentService from "core/services/content.service";
 import AppContext from "contexts/AppContext";
 import NewContentContext from "contexts/NewContentContext";
+import ContentsContext from "contexts/ContentsContext" ;
 import {StyledButton} from "assets/js/App";
 
 const gClass = makeStyles(globalCss);
@@ -22,6 +23,7 @@ function FileContentTabComponent({t}) {
     let lang = i18next.language;
     const appContext = useContext(AppContext);
     const newContentContext = useContext(NewContentContext);
+    const contentsContext = useContext(ContentsContext);
     const gClasses = gClass();
     const [multiImgFids, setMultiImgFids] = useState([]);
     const [singleImgToSendFid, setSingleImgToSendFid] = useState('');
@@ -166,7 +168,7 @@ function FileContentTabComponent({t}) {
             newContentContext.setErrors({title: t('translation:requiredValid')});
         }
         contentService.registerContent(newContentContext.content).then((response) => {
-            alert('registered');
+            contentsContext.getRegisteredContent(response.data);
         }).catch((error) => {
             let objError = {};
             const errorString = error.response.data.FailureReason.message.replace(/\n/g, 'a');
@@ -176,7 +178,6 @@ function FileContentTabComponent({t}) {
                 objError[newErrorMessage[0]] = newErrorMessage[1];
             }
             let titleError;
-            debugger
             const arrayError = [];
             if (objError.atitle === " This value should not be null") {
                 titleError = t('contents:nullTitle')

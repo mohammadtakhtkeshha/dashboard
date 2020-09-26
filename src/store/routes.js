@@ -30,12 +30,12 @@ export const routes = [
     },
     {
         path: '/comments',
-        breadcrumbs: () => <BreadcrumbsComponent bread="comments"/>,
+        breadcrumbs: () => <BreadcrumbsComponent bread="commentsManager"/>,
         component: () => <CommentsComponent/>
     },
     {
         path: '/contents',
-        breadcrumbs: () => <BreadcrumbsComponent bread="contents"/>,
+        breadcrumbs: () => <BreadcrumbsComponent bread="contentManager"/>,
         component: () => <ContentsComponent/>
     },
     {
@@ -50,14 +50,35 @@ export const routes = [
     },
     {
         path: '/vocabs',
-        breadcrumbs: () => <BreadcrumbsComponent bread="vocabs"/>,
+        breadcrumbs: () => <BreadcrumbsComponent bread="categories"/>,
         component: () => <VocabsComponent/>
     },
     {
-        path: '/',
-        breadcrumbs: () => <BreadcrumbsComponent bread="dashboard" />,
+        path: '/reports',
+        breadcrumbs: () => <BreadcrumbsComponent bread="reports" />,
         component: () => <DashboardComponent isLoginSuccess={false}/>
     },
+    {
+        path: '/settings',
+        breadcrumbs: () => <BreadcrumbsComponent bread="settings" />,
+        component: () => <DashboardComponent isLoginSuccess={false}/>
+    },
+    {
+        path: '/platform-settings',
+        breadcrumbs: () => <BreadcrumbsComponent bread="platformSettings" />,
+        component: () => <DashboardComponent isLoginSuccess={false}/>
+    },
+    {
+        path: '/activities',
+        breadcrumbs: () => <BreadcrumbsComponent bread="activities" />,
+        component: () => <DashboardComponent isLoginSuccess={false}/>
+    },
+    {
+        path: '/',
+        breadcrumbs: () => <BreadcrumbsComponent bread="home" />,
+        component: () => <DashboardComponent isLoginSuccess={false}/>
+    },
+
     // ,{
     //     path: '/forget-password',
     //     // breadcrumbs: () => <BreadcrumbsComponent bread="forgetPass"/>,

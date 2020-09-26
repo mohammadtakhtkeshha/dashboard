@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, {useState} from "react";
 import {withNamespaces} from 'react-i18next';
 import clsx from "clsx";
 import i18next from "i18next";
@@ -13,30 +13,30 @@ import {makeStyles} from "@material-ui/styles";
 import NewContent from "../newContent";
 import {useStyles} from 'assets/js/content/contentRegisterModal';
 import ContentListOfContentType from "./ContentListOfContentType";
-import contentType from "../../../../assets/js/content/contentType";
 
-const useStyle= makeStyles(useStyles);
+const useStyle = makeStyles(useStyles);
 
- function ContentRegisterModalComponent({t,openRegisterForm,clickCloseRegisterForm}) {
-     const lang = i18next.language;
-     const classes=useStyle();
-     const [contentType,setContentType]=useState('');
+function ContentRegisterModalComponent({t, openRegisterForm, clickCloseRegisterForm}) {
+    const lang = i18next.language;
+    const classes = useStyle();
+    const [contentType, setContentType] = useState('');
 
-     const handleCloseRegisterForm = () => {
-         clickCloseRegisterForm();
-         setContentType('');
-     };
+    const handleCloseRegisterForm = () => {
+        clickCloseRegisterForm();
+        setContentType('');
+    };
+
     return (<Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className={classes.modal}
-                open={openRegisterForm}
-                onClose={handleCloseRegisterForm}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                        }}
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={openRegisterForm}
+        onClose={handleCloseRegisterForm}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+            timeout: 500,
+        }}
     >
         <Fade in={openRegisterForm} id="modal">
             <div className={classes.paper} dir="rtl">
@@ -47,7 +47,8 @@ const useStyle= makeStyles(useStyles);
                     </button>
                 </Box>
                 <Box className="body">
-                    {contentType === '' ? <ContentListOfContentType setContentType={setContentType}/>:<NewContent contentType={contentType}/>}
+                    {contentType === '' ? <ContentListOfContentType setContentType={setContentType}/> :
+                        <NewContent contentType={contentType}/>}
                 </Box>
             </div>
         </Fade>

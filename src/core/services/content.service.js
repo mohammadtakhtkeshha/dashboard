@@ -61,7 +61,7 @@ export function registerContent(content) {
 
 export function getContentTypeList(handleError) {
     let url = contentUrl.getContentTypeListUrl;
-    return Method({method:'get',url:url,handleError:handleError});
+    return Method({method:'get',headers:authHeader,url:url,handleError:handleError});
 }
 
 export function handleContentAction(action, selectedCheckBoxes,handleError) {

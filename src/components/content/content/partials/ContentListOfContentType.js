@@ -1,51 +1,45 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import {makeStyles} from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
 import {Paper} from "@material-ui/core";
 
 import {styles} from "assets/js/content/contentType"
 import ContentsContext from "contexts/ContentsContext";
+import i18next from "i18next";
 
 const useStyles = makeStyles(styles);
 
 export default function ContentListOfContentType({setContentType}) {
-    const classes = useStyles();
-    const [checked, setChecked] = useState([0]);
+    let align=i18next.language === 'fa' ? 'right':'left';
+    const classes = useStyles({textAlign:align});
     const contentsContext = useContext(ContentsContext);
+    const [contentTypeNameList, setContentTypeNameList] = useState([]);
 
-    const handleToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-        setContentType(value.name);
-        if (currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
-        setChecked(newChecked);
+    const handleToggle = (e, value) => {
+        setContentType(value.machinName);
     };
+
+    useEffect(() => {
+        const currentContentTypeList = contentsContext.contentTypeList;
+        let contentTypeArray = [];
+        for (const [key, value] of Object.entries(currentContentTypeList)) {
+            let obj = {machinName: key, name: value[0].name}
+            contentTypeArray.push(obj);
+        }
+        setContentTypeNameList(contentTypeArray);
+    }, [contentsContext.contentTypeList]);
 
     return (
         <Paper className={classes.paper}>
             <List className={classes.root}>
-                {contentsContext.contentTypeList?.map((value) => {
+                {contentTypeNameList?.map((value) => {
                     const labelId = `checkbox-list-label-${value}`;
                     return (
-                        <ListItem key={value.name} role={undefined} dense button onClick={handleToggle(value)}>
-                            <ListItemIcon>
-                                <Checkbox
-                                    edge="start"
-                                    checked={checked.indexOf(value) !== -1}
-                                    tabIndex={-1}
-                                    disableRipple
-                                    inputProps={{'aria-labelledby': labelId}}
-                                />
-                            </ListItemIcon>
+                        <ListItem key={value.name} role={undefined} dense button
+                                  onClick={(e) => handleToggle(e, value)}>
                             <ListItemText id={labelId} primary={`${value.name}`}/>
                         </ListItem>
                     );
