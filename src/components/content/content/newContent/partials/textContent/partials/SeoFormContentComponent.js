@@ -9,6 +9,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {globalCss} from "assets/js/globalCss";
 import NewContentContext from "contexts/NewContentContext";
 import {StyledInput} from "assets/js/App";
+import clsx from "clsx";
 
 const gClass = makeStyles(globalCss);
 
@@ -57,7 +58,7 @@ function SeoFormContentComponent({t}) {
         },[title,description,abstract,keywords]);
 
 
-    return (<Box className="card">
+    return (<Box className={clsx('card', lang === 'en' ? gClasses.ltr : gClasses.rtl)}>
             <Typography
                 className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:metaTag')}</Typography>
             <Box className="metaTag">

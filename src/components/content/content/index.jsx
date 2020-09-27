@@ -27,7 +27,7 @@ function ContentsComponent({t}) {
     const [contents, setContents] = useState([]);
     const [contentTypeList, setContentTypeList] = useState([]);
     const [chunkContents, setChunkContents] = useState();
-
+    const [id,setId] = useState('');
 
     const getContents = () => {
         appContext.setLoading(true);
@@ -57,7 +57,7 @@ function ContentsComponent({t}) {
 
     let getContentType = () => {
         appContext.setLoading(true);
-        contentService.getContentTypeList(appContext.handleError).then((response) => {debugger
+        contentService.getContentTypeList(appContext.handleError).then((response) => {
             appContext.setLoading(false);
             setContentTypeList(response.data);
         });
@@ -71,10 +71,22 @@ function ContentsComponent({t}) {
             uid: content.uid.target_uuid,
             changed: content.changed,
             nid: `${content.nid}`,
-            field_image: content.field_image.url
+            field_image: content.field_image?.url
         }
         contents.unshift(newContent);
         handlePagination(contents,t('translation:successRegistered'));
+    }
+
+    const handleOpenContentForm = (e) => {debugger
+        const value=e.currentTarget.value;
+        setOpenRegisterForm(true);
+        if(value !== ""){
+            setId(id);
+        }
+    }
+    const handleCloseContentForm = (id) => {
+        setOpenRegisterForm(false);
+        setId('');
     }
 
     useEffect(() => {
@@ -90,7 +102,7 @@ function ContentsComponent({t}) {
             getRegisteredContent: getRegisteredContent,
         }}>
             <StyledPaper>
-                <ContentHeaderComponent setOpenRegisterForm={() => setOpenRegisterForm(true)}/>
+                <ContentHeaderComponent setOpenRegisterForm={handleOpenContentForm}/>
                 <StyledBox>
                     <ContentSearchExpansion/>
                 </StyledBox>
@@ -99,7 +111,9 @@ function ContentsComponent({t}) {
                                            contents={contents}
                                            setSelectedCheckBoxes={setSelectedCheckBoxes}
                                            page={page}
-                                           setContents={setContents}/>
+                                           setContents={setContents}
+                                           handleOpenContentForm={handleOpenContentForm}
+                    />
                 </StyledBox>
                 <ContentActionComponent selectedCheckBoxes={selectedCheckBoxes}
                                         setSelectedCheckBoxes={setSelectedCheckBoxes}/>
@@ -110,7 +124,7 @@ function ContentsComponent({t}) {
             <TitleComponent title="contents"/>
             <Box>
                 <ContentRegisterModalComponent
-                    clickCloseRegisterForm={() => setOpenRegisterForm(false)}
+                    handleCloseContentForm={handleCloseContentForm}
                     openRegisterForm={openRegisterForm}
                 />
             </Box>

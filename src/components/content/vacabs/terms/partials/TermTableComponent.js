@@ -40,8 +40,6 @@ function TermTableComponent({t, chunks, page, terms, setOpenTermForm}) {
         });
     }
 
-
-
     return (
         <TableContainer component={Paper}>
             <Table aria-label="customized table">

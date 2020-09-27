@@ -185,5 +185,6 @@ export const StyledBoxMt1=styled.div`
 export const StyledTypographyError =  styled.p`
         color:${red[1]};
         font-size:14px;
+        text-align : ${props=>props.align}
 `
 

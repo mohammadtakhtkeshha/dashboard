@@ -9,7 +9,7 @@ import {registerTerm} from 'core/services/term.service';
 import AppContext from "contexts/AppContext";
 import TermsContext from "contexts/TermsContext";
 
-function NewTermComponent({t,category}) {
+function NewTermComponent({t, category}) {
     const appContext = useContext(AppContext);
     const termsContext = useContext(TermsContext);
     const [term, setTerm] = useState({
@@ -37,13 +37,15 @@ function NewTermComponent({t,category}) {
     console.log(term);
 
     useEffect(() => {
-
+        if(termsContext.id !== ""){
+            debugger
+        }
     }, [termsContext.id]);
 
     return (
         <StyledNewTerm>
             <Box>
-                <StyledInput  onChange={changeName} placeholder={t('translation:name')}/>
+                <StyledInput onChange={changeName} placeholder={t('translation:name')}/>
                 <StyledButton bg={primary} onClick={register}>{t('translation:register')}</StyledButton>
             </Box>
         </StyledNewTerm>

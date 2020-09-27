@@ -163,30 +163,6 @@ function FileContentTabComponent({t}) {
         }
     }
 
-    const register = () => {
-        if (newContentContext.content.title === "") {
-            newContentContext.setErrors({title: t('translation:requiredValid')});
-        }
-        contentService.registerContent(newContentContext.content).then((response) => {
-            contentsContext.getRegisteredContent(response.data);
-        }).catch((error) => {
-            let objError = {};
-            const errorString = error.response.data.FailureReason.message.replace(/\n/g, 'a');
-            const errorArray = errorString.split('.');
-            for (let i in errorArray) {
-                let newErrorMessage = errorArray[i].split(':');
-                objError[newErrorMessage[0]] = newErrorMessage[1];
-            }
-            let titleError;
-            const arrayError = [];
-            if (objError.atitle === " This value should not be null") {
-                titleError = t('contents:nullTitle')
-            }
-            arrayError.push(titleError)
-            appContext.handleError(arrayError);
-        });
-
-    };
 
     const uploadVoice = (files) => {
         if (files.length > 0) {
@@ -337,11 +313,7 @@ function FileContentTabComponent({t}) {
             <UploadVoice multiple={true} title={t('translation:chooseVoice')} getFile={uploadVoice}
                          removedFileId={removeMultiVoice} sendIdAfterUpload={multiVoiceToSend}/>
         </Box>
-        <Box mt={2} className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>
-            <StyledButton bg={primary} onClick={register}>
-                {t('translation:register')}
-            </StyledButton>
-        </Box>
+
     </>);
 }
 

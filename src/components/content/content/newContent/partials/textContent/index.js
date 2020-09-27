@@ -26,6 +26,7 @@ import NewContentContext from "contexts/NewContentContext";
 import SeoFormContentComponent from "./partials/SeoFormContentComponent";
 import {StyledInput, StyledBoxMt1} from "assets/js/App";
 import {StyledTypographyError} from "assets/js/App";
+import {getCurrentTime} from "material-ui-audio-player/dist/components/state/helpers";
 
 const gClass = makeStyles(globalCss);
 const styles = makeStyles(useStyles);
@@ -42,16 +43,24 @@ function TextContentTabComponent({t}) {
     const [selectedDomainSource, setSelectedDomainSource] = useState('');
     const BootstrapInput = withStyles(bootstrapInput)(InputBase);
     const [categories, setCategories] = useState([]);
-
+    let today = new Date();
+    let currentDate = today.toISOString();
 
     let handleChange = (e, field) => {
         const currentName = e.currentTarget.value;
+        if (field === "title") {
+            if (currentName !== "") {
+                newContentContext.setErrors({title: ''});
+            }
+        }
         newContentContext.setContent(prevState => {
             return {
                 ...prevState, [field]: currentName
             }
         });
     };
+
+
 
     // let handleShowPlaceChange = (e) => {
     //     let val;
@@ -77,7 +86,7 @@ function TextContentTabComponent({t}) {
         });
     }
 
-    let clickEditorDescription = (e) => {
+    const clickEditorDescription = (e) => {
         newContentContext.setContent(prevState => {
             return {
                 ...prevState, body: e
@@ -88,11 +97,10 @@ function TextContentTabComponent({t}) {
     let handleStatusChange = (e) => {
         newContentContext.setContent(prevState => {
             return {
-                ...prevState, status: (e.currentTarget.value === "true" ? true:false),
+                ...prevState, status: (e.currentTarget.value === "true" ? true : false),
             }
         });
     };
-
 
     let handleCategoryChange = (item) => {
         debugger
@@ -205,7 +213,6 @@ function TextContentTabComponent({t}) {
         })
     };
 
-
     let getCategories = () => {
         contentService.getCategories().then((response) => {
             let categories = response.data.rows;
@@ -215,8 +222,6 @@ function TextContentTabComponent({t}) {
         });
 
     };
-
-
 
     let handleDomainAccessChange = (e, domain) => {
         if (e.target.checked) {
@@ -233,7 +238,7 @@ function TextContentTabComponent({t}) {
             let exSelectedDomainAccess = newContentContext.selectedDomainAccess;
             let newSelectedDomainAccess = exSelectedDomainAccess.filter(item => item !== domain);
             newContentContext.setSelectedDomainAccess([...newSelectedDomainAccess]);
-            if(domain.id === selectedDomainSource){
+            if (domain.id === selectedDomainSource) {
                 newContentContext.setContent(prevState => {
                     return {...prevState, field_domain_source: {}};
                 });
@@ -283,27 +288,70 @@ function TextContentTabComponent({t}) {
 
     // -----auto complete ------
     const passedDate = (field, date) => {
-        if (date === null) { //delete field publish and unpublish from content
-            newContentContext.setContent(prevState => {
-                delete prevState[field];
-                return {
-                    ...prevState
+            if (date === null) { //delete field publish and unpublish from content
+                newContentContext.setContent(prevState => {
+                    delete prevState[field];
+                    return {
+                        ...prevState
+                    }
+                });
+                newContentContext.setErrors(prevState => {
+                    return {...prevState,unpublish_on: ''}
+                });
+            } else {
+                if (field === 'unpublish_on' && newContentContext.content.publish_on !== undefined) {
+                    if(date<currentDate){
+                        newContentContext.setErrors(prevState => {
+                            return {...prevState,unpublish_on: t('contents:furtherDate')}
+                        });
+                    }else {
+                        debugger
+                        if (date < newContentContext.content.publish_on) {
+                            debugger
+                            newContentContext.setErrors(prevState => {
+                                return {...prevState, unpublish_on: t('contents:unPublishAfterPublishError')}
+                            });
+                        } else {
+                            debugger
+                            newContentContext.setErrors(prevState => {
+                                return {...prevState, unpublish_on: ''}
+                            });
+                        }
+                    }
+                } else if (field === 'publish_on' && newContentContext.content.unpublish_on !== undefined) {
+                    debugger
+                    if(date<currentDate){
+                        newContentContext.setErrors(prevState => {
+                                   return{...prevState,publish_on: t('contents:furtherDate')}
+                                });
+                    }else {
+                        if (date > newContentContext.content.unpublish_on) {
+                            debugger
+                            newContentContext.setErrors(prevState => {
+                                return {...prevState, unpublish_on: t('contents:unPublishAfterPublishError')}
+                            });
+                        } else {
+                            debugger
+                            newContentContext.setErrors(prevState => {
+                                return {...prevState, unpublish_on: ''}
+                            });
+                        }
+                    }
+                } else {
+                    newContentContext.setErrors(prevState => {
+                        return {...prevState,unpublish_on: ''}
+                    });
                 }
-            });
-        } else {debugger
-            if( field === 'unpublish_on' && newContentContext.content.publish_on !== undefined){
-                if(date < newContentContext.content.publish_on){
-                    newContentContext.setErrors({unpublish_on:t('contents:unPublishAfterPublishError')});
-                }
+                newContentContext.setContent(prevState => {
+                    return {
+                        ...prevState, [field]: date
+                    }
+                });
             }
-            newContentContext.setContent(prevState => {
-                return {
-                    ...prevState, [field]: date
-                }
-            });
-        }
+        // }
     }
-    console.log(newContentContext.content);
+
+    console.log(newContentContext.errors);
 
     useEffect(() => {
         tagService.getTags().then((response) => {
@@ -319,15 +367,17 @@ function TextContentTabComponent({t}) {
     }, []);
 
     return (<>
-        <Box className="items">
+        <Box className={clsx('items', lang === 'en' ? gClasses.ltr : gClasses.rtl)}>
             <Box className="inputBlock">
                 <StyledInput
                     value={newContentContext.content.title}
-                    lang={lang}
-                    type="text" placeholder={t('translation:title')}
-                    onChange={e => handleChange(e, "title")}/>
+                    type="text"
+                    placeholder={t('translation:title')}
+                    onChange={e => handleChange(e, "title")}
+                />
                 {newContentContext.errors?.title ?
-                    <StyledTypographyError className="error">{newContentContext.errors.title}</StyledTypographyError> : ''}
+                    <StyledTypographyError
+                        align={lang === 'en' ? 'left' : 'right'}>{newContentContext.errors.title}</StyledTypographyError> : ''}
             </Box>
             <Box className="inputBlock">
                 <StyledInput
@@ -349,18 +399,19 @@ function TextContentTabComponent({t}) {
                     placeholder={t('contents:choosePublishDate')}
                     passedDate={(e) => passedDate('publish_on', e)}
                     selectedDate={newContentContext.publishDate}
-                    setSelectedDate={newContentContext.setPublishDate}
-                />
-
+                    setSelectedDate={newContentContext.setPublishDate}/>
+                {newContentContext.errors.publish_on ?
+                    <StyledTypographyError
+                        className="error">{newContentContext.errors.publish_on}</StyledTypographyError> : ''}
             </Box>
             <Box className={clsx('date', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
                 <DatePickerrComponent passedDate={(e) => passedDate('unpublish_on', e)}
                                       placeholder={t('contents:chooseUnpublishDate')}
                                       selectedDate={newContentContext.unpublishDate}
-                                      setSelectedDate={newContentContext.setUnpublishDate}
-                />
+                                      setSelectedDate={newContentContext.setUnpublishDate}/>
                 {newContentContext.errors.unpublish_on ?
-                    <StyledTypographyError className="error">{newContentContext.errors.unpublish_on}</StyledTypographyError> : ''}
+                    <StyledTypographyError
+                        className="error">{newContentContext.errors.unpublish_on}</StyledTypographyError> : ''}
             </Box>
         </Box>
         <Box className="items">
@@ -403,7 +454,7 @@ function TextContentTabComponent({t}) {
                     )}
                 />
             </Box>
-            <Box className={clsx('select', 'card')}>
+            <Box className={clsx('select', 'card', lang === 'en' ? gClasses.ltr : gClasses.rtl)}>
                 <FormControl className={classes.margin}>
                     <Typography
                         className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('translation:categories')}</Typography>
@@ -417,7 +468,6 @@ function TextContentTabComponent({t}) {
                         {categories.map((item) => (
                             <option key={item.tid} value={item.tid}>{item.name}</option>
                         ))}
-
                     </NativeSelect>
                 </FormControl>
             </Box>
@@ -490,15 +540,14 @@ function TextContentTabComponent({t}) {
         </Box>
         {/*-----------------------------------------------------------------------------------*/}
         <SeoFormContentComponent/>
-        <Box className={clsx('card', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
+        <Box
+            className={clsx('card', lang === 'en' ? gClasses.ltr : gClasses.rtl, lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
             <FormControl component="fieldset">
                 <FormLabel component="legend">{t('translation:status')}</FormLabel>
                 <RadioGroup aria-label="status" value={newContentContext.content.status}
                             onChange={e => handleStatusChange(e)}>
-                    <FormControlLabel value={true} control={<Radio/>}
-                                      label={t('contents:published')}/>
-                    <FormControlLabel value={false} control={<Radio/>}
-                                      label={t('contents:unpublished')}/>
+                    <FormControlLabel value={true} control={<Radio/>} label={t('contents:published')}/>
+                    <FormControlLabel value={false} control={<Radio/>} label={t('contents:unpublished')}/>
                 </RadioGroup>
             </FormControl>
         </Box>

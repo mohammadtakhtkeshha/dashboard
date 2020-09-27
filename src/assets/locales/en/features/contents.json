@@ -28,6 +28,7 @@
   "choosePublishDate":"choose publish date",
   "chooseUnpublishDate":"choose unpublish date",
   "nullTitle":"title can not be null",
-  "unPublishAfterPublishError":"unpublish date must be after publish Date!"
+  "unPublishAfterPublishError":"unpublish date must be after publish Date!",
+  "furtherDate":"selected time must be for further!"
 
 }

@@ -63,12 +63,11 @@ export function Layout({t}) {
         setShowUserDrawer(boolean)
     };
 
-    let handleError = (error) => {
+    let handleError = (error) => {debugger
         let errorString;
         if(error){
             errorString = error.toString();
         }
-        debugger
         danger(error?errorString:t('translation:error'), t('translation:ok'));
         setLoading(false);
         console.log(error);

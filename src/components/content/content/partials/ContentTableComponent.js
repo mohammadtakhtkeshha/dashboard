@@ -26,7 +26,7 @@ const StyledTableCell = withStyles(styledTableCell)(TableCell);
 const StyledTableRow = withStyles(styledTableRow)(TableRow);
 const useStyle = makeStyles(useStyles);
 
-function ContentTableComponent({t, selectedCheckBoxes, setSelectedCheckBoxes, page}) {
+function ContentTableComponent({t, selectedCheckBoxes, setSelectedCheckBoxes, page,handleOpenContentForm}) {
     const classes = useStyle();
     const appContext = useContext(AppContext);
     const contentsContext = useContext(ContentsContext);
@@ -128,7 +128,7 @@ function ContentTableComponent({t, selectedCheckBoxes, setSelectedCheckBoxes, pa
                                 </StyledTableCell>
                                 <StyledTableCell align="right">
                                     <StyledActionButtonBlock>
-                                        <button value={content.nid} onClick={confirmDeleteHandler}>
+                                        <button value={content.nid} onClick={handleOpenContentForm}>
                                             <EditIcon/>
                                             <Typography>
                                                 {t('translation:edit')}

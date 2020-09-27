@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import SunEditor from 'suneditor-react';
 import axios from "axios";
+import {withNamespaces} from "react-i18next";
 
 import {Typography, Box} from "@material-ui/core";
 import 'suneditor/dist/css/suneditor.min.css';
@@ -8,15 +9,25 @@ import {makeStyles} from "@material-ui/styles";
 
 import storage from "libraries/local-storage";
 import NewContentContext from "../../contexts/NewContentContext";
+import i18next from "i18next";
 
 const useStyles = makeStyles({
     editorBox: {
-        margin: '.5rem 0'
+        margin: '.5rem 0',
+        '& .se-wrapper':{
+            '& span':{
+                textAlign:props => props.align,
+            }
+        },
+        '& .sun-editor-common':{
+            textAlign:props => props.align,
+        }
     }
 });
 
-function EditorComponent({title, onClick,textAlign}) {
-    const classes = useStyles();
+function EditorComponent({t,title, onClick,textAlign}) {
+    const align =  i18next.language === 'en' ? 'left': 'right';
+    const classes = useStyles({align:align});
     // const [content,setContent]=useState('<div>in the name of god</div>');
     const newContentContext=useContext(NewContentContext);
     const canvas = document.createElement('canvas');
@@ -90,7 +101,7 @@ function EditorComponent({title, onClick,textAlign}) {
     return (
         <div>
             {/*<div dangerouslySetInnerHTML={{__html:content}} />*/}
-            <div id="editor">
+            <div id="editor" >
                 <Typography className={textAlign}>{title}</Typography>
                 <Box className={classes.editorBox}>
                     <SunEditor
@@ -107,8 +118,8 @@ function EditorComponent({title, onClick,textAlign}) {
                         onImageUploadBefore={beforeUploading}
                         onImageUpload={imageUploadHandler}
                         onChange={(e) => changeEditorContent(e)}
-                        lang="en" name="my-editor"
-                        placeholder="Please type here..."
+                        name="my-editor"
+                        placeholder={t('translation:typeHere')}
                     />
                 </Box>
             </div>
@@ -117,4 +128,4 @@ function EditorComponent({title, onClick,textAlign}) {
     );
 }
 
-export default EditorComponent;
+export default withNamespaces()(EditorComponent);

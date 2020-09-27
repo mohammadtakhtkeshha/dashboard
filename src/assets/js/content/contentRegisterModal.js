@@ -1,4 +1,5 @@
-import * as colors from "../../../components/partials/Colors";
+import {white,primary} from "../../../components/partials/Colors";
+import styled from "styled-components"
 
 export const useStyles={
     modal: {
@@ -24,7 +25,7 @@ export const useStyles={
                 right: 0,
                 height: '40px',
                 zIndex:'100',
-                backgroundColor: colors.primary,
+                backgroundColor: primary,
                 '& .button': {
                     background: 'transparent',
                     cursor: 'pointer',
@@ -33,14 +34,18 @@ export const useStyles={
                         outline: '0!important',
                     },
                     '& svg': {
-                        color: colors.white,
+                        color: white,
                         margin: '9px 9px',
                     }
                 },
                 '& .title': {
                     margin: '9px 13px',
-                    color:colors.white
+                    color:white
                 }
+            },
+            '& .footer':{
+                border: '1px solid red',
+                backgroundColor:primary,
             },
             '& .flexDirL':{
                 flexDirection:'row-reverse'
@@ -50,6 +55,7 @@ export const useStyles={
 
             },
             '& .body': {
+                position:'relative',
                 marginTop: '40px',
                 height: 'calc(100vh - 5rem)',
                 overflow: 'scroll',
@@ -61,4 +67,11 @@ export const useStyles={
         }
     }
 };
+
+export const StyledFooterRegisterContent = styled.div`
+    background-color:${primary};
+    position:absolute;
+    bottom:0;
+    width:100%;
+`
 

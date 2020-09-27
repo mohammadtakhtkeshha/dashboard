@@ -10,7 +10,7 @@ function ContentHeaderComponent({t,setOpenRegisterForm}) {
     return(
         <StyledHead>
             <StyledHeadTypography>{t('contents:contentList')}</StyledHeadTypography>
-            <StyledButton bg={primary} onClick={() => setOpenRegisterForm(true)}>
+            <StyledButton bg={primary} onClick={setOpenRegisterForm}>
                 <Typography>{t('translation:registerContent')}</Typography>
             </StyledButton>
         </StyledHead>

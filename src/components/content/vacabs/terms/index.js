@@ -2,17 +2,17 @@ import React, {useState, useContext, useEffect} from "react";
 import {withNamespaces} from "react-i18next";
 import {useLocation} from "react-router-dom";
 
-import {Box} from '@material-ui/core/index';
+import {Box} from "@material-ui/core/index";
 import Pagination from "@material-ui/lab/Pagination";
 
-import vocabService from 'core/services/vocab.service'
+import vocabService from "core/services/vocab.service"
 import AppContext from "contexts/AppContext";
-import {StyledPaper, StyledBox} from 'assets/js/App';
+import {StyledPaper, StyledBox} from "assets/js/App";
 import TermTableComponent from "./partials/TermTableComponent";
 import {StyledPaginationBox} from "assets/js/pagination";
-import {chunkItem, handleTotalPage} from 'structure/layout';
-import HeaderTermComponent from './partials/HeaderTermComponent';
-import NewTermModalComponent from './partials/NewTermModalComponent';
+import {chunkItem, handleTotalPage} from "structure/layout";
+import HeaderTermComponent from "./partials/HeaderTermComponent";
+import NewTermModalComponent from "./partials/NewTermModalComponent";
 import TermsContext from "contexts/TermsContext";
 import {success} from "methods/swal";
 
@@ -22,7 +22,6 @@ function TermsComponent({t}) {
     const [terms, setTerms] = useState([]);
     const [openTermForm, setOpenTermForm] = useState(false);
     const [totalPage, setTotalPage] = useState(0);
-    const [open, setOpen] = useState(false);
     const [page, setPage] = useState(0);
     const [chunks, setChunks] = useState([]);
     const [id, setId] = useState('');
@@ -45,10 +44,6 @@ function TermsComponent({t}) {
         action && success(action, t('translation:ok'))
     }
 
-    const handleOpen = () => {
-        alert('alert');
-    }
-
     const paginate = (e, value) => {
         setPage(value - 1);
     }
@@ -61,12 +56,18 @@ function TermsComponent({t}) {
 
     useEffect(() => {
         getTerms();
-    }, []);
+    }, [])
 
     const handleOpenTermForm = (id) => {
         setOpenTermForm(true);
-        debugger
-        setId(id);
+        if(id){
+            setId(id);
+        }
+    }
+
+    const handleCloseTermForm = () => {
+        setOpenTermForm(false);
+        setId('');
     }
 
     return (<TermsContext.Provider value={{
@@ -87,7 +88,7 @@ function TermsComponent({t}) {
             <Pagination count={(totalPage)} onChange={paginate}/>
         </StyledPaginationBox>
         <NewTermModalComponent category={location.state.vocab} openTermForm={openTermForm}
-                               setOpenTermForm={() => setOpenTermForm(false)}/>
+                               setOpenTermForm={handleCloseTermForm}/>
     </TermsContext.Provider>);
 }
 
