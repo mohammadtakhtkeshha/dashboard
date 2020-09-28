@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const active = () => ({
     active:{
         color: `${primary}!important`,
-        backgroundColor: grey.sidebarActive
+        backgroundColor: grey[6]
     }
 });
 

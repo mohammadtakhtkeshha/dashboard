@@ -1,30 +1,44 @@
-import {white,primary} from "../../../components/partials/Colors";
+import {white, primary,grey,black} from "../../../components/partials/Colors";
 import styled from "styled-components"
 
-export const useStyles={
+export const useStyles = {
     modal: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        '& .MuiBackdrop-root': {
+            backgroundColor: 'white!important',
+        },
         '& #modal': {
-            width:'75%',
-            border: '0!important',
-            minWidth:'100px',
+            width: '75%',
+            minWidth: '100px',
             marginTop: '5rem 5rem',
             maxWidth: '650px',
+            '&>button':{
+                position:'absolute',
+                top:'1rem',
+                right:'1rem',
+                backgroundColor:'transparent',
+                // borderRadius:'100%',
+                border: '1px solid red',
+                '& svg':{
+                    // border: '1px solid red',
+                    backgroundColor:grey[7],
+                    color:black[1]
+                }
+            },
             '&:focus': {
                 outline: '0!important',
             },
-            position: 'relative',
             '& .header': {
-                display:'flex',
-                justifyContent:'space-between',
+                display: 'flex',
+                justifyContent: 'space-between',
                 position: 'absolute',
                 top: '0',
                 left: 0,
                 right: 0,
                 height: '40px',
-                zIndex:'100',
+                zIndex: '100',
                 backgroundColor: primary,
                 '& .button': {
                     background: 'transparent',
@@ -40,26 +54,26 @@ export const useStyles={
                 },
                 '& .title': {
                     margin: '9px 13px',
-                    color:white
+                    color: white
                 }
             },
-            '& .footer':{
+            '& .footer': {
                 border: '1px solid red',
-                backgroundColor:primary,
+                backgroundColor: primary,
             },
-            '& .flexDirL':{
-                flexDirection:'row-reverse'
+            '& .flexDirL': {
+                flexDirection: 'row-reverse'
             },
-            '& .flexDirR':{
-                flexDirection:'row'
+            '& .flexDirR': {
+                flexDirection: 'row'
 
             },
             '& .body': {
-                position:'relative',
-                marginTop: '40px',
-                height: 'calc(100vh - 5rem)',
+                position: 'relative',
+                height: 'calc(100vh - 50rem)',
                 overflow: 'scroll',
                 scrollbar: 'none',
+                width: '100%',
                 '&::-webkit-scrollbar': {
                     display: 'none',
                 }
@@ -69,9 +83,31 @@ export const useStyles={
 };
 
 export const StyledFooterRegisterContent = styled.div`
-    background-color:${primary};
-    position:absolute;
-    bottom:0;
-    width:100%;
+                background-color:${primary};
+                position:absolute;
+                bottom:0;
+                width:100%;
+                z-index:100;
+`
+export const ModalBox = styled.div`
+                background-color:white;
+                width:100%;
 `
 
+export const ModalAround = styled.div`
+                border:1px solid ${grey[1]}!important;
+                border-radius:15px;
+                overflow:hidden;
+                box-shadow: 0 2px 10px rgba(31,45,61,0.16);
+`
+
+export const ModalBody = styled.div`
+                position: relative;
+                height: fit-content;
+                overflow: scroll;
+                scrollbar: none;
+                width: 100%;
+                &::-webkit-scrollbar{
+                    display: none;
+                }
+`

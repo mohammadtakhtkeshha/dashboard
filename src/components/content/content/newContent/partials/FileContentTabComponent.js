@@ -1,320 +1,253 @@
-import React, {useContext, useState} from "react";
-import i18next from "i18next";
-import {withNamespaces} from "react-i18next";
+import contentService from "../../../../../core/services/content.service";
 
-import {Box, Typography} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
-
-import UploadImg from "components/partials/UploadImg";
-import UploadFile from "components/partials/UploadFile";
-import UploadVideo from "components/partials/UploadVideo";
-import UploadVoice from "components/partials/UploadVoice";
-import {primary} from "components/partials/Colors";
-import {globalCss} from "assets/js/globalCss";
-import contentService from "core/services/content.service";
-import AppContext from "contexts/AppContext";
-import NewContentContext from "contexts/NewContentContext";
-import ContentsContext from "contexts/ContentsContext" ;
-import {StyledButton} from "assets/js/App";
-
-const gClass = makeStyles(globalCss);
-
-function FileContentTabComponent({t}) {
-    let lang = i18next.language;
-    const appContext = useContext(AppContext);
-    const newContentContext = useContext(NewContentContext);
-    const contentsContext = useContext(ContentsContext);
-    const gClasses = gClass();
-    const [multiImgFids, setMultiImgFids] = useState([]);
-    const [singleImgToSendFid, setSingleImgToSendFid] = useState('');
-    const [multiImgToSendFid, setMultiImgToSendFid] = useState('');
-    const [multiFileToSendId, setMultiFileToSendId] = useState('');
-    const [multiVideoToSend, setMultiVideoToSend] = useState('');
-    const [multiVoiceToSend, setMultiVoiceToSend] = useState('');
-
-    const uploadSingImg = (e) => {
-        if (e.length > 0) {
-            contentService.uploadSingImg(e).then((response) => {
-                let item = response.data;
-                setSingleImgToSendFid({id: item.fid, file: e[0]});
+export const uploadMultiImgMethod = (file,newContentContext,setMultiImgFids,appContext,setMultiImgToSendFid) => {
+    if (file.length > 0) {
+        let fids = [];
+        for (let e of file) {
+            contentService.uploadMultiImg(e).then((response) => {
+                setMultiImgToSendFid({id: response.data.fid, file: e});
+                let fidsString = fids.toString();
+                setMultiImgFids(prevState => {
+                    return [...prevState, {fid: response.data.fid, name: e.name}];
+                });
                 newContentContext.setContent(prevState => {
+                    let fids = [];
+                    if (prevState.field_field_galeries.target_id !== undefined) {
+
+                        fids.push(prevState.field_field_galeries.target_id, response.data.fid);
+                    } else {
+                        fids.push(response.data.fid);
+                    }
+                    let lastFids = fids.toString();
                     return {
-                        ...prevState, field_image: {
-                            target_id: `${response.data.fid}`,
-                            target_type: 'file'
+                        ...prevState, field_field_galeries: {
+                            "target_id": lastFids,
+                            "target_type": "file"
                         }
                     }
                 });
             }).catch((error) => {
-                appContext.handleError(error)
-            });
-        } else {
-            newContentContext.setContent(prevState => {
-                return {
-                    ...prevState, field_image: ''
-                }
+                appContext.handleError(error);
             });
         }
-    }
-
-    const uploadMultiImg = (file) => {
-        if (file.length > 0) {
-            let fids = [];
-            for (let e of file) {
-                contentService.uploadMultiImg(e).then((response) => {
-                    setMultiImgToSendFid({id: response.data.fid, file: e});
-                    let fidsString = fids.toString();
-                    setMultiImgFids(prevState => {
-                        return [...prevState, {fid: response.data.fid, name: e.name}];
-                    });
-                    newContentContext.setContent(prevState => {
-                        let fids = [];
-                        if (prevState.field_field_galeries.target_id !== undefined) {
-
-                            fids.push(prevState.field_field_galeries.target_id, response.data.fid);
-                        } else {
-                            fids.push(response.data.fid);
-                        }
-                        let lastFids = fids.toString();
-                        return {
-                            ...prevState, field_field_galeries: {
-                                "target_id": lastFids,
-                                "target_type": "file"
-                            }
-                        }
-                    });
-                }).catch((error) => {
-                    appContext.handleError(error);
-                });
+    } else {
+        newContentContext.setContent(prevState => {
+            return {
+                ...prevState, multiImg: ''
             }
-        } else {
-            newContentContext.setContent(prevState => {
-                return {
-                    ...prevState, multiImg: ''
-                }
-            });
-        }
+        });
     }
+}
 
-    const uploadMultiFile = (files) => {
-        if (files.length > 0) {
-            let fids = [];
-            for (let e of files) {
-                contentService.uploadMultiFile(e).then((response) => {
-                    let item = response.data;
-                    let fidsString = fids.toString();
-                    setMultiFileToSendId({id: response.data.fid, file: e});
-                    setMultiImgFids(prevState => {
-                        return [...prevState, {fid: item.fid, name: e.name}];
-                    });
-                    newContentContext.setContent(prevState => {
-                        let fids = [];
-                        if (prevState.field_files.target_id !== undefined) {
-                            fids.push(prevState.field_files.target_id, item.fid);
-                        } else {
-                            fids.push(item.fid);
-                        }
-                        let lastFids = fids.toString();
-                        return {
-                            ...prevState, field_files: {
-                                "target_id": lastFids,
-                                "target_type": "file"
-                            }
-                        }
-                    });
-                }).catch((error) => {
-                    appContext.handleError(error);
-                });
-            }
-        } else {
-            newContentContext.setContent(prevState => {
-                return {
-                    ...prevState, multiImg: ''
-                }
-            });
-        }
-
-    }
-
-    const uploadVideo = (files) => {
+export const uploadMultiFileMethod = (files,newContentContext,setMultiFileToSendId,setMultiImgFids,appContext) => {
+    if (files.length > 0) {
+        let fids = [];
         for (let e of files) {
-            contentService.uploadVideo(e).then((response) => {
-
+            contentService.uploadMultiFile(e).then((response) => {
                 let item = response.data;
-                setMultiVideoToSend({id: item.fid, file: e});
+                let fidsString = fids.toString();
+                setMultiFileToSendId({id: response.data.fid, file: e});
+                setMultiImgFids(prevState => {
+                    return [...prevState, {fid: item.fid, name: e.name}];
+                });
                 newContentContext.setContent(prevState => {
                     let fids = [];
-                    if (prevState.field_videos !== undefined) {
-                        fids.push(prevState.field_videos.target_id, item.fid);
+                    if (prevState.field_files.target_id !== undefined) {
+                        fids.push(prevState.field_files.target_id, item.fid);
                     } else {
                         fids.push(item.fid);
                     }
-                    let stringFids = fids.toString();
+                    let lastFids = fids.toString();
                     return {
-                        ...prevState, field_videos: {
-                            target_id: stringFids,
-                            target_type: "file"
+                        ...prevState, field_files: {
+                            "target_id": lastFids,
+                            "target_type": "file"
                         }
                     }
                 });
             }).catch((error) => {
-                appContext.handleError(error)
+                appContext.handleError(error);
             });
         }
-    }
-
-
-    const uploadVoice = (files) => {
-        if (files.length > 0) {
-            for (let e of files) {
-                contentService.uploadVoice(e).then((response) => {
-                    let item = response.data;
-                    setMultiVoiceToSend({id: response.data.fid, file: e});
-                    newContentContext.setContent(prevState => {
-                        let fids = [];
-                        if (prevState.field_sounds.target_id !== undefined) {
-                            fids.push(prevState.field_sounds.target_id, response.data.fid);
-                        } else {
-                            fids.push(response.data.fid);
-                        }
-                        let StringFid = fids.toString();
-
-                        return {
-                            ...prevState, field_sounds: {
-                                "target_id": StringFid,
-                                "target_type": "file"
-                            }
-                        }
-                    });
-                }).catch((error) => {
-                    appContext.handleError(error);
-                });
+    } else {
+        newContentContext.setContent(prevState => {
+            return {
+                ...prevState, multiImg: ''
             }
+        });
+    }
+}
 
-        } else {
+export const uploadSingImgMethod = (e,newContentContext,setSingleImgToSendFid,appContext) => {
+    if (e.length > 0) {
+        contentService.uploadSingImg(e).then((response) => {
+            let item = response.data;
+            setSingleImgToSendFid({id: item.fid, file: e[0]});
             newContentContext.setContent(prevState => {
                 return {
-                    ...prevState, field_sounds: ''
+                    ...prevState, field_image: {
+                        target_id: `${response.data.fid}`,
+                        target_type: 'file'
+                    }
                 }
             });
-        }
-    }
-
-    const removeMultiImg = (currentId) => {
-        let fidsString = newContentContext.content.field_field_galeries.target_id;
-        let fidsArray = fidsString.split(',');
-        let currentIndex = fidsArray.indexOf(currentId);
-        fidsArray.splice(currentIndex, 1);
-        let field_gallery;
-        if (fidsArray.length > 0) {
-            field_gallery = {target_id: fidsArray.toString(), type: 'file'}
-        } else {
-            field_gallery = '';
-        }
-        newContentContext.setContent(prevState => {
-            return {
-                ...prevState, field_field_galeries: field_gallery
-            }
+        }).catch((error) => {
+            appContext.handleError(error)
         });
-    }
-
-    const removeMultiFile = (currentId) => {
-        let fidsString = newContentContext.content.field_files.target_id;
-        let fidsArray = fidsString.split(',');
-        let currentIndex = fidsArray.indexOf(currentId);
-        fidsArray.splice(currentIndex, 1);
-        let field_file;
-        if (fidsArray.length > 0) {
-            field_file = {target_id: fidsArray.toString(), type: 'file'}
-        } else {
-            field_file = '';
-        }
-        newContentContext.setContent(prevState => {
-            return {
-                ...prevState, field_files: field_file
-            }
-        });
-
-    }
-
-    const removeMultiVideo = (currentId) => {
-        let fidsString = newContentContext.content.field_videos.target_id;
-        let fidsArray = fidsString.split(',');
-        let currentIndex = fidsArray.indexOf(currentId);
-        fidsArray.splice(currentIndex, 1);
-        let field_file;
-        if (fidsArray.length > 0) {
-            field_file = {target_id: fidsArray.toString(), type: 'file'}
-        } else {
-            field_file = '';
-        }
-        newContentContext.setContent(prevState => {
-            return {
-                ...prevState, field_videos: field_file
-            }
-        });
-    }
-
-    const removeMultiVoice = (currentId) => {
-        let fidsString = newContentContext.content.field_sounds.target_id;
-        let fidsArray = fidsString.split(',');
-        let currentIndex = fidsArray.indexOf(currentId);
-        fidsArray.splice(currentIndex, 1);
-        let field_file;
-        if (fidsArray.length > 0) {
-            field_file = {target_id: fidsArray.toString(), type: 'file'}
-        } else {
-            field_file = '';
-        }
-        newContentContext.setContent(prevState => {
-            return {
-                ...prevState, field_sounds: field_file
-            }
-        });
-    }
-
-    const removedSingleImg = (id) => {
+    } else {
         newContentContext.setContent(prevState => {
             return {
                 ...prevState, field_image: ''
             }
         });
-    };
-
-    return (<>
-        <Box className="card">
-            <Typography
-                className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:indexImg')}</Typography>
-            <UploadImg multiple={false} title={t('translation:choosePic')} getFile={uploadSingImg}
-                       removedFileId={removedSingleImg} sendIdAfterUpload={singleImgToSendFid}/>
-        </Box>
-        <Box className="card">
-            <Typography
-                className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:imgGallery')}</Typography>
-            <UploadImg multiple={true} title={t('translation:choosePic')} getFile={uploadMultiImg}
-                       removedFileId={removeMultiImg} sendIdAfterUpload={multiImgToSendFid}/>
-        </Box>
-        <Box className="card">
-            <Typography
-                className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:fileGallery')}</Typography>
-            <UploadFile multiple={true} title={t('translation:chooseFile')} getFile={uploadMultiFile}
-                        removedFileId={removeMultiFile} sendIdAfterUpload={multiFileToSendId}/>
-        </Box>
-        <Box className="card">
-            <Typography
-                className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:videoGallery')}</Typography>
-            {/*<UploadImg multiple={true} title={t('translation:chooseVideo')} getFile={uploadVideo}/>*/}
-            <UploadVideo multiple={true} title={t('translation:chooseVideo')} getFile={uploadVideo}
-                         removedFileId={removeMultiVideo} sendIdAfterUpload={multiVideoToSend}/>
-        </Box>
-        <Box className="card">
-            <Typography
-                className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:voiceGallery')}</Typography>
-            <UploadVoice multiple={true} title={t('translation:chooseVoice')} getFile={uploadVoice}
-                         removedFileId={removeMultiVoice} sendIdAfterUpload={multiVoiceToSend}/>
-        </Box>
-
-    </>);
+    }
 }
 
-export default withNamespaces('contents,translation')(FileContentTabComponent);
+export const uploadVideoMethod = (files,newContentContext,setMultiVideoToSend,appContext) => {
+    for (let e of files) {
+        contentService.uploadVideo(e).then((response) => {
+            let item = response.data;
+            setMultiVideoToSend({id: item.fid, file: e});
+            newContentContext.setContent(prevState => {
+                let fids = [];
+                if (prevState.field_videos.target_id !== undefined) {
+                    fids.push(prevState.field_videos.target_id, item.fid);
+                } else {
+                    fids.push(item.fid);
+                }
+                let stringFids = fids.toString();
+                return {
+                    ...prevState, field_videos: {
+                        target_id: stringFids,
+                        target_type: "file"
+                    }
+                }
+            });
+        }).catch((error) => {
+            appContext.handleError(error)
+        });
+    }
+
+}
+
+export const uploadVoiceMethod = (files,newContentContext,setMultiVoiceToSend,appContext) => {
+    if (files.length > 0) {
+        for (let e of files) {
+            contentService.uploadVoice(e).then((response) => {
+                let item = response.data;
+                setMultiVoiceToSend({id: response.data.fid, file: e});
+                newContentContext.setContent(prevState => {
+                    let fids = [];
+                    if (prevState.field_sounds.target_id !== undefined) {
+                        fids.push(prevState.field_sounds.target_id, response.data.fid);
+                    } else {
+                        fids.push(response.data.fid);
+                    }
+                    let StringFid = fids.toString();
+
+                    return {
+                        ...prevState, field_sounds: {
+                            "target_id": StringFid,
+                            "target_type": "file"
+                        }
+                    }
+                });
+            }).catch((error) => {
+                appContext.handleError(error);
+            });
+        }
+
+    } else {
+        newContentContext.setContent(prevState => {
+            return {
+                ...prevState, field_sounds: ''
+            }
+        });
+    }
+}
+
+export const removeMultiImgMethod = (currentId,newContentContext) => {
+    let fidsString = newContentContext.content.field_field_galeries.target_id;
+    let fidsArray = fidsString.split(',');
+    let currentIndex = fidsArray.indexOf(currentId);
+    fidsArray.splice(currentIndex, 1);
+    let field_gallery;
+    if (fidsArray.length > 0) {
+        field_gallery = {target_id: fidsArray.toString(), type: 'file'}
+    } else {
+        field_gallery = {};
+    }
+    newContentContext.setContent(prevState => {
+        return {
+            ...prevState, field_field_galeries: field_gallery
+        }
+    });
+}
+
+
+export const removeMultiFileMethod = (currentId,newContentContext)=>{
+    let fidsString = newContentContext.content.field_files.target_id;
+    let fidsArray = fidsString.split(',');
+    let currentIndex = fidsArray.indexOf(currentId);
+    fidsArray.splice(currentIndex, 1);
+    let field_file;
+    if (fidsArray.length > 0) {
+        field_file = {target_id: fidsArray.toString(), type: 'file'}
+    } else {
+        field_file = '';
+    }
+    newContentContext.setContent(prevState => {
+        return {
+            ...prevState, field_files: field_file
+        }
+    });
+}
+
+export const removeMultiVideoMethod = (currentId,newContentContext) => {
+    let fidsString = newContentContext.content.field_videos.target_id;
+    let fidsArray = fidsString.split(',');
+    let currentIndex = fidsArray.indexOf(currentId);
+    fidsArray.splice(currentIndex, 1);
+    let field_file;
+    debugger
+    if (fidsArray.length > 0) {
+        field_file = {target_id: fidsArray.toString(), type: 'file'}
+    } else {
+        field_file = '';
+    }
+    newContentContext.setContent(prevState => {
+        return {
+            ...prevState, field_videos: field_file
+        }
+    });
+}
+
+export const removeMultiVoiceMethod = (currentId,newContentContext) => {
+    let fidsString = newContentContext.content.field_sounds.target_id;
+    let fidsArray = fidsString.split(',');
+    let currentIndex = fidsArray.indexOf(currentId);
+    fidsArray.splice(currentIndex, 1);
+    let field_file;
+    if (fidsArray.length > 0) {
+        field_file = {target_id: fidsArray.toString(), type: 'file'}
+    } else {
+        field_file = '';
+    }
+    newContentContext.setContent(prevState => {
+        return {
+            ...prevState, field_sounds: field_file
+        }
+    });
+}
+
+export const removedSingleImgMethod = (id,newContentContext) => {
+    newContentContext.setContent(prevState => {
+        return {
+            ...prevState, field_image: {}
+        }
+    });
+}
+
+export default {uploadMultiImgMethod,uploadMultiFileMethod,uploadSingImgMethod,
+    uploadVideoMethod,uploadVoiceMethod,removeMultiImgMethod,removeMultiFileMethod,
+    removeMultiVideoMethod,removeMultiVoiceMethod,removedSingleImgMethod}

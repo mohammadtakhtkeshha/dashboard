@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
                 '& button': {
                     borderRadius: '0',
                     margin: '0',
-                    borderColor: colors.grey.tooLight,
+                    borderColor: colors.grey[3],
                     color: colors.primary,
                     padding: '13px'
                 }

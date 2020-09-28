@@ -19,21 +19,14 @@ const twitter = '#55acee';
 const whatsapp = '#43d854';
 const dribbble = '#ea4c89';
 const youtube = '#cd201f';
-const black = '#212529';
+const black = ['#212529','#32325D'];
 const white ="#fff";
 // ------- blue -------
 const darkBlue = '#0056b3';
 
 // ------- grey -------
-const grey = {
-    light:'#a7abc3 ',
-    veryLight : 'rgba(0,0,0,.1)',
-    tooLight : '#dee2e6',
-    base:'#e9ecef',
-    sidebarHover:'rgba(0, 0, 0, 0.04)',
-    sidebarActive:'#ebebeb',
+const grey = ['#a7abc3','#BBC3CE','rgba(0,0,0,.1)','#dee2e6','#e9ecef','rgba(0, 0, 0, 0.04)','#ebebeb','#D6DBE1'];
 
-};
 const danger={
     base:'#e04b4b',
     light:'#f8d7da',
@@ -41,14 +34,13 @@ const danger={
 };
 const red=['#f50057','#D11A2A'];//delete = red[1]
 
+const green = ['#5acb9b','#3ecd90','#34aa78']; //
+
 const blue= ['#303f9f','#008CBA']; //edit = bue[1]
 
 export {
     primary, primaryBright, secondary, secondaryBright, success, successBright, danger,dangerBright,
     warning,warningBright,info,infoBright,light, dark, facebook, google, instagram, linkedin, twitter,
-    whatsapp, dribbble, youtube,darkBlue,grey,black,white,red,blue
+    whatsapp, dribbble, youtube,darkBlue,grey,black,white,red,blue,green
 };
 
-// const colors ={
-//     gray: ['#541562','erfewf']
-// }

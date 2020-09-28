@@ -11,7 +11,7 @@ const styles=(theme) => ({
         overflow: 'scroll',
         alignItems: 'center',
         '& .avatar': {
-            borderBottom: `1px solid ${colors.grey.veryLight}`,
+            borderBottom: `1px solid ${colors.grey[2]}`,
             '& > :first-child': {
                 justifyContent: 'center!important',
             },
@@ -34,7 +34,7 @@ const styles=(theme) => ({
             },
             '& #roleBlock': {
                 '& .role': {
-                    color: colors.grey.light,
+                    color: colors.grey[0],
                     fontSize: '14px',
                     paddingLeft: '5px',
                 },
@@ -45,7 +45,7 @@ const styles=(theme) => ({
                 justifyContent: 'center',
                 paddingTop: theme.spacing(2),
                 '& .role': {
-                    color: colors.grey.light,
+                    color: colors.grey[0],
                     fontSize: '14px',
                     paddingLeft: '5px',
                 },

@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
+import {withNamespaces} from "react-i18next";
 
 import {makeStyles} from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -12,7 +13,7 @@ import i18next from "i18next";
 
 const useStyles = makeStyles(styles);
 
-export default function ContentListOfContentType({setContentType}) {
+function ContentListOfContentType({setContentType}) {
     let align=i18next.language === 'fa' ? 'right':'left';
     const classes = useStyles({textAlign:align});
     const contentsContext = useContext(ContentsContext);
@@ -35,6 +36,9 @@ export default function ContentListOfContentType({setContentType}) {
     return (
         <Paper className={classes.paper}>
             <List className={classes.root}>
+                <ListItem role={undefined} dense button>
+                    <ListItemText id={0} primary="negar"/>
+                </ListItem>
                 {contentTypeNameList?.map((value) => {
                     const labelId = `checkbox-list-label-${value}`;
                     return (
@@ -48,3 +52,5 @@ export default function ContentListOfContentType({setContentType}) {
         </Paper>
     );
 }
+
+export default withNamespaces('contents')(ContentListOfContentType);

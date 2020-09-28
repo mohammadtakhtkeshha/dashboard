@@ -146,7 +146,7 @@ export const RegisterBlock=styled.div`
                         font-size: 13px;
                         border: 1px solid ${light};
                         text-decoration: none;
-                        color: colors.black;
+                        color: colors.black[0];
                         padding: 5px 10px;
                         &:hover {
                             background-color: ${light};

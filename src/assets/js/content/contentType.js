@@ -11,7 +11,8 @@ export const styles = (theme) => ({
                 textAlign: props => `${props.textAlign}!important`
             }
 
-        }
+        },
+
     }
 });
 

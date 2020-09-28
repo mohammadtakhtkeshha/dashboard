@@ -35,7 +35,7 @@ export const useStyles = makeStyles((theme) => (
                     width: '100%',
                     '& .number': {},
                     '& .graphic': {
-                        backgroundColor: colors.grey.base,
+                        backgroundColor: colors.grey[4],
                         height: '10px',
                         borderRadius: '5px',
                         position: 'relative',

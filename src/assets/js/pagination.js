@@ -12,7 +12,7 @@ export const StyledPaginationBox = styled.div`
                     & button {
                         border-radius: 0;
                         margin: 0;
-                        border-color: ${grey.tooLight};
+                        border-color: ${grey[3]};
                         color: ${primary};
                         padding: 13px;
                     }
