@@ -14,16 +14,12 @@ export const useStyles = (theme) => ({
                 '& .MuiTabs-flexContainer': {
                     justifyContent: 'center',
                 },
-                '& button':{
-                    padding:'24px 0',
-                },
                 '&>div>span':{
                     backgroundColor:`${green[1]}`,
-                    color:`${green[1]}`
+                    color:`${green[1]}`,
                 }
             },
             '& .tabContent': {
-                marginTop:'90px',
                 width: '100%',
                 textAlign: 'center',
                 '& .block': {
@@ -202,6 +198,7 @@ export function a11yProps(index) {
 
 export const styledTabs = ()=>({
     root:{
+        height:'11vh',
         position:'absolute',
         top:0,
         marginBottom:'10px',
@@ -209,13 +206,33 @@ export const styledTabs = ()=>({
         right:'0',
         backgroundColor:white,
         zIndex:'50',
+        '& .MuiTabs-flexContainer':{
+            height: '100%'
+        }
     }
 })
 
 export const StyledTabPanels = styled.div`
-        border:1px solid red;
-        height:calc(50vh -144px);
-        overflow:scroll;
+            height: calc(50vh - 6vh);
+            overflow: scroll;
+            margin-top: 11vh;
+            scrollbar-width:none;
+            -ms-overflow-style:none;
+            &::-webkit-scrollbar{
+                display : none;
+            }
 `
 
-export default {useStyles, bootstrapInput, useTabStyless,TabPanel,a11yProps,styledTabs};
+export const StyledFooterButton = styled.button`
+                width: 33.33%;
+                height: 100%;
+                background-color: inherit;
+                border: 0;
+                border-left: 1px solid ${grey[1]};
+                 &:not(:first-child){
+                    border-right:1px solid ${grey[1]}!important;
+                }
+            
+`
+
+export default {useStyles, bootstrapInput, useTabStyless,TabPanel,a11yProps,styledTabs,StyledFooterButton};

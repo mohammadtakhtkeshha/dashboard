@@ -20,13 +20,13 @@ import {
     StyledCancelButton,
     StyledFooterRegisterContent
 } from "assets/js/content/contentRegisterModal";
-import {StyledButton, StyledSvg} from "assets/js/App";
+import { StyledSvg} from "assets/js/App";
 import {green} from "components/partials/Colors";
 import AppContext from "contexts/AppContext";
 import ContentsContext from "contexts/ContentsContext";
 import {ReactComponent as Exit} from "assets/svg/exit.svg";
 import i18next from "i18next";
-import {StyledTabPanels} from "assets/js/content/newContent";
+import {StyledTabPanels,StyledFooterButton} from "assets/js/content/newContent";
 
 
 const styles = makeStyles(useStyles);
@@ -159,7 +159,6 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
                 <ModalBody>
                     <Paper className={classes.paper}>
                         <Box className="tabs">
-
                             <StyledTabs className='tabButtons' value={value} onChange={handleTabChange}
                                         aria-label="simple tabs example">
                                 <Tab label={t('contents:title&picture')} {...a11yProps(0)} />
@@ -201,13 +200,17 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
                                     </Box>
                                 </TabPanel>
                             </StyledTabPanels>
-
                             <StyledFooterRegisterContent>
-                                <StyledButton bg={green[1]} onClick={register}>
+                                <StyledFooterButton bg={green[1]} onClick={register}>
                                     {t('translation:register')}
-                                </StyledButton>
+                                </StyledFooterButton>
+                                <StyledFooterButton bg={green[1]} onClick={register}>
+                                    {t('translation:register')}
+                                </StyledFooterButton>
+                                <StyledFooterButton bg={green[1]} onClick={register}>
+                                    {t('translation:register')}
+                                </StyledFooterButton>
                             </StyledFooterRegisterContent>
-
                         </Box>
                     </Paper>
                 </ModalBody>

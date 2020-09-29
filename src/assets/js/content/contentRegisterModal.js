@@ -51,17 +51,7 @@ export const useStyles = {
             '& .flexDirR': {
                 flexDirection: 'row'
 
-            },
-            // '& .body': {
-            //     position: 'relative',
-            //     height: 'calc(100vh - 50rem)',
-            //     overflow: 'scroll',
-            //     scrollbar: 'none',
-            //     width: '100%',
-            //     '&::-webkit-scrollbar': {
-            //         display: 'none',
-            //     }
-            // }
+            }
         },
         '& #modalContentList' :{
             width: '24%',
@@ -74,12 +64,14 @@ export const useStyles = {
 };
 
 export const StyledFooterRegisterContent = styled.div`
-                background-color:${green[1]};
+                background-color:${white};
                 position:absolute;
                 bottom:0;
                 width:100%;
                 z-index:50;
-                height:72px;
+                height:11vh;
+                border-top:1px solid ${grey[1]};
+               
 `
 
 export const ModalBody = styled.div`
@@ -91,14 +83,8 @@ export const ModalBody = styled.div`
                 width:100%;
                 position: relative;
                 height: fit-content;
-                overflow: scroll;
-                scrollbar: none;
                 width: 100%;
                 height:auto;
-                overflow:scroll;
-                &::-webkit-scrollbar{
-                    display: none;
-                }
 `
 
 export const StyledCancelButton = styled.button`
