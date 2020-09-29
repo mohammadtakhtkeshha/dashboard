@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {primary} from "components/partials/Colors";
+import {green} from "components/partials/Colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 100000,
+    zIndex: 100,
     background: 'radial-gradient(#e7e2e2, transparent)',
     opacity: .5,
     top: '0',
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(2),
     },
     '& svg':{
-      color:primary
+      color:green[1]
     }
   },
 }));

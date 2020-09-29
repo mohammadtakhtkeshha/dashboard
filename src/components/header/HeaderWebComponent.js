@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         appBar: {
             position: 'fixed',
             width: 'calc(100% - 230px)',
-            zIndex: '10!important',
+            zIndex: '49!important',
             '&.MuiAppBar-colorPrimary': {
                 backgroundColor: '#e7ebee',
                 boxShadow: '0 0 0 0',

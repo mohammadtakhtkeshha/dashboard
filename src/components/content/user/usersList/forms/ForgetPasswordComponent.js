@@ -8,7 +8,7 @@ import {Box, CardMedia, Grid, Paper, Typography} from "@material-ui/core/index";
 import iconImg from 'assets/media/image/logo-login.png';
 import AppContext from 'contexts/AppContext';
 import authService from 'core/services/auth.service';
-import {primary} from "components/partials/Colors";
+import {green} from "components/partials/Colors";
 import {StyledButton, StyledInput} from "assets/js/App";
 import {InputBlock, LoginBlock, StyledGridLogin,LoginButton,RegisterBlock} from "assets/js/login";
 
@@ -96,7 +96,7 @@ function LoginComponent({t}) {
                         </InputBlock>
                     </Box>
                     <LoginButton>
-                        <StyledButton bg={primary}  onClick={login}>
+                        <StyledButton bg={green[1]}  onClick={login}>
                             {t('translation:register')}
                         </StyledButton>
 

@@ -25,7 +25,10 @@ const white ="#fff";
 const darkBlue = '#0056b3';
 
 // ------- grey -------
-const grey = ['#a7abc3','#BBC3CE','rgba(0,0,0,.1)','#dee2e6','#e9ecef','rgba(0, 0, 0, 0.04)','#ebebeb','#D6DBE1'];
+const grey = ['#a7abc3','#BBC3CE'
+    ,'rgba(0,0,0,.1)','#dee2e6'
+    ,'#e9ecef','rgba(0, 0, 0, 0.04)'
+    ,'#ebebeb','#D6DBE1'];
 
 const danger={
     base:'#e04b4b',

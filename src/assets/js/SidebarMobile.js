@@ -9,7 +9,7 @@ export const styles = makeStyles((theme) => ({
         top: 0,
         bottom: 0,
         backgroundColor: 'rgba(0, 0, 0, 0.3)',
-        zIndex: 1000000000,
+        zIndex: 50,
         left: 0,
         overflow: 'hidden',
         '& #openedSidebar': {
@@ -45,7 +45,7 @@ export const styles = makeStyles((theme) => ({
         top: 0,
         bottom: 0,
         backgroundColor: 'rgba(0, 0, 0, 0.3)',
-        zIndex: 1000000000,
+        zIndex: 50,
         left: 0,
         overflow: 'hidden',
         '& #openedSidebar': {

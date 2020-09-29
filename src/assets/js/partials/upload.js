@@ -1,11 +1,11 @@
 import * as colors from "components/partials/Colors";
-import {primary} from "components/partials/Colors";
+import {green} from "components/partials/Colors";
 
 export const uploadStyles = {
     uploadFile: {
         position: 'relative',
         minHeight: '120px',
-        border: `1px solid ${colors.primary}`,
+        border: `1px solid ${colors.green[1]}`,
         '& input': {
             height: '100%',
             cursor: 'pointer',
@@ -29,11 +29,11 @@ export const uploadStyles = {
                 fontSize:'1rem',
                 '& .addIcon': {
                     cursor: 'pointer',
-                    zIndex: '100',
+                    zIndex: '50',
                     '& svg': {
                         borderRadius: '100%',
                         color: 'white',
-                        backgroundColor: primary,
+                        backgroundColor: green[1],
                     }
                 },
                 '& #fileBlock': {
@@ -48,15 +48,15 @@ export const uploadStyles = {
                         position: 'absolute',
                         top: '10px',
                         left: '12px',
-                        color: colors.primary,
-                        zIndex: '100'
+                        color: colors.green[1],
+                        zIndex: '50'
                     },
                     '& .cancelVoice': {
                         cursor: 'pointer',
                         position: 'absolute',
                         top: '-13px',
                         left: '0',
-                        color: colors.primary,
+                        color: colors.green[1],
                     },
                     '& .item': {
                         boxSizing: 'border-box',

@@ -1,5 +1,5 @@
-import {white, primary,grey,black} from "../../../components/partials/Colors";
-import styled from "styled-components"
+import {white, green,grey,black} from "../../../components/partials/Colors";
+import styled from "styled-components";
 
 export const useStyles = {
     modal: {
@@ -10,26 +10,10 @@ export const useStyles = {
             backgroundColor: 'white!important',
         },
         '& #modal': {
-            width: '75%',
+            width: '100%',
             minWidth: '100px',
             marginTop: '5rem 5rem',
-            maxWidth: '650px',
-            '&>button':{
-                position:'absolute',
-                top:'1rem',
-                right:'1rem',
-                backgroundColor:'transparent',
-                // borderRadius:'100%',
-                border: '1px solid red',
-                '& svg':{
-                    // border: '1px solid red',
-                    backgroundColor:grey[7],
-                    color:black[1]
-                }
-            },
-            '&:focus': {
-                outline: '0!important',
-            },
+            maxWidth: '1000px',
             '& .header': {
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -38,8 +22,8 @@ export const useStyles = {
                 left: 0,
                 right: 0,
                 height: '40px',
-                zIndex: '100',
-                backgroundColor: primary,
+                zIndex: '50',
+                backgroundColor: green[1],
                 '& .button': {
                     background: 'transparent',
                     cursor: 'pointer',
@@ -59,7 +43,7 @@ export const useStyles = {
             },
             '& .footer': {
                 border: '1px solid red',
-                backgroundColor: primary,
+                backgroundColor: green[1],
             },
             '& .flexDirL': {
                 flexDirection: 'row-reverse'
@@ -68,46 +52,62 @@ export const useStyles = {
                 flexDirection: 'row'
 
             },
-            '& .body': {
-                position: 'relative',
-                height: 'calc(100vh - 50rem)',
-                overflow: 'scroll',
-                scrollbar: 'none',
-                width: '100%',
-                '&::-webkit-scrollbar': {
-                    display: 'none',
-                }
+            // '& .body': {
+            //     position: 'relative',
+            //     height: 'calc(100vh - 50rem)',
+            //     overflow: 'scroll',
+            //     scrollbar: 'none',
+            //     width: '100%',
+            //     '&::-webkit-scrollbar': {
+            //         display: 'none',
+            //     }
+            // }
+        },
+        '& #modalContentList' :{
+            width: '24%',
+            height:'auto',
+            '&:focus':{
+                outline:'0!important'
             }
         }
     }
 };
 
 export const StyledFooterRegisterContent = styled.div`
-                background-color:${primary};
+                background-color:${green[1]};
                 position:absolute;
                 bottom:0;
                 width:100%;
-                z-index:100;
-`
-export const ModalBox = styled.div`
-                background-color:white;
-                width:100%;
+                z-index:50;
+                height:72px;
 `
 
-export const ModalAround = styled.div`
+export const ModalBody = styled.div`
                 border:1px solid ${grey[1]}!important;
                 border-radius:15px;
                 overflow:hidden;
                 box-shadow: 0 2px 10px rgba(31,45,61,0.16);
-`
-
-export const ModalBody = styled.div`
+                background-color:white;
+                width:100%;
                 position: relative;
                 height: fit-content;
                 overflow: scroll;
                 scrollbar: none;
                 width: 100%;
+                height:auto;
+                overflow:scroll;
                 &::-webkit-scrollbar{
                     display: none;
+                }
+`
+
+export const StyledCancelButton = styled.button`
+                position:absolute;
+                top:1rem;
+                right:1rem;
+                background-color:transparent;
+                border: 0!important;
+                &:focus{
+                    outline: 0!important;
                 }
 `

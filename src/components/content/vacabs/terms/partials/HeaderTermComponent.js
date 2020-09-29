@@ -4,13 +4,13 @@ import React from "react";
 import {Typography} from "@material-ui/core";
 
 import {StyledButton, StyledHead, StyledHeadTypography} from "assets/js/App";
-import {primary} from "components/partials/Colors";
+import {green} from "components/partials/Colors";
 
 function HeaderTermComponent({t,setOpenTermForm}) {
     return (<>
         <StyledHead>
             <StyledHeadTypography>{t('vocabs:termList')}</StyledHeadTypography>
-            <StyledButton bg={primary} onClick={setOpenTermForm}>
+            <StyledButton bg={green[1]} onClick={setOpenTermForm}>
                 <Typography>{t('vocabs:newTerm')}</Typography>
             </StyledButton>
         </StyledHead>

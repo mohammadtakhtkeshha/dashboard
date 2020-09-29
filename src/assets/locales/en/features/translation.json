@@ -64,7 +64,5 @@
   "inputValidation": "your inputs are not valid",
   "tags": "tags",
   "categories": "categories",
-  "typeHere": "...please type here ",
-  "category&description": "category and description"
-
+  "typeHere": "...please type here "
 }

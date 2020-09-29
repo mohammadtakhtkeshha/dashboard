@@ -18,7 +18,7 @@ import {Link} from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import {StyledButton} from "assets/js/App";
-import {primary,red} from "components/partials/Colors";
+import {green,red} from "components/partials/Colors";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -63,13 +63,13 @@ const useStyles = makeStyles((theme) => ({
                     borderRadius: '0',
                     margin: '0',
                     borderColor: colors.grey[3],
-                    color: colors.primary,
+                    color: colors.green[1],
                     padding: '13px'
                 }
             }
         },
         '& .MuiPaginationItem-page.Mui-selected': {
-            backgroundColor: colors.primary,
+            backgroundColor: colors.green[1],
             color: 'white',
             border: '0'
         }
@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const StyledTableCell = withStyles((theme) => ({
     head: {
-        backgroundColor: colors.primary,
+        backgroundColor: colors.green[1],
         color: theme.palette.common.white,
     },
     body: {
@@ -178,7 +178,7 @@ function CommentDashboardComponent({t}) {
                                     <StyledTableCell align="right">
                                         <Box className="item">
                                             <Link to='#comment'>
-                                                <StyledButton value={comment.id} text="ویرایش" bg={primary} startIcon={<EditIcon/>}/>
+                                                <StyledButton value={comment.id} text="ویرایش" bg={green[1]} startIcon={<EditIcon/>}/>
                                             </Link>
                                             <StyledButton value={comment.id} text="حذف" bg={red[1]} startIcon={<DeleteIcon/>}
                                                              clicked={deleteComment}/>

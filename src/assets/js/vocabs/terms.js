@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import {primary} from "components/partials/Colors";
+import {green} from "components/partials/Colors";
 
 export const styledTableCell =(theme) => ({
     head: {
-        backgroundColor: primary,
+        backgroundColor: green[1],
         color: theme.palette.common.white,
         width:'50%'
     },

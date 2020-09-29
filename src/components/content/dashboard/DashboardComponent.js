@@ -7,7 +7,7 @@ import ContentDashboardComponent from "./partials/ContentDashboardComponent";
 import UserDashboardComponent from "./partials/UserDashboardComponent";
 import dashboardService from "../../../core/services/dashboard.service.js";
 import {withNamespaces} from "react-i18next";
-import {primary} from "../../partials/Colors";
+import {green} from "../../partials/Colors";
 import swal from "sweetalert";
 import {makeStyles} from "@material-ui/styles";
 import storage from './../../../libraries/local-storage';
@@ -17,7 +17,7 @@ import AppContext from "../../../contexts/AppContext";
 
 const useStyles=makeStyles({
     confirmButton:{
-        backgroundColor:primary,
+        backgroundColor:green[1],
     },
     swalBlock:{
         '& .swal-footer':{

@@ -1,4 +1,4 @@
-import {primary} from "components/partials/Colors";
+import {green} from "components/partials/Colors";
 
 export const themeEnn={
     overrides: {
@@ -15,17 +15,17 @@ export const themeEnn={
         },
         MuiPickersToolbar: {
             toolbar: {
-                backgroundColor: primary,
+                backgroundColor: green[1],
             }
         },
         MuiPickersDay: {
             daySelected: {
-                backgroundColor: `${primary}!important`,
+                backgroundColor: `${green[1]}!important`,
             }
         },
         MuiButton: {
             label: {
-                color:primary
+                color:green[1]
             }
         },
     },
@@ -46,17 +46,17 @@ export const themeFaa={
         },
         MuiPickersToolbar: {
             toolbar: {
-                backgroundColor: primary,
+                backgroundColor: green[1],
             }
         },
         MuiPickersDay: {
             daySelected: {
-                backgroundColor: `${primary}!important`,
+                backgroundColor: `${green[1]}!important`,
             }
         },
         MuiButton: {
             label: {
-                color:primary
+                color:green[1]
             }
         },
     },

@@ -1,4 +1,4 @@
-import {primary, white} from "../../../components/partials/Colors";
+import {green, white} from "../../../components/partials/Colors";
 import styled from "styled-components";
 
 export const useStyles =(theme) => ({
@@ -67,7 +67,7 @@ export const useStyles =(theme) => ({
                     marginTop: '-20px',
                     width: '50%',
                     backgroundColor: white,
-                    zIndex: '100',
+                    zIndex: '50',
                     '& td': {
                         padding: '5px 0 0!important',
                     },
@@ -108,7 +108,7 @@ export const useStyles =(theme) => ({
                     margin: '2px 10px',
                     '& button':{
                         '&:hover':{
-                            backgroundColor:primary
+                            backgroundColor:green[1]
                         }
                     }
                 }
@@ -143,7 +143,7 @@ export const useStyles =(theme) => ({
                 left: 0,
                 right: 0,
                 height: '40px',
-                backgroundColor: primary,
+                backgroundColor: green[1],
                 '& button': {
                     background: 'transparent',
                     cursor: 'pointer',

@@ -55,7 +55,7 @@ function ContentsComponent({t}) {
         action && success(t(`translation:${action}`), t('translation:ok'));
     }
 
-    let getContentType = () => {
+    const getContentType = () => {
         appContext.setLoading(true);
         contentService.getContentTypeList(appContext.handleError).then((response) => {
             appContext.setLoading(false);
@@ -84,6 +84,7 @@ function ContentsComponent({t}) {
             setId(id);
         }
     }
+
     const handleCloseContentForm = (id) => {
         setOpenRegisterForm(false);
         setId('');
@@ -112,8 +113,7 @@ function ContentsComponent({t}) {
                                            setSelectedCheckBoxes={setSelectedCheckBoxes}
                                            page={page}
                                            setContents={setContents}
-                                           handleOpenContentForm={handleOpenContentForm}
-                    />
+                                           handleOpenContentForm={handleOpenContentForm}/>
                 </StyledBox>
                 <ContentActionComponent selectedCheckBoxes={selectedCheckBoxes}
                                         setSelectedCheckBoxes={setSelectedCheckBoxes}/>

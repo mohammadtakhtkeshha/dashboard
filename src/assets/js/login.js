@@ -1,5 +1,5 @@
 import loginImg from "../media/image/login.png";
-import {primary, white,danger,darkBlue,light} from "../../components/partials/Colors";
+import {green, white,danger,darkBlue,light} from "../../components/partials/Colors";
 import styled from "styled-components"
 
 export const LoginBlock = styled.div`
@@ -107,7 +107,7 @@ export const RememberBlock=styled.div`
                             color: #adb5bd;
                         }
                         & .MuiCheckbox-colorSecondary.Mui-checked{
-                            color: ${primary};
+                            color: ${green[1]};
                         }
                     }
                     div:nth-child(2){
@@ -115,7 +115,7 @@ export const RememberBlock=styled.div`
                         & a{
                             text-decoration: none;
                             display: inline-block;
-                            color: ${primary};
+                            color: ${green[1]};
                             font-size: 14px;
                             font-weight: 400;
                             &:hover{
@@ -130,7 +130,7 @@ export const LoginButton = styled.div`
              & button{
                 width: 100%!important;
                &:hover:{
-                    background-color:${primary}
+                    background-color:${green[1]}
                }
             }       
 `

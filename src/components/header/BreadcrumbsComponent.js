@@ -3,7 +3,7 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs/index';
 import {Link, Box} from '@material-ui/core/index';
 import {makeStyles} from '@material-ui/core/styles';
 import {withNamespaces} from "react-i18next";
-import {primary} from "./../partials/Colors";
+import {green} from "./../partials/Colors";
 
 const useStyles = makeStyles({
     breadcrumbs: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles({
         },
         '& li:nth-child(3)': {
             '& a': {
-                    color: primary,
+                    color: green[1],
             }
         }
     }

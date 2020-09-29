@@ -1,9 +1,9 @@
-import {primary, white,grey} from 'components/partials/Colors';
+import {green, white,grey} from 'components/partials/Colors';
 import styled from 'styled-components';
 
 export const active = () => ({
     active:{
-        color: `${primary}!important`,
+        color: `${green[1]}!important`,
         backgroundColor: grey[6]
     }
 });

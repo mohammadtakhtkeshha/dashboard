@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import {blue, primary, red, white} from "components/partials/Colors";
+import {blue,grey, green, red, white,black} from "components/partials/Colors";
 
+//z-index{loading:100,modal:50,userDrawer:50}
 export const StyledPaper = styled.div`
         margin: 1rem;
 `
@@ -86,7 +87,7 @@ export const StyledActionButtonBlock = styled.div`
 
 export const styledTableCell =(theme) => ({
     head: {
-        backgroundColor: primary,
+        backgroundColor: green[1],
         color: theme.palette.common.white,
     },
     body: {
@@ -120,7 +121,7 @@ export const modalStyles = (theme) => ({
                 left: 0,
                 right: 0,
                 height: '40px',
-                backgroundColor: primary,
+                backgroundColor: green[1],
                 '& button': {
                     background: 'transparent',
                     cursor: 'pointer',
@@ -186,5 +187,17 @@ export const StyledTypographyError =  styled.p`
         color:${red[1]};
         font-size:14px;
         text-align : ${props=>props.align}
+`
+
+export const StyledSvg = styled.div`
+    background:${grey[7]};
+    fill:${black[1]};
+    border-radius:100%;
+    cursor:pointer;
+    & svg{
+        width: 34px;
+        height: 21px;
+        padding: 9px 4px 3px;
+    }
 `
 

@@ -18,8 +18,10 @@ import NewContentContext from "contexts/NewContentContext";
 import AppContext from "contexts/AppContext";
 import ContentsContext from "contexts/ContentsContext";
 import {StyledFooterRegisterContent} from "assets/js/content/contentRegisterModal";
+import Fade from "@material-ui/core/Fade";
+
 import {StyledButton, StyledHead, StyledSvg} from "assets/js/App";
-import {green} from "components/partials/Colors";
+import {primary} from "components/partials/Colors";
 import {ModalBody} from "assets/js/content/contentRegisterModal";
 
 import NewContent from "./../newContent/index"
@@ -27,7 +29,8 @@ import {ReactComponent as Exit} from "../../../../assets/svg/exit.svg";
 
 const useStyle = makeStyles(useStyles);
 
-function ContentRegisterModalComponent({t, openRegisterForm, handleCloseContentForm}) {
+function ContentTypeModalComponent({t, openRegisterForm, handleCloseContentForm}) {
+    const lang = i18next.language;
     const classes = useStyle();
     const [contentType, setContentType] = useState('');
 
@@ -50,12 +53,26 @@ function ContentRegisterModalComponent({t, openRegisterForm, handleCloseContentF
                     timeout: 500,
                 }}
             >
-                {contentType === '' ?<ContentListOfContentType handleCloseRegisterForm={handleCloseRegisterForm} openRegisterForm={openRegisterForm} setContentType={setContentType}/>
-                    :<NewContent contentType={contentType} openRegisterForm={openRegisterForm} handleCloseRegisterForm={handleCloseRegisterForm}/>
-                }
+                <Fade in={openRegisterForm} id="modal">
+                    <div>
+                        <button onClick={handleCloseRegisterForm} className='exitButton'>
+                            <StyledSvg>
+                                <Exit width={"40px"} height={"40px"} />
+                            </StyledSvg>
+                        </button>
+                        <ModalAround>
+                            <ModalBox>
+                                <ModalBody>
+                                    <ContentListOfContentType setContentType={setContentType}/>
+                                </ModalBody>
+                            </ModalBox>
+                        </ModalAround>
+                    </div>
+                </Fade>
+
             </Modal>
 
         </>);
 }
 
-export default withNamespaces('user,translation')(ContentRegisterModalComponent);
+export default withNamespaces('user,translation')(ContentTypeModalComponent);

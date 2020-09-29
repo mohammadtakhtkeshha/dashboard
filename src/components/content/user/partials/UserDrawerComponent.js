@@ -22,7 +22,7 @@ export const styles = makeStyles((theme) => ({
         direction: (storage.get('lang') === 'fa' ? 'ltr' : 'rtl'),
         marginTop: 0,
         backgroundColor: 'rgba(0, 0, 0, 0.3)',
-        zIndex: 90000000000000,
+        zIndex: 50,
         overflow: 'hidden',
     },
     notShow: {
@@ -33,7 +33,7 @@ export const styles = makeStyles((theme) => ({
         height: '100vh',
         direction: 'ltr',
         backgroundColor: 'rgba(0, 0, 0, 0.3)',
-        zIndex: 8000000000000,
+        zIndex: 50,
         overflow: 'hidden',
 
     },

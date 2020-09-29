@@ -11,7 +11,7 @@ import TextField from "@material-ui/core/TextField";
 import ContentsContext from "contexts/ContentsContext";
 import {StyledFilterBlock} from "assets/js/content/contentFilter";
 import {StyledButton, StyledInput} from "assets/js/App";
-import {primary} from "components/partials/Colors";
+import {green} from "components/partials/Colors";
 
 function ContentsFilterComponent({t}) {
     const contentsContext = useContext(ContentsContext);
@@ -127,7 +127,7 @@ function ContentsFilterComponent({t}) {
                             {/*)) || ''}*/}
                         </TextField>
                     </Box>
-                    <StyledButton bg={primary} onClick={doFilterHandler}>
+                    <StyledButton bg={green[1]} onClick={doFilterHandler}>
                         {t('translation:do')}
                     </StyledButton>
                 </StyledFilterBlock>

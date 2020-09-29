@@ -30,6 +30,9 @@
   "nullTitle":"title can not be null",
   "unPublishAfterPublishError":"unpublish date must be after publish Date!",
   "furtherDate":"selected time must be for further!",
-  "chooseContentType":"choose"
-
+  "chooseContentType":"please choose content type",
+  "title&picture": "title and picture",
+  "publishSetting": "publish date setting",
+  "seo": "seo",
+  "portal": "portal"
 }

@@ -2,26 +2,40 @@ import React, {useContext, useEffect, useState} from "react";
 import {withNamespaces} from "react-i18next";
 
 import {Box, Paper} from '@material-ui/core/index';
-import {makeStyles} from '@material-ui/core/styles';
+import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Fade from "@material-ui/core/Fade";
 
-import {useStyles, TabPanel, a11yProps} from 'assets/js/content/newContent';
+import {useStyles, TabPanel, a11yProps, styledTabs} from 'assets/js/content/newContent';
 import FileContentTabComponent from "./partials/FileContentTabComponent.jsx";
 import TextContentTabComponent from "./partials/textContent/index.jsx";
 import contentService from "core/services/content.service";
 import NewContentContext from "contexts/NewContentContext";
 import CategoryAndDescriptionComponent from "./partials/CategoryAndDescriptionComponent";
-import { StyledFooterRegisterContent} from "assets/js/content/contentRegisterModal";
-import {StyledButton} from "assets/js/App";
-import {primary} from "components/partials/Colors";
+import {
+    ModalAround,
+    ModalBody,
+    ModalBox,
+    StyledCancelButton,
+    StyledFooterRegisterContent
+} from "assets/js/content/contentRegisterModal";
+import {StyledButton, StyledSvg} from "assets/js/App";
+import {green} from "components/partials/Colors";
 import AppContext from "contexts/AppContext";
 import ContentsContext from "contexts/ContentsContext";
+import {ReactComponent as Exit} from "assets/svg/exit.svg";
+import i18next from "i18next";
+import {StyledTabPanels} from "assets/js/content/newContent";
+
 
 const styles = makeStyles(useStyles);
+const StyledTabs = withStyles(styledTabs)(Tabs);
 
-function Index({t,contentType}) {
-    const classes = styles();
+function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
+    const lang = i18next.language;
+    let dir = lang === 'en' ? 'ltr' : 'rtl';
+    const classes = styles(dir);
     const [value, setValue] = useState(0);
     const newContentContext = useContext(NewContentContext);
     const appContext = useContext(AppContext);
@@ -119,54 +133,86 @@ function Index({t,contentType}) {
     }, [contentType]);
 
     return (<NewContentContext.Provider value={{
-            content: content,
-            setContent: setContent,
-            setErrors: setErrors,
-            errors: errors,
-            selectedTags: selectedTags,
-            setSelectedTags: setSelectedTags,
-            isObjectEmpty: isObjectEmpty,
-            selectedDomainAccess: selectedDomainAccess,
-            setSelectedDomainAccess: setSelectedDomainAccess,
-            domainAccesses: domainAccesses,
-            setDomainAccesses: setDomainAccesses,
-            setUnpublishDate: setUnpublishDate,
-            setPublishDate: setPublishDate,
-            publishDate: publishDate,
-            unpublishDate: unpublishDate,
-        }}>
-        <Box>
-            <Paper className={classes.paper}>
-                <Box className="tabs">
-                    <Tabs className='tabButtons' value={value} onChange={handleTabChange}
-                          aria-label="simple tabs example">
-                        <Tab label={t('translation:description')} {...a11yProps(0)} />
-                        <Tab label={t('translation:category&description')} {...a11yProps(1)} />
-                        <Tab label={t('translation:files')} {...a11yProps(2)} />
-                    </Tabs>
-                    <TabPanel value={value} index={0} className="tabContent">
-                        <Box className='block'>
-                            <TextContentTabComponent/>
+        content: content,
+        setContent: setContent,
+        setErrors: setErrors,
+        errors: errors,
+        selectedTags: selectedTags,
+        setSelectedTags: setSelectedTags,
+        isObjectEmpty: isObjectEmpty,
+        selectedDomainAccess: selectedDomainAccess,
+        setSelectedDomainAccess: setSelectedDomainAccess,
+        domainAccesses: domainAccesses,
+        setDomainAccesses: setDomainAccesses,
+        setUnpublishDate: setUnpublishDate,
+        setPublishDate: setPublishDate,
+        publishDate: publishDate,
+        unpublishDate: unpublishDate,
+    }}>
+        <Fade in={openRegisterForm} id="modal">
+            <div>
+                <StyledCancelButton onClick={handleCloseRegisterForm} className='exitButton'>
+                    <StyledSvg>
+                        <Exit width={"40px"} height={"40px"}/>
+                    </StyledSvg>
+                </StyledCancelButton>
+                <ModalBody>
+                    <Paper className={classes.paper}>
+                        <Box className="tabs">
+
+                            <StyledTabs className='tabButtons' value={value} onChange={handleTabChange}
+                                        aria-label="simple tabs example">
+                                <Tab label={t('contents:title&picture')} {...a11yProps(0)} />
+                                <Tab label={t('contents:publishSetting')} {...a11yProps(1)} />
+                                <Tab label={t('contents:seo')} {...a11yProps(2)} />
+                                <Tab label={t('translation:description')} {...a11yProps(3)} />
+                                <Tab label={t('translation:files')} {...a11yProps(4)} />
+                                <Tab label={t('contents:portal')} {...a11yProps(5)} />
+                            </StyledTabs>
+                            <StyledTabPanels>
+                                <TabPanel value={value} index={0} className="tabContent">
+                                    <Box className='block'>
+                                        <TextContentTabComponent/>
+                                    </Box>
+                                </TabPanel>
+                                <TabPanel value={value} index={1} className="tabContent">
+                                    <Box className='block'>
+                                        <CategoryAndDescriptionComponent/>
+                                    </Box>
+                                </TabPanel>
+                                <TabPanel value={value} index={2} className="tabContent">
+                                    <Box className='block'>
+                                        <FileContentTabComponent/>
+                                    </Box>
+                                </TabPanel>
+                                <TabPanel value={value} index={3} className="tabContent">
+                                    <Box className='block'>
+                                        <FileContentTabComponent/>
+                                    </Box>
+                                </TabPanel>
+                                <TabPanel value={value} index={4} className="tabContent">
+                                    <Box className='block'>
+                                        <FileContentTabComponent/>
+                                    </Box>
+                                </TabPanel>
+                                <TabPanel value={value} index={5} className="tabContent">
+                                    <Box className='block'>
+                                        <FileContentTabComponent/>
+                                    </Box>
+                                </TabPanel>
+                            </StyledTabPanels>
+
+                            <StyledFooterRegisterContent>
+                                <StyledButton bg={green[1]} onClick={register}>
+                                    {t('translation:register')}
+                                </StyledButton>
+                            </StyledFooterRegisterContent>
+
                         </Box>
-                    </TabPanel>
-                    <TabPanel value={value} index={1} className="tabContent">
-                        <Box className='block'>
-                            <CategoryAndDescriptionComponent/>
-                        </Box>
-                    </TabPanel>
-                    <TabPanel value={value} index={2} className="tabContent">
-                        <Box className='block'>
-                            <FileContentTabComponent/>
-                        </Box>
-                    </TabPanel>
-                </Box>
-                <StyledFooterRegisterContent>
-                    <StyledButton bg={primary} onClick={register}>
-                        {t('translation:register')}
-                    </StyledButton>
-                </StyledFooterRegisterContent>
-            </Paper>
-        </Box>
+                    </Paper>
+                </ModalBody>
+            </div>
+        </Fade>
     </NewContentContext.Provider>);
 }
 

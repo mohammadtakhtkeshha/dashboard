@@ -4,7 +4,7 @@ import i18next from "i18next";
 
 import {Box} from "@material-ui/core";
 
-import {primary, red, blue} from "components/partials/Colors";
+import {green, red, blue} from "components/partials/Colors";
 import ContentsContext from "contexts/ContentsContext";
 import {StyledButton,StyledMultiButtonsBlock} from "assets/js/App";
 import contentService from 'core/services/content.service'
@@ -18,7 +18,7 @@ function ContentActionComponent({t, selectedCheckBoxes}) {
     const actions = [
         {value: 'delete', label: t('translation:delete'), color: red[1]},
         {value: 'block', label: t('translation:unpublished'), color: blue[1]},
-        {value: 'noBlock', label: t('translation:published'), color: primary}
+        {value: 'noBlock', label: t('translation:published'), color: green[1]}
     ];
 
     let doAction = (e) => {

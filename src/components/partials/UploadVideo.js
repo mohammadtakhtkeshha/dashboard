@@ -6,7 +6,7 @@ import * as colors from './Colors.js';
 import { withNamespaces } from "react-i18next";
 import ReactPlayer from 'react-player';
 import AddIcon from '@material-ui/icons/Add';
-import { primary } from "./Colors";
+import { green } from "./Colors";
 import clsx from "clsx";
 import { globalCss } from "../../assets/js/globalCss";
 import i18next from "i18next";

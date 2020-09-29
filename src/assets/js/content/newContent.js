@@ -1,16 +1,29 @@
 import {Box, Typography} from "@material-ui/core";
 import PropTypes from "prop-types";
 import React from "react";
+import {white,grey,green} from "components/partials/Colors";
+import styled from "styled-components";
 
 export const useStyles = (theme) => ({
     paper: {
         '& .tabs': {
+            height:'50vh',
             '& .tabButtons': {
+                direction:'rtl',
+                borderBottom:`1px solid ${grey[1]}`,
                 '& .MuiTabs-flexContainer': {
                     justifyContent: 'center',
+                },
+                '& button':{
+                    padding:'24px 0',
+                },
+                '&>div>span':{
+                    backgroundColor:`${green[1]}`,
+                    color:`${green[1]}`
                 }
             },
             '& .tabContent': {
+                marginTop:'90px',
                 width: '100%',
                 textAlign: 'center',
                 '& .block': {
@@ -86,7 +99,7 @@ export const useStyles = (theme) => ({
                         '& .MuiChip-root': {
                             width: 'fit-content',
                             '& svg': {
-                                zIndex: "100"
+                                zIndex: "50"
                             },
 
                         },
@@ -187,6 +200,22 @@ export function a11yProps(index) {
     };
 }
 
+export const styledTabs = ()=>({
+    root:{
+        position:'absolute',
+        top:0,
+        marginBottom:'10px',
+        left:'0',
+        right:'0',
+        backgroundColor:white,
+        zIndex:'50',
+    }
+})
 
+export const StyledTabPanels = styled.div`
+        border:1px solid red;
+        height:calc(50vh -144px);
+        overflow:scroll;
+`
 
-export default {useStyles, bootstrapInput, useTabStyless,TabPanel,a11yProps};
+export default {useStyles, bootstrapInput, useTabStyless,TabPanel,a11yProps,styledTabs};

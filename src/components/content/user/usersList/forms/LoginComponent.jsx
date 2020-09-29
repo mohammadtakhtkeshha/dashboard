@@ -8,7 +8,7 @@ import iconImg from 'assets/media/image/logo-login.png';
 import AppContext from 'contexts/AppContext';
 import authService from 'core/services/auth.service';
 import {withNamespaces} from "react-i18next";
-import {primary} from "components/partials/Colors";
+import {green} from "components/partials/Colors";
 import {StyledButton, StyledInput} from "assets/js/App";
 import {RegisterBlock,LoginBlock,StyledGridLogin,LoginError,InputBlock, RememberBlock, LoginButton} from "assets/js/login";
 
@@ -118,7 +118,7 @@ function LoginComponent({t}) {
                         </Box>
                     </RememberBlock>
                     <LoginButton>
-                        <StyledButton bg={primary} onClick={login}>{t('translation:enter')}</StyledButton>
+                        <StyledButton bg={green[1]} onClick={login}>{t('translation:enter')}</StyledButton>
                     </LoginButton>
                     <hr/>
                     <RegisterBlock>

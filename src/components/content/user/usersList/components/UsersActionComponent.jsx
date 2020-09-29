@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {withNamespaces} from "react-i18next";
 
-import {primary, red, blue} from "components/partials/Colors";
+import {green, red, blue} from "components/partials/Colors";
 import { warning} from "methods/swal";
 import AppContext from "contexts/AppContext";
 import storage from "libraries/local-storage";
@@ -16,7 +16,7 @@ function UsersActionComponent({t}) {
     const actions = [
         {value: 'delete', label: t('translation:delete'),color:red[1]},
         {value: 'block', label: t('translation:block'),color:blue[1]},
-        {value: 'active', label: t('translation:active'),color: primary}
+        {value: 'active', label: t('translation:active'),color: green[1]}
     ];
 
     const handleMultiAction = (e) => {

@@ -4,18 +4,18 @@ import {withNamespaces} from "react-i18next";
 import {Typography,Box} from "@material-ui/core";
 
 import {StyledButton, StyledHead, StyledHeadTypography} from "assets/js/App";
-import {primary,green} from "components/partials/Colors";
+import {green} from "components/partials/Colors";
+import CancelIconComponent from "../../../partials/CancelIconComponent";
+import {ReactComponent as Exit} from "../../../../assets/svg/exit.svg";
+import {ReactComponent as Lo} from "../../../partials/cancel-svgrepo-com(2).svg";
+import {StyledSvg} from "assets/js/App";
 
 function ContentHeaderComponent({t,setOpenRegisterForm}) {
     return(
         <StyledHead>
-            <Box>
-            <button style={{backgroundColor:green[0],border:0,padding:'10px',color:'white'}}>one</button>
-            <button style={{backgroundColor:green[1],border:0,padding:'10px',color:'white'}}>two</button>
-            <button style={{backgroundColor:green[2],border:0,padding:'10px',color:'white'}}>three</button>
-            </Box>
+
             <StyledHeadTypography>{t('contents:contentList')}</StyledHeadTypography>
-            <StyledButton bg={primary} onClick={setOpenRegisterForm}>
+            <StyledButton bg={green[1]} onClick={setOpenRegisterForm}>
                 <Typography>{t('translation:registerContent')}</Typography>
             </StyledButton>
         </StyledHead>

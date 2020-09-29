@@ -15,7 +15,7 @@ import * as colors from './../../../../components/partials/Colors';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
-        backgroundColor: colors.primary,
+        backgroundColor: colors.green[1],
         color: theme.palette.common.white,
     },
     body: {

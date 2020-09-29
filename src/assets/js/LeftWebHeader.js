@@ -1,5 +1,5 @@
 import {makeStyles} from '@material-ui/core/styles/index';
-import {primary} from './../../components/partials/Colors'
+import {green} from './../../components/partials/Colors'
 
 export const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,7 +31,7 @@ export const useStyles = makeStyles((theme) => ({
                 cursor:'pointer',
                 backgroundColor:'transparent',
                 border:'0!important',
-                color:primary,
+                color:green[1],
                 '&:focus':{
                     outline:'0!important',
                 }
@@ -55,7 +55,7 @@ export const useStyles = makeStyles((theme) => ({
         '& #label': {
             top: '50%',
             height:'1rem',
-            color: primary,
+            color: green[1],
             position: 'absolute',
             transform: 'translateY(-50%)',
         },

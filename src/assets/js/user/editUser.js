@@ -10,7 +10,7 @@ export const editUserStyels =(theme) => ({
         },
         '& .upload': {
             position: 'relative',
-            border: `1px solid ${colors.primary}`,
+            border: `1px solid ${colors.green[1]}`,
             '& #label': {
                 minHeight: '150px',
                 background: '#fff',

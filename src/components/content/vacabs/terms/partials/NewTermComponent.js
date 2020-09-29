@@ -4,7 +4,7 @@ import {withNamespaces} from "react-i18next";
 import {StyledInput} from 'assets/js/App';
 import {StyledNewTerm} from 'assets/js/vocabs/terms';
 import {StyledButton} from 'assets/js/App'
-import {primary} from "components/partials/Colors";
+import {green} from "components/partials/Colors";
 import {registerTerm} from 'core/services/term.service';
 import AppContext from "contexts/AppContext";
 import TermsContext from "contexts/TermsContext";
@@ -46,7 +46,7 @@ function NewTermComponent({t, category}) {
         <StyledNewTerm>
             <Box>
                 <StyledInput onChange={changeName} placeholder={t('translation:name')}/>
-                <StyledButton bg={primary} onClick={register}>{t('translation:register')}</StyledButton>
+                <StyledButton bg={green[1]} onClick={register}>{t('translation:register')}</StyledButton>
             </Box>
         </StyledNewTerm>
     );

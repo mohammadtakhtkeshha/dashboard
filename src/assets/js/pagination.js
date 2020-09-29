@@ -1,4 +1,4 @@
-import {grey, primary,white} from "../../components/partials/Colors";
+import {grey, green,white} from "../../components/partials/Colors";
 import styled from "styled-components";
 
 export const StyledPaginationBox = styled.div`
@@ -13,13 +13,13 @@ export const StyledPaginationBox = styled.div`
                         border-radius: 0;
                         margin: 0;
                         border-color: ${grey[3]};
-                        color: ${primary};
+                        color: ${green[1]};
                         padding: 13px;
                     }
                 }
             }
             & .MuiPaginationItem-page.Mui-selected {
-                background-color: ${primary};
+                background-color: ${green[1]};
                 color: ${white};
                 border: 0;
             }

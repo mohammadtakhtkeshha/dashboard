@@ -27,7 +27,13 @@
   "chooseUnpublishDate":"تاریخ عدم انتشار را انتخاب کنید",
   "nullTitle":"!فیلد عنوان خالی میباشد",
   "unPublishAfterPublishError":"تاریخ زمان عدم انتشار باید بعد از زمان انتشار باشد!",
-  "furtherDate":"زمان انتخاب شده مربوط به گذشته میباشد!"
+  "furtherDate":"زمان انتخاب شده مربوط به گذشته میباشد!",
+  "chooseContentType":"لطفا نوع محتوا را انتخاب کنید",
+  "title&picture": "عنوان و عکس",
+  "publishSetting": "تنظیمات انتشار",
+  "seo": "سئو",
+  "portal": "پرتال"
+
 
 
 
