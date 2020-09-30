@@ -13,7 +13,7 @@ const useStyles = makeStyles({
         },
         '& li:nth-child(3)': {
             '& a': {
-                    color: green[1],
+                    color: green[0],
             }
         }
     }

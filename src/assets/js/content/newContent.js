@@ -1,22 +1,21 @@
-import {Box, Typography} from "@material-ui/core";
-import PropTypes from "prop-types";
 import React from "react";
-import {white,grey,green} from "components/partials/Colors";
 import styled from "styled-components";
+import PropTypes from "prop-types";
+import {Box, Typography} from "@material-ui/core";
+import {white,grey,green,blue,black} from "components/partials/Colors";
 
 export const useStyles = (theme) => ({
     paper: {
         '& .tabs': {
             height:'50vh',
             '& .tabButtons': {
-                direction:'rtl',
                 borderBottom:`1px solid ${grey[1]}`,
                 '& .MuiTabs-flexContainer': {
                     justifyContent: 'center',
                 },
                 '&>div>span':{
-                    backgroundColor:`${green[1]}`,
-                    color:`${green[1]}`,
+                    backgroundColor:`${green[0]}`,
+                    color:`${green[0]}`,
                 }
             },
             '& .tabContent': {
@@ -161,7 +160,6 @@ export const useTabStyless = (theme) => ({
     },
 });
 
-
 // ---- tab panel ----
 export function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -208,6 +206,8 @@ export const styledTabs = ()=>({
         zIndex:'50',
         '& .MuiTabs-flexContainer':{
             height: '100%'
+        },'& .Mui-selected':{
+            color: `${green[1]}`
         }
     }
 })
@@ -228,11 +228,22 @@ export const StyledFooterButton = styled.button`
                 height: 100%;
                 background-color: inherit;
                 border: 0;
-                border-left: 1px solid ${grey[1]};
-                 &:not(:first-child){
-                    border-right:1px solid ${grey[1]}!important;
+                cursor:pointer;
+                color:${black[1]};
+                &:not(:first-child){
+                    border-left:1px solid ${grey[1]}!important;
                 }
-            
+                &:nth-child(2) {
+                  &:hover{
+                     color: ${green[0]};
+                  }
+                }
+                &:first-child,&:last-child{
+                  &:hover{
+                     color:${blue[0]};
+                  }
+                }
 `
 
-export default {useStyles, bootstrapInput, useTabStyless,TabPanel,a11yProps,styledTabs,StyledFooterButton};
+export default {useStyles, bootstrapInput, useTabStyless,TabPanel,a11yProps,styledTabs,
+    StyledFooterButton};

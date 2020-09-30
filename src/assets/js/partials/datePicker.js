@@ -1,4 +1,4 @@
-import {green} from "components/partials/Colors";
+import {green,grey} from "components/partials/Colors";
 
 export const themeEnn={
     overrides: {
@@ -15,21 +15,22 @@ export const themeEnn={
         },
         MuiPickersToolbar: {
             toolbar: {
-                backgroundColor: green[1],
+                backgroundColor: green[0],
             }
         },
         MuiPickersDay: {
             daySelected: {
-                backgroundColor: `${green[1]}!important`,
+                backgroundColor: `${green[0]}!important`,
             }
         },
         MuiButton: {
             label: {
-                color:green[1]
+                color:green[0]
             }
         },
     },
 }
+
 export const themeFaa={
     overrides: {
         MuiTypography: {
@@ -46,31 +47,42 @@ export const themeFaa={
         },
         MuiPickersToolbar: {
             toolbar: {
-                backgroundColor: green[1],
+                backgroundColor: green[0],
             }
         },
         MuiPickersDay: {
             daySelected: {
-                backgroundColor: `${green[1]}!important`,
+                backgroundColor: `${green[0]}!important`,
             }
         },
         MuiButton: {
             label: {
-                color:green[1]
+                color:green[0]
             }
         },
     },
 }
+
 export const myStyles={
-    width:'100%',
     dateFa: {
+        '&>div':{
+            '&:before,&:after':{
+                borderBottom: '0!important',
+            }
+        },
         '& input': {
-            fontFamily: 'primary-font!important'
+            fontFamily: 'primary-font!important',
+            border: `1px solid ${grey[1]}`,
+            padding:'10px',
+            borderRadius:'5px',
         }
     },
     dateEn: {
         '& input': {
-            fontFamily: 'byekan!important'
+            fontFamily: 'byekan!important',
+            border: `1px solid ${grey[1]}`,
+            padding:'10px',
+            borderRadius:'5px'
         }
     }
 }

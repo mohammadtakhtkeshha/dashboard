@@ -9,7 +9,7 @@ import iconImg from 'assets/media/image/logo-login.png';
 import AppContext from 'contexts/AppContext';
 import authService from 'core/services/auth.service';
 import {green} from "components/partials/Colors";
-import {StyledButton, StyledInput} from "assets/js/App";
+import {StyledInput, StyledRegisterButton} from "assets/js/App";
 import {InputBlock, LoginBlock, StyledGridLogin,LoginButton,RegisterBlock} from "assets/js/login";
 
 function LoginComponent({t}) {
@@ -96,9 +96,9 @@ function LoginComponent({t}) {
                         </InputBlock>
                     </Box>
                     <LoginButton>
-                        <StyledButton bg={green[1]}  onClick={login}>
+                        <StyledRegisterButton bg={green[0]}  onClick={login}>
                             {t('translation:register')}
-                        </StyledButton>
+                        </StyledRegisterButton>
 
                     </LoginButton>
                      <hr/>

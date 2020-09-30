@@ -3,16 +3,16 @@ import React from "react";
 
 import {Typography} from "@material-ui/core";
 
-import {StyledButton, StyledHead, StyledHeadTypography} from "assets/js/App";
+import {StyledRegisterButton, StyledHead, StyledHeadTypography} from "assets/js/App";
 import {green} from "components/partials/Colors";
 
 function HeaderTermComponent({t,setOpenTermForm}) {
     return (<>
         <StyledHead>
             <StyledHeadTypography>{t('vocabs:termList')}</StyledHeadTypography>
-            <StyledButton bg={green[1]} onClick={setOpenTermForm}>
+            <StyledRegisterButton onClick={setOpenTermForm}>
                 <Typography>{t('vocabs:newTerm')}</Typography>
-            </StyledButton>
+            </StyledRegisterButton>
         </StyledHead>
     </>);
 }

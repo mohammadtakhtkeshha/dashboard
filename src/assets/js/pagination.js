@@ -13,13 +13,13 @@ export const StyledPaginationBox = styled.div`
                         border-radius: 0;
                         margin: 0;
                         border-color: ${grey[3]};
-                        color: ${green[1]};
+                        color: ${green[0]};
                         padding: 13px;
                     }
                 }
             }
             & .MuiPaginationItem-page.Mui-selected {
-                background-color: ${green[1]};
+                background-color: ${green[0]};
                 color: ${white};
                 border: 0;
             }

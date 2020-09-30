@@ -10,8 +10,7 @@ import TextField from "@material-ui/core/TextField";
 
 import UserContext from "contexts/UserContext";
 import {StyledFilterBlock} from "assets/js/user/users";
-import {StyledButton, StyledInput} from "assets/js/App";
-import {green} from "components/partials/Colors";
+import {StyledRegisterButton, StyledInput} from "assets/js/App";
 
 function UsersFilterComponent({t}) {
     const [role, setRole] = useState('');
@@ -93,9 +92,9 @@ debugger
                                     ))}
                                 </TextField> : ''}
                             </Box>
-                            <StyledButton bg={green[1]} onClick={doFilterHandler}>
+                            <StyledRegisterButton onClick={doFilterHandler}>
                                 {t('translation:do')}
-                            </StyledButton>
+                            </StyledRegisterButton>
                         </StyledFilterBlock>
 
                     </ExpansionPanelDetails>

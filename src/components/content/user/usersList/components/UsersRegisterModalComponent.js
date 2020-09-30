@@ -30,8 +30,8 @@ function UserRegisterModalComponent({t, openUserForm, handleCloseUserForm, userM
                 BackdropProps={{timeout: 500}}
             >
                 <Fade in={openUserForm.show} id="modal">
-                    <div className={classes.paper} dir="rtl">
-                        <Box className={clsx('header', (lang === 'en' ? 'flexDirL' : 'flexDirR'))}>
+                    <div className={classes.paper}>
+                        <Box className={clsx('header')}>
                             <Typography className="title">{t('translation:registerUser')}</Typography>
                             <button onClick={handleCloseUserForm} className='button'>
                                 <CancelIcon/>

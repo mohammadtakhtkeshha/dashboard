@@ -3,7 +3,7 @@ import {green} from "components/partials/Colors";
 
 export const styledTableCell =(theme) => ({
     head: {
-        backgroundColor: green[1],
+        backgroundColor: green[0],
         color: theme.palette.common.white,
         width:'50%'
     },

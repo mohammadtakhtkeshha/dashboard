@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useContext} from "react";
 import {withNamespaces} from 'react-i18next';
+import i18next from "i18next";
 
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
@@ -14,7 +15,7 @@ import {useStyles} from 'assets/js/user/NewUser';
 import UploadImg from "components/partials/UploadImg";
 import AppContext from 'contexts/AppContext';
 import UserContext from "contexts/UserContext";
-import {StyledButton, StyledInput} from "assets/js/App";
+import {StyledDirection, StyledInput, StyledRegisterButton} from "assets/js/App";
 import {primary} from "components/partials/Colors";
 import {StyledLabel} from "assets/js/App";
 
@@ -22,6 +23,7 @@ const currentStyles = makeStyles(useStyles);
 
 function NewUserComponent({t, id, userNameList, userMailList}) {
     const classes = currentStyles();
+    const lang = i18next.language;
     const [keyRoles, setKeyRoles] = useState([]);
     const [valueRoles, setValueRoles] = useState();
     const appContext = useContext(AppContext);
@@ -44,7 +46,7 @@ function NewUserComponent({t, id, userNameList, userMailList}) {
     const [gottenMail, setGottenMail] = useState('');
     const [currentImg, setCurrentImg] = useState([]);
 
-    let getRoles = () => {
+    const getRoles = () => {
         userService.getRoles().then((response) => {
             let valueRoles = Object.values(response.data);
             let keyRoles = Object.keys(response.data);
@@ -113,13 +115,13 @@ function NewUserComponent({t, id, userNameList, userMailList}) {
         }
     }
 
-    let removedFileId = () => {
+    const removedFileId = () => {
         setUser(prevState => {
             return {...prevState, user_picture: ""}
         });
     }
 
-    let saveFile = (file) => {
+    const saveFile = (file) => {
         let currentFile = file[0];
         userService.saveUserImage(currentFile)
             .then((response) => {
@@ -149,7 +151,7 @@ function NewUserComponent({t, id, userNameList, userMailList}) {
         });
     }
 
-    let handleChange = (e, field) => {
+    const handleChange = (e, field) => {
         let currentName;
         currentName = e.currentTarget.value;
         if (currentName === "") {
@@ -171,13 +173,13 @@ function NewUserComponent({t, id, userNameList, userMailList}) {
         }
     }
 
-    let handleConfirmPass = (e) => {
+    const handleConfirmPass = (e) => {
         let currentCofrimPass = e.target.value;
         setConfirmPass(currentCofrimPass);
         userContext.confirmPassValidation(user.pass, currentCofrimPass);
     }
 
-    let handleCheckRoles = (e) => {
+    const handleCheckRoles = (e) => {
         // let checked = e.target.checked;
         // let currentValue = e.target.value;
         // let checkedRolesArr = [];
@@ -216,7 +218,7 @@ function NewUserComponent({t, id, userNameList, userMailList}) {
         });
     }
 
-    let handleStatusChange = (e) => {
+    const handleStatusChange = (e) => {
         let currentStatus = e.target.value;
         let status;
         if (currentStatus === "true") {
@@ -231,11 +233,11 @@ function NewUserComponent({t, id, userNameList, userMailList}) {
         });
     }
 
-    let uploadedFile = (file) => {
+    const uploadedFile = (file) => {
         saveFile(file);
     }
 
-    let getUser = () => {
+    const getUser = () => {
         if (id) {
             appContext.setLoading(true);
             userService.getUser(id).then((response) => {
@@ -262,14 +264,13 @@ function NewUserComponent({t, id, userNameList, userMailList}) {
         }
     };
 
-
     useEffect(() => {
         getUser();
         getRoles();
     }, []);
 
     return (
-        <>
+        <StyledDirection lang={lang}>
             <Box className={classes.paper}>
                 <Box className='block'>
                     <StyledLabel>{t('users:enter your name')}</StyledLabel>
@@ -350,13 +351,13 @@ function NewUserComponent({t, id, userNameList, userMailList}) {
                         />
                     </Box>
                     <Box mt={2}>
-                        <StyledButton bg={primary} onClick={register}>
+                        <StyledRegisterButton bg={primary} onClick={register}>
                             {t('translation:register')}
-                        </StyledButton>
+                        </StyledRegisterButton>
                     </Box>
                 </Box>
             </Box>
-        </>);
+        </StyledDirection>);
 }
 
 export default withNamespaces('users', 'translation')(NewUserComponent);

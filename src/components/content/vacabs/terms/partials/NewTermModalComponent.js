@@ -29,7 +29,7 @@ function NewTermModalComponent({openTermForm,setOpenTermForm,category}) {
             }}
         >
             <Fade in={openTermForm} id="modal">
-                <div className={classes.paper} dir="rtl">
+                <div className={classes.paper}>
                     <Box className="header">
                         <button onClick={setOpenTermForm}>
                             <CancelIcon/>

@@ -17,7 +17,7 @@ import storage from "../../../libraries/local-storage";
 import {Link} from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import {StyledButton} from "assets/js/App";
+import {StyledEditButton,StyledDeleteButton} from "assets/js/App";
 import {green,red} from "components/partials/Colors";
 
 
@@ -62,14 +62,13 @@ const useStyles = makeStyles((theme) => ({
                 '& button': {
                     borderRadius: '0',
                     margin: '0',
-                    borderColor: colors.grey[3],
-                    color: colors.green[1],
+                    color: colors.green[0],
                     padding: '13px'
                 }
             }
         },
         '& .MuiPaginationItem-page.Mui-selected': {
-            backgroundColor: colors.green[1],
+            backgroundColor: colors.green[0],
             color: 'white',
             border: '0'
         }
@@ -77,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const StyledTableCell = withStyles((theme) => ({
     head: {
-        backgroundColor: colors.green[1],
+        backgroundColor: colors.green[0],
         color: theme.palette.common.white,
     },
     body: {
@@ -178,10 +177,13 @@ function CommentDashboardComponent({t}) {
                                     <StyledTableCell align="right">
                                         <Box className="item">
                                             <Link to='#comment'>
-                                                <StyledButton value={comment.id} text="ویرایش" bg={green[1]} startIcon={<EditIcon/>}/>
+                                                <StyledEditButton value={comment.id}>
+                                                    {t('translation:edit')}<EditIcon/>
+                                                </StyledEditButton>
                                             </Link>
-                                            <StyledButton value={comment.id} text="حذف" bg={red[1]} startIcon={<DeleteIcon/>}
-                                                             clicked={deleteComment}/>
+                                            <StyledDeleteButton value={comment.id} onClick={deleteComment}>
+                                                {t('translation:delete')}<DeleteIcon/>
+                                            </StyledDeleteButton>
                                         </Box>
                                     </StyledTableCell>
                                 </StyledTableRow>

@@ -20,7 +20,7 @@ export const useStyles =(theme) => ({
            },
            '& .upload': {
                position: 'relative',
-               border: `1px solid ${colors.green[1]}`,
+               border: `1px solid ${colors.green[0]}`,
                '& #label': {
                    minHeight: '150px',
                    background: '#fff',

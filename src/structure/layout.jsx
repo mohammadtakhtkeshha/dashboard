@@ -14,6 +14,7 @@ import Loading from "../components/content/partials/loading";
 import {globalCss} from "../assets/js/globalCss";
 import {withNamespaces} from "react-i18next";
 import {danger} from "../methods/swal";
+import {StyledDirection} from "../assets/js/App";
 
 const instance = createInstance({
     urlBase: 'https://reactwebrbpir.matomo.cloud/',
@@ -85,7 +86,7 @@ export function Layout({t}) {
     }
 
     return (
-        <>
+        <StyledDirection>
             <Box className={loading === false ? gClasses.none : gClasses.block}>
                 <Loading/>
             </Box>
@@ -107,7 +108,7 @@ export function Layout({t}) {
                     </AppContext.Provider>
                 </ThemeProvider>
             </MatomoProvider>
-        </>
+        </StyledDirection>
     );
 
 }

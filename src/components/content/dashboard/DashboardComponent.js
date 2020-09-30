@@ -17,7 +17,7 @@ import AppContext from "../../../contexts/AppContext";
 
 const useStyles=makeStyles({
     confirmButton:{
-        backgroundColor:green[1],
+        backgroundColor:green[0],
     },
     swalBlock:{
         '& .swal-footer':{

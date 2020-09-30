@@ -43,10 +43,10 @@ export const useStyles = makeStyles((theme) => (
 
                         '& .after': {
                             position: 'absolute',
-                            border: `1px solid ${colors.green[1]}`,
+                            border: `1px solid ${colors.green[0]}`,
                             height: '10px',
                             top: '0',
-                            backgroundColor: colors.green[1],
+                            backgroundColor: colors.green[0],
                             content: "''",
 
                         }

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const active = () => ({
     active:{
-        color: `${green[1]}!important`,
+        color: `${green[0]}!important`,
         backgroundColor: grey[6]
     }
 });

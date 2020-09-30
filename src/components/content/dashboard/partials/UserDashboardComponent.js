@@ -19,7 +19,7 @@ import {withNamespaces} from "react-i18next";
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
-        backgroundColor: colors.green[1],
+        backgroundColor: colors.green[0],
         color: theme.palette.common.white,
     },
     body: {

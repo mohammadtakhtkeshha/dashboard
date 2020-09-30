@@ -25,21 +25,25 @@ const white ="#fff";
 const darkBlue = '#0056b3';
 
 // ------- grey -------
-const grey = ['#a7abc3','#BBC3CE'
-    ,'rgba(0,0,0,.1)','#dee2e6'
-    ,'#e9ecef','rgba(0, 0, 0, 0.04)'
-    ,'#ebebeb','#D6DBE1'];
+
 
 const danger={
     base:'#e04b4b',
     light:'#f8d7da',
     dark:'#721c24',
 };
-const red=['#f50057','#D11A2A'];//delete = red[1]
+const red=['#fe2947','#fe4660','#dc213b'];//{0:default,1:hover,2:focus}
 
-const green = ['#5acb9b','#3ecd90','#34aa78']; //
+const green = ['#3ecd90','#5acb9b','#34aa78']; //{0:default,1:hover,2:focus}
 
-const blue= ['#303f9f','#008CBA']; //edit = bue[1]
+const blue= ['#2e91b0','#4696af','#25738b','#303f9f','#008CBA']; //{0:default,1:hover,2:focus}
+
+const grey = ['#ced4da',//input border
+    '#BBC3CE',//most borders for example content register modal
+    'rgba(0,0,0,.1)',
+    '#dee2e6','#e9ecef',
+    'rgba(0, 0, 0, 0.04)',
+    '#ebebeb','#D6DBE1'];
 
 export {
     primary, primaryBright, secondary, secondaryBright, success, successBright, danger,dangerBright,

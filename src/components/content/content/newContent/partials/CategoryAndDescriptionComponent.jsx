@@ -142,14 +142,14 @@ function CategoryAndDescriptionComponent ({t}){
         })
     };
 
-    let handleAffiliateChange = (e) => {
-        let checked = e.currentTarget.checked;
-        newContentContext.setContent(prevState => {
-            return {
-                ...prevState, field_domain_all_affiliates: checked
-            }
-        });
-    }
+    // const handleAffiliateChange = (e) => {
+    //     let checked = e.currentTarget.checked;
+    //     newContentContext.setContent(prevState => {
+    //         return {
+    //             ...prevState, field_domain_all_affiliates: checked
+    //         }
+    //     });
+    // }
 
     const getCategories = () => {
         contentService.getCategories().then((response) => {
@@ -370,23 +370,23 @@ function CategoryAndDescriptionComponent ({t}){
             </Box>
         </Box>
         {/*--------------------------------------------------------------------------------------------*/}
-        <Box className={clsx('items', lang === 'en' ? gClasses.ltr : gClasses.rtl)}>
-            <Box className={clsx('select', 'card', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
-                <Typography
-                    className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:sendToAllAffiliates')}</Typography>
-                <FormGroup row>
-                    <Box>
-                        <FormControlLabel
-                            control={<Checkbox checked={newContentContext.content.field_domain_all_affiliates}
-                                               onChange={(e) => handleAffiliateChange(e)}
-                            />}
-                            label={t('contents:availableOnAllDomain')}
-                        />
-                    </Box>
-                </FormGroup>
-            </Box>
+        {/*<Box className={clsx('items', lang === 'en' ? gClasses.ltr : gClasses.rtl)}>*/}
+        {/*    <Box className={clsx('select', 'card', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>*/}
+        {/*        <Typography*/}
+        {/*            className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:sendToAllAffiliates')}</Typography>*/}
+        {/*        <FormGroup row>*/}
+        {/*            <Box>*/}
+        {/*                <FormControlLabel*/}
+        {/*                    control={<Checkbox checked={newContentContext.content.field_domain_all_affiliates}*/}
+        {/*                                       onChange={(e) => handleAffiliateChange(e)}*/}
+        {/*                    />}*/}
+        {/*                    label={t('contents:availableOnAllDomain')}*/}
+        {/*                />*/}
+        {/*            </Box>*/}
+        {/*        </FormGroup>*/}
+        {/*    </Box>*/}
 
-        </Box>
+        {/*</Box>*/}
         {/*-----------------------------------------------------------------------------------*/}
         <SeoFormContentComponent/>
         <Box

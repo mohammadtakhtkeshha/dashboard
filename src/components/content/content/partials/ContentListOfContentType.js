@@ -1,30 +1,29 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {withNamespaces} from "react-i18next";
+import i18next from "i18next";
 
-import {makeStyles, withStyles} from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import {makeStyles, withStyles} from "@material-ui/core/styles";
+import {Box} from "@material-ui/core";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
 import {Paper} from "@material-ui/core";
 import Fade from "@material-ui/core/Fade";
+
 import {StyledSvg} from "assets/js/App";
-import {ReactComponent as Exit} from "../../../../assets/svg/exit.svg";
-import {ModalBody} from "../../../../assets/js/content/contentRegisterModal";
-import {ModalBox} from "../../../../assets/js/content/contentRegisterModal";
-import {ModalAround} from "../../../../assets/js/content/contentRegisterModal";
+import {ReactComponent as Exit} from "assets/svg/exit.svg";
+import {ModalBody} from "assets/js/content/contentRegisterModal";
 import {StyledCancelButton} from "assets/js/content/contentRegisterModal";
 
 import {styles, listItemStyles} from "assets/js/content/contentType"
 import ContentsContext from "contexts/ContentsContext";
-import i18next from "i18next";
-import Modal from "@material-ui/core/Modal";
 
 const useStyles = makeStyles(styles);
 const StyledListItem = withStyles(listItemStyles)(ListItem);
 
 function ContentListOfContentType({setContentType, t, openRegisterForm, handleCloseRegisterForm}) {
-    let align = i18next.language === 'fa' ? 'right' : 'left';
-    const classes = useStyles({textAlign: align});
+    const lang = i18next.language;
+    const classes = useStyles({lang: lang});
     const contentsContext = useContext(ContentsContext);
     const [contentTypeNameList, setContentTypeNameList] = useState([]);
 
@@ -44,7 +43,7 @@ function ContentListOfContentType({setContentType, t, openRegisterForm, handleCl
 
     return (
         <Fade in={openRegisterForm} id="modalContentList">
-            <div>
+            <Box>
                 <StyledCancelButton onClick={handleCloseRegisterForm} className='exitButton'>
                     <StyledSvg>
                         <Exit width={"40px"} height={"40px"}/>
@@ -68,7 +67,7 @@ function ContentListOfContentType({setContentType, t, openRegisterForm, handleCl
                         </List>
                     </Paper>
                 </ModalBody>
-            </div>
+            </Box>
         </Fade>
     );
 }

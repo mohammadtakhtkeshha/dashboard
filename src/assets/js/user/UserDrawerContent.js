@@ -17,18 +17,18 @@ const styles=(theme) => ({
             },
             textAlign: 'center',
             '& #name': {
-                color: colors.green[1],
+                color: colors.green[0],
                 fontSize: '20px',
                 paddingTop: theme.spacing(3),
             },
             '& #email': {
-                color: colors.green[1],
+                color: colors.green[0],
                 fontSize: '14px',
                 paddingTop: theme.spacing(1),
                 paddingBottom: theme.spacing(2),
             },
             '& #username': {
-                color: colors.green[1],
+                color: colors.green[0],
                 fontSize: '20px',
                 paddingTop: theme.spacing(1),
             },

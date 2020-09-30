@@ -5,7 +5,7 @@ export const uploadStyles = {
     uploadFile: {
         position: 'relative',
         minHeight: '120px',
-        border: `1px solid ${colors.green[1]}`,
+        border: `1px solid ${colors.green[0]}`,
         '& input': {
             height: '100%',
             cursor: 'pointer',
@@ -33,7 +33,7 @@ export const uploadStyles = {
                     '& svg': {
                         borderRadius: '100%',
                         color: 'white',
-                        backgroundColor: green[1],
+                        backgroundColor: green[0],
                     }
                 },
                 '& #fileBlock': {
@@ -48,7 +48,7 @@ export const uploadStyles = {
                         position: 'absolute',
                         top: '10px',
                         left: '12px',
-                        color: colors.green[1],
+                        color: colors.green[0],
                         zIndex: '50'
                     },
                     '& .cancelVoice': {
@@ -56,7 +56,7 @@ export const uploadStyles = {
                         position: 'absolute',
                         top: '-13px',
                         left: '0',
-                        color: colors.green[1],
+                        color: colors.green[0],
                     },
                     '& .item': {
                         boxSizing: 'border-box',

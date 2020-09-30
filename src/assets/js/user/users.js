@@ -108,7 +108,7 @@ export const useStyles =(theme) => ({
                     margin: '2px 10px',
                     '& button':{
                         '&:hover':{
-                            backgroundColor:green[1]
+                            backgroundColor:green[0]
                         }
                     }
                 }
@@ -143,7 +143,7 @@ export const useStyles =(theme) => ({
                 left: 0,
                 right: 0,
                 height: '40px',
-                backgroundColor: green[1],
+                backgroundColor: green[0],
                 '& button': {
                     background: 'transparent',
                     cursor: 'pointer',

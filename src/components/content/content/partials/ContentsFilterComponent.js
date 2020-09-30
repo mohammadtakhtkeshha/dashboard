@@ -4,14 +4,13 @@ import {withNamespaces} from "react-i18next";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import {Box, Input, Typography} from "@material-ui/core";
+import {Box, Typography} from "@material-ui/core";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import TextField from "@material-ui/core/TextField";
 
 import ContentsContext from "contexts/ContentsContext";
 import {StyledFilterBlock} from "assets/js/content/contentFilter";
-import {StyledButton, StyledInput} from "assets/js/App";
-import {green} from "components/partials/Colors";
+import {StyledRegisterButton, StyledInput} from "assets/js/App";
 
 function ContentsFilterComponent({t}) {
     const contentsContext = useContext(ContentsContext);
@@ -23,7 +22,7 @@ function ContentsFilterComponent({t}) {
         contentType: ''
     });
 
-    let changeTitle = (e) => {
+    const changeTitle = (e) => {
         const currentValue = e.currentTarget.value;
         setSearchedContent(prevState => {
             return {
@@ -127,9 +126,9 @@ function ContentsFilterComponent({t}) {
                             {/*)) || ''}*/}
                         </TextField>
                     </Box>
-                    <StyledButton bg={green[1]} onClick={doFilterHandler}>
+                    <StyledRegisterButton onClick={doFilterHandler}>
                         {t('translation:do')}
-                    </StyledButton>
+                    </StyledRegisterButton>
                 </StyledFilterBlock>
             </ExpansionPanelDetails>
         </ExpansionPanel>

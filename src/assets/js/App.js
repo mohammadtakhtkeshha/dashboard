@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {blue,grey, green, red, white,black} from "components/partials/Colors";
 
 //z-index{loading:100,modal:50,userDrawer:50}
+
 export const StyledPaper = styled.div`
         margin: 1rem;
 `
@@ -49,6 +50,48 @@ export const StyledButton = styled.button`
             }
 `
 
+export const StyledRegisterButton = styled.button`
+            color: ${white};
+            border: 0;
+            cursor: pointer;
+            padding: 10px 15px;
+            line-height: 14px;
+            border-radius: 5px;
+            background-color: ${green[0]};
+            width:fit-content;
+            &:focus{
+                outline:0!important;
+            }
+`
+
+export const StyledEditButton = styled.button`
+            color: ${white};
+            border: 0;
+            cursor: pointer;
+            padding: 10px 15px;
+            line-height: 14px;
+            border-radius: 5px;
+            background-color: ${blue[0]};
+            width:fit-content;
+            &:focus{
+                outline:0!important;
+            }
+`
+
+export const StyledDeleteButton = styled.button`
+            color: ${white};
+            border: 0;
+            cursor: pointer;
+            padding: 10px 15px;
+            line-height: 14px;
+            border-radius: 5px;
+            background-color: ${red[0]};
+            width:fit-content;
+            &:focus{
+                outline:0!important;
+            }
+`
+
 export const StyledActionButtonBlock = styled.div`
             display:flex;
             & button{
@@ -87,7 +130,7 @@ export const StyledActionButtonBlock = styled.div`
 
 export const styledTableCell =(theme) => ({
     head: {
-        backgroundColor: green[1],
+        backgroundColor: green[0],
         color: theme.palette.common.white,
     },
     body: {
@@ -121,7 +164,7 @@ export const modalStyles = (theme) => ({
                 left: 0,
                 right: 0,
                 height: '40px',
-                backgroundColor: green[1],
+                backgroundColor: green[0],
                 '& button': {
                     background: 'transparent',
                     cursor: 'pointer',
@@ -154,7 +197,7 @@ export const StyledInput = styled.input`
             color: #495057;
             background-color: #fff;
             background-clip: padding-box;
-            border: 1px solid #ced4da;
+            border: 1px solid ${grey[0]};
             border-radius: .25rem;
             box-sizing:border-box;
             transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
@@ -179,6 +222,7 @@ export const StyledLabel=styled.div`
         display:inline-block;
        
 `
+
 export const StyledBoxMt1=styled.div`
         margin-top:1rem;
 `
@@ -199,5 +243,9 @@ export const StyledSvg = styled.div`
         height: 21px;
         padding: 9px 4px 3px;
     }
+`
+
+export const StyledDirection = styled.div`
+               direction:${props=>props.lang === 'en' ? 'ltr' : 'rtl'}
 `
 

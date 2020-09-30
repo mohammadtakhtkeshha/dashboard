@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(2),
     },
     '& svg':{
-      color:green[1]
+      color:green[0]
     }
   },
 }));

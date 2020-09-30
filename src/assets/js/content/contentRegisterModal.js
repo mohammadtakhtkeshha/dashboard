@@ -23,7 +23,7 @@ export const useStyles = {
                 right: 0,
                 height: '40px',
                 zIndex: '50',
-                backgroundColor: green[1],
+                backgroundColor: green[0],
                 '& .button': {
                     background: 'transparent',
                     cursor: 'pointer',
@@ -43,7 +43,7 @@ export const useStyles = {
             },
             '& .footer': {
                 border: '1px solid red',
-                backgroundColor: green[1],
+                backgroundColor: green[0],
             },
             '& .flexDirL': {
                 flexDirection: 'row-reverse'
@@ -71,7 +71,6 @@ export const StyledFooterRegisterContent = styled.div`
                 z-index:50;
                 height:11vh;
                 border-top:1px solid ${grey[1]};
-               
 `
 
 export const ModalBody = styled.div`

@@ -45,13 +45,13 @@ export const useStyles = (theme) => ({
                     borderRadius: '0',
                     margin: '0',
                     borderColor: colors.grey[3],
-                    color: colors.green[1],
+                    color: colors.green[0],
                     padding: '13px'
                 }
             }
         },
         '& .MuiPaginationItem-page.Mui-selected': {
-            backgroundColor: colors.green[1],
+            backgroundColor: colors.green[0],
             color: 'white',
             border: '0'
         }
@@ -65,7 +65,7 @@ export const useStyles = (theme) => ({
             justifyContent: 'space-between',
             alignItems: "center",
             '& button': {
-                backgroundColor: colors.green[1],
+                backgroundColor: colors.green[0],
                 border: 0,
                 cursor: 'pointer',
                 padding: '10px 15px',

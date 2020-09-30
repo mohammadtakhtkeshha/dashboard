@@ -11,8 +11,7 @@ import storage from 'libraries/local-storage';
 import UserDrawerContentStyle from "assets/js/user/UserDrawerContent";
 import AvatarComponent from "components/partials/AvatarComponent";
 import AppContext from "contexts/AppContext";
-import {blue,green} from "components/partials/Colors";
-import {StyledButton} from "assets/js/App";
+import {green} from "components/partials/Colors";
 
 const useStyles = makeStyles(UserDrawerContentStyle);
 
@@ -49,21 +48,23 @@ function UserDrawerContentComponent({t}) {
             </Box>
             <Box className="buttons">
                 <Link className="link" to="/comments" onClick={changeUserDrawer}>
-                    <StyledButton className="button" text="مشاهده کامنت ها" color={green[1]} startIcon={<EditIcon/>}/>
+                    <button className="button" color={green[0]} startIcon={<EditIcon/>}>
+                        مشاهده کامنت ها
+                    </button>
                 </Link>
                 <Link className="link" to="/contents" onClick={changeUserDrawer}>
-                    <StyledButton
-                        className="button" text="مشاهده محتوا ها" color="secondary"
-                        startIcon={<EditIcon/>}/>
+                    <button
+                        className="button" color="secondary"
+                        startIcon={<EditIcon/>}>
+                        مشاهده محتوا ها
+                    </button>
                 </Link>
                 <Link className="link" to="/edit-user"
                       onClick={changeUserDrawer}
                 >
-                    <StyledButton
-                        className="button"
-                        text="ویرایش پروفایل"
-                        bg={blue[1]}
-                        startIcon={<EditIcon/>}/>
+                    <button className="button">
+                        ویرایش پروفایل
+                    </button>
                 </Link>
             </Box>
         </Box>

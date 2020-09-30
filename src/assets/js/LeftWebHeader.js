@@ -31,7 +31,7 @@ export const useStyles = makeStyles((theme) => ({
                 cursor:'pointer',
                 backgroundColor:'transparent',
                 border:'0!important',
-                color:green[1],
+                color:green[0],
                 '&:focus':{
                     outline:'0!important',
                 }
@@ -55,7 +55,7 @@ export const useStyles = makeStyles((theme) => ({
         '& #label': {
             top: '50%',
             height:'1rem',
-            color: green[1],
+            color: green[0],
             position: 'absolute',
             transform: 'translateY(-50%)',
         },

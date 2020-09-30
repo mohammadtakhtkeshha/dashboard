@@ -107,7 +107,7 @@ export const RememberBlock=styled.div`
                             color: #adb5bd;
                         }
                         & .MuiCheckbox-colorSecondary.Mui-checked{
-                            color: ${green[1]};
+                            color: ${green[0]};
                         }
                     }
                     div:nth-child(2){
@@ -115,7 +115,7 @@ export const RememberBlock=styled.div`
                         & a{
                             text-decoration: none;
                             display: inline-block;
-                            color: ${green[1]};
+                            color: ${green[0]};
                             font-size: 14px;
                             font-weight: 400;
                             &:hover{
@@ -130,7 +130,7 @@ export const LoginButton = styled.div`
              & button{
                 width: 100%!important;
                &:hover:{
-                    background-color:${green[1]}
+                    background-color:${green[0]}
                }
             }       
 `

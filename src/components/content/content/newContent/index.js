@@ -10,32 +10,26 @@ import Fade from "@material-ui/core/Fade";
 import {useStyles, TabPanel, a11yProps, styledTabs} from 'assets/js/content/newContent';
 import FileContentTabComponent from "./partials/FileContentTabComponent.jsx";
 import TextContentTabComponent from "./partials/textContent/index.jsx";
+import ContentPublishDateComponent from "./partials/ContentPublishDateComponent";
 import contentService from "core/services/content.service";
 import NewContentContext from "contexts/NewContentContext";
 import CategoryAndDescriptionComponent from "./partials/CategoryAndDescriptionComponent";
-import {
-    ModalAround,
-    ModalBody,
-    ModalBox,
-    StyledCancelButton,
-    StyledFooterRegisterContent
-} from "assets/js/content/contentRegisterModal";
-import { StyledSvg} from "assets/js/App";
+import {ModalBody,StyledCancelButton,StyledFooterRegisterContent} from "assets/js/content/contentRegisterModal";
+import {StyledDirection, StyledSvg} from "assets/js/App";
 import {green} from "components/partials/Colors";
 import AppContext from "contexts/AppContext";
 import ContentsContext from "contexts/ContentsContext";
 import {ReactComponent as Exit} from "assets/svg/exit.svg";
 import i18next from "i18next";
-import {StyledTabPanels,StyledFooterButton} from "assets/js/content/newContent";
-
+import {StyledTabPanels, StyledFooterButton} from "assets/js/content/newContent";
+import SeoFormContentComponent from "./partials/textContent/partials/SeoFormContentComponent";
 
 const styles = makeStyles(useStyles);
 const StyledTabs = withStyles(styledTabs)(Tabs);
 
 function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
     const lang = i18next.language;
-    let dir = lang === 'en' ? 'ltr' : 'rtl';
-    const classes = styles(dir);
+    const classes = styles();
     const [value, setValue] = useState(0);
     const newContentContext = useContext(NewContentContext);
     const appContext = useContext(AppContext);
@@ -150,8 +144,8 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
         unpublishDate: unpublishDate,
     }}>
         <Fade in={openRegisterForm} id="modal">
-            <div>
-                <StyledCancelButton onClick={handleCloseRegisterForm} className='exitButton'>
+            <StyledDirection lang={lang}>
+                <StyledCancelButton onClick={handleCloseRegisterForm}>
                     <StyledSvg>
                         <Exit width={"40px"} height={"40px"}/>
                     </StyledSvg>
@@ -176,17 +170,17 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
                                 </TabPanel>
                                 <TabPanel value={value} index={1} className="tabContent">
                                     <Box className='block'>
-                                        <CategoryAndDescriptionComponent/>
+                                        <ContentPublishDateComponent/>
                                     </Box>
                                 </TabPanel>
                                 <TabPanel value={value} index={2} className="tabContent">
                                     <Box className='block'>
-                                        <FileContentTabComponent/>
+                                        <SeoFormContentComponent/>
                                     </Box>
                                 </TabPanel>
                                 <TabPanel value={value} index={3} className="tabContent">
                                     <Box className='block'>
-                                        <FileContentTabComponent/>
+                                        <CategoryAndDescriptionComponent/>
                                     </Box>
                                 </TabPanel>
                                 <TabPanel value={value} index={4} className="tabContent">
@@ -201,20 +195,20 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
                                 </TabPanel>
                             </StyledTabPanels>
                             <StyledFooterRegisterContent>
-                                <StyledFooterButton bg={green[1]} onClick={register}>
+                                <StyledFooterButton onClick={register}>
+                                    {t('translation:prevStep')}
+                                </StyledFooterButton>
+                                <StyledFooterButton onClick={register}>
                                     {t('translation:register')}
                                 </StyledFooterButton>
-                                <StyledFooterButton bg={green[1]} onClick={register}>
-                                    {t('translation:register')}
-                                </StyledFooterButton>
-                                <StyledFooterButton bg={green[1]} onClick={register}>
-                                    {t('translation:register')}
+                                <StyledFooterButton onClick={register}>
+                                    {t('translation:nextStep')}
                                 </StyledFooterButton>
                             </StyledFooterRegisterContent>
                         </Box>
                     </Paper>
                 </ModalBody>
-            </div>
+            </StyledDirection>
         </Fade>
     </NewContentContext.Provider>);
 }

@@ -3,8 +3,7 @@ import {Box} from "@material-ui/core";
 import {withNamespaces} from "react-i18next";
 import {StyledInput} from 'assets/js/App';
 import {StyledNewTerm} from 'assets/js/vocabs/terms';
-import {StyledButton} from 'assets/js/App'
-import {green} from "components/partials/Colors";
+import {StyledRegisterButton} from 'assets/js/App'
 import {registerTerm} from 'core/services/term.service';
 import AppContext from "contexts/AppContext";
 import TermsContext from "contexts/TermsContext";
@@ -46,7 +45,7 @@ function NewTermComponent({t, category}) {
         <StyledNewTerm>
             <Box>
                 <StyledInput onChange={changeName} placeholder={t('translation:name')}/>
-                <StyledButton bg={green[1]} onClick={register}>{t('translation:register')}</StyledButton>
+                <StyledRegisterButton onClick={register}>{t('translation:register')}</StyledRegisterButton>
             </Box>
         </StyledNewTerm>
     );
