@@ -1,4 +1,5 @@
 import * as colors from "components/partials/Colors";
+import styled from "styled-components";
 
 export const useStyles = (theme) => ({
     contentBlock: {
@@ -103,4 +104,20 @@ export const useStyles = (theme) => ({
     },
 });
 
+
+export const StyledRowBox = styled.div`
+            display:flex;
+            flex-direction:column;
+            margin-bottom: 14px;
+`
+
+export const StyledRow = styled.div`
+            display:flex;
+            justify-content:space-between;
+            width : 100%;
+`
+
+export const StyledCol = styled.div`
+            width: 49%;
+`
 export default {useStyles};

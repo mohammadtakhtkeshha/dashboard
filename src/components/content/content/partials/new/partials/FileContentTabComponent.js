@@ -1,4 +1,4 @@
-import contentService from "../../../../../core/services/content.service";
+import contentService from "core/services/content.service";
 
 export const uploadMultiImgMethod = (file,newContentContext,setMultiImgFids,appContext,setMultiImgToSendFid) => {
     if (file.length > 0) {
@@ -183,7 +183,6 @@ export const removeMultiImgMethod = (currentId,newContentContext) => {
         }
     });
 }
-
 
 export const removeMultiFileMethod = (currentId,newContentContext)=>{
     let fidsString = newContentContext.content.field_files.target_id;

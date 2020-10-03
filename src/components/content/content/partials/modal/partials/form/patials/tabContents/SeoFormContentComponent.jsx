@@ -8,8 +8,9 @@ import {makeStyles} from "@material-ui/core/styles";
 
 import {globalCss} from "assets/js/globalCss";
 import NewContentContext from "contexts/NewContentContext";
-import {StyledInput} from "assets/js/App";
+import {StyledInput, MarginTop1} from "assets/js/App";
 import clsx from "clsx";
+import {StyledRowBox, StyledRow, StyledCol} from "../../../../../../../assets/js/content/contents";
 
 const gClass = makeStyles(globalCss);
 
@@ -32,10 +33,10 @@ function SeoFormContentComponent({t}) {
                 setDescription(currentValue);
                 break;
             case "abstract":
-               setAbstract(currentValue)
+                setAbstract(currentValue)
                 break;
             default:
-             setKeywords(currentValue);
+                setKeywords(currentValue);
         }
         // debugger
     };
@@ -43,9 +44,9 @@ function SeoFormContentComponent({t}) {
     const seoChanged = () => {
         newContentContext.setContent(prevState => {
             return {
-                ...prevState,field_seo_list:{
+                ...prevState, field_seo_list: {
                     title: title,
-                    description:description,
+                    description: description,
                     abstract: abstract,
                     keywords: keywords
                 }
@@ -53,42 +54,39 @@ function SeoFormContentComponent({t}) {
         });
     }
 
-    useEffect(()=>{
-            seoChanged();
-        },[title,description,abstract,keywords]);
+    useEffect(() => {
+        seoChanged();
+    }, [title, description, abstract, keywords]);
 
 
-    return (<Box className={clsx('card', lang === 'en' ? gClasses.ltr : gClasses.rtl)}>
-            <Typography
-                className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:metaTag')}</Typography>
-            <Box className="metaTag">
-                <Box className="right">
+    return (<StyledRowBox>
+        <StyledRow>
+            <Typography>{t('contents:metaTag')}</Typography>
+        </StyledRow>
+        <StyledRow>
+            <StyledCol>
+                <MarginTop1>
+
                     <StyledInput type="text"
                                  placeholder={t('translation:title')}
                                  value={title}
                                  onChange={e => clickEditorMetaTag(e, 'title')}/>
-                    <Typography
-                        className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('translation:description')}</Typography>
-                    <TextField
-                        value={description}
-                        id="outlined-size-normal"
-                        placeholder={t('translation:description')}
-                        variant="outlined"
-                        rows={10}
-                        rowsMax={10}
-                        fullWidth
-                        multiline
-                        onChange={(e) => {
-                            clickEditorMetaTag(e, 'description')
-                        }}
-                    />
-                </Box>
-                <Box className="left">
+                </MarginTop1>
+            </StyledCol>
+            <StyledCol>
+                <MarginTop1>
                     <StyledInput
                         value={keywords}
                         lang={lang} type="text" placeholder={t('contents:keywords')}
                         label={t('contents:keywords')}
                         small='' onChange={e => clickEditorMetaTag(e, 'keywords')}/>
+                </MarginTop1>
+            </StyledCol>
+
+        </StyledRow>
+        <StyledRow>
+            <StyledCol>
+                <MarginTop1>
                     <Typography
                         className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:summary')}</Typography>
                     <TextField
@@ -104,15 +102,35 @@ function SeoFormContentComponent({t}) {
                             clickEditorMetaTag(e, 'abstract')
                         }}
                     />
-                </Box>
+                </MarginTop1>
+            </StyledCol>
+            <StyledCol>
+                <MarginTop1>
+                    <Typography
+                        className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('translation:description')}</Typography>
+                    <TextField
+                        value={description}
+                        id="outlined-size-normal"
+                        placeholder={t('translation:description')}
+                        variant="outlined"
+                        rows={10}
+                        rowsMax={10}
+                        fullWidth
+                        multiline
+                        onChange={(e) => {
+                            clickEditorMetaTag(e, 'description')
+                        }}
+                    />
+                </MarginTop1>
                 {/*<EditorComponent title={t('translation:description')} onClick={(e) => {*/}
                 {/*    clickEditorMetaTag(e, 'description')*/}
                 {/*}}/>*/}
                 {/*<EditorComponent title={t('contents:summary')} onClick={(e) => {*/}
                 {/*    clickEditorMetaTag(e, 'abstract')*/}
                 {/*}}/>*/}
-            </Box>
-        </Box>);
+            </StyledCol>
+        </StyledRow>
+    </StyledRowBox>);
 }
 
 export default withNamespaces('contents,translation')(SeoFormContentComponent);

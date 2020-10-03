@@ -1,3 +1,4 @@
+
 import React, {useContext, useState} from "react";
 import i18next from "i18next";
 import {withNamespaces} from "react-i18next";
@@ -99,8 +100,7 @@ function FileContentTabComponent({t}) {
                          removedFileId={removeMultiVideo} sendIdAfterUpload={multiVideoToSend}/>
         </Box>
         <Box className="card">
-            <Typography
-                className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:voiceGallery')}</Typography>
+            <Typography className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:voiceGallery')}</Typography>
             <UploadVoice multiple={true} title={t('translation:chooseVoice')} getFile={uploadVoice}
                          removedFileId={removeMultiVoice} sendIdAfterUpload={multiVoiceToSend}/>
         </Box>

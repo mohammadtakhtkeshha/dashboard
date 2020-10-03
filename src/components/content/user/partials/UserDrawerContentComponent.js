@@ -48,15 +48,14 @@ function UserDrawerContentComponent({t}) {
             </Box>
             <Box className="buttons">
                 <Link className="link" to="/comments" onClick={changeUserDrawer}>
-                    <button className="button" color={green[0]} startIcon={<EditIcon/>}>
-                        مشاهده کامنت ها
+                    <button className="button" color={green[0]}>
+                        مشاهده کامنت ها<EditIcon/>
                     </button>
                 </Link>
                 <Link className="link" to="/contents" onClick={changeUserDrawer}>
                     <button
-                        className="button" color="secondary"
-                        startIcon={<EditIcon/>}>
-                        مشاهده محتوا ها
+                        className="button" color="secondary">
+                        مشاهده محتوا ها <EditIcon/>
                     </button>
                 </Link>
                 <Link className="link" to="/edit-user"

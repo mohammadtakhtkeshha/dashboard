@@ -189,7 +189,7 @@ export const modalStyles = (theme) => ({
 export const StyledInput = styled.input`
             display: block;
             width:100%;
-            height: 1.75rem;
+            height: 1.95rem;
             padding: 1.3rem .75rem;
             font-size: 1rem;
             font-weight: 400;
@@ -233,6 +233,11 @@ export const StyledTypographyError =  styled.p`
         text-align : ${props=>props.align}
 `
 
+export const StyledAlignTypography = styled.p`
+              text-align : ${props => props.align};
+              font-size : 13px;
+`
+
 export const StyledSvg = styled.div`
     background:${grey[7]};
     fill:${black[1]};
@@ -247,5 +252,9 @@ export const StyledSvg = styled.div`
 
 export const StyledDirection = styled.div`
                direction:${props=>props.lang === 'en' ? 'ltr' : 'rtl'}
+`
+
+export const MarginTop1 = styled.div`
+       margin-top : 1rem;
 `
 

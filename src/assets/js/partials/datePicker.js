@@ -65,6 +65,7 @@ export const themeFaa={
 
 export const myStyles={
     dateFa: {
+        width:'100%',
         '&>div':{
             '&:before,&:after':{
                 borderBottom: '0!important',
@@ -73,16 +74,24 @@ export const myStyles={
         '& input': {
             fontFamily: 'primary-font!important',
             border: `1px solid ${grey[1]}`,
-            padding:'10px',
+            padding:'13px',
             borderRadius:'5px',
+            height : '32px',
         }
     },
     dateEn: {
+        width:'100%',
+        '&>div':{
+            '&:before,&:after':{
+                borderBottom: '0!important',
+            }
+        },
         '& input': {
             fontFamily: 'byekan!important',
             border: `1px solid ${grey[1]}`,
-            padding:'10px',
-            borderRadius:'5px'
+            padding:'13px',
+            borderRadius:'5px',
+            height : '32px',
         }
     }
 }

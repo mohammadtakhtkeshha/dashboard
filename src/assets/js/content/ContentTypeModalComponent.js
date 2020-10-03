@@ -11,8 +11,8 @@ import {Box, Typography} from "@material-ui/core";
 // import * as cancelIcon from './../../../../assets/svg/cancel-icon.svg';
 import ContentListOfContentType from "./ContentListOfContentType";
 
-import {useStyles} from "assets/js/content/contentRegisterModal";
-import {ModalBox, ModalAround} from "assets/js/content/contentRegisterModal";
+import {useStyles} from "assets/js/content/partials/contentModal";
+import {ModalBox, ModalAround} from "assets/js/content/partials/contentModal";
 import contentService from "core/services/content.service";
 import NewContentContext from "contexts/NewContentContext";
 import AppContext from "contexts/AppContext";
@@ -22,9 +22,9 @@ import Fade from "@material-ui/core/Fade";
 
 import {StyledButton, StyledHead, StyledSvg} from "assets/js/App";
 import {primary} from "components/partials/Colors";
-import {ModalBody} from "assets/js/content/contentRegisterModal";
+import {ModalBody} from "assets/js/content/partials/contentModal";
 
-import NewContent from "./../newContent/index"
+import NewContent from "./../new/index"
 import {ReactComponent as Exit} from "../../../../assets/svg/exit.svg";
 
 const useStyle = makeStyles(useStyles);

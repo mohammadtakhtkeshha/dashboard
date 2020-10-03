@@ -216,6 +216,7 @@ export const StyledTabPanels = styled.div`
             height: calc(50vh - 6vh);
             overflow: scroll;
             margin-top: 11vh;
+            margin-bottom : 11vh;
             scrollbar-width:none;
             -ms-overflow-style:none;
             &::-webkit-scrollbar{
@@ -231,7 +232,10 @@ export const StyledFooterButton = styled.button`
                 cursor:pointer;
                 color:${black[1]};
                 &:not(:first-child){
-                    border-left:1px solid ${grey[1]}!important;
+                    border-color: ${grey[1]};
+                    border-style: solid;
+                    border-width:${props=>props.lang === 'fa' ? "0 1px 0 0" : "0 0 0 1px"};
+                    
                 }
                 &:nth-child(2) {
                   &:hover{

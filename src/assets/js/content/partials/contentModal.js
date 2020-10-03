@@ -1,4 +1,4 @@
-import {white, green,grey,black} from "../../../components/partials/Colors";
+import {white, green,grey} from "components/partials/Colors";
 import styled from "styled-components";
 
 export const useStyles = {
@@ -61,7 +61,7 @@ export const useStyles = {
             }
         }
     }
-};
+}
 
 export const StyledFooterRegisterContent = styled.div`
                 background-color:${white};

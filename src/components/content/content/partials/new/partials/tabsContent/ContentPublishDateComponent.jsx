@@ -5,18 +5,20 @@ import {Box, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 
 import DatePickerrComponent from "components/partials/DatePickerrComponent";
-import {StyledTypographyError} from "assets/js/App";
+import {StyledTypographyError, StyledAlignTypography} from "assets/js/App";
 import NewContentContext from "contexts/NewContentContext";
 import {globalCss} from "assets/js/globalCss";
 import i18next from "i18next";
 import {withNamespaces} from "react-i18next";
-import {validateDate} from "./textContent/index";
+// import {validateDate} from "../../../new/partials/textContent";
+
 import {
-    StyledFlexItem,
+    StyledRow,
     StyledStatusButton,
     StyledStatusButtonBlock,
-    StyledFlexBox
-} from "assets/js/content/newContent/contentPublishDate";
+    StyledRowBox,
+    StyledCol,StyledInnerColButton
+} from "assets/js/content/partials/new/contentPublishDate";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -26,10 +28,12 @@ const gClass = makeStyles(globalCss);
 function CategoryAndDescriptionComponent({t}) {
     const gClasses = gClass();
     const lang = i18next.language;
+    let currentAlign = (lang === 'en' ? 'left' : 'right');
+    let antiAlign = (lang === 'en' ? 'right' : 'left');
     const newContentContext = useContext(NewContentContext);
 
     const passedDate = (field, date) => {
-        validateDate(field, date, newContentContext, t);
+        // validateDate(field, date, newContentContext, t);
     }
 
     const handleStatusChange = (e) => {
@@ -50,9 +54,9 @@ function CategoryAndDescriptionComponent({t}) {
         });
     }
 
-    return (<StyledFlexBox>
-        <StyledFlexItem>
-            <Box className={clsx('date', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
+    return (<StyledRowBox>
+        <StyledRow>
+            <StyledCol>
                 <DatePickerrComponent
                     placeholder={t('contents:choosePublishDate')}
                     passedDate={(e) => passedDate('publish_on', e)}
@@ -61,8 +65,8 @@ function CategoryAndDescriptionComponent({t}) {
                 {newContentContext.errors.publish_on ?
                     <StyledTypographyError
                         className="error">{newContentContext.errors.publish_on}</StyledTypographyError> : ''}
-            </Box>
-            <Box className={clsx('date', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
+            </StyledCol>
+            <StyledCol>
                 <DatePickerrComponent passedDate={(e) => passedDate('unpublish_on', e)}
                                       placeholder={t('contents:chooseUnpublishDate')}
                                       selectedDate={newContentContext.unpublishDate}
@@ -70,36 +74,43 @@ function CategoryAndDescriptionComponent({t}) {
                 {newContentContext.errors.unpublish_on ?
                     <StyledTypographyError
                         className="error">{newContentContext.errors.unpublish_on}</StyledTypographyError> : ''}
-            </Box>
-        </StyledFlexItem>
-        <StyledFlexItem>
-            <StyledStatusButtonBlock>
-                <StyledStatusButton value="true" status={newContentContext.content.status} onClick={handleStatusChange}>
-                    {t('contents:published')}
-                </StyledStatusButton>
-                <StyledStatusButton value="false" status={newContentContext.content.status}
-                                    onClick={handleStatusChange}>
-                    {t('contents:unpublished')}
-                </StyledStatusButton>
-            </StyledStatusButtonBlock>
-            <Box className={clsx('items', lang === 'en' ? gClasses.ltr : gClasses.rtl)}>
-                <Box className={clsx('select', 'card', lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>
-                    <Typography
-                        className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:sendToAllAffiliates')}</Typography>
-                    <FormGroup row>
-                        <Box>
-                            <FormControlLabel
-                                control={<Checkbox checked={newContentContext.content.field_domain_all_affiliates}
-                                                   onChange={(e) => handleAffiliateChange(e)}
-                                />}
-                                label={t('contents:availableOnAllDomain')}
-                            />
-                        </Box>
-                    </FormGroup>
+            </StyledCol>
+        </StyledRow>
+        <StyledRow>
+            <StyledCol>
+                <StyledInnerColButton>
+                    <StyledStatusButtonBlock align={antiAlign}>
+                        <StyledStatusButton value="true" status={newContentContext.content.status}
+                                            onClick={handleStatusChange}>
+                            {t('contents:published')}
+                        </StyledStatusButton>
+                        <StyledStatusButton value="false" status={newContentContext.content.status}
+                                            onClick={handleStatusChange}>
+                            {t('contents:unpublished')}
+                        </StyledStatusButton>
+                    </StyledStatusButtonBlock>
+                </StyledInnerColButton>
+            </StyledCol>
+            <StyledCol>
+                <Box>
+                    <Box>
+                        <StyledAlignTypography
+                            align={currentAlign}>{t('contents:sendToAllAffiliates')}</StyledAlignTypography>
+                        <FormGroup row>
+                            <Box>
+                                <FormControlLabel
+                                    control={<Checkbox checked={newContentContext.content.field_domain_all_affiliates}
+                                                       onChange={(e) => handleAffiliateChange(e)}
+                                    />}
+                                    label={t('contents:availableOnAllDomain')}
+                                />
+                            </Box>
+                        </FormGroup>
+                    </Box>
                 </Box>
-            </Box>
-        </StyledFlexItem>
-    </StyledFlexBox>);
+            </StyledCol>
+        </StyledRow>
+    </StyledRowBox>);
 }
 
 export default withNamespaces('translation')(CategoryAndDescriptionComponent);

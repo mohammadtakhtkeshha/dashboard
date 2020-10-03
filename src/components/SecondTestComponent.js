@@ -22,7 +22,7 @@
 // import EditorComponent from "components/partials/EditorComponent";
 // import DatePickerrComponent from "components/partials/DatePickerrComponent";
 // import Input from "components/partials/inputComponent";
-// import {useStyles, bootstrapInput} from 'assets/js/content/newContent';
+// import {useStyles, bootstrapInput} from 'assets/js/content/new';
 // import NewContentContext from "contexts/NewContentContext";
 // import SeoFormContentComponent from "./partials/SeoFormContentComponent";
 // import Chip from '@material-ui/core/Chip';

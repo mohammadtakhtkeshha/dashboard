@@ -8,7 +8,7 @@ import ContentsContext from "contexts/ContentsContext";
 import {StyledDeleteButton, StyledEditButton, StyledMultiButtonsBlock, StyledRegisterButton} from "assets/js/App";
 import contentService from 'core/services/content.service'
 import AppContext from "contexts/AppContext";
-import {multiAction} from "../index";
+import {multiAction} from "../../index";
 
 function ContentActionComponent({t, selectedCheckBoxes}) {
     const lang = i18next.language;

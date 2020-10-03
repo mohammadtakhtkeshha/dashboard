@@ -5,7 +5,7 @@ import UsersComponent from '../components/content/user/index.jsx';
 import ContentsComponent from '../components/content/content/index.jsx';
 import CommentsComponent from '../components/content/comment/CommentsComponent';
 import DashboardComponent from '../components/content/dashboard/DashboardComponent';
-import NewContentComponent from '../components/content/content/newContent';
+import NewContentComponent from '../components/content/content/partials/new/index.jsx';
 import VocabsComponent from "../components/content/vacabs/index";
 import TermsComponent from "../components/content/vacabs/terms/index";
 

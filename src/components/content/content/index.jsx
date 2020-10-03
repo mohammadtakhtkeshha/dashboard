@@ -4,12 +4,12 @@ import {withNamespaces} from 'react-i18next';
 import {Box} from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 
-import ContentRegisterModalComponent from "./partials/ContentRegisterModalComponent";
+import ContentModalComponent from "./partials/modal/ContentModalComponent";
 import ContentSearchExpansion from "./partials/ContentsFilterComponent";
 import TitleComponent from "components/partials/TitleComponent";
 import contentService from "core/services/content.service";
 import AppContext from "contexts/AppContext";
-import ContentActionComponent from "./partials/ContentActionComponent";
+import ContentActionComponent from "./partials/action/ContentActionComponent";
 import ContentTableComponent from "./partials/ContentTableComponent";
 import {success} from "methods/swal";
 import ContentsContext from "contexts/ContentsContext";
@@ -31,7 +31,7 @@ function ContentsComponent({t}) {
 
     const getContents = () => {
         appContext.setLoading(true);
-        contentService.getContents().then((response) => {
+        contentService.getContents(appContext.handleError).then((response) => {
                 let contents = response.data;
                 appContext.setLoading(false);
                 handlePagination(contents);
@@ -77,7 +77,7 @@ function ContentsComponent({t}) {
         handlePagination(contents,t('translation:successRegistered'));
     }
 
-    const handleOpenContentForm = (e) => {debugger
+    const handleOpenContentForm = (e) => {
         const value=e.currentTarget.value;
         setOpenRegisterForm(true);
         if(value !== ""){
@@ -123,10 +123,7 @@ function ContentsComponent({t}) {
             </StyledPaper>
             <TitleComponent title="contents"/>
             <Box>
-                <ContentRegisterModalComponent
-                    handleCloseContentForm={handleCloseContentForm}
-                    openRegisterForm={openRegisterForm}
-                />
+                <ContentModalComponent handleCloseContentForm={handleCloseContentForm} openRegisterForm={openRegisterForm}/>
             </Box>
         </ContentsContext.Provider>
     );

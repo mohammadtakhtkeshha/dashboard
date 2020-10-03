@@ -4,12 +4,17 @@ import {grey,green,red,white,black} from "components/partials/Colors";
 export const StyledStatusButtonBlock = styled.div`
                 border: 1px solid ${grey[1]};
                 height: 50px;
-                padding:3px;
+                padding : 3px;
                 border-radius : 5px;
                 border-box: box-sizing;
                 display : flex;
-                box-sizing:border-box;
+                box-sizing : border-box;
+                width : fit-content!important;
+`
 
+export const StyledInnerColButton = styled.div`
+             display : flex ;
+             justify-content : flex-end;
 `
 
 export const StyledStatusButton = styled.button`
@@ -36,17 +41,21 @@ export const StyledStatusButton = styled.button`
                 }
 `
 
-export const StyledFlexBox = styled.div`
+export const StyledRowBox = styled.div`
             display:flex;
             flex-direction:column;
 `
 
-export const StyledFlexItem = styled.div`
+export const StyledRow = styled.div`
             display:flex;
             justify-content:space-between;
-            &>div{
-                width:49%;
-            }
+            width : 100%;
+            margin-top : 1rem;
+
 `
 
-export default {StyledStatusButton,StyledStatusButtonBlock,StyledFlexBox,StyledFlexItem};
+export const StyledCol = styled.div`
+            width: 49%;
+`
+
+export default {StyledStatusButton,StyledStatusButtonBlock,StyledRowBox,StyledRow,StyledCol};
