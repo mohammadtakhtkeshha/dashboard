@@ -15,7 +15,7 @@ import TableCell from "@material-ui/core/TableCell";
 import {withStyles} from "@material-ui/core/styles";
 
 import contentImg from "assets/media/image/user.jpg";
-import {useStyles} from "assets/js/content/contents";
+import {useStyles} from "assets/js/content/partials/contents";
 import contentService from "core/services/content.service";
 import {warning} from "methods/swal";
 import AppContext from "contexts/AppContext";

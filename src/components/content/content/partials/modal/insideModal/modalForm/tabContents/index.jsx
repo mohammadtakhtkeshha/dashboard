@@ -1,17 +1,20 @@
 import React, {useState} from "react";
+import {withNamespaces} from "react-i18next";
+
 import {Box, Paper} from "@material-ui/core";
 import Tab from "@material-ui/core/Tab";
-import ContentPublishDateComponent from "./tabsContent/ContentPublishDateComponent";
-import SeoFormContentComponent from "./tabsContent/SeoFormContentComponent";
-import CategoryAndDescriptionComponent from "./CategoryAndDescriptionComponent";
-import FileContentTabComponent from "./FileContentTabComponent.jsx";
-import NewContentFooterComponent from "./NewContentFooterComponent";
-import {StyledTabPanels, StyledFooterButton} from "assets/js/content/newContent";
-import {withNamespaces} from "react-i18next";
 import {makeStyles, withStyles} from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
-import {useStyles, TabPanel, a11yProps, styledTabs} from 'assets/js/content/newContent';
-// import TextContentTabComponent from "./textContent/index.jsx";
+
+import ContentPublishDateComponent from "../tabContents/FormContentPublishDateComponent.jsx";
+import SeoFormContentComponent from "../tabContents/FormContentSeoComponent";
+import TitleAndImgComponent from "./FormContentTitleAndImgComponent.jsx";
+import FormContentFileComponent from "./FormContentFileComponent.jsx";
+import NewContentFooterComponent from "./FormContentFooterComponent";
+import {StyledTabPanels} from "assets/js/content/partials/newContent";
+import {useStyles, TabPanel, a11yProps, styledTabs} from 'assets/js/content/partials/newContent';
+import FormDescriptionComponent from "./FormContentDescriptionComponent";
+// import TextContentTabComponent from "./textContent/ModalComponent.jsx";
 
 const StyledTabs = withStyles(styledTabs)(Tabs);
 const styles = makeStyles(useStyles);
@@ -38,7 +41,7 @@ function NewContentTabsComponent({t}) {
                     <TabPanel value={value} index={0} className="tabContent">
                         <Box className='block'>
                             {/*<TextContentTabComponent/>*/}
-                            <CategoryAndDescriptionComponent/>
+                            <TitleAndImgComponent/>
                         </Box>
                     </TabPanel>
                     <TabPanel value={value} index={1} className="tabContent">
@@ -53,17 +56,17 @@ function NewContentTabsComponent({t}) {
                     </TabPanel>
                     <TabPanel value={value} index={3} className="tabContent">
                         <Box className='block'>
-                            <CategoryAndDescriptionComponent/>
+                            <FormDescriptionComponent/>
                         </Box>
                     </TabPanel>
                     <TabPanel value={value} index={4} className="tabContent">
                         <Box className='block'>
-                            <FileContentTabComponent/>
+                            <FormContentFileComponent/>
                         </Box>
                     </TabPanel>
                     <TabPanel value={value} index={5} className="tabContent">
                         <Box className='block'>
-                            <FileContentTabComponent/>
+                            <FormContentFileComponent/>
                         </Box>
                     </TabPanel>
                 </StyledTabPanels>

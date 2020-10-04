@@ -12,7 +12,7 @@ import {makeStyles} from "@material-ui/styles";
 import userService from 'core/services/user.service';
 import {danger, success} from "methods/swal";
 import {useStyles} from 'assets/js/user/NewUser';
-import UploadImg from "components/partials/UploadImg";
+import UploadImg from "components/partials/UploadImgComponent.jsx";
 import AppContext from 'contexts/AppContext';
 import UserContext from "contexts/UserContext";
 import {StyledDirection, StyledInput, StyledRegisterButton} from "assets/js/App";

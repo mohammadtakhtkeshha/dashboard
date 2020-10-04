@@ -41,7 +41,7 @@ i18n
         resources,
         lng: storage.get('lang') || 'fa',
         ns: ['sidebar', 'users','translation'],
-        keySeparator: false, // we do not use keys in form messages.welcome
+        keySeparator: false, // we do not use keys in partials messages.welcome
         interpolation: {
             escapeValue: false // react already safes from xss
         }

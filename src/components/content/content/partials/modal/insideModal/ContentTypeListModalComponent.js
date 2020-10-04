@@ -11,14 +11,14 @@ import Fade from "@material-ui/core/Fade";
 
 import {StyledSvg} from "assets/js/App";
 import {ReactComponent as Exit} from "assets/svg/exit.svg";
-import {ModalBody,StyledCancelButton} from "assets/js/content/partials/contentModal";
-import {styles, listItemStyles} from "assets/js/content/contentType"
+import {ModalBody, StyledCancelButton} from "assets/js/content/partials/contentModal";
+import {styles, listItemStyles} from "assets/js/content/partials/contentType"
 import ContentsContext from "contexts/ContentsContext";
 
 const StyledListItem = withStyles(listItemStyles)(ListItem);
 const StyledList = withStyles(styles)(List);
 
-function ContentListOfContentType({setContentType, t, openRegisterForm, handleCloseRegisterForm}) {
+function ContentTypeListModalComponent({setContentType, t, openRegisterForm, handleCloseRegisterForm}) {
     const lang = i18next.language;
     const contentsContext = useContext(ContentsContext);
     const [contentTypeNameList, setContentTypeNameList] = useState([]);
@@ -66,4 +66,4 @@ function ContentListOfContentType({setContentType, t, openRegisterForm, handleCl
     );
 }
 
-export default withNamespaces('contents')(ContentListOfContentType);
+export default withNamespaces('contents')(ContentTypeListModalComponent);

@@ -9,7 +9,7 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import TextField from "@material-ui/core/TextField";
 
 import ContentsContext from "contexts/ContentsContext";
-import {StyledFilterBlock} from "assets/js/content/contentFilter";
+import {StyledFilterBlock} from "assets/js/content/partials/contentFilter";
 import {StyledRegisterButton, StyledInput} from "assets/js/App";
 
 function ContentsFilterComponent({t}) {

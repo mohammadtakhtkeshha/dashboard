@@ -4,7 +4,7 @@ import {withNamespaces} from 'react-i18next';
 import {Box} from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 
-import ContentModalComponent from "./partials/modal/ContentModalComponent";
+import Modal from "./partials/modal/ModalComponent.jsx";
 import ContentSearchExpansion from "./partials/ContentsFilterComponent";
 import TitleComponent from "components/partials/TitleComponent";
 import contentService from "core/services/content.service";
@@ -123,7 +123,7 @@ function ContentsComponent({t}) {
             </StyledPaper>
             <TitleComponent title="contents"/>
             <Box>
-                <ContentModalComponent handleCloseContentForm={handleCloseContentForm} openRegisterForm={openRegisterForm}/>
+                <Modal handleCloseContentForm={handleCloseContentForm} openRegisterForm={openRegisterForm}/>
             </Box>
         </ContentsContext.Provider>
     );

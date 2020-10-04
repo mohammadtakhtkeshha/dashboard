@@ -10,7 +10,7 @@ import NewContentContext from "contexts/NewContentContext";
 import {globalCss} from "assets/js/globalCss";
 import i18next from "i18next";
 import {withNamespaces} from "react-i18next";
-// import {validateDate} from "../../../new/partials/textContent";
+// import {validateDate} from "../../../new/insideModal/textContent";
 
 import {
     StyledRow,

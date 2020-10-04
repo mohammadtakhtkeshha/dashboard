@@ -1,17 +1,17 @@
 import React, {useContext, useEffect, useState} from "react";
 import {withNamespaces} from "react-i18next";
+import i18next from "i18next";
 
 import Fade from "@material-ui/core/Fade";
 
 import contentService from "core/services/content.service";
 import NewContentContext from "contexts/NewContentContext";
-import {ModalBody,StyledCancelButton,StyledFooterRegisterContent} from "assets/js/content/partials/contentModal";
+import {ModalBody, StyledCancelButton} from "assets/js/content/partials/contentModal";
 import {StyledDirection, StyledSvg} from "assets/js/App";
 import AppContext from "contexts/AppContext";
 import ContentsContext from "contexts/ContentsContext";
 import {ReactComponent as Exit} from "assets/svg/exit.svg";
-import i18next from "i18next";
-import NewContentTabsComponent from "./partials/NewContentTabsComponent";
+import NewContentTabsComponent from "./tabContents/index.jsx";
 
 
 function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {

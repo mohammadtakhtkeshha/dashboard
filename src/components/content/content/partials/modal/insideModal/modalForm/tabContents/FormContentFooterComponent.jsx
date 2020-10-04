@@ -1,10 +1,10 @@
 import React from "react";
 import {withNamespaces} from "react-i18next";
-import {StyledFooterButton} from "assets/js/content/newContent";
+import {StyledFooterButton} from "assets/js/content/partials/newContent";
 import {StyledFooterRegisterContent} from "assets/js/content/partials/contentModal";
 import i18next from "i18next";
 
-function NewContentFooterComponent({t}) {
+function FormContentFooterComponent({t}) {
     const lang = i18next.language;
     const register = () => {
 
@@ -24,4 +24,4 @@ function NewContentFooterComponent({t}) {
         </StyledFooterRegisterContent>
     </>);
 }
-export default withNamespaces('translation')(NewContentFooterComponent);
+export default withNamespaces('translation')(FormContentFooterComponent);

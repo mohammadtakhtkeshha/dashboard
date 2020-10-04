@@ -19,7 +19,10 @@ const twitter = '#55acee';
 const whatsapp = '#43d854';
 const dribbble = '#ea4c89';
 const youtube = '#cd201f';
-const black = ['#212529','#32325D'];
+const black = ['#212529',//[0]
+    '#32325D',//[1]
+    '#32325d'//[2]upload img color
+];
 const white ="#fff";
 // ------- blue -------
 const darkBlue = '#0056b3';
@@ -38,12 +41,16 @@ const green = ['#3ecd90','#5acb9b','#34aa78']; //{0:default,1:hover,2:focus}
 
 const blue= ['#2e91b0','#4696af','#25738b','#303f9f','#008CBA']; //{0:default,1:hover,2:focus}
 
-const grey = ['#ced4da',//input border
-    '#BBC3CE',//most borders for example content register modal
-    'rgba(0,0,0,.1)',
-    '#dee2e6','#e9ecef',
-    'rgba(0, 0, 0, 0.04)',
-    '#ebebeb','#D6DBE1'];
+const grey = ['#ced4da',//[0]input border
+    '#BBC3CE',//[1]most borders for example content register modal
+    'rgba(0,0,0,.1)',//[2]
+    '#dee2e6',//[3]
+    '#e9ecef',//[4]
+    'rgba(0, 0, 0, 0.04)',//[5]
+    '#ebebeb',//[6]
+    '#D6DBE1',//[7]
+    '#6B7C93'//[8]color for upload img svg
+];
 
 export {
     primary, primaryBright, secondary, secondaryBright, success, successBright, danger,dangerBright,

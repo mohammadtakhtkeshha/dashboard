@@ -38,10 +38,10 @@ export function uploadMultiFile(e) {
     return axios.post(url, e, avcoAuthcdHeader(e));
 }
 
-export function getContents() {
+export function getContents(handleError) {
     let url = contentUrl.getContentsUrl
     // return axios.get(url, authHeader);
-    return Method({method:'get',url:url,headers: authHeader});
+    return Method({method:'get',url:url,headers: authHeader,handleError:handleError});
 }
 
 export function deleteContent(id) {

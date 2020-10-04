@@ -5,7 +5,7 @@ export const uploadStyles = {
     uploadFile: {
         position: 'relative',
         minHeight: '120px',
-        border: `1px solid ${colors.green[0]}`,
+        border: `1px dashed ${colors.green[0]}`,
         '& input': {
             height: '100%',
             cursor: 'pointer',

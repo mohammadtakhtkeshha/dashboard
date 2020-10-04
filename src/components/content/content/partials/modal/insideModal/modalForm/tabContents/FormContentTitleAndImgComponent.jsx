@@ -1,7 +1,7 @@
 // import React, {useContext, useEffect, useState} from "react";
 // import {Box, FormLabel, Radio, RadioGroup, Typography} from "@material-ui/core";
 // import clsx from "clsx";
-// import DatePickerrComponent from "components/partials/DatePickerrComponent";
+// import DatePickerrComponent from "components/insideModal/DatePickerrComponent";
 // import {StyledBoxMt1, StyledInput, StyledTypographyError} from "assets/js/App";
 // import Autocomplete from "@material-ui/lab/Autocomplete";
 // import TextField from "@material-ui/core/TextField";
@@ -405,30 +405,41 @@
 //
 // export default withNamespaces('translation')(CategoryAndDescriptionComponent);
 
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
 import clsx from "clsx";
 
 import {Box} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+import {Grid, Paper} from '@material-ui/core';
 
 import {globalCss} from "assets/js/globalCss";
 import EditorComponent from "components/partials/EditorComponent";
 import NewContentContext from "contexts/NewContentContext";
 import {StyledInput, StyledBoxMt1} from "assets/js/App";
 import {StyledTypographyError} from "assets/js/App";
-import {StyledRowBox, StyledCol, StyledRow} from "../../../../../../assets/js/content/contents";
+import UploadImg from "../../../../../../../partials/UploadImgComponent.jsx";
 // import {validateDate} from "./index";
+import {
+    removeMultiImgMethod, uploadMultiFileMethod, uploadMultiImgMethod,
+    uploadSingImgMethod, uploadVideoMethod, uploadVoiceMethod, removeMultiFileMethod,
+    removeMultiVideoMethod, removeMultiVoiceMethod, removedSingleImgMethod
+} from "./FormContentFileComponent";
+
+import AppContext from "../../../../../../../../contexts/AppContext";
+
 
 const gClass = makeStyles(globalCss);
 
 function TextContentTabComponent({t}) {
     const lang = i18next.language;
     const gClasses = gClass();
+    const appContext = useContext(AppContext);
     const newContentContext = useContext(NewContentContext);
+    const [singleImgToSendFid, setSingleImgToSendFid] = useState('');
 
-    let handleChange = (e, field) => {
+    const handleChange = (e, field) => {
         const currentName = e.currentTarget.value;
         if (field === "title") {
             if (currentName !== "") {
@@ -442,43 +453,54 @@ function TextContentTabComponent({t}) {
         });
     };
 
-    const clickEditorDescription = (e) => {
-        newContentContext.setContent(prevState => {
-            return {
-                ...prevState, body: e
-            }
-        });
-    };
+    const removedSingleImg = (id) => {
+        removedSingleImgMethod(id, newContentContext);
+    }
 
-    return (<StyledRowBox>
-        <StyledRow>
-            <StyledCol>
-                <StyledInput
-                    value={newContentContext.content.title}
-                    type="text"
-                    placeholder={t('translation:title')}
-                    onChange={e => handleChange(e, "title")}
-                />
-                {newContentContext.errors?.title ?
-                    <StyledTypographyError
-                        align={lang === 'en' ? 'left' : 'right'}>{newContentContext.errors.title}</StyledTypographyError> : ''}
-            </StyledCol>
-            <StyledCol>
-                <StyledInput
-                    value={newContentContext.content.field_rotitr || ''}
-                    type="text"
-                    placeholder={t('contents:rotitr')}
-                    onChange={e => handleChange(e, "field_rotitr")}/>
-            </StyledCol>
-        </StyledRow>
-        <StyledRow>
-            <Box className="editor">
-                <EditorComponent title={t('translation:description')} onClick={(e) => {
-                    clickEditorDescription(e)
-                }}/>
-            </Box>
-        </StyledRow>
-    </StyledRowBox>);
+    const uploadSingImg = (e) => {
+        uploadSingImgMethod(e, newContentContext, setSingleImgToSendFid, appContext);
+    }
+
+    return (
+        <Grid container spacing={3}>
+            <Grid item xs={4}>
+                <Paper>
+                    <StyledInput
+                        value={newContentContext.content.title}
+                        type="text"
+                        placeholder={t('translation:title')}
+                        onChange={e => handleChange(e, "title")}
+                    />
+                    {newContentContext.errors?.title ?
+                        <StyledTypographyError
+                            align={lang === 'en' ? 'left' : 'right'}>{newContentContext.errors.title}</StyledTypographyError> : ''}
+                </Paper>
+            </Grid>
+            <Grid item xs={4}>
+                <Paper>
+                    <StyledInput
+                        value={newContentContext.content.field_rotitr || ''}
+                        type="text"
+                        placeholder={t('contents:rotitr')}
+                        onChange={e => handleChange(e, "field_rotitr")}/>
+                </Paper>
+            </Grid>
+            <Grid item xs={4}>
+                <Paper>
+                    <StyledInput
+                        placeholder={t('contents:sotitr')}
+                        value={newContentContext.content.field_sotitr || ''}
+                        type="text"
+                        label={t('contents:sotitr')}
+                        onChange={e => handleChange(e, "field_sotitr")}/>
+                </Paper>
+            </Grid>
+            <Grid item xs={12}>
+                <UploadImg multiple={false} title={t('translation:choosePic')} getFile={uploadSingImg}
+                           removedFileId={removedSingleImg} sendIdAfterUpload={singleImgToSendFid}/>
+            </Grid>
+        </Grid>
+    );
 }
 
 export default withNamespaces('contents,translation')(TextContentTabComponent);

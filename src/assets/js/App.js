@@ -258,3 +258,8 @@ export const MarginTop1 = styled.div`
        margin-top : 1rem;
 `
 
+export const StyledValidError = styled.p`
+            color:red;
+            text-align : ${props=>props.lang === 'en' ? 'left':'right'}
+`
+

@@ -2,19 +2,18 @@ import React, {useContext, useEffect, useState} from "react";
 import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
 
-import {Box, Typography} from "@material-ui/core";
+import {Typography} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import {makeStyles} from "@material-ui/core/styles";
 
 import {globalCss} from "assets/js/globalCss";
 import NewContentContext from "contexts/NewContentContext";
 import {StyledInput, MarginTop1} from "assets/js/App";
-import clsx from "clsx";
-import {StyledRowBox, StyledRow, StyledCol} from "../../../../../../../assets/js/content/contents";
+import {StyledRowBox, StyledRow, StyledCol} from "assets/js/content/partials/contents";
 
 const gClass = makeStyles(globalCss);
 
-function SeoFormContentComponent({t}) {
+function FormContentSeoComponent({t}) {
     const lang = i18next.language;
     const gClasses = gClass();
     const newContentContext = useContext(NewContentContext);
@@ -66,7 +65,6 @@ function SeoFormContentComponent({t}) {
         <StyledRow>
             <StyledCol>
                 <MarginTop1>
-
                     <StyledInput type="text"
                                  placeholder={t('translation:title')}
                                  value={title}
@@ -133,4 +131,4 @@ function SeoFormContentComponent({t}) {
     </StyledRowBox>);
 }
 
-export default withNamespaces('contents,translation')(SeoFormContentComponent);
+export default withNamespaces('contents,translation')(FormContentSeoComponent);

@@ -6,10 +6,10 @@ import {makeStyles} from "@material-ui/styles";
 import {withStyles} from "@material-ui/core/styles";
 import DialogContent from '@material-ui/core/DialogContent';
 
-import ContentListOfContentType from "./partials/ContentListOfContentType";
+import ContentListOfContentType from "./insideModal/ContentTypeListModalComponent";
 import {useStyles} from "assets/js/content/partials/contentModal";
 // import NewContent from "./../new/index";
-import NewContent from "../new";
+import NewContent from "./insideModal/modalForm";
 
 const useStyle = makeStyles(useStyles);
 
@@ -20,11 +20,11 @@ const dialogStyles = (theme) => ({
         justifyContent:'center',
         width:'fit-content',
     }
-})
+});
 
 const DialogContentWithStyles = withStyles(dialogStyles)(DialogContent);
 
-export default function ContentModalComponent({openRegisterForm, handleCloseContentForm}) {
+export default function ModalComponent({openRegisterForm, handleCloseContentForm}) {
     const classes = useStyle();
     const [contentType, setContentType] = useState('');
 
@@ -45,7 +45,8 @@ export default function ContentModalComponent({openRegisterForm, handleCloseCont
                     timeout: 500,
                 }}>
                 <DialogContentWithStyles>
-                    {contentType === '' ? <ContentListOfContentType handleCloseRegisterForm={handleCloseRegisterForm}
+                    {contentType === '' ?
+                        <ContentListOfContentType handleCloseRegisterForm={handleCloseRegisterForm}
                                                                     openRegisterForm={openRegisterForm}
                                                                     setContentType={setContentType}/>
                         : <NewContent contentType={contentType} openRegisterForm={openRegisterForm}

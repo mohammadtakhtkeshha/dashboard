@@ -2,21 +2,21 @@ import React, {useContext, useEffect, useState} from "react";
 import AppContext from "contexts/AppContext";
 import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
-import clsx from "clsx";
 
-import {Box, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddIcon from "@material-ui/icons/Add";
 
 import uploadStyles from "assets/js/partials/upload";
 import {globalCss} from 'assets/js/globalCss';
-
+import {ReactComponent as UploadImgSvg} from "assets/svg/uploadImgSvg.svg";
+import {StyledValidError} from "assets/js/App";
+import {InputBlock, StyledTypography} from 'assets/js/partials/uploadImg'
 
 const styles = makeStyles(uploadStyles);
 const gClass = makeStyles(globalCss);
 
-function UploadImg({t, multiple, title, getFile, imgs, removedFileId, sendIdAfterUpload}) {
+function UploadImgComponent({t, multiple, title, getFile, imgs, removedFileId, sendIdAfterUpload}) {
     const classes = styles();
     const gClasses = gClass();
     const lang = i18next.language;
@@ -26,18 +26,7 @@ function UploadImg({t, multiple, title, getFile, imgs, removedFileId, sendIdAfte
     const [validation, setValidation] = useState('');
     const [currentId, setCurrentId] = useState('');
 
-    useEffect(() => {
-        if (imgs && imgs[0] !== undefined && imgs.length > 0) {//for edit user
-            let urls = [];
-            for (let img of imgs) {
-                urls.push(img);
-            }
-            setImagePreviewUrl([...urls]);
-        }
-
-    }, [imgs]);
-
-    let uploadFile = (e) => {
+    const uploadFile = (e) => {
         appContext.setLoading(true);
         if (e.currentTarget.files[0] !== undefined) {
             let extention = (e.currentTarget.files[0].name).split('.').pop();
@@ -65,6 +54,16 @@ function UploadImg({t, multiple, title, getFile, imgs, removedFileId, sendIdAfte
         }
     }
 
+    const handleRemoveImg = (e, src, file) => {
+        let index = imagePreviewUrl.indexOf(src);
+        let newImgPreview = imagePreviewUrl.filter(item => item !== src);
+        let deletedFile = files.splice(index, 1);
+        let newFiles = files.filter(item => item !== deletedFile);
+        setImagePreviewUrl(newImgPreview);
+        setFiles(newFiles);
+        removedFileId(e.currentTarget.id);
+    }
+
     useEffect(() => {
         if (sendIdAfterUpload !== undefined && sendIdAfterUpload !== "") {
             appContext.setLoading(false);
@@ -85,23 +84,23 @@ function UploadImg({t, multiple, title, getFile, imgs, removedFileId, sendIdAfte
         }
     }, [sendIdAfterUpload]);
 
-    let handleRemoveImg = (e, src, file) => {
-        let index = imagePreviewUrl.indexOf(src);
-        let newImgPreview = imagePreviewUrl.filter(item => item !== src);
-        let deletedFile = files.splice(index, 1);
-        let newFiles = files.filter(item => item !== deletedFile);
-        setImagePreviewUrl(newImgPreview);
-        setFiles(newFiles);
-        removedFileId(e.currentTarget.id);
-    }
+    useEffect(() => {
+        if (imgs && imgs[0] !== undefined && imgs.length > 0) {//for edit user
+            let urls = [];
+            for (let img of imgs) {
+                urls.push(img);
+            }
+            setImagePreviewUrl([...urls]);
+        }
+
+    }, [imgs]);
 
     let $imagePreview = [];
 
     if (imagePreviewUrl.length > 0) {
         for (let i = 0; i < (imagePreviewUrl.length); i++) {
             $imagePreview.push(<div id="fileBlock">
-                <span className="cancel" id={currentId[i]}
-                      onClick={e => handleRemoveImg(e, imagePreviewUrl[i], files[i])}>
+                <span className="cancel" id={currentId[i]} onClick={e => handleRemoveImg(e, imagePreviewUrl[i], files[i])}>
                     <CancelIcon/>
                 </span>
                 <img src={imagePreviewUrl[i]} className="item"/>
@@ -111,23 +110,25 @@ function UploadImg({t, multiple, title, getFile, imgs, removedFileId, sendIdAfte
         $imagePreview.push(<div className="previewText">{title}</div>);
     }
 
-    return (
-        <Box>
-            <Box className={classes.uploadFile}>
+    return (<>
+            <InputBlock>
                 <input type='file' className="input" multiple={multiple} onChange={e => uploadFile(e)}/>
+                <UploadImgSvg/>
                 <div className='file'>
                     <div className='blockPart'>
                         {$imagePreview.map((item, index) => (<span key={index}>{item}</span>))}
-                        {$imagePreview[0].props.className === 'previewText' ? '' : <div className="addIcon">
-                            <AddIcon/>
-                        </div>}
+                        {$imagePreview[0].props.className === 'previewText' ? '' :
+                            <div className="addIcon">
+                                <AddIcon/>
+                            </div>}
                     </div>
                 </div>
-            </Box>
-            <Typography
-                className={clsx(gClasses.validation, lang === 'en' ? gClasses.textLeft : gClasses.textRight)}>{validation}</Typography>
-        </Box>
+            </InputBlock>
+            <StyledValidError lang={lang}>
+                {validation}
+            </StyledValidError>
+        </>
     );
 }
 
-export default withNamespaces('users,translation')(UploadImg);
+export default withNamespaces('users,translation')(UploadImgComponent);

@@ -6,7 +6,7 @@ import {withNamespaces} from "react-i18next";
 import {Box, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 
-import UploadImg from "components/partials/UploadImg";
+import UploadImg from "components/partials/UploadImgComponent.jsx";
 import UploadFile from "components/partials/UploadFile";
 import UploadVideo from "components/partials/UploadVideo";
 import UploadVoice from "components/partials/UploadVoice";
@@ -18,11 +18,11 @@ import {
     removeMultiImgMethod, uploadMultiFileMethod, uploadMultiImgMethod,
     uploadSingImgMethod, uploadVideoMethod, uploadVoiceMethod, removeMultiFileMethod,
     removeMultiVideoMethod, removeMultiVoiceMethod, removedSingleImgMethod
-} from "./FileContentTabComponent";
+} from "./FormContentFileComponent";
 
 const gClass = makeStyles(globalCss);
 
-function FileContentTabComponent({t}) {
+function FormContentFileComponent({t}) {
     let lang = i18next.language;
     const appContext = useContext(AppContext);
     const newContentContext = useContext(NewContentContext);
@@ -107,4 +107,4 @@ function FileContentTabComponent({t}) {
     </>);
 }
 
-export default withNamespaces('contents,translation')(FileContentTabComponent);
+export default withNamespaces('contents,translation')(FormContentFileComponent);

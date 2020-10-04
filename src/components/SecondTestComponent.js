@@ -19,12 +19,12 @@
 // import {globalCss} from "assets/js/globalCss";
 // import tagService from "core/services/tag.service";
 // import contentService from "core/services/content.service";
-// import EditorComponent from "components/partials/EditorComponent";
-// import DatePickerrComponent from "components/partials/DatePickerrComponent";
-// import Input from "components/partials/inputComponent";
+// import EditorComponent from "components/insideModal/EditorComponent";
+// import DatePickerrComponent from "components/insideModal/DatePickerrComponent";
+// import Input from "components/insideModal/inputComponent";
 // import {useStyles, bootstrapInput} from 'assets/js/content/new';
 // import NewContentContext from "contexts/NewContentContext";
-// import SeoFormContentComponent from "./partials/SeoFormContentComponent";
+// import SeoFormContentComponent from "./insideModal/SeoFormContentComponent";
 // import Chip from '@material-ui/core/Chip';
 //
 // const gClass = makeStyles(globalCss);
