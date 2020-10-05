@@ -6,6 +6,7 @@ export const useStyles = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        zIndex:'50!important',
         '& .MuiBackdrop-root': {
             backgroundColor: 'white!important',
         },

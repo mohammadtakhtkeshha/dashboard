@@ -20,14 +20,13 @@ const StyledTabs = withStyles(styledTabs)(Tabs);
 const styles = makeStyles(useStyles);
 
 function NewContentTabsComponent({t}) {
-    const classes = styles();
     const [value, setValue] = useState(0);
     const handleTabChange = (event, newValue) => {
         setValue(newValue);
     }
 
     return(<Paper>
-            <Box className="tabs">
+            <Box className="negar">
                 <StyledTabs className='tabButtons' value={value} onChange={handleTabChange}
                             aria-label="simple tabs example">
                     <Tab label={t('contents:title&picture')} {...a11yProps(0)} />

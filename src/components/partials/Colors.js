@@ -21,7 +21,8 @@ const dribbble = '#ea4c89';
 const youtube = '#cd201f';
 const black = ['#212529',//[0]
     '#32325D',//[1]
-    '#32325d'//[2]upload img color
+    '#32325d',//[2]upload img color
+    '#242527'//[3]background color for hover img upload
 ];
 const white ="#fff";
 // ------- blue -------
@@ -49,7 +50,8 @@ const grey = ['#ced4da',//[0]input border
     'rgba(0, 0, 0, 0.04)',//[5]
     '#ebebeb',//[6]
     '#D6DBE1',//[7]
-    '#6B7C93'//[8]color for upload img svg
+    '#6B7C93',//[8]color for upload img border hover
+    '#F1F3F5'//[9]background of upload here
 ];
 
 export {

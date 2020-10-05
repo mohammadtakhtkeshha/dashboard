@@ -1,23 +1,23 @@
-export const styles = (theme) => ({
+import {black} from "../../../../components/partials/Colors";
+
+export const listStyles = (theme) => ({
     root: {
         width: '100%',
         backgroundColor: theme.palette.background.paper,
-        '&>div': {
-            '&>div': {
-                border:  props =>`1px solid ${props.color}`,
-                textAlign: props => `${props.lang === "en" ? 'left':'right'}!important`
-            }
-
-        },
-
+        '& svg':{
+            width:'30px',
+            height:'30px',
+            padding : '0 25px',
+        }
     }
 });
 
 export const listItemStyles = (theme) => ({
     root: {
-        padding: '24px 43px 24px 22px',
+        padding: '24px 0 24px 22px',
         borderBottom: '1px solid #BBC3CE',
         cursor: 'pointer',
+        color:black[0],
         '&:last-child':{
             borderBottom:'0!important'
         },
@@ -34,4 +34,10 @@ export const listItemStyles = (theme) => ({
     },
 });
 
-export default {styles,listItemStyles};
+export const styledListItemText = () => ({
+    root:{
+        textAlign: props => props.lang === 'en' ? 'left':'right'
+    }
+});
+
+export default {listStyles,listItemStyles,styledListItemText};

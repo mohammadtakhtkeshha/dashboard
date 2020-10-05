@@ -247,6 +247,9 @@ export const StyledFooterButton = styled.button`
                      color:${blue[0]};
                   }
                 }
+                &:focus{
+                    outline:0!important;
+                }
 `
 
 export default {useStyles, bootstrapInput, useTabStyless,TabPanel,a11yProps,styledTabs,
