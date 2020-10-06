@@ -33,7 +33,6 @@ function NewTermComponent({t, category}) {
         });
     }
 
-    console.log(term);
 
     useEffect(() => {
         if(termsContext.id !== ""){

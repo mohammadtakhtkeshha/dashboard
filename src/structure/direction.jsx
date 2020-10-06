@@ -6,6 +6,8 @@ import * as components from "../assets/js/AppImports";
 import ProtectedRoute from "../shared/routes/protected-routes";
 import {withNamespaces} from "react-i18next";
 
+
+
 function Direction({t}) {
     return (
         <Box display="flex" flexDirection="row" dir={t('translation:direction')}>

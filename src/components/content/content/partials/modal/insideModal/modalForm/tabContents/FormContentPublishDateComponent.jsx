@@ -32,7 +32,7 @@ function CategoryAndDescriptionComponent({t}) {
     let antiAlign = (lang === 'en' ? 'right' : 'left');
     const newContentContext = useContext(NewContentContext);
 
-    const passedDate = (field, date) => {
+    const passedDate = (field, date) => {debugger
         // validateDate(field, date, newContentContext, t);
     }
 

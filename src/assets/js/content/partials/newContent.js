@@ -208,6 +208,10 @@ export const styledTabs = ()=>({
             height: '100%'
         },'& .Mui-selected':{
             color: `${green[1]}`
+        },'& .MuiTabs-indicator':{
+            backgroundColor: `${green[1]}`
+        },'&>div>div':{
+            justifyContent:'center',
         }
     }
 })

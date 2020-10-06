@@ -26,36 +26,6 @@ function UploadImgComponent({t, multiple, title, getFile, imgs, removedFileId, s
          removeImgMethod(e,src,imagePreviewUrl,files,setImagePreviewUrl,setFiles,removedFileId);
     }
 
-    useEffect(() => {
-        if (sendIdAfterUpload !== undefined && sendIdAfterUpload !== "") {
-            appContext.setLoading(false);
-            setCurrentId(prevState => {
-                return [...prevState, sendIdAfterUpload.id]
-            });
-            let e = sendIdAfterUpload.file;
-            let reader = new FileReader();
-            reader.onload = () => {
-                setFiles(prevState => {
-                    return [...prevState, e];
-                });
-                setImagePreviewUrl(prevState => {
-                    return [...prevState, reader.result]
-                });
-            }
-            reader.readAsDataURL(e);
-        }
-    }, [sendIdAfterUpload]);
-
-    useEffect(() => {
-        if (imgs && imgs[0] !== undefined && imgs.length > 0) {//for edit user
-            let urls = [];
-            for (let img of imgs) {
-                urls.push(img);
-            }
-            setImagePreviewUrl([...urls]);
-        }
-    }, [imgs]);
-
     let $imagePreview = [];
 
     if (imagePreviewUrl.length > 0) {
@@ -85,6 +55,36 @@ function UploadImgComponent({t, multiple, title, getFile, imgs, removedFileId, s
             <button>{t('translation:choose')}</button>
         </StyledUploadHereBlock>);
     }
+
+    useEffect(() => {
+        if (sendIdAfterUpload !== undefined && sendIdAfterUpload !== "") {
+            appContext.setLoading(false);
+            setCurrentId(prevState => {
+                return [...prevState, sendIdAfterUpload.id]
+            });
+            let e = sendIdAfterUpload.file;
+            let reader = new FileReader();
+            reader.onload = () => {
+                setFiles(prevState => {
+                    return [...prevState, e];
+                });
+                setImagePreviewUrl(prevState => {
+                    return [...prevState, reader.result]
+                });
+            }
+            reader.readAsDataURL(e);
+        }
+    }, [sendIdAfterUpload]);
+
+    useEffect(() => {
+        if (imgs && imgs[0] !== undefined && imgs.length > 0) {//for edit user
+            let urls = [];
+            for (let img of imgs) {
+                urls.push(img);
+            }
+            setImagePreviewUrl([...urls]);
+        }
+    }, [imgs]);
 
     return (<>
             <InputBlock>

@@ -31,7 +31,6 @@ export default function CommentsChartComponent() {
             getCustomComment([...sortCommentsByDate]);
 
         }).catch((error) => {
-            console.log(error);
         });
     };
     useEffect(() => {

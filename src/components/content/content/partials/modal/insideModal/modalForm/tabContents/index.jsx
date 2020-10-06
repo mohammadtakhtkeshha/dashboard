@@ -26,7 +26,7 @@ function NewContentTabsComponent({t}) {
     }
 
     return(<Paper>
-            <Box className="negar">
+            <Box>
                 <StyledTabs className='tabButtons' value={value} onChange={handleTabChange}
                             aria-label="simple tabs example">
                     <Tab label={t('contents:title&picture')} {...a11yProps(0)} />

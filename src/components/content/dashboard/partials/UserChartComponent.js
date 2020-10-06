@@ -24,7 +24,6 @@ function UserChartComponent({t}) {
             let sortUserByDate= response.data.sort((a,b)=>(a.created>b.created)?1:-1);
             setDatesAndNumberOfUsers(sortUserByDate);
         }).catch((error) => {
-            console.log(error);
         });
     };
     useEffect(() => {

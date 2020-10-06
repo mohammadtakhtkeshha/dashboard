@@ -52,7 +52,6 @@ export default function ContentDashboardComponent() {
           let contents=response.data;
             setContents([...contents]);
       }).catch((error)=>{
-            console.log(error);
       });
     };
 

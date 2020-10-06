@@ -43,7 +43,6 @@ export default function CommentDashboardComponent() {
             let comments=response.data;
             setComments([...comments]);
         }).catch((error)=>{
-            console.log(error);
         });
     };
     return (

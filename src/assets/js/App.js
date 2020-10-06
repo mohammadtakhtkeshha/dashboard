@@ -251,7 +251,7 @@ export const StyledSvg = styled.div`
 `
 
 export const StyledDirection = styled.div`
-               direction:${props=>props.lang === 'en' ? 'ltr' : 'rtl'}
+               direction:${props=>props.lang === 'en' ? 'ltr' : 'rtl'};
 `
 
 export const MarginTop1 = styled.div`

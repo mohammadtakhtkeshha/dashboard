@@ -22,7 +22,7 @@
 // import InputBase from "@material-ui/core/InputBase";
 // import tagService from "core/services/tag.service";
 // import contentService from "core/services/content.service";
-// // import {validateDate} from "./textContent/index";
+// import {validateDate} from "./textContent/index";
 // const gClass = makeStyles(globalCss);
 //
 // const styles = makeStyles(useStyles);
@@ -408,33 +408,21 @@
 import React, {useContext, useState} from "react";
 import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
-import clsx from "clsx";
 
-import {Box} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
 import {Grid, Paper} from '@material-ui/core';
 
-import {globalCss} from "assets/js/globalCss";
-import EditorComponent from "components/partials/EditorComponent";
 import NewContentContext from "contexts/NewContentContext";
-import {StyledInput, StyledBoxMt1} from "assets/js/App";
+import {StyledInput} from "assets/js/App";
 import {StyledTypographyError} from "assets/js/App";
-import UploadImg from "../../../../../../../partials/UploadImgComponent.jsx";
-// import {validateDate} from "./index";
-import {
-    removeMultiImgMethod, uploadMultiFileMethod, uploadMultiImgMethod,
+import UploadImg from "components/partials/UploadImgComponent.jsx";
+import {removeMultiImgMethod, uploadMultiFileMethod, uploadMultiImgMethod,
     uploadSingImgMethod, uploadVideoMethod, uploadVoiceMethod, removeMultiFileMethod,
     removeMultiVideoMethod, removeMultiVoiceMethod, removedSingleImgMethod
 } from "./FormContentFileComponent";
-
-import AppContext from "../../../../../../../../contexts/AppContext";
-
-
-const gClass = makeStyles(globalCss);
+import AppContext from "contexts/AppContext";
 
 function TextContentTabComponent({t}) {
     const lang = i18next.language;
-    const gClasses = gClass();
     const appContext = useContext(AppContext);
     const newContentContext = useContext(NewContentContext);
     const [singleImgToSendFid, setSingleImgToSendFid] = useState('');
@@ -451,7 +439,7 @@ function TextContentTabComponent({t}) {
                 ...prevState, [field]: currentName
             }
         });
-    };
+    }
 
     const removedSingleImg = (id) => {
         removedSingleImgMethod(id, newContentContext);

@@ -44,7 +44,7 @@ function ContentTypeListModalComponent({setContentType, t, openRegisterForm, han
     ]);
 
     const handleToggle = (e, value) => {
-        setContentType(value.machinName);
+        setContentType(value.machin_name);
     }
 
     // useEffect(() => {
@@ -74,7 +74,7 @@ function ContentTypeListModalComponent({setContentType, t, openRegisterForm, han
                             {contentTypeNameList.map((value) => {
                                 const labelId = `checkbox-list-label-${value}`;
                                 return (
-                                    <StyledListItem key={value.name} role={undefined} dense button
+                                    <StyledListItem key={value.machin_name} role={undefined} dense button
                                                     onClick={(e) => handleToggle(e, value)}>
                                         {value.icon}
                                         <StyledListItemText lang={lang} id={labelId}

@@ -3,6 +3,15 @@ import storage from "../../libraries/local-storage";
 import authUrl from './../../utils/urls/auth.urls';
 import {authHeader} from 'utils/headers';
 
+export function getLoginUser(access_token) {
+    let config = {
+        headers: {
+            Authorization: `Bearer ${access_token}`
+        }
+    }
+    return axios.get('http://dash.webrbp.ir/oauth/debug', config);
+}
+
 export async function login(user) {
     let loginUrl = authUrl.loginUrl;
     let accessTokenUrl = authUrl.accessTokenUrl;
@@ -23,7 +32,7 @@ export async function login(user) {
             Authorization: `Bearer ${access_token}`
         }
     }
-    const loginResult = await axios.get('http://dash.webrbp.ir/oauth/debug', config);
+    const loginResult= await axios.get('http://dash.webrbp.ir/oauth/debug', config);
     storage.store('user', JSON.stringify(loginResult.data));
     return result;
 }
@@ -45,4 +54,4 @@ export async function logout(history) {
 }
 
 
-export default {login, logout};
+export default {login, logout,getLoginUser};

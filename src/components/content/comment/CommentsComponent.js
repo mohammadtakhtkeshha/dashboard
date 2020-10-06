@@ -108,7 +108,7 @@ function CommentDashboardComponent({t}) {
             setComments([...comments]);
             setTotalPage(response.data.pager.total_pages);
         }).catch((error) => {
-            console.log(error);
+            // console.log(error);
         });
     };
     let paginate = (e, value) => {
@@ -138,7 +138,7 @@ function CommentDashboardComponent({t}) {
                 setTotalPage(response.data.pager.total_pages);
             }
         ).catch((error) => {
-            console.log(error);
+            // console.log(error);
         });
     };
 

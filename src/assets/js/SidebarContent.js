@@ -15,6 +15,7 @@ export const StyledSidebar = styled.div`
         flex-direction: row;
         height: calc(100% - 75px);
         text-align: center;
+        overflow-y:scroll;
         & > ul{
             width:100%;
             margin: 0 auto;

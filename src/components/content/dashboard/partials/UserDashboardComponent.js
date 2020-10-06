@@ -51,7 +51,6 @@ function UserDashboardComponent({t}) {
             let users=response.data;
             setUsers([...users]);
         }).catch((error)=>{
-            console.log(error);
         });
     };
 

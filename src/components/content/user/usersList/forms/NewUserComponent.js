@@ -53,7 +53,6 @@ function NewUserComponent({t, id, userNameList, userMailList}) {
             setKeyRoles(keyRoles);
             setValueRoles(valueRoles);
         }).catch((error) => {
-            console.log(error);
         });
     }
 

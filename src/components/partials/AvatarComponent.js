@@ -22,8 +22,7 @@ export default function AvatarComponent(props) {
                     vertical: 'top',
                     horizontal: 'left',
                 }}
-                variant="dot"
-            >
+                variant="dot">
                 <Avatar alt="Remy Sharp" src={currentUser !== null && currentUser.image !== undefined ? JSON.parse(storage.get('user')).image : ''}/>
             </StyledBadge>
         </div>

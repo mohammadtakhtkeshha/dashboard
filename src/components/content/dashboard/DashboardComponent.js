@@ -38,7 +38,6 @@ function DashboardComponent({t}) {
             let contents = response.data.rows;
             setContents([...contents]);
         }).catch((error) => {
-            console.log(error);
         });
     };
 

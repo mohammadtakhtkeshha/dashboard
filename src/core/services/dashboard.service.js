@@ -4,7 +4,7 @@ import {authHeader} from "../../utils/headers";
 
 export function getContentLis() {
     let url = `http://dash.webrbp.ir/api/all_content/dashboard/chart`;
-    return axios.get(url,authHeader);
+    return axios.get(url, authHeader);
 }
 
 export function getTenNumberOfContents(token) {

@@ -61,7 +61,7 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
         contentService.getDomainSource().then((response) => {
             // newContentContext.setDomainAccesses(response.data);
         }).catch((error) => {
-            console.log(error)
+            // console.log(error)
         });
     }
 
@@ -110,7 +110,7 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
     useEffect(() => {
         setContentTypeInContent();
     }, [contentType]);
-
+    console.log(content);
     return (<NewContentContext.Provider value={{
         content: content,
         setContent: setContent,
