@@ -1,6 +1,6 @@
 import axios from "axios";
-import storage from "../../libraries/local-storage";
-import authUrl from './../../utils/urls/auth.urls';
+import storage from "libraries/local-storage";
+import authUrl from 'utils/urls/auth.urls';
 import {authHeader} from 'utils/headers';
 
 export function getLoginUser(access_token) {
@@ -53,5 +53,4 @@ export async function logout(history) {
     storage.remove('user');
 }
 
-
-export default {login, logout,getLoginUser};
+export default {login, logout,getLoginUser}

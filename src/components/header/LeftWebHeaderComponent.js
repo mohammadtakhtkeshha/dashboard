@@ -5,7 +5,7 @@ import MessageIcon from '@material-ui/icons/Message';
 import {Box} from '@material-ui/core/index';
 import * as styles from './../../assets/js/LeftWebHeader';
 import UserDrawerComponent from "../content/user/partials/UserDrawerComponent";
-import AvatarComponent from "../partials/AvatarComponent";
+import AvatarComponent from "../partials/AvatarComponent.jsx";
 import AppContext from './../../contexts/AppContext';
 //mulit lang
 import {withNamespaces} from 'react-i18next';

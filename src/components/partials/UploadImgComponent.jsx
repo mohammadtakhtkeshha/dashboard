@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React,{useContext, useEffect, useState} from "react";
 import AppContext from "contexts/AppContext";
 import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
@@ -57,7 +57,7 @@ function UploadImgComponent({t, multiple, title, getFile, imgs, removedFileId, s
     }
 
     useEffect(() => {
-        if (sendIdAfterUpload !== undefined && sendIdAfterUpload !== "") {
+        if (sendIdAfterUpload !== undefined && sendIdAfterUpload !== "") {debugger
             appContext.setLoading(false);
             setCurrentId(prevState => {
                 return [...prevState, sendIdAfterUpload.id]

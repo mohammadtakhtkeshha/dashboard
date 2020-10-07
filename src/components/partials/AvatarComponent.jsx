@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React from "react";
 import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';

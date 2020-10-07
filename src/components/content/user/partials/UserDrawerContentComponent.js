@@ -9,7 +9,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import storage from 'libraries/local-storage';
 import UserDrawerContentStyle from "assets/js/user/UserDrawerContent";
-import AvatarComponent from "components/partials/AvatarComponent";
+import AvatarComponent from "components/partials/AvatarComponent.jsx";
 import AppContext from "contexts/AppContext";
 import {green} from "components/partials/Colors";
 
