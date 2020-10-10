@@ -12,15 +12,15 @@ import TitleAndImgComponent from "./FormContentTitleAndImgComponent.jsx";
 import FormContentFileComponent from "./FormContentFileComponent.jsx";
 import NewContentFooterComponent from "./FormContentFooterComponent";
 import {StyledTabPanels} from "assets/js/content/partials/newContent";
-import {useStyles, TabPanel, a11yProps, styledTabs} from 'assets/js/content/partials/newContent';
+import {TabPanel, a11yProps, styledTabs} from 'assets/js/content/partials/newContent';
 import FormDescriptionComponent from "./FormContentDescriptionComponent";
 // import TextContentTabComponent from "./textContent/ModalComponent.jsx";
 
 const StyledTabs = withStyles(styledTabs)(Tabs);
-const styles = makeStyles(useStyles);
 
 function NewContentTabsComponent({t}) {
     const [value, setValue] = useState(0);
+
     const handleTabChange = (event, newValue) => {
         setValue(newValue);
     }

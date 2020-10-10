@@ -52,6 +52,28 @@ function ContentsComponent({t}) {
         "field_special_news_display": false,
         "status": false,
     });
+    const [editContent,setEditContent]=useState({
+        "type": {
+            "target_id": ""
+        },
+        "title": "",
+        "body": "",
+        "field_domain_access": {},
+        "field_domain_all_affiliates": true,
+        "field_domain_source": {},
+        "field_field_galeries": {},
+        "field_files": {},
+        "field_image": {},
+        "field_rotitr": "",
+        "field_sotitr": "",
+        "field_sounds": {},
+        "field_article_cat": {},
+        "field_tags": {},
+        "field_seo_list": {},
+        "field_videos": {},
+        "field_special_news_display": false,
+        "status": false,
+    });
 
     const getContents = () => {
         appContext.setLoading(true);
@@ -121,12 +143,37 @@ function ContentsComponent({t}) {
 
     useEffect(() => {
         contentService.getContent(id).then((response)=>{debugger
-            setContent(response.data);
+            const item=response.data;
+            setContent({"type": {
+                    "target_id": item.type.target_id
+                },
+                "title": item.title,
+                "body": item.body,
+                "field_domain_access": {
+                    target_id:item.target_id
+                },
+                "field_domain_all_affiliates": true,
+                "field_domain_source": {},
+                "field_field_galeries": {},
+                "field_files": {},
+                "field_image": {},
+                "field_rotitr": "",
+                "field_sotitr": "",
+                "field_sounds": {},
+                "field_article_cat": {
+                    target_id:item.target_id
+                },
+                "field_tags": {},
+                "field_seo_list": {},
+                "field_videos": {},
+                "field_special_news_display": false,
+                "status": false,
+            }});
         }).catch((error)=>{
-            alert(error);
         });
     }, [id]);
 
+    console.log(content);
 
     return (<ContentsContext.Provider value={{
             contents: contents,
@@ -140,6 +187,8 @@ function ContentsComponent({t}) {
             setContent:setContent,
             setErrors: setErrors,
             errors: errors,
+            editContent:editContent,
+            setEditContent:setEditContent
 
         }}>
             <StyledPaper>
