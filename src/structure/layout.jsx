@@ -64,7 +64,7 @@ export function Layout({t}) {
         setShowUserDrawer(boolean)
     };
 
-    let handleError = (error) => {debugger
+    let handleError = (error) => {
         let errorString;
         if(error){
             errorString = error.toString();

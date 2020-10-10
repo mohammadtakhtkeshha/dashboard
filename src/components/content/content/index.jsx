@@ -17,6 +17,7 @@ import {StyledPaper, StyledBox} from "assets/js/App";
 import ContentHeaderComponent from "./partials/ContentHeaderComponent";
 import {StyledPaginationBox} from "assets/js/pagination";
 import {chunkItem, handleTotalPage} from "structure/layout";
+import {ModalBody} from "../../../assets/js/content/partials/contentModal";
 
 function ContentsComponent({t}) {
     const appContext = useContext(AppContext);
@@ -27,7 +28,30 @@ function ContentsComponent({t}) {
     const [contents, setContents] = useState([]);
     const [contentTypeList, setContentTypeList] = useState([]);
     const [chunkContents, setChunkContents] = useState();
-    const [id,setId] = useState('');
+    const [id, setId] = useState('');
+    const [errors, setErrors] = useState({});
+    const [content, setContent] = useState({
+        "type": {
+            "target_id": ""
+        },
+        "title": "",
+        "body": "",
+        "field_domain_access": {},
+        "field_domain_all_affiliates": true,
+        "field_domain_source": {},
+        "field_field_galeries": {},
+        "field_files": {},
+        "field_image": {},
+        "field_rotitr": "",
+        "field_sotitr": "",
+        "field_sounds": {},
+        "field_article_cat": {},
+        "field_tags": {},
+        "field_seo_list": {},
+        "field_videos": {},
+        "field_special_news_display": false,
+        "status": false,
+    });
 
     const getContents = () => {
         appContext.setLoading(true);
@@ -74,14 +98,14 @@ function ContentsComponent({t}) {
             field_image: content.field_image?.url
         }
         contents.unshift(newContent);
-        handlePagination(contents,t('translation:successRegistered'));
+        handlePagination(contents, t('translation:successRegistered'));
     }
 
     const handleOpenContentForm = (e) => {
-        const value=e.currentTarget.value;
+        const value = e.currentTarget.value;
         setOpenRegisterForm(true);
-        if(value !== ""){
-            setId(id);
+        if (value !== "") {
+            setId(value);
         }
     }
 
@@ -93,7 +117,16 @@ function ContentsComponent({t}) {
     useEffect(() => {
         getContents(page);
         getContentType();
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        contentService.getContent(id).then((response)=>{debugger
+            setContent(response.data);
+        }).catch((error)=>{
+            alert(error);
+        });
+    }, [id]);
+
 
     return (<ContentsContext.Provider value={{
             contents: contents,
@@ -101,6 +134,13 @@ function ContentsComponent({t}) {
             contentTypeList: contentTypeList,
             handlePagination: handlePagination,
             getRegisteredContent: getRegisteredContent,
+            id:id,
+            setId:setId,
+            content:content,
+            setContent:setContent,
+            setErrors: setErrors,
+            errors: errors,
+
         }}>
             <StyledPaper>
                 <ContentHeaderComponent setOpenRegisterForm={handleOpenContentForm}/>

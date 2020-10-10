@@ -36,7 +36,6 @@ function NewTermComponent({t, category}) {
 
     useEffect(() => {
         if(termsContext.id !== ""){
-            debugger
         }
     }, [termsContext.id]);
 

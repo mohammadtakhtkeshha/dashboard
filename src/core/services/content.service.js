@@ -14,7 +14,7 @@ export function getCategories() {
 }
 
 export function uploadSingImg(e) {
-    let url = contentUrl.uploadSingImgUrl;
+    const url = contentUrl.uploadSingImgUrl;
     return axios.post(url, e[0], avcoAuthcdHeader(e[0]));
 }
 

@@ -4,59 +4,33 @@ import i18next from "i18next";
 
 import {Typography} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
-import {makeStyles} from "@material-ui/core/styles";
 
-import {globalCss} from "assets/js/globalCss";
 import NewContentContext from "contexts/NewContentContext";
-import {StyledInput, MarginTop1} from "assets/js/App";
+import {StyledInput, MarginTop1, StyledAlignTypography} from "assets/js/App";
 import {StyledRowBox, StyledRow, StyledCol} from "assets/js/content/partials/contents";
-
-const gClass = makeStyles(globalCss);
+import {clickEditorMetaTagMethod,seoChangedMethod} from './FormContentSeoComponent.js'
+import ContentsContext from "contexts/ContentsContext";
 
 function FormContentSeoComponent({t}) {
     const lang = i18next.language;
-    const gClasses = gClass();
     const newContentContext = useContext(NewContentContext);
-    const [title, setTitle] = useState(newContentContext.content.field_seo_list?.title);
-    const [description, setDescription] = useState(newContentContext.content.field_seo_list?.description);
-    const [abstract, setAbstract] = useState(newContentContext.content.field_seo_list?.abstract);
-    const [keywords, setKeywords] = useState(newContentContext.content.field_seo_list?.keywords);
+    const contentsContext = useContext(ContentsContext);
+    const [title, setTitle] = useState(contentsContext.content.field_seo_list.title || '');
+    const [description, setDescription] = useState(contentsContext.content.field_seo_list.description || '');
+    const [abstract, setAbstract] = useState(contentsContext.content.field_seo_list.abstract || '');
+    const [keywords, setKeywords] = useState(contentsContext.content.field_seo_list.keywords || '');
 
-    let clickEditorMetaTag = (e, keyName) => {
-        let currentValue = e.currentTarget.value;
-        switch (keyName) {
-            case "title":
-                setTitle(currentValue);
-                break;
-            case "description":
-                setDescription(currentValue);
-                break;
-            case "abstract":
-                setAbstract(currentValue)
-                break;
-            default:
-                setKeywords(currentValue);
-        }
-        // debugger
+    const clickEditorMetaTag = (e, keyName) => {
+        clickEditorMetaTagMethod(e, keyName,setTitle,setDescription,setAbstract,setKeywords);
     };
 
     const seoChanged = () => {
-        newContentContext.setContent(prevState => {
-            return {
-                ...prevState, field_seo_list: {
-                    title: title,
-                    description: description,
-                    abstract: abstract,
-                    keywords: keywords
-                }
-            }
-        });
+        seoChangedMethod(contentsContext,title,description,abstract,keywords);
     }
 
     useEffect(() => {
         seoChanged();
     }, [title, description, abstract, keywords]);
-
 
     return (<StyledRowBox>
         <StyledRow>
@@ -85,8 +59,7 @@ function FormContentSeoComponent({t}) {
         <StyledRow>
             <StyledCol>
                 <MarginTop1>
-                    <Typography
-                        className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:summary')}</Typography>
+                    <StyledAlignTypography lang={lang}>{t('contents:summary')}</StyledAlignTypography>
                     <TextField
                         value={abstract}
                         id="outlined-size-normal"
@@ -104,8 +77,7 @@ function FormContentSeoComponent({t}) {
             </StyledCol>
             <StyledCol>
                 <MarginTop1>
-                    <Typography
-                        className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('translation:description')}</Typography>
+                    <StyledAlignTypography lang={lang}>{t('translation:description')}</StyledAlignTypography>
                     <TextField
                         value={description}
                         id="outlined-size-normal"
@@ -120,12 +92,6 @@ function FormContentSeoComponent({t}) {
                         }}
                     />
                 </MarginTop1>
-                {/*<EditorComponent title={t('translation:description')} onClick={(e) => {*/}
-                {/*    clickEditorMetaTag(e, 'description')*/}
-                {/*}}/>*/}
-                {/*<EditorComponent title={t('contents:summary')} onClick={(e) => {*/}
-                {/*    clickEditorMetaTag(e, 'abstract')*/}
-                {/*}}/>*/}
             </StyledCol>
         </StyledRow>
     </StyledRowBox>);

@@ -17,14 +17,10 @@ export const previewImgMethod = (e,t,appContext,setValidation,setFiles,setImageP
         let arrayOfFiles = [];
         if (multiple) {//check multiple img or not
             arrayOfFiles = e.currentTarget.files;
-            getFile([...arrayOfFiles]);
         } else {
-            setFiles([]);
-            setImagePreviewUrl([]);
             arrayOfFiles.push(e.currentTarget.files[0]);
-            getFile([...arrayOfFiles]);
         }
-        // getFile([...arrayOfFiles]);
+        getFile([...arrayOfFiles]);
     }
 }
 

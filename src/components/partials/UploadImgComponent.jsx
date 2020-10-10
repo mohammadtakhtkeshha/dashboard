@@ -57,10 +57,10 @@ function UploadImgComponent({t, multiple, title, getFile, imgs, removedFileId, s
     }
 
     useEffect(() => {
-        if (sendIdAfterUpload !== undefined && sendIdAfterUpload !== "") {debugger
+        if (sendIdAfterUpload !== undefined && sendIdAfterUpload !== "") {
             appContext.setLoading(false);
             setCurrentId(prevState => {
-                return [...prevState, sendIdAfterUpload.id]
+                return [...prevState, sendIdAfterUpload.id];
             });
             let e = sendIdAfterUpload.file;
             let reader = new FileReader();
@@ -68,13 +68,18 @@ function UploadImgComponent({t, multiple, title, getFile, imgs, removedFileId, s
                 setFiles(prevState => {
                     return [...prevState, e];
                 });
-                setImagePreviewUrl(prevState => {
-                    return [...prevState, reader.result]
-                });
+                if(!multiple){
+                    setFiles([]);
+                    setImagePreviewUrl([ reader.result]);
+                }else{
+                    setImagePreviewUrl(prevState => {
+                        return [...prevState, reader.result]
+                    });
+                }
             }
             reader.readAsDataURL(e);
         }
-    }, [sendIdAfterUpload]);
+    }, [sendIdAfterUpload]);//set id for every img
 
     useEffect(() => {
         if (imgs && imgs[0] !== undefined && imgs.length > 0) {//for edit user

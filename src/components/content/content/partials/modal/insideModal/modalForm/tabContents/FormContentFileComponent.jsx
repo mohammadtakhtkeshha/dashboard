@@ -34,10 +34,6 @@ function FormContentFileComponent({t}) {
     const [multiVideoToSend, setMultiVideoToSend] = useState('');
     const [multiVoiceToSend, setMultiVoiceToSend] = useState('');
 
-    const uploadSingImg = (e) => {
-        uploadSingImgMethod(e, newContentContext, setSingleImgToSendFid, appContext);
-    }
-
     const uploadMultiImg = (file) => {
         uploadMultiImgMethod(file, newContentContext, setMultiImgFids, appContext, setMultiImgToSendFid);
     }
@@ -70,17 +66,7 @@ function FormContentFileComponent({t}) {
         removeMultiVoiceMethod(currentId, newContentContext);
     }
 
-    const removedSingleImg = (id) => {
-        removedSingleImgMethod(id, newContentContext);
-    }
-
     return (<>
-        <Box className="card">
-            <Typography
-                className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:indexImg')}</Typography>
-            <UploadImg multiple={false} title={t('translation:choosePic')} getFile={uploadSingImg}
-                       removedFileId={removedSingleImg} sendIdAfterUpload={singleImgToSendFid}/>
-        </Box>
         <Box className="card">
             <Typography
                 className={lang === 'en' ? gClasses.textLeft : gClasses.textRight}>{t('contents:imgGallery')}</Typography>

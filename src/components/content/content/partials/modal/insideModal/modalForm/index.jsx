@@ -16,7 +16,6 @@ import NewContentTabsComponent from "./tabContents/index.jsx";
 
 function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
     const lang = i18next.language;
-    const newContentContext = useContext(NewContentContext);
     const appContext = useContext(AppContext);
     const contentsContext = useContext(ContentsContext);
     const [publishDate, setPublishDate] = useState(null);
@@ -24,28 +23,8 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
     const [selectedTags, setSelectedTags] = useState([]);
     const [domainAccesses, setDomainAccesses] = useState([]);
     const [selectedDomainAccess, setSelectedDomainAccess] = useState([]);
-    const [content, setContent] = useState({
-        "type": {
-            "target_id": ""
-        },
-        "title": "",
-        "body": "",
-        "field_domain_access": {},
-        "field_domain_all_affiliates": true,
-        "field_domain_source": {},
-        "field_field_galeries": {},
-        "field_files": {},
-        "field_image": {},
-        "field_rotitr": "",
-        "field_sotitr": "",
-        "field_sounds": {},
-        "field_article_cat": {},
-        "field_tags": {},
-        "field_seo_list": {},
-        "field_videos": {},
-        "field_special_news_display": false,
-        "status": false,
-    });
+
+    const [descriptionFileSrc,setDescriptionFileSrc]=useState('');
 
     const isObjectEmpty = (obj) => {
         for (let key in obj) {
@@ -55,7 +34,6 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
         return true;
     }
 
-    const [errors, setErrors] = useState({});
 
     const getDomainSource = () => {
         contentService.getDomainSource().then((response) => {
@@ -66,10 +44,10 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
     }
 
     const register = () => {
-        if (content.title === "") {
-            setErrors({title: t('translation:requiredValid')});
+        if (appContext.content.title === "") {
+            contentsContext.setErrors({title: t('translation:requiredValid')});
         }
-        contentService.registerContent(content).then((response) => {
+        contentService.registerContent(appContext.content).then((response) => {
             contentsContext.getRegisteredContent(response.data);
         }).catch((error) => {
             if (error === "وب سایت با یک خطای غیر منتظره مواجه شد. لطفا بعدا دوباره تلاش کنید.") {
@@ -94,7 +72,7 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
     }
 
     const setContentTypeInContent = () => {
-        setContent(prevState => {
+        contentsContext.setContent(prevState => {
             return {
                 ...prevState, type: {
                     target_id: contentType
@@ -110,12 +88,10 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
     useEffect(() => {
         setContentTypeInContent();
     }, [contentType]);
-    console.log(content);
+
+    // console.log(content);
+
     return (<NewContentContext.Provider value={{
-        content: content,
-        setContent: setContent,
-        setErrors: setErrors,
-        errors: errors,
         selectedTags: selectedTags,
         setSelectedTags: setSelectedTags,
         isObjectEmpty: isObjectEmpty,
@@ -127,6 +103,8 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
         setPublishDate: setPublishDate,
         publishDate: publishDate,
         unpublishDate: unpublishDate,
+        setDescriptionFileSrc:setDescriptionFileSrc,
+        descriptionFileSrc:descriptionFileSrc,
     }}>
         <Fade in={openRegisterForm} id="modal">
             <StyledDirection lang={lang}>

@@ -151,10 +151,8 @@ function UsersComponent({t}) {
         let passValid = passValidation(user.pass, "add");
         let mail = mailValidation(user.mail, "null");
         let confirmPas = confirmPassValidation(user.pass, confirmPass);
-        debugger
         if (nameValid || passValid || mail || confirmPas) {
             appContext.setLoading(false);
-            debugger
             return true;
         }
         return false;

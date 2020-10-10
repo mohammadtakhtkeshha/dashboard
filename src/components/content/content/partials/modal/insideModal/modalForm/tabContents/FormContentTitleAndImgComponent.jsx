@@ -411,42 +411,29 @@ import i18next from "i18next";
 
 import {Grid, Paper} from '@material-ui/core';
 
-import NewContentContext from "contexts/NewContentContext";
 import {StyledInput} from "assets/js/App";
 import {StyledTypographyError} from "assets/js/App";
 import UploadImg from "components/partials/UploadImgComponent.jsx";
-import {removeMultiImgMethod, uploadMultiFileMethod, uploadMultiImgMethod,
-    uploadSingImgMethod, uploadVideoMethod, uploadVoiceMethod, removeMultiFileMethod,
-    removeMultiVideoMethod, removeMultiVoiceMethod, removedSingleImgMethod
-} from "./FormContentFileComponent";
 import AppContext from "contexts/AppContext";
+import {uploadSingImgMethod,handleChangeMethod,removedSingleImgMethod} from './FormContentTitleAndImgComponent.js'
+import ContentsContext from "contexts/ContentsContext";
 
 function TextContentTabComponent({t}) {
     const lang = i18next.language;
     const appContext = useContext(AppContext);
-    const newContentContext = useContext(NewContentContext);
+    const contentContext = useContext(ContentsContext);
     const [singleImgToSendFid, setSingleImgToSendFid] = useState('');
 
     const handleChange = (e, field) => {
-        const currentName = e.currentTarget.value;
-        if (field === "title") {
-            if (currentName !== "") {
-                newContentContext.setErrors({title: ''});
-            }
-        }
-        newContentContext.setContent(prevState => {
-            return {
-                ...prevState, [field]: currentName
-            }
-        });
+        handleChangeMethod(e, field,contentContext);
     }
 
     const removedSingleImg = (id) => {
-        removedSingleImgMethod(id, newContentContext);
+        removedSingleImgMethod(id, contentContext);
     }
 
     const uploadSingImg = (e) => {
-        uploadSingImgMethod(e, newContentContext, setSingleImgToSendFid, appContext);
+        uploadSingImgMethod(e, contentContext, setSingleImgToSendFid, appContext);
     }
 
     return (
@@ -454,20 +441,20 @@ function TextContentTabComponent({t}) {
             <Grid item xs={4}>
                 <Paper>
                     <StyledInput
-                        value={newContentContext.content.title}
+                        value={contentContext.content.title}
                         type="text"
                         placeholder={t('translation:title')}
                         onChange={e => handleChange(e, "title")}
                     />
-                    {newContentContext.errors?.title ?
+                    {contentContext.errors?.title ?
                         <StyledTypographyError
-                            align={lang === 'en' ? 'left' : 'right'}>{newContentContext.errors.title}</StyledTypographyError> : ''}
+                            align={lang === 'en' ? 'left' : 'right'}>{contentContext.errors.title}</StyledTypographyError> : ''}
                 </Paper>
             </Grid>
             <Grid item xs={4}>
                 <Paper>
                     <StyledInput
-                        value={newContentContext.content.field_rotitr || ''}
+                        value={contentContext.content.field_rotitr || ''}
                         type="text"
                         placeholder={t('contents:rotitr')}
                         onChange={e => handleChange(e, "field_rotitr")}/>
@@ -477,7 +464,7 @@ function TextContentTabComponent({t}) {
                 <Paper>
                     <StyledInput
                         placeholder={t('contents:sotitr')}
-                        value={newContentContext.content.field_sotitr || ''}
+                        value={contentContext.content.field_sotitr || ''}
                         type="text"
                         label={t('contents:sotitr')}
                         onChange={e => handleChange(e, "field_sotitr")}/>

@@ -56,16 +56,14 @@ function NewUserComponent({t, id, userNameList, userMailList}) {
         });
     }
 
-    const saveUser = () => {debugger
+    const saveUser = () => {
         let valid = userContext.allValidation(user, confirmPass);
         if (valid) {
-            debugger
             danger(t('translation:inputValidation'),t('translation:ok'));
             return;
         }
-        debugger
         appContext.setLoading(true);
-        userService.registerUser(user).then((response) => {debugger
+        userService.registerUser(user).then((response) => {
             let item = response.data;
             appContext.setLoading(false);
             userContext.getRegisteredUser({
@@ -85,7 +83,6 @@ function NewUserComponent({t, id, userNameList, userMailList}) {
     }
 
     const editUser = () => {
-        debugger
         userService.editUser(id, JSON.stringify(user)).then((response) => {
             appContext.setLoading(false);
             let item = response.data;
