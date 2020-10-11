@@ -17,7 +17,6 @@ import {StyledPaper, StyledBox} from "assets/js/App";
 import ContentHeaderComponent from "./partials/ContentHeaderComponent";
 import {StyledPaginationBox} from "assets/js/pagination";
 import {chunkItem, handleTotalPage} from "structure/layout";
-import {ModalBody} from "../../../assets/js/content/partials/contentModal";
 
 function ContentsComponent({t}) {
     const appContext = useContext(AppContext);
@@ -30,6 +29,7 @@ function ContentsComponent({t}) {
     const [chunkContents, setChunkContents] = useState();
     const [id, setId] = useState('');
     const [errors, setErrors] = useState({});
+    const [src, setSrc] = useState('');
     const [content, setContent] = useState({
         "type": {
             "target_id": ""
@@ -120,16 +120,19 @@ function ContentsComponent({t}) {
     }, []);
 
     useEffect(() => {
-        contentService.getContent(id).then((response)=>{debugger
+        contentService.getContent(id).then((response)=>{
             setContent(response.data);
         }).catch((error)=>{
-            alert(error);
+            console.log(error)
         });
     }, [id]);
 
+    console.log(content);
 
     return (<ContentsContext.Provider value={{
             contents: contents,
+            src:src,
+            setSrc:setSrc,
             chunkContents: chunkContents,
             contentTypeList: contentTypeList,
             handlePagination: handlePagination,

@@ -89,8 +89,6 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
         setContentTypeInContent();
     }, [contentType]);
 
-    // console.log(content);
-
     return (<NewContentContext.Provider value={{
         selectedTags: selectedTags,
         setSelectedTags: setSelectedTags,

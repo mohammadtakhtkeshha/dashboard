@@ -236,6 +236,7 @@ export const StyledTypographyError =  styled.p`
 export const StyledAlignTypography = styled.p`
               text-align : ${props => props.align};
               font-size : 13px;
+              margin-bottom:1rem;
 `
 
 export const StyledSvg = styled.div`

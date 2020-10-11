@@ -6,15 +6,15 @@ import Tab from "@material-ui/core/Tab";
 import {makeStyles, withStyles} from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 
-import ContentPublishDateComponent from "../tabContents/FormContentPublishDateComponent.jsx";
-import SeoFormContentComponent from "../tabContents/FormContentSeoComponent";
-import TitleAndImgComponent from "./FormContentTitleAndImgComponent.jsx";
-import FormContentFileComponent from "./FormContentFileComponent.jsx";
-import NewContentFooterComponent from "./FormContentFooterComponent";
 import {StyledTabPanels} from "assets/js/content/partials/newContent";
 import {useStyles, TabPanel, a11yProps, styledTabs} from 'assets/js/content/partials/newContent';
-import FormDescriptionComponent from "./FormContentDescriptionComponent";
-// import TextContentTabComponent from "./textContent/ModalComponent.jsx";
+import ContentPublishDateComponent from "./FormContentPublishDateComponent.jsx";
+import SeoFormContentComponent from "./FormContentSeoComponent.jsx";
+import TitleAndImgComponent from "./FormContentTitleAndImgComponent.jsx";
+import FormContentFileComponent from "./FormContentFileComponent.jsx";
+import NewContentFooterComponent from "./FormContentFooterComponent.jsx";
+import FormDescriptionComponent from "./FormContentDescriptionComponent.jsx";
+import FormContentPortalComponent from "./FormContentPortalComponent.jsx";
 
 const StyledTabs = withStyles(styledTabs)(Tabs);
 const styles = makeStyles(useStyles);
@@ -39,7 +39,6 @@ function NewContentTabsComponent({t}) {
                 <StyledTabPanels>
                     <TabPanel value={value} index={0} className="tabContent">
                         <Box className='block'>
-                            {/*<TextContentTabComponent/>*/}
                             <TitleAndImgComponent/>
                         </Box>
                     </TabPanel>
@@ -65,7 +64,7 @@ function NewContentTabsComponent({t}) {
                     </TabPanel>
                     <TabPanel value={value} index={5} className="tabContent">
                         <Box className='block'>
-                            <FormContentFileComponent/>
+                            <FormContentPortalComponent/>
                         </Box>
                     </TabPanel>
                 </StyledTabPanels>

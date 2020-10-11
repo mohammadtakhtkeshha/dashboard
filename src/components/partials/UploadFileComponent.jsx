@@ -16,7 +16,7 @@ const styles=makeStyles(uploadStyles);
 
 const gClass = makeStyles(globalCss);
 
-function UploadFile({ t, multiple, title, getFile, imgs, removedFileId, sendIdAfterUpload }) {
+function UploadFileComponent({ t, multiple, title, getFile, imgs, removedFileId, sendIdAfterUpload }) {
     const classes = styles();
     const appContext = useContext(AppContext);
     const gClasses = gClass();
@@ -85,7 +85,7 @@ function UploadFile({ t, multiple, title, getFile, imgs, removedFileId, sendIdAf
             setImagePreviewUrl((prevState => {
                 return [...prevState]
             }));
-            if (!['jpg', 'jpeg', 'txt', 'zip', 'rar'].includes(extention)) {
+            if (!['jpg', 'txt', 'zip', 'rar'].includes(extention)) {
                 setValidation(t('translation:fileValidation'));
                 appContext.setLoading(false);
                 return
@@ -103,7 +103,7 @@ function UploadFile({ t, multiple, title, getFile, imgs, removedFileId, sendIdAf
         }
     }
 
-    let handleRemoveImg = (e, src, file) => {
+    let handleRemoveImg = (e, src) => {
         let index = imagePreviewUrl.indexOf(src);
         let newImgPreview = imagePreviewUrl.filter(item => item !== src);
         let deletedFile = files.splice(index, 1);
@@ -145,4 +145,4 @@ function UploadFile({ t, multiple, title, getFile, imgs, removedFileId, sendIdAf
     );
 }
 
-export default withNamespaces('users,translation')(UploadFile);
+export default withNamespaces('users,translation')(UploadFileComponent);

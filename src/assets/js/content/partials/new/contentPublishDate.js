@@ -12,9 +12,9 @@ export const StyledStatusButtonBlock = styled.div`
                 width : fit-content!important;
 `
 
-export const StyledInnerColButton = styled.div`
+export const StyledStatusBlock = styled.div`
              display : flex ;
-             justify-content : flex-end;
+             justify-content : center;
 `
 
 export const StyledStatusButton = styled.button`
@@ -58,4 +58,3 @@ export const StyledCol = styled.div`
             width: 49%;
 `
 
-export default {StyledStatusButton,StyledStatusButtonBlock,StyledRowBox,StyledRow,StyledCol};

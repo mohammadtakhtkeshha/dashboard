@@ -10,7 +10,7 @@ import ContentsContext from "contexts/ContentsContext";
 function TextContentTabComponent({t}) {
     const contentsContext = useContext(ContentsContext);
 
-    const clickEditorDescription = (e,src) => {
+    const clickEditorDescription = (e) => {
         contentsContext.setContent(prevState => {
             return {
                 ...prevState, body: e
@@ -21,14 +21,10 @@ function TextContentTabComponent({t}) {
     return (<Grid container>
             <Grid item xs={12}>
                 <Box className="editor">
-                    <EditorComponent
-                        descriptionFileSrc={contentsContext.descriptionFileSrc}
-                        setDescriptionFileSrc={contentsContext.setDescriptionFileSrc}
-                        title={t('translation:description')} onClick={clickEditorDescription}/>
+                    <EditorComponent title={t('translation:description')} onClick={clickEditorDescription}/>
                 </Box>
             </Grid>
-        </Grid>
-    );
+        </Grid>);
 }
 
 export default withNamespaces('translation')(TextContentTabComponent);

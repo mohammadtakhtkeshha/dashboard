@@ -53,7 +53,7 @@
   "voiceValidation": "just files with .mp3 extension is acceptable",
   "files": "files",
   "chooseFile": "select your file",
-  "fileValidation":"just files with .jpg , .jpeg , .txt , .rar ,.text extension is acceptable!",
+  "fileValidation":"just files with .jpg , .txt , .rar ,.text extension is acceptable!",
   "loginDelete": "you cant delete logined user",
   "loginChangeStatus": "you cant do this action for admin",
   "uniqueValidation": "!this value already exists",

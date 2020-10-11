@@ -62,14 +62,7 @@ export const validateDate = (field,date,newContentContext,t) => {
     }
 }
 
-export const handleAffiliateChangeMethod = (e,newContentContext) => {
-    const checked = e.currentTarget.checked;
-    newContentContext.setContent(prevState => {
-        return {
-            ...prevState, field_domain_all_affiliates: checked
-        }
-    });
-}
+
 
 export const handleStatusChangeMethod = (e,newContentContext) => {
     const status = e.currentTarget.value;
@@ -80,4 +73,4 @@ export const handleStatusChangeMethod = (e,newContentContext) => {
     });
 }
 
-export default {validateDate,handleAffiliateChangeMethod,handleStatusChangeMethod}
+export default {validateDate,handleStatusChangeMethod}

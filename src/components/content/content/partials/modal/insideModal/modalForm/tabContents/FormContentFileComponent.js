@@ -78,14 +78,12 @@ export const uploadMultiFileMethod = (files,newContentContext,setMultiFileToSend
     }
 }
 
-
-
-export const uploadVideoMethod = (files,newContentContext,setMultiVideoToSend,appContext) => {
+export const uploadVideoMethod = (files,contentsContext,setMultiVideoToSend,appContext) => {
     for (let e of files) {
         contentService.uploadVideo(e).then((response) => {
             let item = response.data;
             setMultiVideoToSend({id: item.fid, file: e});
-            newContentContext.setContent(prevState => {
+            contentsContext.setContent(prevState => {
                 let fids = [];
                 if (prevState.field_videos.target_id !== undefined) {
                     fids.push(prevState.field_videos.target_id, item.fid);
@@ -107,13 +105,13 @@ export const uploadVideoMethod = (files,newContentContext,setMultiVideoToSend,ap
 
 }
 
-export const uploadVoiceMethod = (files,newContentContext,setMultiVoiceToSend,appContext) => {
+export const uploadVoiceMethod = (files,contentsContext,setMultiVoiceToSend,appContext) => {
     if (files.length > 0) {
         for (let e of files) {
             contentService.uploadVoice(e).then((response) => {
                 let item = response.data;
                 setMultiVoiceToSend({id: response.data.fid, file: e});
-                newContentContext.setContent(prevState => {
+                contentsContext.setContent(prevState => {
                     let fids = [];
                     if (prevState.field_sounds.target_id !== undefined) {
                         fids.push(prevState.field_sounds.target_id, response.data.fid);
@@ -135,7 +133,7 @@ export const uploadVoiceMethod = (files,newContentContext,setMultiVoiceToSend,ap
         }
 
     } else {
-        newContentContext.setContent(prevState => {
+        contentsContext.setContent(prevState => {
             return {
                 ...prevState, field_sounds: ''
             }
@@ -143,8 +141,8 @@ export const uploadVoiceMethod = (files,newContentContext,setMultiVoiceToSend,ap
     }
 }
 
-export const removeMultiImgMethod = (currentId,newContentContext) => {
-    let fidsString = newContentContext.content.field_field_galeries.target_id;
+export const removeMultiImgMethod = (currentId,contentsContext) => {
+    let fidsString = contentsContext.content.field_field_galeries.target_id;
     let fidsArray = fidsString.split(',');
     let currentIndex = fidsArray.indexOf(currentId);
     fidsArray.splice(currentIndex, 1);
@@ -154,15 +152,15 @@ export const removeMultiImgMethod = (currentId,newContentContext) => {
     } else {
         field_gallery = {};
     }
-    newContentContext.setContent(prevState => {
+    contentsContext.setContent(prevState => {
         return {
             ...prevState, field_field_galeries: field_gallery
         }
     });
 }
 
-export const removeMultiFileMethod = (currentId,newContentContext)=>{
-    let fidsString = newContentContext.content.field_files.target_id;
+export const removeMultiFileMethod = (currentId,contentsContext)=>{
+    let fidsString = contentsContext.content.field_files.target_id;
     let fidsArray = fidsString.split(',');
     let currentIndex = fidsArray.indexOf(currentId);
     fidsArray.splice(currentIndex, 1);
@@ -172,15 +170,15 @@ export const removeMultiFileMethod = (currentId,newContentContext)=>{
     } else {
         field_file = '';
     }
-    newContentContext.setContent(prevState => {
+    contentsContext.setContent(prevState => {
         return {
             ...prevState, field_files: field_file
         }
     });
 }
 
-export const removeMultiVideoMethod = (currentId,newContentContext) => {
-    let fidsString = newContentContext.content.field_videos.target_id;
+export const removeMultiVideoMethod = (currentId,contentsContext) => {
+    let fidsString = contentsContext.content.field_videos.target_id;
     let fidsArray = fidsString.split(',');
     let currentIndex = fidsArray.indexOf(currentId);
     fidsArray.splice(currentIndex, 1);
@@ -190,15 +188,15 @@ export const removeMultiVideoMethod = (currentId,newContentContext) => {
     } else {
         field_file = '';
     }
-    newContentContext.setContent(prevState => {
+    contentsContext.setContent(prevState => {
         return {
             ...prevState, field_videos: field_file
         }
     });
 }
 
-export const removeMultiVoiceMethod = (currentId,newContentContext) => {
-    let fidsString = newContentContext.content.field_sounds.target_id;
+export const removeMultiVoiceMethod = (currentId,contentsContext) => {
+    let fidsString = contentsContext.content.field_sounds.target_id;
     let fidsArray = fidsString.split(',');
     let currentIndex = fidsArray.indexOf(currentId);
     fidsArray.splice(currentIndex, 1);
@@ -208,14 +206,12 @@ export const removeMultiVoiceMethod = (currentId,newContentContext) => {
     } else {
         field_file = '';
     }
-    newContentContext.setContent(prevState => {
+    contentsContext.setContent(prevState => {
         return {
             ...prevState, field_sounds: field_file
         }
     });
 }
-
-
 
 export default {uploadMultiImgMethod,uploadMultiFileMethod,
     uploadVideoMethod,uploadVoiceMethod,removeMultiImgMethod,removeMultiFileMethod,

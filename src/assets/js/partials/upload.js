@@ -1,11 +1,13 @@
-import * as colors from "components/partials/Colors";
-import {green} from "components/partials/Colors";
+import {green,grey} from "components/partials/Colors";
 
 export const uploadStyles = {
     uploadFile: {
         position: 'relative',
         minHeight: '120px',
-        border: `1px dashed ${colors.green[0]}`,
+        border: `2px dashed ${grey[0]}`,
+        '&:hover':{
+            border:`2px dashed ${grey[8]}`,
+        },
         '& input': {
             height: '100%',
             cursor: 'pointer',
@@ -48,7 +50,7 @@ export const uploadStyles = {
                         position: 'absolute',
                         top: '10px',
                         left: '12px',
-                        color: colors.green[0],
+                        color: green[0],
                         zIndex: '50'
                     },
                     '& .cancelVoice': {
@@ -56,7 +58,7 @@ export const uploadStyles = {
                         position: 'absolute',
                         top: '-13px',
                         left: '0',
-                        color: colors.green[0],
+                        color: green[0],
                     },
                     '& .item': {
                         boxSizing: 'border-box',

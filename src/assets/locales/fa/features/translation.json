@@ -53,7 +53,7 @@
   "voiceValidation": "!فقط فایل هایی با پسوند .mp3 قابل قبول میباشد",
   "files": "فایل ها",
   "chooseFile": "فایل مورد نظر خود را انتخاب کنید",
-  "fileValidation":"!فقط فایلهای .jpg , .jpeg , .txt , .rar ,.text قابل قبول میباشند",
+  "fileValidation":"!فقط فایلهای .jpg , .txt , .rar ,.text قابل قبول میباشند",
   "loginDelete": "!شما قادر به حذف کاربری که در حال حاضر لاگین است نمیباشید",
   "loginChangeStatus": "!شما اجازه تغییر وضعییت کاربر ادمین را ندارید",
   "uniqueValidation": "!فیلد وارد شده تکراری میباشد",
