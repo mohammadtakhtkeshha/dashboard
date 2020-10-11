@@ -34,7 +34,6 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
         return true;
     }
 
-
     const getDomainSource = () => {
         contentService.getDomainSource().then((response) => {
             // newContentContext.setDomainAccesses(response.data);
