@@ -14,11 +14,14 @@ export const handleChangeMethod = (e, field,contentContext) => {
     });
 }
 
-export const uploadSingImgMethod = (e,contentContext,setSingleImgToSendFid,appContext) => {
+export const uploadSingImgMethod = (e,contentContext,setSingleImgToSendFid,appContext) => {debugger
     if (e.length > 0) {
         contentService.uploadSingImg(e).then((response) => {
             let item = response.data;
             setSingleImgToSendFid({id: item.fid, file: e[0]});
+            // const lastPartOfImgUrl=item.uri.slice(9);
+            // const currentImgUrl=`http://dash.webrbp.ir/sites/default/files/${lastPartOfImgUrl}`;
+            // contentContext.setSingleImgs([{fid:item.fid,url:currentImgUrl}]);
             contentContext.setContent(prevState => {
                 return {
                     ...prevState, field_image: {

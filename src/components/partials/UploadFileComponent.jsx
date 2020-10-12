@@ -16,25 +16,27 @@ const styles=makeStyles(uploadStyles);
 
 const gClass = makeStyles(globalCss);
 
-function UploadFileComponent({ t, multiple, title, getFile, imgs, removedFileId, sendIdAfterUpload }) {
+function UploadFileComponent({ t, multiple, title, getFile, files,setFiles, removedFileId, sendIdAfterUpload }) {
     const classes = styles();
     const appContext = useContext(AppContext);
     const gClasses = gClass();
     const lang = i18next.language;
     const [imagePreviewUrl, setImagePreviewUrl] = useState([]);
-    const [files, setFiles] = useState([]);
     const [validation, setValidation] = useState('');
     const [currentId, setCurrentId] = useState('');
 
-    useEffect(() => {
-        if (imgs && imgs[0] !== undefined && imgs.length > 0) {//for edit user
+    useEffect(() => {debugger
+        if (files && files[0] !== undefined && files.length > 0) {//for edit user
             let urls = [];
-            for (let img of imgs) {
-                urls.push(img.url);
+            let fids = [];
+            for (let file of files) {
+                urls.push(file.url);
+                fids.push(file.fid);
             }
             setImagePreviewUrl([...urls]);
+            setCurrentId([...fids]);
         }
-    }, [imgs]);
+    }, [files]);
 
     useEffect(() => {
         appContext.setLoading(false);
@@ -92,7 +94,7 @@ function UploadFileComponent({ t, multiple, title, getFile, imgs, removedFileId,
             }
             let arrayOfFiles = [];
 
-            if (multiple) {//check mutliple img or not
+            if (multiple) {//check mutliple file or not
                 arrayOfFiles = e.currentTarget.files;
             } else {
                 setFiles([]);
@@ -121,7 +123,7 @@ function UploadFileComponent({ t, multiple, title, getFile, imgs, removedFileId,
                 <span className="cancel" id={currentId[i]} onClick={e => handleRemoveImg(e, imagePreviewUrl[i], files[i])}>
                     <CancelIcon />
                 </span>
-                <img  src={imagePreviewUrl[i]} className="item" />
+                <img  src={rarImg} className="item" />
             </div>);
         }
     } else {

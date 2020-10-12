@@ -30,6 +30,12 @@ function ContentsComponent({t}) {
     const [id, setId] = useState('');
     const [errors, setErrors] = useState({});
     const [src, setSrc] = useState('');
+    const [singleImgs, setSingleImgs] = useState([]);
+    const [multiImgs, setMultiImgs] = useState([]);
+    const [videos, setVideos] = useState([]);
+    const [files, setFiles] = useState([]);
+    const [voices, setVoices] = useState([]);
+    const [urls, setUrls] = useState({});
     const [content, setContent] = useState({
         "type": {
             "target_id": ""
@@ -52,6 +58,9 @@ function ContentsComponent({t}) {
         "field_special_news_display": false,
         "status": false,
     });
+    const [imagePreviewUrl, setImagePreviewUrl] = useState([]);//base64
+    const [multiImagePreviewUrl, setMultiImagePreviewUrl] = useState([]);//base64
+    const [videoPreviewUrl, setvideoPreviewUrl] = useState([]);
 
     const getContents = () => {
         appContext.setLoading(true);
@@ -120,30 +129,83 @@ function ContentsComponent({t}) {
     }, []);
 
     useEffect(() => {
-        contentService.getContent(id).then((response)=>{
-            setContent(response.data);
-        }).catch((error)=>{
+        contentService.getContent(id).then((response) => {
+            const item = response.data;
+            setContent(item);
+            /*
+            * for making fid and url to show when push update button
+            * */
+            const makeArrayOfFidAndUrl=(fidString,urlString)=>{
+                const fidArray = fidString.split(',');
+                const urlArray = urlString.split(',');
+                let arr=[];
+                for (let i in fidArray) {
+                    arr.push({fid: fidArray[i], url: urlArray[i]});
+                }
+                return arr;
+            }
+            // ------------- set multiimgs for the edit time -------------
+            const multiImgFidString = item.field_field_galeries.target_id;
+            const multiImgUrlString = item.field_field_galeries.url;
+            const multiImgs=makeArrayOfFidAndUrl(multiImgFidString,multiImgUrlString);
+            // ------------- set multiimgs for the edit time -------------
+            const videoesFidString = item.field_videos.target_id;
+            const videosUrlString = item.field_videos.url;
+            const videos = makeArrayOfFidAndUrl(videoesFidString,videosUrlString)
+            // ------------- set multiimgs for the edit time -------------
+            const filesFidString = item.field_files.target_id;
+            const filesUrlString = item.field_files.url;
+            const files=makeArrayOfFidAndUrl(filesFidString,filesUrlString);
+            // ------------- set multiimgs for the edit time -------------
+            const voicesFidString = item.field_sounds.target_id;
+            const voicesUrlString = item.field_sounds.url;
+            const voices=makeArrayOfFidAndUrl(voicesFidString,voicesUrlString);
+            debugger
+            // ------------- sets -------------
+            setSingleImgs([{fid: item.field_image.target_id, url: item.field_image.url}]);
+            setMultiImgs(multiImgs);
+            setVideos(videos);
+            setVoices(voices);
+            setFiles(files);
+        }).catch((error) => {
             console.log(error)
         });
     }, [id]);
 
-    console.log(content);
+    // console.log(content);
 
     return (<ContentsContext.Provider value={{
             contents: contents,
-            src:src,
-            setSrc:setSrc,
+            src: src,
+            setSrc: setSrc,
             chunkContents: chunkContents,
             contentTypeList: contentTypeList,
             handlePagination: handlePagination,
             getRegisteredContent: getRegisteredContent,
-            id:id,
-            setId:setId,
-            content:content,
-            setContent:setContent,
+            id: id,
+            setId: setId,
+            content: content,
+            setContent: setContent,
             setErrors: setErrors,
             errors: errors,
-
+            urls: urls,
+            setUrls: setUrls,
+            singleImgs: singleImgs,
+            setSingleImgs: setSingleImgs,
+            multiImgs: multiImgs,
+            setMultiImgs: setMultiImgs,
+            videos: videos,
+            setVideos: setVideos,
+            files: files,
+            setFiles: setFiles,
+            voices: voices,
+            setVoices: setVoices,
+            setImagePreviewUrl: setImagePreviewUrl,
+            imagePreviewUrl: imagePreviewUrl,
+            multiImagePreviewUrl: multiImagePreviewUrl,
+            setMultiImagePreviewUrl: setMultiImagePreviewUrl,
+            videoPreviewUrl: videoPreviewUrl,
+            setvideoPreviewUrl: setvideoPreviewUrl,
         }}>
             <StyledPaper>
                 <ContentHeaderComponent setOpenRegisterForm={handleOpenContentForm}/>

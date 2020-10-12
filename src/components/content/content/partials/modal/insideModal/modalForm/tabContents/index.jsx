@@ -68,7 +68,7 @@ function NewContentTabsComponent({t}) {
                         </Box>
                     </TabPanel>
                 </StyledTabPanels>
-                <NewContentFooterComponent/>
+                <NewContentFooterComponent value={value} setValue={setValue}/>
             </Box>
         </Paper>
     );

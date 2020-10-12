@@ -34,6 +34,11 @@ export default function ModalComponent({openRegisterForm, handleCloseContentForm
         handleCloseContentForm();
         setContentType('');
         contentContext.setId('');
+        contentContext.setSingleImgs([]);
+        contentContext.setMultiImgs([]);
+        contentContext.setVideos([]);
+        contentContext.setVoices([]);
+        contentContext.setFiles([]);
     };
 
     return (<Modal

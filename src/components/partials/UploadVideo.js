@@ -1,29 +1,29 @@
 import React, {useContext, useEffect, useState} from "react";
+import { withNamespaces } from "react-i18next";
+import ReactPlayer from 'react-player';
+import clsx from "clsx";
+import i18next from "i18next";
+
 import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import CancelIcon from '@material-ui/icons/Cancel';
-import * as colors from './Colors.js';
-import { withNamespaces } from "react-i18next";
-import ReactPlayer from 'react-player';
 import AddIcon from '@material-ui/icons/Add';
-import { green } from "./Colors";
-import clsx from "clsx";
-import { globalCss } from "../../assets/js/globalCss";
-import i18next from "i18next";
+
+import { globalCss } from "assets/js/globalCss";
 import uploadStyles from 'assets/js/partials/upload';
-import AppContext from "../../contexts/AppContext";
+import AppContext from "contexts/AppContext";
 
 
 const styles = makeStyles(uploadStyles);
 
 const gClass = makeStyles(globalCss);
 
-function UploadVideo({ t, multiple, title, getFile,removedFileId, videos, sendIdAfterUpload }) {
+function UploadVideo({ t, multiple, title, getFile,removedFileId, videos, sendIdAfterUpload ,videoPreviewUrl,setvideoPreviewUrl}) {
     const classes = styles();
     const gClasses = gClass();
     const appContext = useContext(AppContext);
     const lang = i18next.language;
-    const [videoPreviewUrl, setvideoPreviewUrl] = useState([]);
+
     const [files, setFiles] = useState([]);
     const [validation, setValidation] = useState('');
     const [currentId, setCurrentId] = useState('');
@@ -32,10 +32,13 @@ function UploadVideo({ t, multiple, title, getFile,removedFileId, videos, sendId
     useEffect(() => {
         if (videos && videos[0] !== undefined && videos.length > 0) {//for edit user
             let urls = [];
+            let fids = [];
             for (let video of videos) {
                 urls.push(video.url);
+                fids.push(video.fid);
             }
             setvideoPreviewUrl([...urls]);
+            setCurrentId([...fids]);
         }
     }, [videos]);
 
@@ -133,4 +136,4 @@ function UploadVideo({ t, multiple, title, getFile,removedFileId, videos, sendId
     );
 }
 
-export default withNamespaces('users', 'translation')(UploadVideo);
+export default withNamespaces('users,translation')(UploadVideo);

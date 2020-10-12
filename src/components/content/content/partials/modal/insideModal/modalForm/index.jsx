@@ -102,6 +102,7 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
         unpublishDate: unpublishDate,
         setDescriptionFileSrc:setDescriptionFileSrc,
         descriptionFileSrc:descriptionFileSrc,
+       
     }}>
         <Fade in={openRegisterForm} id="modal">
             <StyledDirection lang={lang}>

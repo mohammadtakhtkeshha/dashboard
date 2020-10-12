@@ -18,14 +18,12 @@ import {
 } from 'assets/js/partials/uploadImg'
 import {previewImgMethod, removeImgMethod} from './UploadImgComponent.js'
 
-function UploadImgComponent({t, multiple, title, getFile, imgs, removedFileId, sendIdAfterUpload}) {
+function UploadImgComponent({t, multiple, title, getFile, imgs, removedFileId, sendIdAfterUpload,imagePreviewUrl,setImagePreviewUrl}) {
     const lang = i18next.language;
     const appContext = useContext(AppContext);
-    const [imagePreviewUrl, setImagePreviewUrl] = useState([]);//base64
     const [files, setFiles] = useState([]);
     const [validation, setValidation] = useState('');
     const [currentId, setCurrentId] = useState('');
-
     const handlePreviewImg = (e) => {
         previewImgMethod(e, t, appContext, setValidation, setFiles, setImagePreviewUrl, multiple, getFile);
     }
@@ -96,12 +94,17 @@ function UploadImgComponent({t, multiple, title, getFile, imgs, removedFileId, s
     useEffect(() => {
         if (imgs && imgs[0] !== undefined && imgs.length > 0) {//for edit user
             let urls = [];
+            let fids = [];
             for (let img of imgs) {
-                urls.push(img);
+                urls.push(img.url);
+                fids.push(img.fid);
             }
             setImagePreviewUrl([...urls]);
+            setCurrentId([...fids]);
         }
     }, [imgs]);
+
+    // console.log(imgs);
 
     return (<>
         <InputBlock>

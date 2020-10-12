@@ -1,15 +1,12 @@
 import React, {useContext, useState} from "react";
-import i18next from "i18next";
 import {withNamespaces} from "react-i18next";
 
-import {Box, Typography} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
+import {Box} from "@material-ui/core";
 
 import UploadImg from "components/partials/UploadImgComponent.jsx";
 import UploadFileComponent from "components/partials/UploadFileComponent.jsx";
 import UploadVideo from "components/partials/UploadVideo";
 import UploadVoice from "components/partials/UploadVoice";
-import {globalCss} from "assets/js/globalCss";
 import AppContext from "contexts/AppContext";
 import {
     removeMultiImgMethod, uploadMultiFileMethod, uploadMultiImgMethod,
@@ -17,15 +14,11 @@ import {
     removeMultiVideoMethod, removeMultiVoiceMethod
 } from "./FormContentFileComponent.js";
 import ContentsContext from "contexts/ContentsContext";
-import {StyledAlignTypography} from "../../../../../../../../assets/js/App";
-
-const gClass = makeStyles(globalCss);
+import {StyledAlignTypography} from "assets/js/App";
 
 function FormContentFileComponent({t}) {
-    let lang = i18next.language;
     const appContext = useContext(AppContext);
     const contentsContext = useContext(ContentsContext);
-    const gClasses = gClass();
     const [multiImgFids, setMultiImgFids] = useState([]);
     const [multiImgToSendFid, setMultiImgToSendFid] = useState('');
     const [multiFileToSendId, setMultiFileToSendId] = useState('');
@@ -49,7 +42,7 @@ function FormContentFileComponent({t}) {
     }
 
     const removeMultiImg = (currentId) => {
-        removeMultiImgMethod(currentId,contentsContext);
+        removeMultiImgMethod(currentId, contentsContext);
     }
 
     const removeMultiFile = (currentId) => {
@@ -63,27 +56,49 @@ function FormContentFileComponent({t}) {
     const removeMultiVoice = (currentId) => {
         removeMultiVoiceMethod(currentId, contentsContext);
     }
-
+    console.log(contentsContext.video);
     return (<>
         <Box className="card">
             <StyledAlignTypography>{t('contents:imgGallery')}</StyledAlignTypography>
-            <UploadImg multiple={true} title={t('translation:choosePic')} getFile={uploadMultiImg}
-                       removedFileId={removeMultiImg} sendIdAfterUpload={multiImgToSendFid}/>
+            <UploadImg multiple={true}
+                       title={t('translation:choosePic')}
+                       getFile={uploadMultiImg}
+                       imgs={contentsContext.multiImgs}
+                       removedFileId={removeMultiImg}
+                       sendIdAfterUpload={multiImgToSendFid}
+                       imagePreviewUrl={contentsContext.multiImagePreviewUrl}
+                       setImagePreviewUrl={contentsContext.setMultiImagePreviewUrl}
+            />
         </Box>
         <Box className="card">
             <StyledAlignTypography>{t('contents:fileGallery')}</StyledAlignTypography>
-            <UploadFileComponent multiple={true} title={t('translation:chooseFile')} getFile={uploadMultiFile}
-                        removedFileId={removeMultiFile} sendIdAfterUpload={multiFileToSendId}/>
+            <UploadFileComponent multiple={true}
+                                 title={t('translation:chooseFile')}
+                                 getFile={uploadMultiFile}
+                                 files={contentsContext.files}
+                                 setFiles={contentsContext.setFiles}
+                                 removedFileId={removeMultiFile}
+                                 sendIdAfterUpload={multiFileToSendId}/>
         </Box>
         <Box className="card">
             <StyledAlignTypography>{t('contents:videoGallery')}</StyledAlignTypography>
-            <UploadVideo multiple={true} title={t('translation:chooseVideo')} getFile={uploadVideo}
-                         removedFileId={removeMultiVideo} sendIdAfterUpload={multiVideoToSend}/>
+            <UploadVideo multiple={true}
+                         videos={contentsContext.videos}
+                         title={t('translation:chooseVideo')}
+                         getFile={uploadVideo}
+                         removedFileId={removeMultiVideo}
+                         sendIdAfterUpload={multiVideoToSend}
+                         videoPreviewUrl={contentsContext.videoPreviewUrl}
+                         setvideoPreviewUrl={contentsContext.setvideoPreviewUrl}/>
         </Box>
         <Box className="card">
             <StyledAlignTypography>{t('contents:voiceGallery')}</StyledAlignTypography>
-            <UploadVoice multiple={true} title={t('translation:chooseVoice')} getFile={uploadVoice}
-                         removedFileId={removeMultiVoice} sendIdAfterUpload={multiVoiceToSend}/>
+            <UploadVoice multiple={true}
+                         title={t('translation:chooseVoice')}
+                         getFile={uploadVoice}
+                         voices={contentsContext.voices}
+                         removedFileId={removeMultiVoice}
+                         sendIdAfterUpload={multiVoiceToSend}/>
         </Box>
     </>);
 }

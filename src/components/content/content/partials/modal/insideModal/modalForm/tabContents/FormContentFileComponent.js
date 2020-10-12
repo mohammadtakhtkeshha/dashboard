@@ -1,19 +1,32 @@
 import contentService from "core/services/content.service";
 
-export const uploadMultiImgMethod = (file,newContentContext,setMultiImgFids,appContext,setMultiImgToSendFid) => {
+/* description : first request to upload img in server
+ *                in response save the id in content like :
+ *                field_field_galeries: {target_id: "1645", target_type: "file"}
+ *
+ *    @param(number) : id is uniqe ...
+ *     ...
+ *     @return (object) : like this: {id: 52, name: fdsf}
+*/
+
+export const uploadMultiImgMethod = (file,contentsContext,setMultiImgFids,appContext,setMultiImgToSendFid) => {debugger
     if (file.length > 0) {
-        let fids = [];
         for (let e of file) {
             contentService.uploadMultiImg(e).then((response) => {
-                setMultiImgToSendFid({id: response.data.fid, file: e});
-                let fidsString = fids.toString();
+                const item= response.data;
+                setMultiImgToSendFid({id: item.fid, file: e});
+                const lastPartOfImgUrl=item.uri.slice(9);
+                const currentImgUrl=`http://dash.webrbp.ir/sites/default/files/${lastPartOfImgUrl}`;
+                // contentsContext.setMultiImgs(prevState => {
+                //     return [...prevState,{fid:item.fid,url:currentImgUrl}]
+                // });
+                // debugger
                 setMultiImgFids(prevState => {
-                    return [...prevState, {fid: response.data.fid, name: e.name}];
+                    return [...prevState, {fid: response.data.fid, name: e.name,url:currentImgUrl}];
                 });
-                newContentContext.setContent(prevState => {
+                contentsContext.setContent(prevState => {
                     let fids = [];
                     if (prevState.field_field_galeries.target_id !== undefined) {
-
                         fids.push(prevState.field_field_galeries.target_id, response.data.fid);
                     } else {
                         fids.push(response.data.fid);
@@ -31,7 +44,7 @@ export const uploadMultiImgMethod = (file,newContentContext,setMultiImgFids,appC
             });
         }
     } else {
-        newContentContext.setContent(prevState => {
+        contentsContext.setContent(prevState => {
             return {
                 ...prevState, multiImg: ''
             }
@@ -39,7 +52,7 @@ export const uploadMultiImgMethod = (file,newContentContext,setMultiImgFids,appC
     }
 }
 
-export const uploadMultiFileMethod = (files,newContentContext,setMultiFileToSendId,setMultiImgFids,appContext) => {
+export const uploadMultiFileMethod = (files,contentsContext,setMultiFileToSendId,setMultiImgFids,appContext) => {
     if (files.length > 0) {
         let fids = [];
         for (let e of files) {
@@ -50,7 +63,7 @@ export const uploadMultiFileMethod = (files,newContentContext,setMultiFileToSend
                 setMultiImgFids(prevState => {
                     return [...prevState, {fid: item.fid, name: e.name}];
                 });
-                newContentContext.setContent(prevState => {
+                contentsContext.setContent(prevState => {
                     let fids = [];
                     if (prevState.field_files.target_id !== undefined) {
                         fids.push(prevState.field_files.target_id, item.fid);
@@ -70,7 +83,7 @@ export const uploadMultiFileMethod = (files,newContentContext,setMultiFileToSend
             });
         }
     } else {
-        newContentContext.setContent(prevState => {
+        contentsContext.setContent(prevState => {
             return {
                 ...prevState, multiImg: ''
             }
@@ -143,6 +156,7 @@ export const uploadVoiceMethod = (files,contentsContext,setMultiVoiceToSend,appC
 
 export const removeMultiImgMethod = (currentId,contentsContext) => {
     let fidsString = contentsContext.content.field_field_galeries.target_id;
+    debugger
     let fidsArray = fidsString.split(',');
     let currentIndex = fidsArray.indexOf(currentId);
     fidsArray.splice(currentIndex, 1);
@@ -212,7 +226,3 @@ export const removeMultiVoiceMethod = (currentId,contentsContext) => {
         }
     });
 }
-
-export default {uploadMultiImgMethod,uploadMultiFileMethod,
-    uploadVideoMethod,uploadVoiceMethod,removeMultiImgMethod,removeMultiFileMethod,
-    removeMultiVideoMethod,removeMultiVoiceMethod}

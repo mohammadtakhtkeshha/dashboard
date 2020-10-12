@@ -45,6 +45,8 @@ function NewUserComponent({t, id, userNameList, userMailList}) {
     const [gottenName, setGottenName] = useState('');
     const [gottenMail, setGottenMail] = useState('');
     const [currentImg, setCurrentImg] = useState([]);
+    const [imagePreviewUrl, setImagePreviewUrl] = useState([]);//base64
+
 
     const getRoles = () => {
         userService.getRoles().then((response) => {
@@ -111,7 +113,7 @@ function NewUserComponent({t, id, userNameList, userMailList}) {
         }
     }
 
-    const removedFileId = () => {
+    const removedFileId = (id) => {
         setUser(prevState => {
             return {...prevState, user_picture: ""}
         });
@@ -137,7 +139,7 @@ function NewUserComponent({t, id, userNameList, userMailList}) {
                             }
                         }
                     });
-                    setSendIdAfterUpload({id: response.data.uuid, file: currentFile});
+                    setSendIdAfterUpload({id: response.data.fid, file: currentFile});
                     appContext.loading(false);
                 }
             ).catch((error) => {
@@ -241,6 +243,7 @@ function NewUserComponent({t, id, userNameList, userMailList}) {
                 let user = response.data;
                 let roles = user.roles !== undefined ? user.roles.target_id.split(',') : [];
                 setDefaultRoles([...roles]);
+                debugger
                 setUser({
                     uid: user.uid,
                     name: user.name === undefined ? '' : user.name,
@@ -253,18 +256,18 @@ function NewUserComponent({t, id, userNameList, userMailList}) {
                 });
                 setGottenName(response.data.name);
                 setGottenMail(response.data.mail);
-                setCurrentImg(user.user_picture === undefined ? [] : [user.user_picture.url]);
+                setCurrentImg(user.user_picture === undefined ? [] : [{url:user.user_picture.url,fid:user.user_picture.target_id}]);
             }).catch((error) => {
                 appContext.handleError(error);
             });
         }
-    };
+    }
 
     useEffect(() => {
         getUser();
         getRoles();
     }, []);
-
+    console.log(currentImg);
     return (
         <StyledDirection lang={lang}>
             <Box className={classes.paper}>
@@ -344,6 +347,8 @@ function NewUserComponent({t, id, userNameList, userMailList}) {
                                    imgs={currentImg}
                                    removedFileId={removedFileId}
                                    sendIdAfterUpload={sendIdAfterUpload}
+                                   imagePreviewUrl={imagePreviewUrl}
+                                   setImagePreviewUrl={setImagePreviewUrl}
                         />
                     </Box>
                     <Box mt={2}>

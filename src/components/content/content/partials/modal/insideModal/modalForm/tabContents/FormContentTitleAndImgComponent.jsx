@@ -6,9 +6,9 @@ import {Grid, Paper} from '@material-ui/core';
 
 import {StyledInput} from "assets/js/App";
 import {StyledTypographyError} from "assets/js/App";
+import {uploadSingImgMethod, handleChangeMethod, removedSingleImgMethod} from './FormContentTitleAndImgComponent.js'
 import UploadImg from "components/partials/UploadImgComponent.jsx";
 import AppContext from "contexts/AppContext";
-import {uploadSingImgMethod,handleChangeMethod,removedSingleImgMethod} from './FormContentTitleAndImgComponent.js'
 import ContentsContext from "contexts/ContentsContext";
 
 function TextContentTabComponent({t}) {
@@ -18,7 +18,7 @@ function TextContentTabComponent({t}) {
     const [singleImgToSendFid, setSingleImgToSendFid] = useState('');
 
     const handleChange = (e, field) => {
-        handleChangeMethod(e, field,contentContext);
+        handleChangeMethod(e, field, contentContext);
     }
 
     const removedSingleImg = (id) => {
@@ -28,6 +28,7 @@ function TextContentTabComponent({t}) {
     const uploadSingImg = (e) => {
         uploadSingImgMethod(e, contentContext, setSingleImgToSendFid, appContext);
     }
+
     return (
         <Grid container spacing={3}>
             <Grid item xs={4}>
@@ -38,9 +39,8 @@ function TextContentTabComponent({t}) {
                         placeholder={t('translation:title')}
                         onChange={e => handleChange(e, "title")}
                     />
-                    {contentContext.errors?.title ?
-                        <StyledTypographyError
-                            align={lang === 'en' ? 'left' : 'right'}>{contentContext.errors.title}</StyledTypographyError> : ''}
+                    {contentContext.errors?.title ? <StyledTypographyError
+                        align={lang === 'en' ? 'left' : 'right'}>{contentContext.errors.title}</StyledTypographyError> : ''}
                 </Paper>
             </Grid>
             <Grid item xs={4}>
@@ -63,9 +63,16 @@ function TextContentTabComponent({t}) {
                 </Paper>
             </Grid>
             <Grid item xs={12}>
-                <UploadImg multiple={false} title={t('translation:choosePic')} getFile={uploadSingImg}
-                           removedFileId={removedSingleImg} sendIdAfterUpload={singleImgToSendFid}
-                            imgs={[contentContext.field_image?.url]}/>
+                <UploadImg multiple={false}
+                           title={t('translation:choosePic')}
+                           getFile={uploadSingImg}
+                           removedFileId={removedSingleImg}
+                           sendIdAfterUpload={singleImgToSendFid}
+                           imgs={contentContext.singleImgs}
+                           imagePreviewUrl={contentContext.imagePreviewUrl}
+                           setImagePreviewUrl={contentContext.setImagePreviewUrl}
+
+                />
             </Grid>
         </Grid>
     );

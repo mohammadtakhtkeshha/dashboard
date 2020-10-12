@@ -31,10 +31,13 @@ function UploadVoice({t,multiple, title, getFile, voices,removedFileId,sendIdAft
         appContext.setLoading(false);
         if (voices && voices[0] !== undefined && voices.length > 0) {//for edit user
             let urls = [];
+            let fids = [];
             for (let voice of voices) {
                 urls.push(voice.url);
+                urls.push(voice.fid);
             }
             setVoicePreviewUrl([...urls]);
+            setCurrentId([...fids]);
         }
     }, [voices]);
 
