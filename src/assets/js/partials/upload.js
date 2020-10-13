@@ -29,6 +29,7 @@ export const uploadStyles = {
                 textAlign: 'center',
                 width: '100%',
                 fontSize:'1rem',
+                padding:'1rem',
                 '& .addIcon': {
                     cursor: 'pointer',
                     zIndex: '50',
@@ -42,8 +43,13 @@ export const uploadStyles = {
                     position: 'relative',
                     display: 'inline-block',
                     width: '100%',
+                    margin:'18px 0!important',
                     '& > div': {//for voice
                         margin: '0!important',
+                        height:'100px',
+                        '&>div':{
+                            padding:'36px 9px 10px 13px!important'
+                        }
                     },
                     '& .cancel': {
                         cursor: 'pointer',
@@ -56,8 +62,8 @@ export const uploadStyles = {
                     '& .cancelVoice': {
                         cursor: 'pointer',
                         position: 'absolute',
-                        top: '-13px',
-                        left: '0',
+                        top: '10px',
+                        left: '10px',
                         color: green[0],
                     },
                     '& .item': {

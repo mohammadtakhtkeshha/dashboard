@@ -18,7 +18,8 @@ function TextContentTabComponent({t}) {
     const [singleImgToSendFid, setSingleImgToSendFid] = useState('');
 
     const handleChange = (e, field) => {
-        handleChangeMethod(e, field, contentContext);
+        contentContext.setErrors({});
+        handleChangeMethod(e, field, contentContext,t);
     }
 
     const removedSingleImg = (id) => {

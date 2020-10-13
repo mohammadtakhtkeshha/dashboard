@@ -22,7 +22,7 @@ const styles = makeStyles(myStyles);
 const themeFa = createMuiTheme(themeFaa);
 const themeEn = createMuiTheme(themeEnn);
 
-function DatePickerrComponent({placeholder,passedDate,selectedDate,setSelectedDate}) {
+function DatePickerrComponent({placeholder,currentKey,passedDate,selectedDate,setSelectedDate}) {
     let lang = i18next.language;
     const classes = styles();
 
@@ -39,7 +39,7 @@ function DatePickerrComponent({placeholder,passedDate,selectedDate,setSelectedDa
 
 
     useEffect(() => {
-        setSelectedDate(selectedDate);
+        setSelectedDate(selectedDate,currentKey);
     }, [selectedDate]); // handle date from props
 
     return (<>

@@ -234,6 +234,8 @@ export const StyledFooterButton = styled.button`
                 background-color: inherit;
                 border: 0;
                 cursor:pointer;
+                font-size: 18px;
+                z-index:300;
                 color:${black[1]};
                 &:not(:first-child){
                     border-color: ${grey[1]};
@@ -242,6 +244,7 @@ export const StyledFooterButton = styled.button`
                     
                 }
                 &:nth-child(2) {
+                  color:${props=>props.state ? black[1] : grey[0]};
                   &:hover{
                      color: ${green[0]};
                   }
@@ -256,5 +259,4 @@ export const StyledFooterButton = styled.button`
                 }
 `
 
-export default {useStyles, bootstrapInput, useTabStyless,TabPanel,a11yProps,styledTabs,
-    StyledFooterButton};
+export default {useStyles, bootstrapInput, useTabStyless,TabPanel,a11yProps,styledTabs,StyledFooterButton};

@@ -69,5 +69,6 @@
   "categories": "categories",
   "typeHere": "please type here ...",
   "nextStep": "next step",
-  "prevStep": "prev step"
+  "prevStep": "prev step",
+  "incorrectData":"incorrect data!"
 }

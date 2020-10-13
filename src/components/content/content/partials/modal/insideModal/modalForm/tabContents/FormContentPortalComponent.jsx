@@ -20,7 +20,6 @@ function FormContentPortalComponent({t}) {
     const handleAffiliateChange = (e) => {
         handleAffiliateChangeMethod(e, contentsContext);
     }
-
     return (<StyledRowBox>
         <StyledRow>
             <StyledCol>

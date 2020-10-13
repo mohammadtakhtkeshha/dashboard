@@ -51,7 +51,7 @@ export function deleteContent(id) {
 
 export function getContent(id) {
     let url = contentUrl.getContentUrl(id);
-    return axios.get(url);
+    return axios.get(url,authHeader);
 }
 
 export function registerContent(content) {

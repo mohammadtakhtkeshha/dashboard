@@ -41,20 +41,13 @@ export const StyledStatusButton = styled.button`
                 }
 `
 
-export const StyledRowBox = styled.div`
-            display:flex;
-            flex-direction:column;
+export const StyledGridBlock = styled.div`
+                padding:.3rem;
 `
 
-export const StyledRow = styled.div`
-            display:flex;
-            justify-content:space-between;
-            width : 100%;
-            margin-top : 1rem;
-
-`
-
-export const StyledCol = styled.div`
-            width: 49%;
-`
+export const ButtonBlock= () => ({
+    root:{
+        marginTop:'1rem',
+    }
+});
 

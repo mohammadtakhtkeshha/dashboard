@@ -1,10 +1,17 @@
 import contentService from "core/services/content.service";
 
-export const handleChangeMethod = (e, field,contentContext) => {
+export const handleChangeMethod = (e, field,contentContext,t) => {
     const currentName = e.currentTarget.value;
     if (field === "title") {
         if (currentName !== "") {
-            contentContext.setErrors({title: ''});
+            contentContext.setErrors(prevState => {
+                delete prevState.title;
+                return{...prevState}
+            });
+        }else{
+            contentContext.setErrors(prevState => {
+                return {...prevState,title: t('translation:requiredValid')}
+            });
         }
     }
     contentContext.setContent(prevState => {

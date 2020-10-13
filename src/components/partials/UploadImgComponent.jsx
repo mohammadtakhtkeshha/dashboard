@@ -18,7 +18,7 @@ import {
 } from 'assets/js/partials/uploadImg'
 import {previewImgMethod, removeImgMethod} from './UploadImgComponent.js'
 
-function UploadImgComponent({t, multiple, title, getFile, imgs, removedFileId, sendIdAfterUpload,imagePreviewUrl,setImagePreviewUrl}) {
+function UploadImgComponent({t, multiple, title, getFile, imgs, removedFileId, sendIdAfterUpload, imagePreviewUrl, setImagePreviewUrl}) {
     const lang = i18next.language;
     const appContext = useContext(AppContext);
     const [files, setFiles] = useState([]);
@@ -91,7 +91,7 @@ function UploadImgComponent({t, multiple, title, getFile, imgs, removedFileId, s
         }
     }, [sendIdAfterUpload]);//set id for every img
 
-    useEffect(() => {
+    useEffect(() => {debugger
         if (imgs && imgs[0] !== undefined && imgs.length > 0) {//for edit user
             let urls = [];
             let fids = [];
@@ -101,6 +101,7 @@ function UploadImgComponent({t, multiple, title, getFile, imgs, removedFileId, s
             }
             setImagePreviewUrl([...urls]);
             setCurrentId([...fids]);
+            debugger
         }
     }, [imgs]);
 

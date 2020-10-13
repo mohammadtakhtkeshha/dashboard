@@ -56,7 +56,7 @@ function FormContentFileComponent({t}) {
     const removeMultiVoice = (currentId) => {
         removeMultiVoiceMethod(currentId, contentsContext);
     }
-    console.log(contentsContext.video);
+    console.log(contentsContext.multiImgs);
     return (<>
         <Box className="card">
             <StyledAlignTypography>{t('contents:imgGallery')}</StyledAlignTypography>
@@ -67,8 +67,7 @@ function FormContentFileComponent({t}) {
                        removedFileId={removeMultiImg}
                        sendIdAfterUpload={multiImgToSendFid}
                        imagePreviewUrl={contentsContext.multiImagePreviewUrl}
-                       setImagePreviewUrl={contentsContext.setMultiImagePreviewUrl}
-            />
+                       setImagePreviewUrl={contentsContext.setMultiImagePreviewUrl}/>
         </Box>
         <Box className="card">
             <StyledAlignTypography>{t('contents:fileGallery')}</StyledAlignTypography>
@@ -78,7 +77,9 @@ function FormContentFileComponent({t}) {
                                  files={contentsContext.files}
                                  setFiles={contentsContext.setFiles}
                                  removedFileId={removeMultiFile}
-                                 sendIdAfterUpload={multiFileToSendId}/>
+                                 sendIdAfterUpload={multiFileToSendId}
+                                 setFilesPreviewUrl={contentsContext.setFilesPreviewUrl}
+                                 filesPreviewUrl={contentsContext.filesPreviewUrl}/>
         </Box>
         <Box className="card">
             <StyledAlignTypography>{t('contents:videoGallery')}</StyledAlignTypography>
@@ -98,7 +99,9 @@ function FormContentFileComponent({t}) {
                          getFile={uploadVoice}
                          voices={contentsContext.voices}
                          removedFileId={removeMultiVoice}
-                         sendIdAfterUpload={multiVoiceToSend}/>
+                         sendIdAfterUpload={multiVoiceToSend}
+                        setVoicesPreviewUrl={contentsContext.setVoicesPreviewUrl}
+                        voicesPreviewUrl={contentsContext.voicesPreviewUrl}/>
         </Box>
     </>);
 }

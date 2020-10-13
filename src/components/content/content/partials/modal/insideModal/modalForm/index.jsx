@@ -18,8 +18,7 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
     const lang = i18next.language;
     const appContext = useContext(AppContext);
     const contentsContext = useContext(ContentsContext);
-    const [publishDate, setPublishDate] = useState(null);
-    const [unpublishDate, setUnpublishDate] = useState(null);
+
     const [selectedTags, setSelectedTags] = useState([]);
     const [domainAccesses, setDomainAccesses] = useState([]);
     const [selectedDomainAccess, setSelectedDomainAccess] = useState([]);
@@ -82,6 +81,7 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
 
     useEffect(() => {
         getDomainSource();
+        contentsContext.setErrors({validForm:'no'});
     }, []);
 
     useEffect(() => {
@@ -96,10 +96,7 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
         setSelectedDomainAccess: setSelectedDomainAccess,
         domainAccesses: domainAccesses,
         setDomainAccesses: setDomainAccesses,
-        setUnpublishDate: setUnpublishDate,
-        setPublishDate: setPublishDate,
-        publishDate: publishDate,
-        unpublishDate: unpublishDate,
+
         setDescriptionFileSrc:setDescriptionFileSrc,
         descriptionFileSrc:descriptionFileSrc,
        

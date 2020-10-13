@@ -17,12 +17,11 @@ const styles = makeStyles(uploadStyles);
 
 const gClass=makeStyles(globalCss);
 
-function UploadVoice({t,multiple, title, getFile, voices,removedFileId,sendIdAfterUpload}) {
+function UploadVoice({t,multiple, title, getFile, voices,removedFileId,sendIdAfterUpload,voicesPreviewUrl,setVoicesPreviewUrl}) {
     const classes = styles();
     const appContext = useContext(AppContext);
     const gClasses=gClass();
     const lang=i18next.language;
-    const [voicePreviewUrl, setVoicePreviewUrl] = useState([]);
     const [files, setFiles] = useState([]);
     const [validation, setValidation] = useState('');
     const [currentId, setCurrentId] = useState('');
@@ -34,9 +33,9 @@ function UploadVoice({t,multiple, title, getFile, voices,removedFileId,sendIdAft
             let fids = [];
             for (let voice of voices) {
                 urls.push(voice.url);
-                urls.push(voice.fid);
+                fids.push(voice.fid);
             }
-            setVoicePreviewUrl([...urls]);
+            setVoicesPreviewUrl([...urls]);
             setCurrentId([...fids]);
         }
     }, [voices]);
@@ -54,7 +53,7 @@ function UploadVoice({t,multiple, title, getFile, voices,removedFileId,sendIdAft
                 setFiles(prevState => {
                     return [...prevState, file];
                 });
-                setVoicePreviewUrl(prevState => {
+                setVoicesPreviewUrl(prevState => {
                     return [...prevState, reader.result]
                 });
             }
@@ -69,7 +68,7 @@ function UploadVoice({t,multiple, title, getFile, voices,removedFileId,sendIdAft
         setFiles(prevState => {
             return [...prevState]
         });
-        setVoicePreviewUrl(prevState => {
+        setVoicesPreviewUrl(prevState => {
             return [...prevState]
         });
         if (extention !== ('mp3')) {
@@ -84,7 +83,7 @@ function UploadVoice({t,multiple, title, getFile, voices,removedFileId,sendIdAft
             arrayOfFiles = e.currentTarget.files;
         } else {
             setFiles([]);
-            setVoicePreviewUrl([]);
+            setVoicesPreviewUrl([]);
             arrayOfFiles.push(e.currentTarget.files[0]);
         }
         getFile([...arrayOfFiles]);
@@ -92,24 +91,24 @@ function UploadVoice({t,multiple, title, getFile, voices,removedFileId,sendIdAft
     };
 
     let handleRemoveVoice = (e, src) => {
-        let index = voicePreviewUrl.indexOf(src);
-        let newVoicePreview = voicePreviewUrl.filter(item => item !== src);
+        let index = voicesPreviewUrl.indexOf(src);
+        let newVoicePreview = voicesPreviewUrl.filter(item => item !== src);
         let deletedFile = files.splice(index, 1);
         let newFiles = files.filter(item => item !== deletedFile);
-        setVoicePreviewUrl(newVoicePreview);
+        setVoicesPreviewUrl(newVoicePreview);
         setFiles(newFiles);
         removedFileId(e.currentTarget.id);
     }
 
     let $imagePreview = [];
 
-    if (voicePreviewUrl.length > 0) {
-        for (let i = 0; i < (voicePreviewUrl.length); i++) {
+    if (voicesPreviewUrl.length > 0) {
+        for (let i = 0; i < (voicesPreviewUrl.length); i++) {
             $imagePreview.push(<div id="fileBlock">
-                    <span className="cancelVoice" id={currentId[i]} onClick={e => handleRemoveVoice(e, voicePreviewUrl[i], files[i])}>
+                    <span className="cancelVoice" id={currentId[i]} onClick={e => handleRemoveVoice(e, voicesPreviewUrl[i], files[i])}>
                         <CancelIcon/>
                     </span>
-                <AudioPlayer src={voicePreviewUrl[i]}/>
+                <AudioPlayer src={voicesPreviewUrl[i]}/>
             </div>);
         }
     } else {

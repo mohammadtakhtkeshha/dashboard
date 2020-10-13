@@ -16,24 +16,31 @@ const styles=makeStyles(uploadStyles);
 
 const gClass = makeStyles(globalCss);
 
-function UploadFileComponent({ t, multiple, title, getFile, files,setFiles, removedFileId, sendIdAfterUpload }) {
+function UploadFileComponent({ t, multiple, title, getFile, files,setFiles, removedFileId, sendIdAfterUpload ,filesPreviewUrl,setFilesPreviewUrl}) {
     const classes = styles();
     const appContext = useContext(AppContext);
     const gClasses = gClass();
     const lang = i18next.language;
-    const [imagePreviewUrl, setImagePreviewUrl] = useState([]);
     const [validation, setValidation] = useState('');
     const [currentId, setCurrentId] = useState('');
 
-    useEffect(() => {debugger
+    useEffect(() => {
         if (files && files[0] !== undefined && files.length > 0) {//for edit user
             let urls = [];
             let fids = [];
             for (let file of files) {
-                urls.push(file.url);
+                const length = file.url.length;
+                const extension=file.url.substring(length-3,length);
+                if(extension === 'zip'){
+                    urls.push(rarImg);
+                }else if(extension === 'txt'){
+                    urls.push(textImg);
+                }else{
+                    urls.push(file.url);
+                }
                 fids.push(file.fid);
             }
-            setImagePreviewUrl([...urls]);
+            setFilesPreviewUrl([...urls]);
             setCurrentId([...fids]);
         }
     }, [files]);
@@ -47,27 +54,28 @@ function UploadFileComponent({ t, multiple, title, getFile, files,setFiles, remo
             setCurrentId(prevState => {
                 return [...prevState, sendIdAfterUpload.id]
             });
+            
             if (['rar', 'zip'].includes(extention)) {
-                setImagePreviewUrl(prevState => {
+                setFilesPreviewUrl(prevState => {
                     return [...prevState, rarImg]
                 });
                 setFiles(prevState => {
                     return [...prevState, currentFile];
                 });
             } else if (['txt'].includes(extention)) {
-                setImagePreviewUrl(prevState => {
+                setFilesPreviewUrl(prevState => {
                     return [...prevState, textImg]
                 });
-                setFiles(prevState => {
-                    return [...prevState, currentFile];
-                });
+                // setFiles(prevState => {
+                //     return [...prevState, currentFile];
+                // });
             } else {
                 let reader = new FileReader();
                 reader.onload = () => {
-                    setFiles(prevState => {
-                        return [...prevState, currentFile];
-                    });
-                    setImagePreviewUrl(prevState => {
+                    // setFiles(prevState => {
+                    //     return [...prevState, currentFile];
+                    // });
+                    setFilesPreviewUrl(prevState => {
                         return [...prevState, reader.result]
                     });
                 }
@@ -84,7 +92,7 @@ function UploadFileComponent({ t, multiple, title, getFile, files,setFiles, remo
             setFiles((prevState => {
                 return [...prevState]
             }));
-            setImagePreviewUrl((prevState => {
+            setFilesPreviewUrl((prevState => {
                 return [...prevState]
             }));
             if (!['jpg', 'txt', 'zip', 'rar'].includes(extention)) {
@@ -98,7 +106,7 @@ function UploadFileComponent({ t, multiple, title, getFile, files,setFiles, remo
                 arrayOfFiles = e.currentTarget.files;
             } else {
                 setFiles([]);
-                setImagePreviewUrl([]);
+                setFilesPreviewUrl([]);
                 arrayOfFiles.push(e.currentTarget.files[0]);
             }
             getFile([...arrayOfFiles]);
@@ -106,29 +114,30 @@ function UploadFileComponent({ t, multiple, title, getFile, files,setFiles, remo
     }
 
     let handleRemoveImg = (e, src) => {
-        let index = imagePreviewUrl.indexOf(src);
-        let newImgPreview = imagePreviewUrl.filter(item => item !== src);
+        let index = filesPreviewUrl.indexOf(src);
+        let newImgPreview = filesPreviewUrl.filter(item => item !== src);
         let deletedFile = files.splice(index, 1);
         let newFiles = files.filter(item => item !== deletedFile);
-        setImagePreviewUrl(newImgPreview);
+        setFilesPreviewUrl(newImgPreview);
         setFiles(newFiles);
         removedFileId(e.currentTarget.id);
     }
 
     let $imagePreview = [];
 
-    if (imagePreviewUrl.length > 0) {
-        for (let i = 0; i < (imagePreviewUrl.length); i++) {
+    if (filesPreviewUrl.length > 0) {
+        for (let i = 0; i < (filesPreviewUrl.length); i++) {
             $imagePreview.push(<div id="fileBlock">
-                <span className="cancel" id={currentId[i]} onClick={e => handleRemoveImg(e, imagePreviewUrl[i], files[i])}>
+                <span className="cancel" id={currentId[i]} onClick={e => handleRemoveImg(e, filesPreviewUrl[i], files[i])}>
                     <CancelIcon />
                 </span>
-                <img  src={rarImg} className="item" />
+                <img  src={filesPreviewUrl[i]} className="item" />
             </div>);
         }
     } else {
         $imagePreview.push(<div className="previewText">{title}</div>);
     }
+
     return (
         <Box>
             <Box className={classes.uploadFile}>

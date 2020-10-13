@@ -7,14 +7,18 @@ import {StyledFooterRegisterContent} from "assets/js/content/partials/contentMod
 import ContentsContext from "contexts/ContentsContext";
 import AppContext from "contexts/AppContext";
 import {registerMethod} from "./FormContentFooterComponent.js";
+import {isObjectEmpty} from "methods/commens";
 
 function FormContentFooterComponent({t,value,setValue}) {
     const lang = i18next.language;
     const contentsContext=useContext(ContentsContext);
     const appContext=useContext(AppContext);
+    const finalDataValidation = isObjectEmpty(contentsContext.errors)
 
     const register = () => {
-       registerMethod(t,contentsContext,appContext);
+        if(finalDataValidation){
+            registerMethod(t,contentsContext,appContext);
+        }
     }
 
     const changeStep = (step) => {
@@ -40,7 +44,7 @@ function FormContentFooterComponent({t,value,setValue}) {
             <StyledFooterButton lang={lang} onClick={()=>changeStep('minus')}>
                 {t('translation:prevStep')}
             </StyledFooterButton>
-            <StyledFooterButton lang={lang} onClick={register}>
+            <StyledFooterButton state={finalDataValidation} lang={lang} onClick={register}>
                 {t('translation:register')}
             </StyledFooterButton>
             <StyledFooterButton lang={lang} onClick={()=>changeStep('plus')}>

@@ -17,6 +17,7 @@ import {StyledPaper, StyledBox} from "assets/js/App";
 import ContentHeaderComponent from "./partials/ContentHeaderComponent";
 import {StyledPaginationBox} from "assets/js/pagination";
 import {chunkItem, handleTotalPage} from "structure/layout";
+import {setContentWhenEditButtonClicked} from "./index.js";
 
 function ContentsComponent({t}) {
     const appContext = useContext(AppContext);
@@ -61,6 +62,8 @@ function ContentsComponent({t}) {
     const [imagePreviewUrl, setImagePreviewUrl] = useState([]);//base64
     const [multiImagePreviewUrl, setMultiImagePreviewUrl] = useState([]);//base64
     const [videoPreviewUrl, setvideoPreviewUrl] = useState([]);
+    const [voicesPreviewUrl, setVoicesPreviewUrl] = useState([]);
+    const [filesPreviewUrl, setFilesPreviewUrl] = useState([]);
 
     const getContents = () => {
         appContext.setLoading(true);
@@ -114,13 +117,42 @@ function ContentsComponent({t}) {
         const value = e.currentTarget.value;
         setOpenRegisterForm(true);
         if (value !== "") {
+            appContext.setLoading(true);
             setId(value);
         }
     }
 
     const handleCloseContentForm = (id) => {
         setOpenRegisterForm(false);
-        setId('');
+        setId(''); // id is filled when pushing edit button
+        setContent({
+            "type": {
+                "target_id": ""
+            },
+            "title": "",
+            "body": "",
+            "field_domain_access": {},
+            "field_domain_all_affiliates": true,
+            "field_domain_source": {},
+            "field_field_galeries": {},
+            "field_files": {},
+            "field_image": {},
+            "field_rotitr": "",
+            "field_sotitr": "",
+            "field_sounds": {},
+            "field_article_cat": {},
+            "field_tags": {},
+            "field_seo_list": {},
+            "field_videos": {},
+            "field_special_news_display": false,
+            "status": false,
+        });
+        // ------------ for emtying files input when close modal -----------
+        setImagePreviewUrl([]);
+        setMultiImagePreviewUrl([]);
+        setvideoPreviewUrl([]);
+        setVoicesPreviewUrl([]);
+        setFilesPreviewUrl([]);
     }
 
     useEffect(() => {
@@ -129,49 +161,16 @@ function ContentsComponent({t}) {
     }, []);
 
     useEffect(() => {
-        contentService.getContent(id).then((response) => {
-            const item = response.data;
-            setContent(item);
-            /*
-            * for making fid and url to show when push update button
-            * */
-            const makeArrayOfFidAndUrl=(fidString,urlString)=>{
-                const fidArray = fidString.split(',');
-                const urlArray = urlString.split(',');
-                let arr=[];
-                for (let i in fidArray) {
-                    arr.push({fid: fidArray[i], url: urlArray[i]});
-                }
-                return arr;
-            }
-            // ------------- set multiimgs for the edit time -------------
-            const multiImgFidString = item.field_field_galeries.target_id;
-            const multiImgUrlString = item.field_field_galeries.url;
-            const multiImgs=makeArrayOfFidAndUrl(multiImgFidString,multiImgUrlString);
-            // ------------- set multiimgs for the edit time -------------
-            const videoesFidString = item.field_videos.target_id;
-            const videosUrlString = item.field_videos.url;
-            const videos = makeArrayOfFidAndUrl(videoesFidString,videosUrlString)
-            // ------------- set multiimgs for the edit time -------------
-            const filesFidString = item.field_files.target_id;
-            const filesUrlString = item.field_files.url;
-            const files=makeArrayOfFidAndUrl(filesFidString,filesUrlString);
-            // ------------- set multiimgs for the edit time -------------
-            const voicesFidString = item.field_sounds.target_id;
-            const voicesUrlString = item.field_sounds.url;
-            const voices=makeArrayOfFidAndUrl(voicesFidString,voicesUrlString);
-            debugger
-            // ------------- sets -------------
-            setSingleImgs([{fid: item.field_image.target_id, url: item.field_image.url}]);
-            setMultiImgs(multiImgs);
-            setVideos(videos);
-            setVoices(voices);
-            setFiles(files);
-        }).catch((error) => {
-            console.log(error)
-        });
+     setContentWhenEditButtonClicked(id,setContent, setSingleImgs, setMultiImgs, setVideos, setVoices, setFiles,appContext);
     }, [id]);
 
+    console.log('==================');
+    console.log(singleImgs);
+    console.log(multiImgs);
+    console.log(videos);
+    console.log(voices);
+    console.log(files);
+    //
     // console.log(content);
 
     return (<ContentsContext.Provider value={{
@@ -200,12 +199,16 @@ function ContentsComponent({t}) {
             setFiles: setFiles,
             voices: voices,
             setVoices: setVoices,
-            setImagePreviewUrl: setImagePreviewUrl,
             imagePreviewUrl: imagePreviewUrl,
+            setImagePreviewUrl: setImagePreviewUrl,
             multiImagePreviewUrl: multiImagePreviewUrl,
             setMultiImagePreviewUrl: setMultiImagePreviewUrl,
             videoPreviewUrl: videoPreviewUrl,
             setvideoPreviewUrl: setvideoPreviewUrl,
+            voicesPreviewUrl: voicesPreviewUrl,
+            setVoicesPreviewUrl: setVoicesPreviewUrl,
+            filesPreviewUrl:filesPreviewUrl,
+            setFilesPreviewUrl:setFilesPreviewUrl,
         }}>
             <StyledPaper>
                 <ContentHeaderComponent setOpenRegisterForm={handleOpenContentForm}/>

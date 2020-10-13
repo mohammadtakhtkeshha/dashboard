@@ -15,10 +15,10 @@ function FormContentSeoComponent({t}) {
     const lang = i18next.language;
     const newContentContext = useContext(NewContentContext);
     const contentsContext = useContext(ContentsContext);
-    const [title, setTitle] = useState(contentsContext.content.field_seo_list.title || '');
-    const [description, setDescription] = useState(contentsContext.content.field_seo_list.description || '');
-    const [abstract, setAbstract] = useState(contentsContext.content.field_seo_list.abstract || '');
-    const [keywords, setKeywords] = useState(contentsContext.content.field_seo_list.keywords || '');
+    const [title, setTitle] = useState(contentsContext.content.field_seo_list?.title || '');
+    const [description, setDescription] = useState(contentsContext.content.field_seo_list?.description || '');
+    const [abstract, setAbstract] = useState(contentsContext.content.field_seo_list?.abstract || '');
+    const [keywords, setKeywords] = useState(contentsContext.content.field_seo_list?.keywords || '');
 
     const clickEditorMetaTag = (e, keyName) => {
         clickEditorMetaTagMethod(e, keyName,setTitle,setDescription,setAbstract,setKeywords);
