@@ -35,11 +35,13 @@ function CategoryAndDescriptionComponent({t}) {
     }
 
     const setSelectedDate = (date, field) => {
-        contentsContext.setContent(prevState => {
-            return {
-                ...prevState, [field]: date
-            }
-        });
+        if (date !== null && field !== undefined) {
+            contentsContext.setContent(prevState => {
+                return {
+                    ...prevState, [field]: date
+                }
+            });
+        }
     }
 
     return (<Grid container>
@@ -58,8 +60,8 @@ function CategoryAndDescriptionComponent({t}) {
         <Grid item xs={6}>
             <StyledGridBlock>
                 <DatePickerrComponent currentKey={'unpublish_on'}
-                                      passedDate={(e) => passedDate('unpublish_on', e)}
                                       placeholder={t('contents:chooseUnpublishDate')}
+                                      passedDate={(e) => passedDate('unpublish_on', e)}
                                       selectedDate={contentsContext.content.unpublish_on || null}
                                       setSelectedDate={setSelectedDate}/>
                 {contentsContext.errors.unpublish_on ?

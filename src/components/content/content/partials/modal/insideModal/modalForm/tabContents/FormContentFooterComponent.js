@@ -5,6 +5,7 @@ export const registerMethod = (t,contentsContext,appContext) => {
         contentsContext.setErrors({title: t('translation:requiredValid')});
     }
     contentService.registerContent(contentsContext.content).then((response) => {
+        appContext.setLoading(false);
         contentsContext.getRegisteredContent(response.data);
     }).catch((error) => {
         // if (error === "وب سایت با یک خطای غیر منتظره مواجه شد. لطفا بعدا دوباره تلاش کنید.") {
@@ -25,6 +26,10 @@ export const registerMethod = (t,contentsContext,appContext) => {
         //     arrayError.push(titleError)
         //     appContext.handleError(arrayError);
         // }
+        debugger
+        if(error.response?.status === 500){
+            appContext.handleError(t('translation:netError'));
+        }
         if(error?.response?.data?.FailureReason?.error_code === 422){
             appContext.handleError(t('translation:incorrectData'));
         }

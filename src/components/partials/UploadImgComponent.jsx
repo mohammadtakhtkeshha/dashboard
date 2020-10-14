@@ -91,7 +91,7 @@ function UploadImgComponent({t, multiple, title, getFile, imgs, removedFileId, s
         }
     }, [sendIdAfterUpload]);//set id for every img
 
-    useEffect(() => {debugger
+    useEffect(() => {
         if (imgs && imgs[0] !== undefined && imgs.length > 0) {//for edit user
             let urls = [];
             let fids = [];
@@ -101,7 +101,6 @@ function UploadImgComponent({t, multiple, title, getFile, imgs, removedFileId, s
             }
             setImagePreviewUrl([...urls]);
             setCurrentId([...fids]);
-            debugger
         }
     }, [imgs]);
 

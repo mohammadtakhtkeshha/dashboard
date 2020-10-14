@@ -56,7 +56,7 @@ function FormContentFileComponent({t}) {
     const removeMultiVoice = (currentId) => {
         removeMultiVoiceMethod(currentId, contentsContext);
     }
-    console.log(contentsContext.multiImgs);
+    // console.log(contentsContext.multiImgs);
     return (<>
         <Box className="card">
             <StyledAlignTypography>{t('contents:imgGallery')}</StyledAlignTypography>

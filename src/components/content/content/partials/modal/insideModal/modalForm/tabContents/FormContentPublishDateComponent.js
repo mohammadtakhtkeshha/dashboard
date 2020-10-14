@@ -10,7 +10,9 @@ export const validateDate = (field,date,newContentContext,t) => {
             }
         });
         newContentContext.setErrors(prevState => {
-            return {...prevState, [field]: ''}
+            delete prevState['publish_on'];
+            delete prevState['unpublish_on'];
+            return {...prevState}
         });
     } else {
         if (date < currentDate) {//check times be for future
@@ -35,7 +37,8 @@ export const validateDate = (field,date,newContentContext,t) => {
                     });
                 } else {
                     newContentContext.setErrors(prevState => {
-                        return {...prevState, unpublish_on: ''}
+                        delete prevState['unpublish_on']
+                        return {...prevState}
                     });
                 }
             } else if (field === 'publish_on' && newContentContext.content.unpublish_on !== undefined) {
@@ -45,12 +48,14 @@ export const validateDate = (field,date,newContentContext,t) => {
                     });
                 } else {
                     newContentContext.setErrors(prevState => {
-                        return {...prevState, unpublish_on: ''}
+                        delete prevState['unpublish_on']
+                        return {...prevState}
                     });
                 }
             } else {
                 newContentContext.setErrors(prevState => {
-                    return {...prevState, unpublish_on: ''}
+                    delete prevState['unpublish_on']
+                    return {...prevState}
                 });
             }
         }
@@ -61,8 +66,6 @@ export const validateDate = (field,date,newContentContext,t) => {
         });
     }
 }
-
-
 
 export const handleStatusChangeMethod = (e,newContentContext) => {
     const status = e.currentTarget.value;

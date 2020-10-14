@@ -246,7 +246,7 @@ export const StyledFooterButton = styled.button`
                 &:nth-child(2) {
                   color:${props=>props.state ? black[1] : grey[0]};
                   &:hover{
-                     color: ${green[0]};
+                     color:${props=>props.state ? green[0]: grey[0]} };
                   }
                 }
                 &:first-child,&:last-child{

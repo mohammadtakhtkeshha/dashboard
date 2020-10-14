@@ -70,5 +70,6 @@
   "typeHere": "please type here ...",
   "nextStep": "next step",
   "prevStep": "prev step",
-  "incorrectData":"incorrect data!"
+  "incorrectData":"incorrect data!",
+  "netError":"network error!"
 }

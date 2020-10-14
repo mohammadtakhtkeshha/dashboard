@@ -17,6 +17,7 @@ function FormContentFooterComponent({t,value,setValue}) {
 
     const register = () => {
         if(finalDataValidation){
+            appContext.setLoading(true);
             registerMethod(t,contentsContext,appContext);
         }
     }

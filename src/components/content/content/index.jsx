@@ -164,14 +164,7 @@ function ContentsComponent({t}) {
      setContentWhenEditButtonClicked(id,setContent, setSingleImgs, setMultiImgs, setVideos, setVoices, setFiles,appContext);
     }, [id]);
 
-    console.log('==================');
-    console.log(singleImgs);
-    console.log(multiImgs);
-    console.log(videos);
-    console.log(voices);
-    console.log(files);
-    //
-    // console.log(content);
+    console.log(content);
 
     return (<ContentsContext.Provider value={{
             contents: contents,
