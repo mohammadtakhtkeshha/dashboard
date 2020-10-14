@@ -1,5 +1,7 @@
 let today = new Date();
 let currentDate = today.toISOString();
+let tomorrow =new Date(today.getFullYear(),today.getMonth(),today.getDate()+1);
+let isoTomorrow= tomorrow.toISOString();
 
 export const validateDate = (field,date,newContentContext,t) => {
     if (date === null) { //delete field publish and unpublish from content
@@ -15,7 +17,7 @@ export const validateDate = (field,date,newContentContext,t) => {
             return {...prevState}
         });
     } else {
-        if (date < currentDate) {//check times be for future
+        if (date < isoTomorrow) {//check times be for future
             if (field === "publish_on") {
                 newContentContext.setErrors(prevState => {
                     return {...prevState, publish_on: t('contents:furtherDate')}

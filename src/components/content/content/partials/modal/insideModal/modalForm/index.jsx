@@ -8,21 +8,16 @@ import contentService from "core/services/content.service";
 import NewContentContext from "contexts/NewContentContext";
 import {ModalBody, StyledCancelButton} from "assets/js/content/partials/contentModal";
 import {StyledDirection, StyledSvg} from "assets/js/App";
-import AppContext from "contexts/AppContext";
 import ContentsContext from "contexts/ContentsContext";
 import {ReactComponent as Exit} from "assets/svg/exit.svg";
 import NewContentTabsComponent from "./tabContents/index.jsx";
 
-
 function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
     const lang = i18next.language;
-    const appContext = useContext(AppContext);
     const contentsContext = useContext(ContentsContext);
-
     const [selectedTags, setSelectedTags] = useState([]);
     const [domainAccesses, setDomainAccesses] = useState([]);
     const [selectedDomainAccess, setSelectedDomainAccess] = useState([]);
-
     const [descriptionFileSrc,setDescriptionFileSrc]=useState('');
 
     const isObjectEmpty = (obj) => {
@@ -41,34 +36,6 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
         });
     }
 
-    const register = () => {
-        if (appContext.content.title === "") {
-            contentsContext.setErrors({title: t('translation:requiredValid')});
-        }
-        contentService.registerContent(appContext.content).then((response) => {
-            contentsContext.getRegisteredContent(response.data);
-        }).catch((error) => {
-            if (error === "وب سایت با یک خطای غیر منتظره مواجه شد. لطفا بعدا دوباره تلاش کنید.") {
-                appContext.handleError(t('translation:networkError'));
-            } else {
-                let objError = {};
-                const errorString = error.response.data.FailureReason.message.replace(/\n/g, 'a');
-                const errorArray = errorString.split('.');
-                for (let i in errorArray) {
-                    let newErrorMessage = errorArray[i].split(':');
-                    objError[newErrorMessage[0]] = newErrorMessage[1];
-                }
-                let titleError;
-                const arrayError = [];
-                if (objError.atitle === " This value should not be null") {
-                    titleError = t('contents:nullTitle')
-                }
-                arrayError.push(titleError)
-                appContext.handleError(arrayError);
-            }
-        });
-    }
-
     const setContentTypeInContent = () => {
         contentsContext.setContent(prevState => {
             return {
@@ -79,14 +46,28 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
         });
     }
 
+    const setErrorIfTitleIsEmpty = () => {
+        if(contentsContext.content.title !== ""){
+            contentsContext.setErrors(prevState => {
+                delete prevState['title'];
+                return{
+                    ...prevState
+                }
+            });
+        }
+    }
+
     useEffect(() => {
         getDomainSource();
-        contentsContext.setErrors({validForm:'no'});
     }, []);
 
     useEffect(() => {
         setContentTypeInContent();
     }, [contentType]);
+
+    useEffect(() => {
+            setErrorIfTitleIsEmpty();
+    }, [contentsContext.content.title]);
 
     return (<NewContentContext.Provider value={{
         selectedTags: selectedTags,
@@ -96,10 +77,8 @@ function Index({t, contentType, openRegisterForm, handleCloseRegisterForm}) {
         setSelectedDomainAccess: setSelectedDomainAccess,
         domainAccesses: domainAccesses,
         setDomainAccesses: setDomainAccesses,
-
         setDescriptionFileSrc:setDescriptionFileSrc,
         descriptionFileSrc:descriptionFileSrc,
-       
     }}>
         <Fade in={openRegisterForm} id="modal">
             <StyledDirection lang={lang}>

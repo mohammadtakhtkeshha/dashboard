@@ -20,7 +20,6 @@ export const uploadMultiImgMethod = (file,contentsContext,setMultiImgFids,appCon
                 // contentsContext.setMultiImgs(prevState => {
                 //     return [...prevState,{fid:item.fid,url:currentImgUrl}]
                 // });
-                // debugger
                 setMultiImgFids(prevState => {
                     return [...prevState, {fid: response.data.fid, name: e.name,url:currentImgUrl}];
                 });
@@ -156,7 +155,6 @@ export const uploadVoiceMethod = (files,contentsContext,setMultiVoiceToSend,appC
 
 export const removeMultiImgMethod = (currentId,contentsContext) => {
     let fidsString = contentsContext.content.field_field_galeries.target_id;
-    debugger
     let fidsArray = fidsString.split(',');
     let currentIndex = fidsArray.indexOf(currentId);
     fidsArray.splice(currentIndex, 1);

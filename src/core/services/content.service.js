@@ -59,6 +59,11 @@ export function registerContent(content) {
     return axios.post(url, content, aacaAuthauHeader);
 }
 
+export function editContent(content,id) {
+    let url = contentUrl.editContentUrl(id);
+    return axios.patch(url, content, aacaAuthauHeader);
+}
+
 export function getContentTypeList(handleError) {
     let url = contentUrl.getContentTypeListUrl;
     return Method({method:'get',headers:authHeader,url:url,handleError:handleError});
@@ -111,5 +116,6 @@ export default {
     deleteContent,
     getContentTypeList,
     getContent,
-    handleContentAction
+    handleContentAction,
+    editContent
 };

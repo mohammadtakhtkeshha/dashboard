@@ -243,7 +243,6 @@ function NewUserComponent({t, id, userNameList, userMailList}) {
                 let user = response.data;
                 let roles = user.roles !== undefined ? user.roles.target_id.split(',') : [];
                 setDefaultRoles([...roles]);
-                debugger
                 setUser({
                     uid: user.uid,
                     name: user.name === undefined ? '' : user.name,

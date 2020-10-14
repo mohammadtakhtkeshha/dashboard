@@ -161,7 +161,10 @@ function ContentsComponent({t}) {
     }, []);
 
     useEffect(() => {
-     setContentWhenEditButtonClicked(id,setContent, setSingleImgs, setMultiImgs, setVideos, setVoices, setFiles,appContext);
+        if (id !== '') {
+            setErrors({});
+            setContentWhenEditButtonClicked(id, setContent, setSingleImgs, setMultiImgs, setVideos, setVoices, setFiles, appContext, setErrors);
+        }
     }, [id]);
 
     console.log(content);
@@ -200,8 +203,8 @@ function ContentsComponent({t}) {
             setvideoPreviewUrl: setvideoPreviewUrl,
             voicesPreviewUrl: voicesPreviewUrl,
             setVoicesPreviewUrl: setVoicesPreviewUrl,
-            filesPreviewUrl:filesPreviewUrl,
-            setFilesPreviewUrl:setFilesPreviewUrl,
+            filesPreviewUrl: filesPreviewUrl,
+            setFilesPreviewUrl: setFilesPreviewUrl,
         }}>
             <StyledPaper>
                 <ContentHeaderComponent setOpenRegisterForm={handleOpenContentForm}/>

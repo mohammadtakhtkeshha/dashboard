@@ -1,16 +1,18 @@
 import React, {useContext, useEffect, useState} from "react";
+import { withNamespaces } from "react-i18next";
+import clsx from "clsx";
+import i18next from "i18next";
+
 import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import CancelIcon from '@material-ui/icons/Cancel';
-import { withNamespaces } from "react-i18next";
 import AddIcon from "@material-ui/icons/Add";
+
 import uploadStyles from 'assets/js/partials/upload';
-import clsx from "clsx";
-import { globalCss } from '../../assets/js/globalCss';
-import i18next from "i18next";
-import rarImg from './../../assets/media/image/rarFileImg.png';
-import textImg from './../../assets/media/image/textImg.png';
-import AppContext from "../../contexts/AppContext";
+import { globalCss } from 'assets/js/globalCss';
+import rarImg from 'assets/media/image/rarFileImg.png';
+import textImg from 'assets/media/image/textImg.png';
+import AppContext from "contexts/AppContext";
 
 const styles=makeStyles(uploadStyles);
 
@@ -29,8 +31,8 @@ function UploadFileComponent({ t, multiple, title, getFile, files,setFiles, remo
             let urls = [];
             let fids = [];
             for (let file of files) {
-                const length = file.url.length;
-                const extension=file.url.substring(length-3,length);
+                const length = file.url?.length;
+                const extension=file.url?.substring(length-3,length);
                 if(extension === 'zip'){
                     urls.push(rarImg);
                 }else if(extension === 'txt'){
@@ -84,7 +86,7 @@ function UploadFileComponent({ t, multiple, title, getFile, files,setFiles, remo
         }
     }, [sendIdAfterUpload]);
 
-    let uploadFile = (e) => {
+    const uploadFile = (e) => {
         appContext.setLoading(true);
         if (e.currentTarget.files[0] !== undefined) {
             let extention = (e.currentTarget.files[0].name).split('.').pop();
@@ -113,7 +115,7 @@ function UploadFileComponent({ t, multiple, title, getFile, files,setFiles, remo
         }
     }
 
-    let handleRemoveImg = (e, src) => {
+    const handleRemoveImg = (e, src) => {
         let index = filesPreviewUrl.indexOf(src);
         let newImgPreview = filesPreviewUrl.filter(item => item !== src);
         let deletedFile = files.splice(index, 1);

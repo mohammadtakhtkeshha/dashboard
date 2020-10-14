@@ -1,10 +1,16 @@
 import contentService from "core/services/content.service";
 
-export const registerMethod = (t,contentsContext,appContext) => {
+export const registerMethod = (t,contentsContext,appContext,id) => {
     if (contentsContext.content.title === "") {
         contentsContext.setErrors({title: t('translation:requiredValid')});
     }
-    contentService.registerContent(contentsContext.content).then((response) => {
+    let currentRequest;
+    if(id !== ''){
+        currentRequest=contentService.editContent(contentsContext.content,id);
+    }else{
+        currentRequest=contentService.registerContent(contentsContext.content);
+    }
+    currentRequest.then((response) => {
         appContext.setLoading(false);
         contentsContext.getRegisteredContent(response.data);
     }).catch((error) => {
@@ -26,7 +32,6 @@ export const registerMethod = (t,contentsContext,appContext) => {
         //     arrayError.push(titleError)
         //     appContext.handleError(arrayError);
         // }
-        debugger
         if(error.response?.status === 500){
             appContext.handleError(t('translation:netError'));
         }
@@ -34,4 +39,6 @@ export const registerMethod = (t,contentsContext,appContext) => {
             appContext.handleError(t('translation:incorrectData'));
         }
     });
+
+
 }

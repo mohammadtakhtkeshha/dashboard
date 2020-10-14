@@ -21,7 +21,7 @@ export const handleChangeMethod = (e, field,contentContext,t) => {
     });
 }
 
-export const uploadSingImgMethod = (e,contentContext,setSingleImgToSendFid,appContext) => {debugger
+export const uploadSingImgMethod = (e,contentContext,setSingleImgToSendFid,appContext) => {
     if (e.length > 0) {
         contentService.uploadSingImg(e).then((response) => {
             let item = response.data;

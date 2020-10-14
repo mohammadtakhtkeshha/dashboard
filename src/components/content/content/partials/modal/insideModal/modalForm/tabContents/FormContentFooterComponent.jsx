@@ -18,7 +18,7 @@ function FormContentFooterComponent({t,value,setValue}) {
     const register = () => {
         if(finalDataValidation){
             appContext.setLoading(true);
-            registerMethod(t,contentsContext,appContext);
+                registerMethod(t,contentsContext,appContext,contentsContext.id);
         }
     }
 
@@ -40,8 +40,7 @@ function FormContentFooterComponent({t,value,setValue}) {
         }
     }
 
-    return(<>
-        <StyledFooterRegisterContent>
+    return(<StyledFooterRegisterContent>
             <StyledFooterButton lang={lang} onClick={()=>changeStep('minus')}>
                 {t('translation:prevStep')}
             </StyledFooterButton>
@@ -51,7 +50,6 @@ function FormContentFooterComponent({t,value,setValue}) {
             <StyledFooterButton lang={lang} onClick={()=>changeStep('plus')}>
                 {t('translation:nextStep')}
             </StyledFooterButton>
-        </StyledFooterRegisterContent>
-    </>);
+        </StyledFooterRegisterContent>);
 }
 export default withNamespaces('translation')(FormContentFooterComponent);

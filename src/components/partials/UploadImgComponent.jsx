@@ -104,8 +104,6 @@ function UploadImgComponent({t, multiple, title, getFile, imgs, removedFileId, s
         }
     }, [imgs]);
 
-    // console.log(imgs);
-
     return (<>
         <InputBlock>
             {$imagePreview.map((item, index) => (<div key={index}>{item}</div>))}
