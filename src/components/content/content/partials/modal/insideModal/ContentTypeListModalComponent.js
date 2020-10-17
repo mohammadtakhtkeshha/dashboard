@@ -34,14 +34,7 @@ const StyledList = withStyles(listStyles)(List);
 function ContentTypeListModalComponent({setContentType, t, openRegisterForm, handleCloseRegisterForm}) {
     const lang = i18next.language;
     const contentsContext = useContext(ContentsContext);
-    const [contentTypeNameList, setContentTypeNameList] = useState([
-        {icon: <NewsSvg/>, name: 'خبر', machin_name: 'news', description: 'description'},
-        {icon: <ArticleSvg/>, name: 'مقاله', machin_name: 'article', description: 'description'},
-        {icon: <VideoSvg/>, name: 'ویدیو', machin_name: 'video', description: 'description'},
-        {icon: <SoundSvg/>, name: 'صوت', machin_name: 'voice', description: 'description'},
-        {icon: <PhotoSvg/>, name: 'گالری', machin_name: 'gallery', description: 'description'},
-        {icon: <ContentSvg/>, name: 'صفحه ساده', machin_name: 'simple page', description: 'description'}
-    ]);
+
 
     const handleToggle = (e, value) => {
         setContentType(value.machin_name);
@@ -71,7 +64,7 @@ function ContentTypeListModalComponent({setContentType, t, openRegisterForm, han
                             <StyledListItem role={undefined} dense button>
                                 <ListItemText id={0} primary={t('contents:chooseContentType')}/>
                             </StyledListItem>
-                            {contentTypeNameList.map((value) => {
+                            {contentsContext.contentTypeNameList.map((value) => {
                                 const labelId = `checkbox-list-label-${value}`;
                                 return (
                                     <StyledListItem key={value.machin_name} role={undefined} dense button

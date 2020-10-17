@@ -16,4 +16,8 @@ export const StyledFilterBlock = styled.div`
         }
    }
 `
-export default {StyledFilterBlock}
+
+export const StyledInsideGrid = styled.div`
+    padding :${props=>props.lang === 'en'?'0 10px 0 0':'0 0 0 10px'};
+`
+export default {StyledFilterBlock,StyledInsideGrid}

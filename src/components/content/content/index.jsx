@@ -18,6 +18,12 @@ import ContentHeaderComponent from "./partials/ContentHeaderComponent";
 import {StyledPaginationBox} from "assets/js/pagination";
 import {chunkItem, handleTotalPage} from "structure/layout";
 import {setContentWhenEditButtonClicked} from "./index.js";
+import {ReactComponent as NewsSvg} from "../../../assets/svg/contentType/news.svg";
+import {ReactComponent as ArticleSvg} from "../../../assets/svg/contentType/article.svg";
+import {ReactComponent as VideoSvg} from "../../../assets/svg/contentType/video.svg";
+import {ReactComponent as SoundSvg} from "../../../assets/svg/contentType/sound.svg";
+import {ReactComponent as PhotoSvg} from "../../../assets/svg/contentType/photo.svg";
+import {ReactComponent as ContentSvg} from "../../../assets/svg/contentType/content.svg";
 
 function ContentsComponent({t}) {
     const appContext = useContext(AppContext);
@@ -64,13 +70,21 @@ function ContentsComponent({t}) {
     const [videoPreviewUrl, setvideoPreviewUrl] = useState([]);
     const [voicesPreviewUrl, setVoicesPreviewUrl] = useState([]);
     const [filesPreviewUrl, setFilesPreviewUrl] = useState([]);
+    const contentTypeNameList=[
+        {icon: <NewsSvg/>, name: 'خبر', machin_name: 'news', description: 'description'},
+        {icon: <ArticleSvg/>, name: 'مقاله', machin_name: 'article', description: 'description'},
+        {icon: <VideoSvg/>, name: 'ویدیو', machin_name: 'video', description: 'description'},
+        {icon: <SoundSvg/>, name: 'صوت', machin_name: 'voice', description: 'description'},
+        {icon: <PhotoSvg/>, name: 'گالری', machin_name: 'gallery', description: 'description'},
+        {icon: <ContentSvg/>, name: 'صفحه ساده', machin_name: 'simple page', description: 'description'}
+    ];
 
     const getContents = () => {
         appContext.setLoading(true);
         contentService.getContents(appContext.handleError).then((response) => {
                 let contents = response.data;
                 appContext.setLoading(false);
-                handlePagination(contents);
+                handlePagination(contents,true);
             }
         );
     }
@@ -81,8 +95,10 @@ function ContentsComponent({t}) {
         setSelectedCheckBoxes([]);
     }
 
-    const handlePagination = (contents, action) => {
-        setContents(contents);
+    const handlePagination = (contents,setContentsState, action) => {
+        if(setContentsState === true){
+            setContents(contents);
+        }
         let currentTotalPage = handleTotalPage(contents);
         setTotalPage(currentTotalPage);
         const chunked = chunkItem(contents);
@@ -167,8 +183,6 @@ function ContentsComponent({t}) {
         }
     }, [id]);
 
-    console.log(content);
-
     return (<ContentsContext.Provider value={{
             contents: contents,
             src: src,
@@ -205,6 +219,7 @@ function ContentsComponent({t}) {
             setVoicesPreviewUrl: setVoicesPreviewUrl,
             filesPreviewUrl: filesPreviewUrl,
             setFilesPreviewUrl: setFilesPreviewUrl,
+            contentTypeNameList:contentTypeNameList
         }}>
             <StyledPaper>
                 <ContentHeaderComponent setOpenRegisterForm={handleOpenContentForm}/>

@@ -193,7 +193,7 @@
 //             let categories = response.data.rows;
 //             setCategories(categories);
 //         }).catch((error) => {
-//             console.log(error)
+
 //         });
 //
 //     };

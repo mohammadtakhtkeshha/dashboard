@@ -264,3 +264,12 @@ export const StyledValidError = styled.p`
             text-align : ${props=>props.lang === 'en' ? 'left':'right'}
 `
 
+export const styledTextField = {
+    root:{
+        width:'100%',
+        '& select':{
+            padding: '.9rem 1rem',
+        }
+    }
+}
+

@@ -65,7 +65,7 @@ export const setContentWhenEditButtonClicked = (id,setContent, setSingleImgs, se
         setVoices(voices);
         setFiles(files);
     }).catch((error) => {
-        console.log(error);
+
     });
 }
 

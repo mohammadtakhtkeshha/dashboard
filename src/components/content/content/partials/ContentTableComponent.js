@@ -97,53 +97,66 @@ function ContentTableComponent({t, selectedCheckBoxes, setSelectedCheckBoxes, pa
                 </TableHead>
                 {contentsContext.chunkContents !== undefined ?
                     <TableBody>
-                        {contentsContext.chunkContents[page]?.map((content, index) =>
-                            <StyledTableRow key={index}>
-                                <StyledTableCell align="right">
-                                    <Checkbox
-                                        onChange={(e) => isCheckedHandler(e, content)}
-                                        inputProps={{'aria-label': 'primary checkbox'}}
-                                        checked={selectedCheckBoxes.includes(content.nid)}
-                                    />
-                                </StyledTableCell>
-                                <StyledTableCell align="right">
-                                    <Box className="imgBlock">
-                                        <CardMedia id="img">
-                                            {content.field_image ? <img src={content.field_image} alt="content.name"/> :
-                                                <img src={contentImg}/>}
-                                        </CardMedia>
-                                    </Box>
-                                </StyledTableCell>
-                                <StyledTableCell align="right">
-                                    <div dangerouslySetInnerHTML={{__html: (content.title)}}></div>
-                                </StyledTableCell>
-                                <StyledTableCell align="right">
-                                    {content.type}
-                                </StyledTableCell>
-                                <StyledTableCell align="right">
-                                    {content.status === "true" ? t('translation:published') : t('translation:unpublished')}
-                                </StyledTableCell>
-                                <StyledTableCell align="right">
-                                    {content.changed}
-                                </StyledTableCell>
-                                <StyledTableCell align="right">
-                                    <StyledActionButtonBlock>
-                                        <button value={content.nid} onClick={handleOpenContentForm}>
-                                            <EditIcon/>
-                                            <Typography>
-                                                {t('translation:edit')}
-                                            </Typography>
-                                        </button>
-                                        <button value={content.nid} onClick={confirmDeleteHandler}>
-                                            <DeleteIcon/>
-                                            {t('translation:delete')}
-                                        </button>
-                                    </StyledActionButtonBlock>
-                                </StyledTableCell>
-                            </StyledTableRow>
-                        )}
+                        {contentsContext.chunkContents.length>0?
+                            contentsContext.chunkContents[page]?.map((content, index) =>
+                                <StyledTableRow key={index}>
+                                    <StyledTableCell align="right">
+                                        <Checkbox
+                                            onChange={(e) => isCheckedHandler(e, content)}
+                                            inputProps={{'aria-label': 'primary checkbox'}}
+                                            checked={selectedCheckBoxes.includes(content.nid)}
+                                        />
+                                    </StyledTableCell>
+                                    <StyledTableCell align="right">
+                                        <Box className="imgBlock">
+                                            <CardMedia id="img">
+                                                {content.field_image ? <img src={content.field_image} alt="content.name"/> :
+                                                    <img src={contentImg}/>}
+                                            </CardMedia>
+                                        </Box>
+                                    </StyledTableCell>
+                                    <StyledTableCell align="right">
+                                        <div dangerouslySetInnerHTML={{__html: (content.title)}}></div>
+                                    </StyledTableCell>
+                                    <StyledTableCell align="right">
+                                        {content.type}
+                                    </StyledTableCell>
+                                    <StyledTableCell align="right">
+                                        {content.status === "true" ? t('translation:published') : t('translation:unpublished')}
+                                    </StyledTableCell>
+                                    <StyledTableCell align="right">
+                                        {content.changed}
+                                    </StyledTableCell>
+                                    <StyledTableCell align="right">
+                                        <StyledActionButtonBlock>
+                                            <button value={content.nid} onClick={handleOpenContentForm}>
+                                                <EditIcon/>
+                                                <Typography>
+                                                    {t('translation:edit')}
+                                                </Typography>
+                                            </button>
+                                            <button value={content.nid} onClick={confirmDeleteHandler}>
+                                                <DeleteIcon/>
+                                                {t('translation:delete')}
+                                            </button>
+                                        </StyledActionButtonBlock>
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                            ):
+                        <StyledTableRow>
+                            <StyledTableCell>
+                                {t('translation:notFoundRecord')}
+                            </StyledTableCell>
+                        </StyledTableRow>
+                        }
                     </TableBody>
-                    : <TableBody></TableBody>}
+                    : <TableBody>
+                        {/*<StyledTableRow>*/}
+                        {/*    <StyledTableCell align="right">*/}
+                        {/*        {t('translation:notFoundRecord')}*/}
+                        {/*    </StyledTableCell>*/}
+                        {/*</StyledTableRow>*/}
+                    </TableBody>}
             </Table>
         </TableContainer>
 
