@@ -27,12 +27,14 @@ const StyledTableCell = withStyles((theme) => ({
 
 const StyledTableRow = withStyles((theme) => ({
     root: {
-        '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.action.hover,
-        },
-        '&:tr':{
-            border: '1px solid red',
-        }
+        // '&:nth-of-type(odd)': {
+        //     backgroundColor: theme.palette.action.hover,
+        // },
+        // '&:tr':{
+        //     border: '1px solid red',
+        // }
+        // margin:theme.spacing(1),
+        border: '1px solid red',
     },
 }))(TableRow);
 
