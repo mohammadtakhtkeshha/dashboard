@@ -1,10 +1,7 @@
 import React, {useState, useEffect, useContext} from "react";
+
 import {Box, Typography, Paper} from "@material-ui/core";
 import {CardMedia} from '@material-ui/core/index';
-import dashboardService from "./../../../../core/services/dashboard.service";
-import * as ContentDashboard from './../../../../assets/js/dashboard/ContentDashboar';
-import AppContext from "../../../../contexts/AppContext";
-import userImg from "../../../../assets/media/image/user.jpg";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
@@ -13,18 +10,18 @@ import TableContainer from "@material-ui/core/TableContainer";
 import {withStyles} from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
 
-import * as colors from './../../../../components/partials/Colors';
+import * as ContentDashboard from 'assets/js/dashboard/ContentDashboar';
+import dashboardService from "core/services/dashboard.service";
+import AppContext from "contexts/AppContext";
+import userImg from "assets/media/image/user.jpg";
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
-        backgroundColor: colors.green[0],
         color: theme.palette.common.white,
+        padding:`1rem!important`,
     },
     body: {
         fontSize: 14,
-    },
-    root:{
-        padding:'0',
     }
 }))(TableCell);
 
@@ -58,7 +55,7 @@ export default function ContentDashboardComponent() {
     return (
         <>
             {contents.length>0?<Paper className={classes.paper}>
-                    <Typography variant="h4" className={classes.title}>محتواها</Typography>
+                    <Typography variant="h4" className={classes.title}>______  محتواها  _______</Typography>
                     {/*----------*/}
                     <TableContainer component={Paper} className={classes.userBlock}>
                         <Table className={classes.table} aria-label="customized table">

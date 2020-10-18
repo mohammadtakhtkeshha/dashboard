@@ -1,9 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {Box, Typography, Paper} from "@material-ui/core";
 import * as contentChart from 'assets/js/dashboard/ContentChart';
+import ContentsContext from "../../../../contexts/ContentsContext";
 
 export default function ContentChartComponent({contents}) {
     const classes = contentChart.useStyles();
+    const contentsContext = useContext(ContentsContext);
     const [customContents, setCustomContents] = useState([]);
     const [totalNumberOfContents, setTotalNumberOfContents] = useState('');
 
@@ -12,6 +14,14 @@ export default function ContentChartComponent({contents}) {
         let contents = Object.entries(getCustomContents);
         let arr = [...contents];
         setCustomContents([...arr]);
+        debugger
+        // for(let item in arr){
+        //     for(let icon in contentsContext){
+        //         if(){
+        //
+        //         }
+        //     }
+        // }
         return arr;
     }
 
@@ -42,7 +52,7 @@ export default function ContentChartComponent({contents}) {
     return (
         <>
             {customContents.length>0 ? <Paper className={classes.myPaper}>
-                <Typography variant="h4" className={classes.title}>محتواها</Typography>
+                <Typography variant="h4" className={classes.title}>______ محتواها ______</Typography>
                 <div className={classes.content}>
                     {customContents.map(function (content, index) {
                         let length = content[1].length;

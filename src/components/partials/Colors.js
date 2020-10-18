@@ -38,9 +38,21 @@ const danger={
 };
 const red=['#fe2947','#fe4660','#dc213b'];//{0:default,1:hover,2:focus}
 
-const green = ['#3ecd90','#5acb9b','#34aa78']; //{0:default,1:hover,2:focus}
+const green = ['#3ecd90',//[0]default
+    '#5acb9b',//[1]hover
+    '#34aa78',//[2]focus
+    '#3bc68d',//[3]right-header-gradiant
+    '#3dcd90',//[4]right-body-gradiant
+];
 
-const blue= ['#2e91b0','#4696af','#25738b','#303f9f','#008CBA']; //{0:default,1:hover,2:focus}
+const blue= ['#2e91b0',//[0]default
+    '#4696af',//[1]hover
+    '#25738b',//[2]focus
+    '#303f9f',//[3]
+    '#008CBA',
+    '#2369be',//[5]left-header-gradiant
+    '#2d85ef',//[6]left-body-gradiant
+];
 
 const grey = ['#ced4da',//[0]input border
     '#BBC3CE',//[1]most borders for example content register modal

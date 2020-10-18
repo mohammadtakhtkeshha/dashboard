@@ -34,7 +34,7 @@ function DashboardComponent({t}) {
     const context = useContext(AppContext);
 
     let getContentList = async () => {
-        dashboardService.getContentLis().then((response) => {
+        dashboardService.getContentLis().then((response) => {debugger
             let contents = response.data.rows;
             setContents([...contents]);
         }).catch((error) => {

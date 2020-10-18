@@ -25,6 +25,22 @@ import {ReactComponent as SoundSvg} from "../../../assets/svg/contentType/sound.
 import {ReactComponent as PhotoSvg} from "../../../assets/svg/contentType/photo.svg";
 import {ReactComponent as ContentSvg} from "../../../assets/svg/contentType/content.svg";
 
+
+
+
+// import {ReactComponent as ArticleSvg} from "assets/svg/contentType/article.svg";
+// import {ReactComponent as ArticleHoverSvg} from "assets/svg/contentType/article-hover.svg";
+// import {ReactComponent as ContentSvg} from "assets/svg/contentType/content.svg";
+// import {ReactComponent as ContentHoverSvg} from "assets/svg/contentType/content-hover.svg";
+// import {ReactComponent as NewsSvg} from "assets/svg/contentType/news.svg";
+// import {ReactComponent as NewsHoverSvg} from "assets/svg/contentType/news-hover.svg";
+// import {ReactComponent as PhotoSvg} from "assets/svg/contentType/photo.svg";
+// import {ReactComponent as PhotoHoverSvg} from "assets/svg/contentType/photo-hover.svg";
+// import {ReactComponent as SoundSvg} from "assets/svg/contentType/sound.svg";
+// import {ReactComponent as SoundHoverSvg} from "assets/svg/contentType/sound-hover.svg";
+// import {ReactComponent as VideoSvg} from "assets/svg/contentType/video.svg";
+// import {ReactComponent as videoHoverSvg} from "assets/svg/contentType/video-hover.svg";
+
 function ContentsComponent({t}) {
     const appContext = useContext(AppContext);
     const [openRegisterForm, setOpenRegisterForm] = useState(false);
