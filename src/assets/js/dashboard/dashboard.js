@@ -99,10 +99,18 @@ export const StyledTableCell = styled.div`
 `
 
 export const StyledPaper = styled.div`
-     margin: theme.spacing(2);
-        borderRadius:20px;
-        overflow:hidden;
-        @media(max-width:992px) {
-            margin: 2rem 0;
-        }
+            margin: .6rem;
+            border-radius:20px;
+            overflow:hidden;
+            @media(max-width:992px) {
+                margin: 2rem 0;
+            }
+            &>h4{//title
+               font-size: 19px;
+               font-weight: 200;
+               text-align:center;
+               padding:.6rem;
+               color:white;
+               background-image: linear-gradient(to right,${blue[5]}, ${green[3]});
+            }   
 `

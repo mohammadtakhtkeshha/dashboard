@@ -14,21 +14,14 @@ import TableBody from "@material-ui/core/TableBody";
 import {withStyles} from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
 import {withNamespaces} from "react-i18next";
-
-
-
-const StyledTableCell = withStyles((theme) => ({
-    head: {
-        backgroundColor: colors.green[0],
-        color: theme.palette.common.white,
-    },
-    body: {
-        fontSize: 14,
-    },
-    root:{
-        padding:'0',
-    }
-}))(TableCell);
+import {
+    StyledTable,
+    StyledTableBody,
+    StyledTableHeadRow,
+    StyledTableBodyRow,
+    StyledTableCell,
+    StyledPaper
+} from "assets/js/dashboard/dashboard";
 
 const StyledTableRow = withStyles((theme) => ({
     root: {
@@ -56,7 +49,7 @@ function UserDashboardComponent({t}) {
 
     return (
         <>
-            <Paper className={classes.paper}>
+            <StyledPaper>
                 <Typography variant="h4" className={classes.title}>{t('users:users')}</Typography>
                 {/*---------------------------*/}
                 <TableContainer component={Paper} className={classes.userBlock}>
@@ -87,7 +80,7 @@ function UserDashboardComponent({t}) {
                         </TableBody>
                     </Table>
                 </TableContainer>
-            </Paper>
+            </StyledPaper>
         </>
     );
 
