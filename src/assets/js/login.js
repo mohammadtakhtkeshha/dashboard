@@ -23,7 +23,7 @@ export const StyledGridLogin = styled.div`
                 width: 430px;
                 box-sizing: border-box;
                 border-radius:4px;
-                background-color:${white};
+                background-color:${white[0]};
                 padding:3rem;
                 @media (max-width: 414px) {
                     padding-right: 1.5rem;

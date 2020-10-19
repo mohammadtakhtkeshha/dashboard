@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
 
@@ -13,7 +13,7 @@ import {StyledSvg, StyledDirection} from "assets/js/App";
 import {ReactComponent as Exit} from "assets/svg/exit.svg";
 import {ModalBody, StyledCancelButton} from "assets/js/content/partials/contentModal";
 import {listStyles, listItemStyles ,styledListItemText} from "assets/js/content/partials/contentType"
-import ContentsContext from "contexts/ContentsContext";
+import AuthorizedContext from "contexts/AuthorizedContext";
 
 
 const StyledListItemText = withStyles(styledListItemText)(ListItemText);
@@ -22,7 +22,7 @@ const StyledList = withStyles(listStyles)(List);
 
 function ContentTypeListModalComponent({setContentType, t, openRegisterForm, handleCloseRegisterForm}) {
     const lang = i18next.language;
-    const contentsContext = useContext(ContentsContext);
+    const authorizedContext = useContext(AuthorizedContext);
 
 
     const handleToggle = (e, value) => {
@@ -30,15 +30,15 @@ function ContentTypeListModalComponent({setContentType, t, openRegisterForm, han
     }
 
     // useEffect(() => {
-    //     const currentContentTypeList = contentsContext.contentTypeList;
+    //     const currentContentTypeList = AuthorizedContext.contentTypeList;
     //     let contentTypeArray = [];
     //     for (const [key, value] of Object.entries(currentContentTypeList)) {
     //         let obj = {machinName: key, name: value[0].name}
     //         contentTypeArray.push(obj);
     //     }
     //     setContentTypeNameList(contentTypeArray);
-    // }, [contentsContext.contentTypeList]);
-console.log(contentsContext.contentTypeNameList);
+    // }, [AuthorizedContext.contentTypeList]);
+
     return (
         <Fade in={openRegisterForm} id="modalContentList">
             <Box>
@@ -53,7 +53,7 @@ console.log(contentsContext.contentTypeNameList);
                             <StyledListItem role={undefined} dense button>
                                 <ListItemText id={0} primary={t('contents:chooseContentType')}/>
                             </StyledListItem>
-                            {contentsContext.contentTypeNameList.map((value) => {
+                            {authorizedContext.contentTypeNameList.map((value) => {
                                 const labelId = `checkbox-list-label-${value}`;
                                 return (
                                     <StyledListItem key={value.machin_name} role={undefined} dense button

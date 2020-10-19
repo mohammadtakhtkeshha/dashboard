@@ -1,86 +1,71 @@
 import React, {useState, useEffect} from "react";
-import {Box, Typography, Grid, Paper} from "@material-ui/core";
-import dashboardService from "./../../../../core/services/dashboard.service";
-import {CardMedia} from '@material-ui/core/index';
-import userImg from "../../../../assets/media/image/user.jpg";
-import * as CommentDashboard from './../../../../assets/js/dashboard/CommentDashboard';
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableBody from "@material-ui/core/TableBody";
-import TableContainer from "@material-ui/core/TableContainer";
-import {withStyles} from "@material-ui/core/styles";
-import TableCell from "@material-ui/core/TableCell";
-import * as colors from './../../../../components/partials/Colors';
 
-const StyledTableCell = withStyles((theme) => ({
-    head: {
-        backgroundColor: colors.green[0],
-        color: theme.palette.common.white,
-    },
-    body: {
-        fontSize: 14,
-    },
-    root:{
-        padding:'0'
-    }
-}))(TableCell);
-const StyledTableRow = withStyles((theme) => ({
-    root: {
-        '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.action.hover,
-        },
-    },
-}))(TableRow);
-export default function CommentDashboardComponent() {
-    const classes = CommentDashboard.useStyles();
-    const [comments , setComments]=useState([]);
-    useEffect(()=>{
-        getTenNumberOfComments();
-    },[]);
-    let getTenNumberOfComments=()=>{
-        dashboardService.getTenNumberOfComments().then((response)=>{
-            let comments=response.data;
+import {Box, Typography} from "@material-ui/core";
+import {CardMedia} from '@material-ui/core/index';
+
+import dashboardService from "core/services/dashboard.service";
+import userImg from "assets/media/image/user.jpg";
+import {
+    StyledTable,
+    StyledTableBody,
+    StyledTableHeadRow,
+    StyledTableBodyRow,
+    StyledTableCell,
+    StyledPaper
+} from "assets/js/dashboard/dashboard";
+import {withNamespaces} from "react-i18next";
+
+ function CommentDashboardComponent({t}) {
+    const [comments, setComments] = useState([]);
+
+    const getTenNumberOfComments = () => {
+        dashboardService.getTenNumberOfComments().then((response) => {
+            let comments = response.data;
             setComments([...comments]);
-        }).catch((error)=>{
+        }).catch((error) => {
         });
     };
+
+    useEffect(() => {
+        getTenNumberOfComments();
+    }, []);
+
     return (
         <>
-            <Paper className={classes.paper}>
-                <Typography variant="h4" className={classes.title}>کامنت ها</Typography>
-                <TableContainer component={Paper} className={classes.commentBlock}>
-                    <Table className={classes.table} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="right">تصویر</StyledTableCell>
-                                <StyledTableCell align="right">موضوع</StyledTableCell>
-                                <StyledTableCell align="right">تاریخ</StyledTableCell>
-                                <StyledTableCell align="right">وضعیت</StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {comments.map((comment, index) =>
-                                <StyledTableRow key={index}>
-                                    {/*<StyledTableCell align="right" >{row.name}</StyledTableCell>*/}
-                                    <StyledTableCell align="right">
-                                        <Box className="imgBlock">
+            <StyledPaper>
+                <Typography variant="h4">_____ {t('comments:comments')} _____</Typography>
+                <StyledTable>
+                    <StyledTableHeadRow>
+                        <StyledTableCell align="right">{t('translation:image')}</StyledTableCell>
+                        <StyledTableCell align="right">{t('translation:subject')}</StyledTableCell>
+                        <StyledTableCell align="right">{t('translation:date')}</StyledTableCell>
+                        <StyledTableCell align="right">{t('translation:status')}</StyledTableCell>
+                    </StyledTableHeadRow>
+                    <StyledTableBody>
+                        {comments.map((comment, index) =>
+                            <StyledTableBodyRow key={index}>
+                                {/*<StyledTableCell align="right" >{row.name}</StyledTableCell>*/}
+                                <StyledTableCell align="right">
+                                    <Box className="imgBlock">
                                         <CardMedia id="img">
-                                            { comment.field_image ? <img src={comment.field_image}/>:<img src={userImg}/>}
+                                            {comment.field_image ? <img src={comment.field_image}/> :
+                                                <img src={userImg}/>}
                                         </CardMedia>
                                     </Box>
-                                    </StyledTableCell>
-                                    <StyledTableCell align="right"> {comment.subject}</StyledTableCell>
-                                    <StyledTableCell align="right"> {comment.last_updated}</StyledTableCell>
-                                    <StyledTableCell align="right">  {comment.status ? 'تایید شده':'رد شده'}</StyledTableCell>
-                                </StyledTableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                                </StyledTableCell>
+                                <StyledTableCell align="right"> {comment.subject}</StyledTableCell>
+                                <StyledTableCell align="right"> {comment.last_updated}</StyledTableCell>
+                                <StyledTableCell
+                                    align="right">  {comment.status ? 'تایید شده' : 'رد شده'}</StyledTableCell>
+                            </StyledTableBodyRow>
+                        )}
+                    </StyledTableBody>
+                </StyledTable>
 
-            </Paper>
+            </StyledPaper>
         </>
     );
 
 }
+export default withNamespaces('comments,translation')(CommentDashboardComponent);
+

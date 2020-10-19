@@ -1,11 +1,13 @@
 import {makeStyles} from "@material-ui/styles";
 import {green,grey,blue,white} from 'components/partials/Colors';
+import styled from "styled-components"
 
 // const titleStyles = {};
 
 export const useStyles = makeStyles((theme) => (
     {
         content: {
+            border: '1px solid red',
             display: 'block',
             justifyContent: 'space-around',
             width: '100%',
@@ -78,3 +80,20 @@ export const useStyles = makeStyles((theme) => (
         }
     }
 ));
+
+export const ContentChartBlock = styled.div`
+            background-image: linear-gradient(to right, ${blue[6]} , ${green[4]});
+            display:flex;
+`
+
+export const StyledBox = styled.div`
+             border:1px solid red;
+             width:300px;
+             display:flex;
+             flex-direction:row;
+             justify-content:space-between;
+             align-items:center;
+             margin:20px;
+             padding:2rem;
+             
+`

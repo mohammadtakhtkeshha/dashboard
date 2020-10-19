@@ -1,7 +1,6 @@
 import React from 'react';
 import {NavLink,useHistory} from 'react-router-dom';
 import {withNamespaces} from "react-i18next";
-import clsx from 'clsx';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';

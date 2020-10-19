@@ -33,13 +33,13 @@ export const useStyles = {
                         outline: '0!important',
                     },
                     '& svg': {
-                        color: white,
+                        color: white[0],
                         margin: '9px 9px',
                     }
                 },
                 '& .title': {
                     margin: '9px 13px',
-                    color: white
+                    color: white[0]
                 }
             },
             '& .footer': {

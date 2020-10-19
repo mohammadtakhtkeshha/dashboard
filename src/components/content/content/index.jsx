@@ -86,14 +86,7 @@ function ContentsComponent({t}) {
     const [videoPreviewUrl, setvideoPreviewUrl] = useState([]);
     const [voicesPreviewUrl, setVoicesPreviewUrl] = useState([]);
     const [filesPreviewUrl, setFilesPreviewUrl] = useState([]);
-    const contentTypeNameList=[
-        {icon: <NewsSvg/>, name: 'خبر', machin_name: 'news', description: 'description'},
-        {icon: <ArticleSvg/>, name: 'مقاله', machin_name: 'article', description: 'description'},
-        {icon: <VideoSvg/>, name: 'ویدیو', machin_name: 'video', description: 'description'},
-        {icon: <SoundSvg/>, name: 'صوت', machin_name: 'voice', description: 'description'},
-        {icon: <PhotoSvg/>, name: 'گالری', machin_name: 'gallery', description: 'description'},
-        {icon: <ContentSvg/>, name: 'صفحه ساده', machin_name: 'simple page', description: 'description'}
-    ];
+
 
     const getContents = () => {
         appContext.setLoading(true);
@@ -234,8 +227,7 @@ function ContentsComponent({t}) {
             voicesPreviewUrl: voicesPreviewUrl,
             setVoicesPreviewUrl: setVoicesPreviewUrl,
             filesPreviewUrl: filesPreviewUrl,
-            setFilesPreviewUrl: setFilesPreviewUrl,
-            contentTypeNameList:contentTypeNameList
+            setFilesPreviewUrl: setFilesPreviewUrl
         }}>
             <StyledPaper>
                 <ContentHeaderComponent setOpenRegisterForm={handleOpenContentForm}/>

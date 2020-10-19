@@ -2,22 +2,25 @@ import i18n from "i18next";
 import { reactI18nextModule } from "react-i18next";
 import detector from "i18next-browser-languagedetector";
 
-import sidebarEn from './../../assets/locales/en/features/sidebar.json';
-import sidebarFa from './../../assets/locales/fa/features/sidebar.json';
-import usersFa from './../../assets/locales/fa/features/users.json';
-import usersEn from './../../assets/locales/en/features/users.json';
-import translationEn from './../../assets/locales/en/features/translation.json';
-import translationFa from './../../assets/locales/fa/features/translation.json';
-import contentsFa from './../../assets/locales/fa/features/contents.json';
-import contentsEn from './../../assets/locales/en/features/contents.json';
-import vocabsFa from './../../assets/locales/fa/features/vocabs.json';
-import vocabsEn from './../../assets/locales/en/features/vocabs.json';
+import sidebarEn from 'assets/locales/en/features/sidebar.json';
+import sidebarFa from 'assets/locales/fa/features/sidebar.json';
+import usersFa from 'assets/locales/fa/features/users.json';
+import usersEn from 'assets/locales/en/features/users.json';
+import translationEn from 'assets/locales/en/features/translation.json';
+import translationFa from 'assets/locales/fa/features/translation.json';
+import contentsFa from 'assets/locales/fa/features/contents.json';
+import contentsEn from 'assets/locales/en/features/contents.json';
+import commentsEn from 'assets/locales/en/features/comments.json';
+import commentsFa from 'assets/locales/fa/features/comments.json';
+import vocabsFa from 'assets/locales/fa/features/vocabs.json';
+import vocabsEn from 'assets/locales/en/features/vocabs.json';
 //localstorage
-import storage from './../../libraries/local-storage'
+import storage from 'libraries/local-storage'
 
 // the translations
 const resources = {
     en: {
+        comments:commentsEn,
         sidebar:sidebarEn,
         users:usersEn,
         translation:translationEn,
@@ -25,6 +28,7 @@ const resources = {
         vocabs:vocabsEn,
     },
     fa:{
+        comments:commentsFa,
         sidebar: sidebarFa,
         users:usersFa,
         translation:translationFa,

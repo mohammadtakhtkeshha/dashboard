@@ -37,7 +37,7 @@ export const StyledHeadTypography = styled.div`
 `
 
 export const StyledButton = styled.button`
-            color: ${white};
+            color: ${white[0]};
             border: 0;
             cursor: pointer;
             padding: 10px 15px;
@@ -51,7 +51,7 @@ export const StyledButton = styled.button`
 `
 
 export const StyledRegisterButton = styled.button`
-            color: ${white};
+            color: ${white[0]};
             border: 0;
             cursor: pointer;
             padding: 10px 15px;
@@ -65,7 +65,7 @@ export const StyledRegisterButton = styled.button`
 `
 
 export const StyledEditButton = styled.button`
-            color: ${white};
+            color: ${white[0]};
             border: 0;
             cursor: pointer;
             padding: 10px 15px;
@@ -79,7 +79,7 @@ export const StyledEditButton = styled.button`
 `
 
 export const StyledDeleteButton = styled.button`
-            color: ${white};
+            color: ${white[0]};
             border: 0;
             cursor: pointer;
             padding: 10px 15px;
@@ -102,7 +102,7 @@ export const StyledActionButtonBlock = styled.div`
                box-shadow: 0 0 0 0 !important;
                display:flex;
                flex-direction:row;
-               color:${white};
+               color:${white[0]};
                fontSize :14px;
                padding:4px;
                &:focus{
@@ -173,13 +173,13 @@ export const modalStyles = (theme) => ({
                         outline: '0!important',
                     },
                     '& svg': {
-                        color: white,
+                        color: white[0],
                         margin: '9px 9px',
                     }
                 }
             },
             '& .body': {
-                backgroundColor: white,
+                backgroundColor: white[0],
                 marginTop: '2.5rem',
             }
         }

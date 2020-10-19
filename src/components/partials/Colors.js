@@ -24,7 +24,8 @@ const black = ['#212529',//[0]
     '#32325d',//[2]upload img color
     '#242527'//[3]background color for hover img upload
 ];
-const white ="#fff";
+const white =["#fff",[0]//base-white
+];
 // ------- blue -------
 const darkBlue = '#0056b3';
 
@@ -43,6 +44,7 @@ const green = ['#3ecd90',//[0]default
     '#34aa78',//[2]focus
     '#3bc68d',//[3]right-header-gradiant
     '#3dcd90',//[4]right-body-gradiant
+    '#3abea6',//[5]right main header
 ];
 
 const blue= ['#2e91b0',//[0]default
@@ -52,6 +54,8 @@ const blue= ['#2e91b0',//[0]default
     '#008CBA',
     '#2369be',//[5]left-header-gradiant
     '#2d85ef',//[6]left-body-gradiant
+    '#2c84f0',//[7]left-main-head
+    '#1461b1',//[8]power-in-header-background
 ];
 
 const grey = ['#ced4da',//[0]input border
@@ -63,7 +67,8 @@ const grey = ['#ced4da',//[0]input border
     '#ebebeb',//[6]
     '#D6DBE1',//[7]
     '#6B7C93',//[8]color for upload img border hover
-    '#F1F3F5'//[9]background of upload here
+    '#F1F3F5',//[9]background of upload here
+    '#525368'//[10]color for icons in header
 ];
 
 export {

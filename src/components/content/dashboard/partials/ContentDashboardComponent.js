@@ -14,8 +14,9 @@ import {
     StyledTableCell,
     StyledPaper
 } from "assets/js/dashboard/dashboard";
+import {withNamespaces} from "react-i18next";
 
-export default function ContentDashboardComponent() {
+function ContentDashboardComponent({t}) {
     const [contents, setContents] = useState([]);
     const appContext = useContext(AppContext);
     useEffect(() => {
@@ -32,13 +33,13 @@ export default function ContentDashboardComponent() {
 
     return (<>
             {contents.length > 0 ? <StyledPaper>
-                    <Typography variant="h4">______ محتواها _______</Typography>
+                    <Typography variant="h4">______ {t('contents:contents')} _______</Typography>
                     <StyledTable>
                         <StyledTableHeadRow>
-                            <StyledTableCell align="right" style={{width: '10%'}}>تصویر</StyledTableCell>
-                            <StyledTableCell align="right">عنوان</StyledTableCell>
-                            <StyledTableCell align="right">نوع</StyledTableCell>
-                            <StyledTableCell align="right">تاریخ</StyledTableCell>
+                            <StyledTableCell align="right" style={{width: '10%'}}>{t('translation:image')}</StyledTableCell>
+                            <StyledTableCell align="right">{t('translation:subject')}</StyledTableCell>
+                            <StyledTableCell align="right">{t('translation:type')}</StyledTableCell>
+                            <StyledTableCell align="right">{t('translation:date')}</StyledTableCell>
                         </StyledTableHeadRow>
                         <StyledTableBody>
                             {contents.map((content, index) =>
@@ -63,3 +64,6 @@ export default function ContentDashboardComponent() {
         </>
     );
 }
+
+export default withNamespaces('translation,contents')(ContentDashboardComponent);
+

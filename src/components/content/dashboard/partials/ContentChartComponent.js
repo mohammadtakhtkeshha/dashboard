@@ -1,15 +1,18 @@
 import React, {useState, useEffect, useContext} from "react";
-import {Box, Typography, Paper} from "@material-ui/core";
-import * as contentChart from 'assets/js/dashboard/ContentChart';
-import ContentsContext from "../../../../contexts/ContentsContext";
+import {withNamespaces} from "react-i18next";
 
-export default function ContentChartComponent({contents}) {
-    const classes = contentChart.useStyles();
-    const contentsContext = useContext(ContentsContext);
+import {Box, Typography} from "@material-ui/core";
+
+import {StyledPaper} from "assets/js/dashboard/dashboard";
+import {ContentChartBlock,StyledBox} from "assets/js/dashboard/ContentChart";
+import AuthorizedContext from "contexts/AuthorizedContext";
+
+function ContentChartComponent({contents,t}) {
     const [customContents, setCustomContents] = useState([]);
     const [totalNumberOfContents, setTotalNumberOfContents] = useState('');
+    const authorizedContext=useContext(AuthorizedContext);
 
-    let setCustomContentHandler = (value) => {
+    const setCustomContentHandler = (value) => {
         let getCustomContents = customizedContents(value);
         let contents = Object.entries(getCustomContents);
         let arr = [...contents];
@@ -25,12 +28,12 @@ export default function ContentChartComponent({contents}) {
         return arr;
     }
 
-    let getTotalNumberOfContent = () => {
+    const getTotalNumberOfContent = () => {
         let length = contents.length;
         setTotalNumberOfContents(length);
     }
 
-    let customizedContents = (value) => {
+    const customizedContents = (value) => {
         return value.reduce((initial, currentValue) => {
             let key = currentValue.type;
             if (!initial[key]) {
@@ -49,15 +52,16 @@ export default function ContentChartComponent({contents}) {
         setCustomContentHandler(contents);
     }, [contents]);
 
-    return (
-        <>
-            {customContents.length>0 ? <Paper className={classes.myPaper}>
-                <Typography variant="h4" className={classes.title}>______ محتواها ______</Typography>
-                <div className={classes.content}>
+    console.log(authorizedContext.contentTypeNameList);
+
+    return (<>
+            {customContents.length>0 ? <StyledPaper>
+                <Typography variant="h4">______ {t('contents:contents')} ______</Typography>
+                <ContentChartBlock>
                     {customContents.map(function (content, index) {
                         let length = content[1].length;
                         return (
-                            <Box key={index} className="block">
+                            <StyledBox key={index}>
                                 <Box className="text">
                                     <Box>
                                         <Typography>{content[0]}</Typography>
@@ -75,13 +79,14 @@ export default function ContentChartComponent({contents}) {
                                         </div>
                                     </Box>
                                 </Box>
-                            </Box>
+                            </StyledBox>
                         )
                     })
                     }
-                </div>
-            </Paper>:''}
+                </ContentChartBlock>
+            </StyledPaper>:''}
         </>
     );
 
 }
+export default withNamespaces('translation,contents')(ContentChartComponent);
