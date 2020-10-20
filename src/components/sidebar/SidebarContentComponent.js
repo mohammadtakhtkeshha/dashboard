@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink,useHistory} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import {withNamespaces} from "react-i18next";
 
 import List from '@material-ui/core/List';
@@ -7,17 +7,17 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import {makeStyles} from "@material-ui/styles";
 
-import authSevice from 'core/services/auth.service';
 import {StyledSidebar,active} from "assets/js/SidebarContent";
+import i18next from "i18next";
 
 const styles=makeStyles(active);
 
 function SimpleTabs({t}) {
-    let history = useHistory();
     const classes = styles();
+    const lang=i18next.language;
 
     return (
-            <StyledSidebar>
+            <StyledSidebar lang={lang}>
                     <List aria-label="main mailbox folders">
                         <ListItem>
                             <NavLink to='/dashboard' activeClassName={classes.active}>
@@ -68,11 +68,6 @@ function SimpleTabs({t}) {
                             <NavLink to='/supprot' activeClassName={classes.active}>
                                 <ListItemText primary={t('sidebar:support')}/>
                             </NavLink>
-                        </ListItem>
-                        <ListItem>
-                            <button onClick={() => authSevice.logout(history)}>
-                                خروج
-                            </button>
                         </ListItem>
                     </List>
             </StyledSidebar>
