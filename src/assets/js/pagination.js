@@ -20,7 +20,7 @@ export const StyledPaginationBox = styled.div`
             }
             & .MuiPaginationItem-page.Mui-selected {
                 background-color: ${green[0]};
-                color: ${white};
+                color: ${white[0]};
                 border: 0;
             }
         }

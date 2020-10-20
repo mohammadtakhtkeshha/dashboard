@@ -40,7 +40,8 @@
     "react-scripts": "3.4.1",
     "react-toastify": "^6.0.8",
     "reactjs-file-uploader": "^1.0.8",
-    "styled-components": "^5.2.0",
+    "reactour": "^1.18.0",
+    "styled-components": "^4.0.0",
     "suneditor-react": "^2.12.5",
     "sweetalert": "^2.1.2"
   },

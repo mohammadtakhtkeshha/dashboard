@@ -1,35 +1,15 @@
 import React from "react";
-import {makeStyles} from '@material-ui/core/styles/index';
-import {Typography, Box} from '@material-ui/core/index';
+import {Typography} from '@material-ui/core/index';
 import * as routes from '../../store/routes'
 import {
     Switch,
     Route,
 } from "react-router-dom";
 import {withNamespaces} from "react-i18next";
+import {StyledPaper} from "assets/js/header/rightWebHeader";
 
-const useStyles = makeStyles((theme) => ({
-    breadcrumbs: {
-        '& h3': {
-            fontSize: '23px',
-            lineHeight: '32px',
-            fontWeight: '700',
-            color: 'black'
-        },
-        '& li:nth-of-type(1)': {
-            color: 'black',
-        },
-        '& li:nth-of-type(3)': {
-            color: '#5867dd',
-        },
-    }
-}));
-
- function RightWebHeaderComponent({t}) {
-    const classes = useStyles();
-    return (
-        <>
-            <Box display="flex" flexDirection="column" className={classes.breadcrumbs}>
+function RightWebHeaderComponent({t}) {
+    return (<StyledPaper>
                 <Typography variant="h3" component="h3">{t('sidebar:dashboard')}</Typography>
                 <Switch>
                     {routes.routes.map((route) => (
@@ -41,9 +21,7 @@ const useStyles = makeStyles((theme) => ({
                         />
                     ))}
                 </Switch>
-            </Box>
-        </>
-    );
+                </StyledPaper>);
 }
 
 export default withNamespaces(['sidebar'])(RightWebHeaderComponent);

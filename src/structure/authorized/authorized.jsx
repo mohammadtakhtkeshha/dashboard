@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Grid from "@material-ui/core/Grid";
 import {Box,Paper} from "@material-ui/core";
 import * as components from "../../assets/js/AppImports";
@@ -6,6 +6,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import UseWindowDimensions from "../../configs/useWindowDimensions";
 import {withNamespaces} from "react-i18next";
 import clsx from "clsx";
+import Tour from 'reactour';
 
 const useStyle = makeStyles((theme) => ({
     sidebar: {
@@ -39,7 +40,6 @@ const styles = {
     sidebar: {
         height: '100vh',
         flexGrow: 1,
-
     },
     content: {
         flexGrow: 5,
@@ -50,9 +50,20 @@ function AuthorizedComponent({t}) {
     const classes = useStyle();
     const {width} = UseWindowDimensions();
     let dir =t('translation:marginDir');
-
+    const [isTourOpen, setIsTourOpen] = useState(true);
+    const steps = [
+        {
+            selector: '.first-step',
+            content: 'This is my first Step',
+        }
+    ];
     return (
         <Grid container>
+            <Tour
+                steps={steps}
+                isOpen={isTourOpen}
+                onRequestClose={() => setIsTourOpen(false)}
+            />
             <Grid item className={classes.sidebar}>
                 {width > 992 ? <Box style={styles.sidebar}>
                     <components.SidebarComponent/>
