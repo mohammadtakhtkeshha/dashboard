@@ -1,7 +1,7 @@
 export const previewImgInEditorMethod=(response,str,canvas,uploadHandler,uploadFile)=>{
 
     const img = document.createElement('img');
-    const reader = new FileReader();
+    const reader = new  FileReader();
     reader.onload = function (e) {
         img.src = e.target.result
         img.onload = function (url) {

@@ -1,7 +1,6 @@
 {
   "contentList": "لیست محتوا",
   "contentType": "نوع محتوا",
-  "author": "نویسنده",
   "indexImg": "عکس شاخص",
   "imgGallery": "گالری عکس",
   "videoGallery": "گالری ویدیو",
@@ -32,9 +31,25 @@
   "chooseContentType":"لطفا نوع محتوا را انتخاب کنید",
   "title&picture": "عنوان و عکس",
   "publishSetting": "تنظیمات انتشار",
+  "publishStatus": "وضعیت انتشار",
   "seo": "سئو",
-  "portal": "پرتال"
-
+  "portal": "پرتال",
+  "path": "اسم مستعار",
+  "autoPath": "تولید خودکار اسم مستعار برای url",
+  "showInMainPage": "نمایش در صفحه اصلی ",
+  "dontshowInMainPage": "عدم نمایش در صفحه اصلی ",
+  "dontshowInSidebar": "عدم نمایش در سایدبار",
+  "showInSidebar": "نمایش در سایدبار",
+  "voteAbility": "آراء",
+  "commentStatus": "وضعیت کامنت",
+  "amtyazStatus": "وضعیت امتیاز",
+  "provinces": "استان ها",
+  "urgentNews": "خبر فوری",
+  "subtitle": "عنوان ثانویه",
+  "highlight": "هایلایت",
+  "special": "ویژه",
+  "imagesCategory": "دسته بندی تصاویر",
+  "chosen": "برگزیده ها"
 
 
 

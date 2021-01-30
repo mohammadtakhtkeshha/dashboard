@@ -1,0 +1,130 @@
+import React, {useContext, useEffect, useState} from "react"
+import {withNamespaces} from "react-i18next"
+import i18next from "i18next"
+
+import {Grid, Paper, Typography} from "@material-ui/core"
+import TextField from "@material-ui/core/TextField"
+
+import {StyledInput, MarginTop1, StyledAlignTypography, StyledTypographyError} from "assets/js/App"
+import {StyledRowBox, StyledRow, StyledCol} from "assets/js/content/partials/contents"
+import {clickEditorMetaTagMethod, seoChangedMethod} from './FormContentSeoComponent.js'
+import ContentsContext from "contexts/ContentsContext"
+import StyledCheckboxComponent from "components/partials/StyledCheckboxComponent"
+import {handleChangeAutoPathMethod, handleChangePathMethod} from "./FormContentTitleAndImgComponent.js"
+
+function FormContentSeoComponent({t, contentype}) {
+    const lang = i18next.language
+    const contentsContext = useContext(ContentsContext)
+    const [title, setTitle] = useState(contentsContext.content.field_seo_list[0].value?.title || '')
+    const [description, setDescription] = useState(contentsContext.content.field_seo_list[0].value?.description || '')
+    // const [abstract, setAbstract] = useState(contentsContext.content.field_seo_list[0].value?.abstract || '')
+    const [keywords, setKeywords] = useState(contentsContext.content.field_seo_list[0].value?.keywords || '')
+
+    const clickEditorMetaTag = (e, keyName) => {
+        // clickEditorMetaTagMethod(e, keyName, setTitle, setDescription, setAbstract, setKeywords)
+        clickEditorMetaTagMethod(e, keyName, setTitle, setDescription, setKeywords)
+    }
+
+    const seoChanged = () => {
+        seoChangedMethod(contentsContext, title, description, keywords)
+    }
+
+    const handleChangeAutoPath = (e, check) => {
+        handleChangeAutoPathMethod(check, contentsContext)
+    }
+
+    const handleChangePath = (e) => {
+        handleChangePathMethod(t, e, contentsContext)
+    }
+
+    useEffect(() => {
+        seoChanged()
+    }, [title, description, keywords])
+
+    return (<StyledRowBox contentype={contentype}>
+        <StyledRow>
+            <StyledCol className="seo-path">
+                <StyledCheckboxComponent value={contentsContext.content.field_alias_status[0].value}
+                                         checked={contentsContext.content.field_alias_status[0].value}
+                                         label={t('contents:autoPath')}
+                                         change={handleChangeAutoPath}/>
+                <StyledInput placeholder={t('contents:path')}
+                             value={contentsContext.content.path[0].alias}
+                             type="text"
+                             disabled={contentsContext.content.field_alias_status[0].value}
+                             label={t('contents:path')}
+                             className='path'
+                             onChange={e => handleChangePath(e)}/>
+                {contentsContext.errors.path && <StyledTypographyError align={lang === 'en' ? 'left' : 'right'}>
+                    {contentsContext.errors.path}
+                </StyledTypographyError>}
+            </StyledCol>
+        </StyledRow>
+        <StyledRow>
+            <Typography>{t('contents:metaTag')}</Typography>
+        </StyledRow>
+        <StyledRow>
+            <StyledCol>
+                <MarginTop1>
+                    <StyledInput type="text"
+                                 placeholder={t('translation:title')}
+                                 value={title}
+                                 className="seo-title"
+                                 onChange={e => clickEditorMetaTag(e, 'title')}/>
+                </MarginTop1>
+            </StyledCol>
+            <StyledCol>
+                <MarginTop1>
+                    <StyledInput
+                        value={keywords}
+                        lang={lang}
+                        type="text"
+                        className="seo-keywords"
+                        placeholder={t('contents:keywords')}
+                        onChange={e => clickEditorMetaTag(e, 'keywords')}/>
+                </MarginTop1>
+            </StyledCol>
+        </StyledRow>
+        <StyledRow>
+            {/*<StyledCol>*/}
+            {/*    <MarginTop1>*/}
+            {/*        <StyledAlignTypography lang={lang}>{t('contents:summary')}</StyledAlignTypography>*/}
+            {/*        <TextField*/}
+            {/*            value={abstract}*/}
+            {/*            id="outlined-size-normal"*/}
+            {/*            placeholder={t('contents:summary')}*/}
+            {/*            variant="outlined"*/}
+            {/*            rows={10}*/}
+            {/*            rowsMax={10}*/}
+            {/*            fullWidth*/}
+            {/*            multiline*/}
+            {/*            onChange={(e) => {*/}
+            {/*                clickEditorMetaTag(e, 'abstract')*/}
+            {/*            }}*/}
+            {/*        />*/}
+            {/*    </MarginTop1>*/}
+            {/*</StyledCol>*/}
+            <StyledCol>
+                <MarginTop1>
+                    <StyledAlignTypography lang={lang}>{t('translation:description')}</StyledAlignTypography>
+                    <TextField
+                        value={description}
+                        id="outlined-size-normal"
+                        placeholder={t('translation:description')}
+                        variant="outlined"
+                        rows={10}
+                        rowsMax={10}
+                        className="seo-description"
+                        fullWidth
+                        multiline
+                        onChange={(e) => {
+                            clickEditorMetaTag(e, 'description')
+                        }}
+                    />
+                </MarginTop1>
+            </StyledCol>
+        </StyledRow>
+    </StyledRowBox>)
+}
+
+export default withNamespaces('contents,translation')(FormContentSeoComponent)

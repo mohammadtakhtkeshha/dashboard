@@ -1,0 +1,13 @@
+import {deleteState} from "core/services/taxonomy/partials/state.taxonomy.service";
+import {success} from "methods/swal";
+import {getStatesMethod} from "../Index.js";
+
+
+export const deleteStateMethod = (id, t, setStates, appContext, handlePagination, setIds) => {
+    appContext.setLoading(true)
+    deleteState(id, appContext.handleError).then(response => {
+        appContext.setLoading(false)
+        getStatesMethod(appContext.handleError, setStates, handlePagination, setIds)
+        success(t('translation:deletedSuccessfully'), t('translation:ok'))
+    })
+}

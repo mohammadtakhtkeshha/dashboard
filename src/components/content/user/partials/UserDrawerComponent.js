@@ -2,8 +2,8 @@ import UserDrawerContentComponent from "./UserDrawerContentComponent";
 import React, {useEffect, useRef, useCallback} from "react";
 import {makeStyles} from '@material-ui/core/styles/index';
 import {Box} from '@material-ui/core/index'
-import AppContext from "../../../../contexts/AppContext";
-import storage from './../../../../libraries/local-storage'
+import AppContext from "contexts/AppContext";
+import storage from 'libraries/local-storage'
 import clsx from "clsx";
 import i18next from "i18next";
 

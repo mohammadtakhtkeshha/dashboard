@@ -1,0 +1,18 @@
+{
+  "devices": "devices",
+  "deviceModel": "device model",
+  "visits": "visits",
+  "pageAddress": "page address",
+  "visitNum": "number of visits of page",
+  "uniqueDisplay": "number of unique display",
+  "overflow": "overflow rate",
+  "passedTime": "passed time in page",
+  "exitRate": "exit rate",
+  "keyword": "keyword",
+  "searches": "searches",
+  "searchResutlPages": "search result pages",
+  "exitSearch": "exits % search",
+  "last30Minutes": "last 30 minutes",
+  "last24Ours": "last 24 ours",
+  "resolution": "resolution display"
+}

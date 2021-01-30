@@ -57,21 +57,15 @@ function ContentTypeModalComponent({t, openRegisterForm, handleCloseContentForm}
                     <div>
                         <button onClick={handleCloseRegisterForm} className='exitButton'>
                             <StyledSvg>
-                                <Exit width={"40px"} height={"40px"} />
+                                <Exit width={"40px"} height={"40px"}/>
                             </StyledSvg>
                         </button>
-                        <ModalAround>
-                            <ModalBox>
-                                <ModalBody>
-                                    <ContentListOfContentType setContentType={setContentType}/>
-                                </ModalBody>
-                            </ModalBox>
-                        </ModalAround>
+                        <ModalBody>
+                            <ContentListOfContentType setContentType={setContentType}/>
+                        </ModalBody>
                     </div>
                 </Fade>
-
             </Modal>
-
         </>);
 }
 

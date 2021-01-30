@@ -1,3 +1,4 @@
+
 body {
     background-color: #e7ebee;
 }
@@ -17,7 +18,8 @@ body {
 
 a {
     text-decoration: none !important;
-    color:black;
+    color: black;
+    cursor: pointer;
 }
 
 .textRight {
@@ -28,16 +30,102 @@ a {
     text-align: left;
 }
 
-.confirmSwalButton ,.confirmSwalButton:hover {
-    background-color: #12a56d!important;
+.confirmSwalButton, .confirmSwalButton:hover {
+    background-color: #71c341 !important;
 }
-.dangerSwalButton ,.dangerSwalButton:hover {
-    background-color: #e04b4b!important;
+
+.dangerSwalButton, .dangerSwalButton:hover {
+    background-color: #e64942 !important;
 }
 
 
-.makeSwalButtonCenter .swal-footer {
-    text-align: center
+.swal-footer {
+    display: flex;
+    justify-content: center;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin-top: 0 !important;
+}
+
+/*.swal-title {*/
+/*    !*margin-top: -11%;*!*/
+/*    margin-bottom: 0 !important;*/
+/*    font-size: 18px;*/
+/*    text-align: center;*/
+/*    padding: 34px 0 !important;*/
+/*}*/
+
+.swal-text,.swal-title {
+    /*margin-top: -11%;*/
+    margin-bottom: 0 !important;
+    font-size: 18px;
+    text-align: center;
+    padding: 60px 0 37px !important;
+}
+
+/*.swal-text {*/
+/*    margin-bottom: 0!important;*/
+/*    font-size: 23px;*/
+/*    padding: 34px 0!important;*/
+/*}*/
+
+.swal-modal {
+    width: 300px !important;
+    box-shadow: 0px 0px 42px #5a5a5a;
+}
+
+.swal-button-container {
+    margin: 0 !important;
+    position: static;
+    width: 100%;
+}
+
+.swal-button-container .swal-button {
+    width: 100% !important;
+    border-radius: 0 !important;
+    box-shadow: 0 0 0 !important;
+}
+
+.swal-icon, .swal-icon--succes, .swal-icon--error {
+    margin: 0 !important;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
+}
+
+.swal-icon--error {
+    animation: 0 !important;
+    background: #e64942;
+    border:0!important;
+}
+
+.swal-icon--success:before,.swal-icon--success:after {
+    display: none !important;
+}
+
+.swal-icon--success,.swal-icon--success__ring {
+    border-color: transparent !important;
+}
+
+.swal-icon--success {
+    background: #71c341 !important;
+}
+
+.swal-icon--success__hide-corners, .swal-icon--success__hide-corners::after {
+    display: none !important;
+}
+
+.swal-overlay {
+    backdrop-filter:blur(2px) !important;
+}
+
+.swal-icon--warning {
+    border: 0 !important;
+    background: #e64942 ;
+}
+
+.swal-icon--warning__body,.swal-icon--warning__dot,.swal-icon--error__line,.swal-icon--success__line {
+    background-color: white !important;
 }
 
 /*@import url('https://fonts.googleapis.com/css?family=Lato');*/

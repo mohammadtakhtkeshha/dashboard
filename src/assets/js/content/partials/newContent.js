@@ -5,117 +5,118 @@ import {Box, Typography} from "@material-ui/core";
 import {white,grey,green,blue,black} from "components/partials/Colors";
 
 export const useStyles = (theme) => ({
-    paper: {
-        '& .tabs': {
-            height:'50vh',
-            '& .tabButtons': {
-                borderBottom:`1px solid ${grey[1]}`,
-                '& .MuiTabs-flexContainer': {
-                    justifyContent: 'center',
-                },
-                '&>div>span':{
-                    backgroundColor:`${green[0]}`,
-                    color:`${green[0]}`,
-                }
-            },
-            '& .tabContent': {
-                width: '100%',
-                textAlign: 'center',
-                '& .block': {
-                    display: 'flex',
-                    flexDirection: 'column',
-                    '& .items': {
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        '&>div': {
-                            width: '48%',
-                        },
-                        '& .enTag': {
-                            '& .MuiFormControl-fullWidth': {
-                                '& .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"]': {
-                                    padding: '3px 0 3px 50px !important',
-                                    '& .MuiAutocomplete-endAdornment': {
-                                        left: 0,
-                                        right: 'unset',
-                                    },
-                                },
-                            }
-                        },
-                        '& .faTag': {
-                            '& .MuiFormControl-fullWidth': {
-                                '& .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"]': {
-                                    padding: '3px 50px 3px 0 !important',
-                                    '& .MuiAutocomplete-endAdornment': {
-                                        right: '0',
-                                    },
-                                },
-                            }
-                        },
-                        '& .publishDate': {
-                            '& div': {
-                                width: '100%',
-                            }
-                        }
-                    },
-                    '& .date': {
-                        marginBottom: '1rem',
-                        marginTop: '1rem',
-                        '&>div': {
-                            width: '100%'
-                        }
-                    }
-                },
-                '& .card': {
-                    marginBottom: '1rem',
-                    '& p': {
-                        marginBottom: '.8rem',
-                    },
-                    '& .metaTag': {
-                        display: 'flex',
-                        margin: '.8rem',
-                        justifyContent: 'space-between',
-                        '& .right,& .left': {
-                            width: '48%',
-                        },
-                        '& fieldset': {
-                            border: '1px solid rgba(0, 0, 0, 0.23)!important',
-                        }
-                    }
-
-                },
-                '& .select': {
-                    '& .MuiFormControl-root': {
-                        width: '100%!important',
-                        '& .MuiInputBase-root': {
-                            width: '100%!important',
-                        }
-                    },
-                    '& .MuiAutocomplete-root': {
-                        '& .MuiChip-root': {
-                            width: 'fit-content',
-                            '& svg': {
-                                zIndex: "50"
-                            },
-
-                        },
-                        '& .MuiAutocomplete-endAdornment': {
-                            width: 'fit-content',
-                        }
-                    },
-                    '& div': {
-                        width: '100%',
-                        '& select': {
-                            height: '22px',
-                            lineHeight: '21px',
-                            padding: '7px 26px 10px 12px',
-                        }
-                    }
-
-                }
-            }
-        }
-
-    }
+    // paper: {
+        // '& .tabs': {
+        //     height:'50vh',
+        //     '& .tabButtons': {
+        //         borderBottom:`1px solid ${grey[1]}`,
+        //         '& .MuiTabs-flexContainer': {
+        //             justifyContent: 'center',
+        //         },
+        //         '&>div>span':{
+        //             backgroundColor:`${green[0]}`,
+        //             color:`${green[0]}`,
+        //             border: '1px solid red',
+        //         }
+        //     },
+            // '& .tabContent': {
+            //     width: '100%',
+            //     textAlign: 'center',
+            //     '& .block': {
+            //         display: 'flex',
+            //         flexDirection: 'column',
+            //         '& .items': {
+            //             display: 'flex',
+            //             justifyContent: 'space-between',
+            //             '&>div': {
+            //                 width: '48%',
+            //             },
+            //             '& .enTag': {
+            //                 '& .MuiFormControl-fullWidth': {
+            //                     '& .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"]': {
+            //                         padding: '3px 0 3px 50px !important',
+            //                         '& .MuiAutocomplete-endAdornment': {
+            //                             left: 0,
+            //                             right: 'unset',
+            //                         },
+            //                     },
+            //                 }
+            //             },
+            //             '& .faTag': {
+            //                 '& .MuiFormControl-fullWidth': {
+            //                     '& .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"]': {
+            //                         padding: '3px 50px 3px 0 !important',
+            //                         '& .MuiAutocomplete-endAdornment': {
+            //                             right: '0',
+            //                         },
+            //                     },
+            //                 }
+            //             },
+            //             '& .publishDate': {
+            //                 '& div': {
+            //                     width: '100%',
+            //                 }
+            //             }
+            //         },
+            //         '& .date': {
+            //             marginBottom: '1rem',
+            //             marginTop: '1rem',
+            //             '&>div': {
+            //                 width: '100%'
+            //             }
+            //         }
+            //     },
+            //     '& .card': {
+            //         marginBottom: '1rem',
+            //         '& p': {
+            //             marginBottom: '.8rem',
+            //         },
+            //         '& .metaTag': {
+            //             display: 'flex',
+            //             margin: '.8rem',
+            //             justifyContent: 'space-between',
+            //             '& .right,& .left': {
+            //                 width: '48%',
+            //             },
+            //             '& fieldset': {
+            //                 border: '1px solid rgba(0, 0, 0, 0.23)!important',
+            //             }
+            //         }
+            //
+            //     },
+            //     '& .select': {
+            //         '& .MuiFormControl-root': {
+            //             width: '100%!important',
+            //             '& .MuiInputBase-root': {
+            //                 width: '100%!important',
+            //             }
+            //         },
+            //         '& .MuiAutocomplete-root': {
+            //             '& .MuiChip-root': {
+            //                 width: 'fit-content',
+            //                 '& svg': {
+            //                     zIndex: "50"
+            //                 },
+            //
+            //             },
+            //             '& .MuiAutocomplete-endAdornment': {
+            //                 width: 'fit-content',
+            //             }
+            //         },
+            //         '& div': {
+            //             width: '100%',
+            //             '& select': {
+            //                 height: '22px',
+            //                 lineHeight: '21px',
+            //                 padding: '7px 26px 10px 12px',
+            //             }
+            //         }
+            //
+            //     }
+            // }
+        // }
+    //
+    // }
 });
 
 export const bootstrapInput = (theme) => ({
@@ -216,11 +217,31 @@ export const styledTabs = ()=>({
     }
 })
 
+
+export const styledTabPortal =()=>({
+    root:{
+        display: 'none'
+    }
+})
+
+export const styledTabFiles =()=>({
+    root:{
+        display:props=>(props.contentype === 'article' || props.contentype === 'page') && 'none'
+    }
+})
+
+export const styledTabSeo =()=>({
+    root:{
+        display:props=>(props.contentype === 'page') && 'none'
+    }
+})
+
 export const StyledTabPanels = styled.div`
-            height: calc(50vh - 6vh);
+            height: calc(100% - 11vh);
             overflow: scroll;
             margin-top: 11vh;
-            margin-bottom : 11vh;
+            padding-bottom:11vh;
+            box-sizing:border-box;
             scrollbar-width:none;
             -ms-overflow-style:none;
             &::-webkit-scrollbar{
@@ -259,4 +280,4 @@ export const StyledFooterButton = styled.button`
                 }
 `
 
-export default {useStyles, bootstrapInput, useTabStyless,TabPanel,a11yProps,styledTabs,StyledFooterButton};
+export default {useStyles, bootstrapInput, useTabStyless,TabPanel,a11yProps,styledTabs,StyledFooterButton,styledTabPortal};

@@ -1,17 +1,11 @@
-const url = process.env.REACT_APP_API_URL;
-export const logOut = `${url}/user/logout`;
+const baseUrl = process.env.REACT_APP_API_URL;
 
-export const loginUrl = `http://dash.webrbp.ir/user/login?_format=json`;
+export const tokenUrl = `${baseUrl}/oauth/token`;
 
-export const accessTokenUrl = `http://dash.webrbp.ir/oauth/token`;
+export const csrfUrl = `${baseUrl}/rest/session/token`;
 
-export const loginedUserUrl = `http://dash.webrbp.ir/user/1?_format=json`;
+export const debugUrl = `${baseUrl}/oauth/debug`;
 
-export const getRolesUrl =`http://dash.webrbp.ir/api/rest/role?_format=json`;
+export const logOutUrl = `${baseUrl}/user/logout`;
 
-export const deleteUserUrl =`${url}/api/rest/role?_format=json`;
-
-
-export default {
-    logOut,loginUrl,loginedUserUrl,getRolesUrl,accessTokenUrl
-}
+export default {logOutUrl, debugUrl,tokenUrl}

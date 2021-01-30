@@ -65,26 +65,13 @@ export const useStyles = {
 }
 
 export const StyledFooterRegisterContent = styled.div`
-                background-color:${white};
+                background-color:${white[0]};
                 position:absolute;
                 bottom:0;
                 width:100%;
                 z-index:50;
                 height:11vh;
                 border-top:1px solid ${grey[1]};
-`
-
-export const ModalBody = styled.div`
-                border:1px solid ${grey[1]}!important;
-                border-radius:15px;
-                overflow:hidden;
-                box-shadow: 0 2px 10px rgba(31,45,61,0.16);
-                background-color:white;
-                width:100%;
-                position: relative;
-                height: fit-content;
-                width: 100%;
-                height:auto;
 `
 
 export const StyledCancelButton = styled.button`
@@ -97,3 +84,5 @@ export const StyledCancelButton = styled.button`
                     outline: 0!important;
                 }
 `
+
+

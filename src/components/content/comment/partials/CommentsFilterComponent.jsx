@@ -1,0 +1,58 @@
+import React, {useState} from "react";
+import {withNamespaces} from "react-i18next";
+
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import {Typography, Grid, withStyles} from "@material-ui/core";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+
+import {StyledRegisterButton, StyledBox} from "assets/js/App";
+import {filterByMethod, doFilterHandlerMethod} from "./CommentsFilterComponent.js";
+import {styledExpansionPanelDetails,StyledCommentInput} from "assets/js/library/pages/comment/commentFilter";
+
+const StyledExpansionPanelDetails = withStyles(styledExpansionPanelDetails)(ExpansionPanelDetails)
+
+function CommentFilterComponent({t, commentStatus, unconfirmedComments, publishedComments, handlePagination}) {
+    const [searchedComment, setSearchedComment] = useState({
+        subject: "",
+        author: ""
+    });
+
+    const filterBy = (e, key) => {
+        filterByMethod(e, key, setSearchedComment)
+    }
+
+    let doFilterHandler = () => {
+        doFilterHandlerMethod(commentStatus, searchedComment, unconfirmedComments, publishedComments, handlePagination);
+    }
+
+    return (
+        <StyledBox>
+            <ExpansionPanel>
+                <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon/>}
+                    aria-controls="panel1a-content">
+                    <Typography>{t('translation:filter')}</Typography>
+                </ExpansionPanelSummary>
+                <StyledExpansionPanelDetails>
+                        <Grid container>
+                            <Grid item xs={6}>
+                                <StyledCommentInput placeholder={t('translation:subject')}
+                                             onChange={e => filterBy(e, 'subject')}/>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <StyledCommentInput placeholder={t('translation:author')}
+                                             onChange={e => filterBy(e, 'author')}/>
+                            </Grid>
+                        </Grid>
+                            <StyledRegisterButton onClick={doFilterHandler}>
+                                {t('translation:do')}
+                            </StyledRegisterButton>
+                </StyledExpansionPanelDetails>
+            </ExpansionPanel>
+        </StyledBox>
+);
+}
+
+export default withNamespaces('translation,contents')(CommentFilterComponent);

@@ -14,9 +14,16 @@
   "home": "home",
   "support": "support",
   "reports": "reports",
+  "devices": "devices",
   "settings": "settings",
   "platformSettings": "platform setting",
   "activities": "activities",
+  "menu": "menu",
+  "matamo": "matamo",
+  "mostSeen": "most seen content",
+  "keywords": "searched words in site",
+  "lastVisit": "last visit detail",
+  "realTime": "real time",
   "users": "users"
 
 

@@ -1,6 +1,6 @@
 import axios from "axios";
-import storage from "../../libraries/local-storage";
-import tagUrl from './../../utils/urls/tag.urls';
+import storage from "libraries/local-storage";
+import tagUrl from 'utils/urls/tag.urls';
 
 export function getTags(page) {
     let url = tagUrl.getTagsUrl(page);

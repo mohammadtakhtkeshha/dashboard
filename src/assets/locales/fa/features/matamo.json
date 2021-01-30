@@ -1,0 +1,18 @@
+{
+  "devices": "وسیله ها",
+  "deviceModel": "مدل وسیله",
+  "visits": "بازدیدها",
+  "pageAddress": "آدرس صفحه",
+  "visitNum": "تعداد بازدید صفحات",
+  "uniqueDisplay": "تعداد نمایش صفحه منحصربه فرد",
+  "overflow": "میزان پس زدگی",
+  "passedTime": "میزان زمان سپری شده در صفحه",
+  "exitRate": "نرخ خروج",
+  "keyword": "کلمه کلیدی",
+  "searches": "جستجوها",
+  "searchResutlPages": "صفحات نتایج جستجو",
+  "exitSearch": "خروج ها % جستجو",
+  "last30Minutes": "آخرین 30 دقیقه",
+  "last24Ours": "آخرین 24 ساعت",
+  "resolution": "رزلوشن نمایشگر"
+}

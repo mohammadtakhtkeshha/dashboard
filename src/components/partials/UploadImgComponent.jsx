@@ -1,112 +1,101 @@
-import React, {useContext, useEffect, useState} from "react";
-import AppContext from "contexts/AppContext";
+import React, {useState} from "react";
 import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
 
-import CancelIcon from '@material-ui/icons/Cancel';
+import CancelIcon from "@material-ui/icons/Cancel";
 
-import {ReactComponent as UploadImgSvg} from "assets/svg/uploadImgSvg.svg";
-import {StyledAlignTypography, StyledValidError} from "assets/js/App";
 import {
-    StyledTypography,
     InputBlock,
-    StyledUploadHereBlock,
     StyledAfterUploadBlock,
     StyledAfterUploadHere,
     StyledUploadedImgBlock,
+    StyledUploadHereBlock,
     UploadedImgHoverBlock
-} from 'assets/js/partials/uploadImg'
-import {previewImgMethod, removeImgMethod} from './UploadImgComponent.js'
+} from "assets/js/partials/uploadImg";
+import {StyledAlignTypography, StyledValidError} from "assets/js/App";
+import {ReactComponent as UploadImgSvg} from "assets/svg/uploadImgSvg.svg";
+import ReactPlayer from "react-player";
+import AudioPlayer from "material-ui-audio-player";
 
-function UploadImgComponent({t, multiple, title, getFile, imgs, removedFileId, sendIdAfterUpload, imagePreviewUrl, setImagePreviewUrl}) {
+function UploadFileComponent({t, title, multiple, getFileInParent, imgsAndUrls, removeImgInParent, type}) {
     const lang = i18next.language;
-    const appContext = useContext(AppContext);
-    const [files, setFiles] = useState([]);
     const [validation, setValidation] = useState('');
-    const [currentId, setCurrentId] = useState('');
-    const handlePreviewImg = (e) => {
-        previewImgMethod(e, t, appContext, setValidation, setFiles, setImagePreviewUrl, multiple, getFile);
-    }
 
-    const handleRemoveImg = (e, src, file) => {
-        removeImgMethod(e, src, imagePreviewUrl, files, setImagePreviewUrl, setFiles, removedFileId);
-    }
-
-    let $imagePreview = [];
-
-    if (imagePreviewUrl.length > 0) {
-        let uploadedImgs = [];
-        for (let i = 0; i < (imagePreviewUrl.length); i++) {
-            uploadedImgs.push(<div key={i}>
-                <StyledUploadedImgBlock>
-                    <img src={imagePreviewUrl[i]} className="item"/>
-                    <UploadedImgHoverBlock>
-                        <span id={currentId[i]} onClick={e => handleRemoveImg(e, imagePreviewUrl[i], files[i])}>
-                             <CancelIcon/>
-                        </span>
-                    </UploadedImgHoverBlock>
-                </StyledUploadedImgBlock>
-            </div>);
-        }
-        $imagePreview.push(<StyledAfterUploadBlock>
-            <StyledAlignTypography>{t('translation:imgsList')}</StyledAlignTypography>
-            <StyledAfterUploadHere>
-                <input type='file' multiple={multiple} onChange={e => handlePreviewImg(e)}/>
-                <UploadImgSvg/>
-                <span>{t('translation:uploadNewImg')}</span>
-            </StyledAfterUploadHere>
-            {uploadedImgs}
-        </StyledAfterUploadBlock>);
-    } else {
-        $imagePreview.push(<StyledUploadHereBlock>
-            <input type='file' multiple={multiple} onChange={e => handlePreviewImg(e)}/>
-            <UploadImgSvg/>
-            <p>{title}</p>
-            <button>{t('translation:choose')}</button>
-        </StyledUploadHereBlock>);
-    }
-
-    useEffect(() => {
-        if (sendIdAfterUpload !== undefined && sendIdAfterUpload !== "") {
-            appContext.setLoading(false);
-            setCurrentId(prevState => {
-                return [...prevState, sendIdAfterUpload.id];
-            });
-            let e = sendIdAfterUpload.file;
-            let reader = new FileReader();
-            reader.onload = () => {
-                setFiles(prevState => {
-                    return [...prevState, e];
-                });
-                if (!multiple) {
-                    setFiles([]);
-                    setImagePreviewUrl([reader.result]);
-                } else {
-                    setImagePreviewUrl(prevState => {
-                        return [...prevState, reader.result]
-                    });
+    const uploadImg = (e) => {
+        let files = e.currentTarget.files;
+        setValidation('');
+        for (let file of files) {
+            let extension = (file.name).split('.').pop();
+            if (type === "image") {
+                if (!['jpg', 'png', 'jpeg'].includes(extension)) {
+                    setValidation(t('translation:imgValidation'));
+                    return
+                }
+            } else if (type === "voice") {
+                if (!['mp3'].includes(extension)) {
+                    setValidation(t('translation:voiceValidation'));
+                    return
+                }
+            } else {
+                if (!['mp4'].includes(extension)) {
+                    setValidation(t('translation:videoValidation'));
+                    return
                 }
             }
-            reader.readAsDataURL(e);
         }
-    }, [sendIdAfterUpload]);//set id for every img
+        getFileInParent(e.currentTarget.files);
+    }
 
-    useEffect(() => {
-        if (imgs && imgs[0] !== undefined && imgs.length > 0) {//for edit user
-            let urls = [];
-            let fids = [];
-            for (let img of imgs) {
-                urls.push(img.url);
-                fids.push(img.fid);
-            }
-            setImagePreviewUrl([...urls]);
-            setCurrentId([...fids]);
-        }
-    }, [imgs]);
+    const handleRemoveImg = (e) => {
+        removeImgInParent(e);
+    }
 
     return (<>
         <InputBlock>
-            {$imagePreview.map((item, index) => (<div key={index}>{item}</div>))}
+            {imgsAndUrls.length > 0 ?
+                <>
+                    <StyledAlignTypography align={lang}>
+                        {type === 'image' ? t('translation:imgsList') : (
+                            type === "video" ? t('translation:videosList') : t('translation:voicesList')
+                        )}
+                    </StyledAlignTypography>
+                    <StyledAfterUploadBlock>
+                        {imgsAndUrls.map((item, i) => {
+                            return (<div key={i}>
+                                <StyledUploadedImgBlock>
+                                    {(type === 'image') ?
+                                        <img src={item.url}/>
+                                        : (type === 'video' ?
+                                                <ReactPlayer controls={true} url={item.url}/> :
+                                                <AudioPlayer src={item.url}/>
+                                        )}
+                                    <UploadedImgHoverBlock>
+                                    <span id={item.id} onClick={handleRemoveImg}>
+                                    <CancelIcon/>
+                                    </span>
+                                    </UploadedImgHoverBlock>
+                                </StyledUploadedImgBlock>
+                            </div>)
+                        })}
+                        <div>
+                            <StyledAfterUploadHere>
+                                <input type='file' multiple={multiple} onChange={uploadImg}/>
+                                <UploadImgSvg/>
+                                <span>{type === 'image' ? t('translation:uploadNewImg') : (
+                                    type === "video" ? t('translation:uploadNewVideo') : t('translation:uploadNewVoice')
+                                )}</span>
+                            </StyledAfterUploadHere>
+                        </div>
+                    </StyledAfterUploadBlock>
+                </>
+                :
+                <StyledUploadHereBlock>
+                    <input type='file' multiple={multiple} onChange={uploadImg}/>
+                    <UploadImgSvg/>
+                    <p>{title}</p>
+                    <button>{t('translation:choose')}</button>
+                </StyledUploadHereBlock>
+            }
         </InputBlock>
         <StyledValidError lang={lang}>
             {validation}
@@ -114,4 +103,5 @@ function UploadImgComponent({t, multiple, title, getFile, imgs, removedFileId, s
     </>);
 }
 
-export default withNamespaces('users,translation')(UploadImgComponent);
+export default withNamespaces('users,translation')(UploadFileComponent);
+

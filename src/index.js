@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Layout from './structure/layout.jsx';
 import * as serviceWorker from './serviceWorker';
+import {StyledDirection} from "./assets/js/App";
 
 ReactDOM.render(
   <>

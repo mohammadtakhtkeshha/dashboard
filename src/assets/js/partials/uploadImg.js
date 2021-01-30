@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {grey,black,white,green} from "components/partials/Colors";
+import {StyledNotScrollbar} from "../App";
 
 export const InputBlock = styled.div`
         position: relative;
@@ -31,7 +32,7 @@ export const StyledUploadHereBlock = styled.div`
                 }
             }
             & button{
-                color:${white};
+                color:${white[0]};
                 padding: 10px 45px;
                 font-size:16px;
                 cursor:pointer;
@@ -62,8 +63,8 @@ export const StyledAfterUploadHere = styled.div`
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                width: 13rem;
-                height: 13rem;
+                width: 200px;
+                height: 200px;
                 font-size: 15px;
                 margin: 15px;
                 & svg {
@@ -73,14 +74,17 @@ export const StyledAfterUploadHere = styled.div`
                     fill : ${grey[8]}
                 }
                 & input{
+                border:2px solid blue;
                     position:absolute;
                 }
             }
 `
 
-export const StyledAfterUploadBlock = styled.div`
+export const StyledAfterUploadBlock = styled(StyledNotScrollbar)`
             display:flex;
             margin-top: 2rem;
+            width:100%;
+            overflow-x:scroll;
             background-color:${grey[9]};
             &>svg{
                 width: 30px;
@@ -122,6 +126,9 @@ export const StyledUploadedImgBlock = styled.div`
             margin: 15px;
             border-radius:5px;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             &:hover{
                 ${UploadedImgHoverBlock}{
                     display:block;

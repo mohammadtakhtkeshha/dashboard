@@ -1,0 +1,25 @@
+{
+  "vocabs": "لیست وکب ها",
+  "termList": "لیست واژه ها",
+  "categoryList": "لیست دسته بندی ها",
+  "newCategory": "ایجاد دسته بندی جدید",
+  "statesList": "لیست استان ها",
+  "newState": "ایجاد استان جدید",
+  "states": "استان ها",
+  "menus": "منوها",
+  "termParent": "واژه های والد",
+  "newTerm": "افزودن واژه",
+  "newSound": "ایجاد صدای جدید",
+  "soundList": "لیست صداها",
+  "sounds": "صداها",
+  "videoList": "لیست ویدیوها",
+  "newVideo": "ویدیو جدید",
+  "videos": "ویدیوها",
+  "newImage": "ایجاد تصویر جدید",
+  "imagesList": "لیست تصاویر",
+  "tags": "برچسب ها",
+  "newTag": "برچسب جدید",
+  "tagsList": "لیست برچسب ها"
+
+
+}

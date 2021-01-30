@@ -1,3 +1,8 @@
 {
-  "comments": "comments"
+  "comments": "comments",
+  "publishedComments": "published comments",
+  "unconfirmedComments": "unconfirmed comments",
+  "editComment": "edit comment",
+  "sentIn": "sent in",
+  "commentBody": "comment"
 }

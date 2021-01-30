@@ -38,7 +38,7 @@ export function warning(title,buttonText,cancelText,notDone,successfullyMethod) 
         if (willDelete) {
             successfullyMethod();
         }else{
-            success(notDone,buttonText)
+            danger(notDone,buttonText);
         }
     });
 }

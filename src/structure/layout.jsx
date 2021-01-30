@@ -1,116 +1,62 @@
-import React, {useState, useEffect, useContext} from 'react';
-import Direction from './direction';
-import i18ne from './../configs/locales/locales';
-import {Box} from '@material-ui/core';
-import AppContext from './../contexts/AppContext';
-import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
-import './../App.css';
-import rtl from 'jss-rtl';
+import React, {useState} from 'react'
+import {withNamespaces} from "react-i18next"
+import i18next from "i18next"
+import {Route, Router} from "react-router-dom"
+import i18ne from './../configs/locales/locales'
 
-// ------------- mamato ---------
-import {MatomoProvider, createInstance} from '@datapunt/matomo-tracker-react'
-import i18next from "i18next";
-import Loading from "../components/content/partials/loading";
-import {globalCss} from "../assets/js/globalCss";
-import {withNamespaces} from "react-i18next";
-import {danger} from "../methods/swal";
-import {StyledDirection} from "../assets/js/App";
+import AppContext from './../contexts/AppContext'
+import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles'
+import './../App.css'
+import 'assets/css/yekanFont.css'
+import {StyledDirection} from "../assets/js/App"
+import history from "../configs/History"
+import * as components from "../assets/js/AppImports"
+import ProtectedRoute from "../shared/routes/protected-routes"
+import LoadingComponent from "../components/content/partials/LoadingComponent"
+import {defaultStyles, StyledBox} from "assets/js/layout"
+import {handleErrorMethod} from "./layout.js"
 
-const instance = createInstance({
-    urlBase: 'https://reactwebrbpir.matomo.cloud/',
-})
-const styles = {
-    sidebar: {
-        height: '100vh',
-        flexGrow: 1
-    },
-    content: {
-        flexGrow: 5
-    }
-};
-const theme = createMuiTheme({
-    direction: 'rtl',
-    typography: {
-        fontFamily: ["primary-font", "segoe ui", "tahoma"],
-        body1: {
-            fontSize: '13px'
-        }
-    },
-    breakpoints: {
-        values: {
-            xs: 576, sm: 768, md: 992, lg: 1200, xl: 1200
-        }
-    },
-    overrides: {
-        MuiPaper: {
-            elevation1: {
-                boxShadow: '0 0 0 0',
-            }
-        }
-    }
-
-});
-const gClass = makeStyles(globalCss);
+const theme = createMuiTheme(defaultStyles)
 
 export function Layout({t}) {
-    const lang = i18next.language;
-    const perPage = 5;
-    const [showUserDrawer, setShowUserDrawer] = useState(false);
-    const [loading,setLoading]=useState(false);
-    const gClasses = gClass();
-    const appContext=useContext(AppContext);
+    const lang = i18next.language
+    const perPage = 5
+    const [showUserDrawer, setShowUserDrawer] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     let toggleUserDrawer = (boolean) => {
         setShowUserDrawer(boolean)
-    };
-
-    let handleError = (error) => {
-        let errorString;
-        if(error){
-            errorString = error.toString();
-        }
-        danger(error?errorString:t('translation:error'), t('translation:ok'));
-        setLoading(false);
-        console.log(error);
-    };
-
-    const isFa = (lang) => {
-        if (lang === 'fa') {
-            return true;
-        }
-        return false;
     }
 
-    const currentAlign = () => {
-        return isFa(lang) ? 'right' : 'left';
+    let handleError = (error) => {
+        handleErrorMethod(t, error, setLoading)
     }
 
     return (
         <StyledDirection>
-            <Box className={loading === false ? gClasses.none : gClasses.block}>
-                <Loading/>
-            </Box>
-
-            <MatomoProvider value={instance}>
+            <LoadingComponent loading={loading}/>
                 <ThemeProvider theme={theme}>
                     <AppContext.Provider
                         value={{
-                            perPage:perPage,
-                            handleError:handleError,
+                            perPage: perPage,
+                            handleError: handleError,
                             showUserDrawer: showUserDrawer,
                             toggleUserDrawer: toggleUserDrawer,
-                            isLoginSuccess:false,
-                            loading:loading,
-                            setLoading:setLoading,
-                            currentAlign:currentAlign,
+                            isLoginSuccess: false,
+                            loading: loading,
+                            setLoading: setLoading,
                         }}>
-                        <Direction/>
+                        <StyledBox lang={lang}>
+                            <Router history={history}>
+                                <Route path="/login" component={components.LoginComponent}/>
+                                <Route path="/forget-password" component={components.ForgetPasswordComponent}/>
+                                <ProtectedRoute path="/" component={components.AuthorizedComponent}/>
+                            </Router>
+                        </StyledBox>
                     </AppContext.Provider>
                 </ThemeProvider>
-            </MatomoProvider>
         </StyledDirection>
-    );
-
+    )
 }
 
-export default withNamespaces('translation')(Layout);
+export default withNamespaces('translation')(Layout)

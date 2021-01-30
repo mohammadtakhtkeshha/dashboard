@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import {makeStyles} from "@material-ui/styles";
-import {blue, green, white} from "components/partials/Colors";
+import {blue, green, white,grey} from "components/partials/Colors";
 
 export const useStyles = makeStyles((theme) => ({
     paper: {
@@ -45,72 +45,34 @@ export const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const StyledTable = styled.div`
-        display:flex;
-        flex-direction:column;
-`
-
-export const StyledTableHeadRow = styled.div`
-                display:flex;
-                flex-direction:row;
-                display:flex;
-                padding: 1rem 2rem;
-                color:white;
-                background-image: linear-gradient(to right, ${blue[6]} , ${green[4]});
-                &>div{
-                    width:25%!important;
-                }
-`
-
-export const StyledTableBody = styled.div`
-            background-color:#f3f4f6; 
-`
-
-export const StyledTableBodyRow = styled.div`
-             display:flex;
-             border-radius:20px 0 20px 0;
-             margin:20px;
-             cursor:pointer;
-             background-color:#ffffff;
-             font-size:13px;
-             padding:5px;
-             display: flex;
-             align-items: center;
-             &:hover{
-                 box-shadow:0 14px 11px #d3d3d5;
-             }
-             &>div{
-                width:25%;
-             }
-`
-
-export const StyledTableCell = styled.div`
-            & #img{
-                width:50px;
-                height:50px;
-                border-radius:100%;
-                overflow:hidden;
-                 & img{
-                        width:100%;
-                        height:100%;
-                    }
-            }
-           
-`
-
 export const StyledPaper = styled.div`
-            margin: .6rem;
-            border-radius:20px;
-            overflow:hidden;
-            @media(max-width:992px) {
-                margin: 2rem 0;
-            }
             &>h4{//title
                font-size: 19px;
                font-weight: 200;
                text-align:center;
                padding:.6rem;
                color:white;
-               background-image: linear-gradient(to right,${blue[5]}, ${green[3]});
+               background-image: ${props=>props.lang === 'en' ?` linear-gradient(to left,${blue[5]}, ${green[4]}) `:`linear-gradient(to right,${blue[5]}, ${green[4]})`};
             }   
 `
+
+export const dashboardStyles={
+    confirmButton:{
+        backgroundColor:green[0],
+    },
+    swalBlock:{
+        '& .swal-footer':{
+            textAlign:'center'
+        }
+    }
+}
+
+export const StyledDashboardBlock = styled.div`
+            background-color:${grey[17]};
+            border-radius: 20px;
+            margin: 1.5rem 0;
+            overflow:hidden;
+            display:${props=>props.show === false ? 'none' : 'block'}
+`
+
+

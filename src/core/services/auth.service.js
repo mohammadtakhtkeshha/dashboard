@@ -1,7 +1,6 @@
 import axios from "axios";
 import storage from "libraries/local-storage";
-import authUrl from 'utils/urls/auth.urls';
-import {authHeader} from 'utils/headers';
+import authUrl, {debugUrl, logOutUrl,csrfUrl} from 'utils/urls/auth.urls';
 
 export function getLoginUser(access_token) {
     let config = {
@@ -13,44 +12,50 @@ export function getLoginUser(access_token) {
 }
 
 export async function login(user) {
-    let loginUrl = authUrl.loginUrl;
-    let accessTokenUrl = authUrl.accessTokenUrl;
-    let loginedUserUrl = authUrl.loginedUserUrl;
-    // ---------- accessToken ---------
-    const data = new URLSearchParams();
-    data.append('grant_type', 'password');
-    data.append('client_id', '15b03cb4-b4a9-4b80-96d4-3050583515a0');
-    data.append('client_secret', '147/*');
-    data.append('username', user.name);
-    data.append('password', user.pass);
-    const result = await axios.post(accessTokenUrl, data);
-    const {access_token} = result.data;
-    storage.store(process.env.REACT_APP_TOKEN_KEY, `Bearer ${access_token}`);
-    // ---------- login ---------------
-    let config = {
-        headers: {
-            Authorization: `Bearer ${access_token}`
+    //get userdata and token and csrf
+    let tokenUrl = authUrl.tokenUrl;
+    const body = new URLSearchParams();
+    body.append('grant_type', 'password');
+    body.append('username', user.name);
+    body.append('password', user.pass);
+    body.append('client_id', '6ffb042e-988a-437b-9e30-db515a719cc8');
+    body.append('client_secret', '147/*');
+
+    const loginResult = await axios.post(tokenUrl, body);
+    const token = `Bearer ${loginResult.data.access_token}`;
+    storage.store('token', token);
+    const config={
+        headers:{
+            'Authorization':token
         }
-    }
-    const loginResult= await axios.get('http://dash.webrbp.ir/oauth/debug', config);
-    storage.store('user', JSON.stringify(loginResult.data));
-    return result;
+    };
+    const getAdminData = await axios.get(debugUrl,config);
+    storage.store('user', JSON.stringify(getAdminData.data));
+    const {data} = await axios.get(csrfUrl);
+
+    storage.store(process.env.REACT_APP_CSRF, JSON.stringify(data));
+    return loginResult;
 }
 
 export async function logout(history) {
-    let url = 'http://dash.webrbp.ir/user/logout';
-    let config = {
-        headers:
-            {
-                'Authorization': storage.get(process.env.REACT_APP_TOKEN_KEY),
-            },
-        withCredentials: true,
+    const params = {
+        "_format": "json",
+        "token": JSON.parse(storage.get('logout_token'))
     };
-    axios.post(url, null, config);
+    // axios({
+    //     method: 'POST', //you can set what request you want to be
+    //     url: logOutUrl,
+    //     headers: {
+    //             'Content-Type': 'application/json'
+    //     },
+    //     params: params
+    // })
     storage.remove(process.env.REACT_APP_TOKEN_KEY);
-    storage.remove('lang');
     history.push("/login");
     storage.remove('user');
+    // return  axios.post('http://sitesazyas.rbp/web/user/logout');
+    return  'yes';
+
 }
 
-export default {login, logout,getLoginUser}
+export default {login, logout, getLoginUser}

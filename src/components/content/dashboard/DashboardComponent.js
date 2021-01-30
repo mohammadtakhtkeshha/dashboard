@@ -1,75 +1,27 @@
-import React, {useState, useEffect, useContext} from "react";
-import UserChartComponent from "./partials/UserChartComponent";
-import CommentDashboardComponent from "./partials/CommentDashboardComponent";
-import CommentsChartComponent from "./partials/CommentsChartComponent";
-import ContentChartComponent from "./partials/ContentChartComponent";
-import ContentDashboardComponent from "./partials/ContentDashboardComponent";
-import UserDashboardComponent from "./partials/UserDashboardComponent";
-import dashboardService from "../../../core/services/dashboard.service.js";
-import {withNamespaces} from "react-i18next";
-import {green} from "../../partials/Colors";
-import swal from "sweetalert";
-import {makeStyles} from "@material-ui/styles";
-import storage from './../../../libraries/local-storage';
-import i18next from "i18next";
-import {useHistory} from "react-router-dom";
-import AppContext from "../../../contexts/AppContext";
+import React, {useContext} from "react";
 
-const useStyles=makeStyles({
-    confirmButton:{
-        backgroundColor:green[0],
-    },
-    swalBlock:{
-        '& .swal-footer':{
-            textAlign:'center'
-        }
-    }
-});
+import UserChartComponent from "./partials/UserChartComponent.jsx";
+import CommentDashboardComponent from "./partials/CommentDashboardComponent.jsx";
+import CommentsChartComponent from "./partials/CommentsChartComponent.jsx";
+import ContentChartComponent from "./partials/ContentChartComponent.jsx";
+import ContentDashboardComponent from "./partials/ContentDashboardComponent.jsx";
+import UserDashboardComponent from "./partials/UserDashboardComponent.jsx";
+import WelcomeDashboardComponent from "./partials/WelcomeDashboardComponent.jsx"
+import MessageDashaboardSettingComponent from "./partials/MessageDashaboardSettingComponent.jsx";
+import AppContext from "contexts/AppContext";
 
-
-function DashboardComponent({t}) {
-    const [contents, setContents] = useState([]);
-    const classes = useStyles();
-    const lang = i18next.language;
-    const context = useContext(AppContext);
-
-    let getContentList = async () => {
-        dashboardService.getContentLis().then((response) => {debugger
-            let contents = response.data.rows;
-            setContents([...contents]);
-        }).catch((error) => {
-        });
-    };
-
-    useEffect(() => {
-        getContentList();
-    }, []);
-
-    useEffect(() => {
-        if(context.isLoginSuccess){
-            swal({
-                text: `${lang==='en'?JSON.parse(storage.get('user')).name:''} ${t('translation:welcome')} ${lang==='fa'?JSON.parse(storage.get('user')).name:''}`,
-                timer:'1000',
-                button: {
-                    text:t('translation:yes'),
-                    className: classes.confirmButton
-                },
-                className: classes.swalBlock
-            });
-            context.isLoginSuccess=false;
-        }
-    });
-
+export default function DashboardComponent() {
+    const appContext=useContext(AppContext);
     return (
         <>
-            <ContentChartComponent contents={contents}/>
-            <ContentDashboardComponent/>
-            <UserDashboardComponent/>
-            <UserChartComponent/>
-            <CommentDashboardComponent/>
-            <CommentsChartComponent/>
+            <MessageDashaboardSettingComponent/>
+            <WelcomeDashboardComponent/>
+            <ContentChartComponent appContext={appContext}/>
+            <ContentDashboardComponent appContext={appContext}/>
+            <UserDashboardComponent appContext={appContext}/>
+            <UserChartComponent appContext={appContext}/>
+            <CommentDashboardComponent appContext={appContext}/>
+            <CommentsChartComponent appContext={appContext}/>
         </>
     );
 }
-
-export default withNamespaces('translation')(DashboardComponent);

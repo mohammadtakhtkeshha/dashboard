@@ -1,92 +1,63 @@
-import React, {useState, useEffect, useContext} from "react";
-import {withNamespaces} from "react-i18next";
+import dashboardService from "core/services/dashboard.service";
 
-import {Box, Typography} from "@material-ui/core";
-
-import {StyledPaper} from "assets/js/dashboard/dashboard";
-import {ContentChartBlock,StyledBox} from "assets/js/dashboard/ContentChart";
-import AuthorizedContext from "contexts/AuthorizedContext";
-
-function ContentChartComponent({contents,t}) {
-    const [customContents, setCustomContents] = useState([]);
-    const [totalNumberOfContents, setTotalNumberOfContents] = useState('');
-    const authorizedContext=useContext(AuthorizedContext);
-
-    const setCustomContentHandler = (value) => {
-        let getCustomContents = customizedContents(value);
-        let contents = Object.entries(getCustomContents);
-        let arr = [...contents];
-        setCustomContents([...arr]);
-        debugger
-        // for(let item in arr){
-        //     for(let icon in contentsContext){
-        //         if(){
-        //
-        //         }
-        //     }
-        // }
-        return arr;
-    }
-
-    const getTotalNumberOfContent = () => {
-        let length = contents.length;
-        setTotalNumberOfContents(length);
-    }
-
-    const customizedContents = (value) => {
-        return value.reduce((initial, currentValue) => {
-            let key = currentValue.type;
-            if (!initial[key]) {
-                initial[key] = [];
+export const getContentList = async (setContents, setTotalLength, appContext) => {
+    appContext.setLoading(true)
+    dashboardService.getContentList(appContext.handleError).then((response) => {
+        appContext.setLoading(false)
+        let contents = response.data;
+        let num = 0;
+        setContents(prevState => {
+            for (let content of contents) {
+                switch (content.type) {
+                    case "مقاله":
+                        prevState[1].number = parseInt(content.number);
+                        num += parseInt(content.number)
+                        break;
+                    case "اخبار":
+                        prevState[0].number = parseInt(content.number)
+                        num += parseInt(content.number)
+                        break;
+                    case "ویدیوها":
+                        prevState[2].number = parseInt(content.number)
+                        num += parseInt(content.number)
+                        break;
+                    case "صداها":
+                        prevState[3].number = parseInt(content.number)
+                        num += parseInt(content.number)
+                        break;
+                    case "تصاویر":
+                        prevState[4].number = parseInt(content.number)
+                        num += parseInt(content.number)
+                        break;
+                    default:
+                        prevState[5].number = parseInt(content.number)
+                        num += parseInt(content.number)
+                }
             }
-            initial[key].push(currentValue);
-            return initial;
-        }, {});
-    }
+            return [...prevState]
+        });
+        setTotalLength(num);
+    }).catch((error) => {
+    });
+};
 
-    useEffect(() => {
-        getTotalNumberOfContent();
-    }, [contents]);
+export const changeFormatMethod = (contents, setChunks, index) => {
+    let newList = [];
+    let currentArray = [...contents]
+    let array1 = []
+    let array2 = []
+    const perPage = 3;
+    let lastIndex = index + 3;
 
-    useEffect(() => {
-        setCustomContentHandler(contents);
-    }, [contents]);
-
-    console.log(authorizedContext.contentTypeNameList);
-
-    return (<>
-            {customContents.length>0 ? <StyledPaper>
-                <Typography variant="h4">______ {t('contents:contents')} ______</Typography>
-                <ContentChartBlock>
-                    {customContents.map(function (content, index) {
-                        let length = content[1].length;
-                        return (
-                            <StyledBox key={index}>
-                                <Box className="text">
-                                    <Box>
-                                        <Typography>{content[0]}</Typography>
-                                    </Box>
-                                    <Box> {length}</Box>
-                                </Box>
-                                <Box className="chart">
-                                    <Box className="number">
-                                        {Math.round((length / totalNumberOfContents) * 100)}%
-                                    </Box>
-                                    <Box className="graphic">
-                                        <div
-                                            className="after"
-                                            style={{width: `${Math.round((length / totalNumberOfContents) * 100)}%`}}>
-                                        </div>
-                                    </Box>
-                                </Box>
-                            </StyledBox>
-                        )
-                    })
-                    }
-                </ContentChartBlock>
-            </StyledPaper>:''}
-        </>
-    );
-
+    // for (let i = index; i < currentArray.length; i ++) {
+    //     // let sliced = currentArray.slice(i,  perPage+i);
+    //     if(i < lastIndex){
+    //         array1.push(currentArray[i])
+    //     }else{
+    //         array2.push(currentArray[i])
+    //     }
+    // }
+    let restCurrentArray = currentArray.splice(index + 3)
+    newList = [[...currentArray], [...restCurrentArray]]
+    setChunks(newList)
 }
-export default withNamespaces('translation,contents')(ContentChartComponent);

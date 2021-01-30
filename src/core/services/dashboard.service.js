@@ -1,44 +1,35 @@
-import axios from "axios";
-import storage from './../../../src/libraries/local-storage'
-import {authHeader} from "../../utils/headers";
+import {authHeader,xcsrfCtAppJ} from "utils/headers";
+import {getTenNumberOfCommentsUrl,getUsersUrl,getTenNumberOfUsersUrl,getTenNumberOfContentsUrl,getContentLisUrl,getCommentChartUrl} from "utils/urls/dashboard.urls";
+import {Method} from "structure/layout.js";
 
-export function getContentLis() {
-    let url = `http://dash.webrbp.ir/api/all_content/dashboard/chart`;
-    return axios.get(url, authHeader);
+export function getContentList(handleError) {
+    return Method({method:'get',url:getContentLisUrl,header: authHeader,handleError:handleError});
 }
 
-export function getTenNumberOfContents(token) {
-    let url = `http://dash.webrbp.ir/api/all_content/dashboard`;
-    return axios.get(url, authHeader);
+export function getTenNumberOfContents(handleError) {
+    return Method({method:'get',url:getTenNumberOfContentsUrl, headers:xcsrfCtAppJ,handleError:handleError});
 }
 
-export function getTenNumberOfUsers(token) {
-    let url = `http://dash.webrbp.ir/api/user/v2/dashboard`;
-    let config = {
-        headers: {
-            'Authorization': storage.get(process.env.REACT_APP_TOKEN_KEY),
-        }
-    };
-    return axios.get(url, config);
+export function getTenNumberOfUsers(handleError) {
+    return Method({method:'get',url:getTenNumberOfUsersUrl, headers:authHeader,handleError:handleError});
+
 }
 
-export function getUsers() {
-    let url = `http://dash.webrbp.ir/api/user/v2/dashboard/chart`;
-    return axios.get(url);
+export function getUsers(handleError) {
+    return Method({method:'get',url:getUsersUrl, headers:xcsrfCtAppJ,handleError:handleError});
+
 }
 
-export function getTenNumberOfComments() {
-    let url = `http://dash.webrbp.ir/last_comment/dashboard?_format=json`;
-    return axios.get(url);
+export function getTenNumberOfComments(handleError) {
+    return Method({method:'get',url:getTenNumberOfCommentsUrl, headers:authHeader,handleError:handleError});
 }
 
-export function getCommentChart() {
-    let url = `http://dash.webrbp.ir/last_comment/chart`;
-    return axios.get(url);
+export function getCommentChart(handleError) {
+    return Method({method:'get',url:getCommentChartUrl, headers:xcsrfCtAppJ,handleError:handleError});
 }
 
 export default {
-    getContentLis,
+    getContentList,
     getTenNumberOfContents,
     getTenNumberOfUsers,
     getUsers,

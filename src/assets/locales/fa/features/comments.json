@@ -1,3 +1,10 @@
 {
-  "comments": "کامنت ها"
+  "comments": "کامنت ها",
+  "publishedComments": "دیدگاه های منتشرشده",
+  "unconfirmedComments": "دیدگاه های تایید نشده",
+  "editComment": "ویرایش کامنت",
+  "sentIn": "ارسال شده در",
+  "commentBody": "دیدگاه"
+
+
 }

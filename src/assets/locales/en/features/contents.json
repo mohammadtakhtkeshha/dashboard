@@ -2,7 +2,6 @@
   "contentList": "content list",
   "contentType": "content type",
   "contents": "contents",
-  "author": "author",
   "publishDate": "publish date",
   "indexImg": "Index Image",
   "imgGallery": "Gallery Image",
@@ -34,6 +33,24 @@
   "chooseContentType":"please choose content type",
   "title&picture": "title and picture",
   "publishSetting": "publish date setting",
+  "publishStatus": "publish status",
   "seo": "seo",
-  "portal": "portal"
+  "portal": "portal",
+  "path": "content address",
+  "autoPath": "produce nickname for url",
+  "showInMainPage": "show in main page",
+  "dontshowInMainPage": "don't show in main page",
+  "dontshowInSidebar": "don't show in sidebar",
+  "showInSidebar": "show in sidebar",
+  "voteAbility": "vote",
+  "commentStatus": "status of comment",
+  "amtyazStatus": "status of amtyaz",
+  "provinces": "province",
+  "urgentNews": "urgent news",
+  "subtitle": "second title",
+  "highlight": "highlight",
+  "special": "special",
+  "imagesCategory": "imagesCategory",
+  "chosen": "chosen"
+
 }

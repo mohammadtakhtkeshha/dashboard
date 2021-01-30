@@ -33,14 +33,13 @@ function DatePickerrComponent({placeholder,currentKey,passedDate,selectedDate,se
         }else{
             date=e.format();
         }
-        setSelectedDate(date);
+        setSelectedDate(date,currentKey);
         passedDate(date);
     }
 
-
-    useEffect(() => {
-        setSelectedDate(selectedDate,currentKey);
-    }, [selectedDate]); // handle date from props
+    // useEffect(() => {
+    //     setSelectedDate(selectedDate,currentKey);
+    // }, [selectedDate]); // handle date from props
 
     return (<>
         {lang === 'fa' ?

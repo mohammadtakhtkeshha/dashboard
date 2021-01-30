@@ -22,9 +22,11 @@ const youtube = '#cd201f';
 const black = ['#212529',//[0]
     '#32325D',//[1]
     '#32325d',//[2]upload img color
-    '#242527'//[3]background color for hover img upload
+    '#242527',//[3]background color for hover img upload
+    '#2e2e2e',//[4]text-color-dashboard-welcome
 ];
-const white =["#fff",[0]//base-white
+const white =["#fff",//[0] base-white
+"#fffdfe",//[1] dashboard-title-text-color
 ];
 // ------- blue -------
 const darkBlue = '#0056b3';
@@ -55,13 +57,25 @@ const blue= ['#2e91b0',//[0]default
     '#4696af',//[1]hover
     '#25738b',//[2]focus
     '#303f9f',//[3]
-    '#008CBA',
+    '#008CBA',//[4]
     '#2369be',//[5]left-header-gradiant
     '#2d85ef',//[6]left-body-gradiant
     '#2c84f0',//[7]left-main-head
     '#1461b1',//[8]power-in-header-background
     '#32ac93',//[9]left-sidebar-background
     '#2c84f0',//[10]end-sidebar-background
+    '#6e79ee',//[11]background-button-tour
+    '#eaf8f8',//[12]background-checkbox
+    '#66abf0',//[13]border-checkbox
+    '#1264b0',//[14]dashboard-icon-title
+    '#3193dc',//[15]radio-button
+    '#606CEC',//[16]radio-button
+    '#2a9fbb',//[17]tid-color-attach
+];
+
+const orange=[
+    'rgb(236, 152, 96)',//background-tour-button
+    '#f60',//color for title in ticket
 ];
 
 const grey = ['#ced4da',//[0]input border
@@ -72,16 +86,26 @@ const grey = ['#ced4da',//[0]input border
     'rgba(0, 0, 0, 0.04)',//[5]
     '#ebebeb',//[6]
     '#D6DBE1',//[7]
-    '#6B7C93',//[8]color for upload img border hover
+    '#6B7C93',//[8]color for upload img border hover,close-tour-color,close-tour-button-border,tour-description
     '#F1F3F5',//[9]background of upload here
     '#525368',//[10]color for icons in header
     '#dddddd',//[11]color for border bottom item sidebar
-
+    '#E2E3E2',//[12]background-colors:hover sidebar icons
+    '#EEF0F2',//[13]background-colors sidebar icons
+    '#f8f8f8',//[14]background-colors activ sidebar link
+    '#808080',//[15]background-colors dashboard-cancel-svg-shadow
+    '#757575',//[16]text-color dashboard-welcome
+    '#f3f4f6',//[17]background-color dashboard-block
+    '#dfe0e2',//[18]background-color base-all-content
+    '#f9f8f8',//[19]
+    '#616161',//[20]
 ];
+
+export const purpel = ["#3F51B5"]
 
 export {
     primary, primaryBright, secondary, secondaryBright, success, successBright, danger,dangerBright,
     warning,warningBright,info,infoBright,light, dark, facebook, google, instagram, linkedin, twitter,
-    whatsapp, dribbble, youtube,darkBlue,grey,black,white,red,blue,green
+    whatsapp, dribbble, youtube,darkBlue,grey,black,white,red,blue,green,orange
 };
 

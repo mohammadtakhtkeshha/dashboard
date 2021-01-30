@@ -12,8 +12,14 @@ import contentsFa from 'assets/locales/fa/features/contents.json';
 import contentsEn from 'assets/locales/en/features/contents.json';
 import commentsEn from 'assets/locales/en/features/comments.json';
 import commentsFa from 'assets/locales/fa/features/comments.json';
-import vocabsFa from 'assets/locales/fa/features/vocabs.json';
-import vocabsEn from 'assets/locales/en/features/vocabs.json';
+import taxonomyFa from 'assets/locales/fa/features/taxonomy.json';
+import taxonomyEn from 'assets/locales/en/features/taxonomy.json';
+import ticketsEn from 'assets/locales/en/features/tickets.json';
+import ticketsFa from 'assets/locales/fa/features/tickets.json';
+import menuFa from 'assets/locales/fa/features/menu.json';
+import menuEn from 'assets/locales/en/features/menu.json';
+import matamoEn from 'assets/locales/en/features/matamo.json';
+import matamoFa from 'assets/locales/fa/features/matamo.json';
 //localstorage
 import storage from 'libraries/local-storage'
 
@@ -25,7 +31,10 @@ const resources = {
         users:usersEn,
         translation:translationEn,
         contents:contentsEn,
-        vocabs:vocabsEn,
+        taxonomy:taxonomyEn,
+        tickets:ticketsEn,
+        menu:menuEn,
+        matamo:matamoEn,
     },
     fa:{
         comments:commentsFa,
@@ -33,8 +42,10 @@ const resources = {
         users:usersFa,
         translation:translationFa,
         contents:contentsFa,
-        vocabs:vocabsFa,
-
+        taxonomy:taxonomyFa,
+        tickets:ticketsFa,
+        menu:menuFa,
+        matamo:matamoFa,
     }
 };
 
@@ -44,7 +55,7 @@ i18n
     .init({
         resources,
         lng: storage.get('lang') || 'fa',
-        ns: ['sidebar', 'users','translation'],
+        ns: ['sidebar', 'users','translation','menu'],
         keySeparator: false, // we do not use keys in partials messages.welcome
         interpolation: {
             escapeValue: false // react already safes from xss

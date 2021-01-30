@@ -1,0 +1,23 @@
+{
+  "vocabs": "vocabs",
+  "termList": "terms list",
+  "categoryList": "categories list",
+  "newCategory": "new category",
+  "statesList": "states list",
+  "newState": "new state",
+  "states": "states",
+  "menus": "menus",
+  "termParent": "terms parent",
+  "newTerm": "new term",
+  "newSound": "new sound",
+  "soundList": "sound list",
+  "sounds": "sounds",
+  "videoList": "video list",
+  "newVideo": "new video",
+  "videos": "videos",
+  "newImage": "new image",
+  "imagesList": "images list",
+  "tags": "tags",
+  "newTag": "new tag",
+  "tagsList": "tags list"
+}

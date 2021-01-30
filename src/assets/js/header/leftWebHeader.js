@@ -10,7 +10,7 @@ export const StyledPowerBox = styled.div`
                 border:0!important;
                 color:${white[0]};
                 &:focus{
-                   border:0!important;
+                   outline:0!important;
                 }
             }
 `;
@@ -111,7 +111,7 @@ export const StyledSearchBlock = styled.div`
             & input{
                 border-radius: 5px;
                 border: none;
-                padding: 8px;
+                padding: 6px 8px;
                 background-color: ${white[0]};
                 font-size: 14px;
                 &:focus{
@@ -125,7 +125,11 @@ export const StyledSearchBlock = styled.div`
             height:1rem;
             color: ${green[0]};
             position: absolute;
-            transform: translateY(-50%);
+            display:flex;
+            align-items:center;
+            top:0;
+            bottom:0;
+            margin:auto;
             left:${props => props.lang === 'fa' ? '4%' : ''};
             right:${props => props.lang === 'fa' ? '' : '4%'};
         }

@@ -4,8 +4,6 @@ import {Box} from '@material-ui/core'
 //import styles from make style
 import * as useStyle from './../../assets/js/SidebarMobile'
 
-
-
 export default function (props) {
     const node = useRef();
     const classes = useStyle.styles();

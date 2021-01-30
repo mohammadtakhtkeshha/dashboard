@@ -1,6 +1,15 @@
 import axios from "axios";
 import contentUrl from 'utils/urls/content.urls';
-import {aacaAuthauHeader, ahchauthHeader, authHeader, avcoAuthcdHeader, caauthHeader} from "utils/headers";
+import {
+    cocdavcsrfauthHeader,
+    ahchauthHeader,
+    authHeader,
+    avcoAuthcdHeader,
+    caauthHeader, cjajauhthHeader,
+    cjajcharsetauthHeader,
+    cjajcsrfauthHeader,
+    cjcdajcsrfauth
+} from "utils/headers";
 import {Method} from "structure/layout";
 
 export function getDomainSource() {
@@ -8,14 +17,25 @@ export function getDomainSource() {
     return axios.get(url);
 }
 
-export function getCategories() {
-    let url = contentUrl.getCategoriesUrl;
-    return axios.get(url, ahchauthHeader);
+export function getTags(handleError){
+    let url = contentUrl.getTagsUrl;
+    // return axios.get(url,authHeader);
+    return Method({method:'get',url:url,headers: authHeader,handleError:handleError});
 }
 
-export function uploadSingImg(e) {
+export function getNewsCategory(handleError) {
+    let url = contentUrl.getNewsCategoryUrl;
+    // return axios.get(url, cjajcsrfauthHeader);
+    return Method({method:'get',url:url,headers: cjajcsrfauthHeader,handleError:handleError})
+        // .then((response)=>{})
+        ;
+
+}
+
+export function uploadSingImg(file,handleError) {
     const url = contentUrl.uploadSingImgUrl;
-    return axios.post(url, e[0], avcoAuthcdHeader(e[0]));
+    return Method({method:'post',url:url,body:file,headers: cjcdajcsrfauth(file.name),handleError:handleError});
+
 }
 
 export function uploadMultiImg(e) {
@@ -23,14 +43,17 @@ export function uploadMultiImg(e) {
     return axios.post(url, e, avcoAuthcdHeader(e));
 }
 
-export function uploadVideo(e) {
+export function uploadVideo(e,handleError) {
     let url = contentUrl.uploadVideoUrl;
-    return axios.post(url, e, avcoAuthcdHeader(e));
+    return Method({method:'post',url:url,body:e,headers: cocdavcsrfauthHeader(e.name),handleError:handleError});
+
 }
 
-export function uploadVoice(e) {
+export function uploadVoice(e,handleError) {
     let url = contentUrl.uploadVoiceUrl;
-    return axios.post(url, e, avcoAuthcdHeader(e));
+    return Method({method:'post',url:url,headers: cocdavcsrfauthHeader(e.name),handleError:handleError,body:e});
+
+
 }
 
 export function uploadMultiFile(e) {
@@ -40,33 +63,44 @@ export function uploadMultiFile(e) {
 
 export function getContents(handleError) {
     let url = contentUrl.getContentsUrl
-    // return axios.get(url, authHeader);
     return Method({method:'get',url:url,headers: authHeader,handleError:handleError});
 }
 
-export function deleteContent(id) {
+export function deleteContent(id,handleError) {
     let url = contentUrl.deleteContentUrl(id);
-    return Method({method:'delete',url:url,headers:ahchauthHeader});
+    return Method({method:'delete',url:url,headers:ahchauthHeader,handleError:handleError});
 }
 
-export function getContent(id) {
+export function getContent(id,handleError) {
     let url = contentUrl.getContentUrl(id);
-    return axios.get(url,authHeader);
+    return Method({method:'get',url:url,headers:authHeader,handleError:handleError});
+
 }
 
-export function registerContent(content) {
+export function registerContent(content,handleError) {
     let url = contentUrl.registerContentUrl;
-    return axios.post(url, content, aacaAuthauHeader);
+    return Method({method:'post',url:url,headers:cjajcharsetauthHeader,body:content,handleError:handleError});
+
 }
 
-export function editContent(content,id) {
+export function editContent(content,id,handleError) {
     let url = contentUrl.editContentUrl(id);
-    return axios.patch(url, content, aacaAuthauHeader);
+    return Method({method:'patch',url:url,headers:cjajauhthHeader,body:content,handleError:handleError});
 }
 
 export function getContentTypeList(handleError) {
     let url = contentUrl.getContentTypeListUrl;
     return Method({method:'get',headers:authHeader,url:url,handleError:handleError});
+}
+
+export function getStates(handleError) {
+    let url = contentUrl.getStatesUrl;
+    return Method({method:'get',headers:authHeader,url:url,handleError:handleError});
+}
+
+export function getImagesCategory(handleError) {
+    let url = contentUrl.getImagesCategoryUrl;
+    return Method({method:'get',headers:cjajauhthHeader,url:url,handleError:handleError});
 }
 
 export function handleContentAction(action, selectedCheckBoxes,handleError) {
@@ -103,9 +137,10 @@ export function handleContentAction(action, selectedCheckBoxes,handleError) {
     }
 }
 
+
 export default {
     getDomainSource,
-    getCategories,
+    getNewsCategory,
     uploadSingImg,
     uploadVideo,
     uploadVoice,
@@ -117,5 +152,8 @@ export default {
     getContentTypeList,
     getContent,
     handleContentAction,
-    editContent
+    editContent,
+    getTags,
+    getStates,
+    getImagesCategory
 };

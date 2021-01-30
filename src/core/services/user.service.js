@@ -1,11 +1,19 @@
 import axios from "axios";
-import userUrl from 'utils/urls/user.urls';
-import {aacaauthHeader, authHeader, caauthHeader, ahchauthHeader, chauthHeader,avcoAuthcdHeader} from "utils/headers";
 import {Method} from "structure/layout";
+import {csrfUrl} from "../../utils/urls/auth.urls";
+import userUrl from 'utils/urls/user.urls';
+import {
+    aacaauthHeader,
+    authHeader,
+    caauthHeader,
+    cjcsrfauthHeader,
+    cocdavcsrfauthHeader,
+    avcoAuthcdHeader, cjajcharsetauthHeader,
+} from "utils/headers";
 
-export function getRoles() {
+export function getRoles(handleError) {
     let url = userUrl.getRolesUrl;
-    return axios.get(url, ahchauthHeader);
+    return Method({method:'get',url:url,headers: authHeader,handleError:handleError});
 }
 
 export function deleteUser(id) {
@@ -14,41 +22,47 @@ export function deleteUser(id) {
 }
 
 export function getUsers(page) {
-    let url =userUrl.getUsersUrl(page);
-   return axios.get(url, authHeader);
-};
-
-export function getNotPaginateUser(){
-    let url =userUrl.getNotPaginateUserUrl;
-   return axios.get(url, authHeader);
-}
-
-export function multiAction(data,handleError) {
-    let url = userUrl.multiActionUrl;
-    return Method({method:'post',url:url,body: data,headers: aacaauthHeader,handleError:handleError});
-};
-
-export function getUser(id) {
-    let url = userUrl.getUserUrl(id);
+    let url = userUrl.getUsersUrl(page);
     return axios.get(url, authHeader);
-};
+}
 
-export function editUser(id,data) {
+export function getNotPaginateUser() {
+    let url = userUrl.getNotPaginateUserUrl;
+    return Method({url: url, headers:authHeader});
+}
+
+export function multiAction(data, handleError) {
+    let url = userUrl.multiActionUrl;
+    return Method({method: 'post', url: url, body: data, headers: aacaauthHeader, handleError: handleError});
+}
+
+export function getUser(id,handleError) {
+    let url = userUrl.getUserUrl(id);
+    return Method({method:'get',url:url,headers:authHeader,handleError:handleError});
+
+}
+
+export function editUser(id, data,handleError) {
     let url = userUrl.deleteUserAndGetUserForEditUrl(id);
-    return axios.patch(url, data, caauthHeader);
-};
+    return Method({method:'patch',url:url,headers:caauthHeader,body:data,handleError:handleError});
 
-export function registerUser(data) {
-    let url= userUrl.registerUserUrl;
-    return axios.post(url, data, chauthHeader);
 }
 
-export function saveUserImage(img) {
-    let url =userUrl.saveUserImageUrl;
-    return axios.post(url, img, avcoAuthcdHeader(img));
+export function registerUser(data,handleError) {
+    let url = userUrl.registerUserUrl;
+    return Method({method:'post',url:url,headers:cjcsrfauthHeader,body:data,handleError:handleError});
+
 }
 
-export default { getRoles , deleteUser ,
-    getUsers,multiAction,getUser,editUser,
+export async function saveUserImage(imgs,handleError) {
+    const url = userUrl.saveUserImageUrl;
+    return Method({method:'post',url:url,headers: cocdavcsrfauthHeader(imgs[0].name),body:imgs[0],handleError:handleError});
+
+}
+
+export default {
+    getRoles, deleteUser,
+    getUsers, multiAction, getUser, editUser,
     registerUser,
-    saveUserImage,getNotPaginateUser};
+    saveUserImage, getNotPaginateUser
+};

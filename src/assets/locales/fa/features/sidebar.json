@@ -14,8 +14,15 @@
   "home": "خانه",
   "support": "پشتیبانی",
   "reports": "گزارشات",
+  "devices": "وسایل",
   "settings": "تنظیمات",
   "platformSettings": "مدیریت قالب",
   "activities": "فعالیت ها",
+  "menu": "منو",
+  "matamo": "ماتامو",
+  "mostSeen": "پربازدید ترین مطالب",
+  "keywords": "کلمات جستجوشده در سایت",
+  "lastVisit": "جزییات آخرین بازدید",
+  "realTime": "در لحظه",
   "users": "کاربران"
 }

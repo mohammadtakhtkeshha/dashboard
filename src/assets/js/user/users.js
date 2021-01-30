@@ -66,7 +66,7 @@ export const useStyles =(theme) => ({
                     boxShadow: `-3px 3px 22px 2px #767676`,
                     marginTop: '-20px',
                     width: '50%',
-                    backgroundColor: white,
+                    backgroundColor: white[0],
                     zIndex: '50',
                     '& td': {
                         padding: '5px 0 0!important',
@@ -114,18 +114,21 @@ export const useStyles =(theme) => ({
                 }
             }
         },
-
-
     },
     modal: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        zIndex:'50!important',
+        '& .MuiBackdrop-root': {
+            backgroundColor: 'white!important',
+        },
         '& #modal': {
             height: 'calc(100vh - 100px)',
-            overflow: 'scroll',
             border: '0!important',
-            maxWidth: '500px!important',
+            maxWidth: '700px!important',
+            display:'flex',
+            alignItems: 'center',
             '&::-webkit-scrollbar': {
                 display: 'none'
             },
@@ -134,7 +137,6 @@ export const useStyles =(theme) => ({
             '&:focus': {
                 outline: '0!important',
             },
-            position: 'relative',
             '& .header': {
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -143,7 +145,7 @@ export const useStyles =(theme) => ({
                 left: 0,
                 right: 0,
                 height: '40px',
-                backgroundColor: green[0],
+                zIndex: '50',
                 '& button': {
                     background: 'transparent',
                     cursor: 'pointer',
@@ -152,13 +154,13 @@ export const useStyles =(theme) => ({
                         outline: '0!important',
                     },
                     '& svg': {
-                        color: white,
+                        color: white[0],
                         margin: '9px 9px',
                     }
                 },
                 '& .title': {
                     margin: '9px 13px',
-                    color: white
+                    color: white[0]
                 }
             },
             '& .flexDirL': {
@@ -180,13 +182,6 @@ export const useStyles =(theme) => ({
     }
 });
 
-
-
-
-
-
-
-
 export const StyledActionBlock = styled.div`
         display: flex;
         flex-direction: column;
@@ -195,6 +190,7 @@ export const StyledActionBlock = styled.div`
              margin-bottom: 1rem!important;
          }
 `
+
 export const StyledFilterBlock = styled.div`
             display:flex;
             flex-direction:column;

@@ -135,24 +135,7 @@ export const LoginButton = styled.div`
             }       
 `
 
-export const RegisterBlock=styled.div`
-               text-align: center;
-                    & p {
-                        color: colors.grey.light;
-                        margin-bottom: 1rem;
-                    }
-                    & a {
-                        box-shadow: 0 0 0 0;
-                        font-size: 13px;
-                        border: 1px solid ${light};
-                        text-decoration: none;
-                        color: colors.black[0];
-                        padding: 5px 10px;
-                        &:hover {
-                            background-color: ${light};
-                        }
-                    }
-`
+
 
 
 

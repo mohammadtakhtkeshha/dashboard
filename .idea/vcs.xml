@@ -3,5 +3,9 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/react-hooks-toaster" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../organization" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../organization1" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../organization2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../organization3" vcs="Git" />
   </component>
 </project>

@@ -110,9 +110,7 @@ function UploadVideo({ t, multiple, title, getFile,removedFileId, videos, sendId
                 <span className="cancel" id={currentId[i]} onClick={e => handleRemovevideo(e, videoPreviewUrl[i], files[i])}>
                     <CancelIcon />
                 </span>
-                <ReactPlayer
-                    controls={true}
-                    url={videoPreviewUrl[i]} />
+                <ReactPlayer controls={true} url={videoPreviewUrl[i]} />
             </div>);
         }
     } else {

@@ -1,5 +1,6 @@
 import * as colors from "components/partials/Colors";
 import styled from "styled-components";
+import NewSvg from "../../../../assets/media/image/us.jpg"
 
 export const useStyles = (theme) => ({
     contentBlock: {
@@ -106,9 +107,10 @@ export const useStyles = (theme) => ({
 
 
 export const StyledRowBox = styled.div`
-            display:flex;
+            display:${props=>props.contentype === 'page' ? 'none':'flex'};
             flex-direction:column;
             margin-bottom: 14px;
+            
 `
 
 export const StyledRow = styled.div`
@@ -118,6 +120,51 @@ export const StyledRow = styled.div`
 `
 
 export const StyledCol = styled.div`
-            width: 49%;
+            width: 100%;
+            margin:4px;
 `
+
+export const styledCheckbox=()=>({
+        root: {
+            '&:hover': {
+                backgroundColor: 'transparent',
+            },
+            icon: {
+                border: '1px solid red',
+                borderRadius: 3,
+                width: 16,
+                height: 16,
+                boxShadow: 'inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)',
+                backgroundColor: '#f5f8fa',
+                backgroundImage: `url(${NewSvg})`,
+                '$root.Mui-focusVisible &': {
+                    outline: '2px auto rgba(19,124,189,.6)',
+                    outlineOffset: 2,
+                },
+                'input:hover ~ &': {
+                    backgroundColor: '#ebf1f5',
+                },
+                'input:disabled ~ &': {
+                    boxShadow: 'none',
+                    background: 'rgba(206,217,224,.5)',
+                },
+            },
+
+        },
+        checkedIcon: {
+            backgroundColor: '#137cbd',
+            backgroundImage: `url(${NewSvg})`,
+            '&:before': {
+                display: 'block',
+                width: 16,
+                height: 16,
+                backgroundImage:
+                    `url(${NewSvg})`,
+                content: '""',
+            },
+            'input:hover ~ &': {
+                backgroundColor: '#106ba3',
+            },
+        },
+});
 export default {useStyles};
