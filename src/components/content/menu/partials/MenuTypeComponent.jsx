@@ -2,10 +2,11 @@ import React from "react"
 import {withNamespaces} from "react-i18next"
 import i18next from "i18next"
 
+import {Typography} from "@material-ui/core";
+
 import {StyledTableBody, StyledTableCell, StyledTable, StyledTableHeadRow} from "assets/js/App"
 import {StyledTabeBodyRowCustomized} from "assets/js/taxonomy/taxonomyTable"
 import {Link} from "react-router-dom";
-import {Typography} from "@material-ui/core";
 
 function MenuTypeComponent({t}) {
     const lang = i18next.language

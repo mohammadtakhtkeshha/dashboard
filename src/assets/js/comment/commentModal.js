@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {ModalBody} from "../App";
 
 export const StyledModal = styled.div`
         position: absolute;
@@ -16,4 +17,8 @@ export const StyledModal = styled.div`
         }
         border-radius:15px;
         
+`
+
+export const StyledModalBody = styled(ModalBody)`
+        height:400px!important;
 `

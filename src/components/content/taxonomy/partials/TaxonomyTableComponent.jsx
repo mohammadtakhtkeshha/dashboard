@@ -1,10 +1,10 @@
 import React from "react"
 import {withNamespaces} from "react-i18next"
 import i18next from "i18next"
+import {Link} from "react-router-dom";
 
 import {StyledTableBody, StyledTableCell, StyledTable, StyledTableHeadRow} from "assets/js/App"
 import {StyledTabeBodyRowCustomized} from "assets/js/taxonomy/taxonomyTable"
-import {Link} from "react-router-dom";
 import {Typography} from "@material-ui/core";
 
 function TaxonomyTableComponent({t, taxonomies}) {
@@ -22,9 +22,9 @@ function TaxonomyTableComponent({t, taxonomies}) {
             <StyledTableBody>
                 {taxonomies.length > 0 ? (taxonomies?.map((taxonomy, index) => (
                     <StyledTabeBodyRowCustomized key={index} lang={lang}>
-                        <StyledTableCell>{taxonomy.vid}</StyledTableCell>
+                        <StyledTableCell>{t(`taxonomy:${taxonomy.vid}`)}</StyledTableCell>
                         <StyledTableCell>
-                            <Link to={{pathname: `/taxonomy/${taxonomy.vid_machin}`, state: {vocab: taxonomy.name}}}>
+                            <Link to={{pathname: `/taxonomy/${taxonomy.vid}`, state: {vocab: taxonomy.name}}}>
                                 <Typography>{t('taxonomy:termList')}</Typography>
                             </Link>
                         </StyledTableCell>

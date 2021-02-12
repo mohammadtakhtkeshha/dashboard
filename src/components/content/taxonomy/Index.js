@@ -8,7 +8,6 @@ export const getTaxonomiesMethod = (appContext,setTaxonomies) => {
     getTaxonomies(appContext.handleError).then((response) => {
         appContext.setLoading(false);
         const taxonomies = response.data;
-        debugger
         setTaxonomies(taxonomies)
     });
 }

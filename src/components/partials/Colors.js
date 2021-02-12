@@ -99,6 +99,8 @@ const grey = ['#ced4da',//[0]input border
     '#dfe0e2',//[18]background-color base-all-content
     '#f9f8f8',//[19]
     '#616161',//[20]
+    '#eff0f1',//[21]for table header matamo
+    '#f2f2f2',//[22]for-table-row-hover matamo
 ];
 
 export const purpel = ["#3F51B5"]

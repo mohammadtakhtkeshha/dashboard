@@ -53,7 +53,7 @@ function ContentChartComponent({t, appContext}) {
         getContentList(setContents, setTotalLength, appContext);
     }, []);
 
-    console.log(index)
+
 
   useEffect(() => {
         changeFormatMethod(contents, setChunks,index)

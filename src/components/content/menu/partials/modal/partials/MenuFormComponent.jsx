@@ -21,8 +21,9 @@ import {
 } from "./MenuFormComponent.js"
 import {getParentAndItsIdsMethod} from "./MenuFormComponent.js"
 import StyledCheckboxComponent from "components/partials/StyledCheckboxComponent"
-import {styledGridParent, styledGridActive} from "assets/js/taxonomy/stateForm"
+import {styledGridParent, styledGridActive, StyledHeight} from "assets/js/taxonomy/stateForm"
 import {isObjectEmpty} from "methods/commons"
+import {StyledMargintb} from "assets/js/library/pages/menu/menuForm"
 
 // ------------------ consts --------------------
 const StyledGridParent = withStyles(styledGridParent)(Grid)
@@ -49,8 +50,8 @@ function MenuFormComponent({t, openForm, closeForm, menus, setErrors, menu, setM
         changeParentMethod(e, setMenu)
     }
 
-    const changeStatus = (e, isChecked,field) => {
-        changeStatusMethod(isChecked, setMenu,field)
+    const changeStatus = (e, isChecked, field) => {
+        changeStatusMethod(isChecked, setMenu, field)
     }
 
     const handleErrors = () => {
@@ -81,14 +82,17 @@ function MenuFormComponent({t, openForm, closeForm, menus, setErrors, menu, setM
     return (<>
             <StyledModalHeader>{t('menu:newMenu')}</StyledModalHeader>
             <StyledModalBody>
-                <StyledBottomMargin>
+                <StyledMargintb>
                     <Grid container>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} className="tour-title">
                             <StyledLabel>{t('menu:menuTitle')}</StyledLabel>
-                            <StyledInput value={menu.title[0].value !== null ? menu.title[0].value : ""}
-                                         type="text"
-                                         placeholder={t('menu:menuTitle')}
-                                         onChange={e => handleChange(e, "title")}/>
+                            <StyledHeight>
+                                <StyledInput value={menu.title[0].value !== null ? menu.title[0].value : ""}
+                                             type="text"
+
+                                             placeholder={t('menu:menuTitle')}
+                                             onChange={e => handleChange(e, "title")}/>
+                            </StyledHeight>
                             {errors.title ? <div>
                                 {errors.title.required ?
                                     <StyledTypographyError>{errors.title.required}</StyledTypographyError> : ''}
@@ -98,6 +102,7 @@ function MenuFormComponent({t, openForm, closeForm, menus, setErrors, menu, setM
                             <StyledLabel>{t('menu:link')}</StyledLabel>
                             <StyledInput type="text"
                                          value={link}
+                                         className="tour-link"
                                          placeholder={t('menu:link')}
                                 // onChange={e => handleChange(e, "link")}/>
                                          onChange={changeLinkOfMenu}/>
@@ -112,17 +117,18 @@ function MenuFormComponent({t, openForm, closeForm, menus, setErrors, menu, setM
                             <StyledLabel>{t('translation:description')}</StyledLabel>
                             <StyledInput value={menu.description[0] !== undefined ? menu.description[0].value : ""}
                                          type="text"
+                                         className="tour-description"
                                          placeholder={t('translation:description')}
                                          onChange={e => handleChange(e, "description")}/>
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} className="tour-external">
                             <StyledCheckboxComponent checked={menu.external[0].value}
-                                                     change={(e,isChecked)=>changeStatus(e,isChecked,'external')}
+                                                     change={(e, isChecked) => changeStatus(e, isChecked, 'external')}
                                                      label={t('menu:showOpen')}
                                                      value={menu.external[0].value}/>
                         </Grid>
                         <StyledGridParent item xs={12} length={parentMenu.length}>
-                            <Box m={1}>
+                            <Box m={1} className="tour-parent">
                                 <StyledLabel>{t('taxonomy:termParent')}</StyledLabel>
                                 <MultiSelect array={parentMenu}
                                              changedTags={changeParent}
@@ -131,15 +137,27 @@ function MenuFormComponent({t, openForm, closeForm, menus, setErrors, menu, setM
                                              selectedTags={selectedParents}/>
                             </Box>
                         </StyledGridParent>
+                        {/*<StyledGridActive item xs={12} className="tour-enabled">*/}
+                        {/*    <StyledCheckboxComponent checked={menu.enabled[0].value}*/}
+                        {/*                             // change={changeStatus}*/}
+                        {/*                             change={(e,isChecked)=>changeStatus(e,isChecked,'enabled')}*/}
+                        {/*                             label={t('translation:active')}*/}
+                        {/*                             value={menu.enabled[0].value}/>*/}
+                        {/*</StyledGridActive>*/}
                         <StyledGridActive item xs={12}>
-                            <StyledCheckboxComponent checked={menu.enabled[0].value}
-                                                     // change={changeStatus}
-                                                     change={(e,isChecked)=>changeStatus(e,isChecked,'enabled')}
-                                                     label={t('translation:active')}
-                                                     value={menu.enabled[0].value}/>
+                            <StyledHeight>
+                                <div className="tour-test">
+                                    <StyledCheckboxComponent checked={menu.enabled[0].value}
+                                        // change={changeStatus}
+
+                                                             change={(e, isChecked) => changeStatus(e, isChecked, 'enabled')}
+                                                             label={t('translation:active')}
+                                                             value={menu.enabled[0].value}/>
+                                </div>
+                            </StyledHeight>
                         </StyledGridActive>
                     </Grid>
-                </StyledBottomMargin>
+                </StyledMargintb>
             </StyledModalBody>
             <StyledModalFooter>
                 <StyledRegisterButton onClick={register} status={isObjectEmpty(errors)}>

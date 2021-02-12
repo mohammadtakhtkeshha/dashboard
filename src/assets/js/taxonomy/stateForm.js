@@ -12,9 +12,13 @@ export const styledGridParent = () => ({
 
 export const styledGridActive = () => ({
     root: {
-        marginTop:'30px'
+        marginTop:'10px',
     }
 })
+
+export const StyledHeight = styled.div`
+                height:50px;
+`
 
 export const StyledRegisterButton = styled.button`
              color:${props => props.status === false ? grey[0] : black[1]};

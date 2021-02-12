@@ -82,7 +82,7 @@ function SimpleTabs({t}) {
                     </NavLink>
                 </StyledListItem>
                 <StyledListItem lang={lang} img={categoryImg} imghover={categoryImgHover}>
-                    <NavLink to="/vocabs" activeClassName={classes.active}>
+                    <NavLink to="/taxonomy" activeClassName={classes.active}>
                         <span className="icon"></span>
                         <ListItemText primary={t('sidebar:categories')}/>
                     </NavLink>
@@ -106,35 +106,36 @@ function SimpleTabs({t}) {
                             expandIcon={<ExpandMoreIcon/>}
                             aria-controls="panel1a-content">
                             <span className="icon"></span>
-                            <ListItemText primary={t('sidebar:reports')}/>
+                            <ListItemText primary={<NavLink to='/matamo'
+                                                            activeClassName={classes.active}>{t('sidebar:reports')}</NavLink>}/>
                         </StyledExpansionPanelSummary>
                         <StyledExpansionPanelDetails>
                             <StyledUl>
-                                <StyledLi lang={lang} img={usersImg} imghover={usersImgHover}>
+                                <StyledLi>
                                     <NavLink to='/devices' activeClassName={classes.active}>
                                         {/*<span className="icon"></span>*/}
                                         <ListItemText primary={t('sidebar:devices')}/>
                                     </NavLink>
                                 </StyledLi>
-                                <StyledLi lang={lang} img={menuImg} imghover={menuImgHover}>
+                                <StyledLi>
                                     <NavLink to="/most-seen" activeClassName={classes.active}>
                                         {/*<span className="icon"></span>*/}
                                         <ListItemText primary={t('sidebar:mostSeen')}/>
                                     </NavLink>
                                 </StyledLi>
-                                <StyledLi lang={lang} img={usersImg} imghover={usersImgHover}>
+                                <StyledLi>
                                     <NavLink to='/keywords' activeClassName={classes.active}>
                                         {/*<span className="icon"></span>*/}
                                         <ListItemText primary={t('sidebar:keywords')}/>
                                     </NavLink>
                                 </StyledLi>
-                                <StyledLi lang={lang} img={usersImg} imghover={usersImgHover}>
+                                <StyledLi>
                                     <NavLink to='/last-visit' activeClassName={classes.active}>
                                         {/*<span className="icon"></span>*/}
                                         <ListItemText primary={t('sidebar:lastVisit')}/>
                                     </NavLink>
                                 </StyledLi>
-                                <StyledLi lang={lang} img={usersImg} imghover={usersImgHover}>
+                                <StyledLi>
                                     <NavLink to='/real-time-visit' activeClassName={classes.active}>
                                         {/*<span className="icon"></span>*/}
                                         <ListItemText primary={t('sidebar:realTime')}/>

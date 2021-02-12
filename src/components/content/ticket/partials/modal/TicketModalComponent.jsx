@@ -41,7 +41,8 @@ function Index({t, openForm, setOpenForm, departemanList, closeForm, ticket, set
                     </StyledSvg>
                 </StyledCancelButton>
                 <ModalBody>
-                    {chosenDeparteman !== "" ? <TicketRegisterComponent ticket={ticket}
+                    {/*{chosenDeparteman !== "" ? */}
+                        <TicketRegisterComponent ticket={ticket}
                                                                         errors={errors}
                                                                         showHeader={true}
                                                                         openForm={openForm}
@@ -52,11 +53,12 @@ function Index({t, openForm, setOpenForm, departemanList, closeForm, ticket, set
                                                                         handlePagination={handlePagination}
                                                                         departemanList={departemanList}
                                                                         chosen={chosenDeparteman}
-                                                                        setChosenDeparteman={setChosenDeparteman}/> :
-                        <TicketDepartemanListComponent departemanList={departemanList}
-                                                       setChosenDeparteman={setChosenDeparteman}
-                                                       setTicket={setTicket}
-                        />}
+                                                                        setChosenDeparteman={setChosenDeparteman}/>
+                        {/*//                                                 :*/}
+                        {/*// <TicketDepartemanListComponent departemanList={departemanList}*/}
+                        {/*//                                setChosenDeparteman={setChosenDeparteman}*/}
+                        {/*//                                setTicket={setTicket}*/}
+                        {/*/>}*/}
 
                 </ModalBody>
             </StyledDirection>

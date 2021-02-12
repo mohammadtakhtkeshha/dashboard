@@ -14,6 +14,10 @@ export const getTaxonomyTagsUrl = `${url}/api/rest/taxonomy/tags`
 
 export const getTaxonomyCategoriesUrl = `${url}/api/rest/taxonomy/category`
 
+export const getTaxonomyTermUrl = (type) => {
+    return `${url}/api/rest/taxonomy/${type.type}`
+}
+
 export const editStateUrl =(id)=>{
     return `${url}/taxonomy/term/${id}?_format=json`
 }
@@ -33,8 +37,6 @@ export const getDeleteEditTermUrl =(id)=>{
 }
 
 export const registerStateUrl =`${url}/taxonomy/term?_format=json`
-
-
 
 // const url = process.env.REACT_APP_API_URL;
 //

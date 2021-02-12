@@ -6,7 +6,7 @@ export const StyledHeader = styled.div`
         padding:15px;
         text-align:center;
         border-bottom:1px solid ${grey[1]};
-        position: fixed;
+        position: absolute;
         top: 0;
         left: 0;
         right: 0;
@@ -14,6 +14,12 @@ export const StyledHeader = styled.div`
 
 export const StyledFooter = styled.div`
         border-top:1px solid ${grey[1]};
+        position:absolute;
+        left:0;
+        right:0;
+        bottom:0;
+        z-index: 100;
+        background-color: white;
         & button{
             border: 0;
             background-color: transparent;
@@ -29,8 +35,8 @@ export const StyledFooter = styled.div`
 
 export const StyledForm = styled(StyledNotScrollbar)`
             padding:20px;
-            margin-top:60px;
-            height:18rem;
+            margin-top:70px;
+            // height:18rem;
             overflow:scroll;
 `
 

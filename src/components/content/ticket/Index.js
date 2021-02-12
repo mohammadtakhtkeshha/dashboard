@@ -51,7 +51,7 @@ export const getClientIdMethod = (appContext, currentUser, setTicket) => {
         email: "farhangyaran@gmail.com",
         password2: "147/*"
     }
-    getClientId(appContext.handleError, params).then(response => {debugger
+    getClientId(appContext.handleError, params).then(response => {
         setTicket(prevState => {
             return {
                 ...prevState,

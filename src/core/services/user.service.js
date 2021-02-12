@@ -56,6 +56,7 @@ export function registerUser(data,handleError) {
 
 export async function saveUserImage(imgs,handleError) {
     const url = userUrl.saveUserImageUrl;
+    debugger
     return Method({method:'post',url:url,headers: cocdavcsrfauthHeader(imgs[0].name),body:imgs[0],handleError:handleError});
 
 }

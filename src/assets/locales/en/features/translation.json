@@ -39,6 +39,8 @@
   "title": "title",
   "alt": "alt",
   "more": "more",
+  "moreItems": "view more items",
+  "activities": "activities",
   "welcome": "welcome!",
   "sureQuestion": "are you sure?",
   "yes": "yes",
@@ -100,6 +102,7 @@
   "details": "details",
   "mobile": "mobile",
   "web": "web",
+  "list": "list",
   "validPath": "your input must start with / and use - instead of space"
 
 }

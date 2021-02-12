@@ -42,6 +42,7 @@ function ContentsComponent({t}) {
     const [selectedCheckBoxes, setSelectedCheckBoxes] = useState([])
     const [selectedTags, setSelectedTags] = useState([])
     const [imagesCategory, setImagesCategory] = useState([])
+    const [expandedFilter,setExpandedFilter]=useState(false)
     const [newsCategory, setNewsCategory] = useState([])
     const [page, setPage] = useState(0)
     const [states, setStates] = useState([])
@@ -158,9 +159,9 @@ function ContentsComponent({t}) {
             setSelectedTags: setSelectedTags,
         }}>
             <StyledPaper>
-                <ContentHeaderComponent setOpenRegisterForm={handleOpenContentForm}/>
+                <ContentHeaderComponent setOpenRegisterForm={handleOpenContentForm} setExpandedFilter={setExpandedFilter}/>
                 <StyledBox>
-                    <ContentSearchExpansion/>
+                    <ContentSearchExpansion setExpandedFilter={setExpandedFilter} expandedFilter={expandedFilter}/>
                 </StyledBox>
                 <StyledBox>
                     <ContentTableComponent page={page}

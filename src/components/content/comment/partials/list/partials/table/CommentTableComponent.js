@@ -1,5 +1,5 @@
-import {warning} from "methods/swal";
-import {deleteComment, getComment} from "core/services/comment.service";
+import {success, warning} from "methods/swal";
+import {deleteComment, getComment, multiActionRequest} from "core/services/comment.service";
 
 export const isHandlerMethod=(e,cid,selectedCheckBoxes,setSelectedCheckBoxes)=>{
     const status = e.currentTarget.checked;
@@ -87,4 +87,21 @@ export const changePageByCommentStatusMethod = (commentStatus,setPage,publishPag
     }else{
         setPage(unconfirmPage);
     }
+}
+
+export const makeActiveHandlerMethod = (id,appContext,t,publishedComments,unconfirmedComments,comments,handlePagination) =>{
+    appContext.setLoading(true);
+    const data = [{id:id,status:true}];
+    multiActionRequest(data, appContext.handleError,'active').then((response) => {
+        appContext.setLoading(false);
+        for (let i = 0; i <comments.length; i++) {
+            publishedComments.push(comments[i]);
+            const currentIndex = unconfirmedComments.indexOf(comments[i]);
+            unconfirmedComments.splice(currentIndex, 1);
+            handlePagination(publishedComments, true, true, 'published');
+            handlePagination(unconfirmedComments, true, true, 'unconfirmed');
+        }
+        success(t('translation:successDone'), t('translation:ok'));
+    });
+
 }

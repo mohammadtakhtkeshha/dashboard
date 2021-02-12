@@ -10,19 +10,14 @@ import TestComponent from '../components/content/test/Index.jsx';
 import TicketComponent from '../components/content/ticket/partials/TicketComponent.jsx';
 import MenuTypeComponent from '../components/content/menu/partials/MenuTypeComponent.jsx';
 import MenuComponent from '../components/content/menu/Index.jsx';
+import MatamoComponent from '../components/content/matamo/main/Index.jsx';
 import DevicesComponent from '../components/content/matamo/devices/Index.jsx';
 import MostSeenContent from '../components/content/matamo/mostSeen/Index.jsx';
 import Keywords from '../components/content/matamo/keywords/Index.jsx';
 import LastVisitDetail from '../components/content/matamo/lastVisitDetail/Index.jsx';
 import RealTime from '../components/content/matamo/realTime/Index.jsx';
-// import NewContentComponent from '../components/content/content/partials/new/ModalComponent.jsx';
 import VocabsComponent from "../components/content/taxonomy/Index.jsx";
-import ImagesTaxonomyComponent from "../components/content/taxonomy/partials/images/Index.jsx";
-import VideosTaxonomyComponent from "../components/content/taxonomy/partials/videos/Index.jsx";
-import TagsTaxonomyComponent from "../components/content/taxonomy/partials/tags/Index.jsx";
-import CategoriesTaxonomyComponent from "../components/content/taxonomy/partials/categories/Index.jsx";
-import SoundsTaxonomyComponent from "../components/content/taxonomy/partials/sounds/Index.jsx";
-import StatesTaxonomyComponent from "../components/content/taxonomy/partials/states/Index.jsx";
+import TermsComponent from "../components/content/taxonomy/partials/partials/Index.jsx";
 
 import React from "react";
 
@@ -59,103 +54,84 @@ export const routes = [
     //     component: () => <NewContentComponent/>
     // },
     {
-        path: '/vocabs',
-        breadcrumbs: () => <BreadcrumbsComponent bread="categories"/>,
-        component: () => <VocabsComponent/>
-    }
-    ,{
         path: '/menu/:type',
         breadcrumbs: () => <BreadcrumbsComponent bread="menu"/>,
         component: () => <MenuComponent/>
-    },{
+    }, {
         path: '/menu',
         breadcrumbs: () => <BreadcrumbsComponent bread="menu"/>,
         component: () => <MenuTypeComponent/>
-    },{
+    }, {
         path: '/ticket/:id',
         breadcrumbs: () => <BreadcrumbsComponent bread="support"/>,
         component: () => <TicketComponent/>
-    },{
+    }, {
         path: '/ticket',
         breadcrumbs: () => <BreadcrumbsComponent bread="support"/>,
         component: () => <TicketsComponent/>
-    },{
+    }, {
         path: '/test',
         breadcrumbs: () => <BreadcrumbsComponent bread="support"/>,
         component: () => <TestComponent/>
     },
     {
-        path: '/taxonomy/images_category',
+        path: '/taxonomy/:type',
         breadcrumbs: () => <BreadcrumbsComponent bread="categories"/>,
-        component: () => <ImagesTaxonomyComponent/>
+        component: () => <TermsComponent/>
     },
     {
-        path: '/taxonomy/videos_category',
+        path: '/taxonomy',
         breadcrumbs: () => <BreadcrumbsComponent bread="categories"/>,
-        component: () => <VideosTaxonomyComponent/>
+        component: () => <VocabsComponent/>
     },
     {
-        path: '/taxonomy/tags',
-        breadcrumbs: () => <BreadcrumbsComponent bread="categories"/>,
-        component: () => <TagsTaxonomyComponent/>
-    },
-    {
-        path: '/taxonomy/category',
-        breadcrumbs: () => <BreadcrumbsComponent bread="categories"/>,
-        component: () => <CategoriesTaxonomyComponent/>
-    },
-    {
-        path: '/taxonomy/sounds_category',
-        breadcrumbs: () => <BreadcrumbsComponent bread="categories"/>,
-        component: () => <SoundsTaxonomyComponent/>
-    },{
-        path: '/taxonomy/state',
-        breadcrumbs: () => <BreadcrumbsComponent bread="categories"/>,
-        component: () => <StatesTaxonomyComponent/>
+        path: '/matamo',
+        breadcrumbs: () => <BreadcrumbsComponent bread="reports"/>,
+        component: () => <MatamoComponent isLoginSuccess={false}/>
     },
     {
         path: '/devices',
-        breadcrumbs: () => <BreadcrumbsComponent bread="devices" />,
+        breadcrumbs: () => <BreadcrumbsComponent bread="devices"/>,
         component: () => <DevicesComponent isLoginSuccess={false}/>
     },
     {
         path: '/most-seen',
-        breadcrumbs: () => <BreadcrumbsComponent bread="mostSeen" />,
+        breadcrumbs: () => <BreadcrumbsComponent bread="mostSeen"/>,
         component: () => <MostSeenContent isLoginSuccess={false}/>
     },
     {
         path: '/keywords',
-        breadcrumbs: () => <BreadcrumbsComponent bread="keywords" />,
+        breadcrumbs: () => <BreadcrumbsComponent bread="keywords"/>,
         component: () => <Keywords isLoginSuccess={false}/>
     },
     {
         path: '/last-visit',
-        breadcrumbs: () => <BreadcrumbsComponent bread="lastVisit" />,
+        breadcrumbs: () => <BreadcrumbsComponent bread="lastVisit"/>,
         component: () => <LastVisitDetail isLoginSuccess={false}/>
     },
     {
         path: '/real-time-visit',
-        breadcrumbs: () => <BreadcrumbsComponent bread="realTime" />,
+        breadcrumbs: () => <BreadcrumbsComponent bread="realTime"/>,
         component: () => <RealTime isLoginSuccess={false}/>
     },
     {
         path: '/settings',
-        breadcrumbs: () => <BreadcrumbsComponent bread="settings" />,
+        breadcrumbs: () => <BreadcrumbsComponent bread="settings"/>,
         component: () => <DashboardComponent isLoginSuccess={false}/>
     },
     {
         path: '/platform-settings',
-        breadcrumbs: () => <BreadcrumbsComponent bread="platformSettings" />,
+        breadcrumbs: () => <BreadcrumbsComponent bread="platformSettings"/>,
         component: () => <DashboardComponent isLoginSuccess={false}/>
     },
     {
         path: '/activities',
-        breadcrumbs: () => <BreadcrumbsComponent bread="activities" />,
+        breadcrumbs: () => <BreadcrumbsComponent bread="activities"/>,
         component: () => <DashboardComponent isLoginSuccess={false}/>
     },
     {
         path: '/',
-        breadcrumbs: () => <BreadcrumbsComponent bread="home" />,
+        breadcrumbs: () => <BreadcrumbsComponent bread="home"/>,
         component: () => <DashboardComponent isLoginSuccess={false}/>
     }
 

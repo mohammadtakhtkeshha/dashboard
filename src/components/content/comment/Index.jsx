@@ -5,9 +5,9 @@ import {withNamespaces} from 'react-i18next';
 import CommentsListComponent from "./partials/list/CommentTabsComponent.jsx";
 import CommentsActionComponent from "./partials/CommentsActionComponent.jsx";
 import CommentsFileterComponent from "./partials/CommentsFilterComponent.jsx";
+import CommentsHeaderComponent from "./partials/CommentHeaderComponent.jsx";
 import {getPublishedCommentsMethod, getUnconfirmedCommentsMethod, handlePaginationMethod} from "./Index.js";
 import AppContext from "contexts/AppContext";
-
 
 function Index({t}) {
     const appContext = useContext(AppContext);
@@ -21,6 +21,7 @@ function Index({t}) {
     const [unconfirmedComments, setUnconfirmedComments] = useState([]);
     const [chunkUnconfirmedComments, setChunkUnconfirmedComments] = useState([]);
     const [commentStatus, setCommentStatus] = useState('published');
+    const [expandedFilter,setExpandedFilter]=useState(false)
 
     const getPublishedComments = () => {
         getPublishedCommentsMethod(handlePagination, setPublishedComments, appContext, setCommentStatus);
@@ -45,10 +46,13 @@ function Index({t}) {
                 {t('comments:comments')}
             </title>
         </Helmet>
+        <CommentsHeaderComponent setExpandedFilter={setExpandedFilter}/>
         <CommentsFileterComponent commentStatus={commentStatus}
                                   publishedComments={publishedComments}
                                   unconfirmedComments={unconfirmedComments}
                                   handlePagination={handlePagination}
+                                  expandedFilter={expandedFilter}
+                                  setExpandedFilter={setExpandedFilter}
         />
         <CommentsListComponent publishPage={publishPage}
                                setPublishPage={setPublishPage}

@@ -16,7 +16,7 @@ import {doFilterHandlerMethod,changeSearchMethod} from "./TicketFilterComponent.
 
 const StyledTextField = withStyles(styledTextField)(TextField)
 
-function TicketFilterComponent({t, tickets, handlePagination, departemanList,setChunkTickets, setTotalPage,setTickets}) {
+function TicketFilterComponent({t, tickets, expandedFilter,setExpandedFilter,handlePagination, departemanList,setChunkTickets, setTotalPage,setTickets}) {
     const [search, setSearch] = useState({subject: "", department: "", status: ""})
     const statusList = [{value: 'Open', label: "open"},
         {value: 'Answered', label: "answered"},
@@ -30,8 +30,10 @@ function TicketFilterComponent({t, tickets, handlePagination, departemanList,set
     const changeSearch = (e, field) => {
         changeSearchMethod(e, field, setSearch)
     }
-
-    return (<ExpansionPanel>
+    const changeExpanding = (e,checked) => {
+        setExpandedFilter(checked)
+    }
+    return (<ExpansionPanel  expanded={expandedFilter} onChange={changeExpanding}>
             <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon/>}
                 aria-controls="panel1a-content">
@@ -45,6 +47,7 @@ function TicketFilterComponent({t, tickets, handlePagination, departemanList,set
                                 <StyledLabel>{t('translation:status')}</StyledLabel>
                                 <StyledTextField id="outlined-select-role-native" select
                                                  value={search.status}
+                                                 className="tour-status"
                                                  onChange={(e) => changeSearch(e, "status")}
                                                  SelectProps={{
                                                      native: true,
@@ -59,10 +62,11 @@ function TicketFilterComponent({t, tickets, handlePagination, departemanList,set
                                 </StyledTextField>
                             </StyledRadioButton>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={4} >
                             <StyledLabel>{t('tickets:departeman')}</StyledLabel>
                             {departemanList.length > 0 ? <StyledTextField id="outlined-select-role-native"
                                                                           select
+                                                                          className="tour-department"
                                                                           value={search.department}
                                                                           onChange={(e) => changeSearch(e, "department")}
                                                                           SelectProps={{
@@ -81,6 +85,7 @@ function TicketFilterComponent({t, tickets, handlePagination, departemanList,set
                             <StyledLabel>{t('translation:subject')}</StyledLabel>
                             <StyledInput placeholder={t('translation:subject')}
                                          value={search.subject}
+                                         className="tour-subject"
                                          onChange={(e) => changeSearch(e, "subject")}
                             />
                         </Grid>

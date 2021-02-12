@@ -13,7 +13,7 @@ import {styledExpansionPanelDetails,StyledCommentInput} from "assets/js/library/
 
 const StyledExpansionPanelDetails = withStyles(styledExpansionPanelDetails)(ExpansionPanelDetails)
 
-function CommentFilterComponent({t, commentStatus, unconfirmedComments, publishedComments, handlePagination}) {
+function CommentFilterComponent({t, commentStatus, unconfirmedComments, publishedComments, handlePagination,expandedFilter,setExpandedFilter}) {
     const [searchedComment, setSearchedComment] = useState({
         subject: "",
         author: ""
@@ -27,9 +27,14 @@ function CommentFilterComponent({t, commentStatus, unconfirmedComments, publishe
         doFilterHandlerMethod(commentStatus, searchedComment, unconfirmedComments, publishedComments, handlePagination);
     }
 
+    const changeExpanding = (e,checked) => {
+        setExpandedFilter(checked)
+    }
+
+
     return (
         <StyledBox>
-            <ExpansionPanel>
+            <ExpansionPanel expanded={expandedFilter} onChange={changeExpanding}>
                 <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon/>}
                     aria-controls="panel1a-content">
@@ -38,11 +43,11 @@ function CommentFilterComponent({t, commentStatus, unconfirmedComments, publishe
                 <StyledExpansionPanelDetails>
                         <Grid container>
                             <Grid item xs={6}>
-                                <StyledCommentInput placeholder={t('translation:subject')}
+                                <StyledCommentInput  className="filter-subject" placeholder={t('translation:subject')}
                                              onChange={e => filterBy(e, 'subject')}/>
                             </Grid>
-                            <Grid item xs={6}>
-                                <StyledCommentInput placeholder={t('translation:author')}
+                            <Grid item xs={6} >
+                                <StyledCommentInput className="filter-author" placeholder={t('translation:author')}
                                              onChange={e => filterBy(e, 'author')}/>
                             </Grid>
                         </Grid>

@@ -1,5 +1,5 @@
 {
-  "devices": "وسیله ها",
+  "devices": "وسایل",
   "deviceModel": "مدل وسیله",
   "visits": "بازدیدها",
   "pageAddress": "آدرس صفحه",
@@ -14,5 +14,6 @@
   "exitSearch": "خروج ها % جستجو",
   "last30Minutes": "آخرین 30 دقیقه",
   "last24Ours": "آخرین 24 ساعت",
+  "visitInRealTime": "بازدید در لحظه",
   "resolution": "رزلوشن نمایشگر"
 }

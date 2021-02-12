@@ -341,7 +341,7 @@ export const StyledTableParent = styled.div`
             border-radius: 20px;
             margin: 1.5rem 0;
             overflow:hidden;
-            display:${props=>props.length === 0 ? 'none' : 'block'}
+            display:${props=>props.length === 0 ? 'none' : 'block'};
 `
 
 export const StyledTablePaper = styled.div`

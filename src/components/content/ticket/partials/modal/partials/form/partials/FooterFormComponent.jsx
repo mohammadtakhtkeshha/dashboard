@@ -10,6 +10,7 @@ import AppContext from "contexts/AppContext";
 
 function FooterFormComponent({t, errors,params,setTickets,handlePagination,closeForm}) {
     const appContext = useContext(AppContext)
+
     const register = () => {
         registerMethod(t,appContext,params,setTickets,handlePagination,closeForm)
     }

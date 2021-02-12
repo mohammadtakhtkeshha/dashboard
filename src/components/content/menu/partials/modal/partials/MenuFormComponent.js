@@ -1,7 +1,5 @@
 import {addMenu} from "core/services/menu.service";
 import {success} from "methods/swal";
-import {getMenusMethod} from "../../../Index.js";
-
 
 export const registerMethod = (appContext, body, openForm, getMenus, t, handlePagination, closeForm) => {
     appContext.setLoading(true)

@@ -1,14 +1,11 @@
 import React, {useContext, useEffect, useState} from "react"
 import {withNamespaces} from "react-i18next";
-
-import Pagination from "@material-ui/lab/Pagination"
+import {Helmet} from "react-helmet";
 
 import TaxonomyTableComponent from "./partials/TaxonomyTableComponent.jsx"
 import AppContext from "contexts/AppContext"
 import {StyledPaper} from "assets/js/App"
-import {StyledPaginationBox} from "assets/js/pagination"
-import {handlePaginationMethod, getTaxonomiesMethod} from './Index.js'
-import {Helmet} from "react-helmet";
+import {getTaxonomiesMethod} from './Index.js'
 
 function Index({t}) {
     const [taxonomies, setTaxonomies] = useState([])
@@ -33,6 +30,3 @@ function Index({t}) {
 }
 
 export default withNamespaces('translation,taxonomy')(Index)
-
-
-

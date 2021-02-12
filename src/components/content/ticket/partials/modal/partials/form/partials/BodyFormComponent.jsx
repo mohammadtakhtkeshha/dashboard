@@ -71,11 +71,11 @@ function TicketRegisterComponent({t, departemanList, ticket, setTicket, errors, 
     }
 
     useEffect(() => {
-        getOrderList();
+        // getOrderList();
     }, [])
 
     useEffect(() => {
-        handleErrors();
+        // handleErrors();
     }, [openForm.id])
 
     console.log(ticket)
@@ -83,101 +83,101 @@ function TicketRegisterComponent({t, departemanList, ticket, setTicket, errors, 
     return (
         <Box m={3}>
             <StyledGrid container>
-                <StyledGridFromReply fromreply={fromreply} item md={4} xs={12}>
-                    <Box m={1}>
-                        <StyledLabel>{t('users:enter your username')}</StyledLabel>
-                        <StyledInput type="text"
-                            // defaultValue={currentUser.accountName}
-                                     defaultValue="آقای سلیمانی"
-                                     placeholder={t('translation:name')}
-                                     readOnly
-                        />
-                    </Box>
-                </StyledGridFromReply>
-                <StyledGridFromReply fromreply={fromreply} item md={4} xs={12}>
-                    <Box m={1}>
-                        <StyledLabel>{t('users:enter your email')}</StyledLabel>
-                        <StyledInput type="email"
-                            // defaultValue={currentUser.mail}
-                                     defaultValue="farhangyaran@gmail.com"
-                                     placeholder={t('users:email')}
-                                     readOnly
-                        />
-                    </Box>
-                </StyledGridFromReply>
-                <StyledGridFromReply item xs={12} md={4} fromreply={fromreply}>
-                    <Box m={1}>
-                        <StyledLabel>{t('translation:subject')}</StyledLabel>
-                        <StyledInput value={ticket.subject ? ticket.subject : ""} type="text"
-                                     placeholder={t('translation:subject')}
-                                     onChange={e => handleChange(e, "subject")}/>
-                    </Box>
-                    {errors.subject ? <div>
-                        {errors.subject.required ?
-                            <StyledTypographyError>{errors.subject.required}</StyledTypographyError> : ''}
-                    </div> : ""}
-                </StyledGridFromReply>
-                <StyledGridFromReply item xs={4} fromreply={fromreply}>
-                    <Box m={1}>
-                        <StyledLabel>{t('tickets:departeman')}</StyledLabel>
-                        <StyledTextField id="outlined-select-role-native"
-                                         select
-                                         value={chosen}
-                                         onChange={changeDepartment}
-                                         SelectProps={{
-                                             native: true,
-                                         }}
-                                         variant="outlined">
-                            {departemanList.map((item) => (
-                                <option key={item.id} value={item.id}>{item.name}</option>
-                            ))}
-                        </StyledTextField>
-                    </Box>
-                </StyledGridFromReply>
-                <StyledGridFromReply item xs={4} fromreply={fromreply}>
-                    <Box m={1}>
-                        <StyledLabel>{t('tickets:relatedService')}</StyledLabel>
-                        <StyledTextField id="outlined-select-role-native"
-                                         select
-                                         value={ticket.serviceid}
-                                         onChange={changeOrder}
-                                         SelectProps={{
-                                             native: true,
-                                         }}
-                                         variant="outlined">
-                            <option value={0}>{t('translation:none')}</option>
-                            {orderList.map((item) => (
-                                <option key={item.relid} value={item.relid}>{item.product}{item.domain}</option>
-                            ))}
-                        </StyledTextField>
-                    </Box>
-                </StyledGridFromReply>
-                <StyledGridFromReply item xs={4} fromreply={fromreply}>
-                    <Box m={1}>
-                        <StyledLabel>{t('tickets:priority')}</StyledLabel>
-                        <StyledTextField id="outlined-select-role-native"
-                                         select
-                                         value={ticket.priority}
-                                         onChange={changePriority}
-                                         SelectProps={{
-                                             native: true,
-                                         }}
-                                         variant="outlined">
-                            <option value="Hight">{t('tickets:high')}</option>
-                            <option value="Medium">{t('tickets:medium')}</option>
-                            <option value="Low">{t('tickets:low')}</option>
-                        </StyledTextField>
-                    </Box>
-                </StyledGridFromReply>
-                <Grid item xs={12}>
-                    <EditorComponent value={ticket.message}
-                                     title={t('translation:message')}
-                                     onClick={clickEditorMessage}/>
-                    {errors.message ? <div>
-                        {errors.message.required ?
-                            <StyledTypographyError>{errors.message.required}</StyledTypographyError> : ''}
-                    </div> : ""}
-                </Grid>
+                {/*<StyledGridFromReply fromreply={fromreply} item md={4} xs={12}>*/}
+                {/*    <Box m={1}>*/}
+                {/*        <StyledLabel>{t('users:enter your username')}</StyledLabel>*/}
+                {/*        <StyledInput type="text"*/}
+                {/*            // defaultValue={currentUser.accountName}*/}
+                {/*                     defaultValue="آقای سلیمانی"*/}
+                {/*                     placeholder={t('translation:name')}*/}
+                {/*                     readOnly*/}
+                {/*        />*/}
+                {/*    </Box>*/}
+                {/*</StyledGridFromReply>*/}
+                {/*<StyledGridFromReply fromreply={fromreply} item md={4} xs={12}>*/}
+                {/*    <Box m={1}>*/}
+                {/*        <StyledLabel>{t('users:enter your email')}</StyledLabel>*/}
+                {/*        <StyledInput type="email"*/}
+                {/*            // defaultValue={currentUser.mail}*/}
+                {/*                     defaultValue="farhangyaran@gmail.com"*/}
+                {/*                     placeholder={t('users:email')}*/}
+                {/*                     readOnly*/}
+                {/*        />*/}
+                {/*    </Box>*/}
+                {/*</StyledGridFromReply>*/}
+                {/*<StyledGridFromReply item xs={12} md={4} fromreply={fromreply}>*/}
+                {/*    <Box m={1}>*/}
+                {/*        <StyledLabel>{t('translation:subject')}</StyledLabel>*/}
+                {/*        <StyledInput value={ticket.subject ? ticket.subject : ""} type="text"*/}
+                {/*                     placeholder={t('translation:subject')}*/}
+                {/*                     onChange={e => handleChange(e, "subject")}/>*/}
+                {/*    </Box>*/}
+                {/*    {errors.subject ? <div>*/}
+                {/*        {errors.subject.required ?*/}
+                {/*            <StyledTypographyError>{errors.subject.required}</StyledTypographyError> : ''}*/}
+                {/*    </div> : ""}*/}
+                {/*</StyledGridFromReply>*/}
+                {/*<StyledGridFromReply item xs={4} fromreply={fromreply}>*/}
+                {/*    <Box m={1}>*/}
+                {/*        <StyledLabel>{t('tickets:departeman')}</StyledLabel>*/}
+                {/*        <StyledTextField id="outlined-select-role-native"*/}
+                {/*                         select*/}
+                {/*                         value={chosen}*/}
+                {/*                         onChange={changeDepartment}*/}
+                {/*                         SelectProps={{*/}
+                {/*                             native: true,*/}
+                {/*                         }}*/}
+                {/*                         variant="outlined">*/}
+                {/*            {departemanList.map((item) => (*/}
+                {/*                <option key={item.id} value={item.id}>{item.name}</option>*/}
+                {/*            ))}*/}
+                {/*        </StyledTextField>*/}
+                {/*    </Box>*/}
+                {/*</StyledGridFromReply>*/}
+                {/*<StyledGridFromReply item xs={4} fromreply={fromreply}>*/}
+                {/*    <Box m={1}>*/}
+                {/*        <StyledLabel>{t('tickets:relatedService')}</StyledLabel>*/}
+                {/*        <StyledTextField id="outlined-select-role-native"*/}
+                {/*                         select*/}
+                {/*                         value={ticket.serviceid}*/}
+                {/*                         onChange={changeOrder}*/}
+                {/*                         SelectProps={{*/}
+                {/*                             native: true,*/}
+                {/*                         }}*/}
+                {/*                         variant="outlined">*/}
+                {/*            <option value={0}>{t('translation:none')}</option>*/}
+                {/*            {orderList.map((item) => (*/}
+                {/*                <option key={item.relid} value={item.relid}>{item.product}{item.domain}</option>*/}
+                {/*            ))}*/}
+                {/*        </StyledTextField>*/}
+                {/*    </Box>*/}
+                {/*</StyledGridFromReply>*/}
+                {/*<StyledGridFromReply item xs={4} fromreply={fromreply}>*/}
+                {/*    <Box m={1}>*/}
+                {/*        <StyledLabel>{t('tickets:priority')}</StyledLabel>*/}
+                {/*        <StyledTextField id="outlined-select-role-native"*/}
+                {/*                         select*/}
+                {/*                         value={ticket.priority}*/}
+                {/*                         onChange={changePriority}*/}
+                {/*                         SelectProps={{*/}
+                {/*                             native: true,*/}
+                {/*                         }}*/}
+                {/*                         variant="outlined">*/}
+                {/*            <option value="Hight">{t('tickets:high')}</option>*/}
+                {/*            <option value="Medium">{t('tickets:medium')}</option>*/}
+                {/*            <option value="Low">{t('tickets:low')}</option>*/}
+                {/*        </StyledTextField>*/}
+                {/*    </Box>*/}
+                {/*</StyledGridFromReply>*/}
+                {/*<Grid item xs={12}>*/}
+                {/*    <EditorComponent value={ticket.message}*/}
+                {/*                     title={t('translation:message')}*/}
+                {/*                     onClick={clickEditorMessage}/>*/}
+                {/*    {errors.message ? <div>*/}
+                {/*        {errors.message.required ?*/}
+                {/*            <StyledTypographyError>{errors.message.required}</StyledTypographyError> : ''}*/}
+                {/*    </div> : ""}*/}
+                {/*</Grid>*/}
                 <Grid item xs={12} mb={7}>
                     <UploadImgComponent type="image"
                                         getFileInParent={(e) => uploadImg(e, 'multiple')}

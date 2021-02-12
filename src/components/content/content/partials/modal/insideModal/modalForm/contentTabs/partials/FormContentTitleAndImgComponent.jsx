@@ -168,8 +168,6 @@ function FormContentTitleAndImgComponent({t, contentype, newsCategory, states, i
     // }, [newContentContext.tags])
 
 
-    console.log(contentContext.content)
-
     return (
         <Grid container spacing={3}>
             <Grid item xs={6}>

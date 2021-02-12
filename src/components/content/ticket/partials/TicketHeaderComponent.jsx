@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, useState} from "react"
+import React, {useRef, useState} from "react"
 import {withNamespaces} from "react-i18next"
 import i18next from "i18next"
 import Tour from 'reactour'
@@ -10,7 +10,7 @@ import {StyledRelative} from "assets/js/App"
 import GuideBlockComponent from "components/partials/GuideBlockComponent"
 import {StyledCloseGuideButton,StyledNextButton,StyledPrevButton} from "assets/js/partials/guideBlock"
 
-function TicketHeaderComponent({t, setOpenForm}) {
+function TicketHeaderComponent({t, setOpenForm,setExpandedFilter}) {
     const lang = i18next.language
     const [isTourOpen, setIsTourOpen] = useState(false)
     const [totalStep,setTotalStep]=useState('')
@@ -33,7 +33,31 @@ function TicketHeaderComponent({t, setOpenForm}) {
                 </div>
             ),
             position: 'top',
-        },
+        }, {
+            selector: '.tour-status',
+            content: ({ goTo, inDOM }) => (
+                <div>
+                    <GuideBlockComponent/>
+                </div>
+            ),
+            position: 'top',
+        }, {
+            selector: '.tour-department',
+            content: ({ goTo, inDOM }) => (
+                <div>
+                    <GuideBlockComponent/>
+                </div>
+            ),
+            position: 'top',
+        }, {
+            selector: '.tour-subject',
+            content: ({ goTo, inDOM }) => (
+                <div>
+                    <GuideBlockComponent/>
+                </div>
+            ),
+            position: 'top',
+        }
     ]
     const refRegisterButton = useRef(null)
     const refList = useRef(null)
@@ -41,7 +65,11 @@ function TicketHeaderComponent({t, setOpenForm}) {
     const clicked = () => {
         setIsTourOpen({show:true,id:""})
     }
-
+    const updateTour = (curr) => {
+        if(curr>1){
+            setExpandedFilter(true)
+        }
+    }
     return (<StyledHead lang={lang}>
         <StyledHeadTypography className="user-list" ref={refList}>{t('tickets:ticketList')}</StyledHeadTypography>
         <StyledRegisterButton onClick={clicked}>
@@ -62,6 +90,7 @@ function TicketHeaderComponent({t, setOpenForm}) {
             badgeContent={(curr, tot) => {
                 setTotalStep(tot)
                 setCurrentStep(curr)
+                updateTour(curr)
             }}
             getCurrentStep={(curr,tot) => console.log(`The current step is ${curr + 1}=${tot}`)}
             onRequestClose={() => setIsTourOpen(false)}

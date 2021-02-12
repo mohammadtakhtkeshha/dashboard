@@ -19,7 +19,7 @@ import {changeTitleMethod, changeStatusMethod,changeContentTypeMethod,doFilterHa
 
 const StyledTextField = withStyles(styledTextField)(TextField);
 
-function ContentsFilterComponent({t}) {
+function ContentsFilterComponent({t,expandedFilter,setExpandedFilter}) {
     const lang = i18next.language;
     const contentsContext = useContext(ContentsContext);
     const [status, setStatus] = useState('');
@@ -49,7 +49,10 @@ function ContentsFilterComponent({t}) {
         doFilterHandlerMethod(contentsContext,searchedContent,contentType);
     }
 
-    return (<ExpansionPanel>
+    const changeExpanding = (e,checked) => {
+        setExpandedFilter(checked)
+    }
+    return (<ExpansionPanel  expanded={expandedFilter} onChange={changeExpanding}>
             <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon/>}
                 aria-controls="panel1a-content"
@@ -60,7 +63,7 @@ function ContentsFilterComponent({t}) {
                 <Grid container>
                     <Grid item xs={4}>
                         <StyledInsideGrid lang={lang}>
-                            <StyledInput placeholder={t('translation:title')} onChange={changeTitle}/>
+                            <StyledInput className="filter-title" placeholder={t('translation:title')} onChange={changeTitle}/>
                         </StyledInsideGrid>
                     </Grid>
                     <Grid item xs={4}>
@@ -68,6 +71,7 @@ function ContentsFilterComponent({t}) {
                             <StyledTextField id="outlined-select-role-native"
                                              select
                                              value={status}
+                                             className="filter-status"
                                              onChange={changeStatus}
                                              SelectProps={{
                                                  native: true,
@@ -84,6 +88,7 @@ function ContentsFilterComponent({t}) {
                             <StyledTextField
                                 id="outlined-select-role-native"
                                 select
+                                className="filter-type"
                                 value={contentType}
                                 onChange={changeContentType}
                                 SelectProps={{native: true}}

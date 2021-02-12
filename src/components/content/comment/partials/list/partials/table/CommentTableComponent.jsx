@@ -6,8 +6,8 @@ import {CardMedia, Typography} from "@material-ui/core";
 
 import userImg from "assets/media/image/user.jpg";
 import {StyledPaginationBox} from "assets/js/pagination";
-import {StyledBackgroundColor,StyledConfirmButton} from 'assets/js/comment/commentTable'
-import CommentModalComponent from "./partials/CommentModalComponent";
+import {StyledBackgroundColor, StyledConfirmButton} from 'assets/js/comment/commentTable'
+import CommentModalComponent from "./partials/CommentModalComponent.jsx";
 import StyledCheckboxComponent from "components/partials/StyledCheckboxComponent";
 import AppContext from "contexts/AppContext";
 import {
@@ -24,9 +24,12 @@ import {
     allCheckboxHandlerMethod,
     deleteCommentMethod,
     changePageByCommentStatusMethod,
+    makeActiveHandlerMethod,
     paginateMethod,
     getCommentMethod
 } from "./CommentTableComponent.js";
+import {warning} from "../../../../../../../methods/swal";
+import {multiAction} from "../../../CommentsActionComponent";
 
 function CommentTableComponent({t, comments, publishPage, unconfirmPage, setUnconfirmPage, setPublishPage, selectedCheckBoxes, setSelectedCheckBoxes, commentStatus, handlePagination, publishedComments, unconfirmedComments, totalPublishPage, totalUnconfirmPage}) {
     const appContext = useContext(AppContext);
@@ -34,7 +37,6 @@ function CommentTableComponent({t, comments, publishPage, unconfirmPage, setUnco
     const [open, setOpen] = useState({show: false, id: ''});
     const [comment, setComment] = useState({});
 
-    console.log(commentStatus)
     const allCheckboxHandler = (e) => {
         allCheckboxHandlerMethod(e, comments, page, setSelectedCheckBoxes);
     };
@@ -58,6 +60,14 @@ function CommentTableComponent({t, comments, publishPage, unconfirmPage, setUnco
 
     const changePageByCommentStatus = () => {
         changePageByCommentStatusMethod(commentStatus, setPage, publishPage, unconfirmPage);
+    }
+
+    const makeActiveHandler = (e) => {
+        const id = e.currentTarget.value;
+        warning(t('translation:sureQuestion'), t('translation:ok'), t('translation:cancel'), t('translation:notDone'),
+            function () {
+                makeActiveHandlerMethod(id, appContext, t, publishedComments, unconfirmedComments, comments, handlePagination)
+            });
     }
 
     useEffect(() => {
@@ -112,7 +122,8 @@ function CommentTableComponent({t, comments, publishPage, unconfirmPage, setUnco
                                     <button value={comment.cid} onClick={deleteComment}>
                                         {t('translation:delete')}
                                     </button>
-                                    <StyledConfirmButton commentStatus={commentStatus} value={comment.cid} onClick={deleteComment}>
+                                    <StyledConfirmButton commentStatus={commentStatus} value={comment.cid}
+                                                         onClick={makeActiveHandler}>
                                         {t('translation:active')}
                                     </StyledConfirmButton>
                                 </StyledActionButtonBlock>

@@ -37,3 +37,8 @@ export const mostVisited = (handleError,params) => {
     return Method({method:'get',url:baseUrlMatamo,handleError:handleError,params:params});
 }
 
+export const getLastSeen = (handleError,params) => {
+    return Method({method:'get',url:baseUrlMatamo,handleError:handleError,params:params});
+}
+
+

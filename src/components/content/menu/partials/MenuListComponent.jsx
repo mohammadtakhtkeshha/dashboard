@@ -55,7 +55,6 @@ function MenuListComponent({t, setOpenForm, menus, chunks, page, setMenus, handl
         }
     }, [chunks])
 
-
     return (<Box>
             <StyledTable>
                 <StyledTableHeadRow>

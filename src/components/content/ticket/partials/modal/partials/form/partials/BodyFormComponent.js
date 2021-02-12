@@ -23,7 +23,10 @@ const toBase64 = (e, setTicket) => {
 }
 
 export const uploadImgMethod = (e, setTicket) => {
-    toBase64(e, setTicket)
+    // toBase64(e, setTicket)
+    setTicket(prevState => {
+        return {...prevState,file1:e[0]}
+    })
 }
 
 export const changeDepartmentMethod = (e, setDeparteman, setTicket) => {

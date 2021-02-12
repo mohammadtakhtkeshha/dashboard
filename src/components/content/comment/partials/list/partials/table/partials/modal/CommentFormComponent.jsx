@@ -1,10 +1,19 @@
 import React, {useContext, useState, useEffect} from "react";
 import {withNamespaces} from "react-i18next";
-import {Box, Grid, withStyles} from "@material-ui/core";
-import {MarginTop1, StyledAlignTypography, StyledInput} from "assets/js/App";
+import {Box, Checkbox, Grid, Typography, withStyles} from "@material-ui/core";
+import {
+    MarginTop1,
+    StyledAlignTypography,
+    StyledInput,
+    StyledLabel,
+    StyledRadioButton,
+    StyledTypographyError
+} from "assets/js/App";
 import {StyledHeader, StyledFooter, StyledForm, styledGrid, StyledTextArea} from "assets/js/comment/commentForm";
 import i18next from "i18next";
 import TextField from "@material-ui/core/TextField";
+import {StyledModalFooter, StyledModalHeader, StyledModalBody} from "assets/js/library/layout/modal"
+
 import {
     StyledStatusButton,
     StyledStatusButtonBlock
@@ -16,6 +25,17 @@ import {
 } from './CommentFormComponent.js'
 import AppContext from "contexts/AppContext";
 import EditorComponent from "components/partials/EditorComponent.jsx";
+import {
+    StyledFlexColumn,
+    StyledFlexItemInside,
+    StyledInsideModalBody, StyledRegisterButton, StyledRolesBlock
+} from "../../../../../../../../../assets/js/user/newUser";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import Radio from "@material-ui/core/Radio";
+import UploadImgComponent from "../../../../../../../../partials/UploadImgComponent";
+import {isObjectEmpty} from "../../../../../../../../../methods/commons";
 
 const StyledGrid = withStyles(styledGrid)(Grid);
 
@@ -24,7 +44,6 @@ function CommentFormComponent({t, open, setOpen, publishedComments, unconfirmedC
     const appContext = useContext(AppContext);
 
     const handleChangeComment = (e, field) => {
-        debugger
         handleChangeCommentMethod(e, setComment, field);
     }
 
@@ -40,20 +59,20 @@ function CommentFormComponent({t, open, setOpen, publishedComments, unconfirmedC
     //     return <div dangerouslySetInnerHTML={{__html: props.customHtml}}/>
     // }
 
-    console.log((comment.comment_body && comment.comment_body.length > 0) ? comment.comment_body[0].value : '')
+    // console.log((comment.comment_body && comment.comment_body.length > 0) ? comment.comment_body[0].value : '')
 
     return (<>
         <StyledHeader>{t('comments:editComment')}</StyledHeader>
         <StyledForm>
             <Grid container>
                 <Grid item xs={8}>
-                    <StyledInput value={comment.subject ? comment.subject[0].value : ''}
+                    <StyledInput className="subject" value={comment.subject ? comment.subject[0].value : ''}
                                  placeholder={t('translation:subject')} onChange={(e) => {
                         handleChangeComment(e, 'subject')
                     }}/>
                 </Grid>
                 <StyledGrid item xs={4}>
-                    <StyledStatusButtonBlock>
+                    <StyledStatusButtonBlock className="status">
                         <StyledStatusButton value={true} status={comment.status ? comment.status[0].value : false}
                                             onClick={handleChangeStatus}>
                             {t('contents:published')}
@@ -66,7 +85,7 @@ function CommentFormComponent({t, open, setOpen, publishedComments, unconfirmedC
                 </StyledGrid>
                 <Grid item xs={12}>
                     <StyledAlignTypography lang={lang}>{t('comments:commentBody')}</StyledAlignTypography>
-                    <StyledTextArea>
+                    <StyledTextArea className="textarea">
                         <EditorComponent
                             value={(comment.comment_body && comment.comment_body.length > 0) ? comment.comment_body[0].value : ''}
                             title={t('translation:description')}
@@ -82,7 +101,6 @@ function CommentFormComponent({t, open, setOpen, publishedComments, unconfirmedC
             <button onClick={() => setOpen({show: false, id: ''})}>{t('translation:cancel')}</button>
         </StyledFooter>
     </>);
-
 }
 
 export default withNamespaces('translation,comments')(CommentFormComponent);

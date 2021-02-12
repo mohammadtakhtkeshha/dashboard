@@ -10,7 +10,7 @@ import AppContext from "contexts/AppContext";
 import userService from "core/services/user.service";
 import {danger, success, warning} from "methods/swal";
 import storage from "libraries/local-storage";
-// import UsersRegisterModalComponent from "./modal/Index.jsx";
+// import UsersRegisterModalComponent from "./modal/CommentHeaderComponent.jsx";
 import {
     StyledActionButtonBlock,
     StyledBtn,

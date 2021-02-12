@@ -43,7 +43,6 @@ export function editComment(id,body,handleError){
 export function multiActionRequest(data,handleError,action) {
     let url = action === "delete" ? multiActionDeleteUrl : multiActionStatusUrl;
     return Method({method:'post',url:url,headers: cjcsrfauthHeader,body:data,handleError:handleError});
-
 }
 
 export default {getPublishedComments, addComment, deleteComment,getComment,editComment};
