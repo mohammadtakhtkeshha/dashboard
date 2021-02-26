@@ -22,7 +22,7 @@ function Index({t}) {
     const [menus, setMenus] = useState({})
     const [errors, setErrors] = useState({})
     const [menu, setMenu] = useState(constMenu)
-    let {type}=useParams()
+    let {type} = useParams()
 
     const handlePagination = (currentMenus) => {
         handlePaginationMethod(currentMenus, setMenus, setTotalPage, setChunks, t)
@@ -33,7 +33,7 @@ function Index({t}) {
     }
 
     const getMenus = () => {
-        getMenusMethod(appContext, setMenus, handlePagination, t, setChunks, setTotalPage,type)
+        getMenusMethod(appContext, setMenus, handlePagination, t, setChunks, setTotalPage, type)
     }
 
     const getMenu = (id) => {
@@ -57,7 +57,7 @@ function Index({t}) {
         getMenu(openForm.id)
     }, [openForm.id])
 
-    return (<StyledPaper>
+    return (<>
         <Helmet>
             <title>
                 {t('taxonomy:menus')}
@@ -89,7 +89,7 @@ function Index({t}) {
         <StyledPaginationBox>
             <Pagination count={(totalPage)} onChange={paginate}/>
         </StyledPaginationBox>
-    </StyledPaper>)
+    </>)
 }
 
 export default withNamespaces('translation,taxonomy')(Index)

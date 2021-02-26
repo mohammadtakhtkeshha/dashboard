@@ -1,5 +1,7 @@
 import {getLastVisit} from "core/services/matamo.service";
 import {chunkItem, handleTotalPage} from "structure/layout";
+import moment from "jalali-moment";
+
 
 export const handlePaginationMethod = (items, setChunks, setTotalPage,setMostSeen) => {
     setMostSeen(items)
@@ -26,3 +28,28 @@ export const getMostSeenContentMethod = (appContext,handlePagination) => {
         handlePagination(response.data)
     })
 }
+
+export const getYearMonthDayWeek = (date) => {//جمعه 22 ژانویهٔ 2021
+    const dateArray = date.split(' ');
+    return {year:dateArray[0],month:dateArray[1],date:dateArray[2],day:dateArray[3]}
+}
+
+export const getFormatedDate = (date) => {//{year:2021,month:ژانویهٔ,date:22,day:جمعه}
+    const dateObject=getYearMonthDayWeek(date)
+    const formatedDate = `${dateObject.year}/${dateObject.month}/${dateObject.date}`
+    return {formated:formatedDate,day:dateObject.day}
+}
+
+export const getShamsiDate = (currentDate) => {
+    // const dateAndDay = getFormatedDate(date)
+    // let shamsiDate= moment(dateAndDay.formated, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD'); // 1367/11/04
+    // let day= dateAndDay.day
+    // const currentTimDe = moment.from('04/1367/11', 'fa', 'DD/YYYY/MM');
+    // const currentTimDe.format()
+    // return `${shamsiDate} ${day}`
+}
+
+// export const getMiladiDate = (date) => { //1989/01/24
+//     let miladi=moment(date, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD'); // 1367/11/04
+//     return miladi
+// }

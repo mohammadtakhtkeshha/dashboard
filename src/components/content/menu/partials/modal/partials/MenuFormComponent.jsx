@@ -5,11 +5,10 @@ import {Box, Grid} from '@material-ui/core/index'
 import {withStyles} from '@material-ui/core/styles'
 
 import AppContext from 'contexts/AppContext'
-import {StyledInput, StyledTypographyError} from "assets/js/App"
+import {StyledInput, StyledTypographyError, StyledModalFooter, StyledModalHeader, StyledModalBody} from "assets/js/App"
 import MultiSelect from "components/partials/AutocompleteComponent.jsx"
 import {StyledLabel} from "assets/js/App"
 import {StyledRegisterButton} from "assets/js/user/newUser"
-import {StyledModalFooter, StyledModalHeader, StyledModalBody, StyledBottomMargin} from "assets/js/library/layout/modal"
 import {
     registerMethod,
     changeStatusMethod,
@@ -24,8 +23,8 @@ import StyledCheckboxComponent from "components/partials/StyledCheckboxComponent
 import {styledGridParent, styledGridActive, StyledHeight} from "assets/js/taxonomy/stateForm"
 import {isObjectEmpty} from "methods/commons"
 import {StyledMargintb} from "assets/js/library/pages/menu/menuForm"
+import {MarginTop1} from "assets/js/library/base/all";
 
-// ------------------ consts --------------------
 const StyledGridParent = withStyles(styledGridParent)(Grid)
 const StyledGridActive = withStyles(styledGridActive)(Grid)
 
@@ -121,12 +120,27 @@ function MenuFormComponent({t, openForm, closeForm, menus, setErrors, menu, setM
                                          placeholder={t('translation:description')}
                                          onChange={e => handleChange(e, "description")}/>
                         </Grid>
-                        <Grid item xs={12} className="tour-external">
+                        <Grid item xs={6} className="tour-external">
+                            <MarginTop1>
                             <StyledCheckboxComponent checked={menu.external[0].value}
                                                      change={(e, isChecked) => changeStatus(e, isChecked, 'external')}
                                                      label={t('menu:showOpen')}
                                                      value={menu.external[0].value}/>
+
+                            </MarginTop1>
                         </Grid>
+                        <StyledGridActive item xs={6}>
+                            <StyledHeight>
+                                <div className="tour-test">
+                                    <StyledCheckboxComponent checked={menu.enabled[0].value}
+                                        // change={changeStatus}
+
+                                                             change={(e, isChecked) => changeStatus(e, isChecked, 'enabled')}
+                                                             label={t('translation:active')}
+                                                             value={menu.enabled[0].value}/>
+                                </div>
+                            </StyledHeight>
+                        </StyledGridActive>
                         <StyledGridParent item xs={12} length={parentMenu.length}>
                             <Box m={1} className="tour-parent">
                                 <StyledLabel>{t('taxonomy:termParent')}</StyledLabel>
@@ -144,18 +158,7 @@ function MenuFormComponent({t, openForm, closeForm, menus, setErrors, menu, setM
                         {/*                             label={t('translation:active')}*/}
                         {/*                             value={menu.enabled[0].value}/>*/}
                         {/*</StyledGridActive>*/}
-                        <StyledGridActive item xs={12}>
-                            <StyledHeight>
-                                <div className="tour-test">
-                                    <StyledCheckboxComponent checked={menu.enabled[0].value}
-                                        // change={changeStatus}
 
-                                                             change={(e, isChecked) => changeStatus(e, isChecked, 'enabled')}
-                                                             label={t('translation:active')}
-                                                             value={menu.enabled[0].value}/>
-                                </div>
-                            </StyledHeight>
-                        </StyledGridActive>
                     </Grid>
                 </StyledMargintb>
             </StyledModalBody>

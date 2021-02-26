@@ -18,6 +18,7 @@ import {
     StyledMatamoTableHeadRow
 } from "assets/js/library/pages/matamo/matamoTable"
 import {StyledIconAndLabel} from "assets/js/library/pages/matamo/matamo"
+import {NavLink} from "react-router-dom";
 
 function DevicesComponent({t}) {
     const appContext = useContext(AppContext)
@@ -49,7 +50,11 @@ function DevicesComponent({t}) {
                                 align="right">{device.nb_visits === 0 ? '-' : device.nb_visits}</StyledMatamoTableCell>
                         </StyledMatamoTableRow>
                     )}
-                    <StyledMatamoTabelFooter lang={lang}>{t('translation:moreItems')}</StyledMatamoTabelFooter>
+                    <StyledMatamoTabelFooter lang={lang}>
+                       <NavLink to='/report/devices'>
+                        {t('translation:moreItems')}
+                    </NavLink>
+                    </StyledMatamoTabelFooter>
                 </StyledMatamoTable>
             </StyledTablePaper>
         </StyledTableParent>

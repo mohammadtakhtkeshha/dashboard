@@ -6,6 +6,7 @@ import TaxonomyTableComponent from "./partials/TaxonomyTableComponent.jsx"
 import AppContext from "contexts/AppContext"
 import {StyledPaper} from "assets/js/App"
 import {getTaxonomiesMethod} from './Index.js'
+// import visibility from "assets/svg/visibility.png"
 
 function Index({t}) {
     const [taxonomies, setTaxonomies] = useState([])
@@ -19,14 +20,14 @@ function Index({t}) {
         getTaxonomies()
     }, []);
 
-    return (<StyledPaper>
+    return (<>
         <Helmet>
             <title>
                 {t('taxonomy:categoryList')}
             </title>
         </Helmet>
         <TaxonomyTableComponent taxonomies={taxonomies}/>
-    </StyledPaper>);
+    </>);
 }
 
 export default withNamespaces('translation,taxonomy')(Index)

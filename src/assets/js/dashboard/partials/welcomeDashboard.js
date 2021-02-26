@@ -6,7 +6,7 @@ export const StyledPaper = styled.div`
         display:flex;
         position:relative;
         background-color:${white[0]};
-        border-radius:20px;
+        border-radius:4px;
         overflow:hidden;
         align-items:center;
         height:120px;
@@ -40,11 +40,41 @@ export const StyledDescription = styled.div`
 `
 
 export const StyledFile = styled.div`
+& ul{
+          // border:1px solid red;
+       }
+        & li{
+          // border:1px solid red;
+       }
+       
+       & span{
+          // border:1px solid red;
+       }
      & div{
        width:122px!important;
        height:70px!important; 
        border-radius:12px!important;
        overflow:hidden;
        margin:0 20px;
+        // border:1px solid red;
+       & div{
+          // border:1px solid red;
+       }
+       & span{
+          // border:1px solid red;
+       }
+       & ul{
+          // border:1px solid red;
+       }
+        & li{
+          // border:1px solid red;
+       }
      }
 `
+
+export const videoStyles = () => ({
+    'video':{
+        // border: '1px solid red',
+    }
+
+})

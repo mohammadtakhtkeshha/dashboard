@@ -20,9 +20,9 @@ import storage from "libraries/local-storage";
 
 const useStyle = makeStyles(useStyles)
 
-function Index({t, openForm, setOpenForm, departemanList, closeForm, ticket, setTicket, errors, setErrors,chosenDeparteman,setChosenDeparteman,setTickets,handlePagination}) {
+function Index({t, openForm, previewUrl,setPreviewUrl,setOpenForm, departemanList, closeForm, ticket, setTicket, errors, setErrors, chosenDepartment, setChosenDepartment, setTickets, handlePagination}) {
     let lang = i18next.language
-    const classes = useStyle({chosen:chosenDeparteman})
+    const classes = useStyle({chosen: chosenDepartment})
 
     return (<Modal
         aria-labelledby="transition-modal-title"
@@ -41,24 +41,27 @@ function Index({t, openForm, setOpenForm, departemanList, closeForm, ticket, set
                     </StyledSvg>
                 </StyledCancelButton>
                 <ModalBody>
-                    {/*{chosenDeparteman !== "" ? */}
+                    {chosenDepartment !== "" ?
                         <TicketRegisterComponent ticket={ticket}
-                                                                        errors={errors}
-                                                                        showHeader={true}
-                                                                        openForm={openForm}
-                                                                        setErrors={setErrors}
-                                                                        setTicket={setTicket}
-                                                                        setTickets={setTickets}
-                                                                        closeForm={closeForm}
-                                                                        handlePagination={handlePagination}
-                                                                        departemanList={departemanList}
-                                                                        chosen={chosenDeparteman}
-                                                                        setChosenDeparteman={setChosenDeparteman}/>
-                        {/*//                                                 :*/}
-                        {/*// <TicketDepartemanListComponent departemanList={departemanList}*/}
-                        {/*//                                setChosenDeparteman={setChosenDeparteman}*/}
-                        {/*//                                setTicket={setTicket}*/}
-                        {/*/>}*/}
+                                                 errors={errors}
+                                                 showHeader={true}
+                                                 openForm={openForm}
+                                                 setErrors={setErrors}
+                                                 setTicket={setTicket}
+                                                 setTickets={setTickets}
+                                                 closeForm={closeForm}
+                                                 handlePagination={handlePagination}
+                                                 departemanList={departemanList}
+                                                 chosenDepartment={chosenDepartment}
+                                                 setChosenDepartment={setChosenDepartment}
+                                                 setPreviewUrl={setPreviewUrl}
+                                                 previewUrl={previewUrl}
+                                                 />
+                        :
+                        <TicketDepartemanListComponent departemanList={departemanList}
+                                                       setChosenDepartment={setChosenDepartment}
+                                                       setTicket={setTicket}
+                        />}
 
                 </ModalBody>
             </StyledDirection>

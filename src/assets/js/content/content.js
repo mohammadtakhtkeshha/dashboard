@@ -91,5 +91,5 @@ export const StyledTourPointer = styled.div`
 `
 
 export const StyledTour=styled.div`
-             border:1px solid red;
+             // border:1px solid red;
 `

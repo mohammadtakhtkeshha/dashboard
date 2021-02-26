@@ -9,10 +9,11 @@ import UsersFilterComponent from "./partials/UsersFilterComponent";
 import UsersActionComponent from "./partials/UsersActionComponent.jsx";
 import UsersRegisterModalComponent from "./partials/modal/Index.jsx";
 import UsersHeaderComponent from "./partials/header/Index.jsx";
-import {StyledPaper, StyledBox} from "assets/js/App";
+import {StyledBox} from "assets/js/App";
 import {StyledPaginationBox} from "assets/js/pagination";
 import AppContext from "contexts/AppContext";
-import {constUser,
+import {
+    constUser,
     handlePaginationMethod,
     getUsersMethod, getRolesMethod,
     getEditedUserMethod,
@@ -34,7 +35,7 @@ function UsersComponent({t}) {
     const [userMailList, setUserMailList] = useState([]);
     const [errors, setErrors] = useState({}); //errorName: {},errorPass: {},specialChar: {},errorMail: {},confirmPass: {}
     const [user, setUser] = useState(constUser)
-    const [expandedFilter,setExpandedFilter]=useState(false)
+    const [expandedFilter, setExpandedFilter] = useState(false)
 
     const getUsers = () => {
         getUsersMethod(handlePagination, appContext)
@@ -58,7 +59,7 @@ function UsersComponent({t}) {
     }
 
     const getEditedUser = (user) => {
-        getEditedUserMethod(users,user,handlePagination,setOpenUserForm)
+        getEditedUserMethod(users, user, handlePagination, setOpenUserForm)
     }
 
     const closeForm = () => {
@@ -72,7 +73,6 @@ function UsersComponent({t}) {
         getRoles();
     }, []);
 
-
     return (
         <>
             <Helmet>
@@ -80,47 +80,45 @@ function UsersComponent({t}) {
                     {t('sidebar:users')}
                 </title>
             </Helmet>
-            <StyledPaper>
-                <UsersHeaderComponent setOpenUserForm={setOpenUserForm} setExpandedFilter={setExpandedFilter}/>
-                <StyledBox>
-                    <UsersFilterComponent users={users}
-                                          valueRoles={valueRoles}
-                                          expandedFilter={expandedFilter}
-                                          setExpandedFilter={setExpandedFilter}
-                                          keyRoles={keyRoles}
-                                          handlePagination={handlePagination}/>
-                </StyledBox>
-                <UsersTableComponent page={page}
-                                     totalPage={totalPage}
-                                     users={users}
-                                     keyRoles={keyRoles}
-                                     getEditedUser={getEditedUser}
-                                     selectedCheckBoxes={selectedCheckBoxes}
-                                     handlePagination={handlePagination}
-                                     getRegisteredUser={getRegisteredUser}
-                                     setOpenUserForm={setOpenUserForm}
-                                     roles={roles}
-                                     valueRoles={valueRoles}
-                                     chunkUsers={chunkUsers}
-                                     setSelectedCheckBoxes={setSelectedCheckBoxes}
-                                     openUserForm={openUserForm}/>
-                <UsersRegisterModalComponent user={user}
-                                             setUser={setUser}
-                                             closeForm={closeForm}
-                                             openUserForm={openUserForm}
-                                             getEditedUser={getEditedUser}
-                                             getRegisteredUser={getRegisteredUser}
-                                             errors={errors}
-                                             setErrors={setErrors}
-                                             userNameList={userNameList}
-                                             userMailList={userMailList}/>
-                <UsersActionComponent selectedCheckBoxes={selectedCheckBoxes}
-                                      users={users}
+            <UsersHeaderComponent setOpenUserForm={setOpenUserForm} setExpandedFilter={setExpandedFilter}/>
+            <StyledBox>
+                <UsersFilterComponent users={users}
+                                      valueRoles={valueRoles}
+                                      expandedFilter={expandedFilter}
+                                      setExpandedFilter={setExpandedFilter}
+                                      keyRoles={keyRoles}
                                       handlePagination={handlePagination}/>
-                <StyledPaginationBox>
-                    <Pagination count={(totalPage)} onChange={paginate}/>
-                </StyledPaginationBox>
-            </StyledPaper>
+            </StyledBox>
+            <UsersTableComponent page={page}
+                                 totalPage={totalPage}
+                                 users={users}
+                                 keyRoles={keyRoles}
+                                 getEditedUser={getEditedUser}
+                                 selectedCheckBoxes={selectedCheckBoxes}
+                                 handlePagination={handlePagination}
+                                 getRegisteredUser={getRegisteredUser}
+                                 setOpenUserForm={setOpenUserForm}
+                                 roles={roles}
+                                 valueRoles={valueRoles}
+                                 chunkUsers={chunkUsers}
+                                 setSelectedCheckBoxes={setSelectedCheckBoxes}
+                                 openUserForm={openUserForm}/>
+            <UsersRegisterModalComponent user={user}
+                                         setUser={setUser}
+                                         closeForm={closeForm}
+                                         openUserForm={openUserForm}
+                                         getEditedUser={getEditedUser}
+                                         getRegisteredUser={getRegisteredUser}
+                                         errors={errors}
+                                         setErrors={setErrors}
+                                         userNameList={userNameList}
+                                         userMailList={userMailList}/>
+            <UsersActionComponent selectedCheckBoxes={selectedCheckBoxes}
+                                  users={users}
+                                  handlePagination={handlePagination}/>
+            <StyledPaginationBox>
+                <Pagination count={(totalPage)} onChange={paginate}/>
+            </StyledPaginationBox>
         </>);
 }
 

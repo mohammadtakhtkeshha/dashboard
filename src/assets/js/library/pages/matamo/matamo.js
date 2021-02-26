@@ -31,9 +31,13 @@ export const StyledIconAndLabel=styled.div`
                 }
 `
 
+export const StyledBoxMarginRight = styled.div`
+                margin:${props=>props.lang==="en"? "0 0 0 7px":"0 7px 0 0"};
+`
 
-export const StyledBoxMargin = styled.div`
-                margin:10px;
+export const StyledBoxMarginLeft = styled.div`
+                margin:${props=>props.lang==="fa"? "0 0 0 7px":"0 7px 0 0"};
+
 `
 
 export const StyledMatamoLeftHead = styled.div`
@@ -43,13 +47,12 @@ export const StyledMatamoLeftHead = styled.div`
                 }
 `
 
-
-
 export const StyledTableCellActivity = styled(StyledTableCell)`
                display:flex;
                align-items:center;
                flex-wrap:wrap;
 `
+
 export const StyledBoxRefer=styled.div`
                 width:17%;
                 display:flex;
@@ -58,6 +61,7 @@ export const StyledBoxRefer=styled.div`
                     width:16px;
                     height:16px;
                 }
+                justify-content: flex-end;
 `
 
 export const StyledTableCellRealtime=styled.div`

@@ -43,7 +43,7 @@ export const useStyles = {
                 }
             },
             '& .footer': {
-                border: '1px solid red',
+                // border: '1px solid red',
                 backgroundColor: green[0],
             },
             '& .flexDirL': {

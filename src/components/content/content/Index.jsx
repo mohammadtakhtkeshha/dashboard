@@ -112,8 +112,6 @@ function ContentsComponent({t}) {
         getImagesCategoryMethod(contentType, appContext.handleError, setImagesCategory);
     }, [contentType]);
 
-
-
     return (<ContentsContext.Provider value={{
             contents: contents,
             src: src,
@@ -158,7 +156,6 @@ function ContentsComponent({t}) {
             selectedTags: selectedTags,
             setSelectedTags: setSelectedTags,
         }}>
-            <StyledPaper>
                 <ContentHeaderComponent setOpenRegisterForm={handleOpenContentForm} setExpandedFilter={setExpandedFilter}/>
                 <StyledBox>
                     <ContentSearchExpansion setExpandedFilter={setExpandedFilter} expandedFilter={expandedFilter}/>
@@ -176,7 +173,6 @@ function ContentsComponent({t}) {
                 <StyledPaginationBox>
                     <Pagination count={(totalPage)} onChange={paginate}/>
                 </StyledPaginationBox>
-            </StyledPaper>
             <TitleComponent title="contents"/>
             <Box>
                 <Modal setContent={setContent}

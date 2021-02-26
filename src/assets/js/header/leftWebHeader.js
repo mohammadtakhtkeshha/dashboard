@@ -3,12 +3,15 @@ import {blue, grey, white, green} from "components/partials/Colors";
 
 export const StyledPowerBox = styled.div`
             background-color:${blue[8]};
+            margin : ${props => props.lang === 'en' ? '0 0 0 6px' : '0 6px 0 0'}
             padding: .4rem .2rem .1rem;
-            border-radius: 0 100% 100% 100%;
+            border-radius: ${props => props.lang === "en" ? "100% 0 100% 100%":"0 100% 100% 100%"};
+            cursor:pointer;
             & button{
                 background-color:transparent;
                 border:0!important;
                 color:${white[0]};
+                cursor:pointer;
                 &:focus{
                    outline:0!important;
                 }
@@ -19,6 +22,7 @@ export const StyledBoxItem = styled.div`
             cursor:pointer;
             margin-left:6px;
             margin-right:6px;
+
             & button{
                 border-radius:5px;
                 padding: .5rem .5rem .1rem;
@@ -112,6 +116,7 @@ export const StyledSearchBlock = styled.div`
                 border-radius: 5px;
                 border: none;
                 padding: 6px 8px;
+                margin:0 6px;
                 background-color: ${white[0]};
                 font-size: 14px;
                 &:focus{
@@ -129,7 +134,7 @@ export const StyledSearchBlock = styled.div`
             align-items:center;
             top:0;
             bottom:0;
-            margin:auto;
+            margin:auto 4px;
             left:${props => props.lang === 'fa' ? '4%' : ''};
             right:${props => props.lang === 'fa' ? '' : '4%'};
         }

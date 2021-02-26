@@ -12,6 +12,9 @@ import HeaderLeftWeb from './LeftWebHeaderComponent';
 import * as HeaderMobile from './../../assets/js/HeaderMobile';
 import clsx from "clsx";
 import i18next from "i18next";
+import {Route, Switch} from "react-router-dom";
+import * as routes from "../../store/routes";
+import {StyledPaper} from "../../assets/js/header/rightWebHeader";
 
 export default function HeaderMobileComponent() {
     let lang = i18next.language;
@@ -31,19 +34,17 @@ export default function HeaderMobileComponent() {
     return (
         <>
             <Box className={classes.mobileHeader}>
-                <CardMedia id="img">
-                    <img src={require('../../assets/media/image/favicon.png')} alt="recipe thumbnail"/>
-                </CardMedia>
                 <Box>
-                    <Typography variant="h5">آواتارها</Typography>
-                    <Breadcrumbs aria-label="breadcrumb" className={classes.breadcrumbs}>
-                        <Link color="inherit" href="#">
-                            داشبورد
-                        </Link>
-                        <Link color="inherit" href="#">
-                            فروش و مدیریت مشتری
-                        </Link>
-                    </Breadcrumbs>
+                    <Switch>
+                        {routes.routes.map((route) => (
+                            <Route
+                                key={route.path}
+                                path={route.path}
+                                exact={route.exact}
+                                component={route.breadcrumbs}
+                            />
+                        ))}
+                    </Switch>
                 </Box>
                 <Box className={clsx(classes.buttonBlock,lang==='en'?'leftAuto':'rightAuto')}>
                 <button className={clsx('headerButton',lang==='en'?'marginLeft':'marginRight')}

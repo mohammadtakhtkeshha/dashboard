@@ -130,7 +130,7 @@ export const styledCheckbox=()=>({
                 backgroundColor: 'transparent',
             },
             icon: {
-                border: '1px solid red',
+                // border: '1px solid red',
                 borderRadius: 3,
                 width: 16,
                 height: 16,

@@ -102,41 +102,41 @@ function SimpleTabs({t}) {
                 <StyledListItem lang={lang} img={reportsImg} imghover={reportsImgHover}>
                     {/*_____________________________________________________________________________*/}
                     <StyledExpansionPanel lang={lang}>
-                        <StyledExpansionPanelSummary
-                            expandIcon={<ExpandMoreIcon/>}
-                            aria-controls="panel1a-content">
-                            <span className="icon"></span>
-                            <ListItemText primary={<NavLink to='/matamo'
-                                                            activeClassName={classes.active}>{t('sidebar:reports')}</NavLink>}/>
-                        </StyledExpansionPanelSummary>
+                        <NavLink to='/report' activeClassName={classes.active}>
+                            <StyledExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}
+                                                         aria-controls="panel1a-content">
+                                <span className="icon"></span>
+                                <ListItemText primary={t('sidebar:reports')}/>
+                            </StyledExpansionPanelSummary>
+                        </NavLink>
                         <StyledExpansionPanelDetails>
                             <StyledUl>
                                 <StyledLi>
-                                    <NavLink to='/devices' activeClassName={classes.active}>
+                                    <NavLink to='/report/devices' activeClassName={classes.active}>
                                         {/*<span className="icon"></span>*/}
                                         <ListItemText primary={t('sidebar:devices')}/>
                                     </NavLink>
                                 </StyledLi>
                                 <StyledLi>
-                                    <NavLink to="/most-seen" activeClassName={classes.active}>
+                                    <NavLink to="/report/most-seen" activeClassName={classes.active}>
                                         {/*<span className="icon"></span>*/}
                                         <ListItemText primary={t('sidebar:mostSeen')}/>
                                     </NavLink>
                                 </StyledLi>
                                 <StyledLi>
-                                    <NavLink to='/keywords' activeClassName={classes.active}>
+                                    <NavLink to='/report/keywords' activeClassName={classes.active}>
                                         {/*<span className="icon"></span>*/}
                                         <ListItemText primary={t('sidebar:keywords')}/>
                                     </NavLink>
                                 </StyledLi>
                                 <StyledLi>
-                                    <NavLink to='/last-visit' activeClassName={classes.active}>
+                                    <NavLink to='/report/last-visit' activeClassName={classes.active}>
                                         {/*<span className="icon"></span>*/}
                                         <ListItemText primary={t('sidebar:lastVisit')}/>
                                     </NavLink>
                                 </StyledLi>
                                 <StyledLi>
-                                    <NavLink to='/real-time-visit' activeClassName={classes.active}>
+                                    <NavLink to='/report/real-time-visit' activeClassName={classes.active}>
                                         {/*<span className="icon"></span>*/}
                                         <ListItemText primary={t('sidebar:realTime')}/>
                                     </NavLink>
@@ -150,6 +150,12 @@ function SimpleTabs({t}) {
                     <NavLink to='/settings' activeClassName={classes.active}>
                         <span className="icon"></span>
                         <ListItemText primary={t('sidebar:settings')}/>
+                    </NavLink>
+                </StyledListItem>
+                <StyledListItem lang={lang} img={settingsImg} imghover={settingsImgHover}>
+                    <NavLink to='/permissions' activeClassName={classes.active}>
+                        <span className="icon"></span>
+                        <ListItemText primary={t('sidebar:permission')}/>
                     </NavLink>
                 </StyledListItem>
                 {/*<StyledListItem lang={lang} img={settingsImg} imghover={settingsImgHover}>*/}

@@ -5,10 +5,16 @@ import {Box, Grid} from '@material-ui/core/index';
 import {withStyles} from '@material-ui/core/styles';
 
 import AppContext from 'contexts/AppContext';
-import {StyledInput, StyledTypographyError} from "assets/js/App";
+import {
+    StyledLabel,
+    StyledInput,
+    StyledTypographyError,
+    StyledModalFooter,
+    StyledModalHeader,
+    StyledModalBody,
+    StyledBottomMargin
+} from "assets/js/App";
 import MultiSelect from "components/partials/AutocompleteComponent.jsx"
-import {StyledLabel} from "assets/js/App";
-import {StyledModalFooter, StyledModalHeader, StyledModalBody, StyledBottomMargin} from "assets/js/library/layout/modal"
 import {
     registerMethod,
     changePublishStatusMethod,
@@ -29,7 +35,7 @@ import {StyledRegisterButton} from "assets/js/taxonomy/stateForm";
 
 const StyledGridParent = withStyles(styledGridParent)(Grid)
 
-function StateFormComponent({t, openForm, closeForm, setOpenForm, states, setErrors, errors, category, setCategory, setStates, setIds, handlePagination, getStates, type}) {
+function StateFormComponent({t, openForm, closeForm, setOpenForm, states, setErrors, errors, category, setCategory, setStates, getStates, type}) {
     const [parentStates, setParentStates] = useState([])
     const [selectedParents, setSelectedParents] = useState([])
     const appContext = useContext(AppContext)
@@ -48,7 +54,7 @@ function StateFormComponent({t, openForm, closeForm, setOpenForm, states, setErr
     }
 
     const register = () => {
-        registerMethod(appContext, category, openForm, setOpenForm, setStates, t, setIds, handlePagination, closeForm, errors, getStates)
+        registerMethod(appContext, category, openForm, setStates, t, closeForm, errors, getStates)
     }
 
     const getParentAndItsIds = () => {
@@ -81,6 +87,7 @@ function StateFormComponent({t, openForm, closeForm, setOpenForm, states, setErr
     useEffect(() => {
         handleDefaultParent();
     }, [category.tid])
+
 
     return (<>
             <StyledModalHeader>{t(`taxonomy:new${type.type}`)}</StyledModalHeader>

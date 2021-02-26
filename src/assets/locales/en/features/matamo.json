@@ -3,7 +3,7 @@
   "deviceModel": "device model",
   "visits": "visits",
   "pageAddress": "page address",
-  "visitNum": "number of visits of page",
+  "visitNum": "visits number",
   "uniqueDisplay": "number of unique display",
   "overflow": "overflow rate",
   "passedTime": "passed time in page",

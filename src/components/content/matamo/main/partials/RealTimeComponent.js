@@ -15,7 +15,11 @@ export const visitsDetailsMethod = (appContext,setVisitsDetails) => {
     }
     getLastVisit(appContext.handleError,params).then(response => {
         appContext.setLoading(false)
-        setVisitsDetails(response.data)
+        let currentArray=[]
+        for(let i=0; i<8;i++){
+            currentArray.push(response.data[i])
+        }
+        setVisitsDetails(currentArray)
     })
 }
 

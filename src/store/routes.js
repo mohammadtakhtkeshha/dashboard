@@ -18,6 +18,7 @@ import LastVisitDetail from '../components/content/matamo/lastVisitDetail/Index.
 import RealTime from '../components/content/matamo/realTime/Index.jsx';
 import VocabsComponent from "../components/content/taxonomy/Index.jsx";
 import TermsComponent from "../components/content/taxonomy/partials/partials/Index.jsx";
+import PermissionComponent from "components/content/permissions/Index.jsx";
 
 import React from "react";
 
@@ -84,35 +85,36 @@ export const routes = [
         breadcrumbs: () => <BreadcrumbsComponent bread="categories"/>,
         component: () => <VocabsComponent/>
     },
+
     {
-        path: '/matamo',
-        breadcrumbs: () => <BreadcrumbsComponent bread="reports"/>,
-        component: () => <MatamoComponent isLoginSuccess={false}/>
-    },
-    {
-        path: '/devices',
+        path: '/report/devices',
         breadcrumbs: () => <BreadcrumbsComponent bread="devices"/>,
         component: () => <DevicesComponent isLoginSuccess={false}/>
     },
     {
-        path: '/most-seen',
+        path: '/report/most-seen',
         breadcrumbs: () => <BreadcrumbsComponent bread="mostSeen"/>,
         component: () => <MostSeenContent isLoginSuccess={false}/>
     },
     {
-        path: '/keywords',
+        path: '/report/keywords',
         breadcrumbs: () => <BreadcrumbsComponent bread="keywords"/>,
         component: () => <Keywords isLoginSuccess={false}/>
     },
     {
-        path: '/last-visit',
+        path: '/report/last-visit',
         breadcrumbs: () => <BreadcrumbsComponent bread="lastVisit"/>,
         component: () => <LastVisitDetail isLoginSuccess={false}/>
     },
     {
-        path: '/real-time-visit',
+        path: '/report/real-time-visit',
         breadcrumbs: () => <BreadcrumbsComponent bread="realTime"/>,
         component: () => <RealTime isLoginSuccess={false}/>
+    },
+    {
+        path: '/report',
+        breadcrumbs: () => <BreadcrumbsComponent bread="reports"/>,
+        component: () => <MatamoComponent isLoginSuccess={false}/>
     },
     {
         path: '/settings',
@@ -128,6 +130,11 @@ export const routes = [
         path: '/activities',
         breadcrumbs: () => <BreadcrumbsComponent bread="activities"/>,
         component: () => <DashboardComponent isLoginSuccess={false}/>
+    },
+    {
+        path: '/permissions',
+        breadcrumbs: () => <BreadcrumbsComponent bread="home"/>,
+        component: () => <PermissionComponent isLoginSuccess={false}/>
     },
     {
         path: '/',

@@ -73,8 +73,9 @@ export function handlePaginationMethod(setUserMailList, changeDefaultUsers, setT
 
 export function getUsersMethod(handlePagination, appContext) {
     appContext.setLoading(true)
-    userService.getNotPaginateUser().then((response) => {
+    userService.getNotPaginateUser(appContext.handleError).then((response) => {
         appContext.setLoading(false)
+        debugger
         const currentUsers = response.data
         handlePagination(currentUsers, true)
     })

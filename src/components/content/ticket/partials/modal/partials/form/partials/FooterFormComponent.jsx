@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 
-import {StyledModalFooter} from "assets/js/library/layout/modal";
+import {StyledModalFooter} from "assets/js/App";
 import {StyledRegisterButton} from "assets/js/user/newUser";
 import {isObjectEmpty} from "methods/commons";
 import {withNamespaces} from "react-i18next";
@@ -14,6 +14,7 @@ function FooterFormComponent({t, errors,params,setTickets,handlePagination,close
     const register = () => {
         registerMethod(t,appContext,params,setTickets,handlePagination,closeForm)
     }
+
 
     return (<StyledModalFooter>
             <StyledRegisterButton onClick={register} status={isObjectEmpty(errors)}>

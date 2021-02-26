@@ -10,25 +10,28 @@ import {
     cocdavcsrfauthHeader,
     avcoAuthcdHeader, cjajcharsetauthHeader,
 } from "utils/headers";
+import storage from "libraries/local-storage";
+
+const auth = storage.get(process.env.REACT_APP_TOKEN_KEY)
 
 export function getRoles(handleError) {
     let url = userUrl.getRolesUrl;
-    return Method({method:'get',url:url,headers: authHeader,handleError:handleError});
+    return Method({method:'get',url:url,headers: authHeader(auth),handleError:handleError});
 }
 
 export function deleteUser(id) {
     let url = userUrl.deleteUserAndGetUserForEditUrl(id);
-    return axios.delete(url, authHeader);
+    return axios.delete(url, authHeader(auth));
 }
 
 export function getUsers(page) {
     let url = userUrl.getUsersUrl(page);
-    return axios.get(url, authHeader);
+    return axios.get(url, authHeader(auth));
 }
 
-export function getNotPaginateUser() {
+export function getNotPaginateUser(handleError) {
     let url = userUrl.getNotPaginateUserUrl;
-    return Method({url: url, headers:authHeader});
+    return Method({url: url, headers:authHeader(auth),handleError:handleError});
 }
 
 export function multiAction(data, handleError) {
@@ -38,7 +41,7 @@ export function multiAction(data, handleError) {
 
 export function getUser(id,handleError) {
     let url = userUrl.getUserUrl(id);
-    return Method({method:'get',url:url,headers:authHeader,handleError:handleError});
+    return Method({method:'get',url:url,headers:authHeader(auth),handleError:handleError});
 
 }
 
@@ -56,9 +59,7 @@ export function registerUser(data,handleError) {
 
 export async function saveUserImage(imgs,handleError) {
     const url = userUrl.saveUserImageUrl;
-    debugger
     return Method({method:'post',url:url,headers: cocdavcsrfauthHeader(imgs[0].name),body:imgs[0],handleError:handleError});
-
 }
 
 export default {

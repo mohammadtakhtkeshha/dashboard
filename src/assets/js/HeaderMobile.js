@@ -1,10 +1,17 @@
 import {makeStyles} from '@material-ui/core/styles/index';
+import {blue, green} from "../../components/partials/Colors";
 
 export const styles = makeStyles((theme) => ({
     mobileHeader: {
-        paddingBottom: '15px',
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        right: '0',
+        zIndex: '100',
         display: 'flex',
         alignItems: 'center',
+        padding: '10px 39px 10px 26px',
+        backgroundImage: props => props.lang === 'en' ? ` linear-gradient(to left,${blue[5]}, ${green[4]}) ` : `linear-gradient(to right,${blue[5]}, ${green[4]})`,
         '& #img': {
             paddingLeft: '10px',
         },

@@ -2,20 +2,24 @@ import React, {useEffect, useState, useContext} from "react"
 import {withNamespaces} from "react-i18next"
 import AppContext from "contexts/AppContext";
 import {
-    StyledTable, StyledTableBody, StyledTableBodyRow,
-    StyledTableCell,
+    StyledTable,
+    StyledTableBody,
+    StyledTableBodyRow,
     StyledTableHeadRow,
     StyledTablePaper,
     StyledTableParent
 } from "assets/js/App";
+import {StyledTableCell} from "assets/js/library/components/table"
 import {Typography} from "@material-ui/core";
 import {StyledPaginationBox} from "assets/js/pagination";
 import Pagination from "@material-ui/lab/Pagination";
 import {handlePaginationMethod,getKeywordsMethod} from "./Index.js";
 import i18next from "i18next";
+import {StyledMatamoTableHeadRow,StyledMatamoTable,StyledMatamoTableRow} from "assets/js/library/pages/matamo/matamoTable";
 
 function Index({t}) {
     const lang=i18next.language
+    let leftRightAlign = lang === "en" ? "left" : "right"
     const appContext = useContext(AppContext)
     const [chunks, setChunks] = useState([])
     const [totalPage, setTotalPage] = useState(0)
@@ -38,24 +42,24 @@ function Index({t}) {
         <StyledTableParent length={mostSeen.length}>
             <StyledTablePaper lang={lang}>
                 <Typography variant="h4">_____ {t('sidebar:mostSeen')} _____</Typography>
-                <StyledTable>
-                    <StyledTableHeadRow lang={lang}>
-                        <StyledTableCell align="right">{t('matamo:keyword')}</StyledTableCell>
-                        <StyledTableCell align="right">{t('matamo:searches')}</StyledTableCell>
-                        <StyledTableCell align="right">{t('matamo:searchResutlPages')}</StyledTableCell>
-                        <StyledTableCell align="right">{t('matamo:exitSearch')}</StyledTableCell>
-                    </StyledTableHeadRow>
-                    <StyledTableBody>
+                <StyledMatamoTable>
+                    <StyledMatamoTableHeadRow lang={lang}>
+                        <StyledTableCell align={leftRightAlign} width="70">{t('matamo:keyword')}</StyledTableCell>
+                        <StyledTableCell align="center" width="10">{t('matamo:searches')}</StyledTableCell>
+                        <StyledTableCell align="center" width="10">{t('matamo:searchResutlPages')}</StyledTableCell>
+                        <StyledTableCell align="center" width="10">{t('matamo:exitSearch')}</StyledTableCell>
+                    </StyledMatamoTableHeadRow>
+                    {/*<StyledTableBody>*/}
                         {chunks.length > 0  && chunks[page].map((item, index) =>
-                            <StyledTableBodyRow key={index}>
-                                <StyledTableCell align="right">  {item.label}</StyledTableCell>
-                                <StyledTableCell align="right"> {item.nb_visits} </StyledTableCell>
-                                <StyledTableCell align="right"> {item.nb_hits} </StyledTableCell>
-                                <StyledTableCell align="right"> {item.exit_rate} </StyledTableCell>
-                            </StyledTableBodyRow>
+                            <StyledMatamoTableRow key={index}>
+                                <StyledTableCell align={leftRightAlign} width="70">{item.label}</StyledTableCell>
+                                <StyledTableCell align="center" width="10">{item.nb_visits}</StyledTableCell>
+                                <StyledTableCell align="center" width="10">{item.nb_hits}</StyledTableCell>
+                                <StyledTableCell align="center" width="10">{item.exit_rate}</StyledTableCell>
+                            </StyledMatamoTableRow>
                         )}
-                    </StyledTableBody>
-                </StyledTable>
+                    {/*</StyledTableBody>*/}
+                </StyledMatamoTable>
             </StyledTablePaper>
             <StyledPaginationBox>
                 <Pagination count={(totalPage)} onChange={paginate}/>

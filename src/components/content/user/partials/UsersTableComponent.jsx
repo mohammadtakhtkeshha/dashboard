@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useRef, useState} from "react";
 import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
 
-import {CardMedia, Typography} from "@material-ui/core";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import userImg from "assets/media/image/user.jpg";
@@ -10,17 +9,8 @@ import AppContext from "contexts/AppContext";
 import userService from "core/services/user.service";
 import {danger, success, warning} from "methods/swal";
 import storage from "libraries/local-storage";
-// import UsersRegisterModalComponent from "./modal/CommentHeaderComponent.jsx";
-import {
-    StyledActionButtonBlock,
-    StyledBtn,
-    StyledCheckboxImgInTable,
-    StyledTable,
-    StyledTableBody,
-    StyledTableHeadRow,
-    StyledTableBodyRow,
-    StyledTableCell,
-} from "assets/js/App";
+import {StyledTr, StyledTableHeadTr, StyledTable, StyledTableImg,StyledCheckboxImgInTable,StyledTableCell} from "assets/js/library/components/table"
+import {StyledBtn,StyledStatusButton} from "assets/js/library/components/buttons"
 import StyledCheckboxComponent from "components/partials/StyledCheckboxComponent";
 import {
     StyledDetailBlock,
@@ -28,9 +18,13 @@ import {
     DetailTable,
     DetailTableRow,
     DetailTableCell,
+    StyledTableCellDetail,
 } from "assets/js/user/partials/userTable";
+import {StyledActionButtons, StyledActionsBlock} from "assets/js/library/components/buttons";
+import deleteIcon from "assets/svg/delete.png";
+import editIcon from "assets/svg/edit.png";
 
-function UsersTableComponent({t, page,roles, openUserForm, setOpenUserForm, valueRoles, chunkUsers, setSelectedCheckBoxes,passChunckUserList,passTotalPage,perPage,chunckUserHandler,selectedCheckBoxes,users,handlePagination,keyRoles}) {
+function UsersTableComponent({t, page, roles, openUserForm, setOpenUserForm, valueRoles, chunkUsers, setSelectedCheckBoxes, passChunckUserList, passTotalPage, perPage, chunckUserHandler, selectedCheckBoxes, users, handlePagination, keyRoles}) {
     let id = '';
     const lang = i18next.language;
     const anchorRef = useRef(null);
@@ -40,27 +34,6 @@ function UsersTableComponent({t, page,roles, openUserForm, setOpenUserForm, valu
     const appContext = useContext(AppContext);
     const loginedUser = JSON.parse(storage.get('user'));
     const [showUserDetail, setShowUserDetail] = useState('');
-
-    const handleEditFormClose = () => {
-        setOpenUserForm({show: false, id: ''});
-    };
-
-    const editedUser = (user) => {
-        let changedUser = chunkUsers[page].filter(item => item.uid === user.user_id);
-        let editedUserIndex = chunkUsers[page].findIndex(item => item === changedUser[0]);
-        if (user.role !== "") {
-            let keyRoles = [];
-            for (let role of (user.role.split(','))) {
-                keyRoles.push(roles[role]);
-            }
-            user.role = keyRoles.toString();
-        } else {
-            user.role = t('translation:noRole')
-        }
-        chunkUsers[page][editedUserIndex] = user;
-        passChunckUserList([...chunkUsers]);
-        setOpenUserForm({show: false, id: ''});
-    };
 
     const handleUserDetail = (e) => {
         const id = e.currentTarget.value;
@@ -76,22 +49,14 @@ function UsersTableComponent({t, page,roles, openUserForm, setOpenUserForm, valu
     };
 
     const handleEditFormOpen = (e) => {
-        const id=e.currentTarget.value;
+        const id = e.currentTarget.value;
         setOpenUserForm({show: true, id: id});
     };
-
-    const doPaginateActionAfterUpdate = (users) => {
-        let currentTotalNumber = users.length;
-        passTotalPage(Math.ceil(currentTotalNumber / perPage));
-        let chunckedUsers = chunckUserHandler(users, perPage);
-        passChunckUserList(chunckedUsers);
-        handlePaginateUser(chunckedUsers, currentTotalNumber, page);
-    }
 
     const allCheckboxHandler = (e) => {
         let isChecked = e.currentTarget.checked;
         let currentUserList = chunkUsers[page];
-        let ids = currentUserList.map(user => user.user_id);
+        let ids = currentUserList !== undefined ? currentUserList.map(user => user.user_id) : [];
         if (!isChecked) {
             setSelectedCheckBoxes(
                 []
@@ -102,10 +67,6 @@ function UsersTableComponent({t, page,roles, openUserForm, setOpenUserForm, valu
             );
         }
 
-    };
-
-    const handlePaginateUser = (currentUsers, totalNumberr, currentPage) => {
-        passTotalPage(Math.ceil(totalNumberr / perPage));
     };
 
     const isCheckedHandler = (e, user) => {
@@ -163,12 +124,12 @@ function UsersTableComponent({t, page,roles, openUserForm, setOpenUserForm, valu
         };
     }, [node]);
 
-    return (
-        <>
-            <StyledTable>
-                <StyledTableHeadRow>
-                    <StyledTableCell align="right">
-                        <StyledCheckboxImgInTable>
+    console.log(chunkUsers)
+
+    return (<StyledTable>
+                <StyledTableHeadTr>
+                    <StyledTableCell width={10} minWidth={100}>
+                        <StyledCheckboxImgInTable minWidth="90">
                             <StyledCheckboxComponent
                                 checked={((selectedCheckBoxes.length) === ((chunkUsers[page] !== undefined) ? chunkUsers[page].length : 'zero'))}
                                 change={(e) => allCheckboxHandler(e)}
@@ -176,110 +137,101 @@ function UsersTableComponent({t, page,roles, openUserForm, setOpenUserForm, valu
                             <div>{t('translation:image')}</div>
                         </StyledCheckboxImgInTable>
                     </StyledTableCell>
-                    <StyledTableCell align="right">{t('users:username')}</StyledTableCell>
-                    <StyledTableCell align="right">{t('translation:status')}</StyledTableCell>
-                    <StyledTableCell align="right">{t('translation:more')}</StyledTableCell>
-                    <StyledTableCell align="right">{t('translation:actions')}</StyledTableCell>
-                </StyledTableHeadRow>
-                <StyledTableBody>
-                    {chunkUsers[page] !== undefined &&
-                    chunkUsers[page].length > 0
-                        ? (chunkUsers[page].map((user, index) =>
-                            (<React.Fragment key={index}>
-                                <StyledTableBodyRow>
-                                    <StyledTableCell align="right">
-                                        <StyledCheckboxImgInTable>
-                                            <StyledCheckboxComponent
-                                                change={(e) => isCheckedHandler(e, user)}
-                                                checked={selectedCheckBoxes.includes(user.user_id)}
-                                            />
-                                            <CardMedia id="img">
-                                                {user.picture ? <img src={user.picture} alt="user.name"/> :
-                                                    <img src={userImg}/>}
-                                            </CardMedia>
-                                        </StyledCheckboxImgInTable>
-                                    </StyledTableCell>
-                                    <StyledTableCell align="right"> {user.user_name}</StyledTableCell>
-                                    <StyledTableCell align="right">
-                                        {user.status === "false" ? t('translation:notConfirmed') : t('translation:confirmed')}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="right">
-                                        <StyledMoreIconBlock>
-                                            <StyledBtn ref={node} onClick={(e) => handleUserDetail(e)}
-                                                       value={user.user_id}>
-                                                <MoreVertIcon/>
-                                                {showUserDetail === user.user_id ?
-                                                    <StyledDetailBlock key={index}>
-                                                        <DetailTable>
-                                                            <DetailTableRow>
-                                                                <DetailTableCell align="right">
-                                                                    {t('translation:name')}
-                                                                </DetailTableCell>
-                                                                <DetailTableCell align="right">
-                                                                    {user.firs_name}
-                                                                </DetailTableCell>
-                                                            </DetailTableRow>
-                                                            <DetailTableRow>
-                                                                <DetailTableCell align="right">
-                                                                    {t('users:family')}
-                                                                </DetailTableCell>
-                                                                <DetailTableCell align="right">
-                                                                    {user.last_name}
-                                                                </DetailTableCell>
-                                                            </DetailTableRow>
-                                                            <DetailTableRow>
-                                                                <DetailTableCell align="right">
-                                                                    {t('users:mail')}
-                                                                </DetailTableCell>
-                                                                <DetailTableCell align="right">
-                                                                    {user.mail}
-                                                                </DetailTableCell>
-                                                            </DetailTableRow>
-                                                            <DetailTableRow>
-                                                                <DetailTableCell align="right">
-                                                                    {t('users:role')}
-                                                                </DetailTableCell>
-                                                                <DetailTableCell align="right">
-                                                                    {user.roles === "" ? t('translation:noRole') : user.roles}
-                                                                </DetailTableCell>
-                                                            </DetailTableRow>
-                                                        </DetailTable>
-                                                    </StyledDetailBlock>
-                                                    : <></>
-                                                }
-                                            </StyledBtn>
-                                        </StyledMoreIconBlock>
-                                    </StyledTableCell>
-                                    <StyledTableCell align="right">
-                                        <StyledActionButtonBlock>
-                                            <button value={user.user_id} onClick={handleEditFormOpen}>
-                                                <Typography>
-                                                    {t('translation:edit')}
-                                                </Typography>
-                                            </button>
-                                            <button value={user.user_id} onClick={confirmDeleteHandler}>
-                                                {t('translation:delete')}
-                                            </button>
-                                        </StyledActionButtonBlock>
-                                    </StyledTableCell>
-                                </StyledTableBodyRow>
-                            </React.Fragment>)
-                        )) : (<StyledTableBodyRow>
-                            <StyledTableCell colSpan="6" align="right">{t('translation:notFoundRecord')}
-                            </StyledTableCell>
-                        </StyledTableBodyRow>)}
-                </StyledTableBody>
-            </StyledTable>
-            {/*-------------------------edit modal---------------------------*/}
-            {/*<UsersRegisterModalComponent setOpenUserForm={setOpenUserForm}*/}
-            {/*                             handleEditFormClose={handleEditFormClose}*/}
-            {/*                             editedUser={editedUser}*/}
-            {/*                             keyRoles={keyRoles}*/}
-            {/*                             valueRoles={valueRoles}*/}
-            {/*                             openUserForm={openUserForm}/>*/}
-            {/*-------------------------- End edit modal ---------------------*/}
-        </>
-    );
+                    <StyledTableCell width={70} minWidth={93} >{t('users:username')}</StyledTableCell>
+                    <StyledTableCell width={10} minWidth={93} align="center">{t('translation:status')}</StyledTableCell>
+                    <StyledTableCell width={5} minWidth={50}>{t('translation:more')}</StyledTableCell>
+                    <StyledTableCell width={5} minWidth={60}>
+                        {/*{t('translation:actions')}*/}
+                    </StyledTableCell>
+                </StyledTableHeadTr>
+                {chunkUsers[page] !== undefined &&
+                chunkUsers[page].length > 0
+                    ? (chunkUsers[page].map((user, index) =>
+                        (<React.Fragment key={index}>
+                            <StyledTr>
+                                <StyledTableCell width={10} minWidth={100} align="center" >
+                                    <StyledCheckboxImgInTable minWidth="90">
+                                        <StyledCheckboxComponent
+                                            change={(e) => isCheckedHandler(e, user)}
+                                            checked={selectedCheckBoxes.includes(user.user_id)}
+                                        />
+                                        <StyledTableImg>
+                                            {user.picture ? <img src={user.picture} alt="user.name"/> :
+                                                <img src={userImg}/>}
+                                        </StyledTableImg>
+                                    </StyledCheckboxImgInTable>
+                                </StyledTableCell>
+                                <StyledTableCell width={70} align={lang === "en" ? "left" : "right"} flex="14"> {user.user_name}</StyledTableCell>
+                                <StyledTableCell width={10} minWidth={93} align="center" >
+                                    <StyledStatusButton status={user.status}>
+                                    {user.status === "false" ? t('translation:notConfirmed') : t('translation:confirmed')}
+                                    </StyledStatusButton>
+                                </StyledTableCell>
+                                <StyledTableCellDetail width={5} minWidth={50} align="center" >
+                                    <StyledMoreIconBlock>
+                                        <StyledBtn ref={node} onClick={(e) => handleUserDetail(e)}
+                                                   value={user.user_id}>
+                                            <MoreVertIcon/>
+                                            {showUserDetail === user.user_id ?
+                                                <StyledDetailBlock key={index}>
+                                                    <DetailTable>
+                                                        <DetailTableRow>
+                                                            <DetailTableCell align="right">
+                                                                {t('translation:name')}
+                                                            </DetailTableCell>
+                                                            <DetailTableCell align="right">
+                                                                {user.firs_name}
+                                                            </DetailTableCell>
+                                                        </DetailTableRow>
+                                                        <DetailTableRow>
+                                                            <DetailTableCell align="right">
+                                                                {t('users:family')}
+                                                            </DetailTableCell>
+                                                            <DetailTableCell align="right">
+                                                                {user.last_name}
+                                                            </DetailTableCell>
+                                                        </DetailTableRow>
+                                                        <DetailTableRow>
+                                                            <DetailTableCell align="right">
+                                                                {t('users:mail')}
+                                                            </DetailTableCell>
+                                                            <DetailTableCell align="right">
+                                                                {user.mail}
+                                                            </DetailTableCell>
+                                                        </DetailTableRow>
+                                                        <DetailTableRow>
+                                                            <DetailTableCell align="right">
+                                                                {t('users:role')}
+                                                            </DetailTableCell>
+                                                            <DetailTableCell align="right">
+                                                                {user.roles === "" ? t('translation:noRole') : user.roles}
+                                                            </DetailTableCell>
+                                                        </DetailTableRow>
+                                                    </DetailTable>
+                                                </StyledDetailBlock>
+                                                : <></>
+                                            }
+                                        </StyledBtn>
+                                    </StyledMoreIconBlock>
+                                </StyledTableCellDetail>
+                                <StyledTableCell width={5} minWidth={60} align="center" >
+                                    <StyledActionsBlock>
+                                        <StyledActionButtons value={user.user_id}
+                                                             onClick={confirmDeleteHandler}>
+                                            <img src={deleteIcon} alt={user.user_id}/>
+                                        </StyledActionButtons>
+                                        <StyledActionButtons value={user.user_id} onClick={handleEditFormOpen}>
+                                            <img src={editIcon} alt={user.user_id}/>
+                                        </StyledActionButtons>
+                                    </StyledActionsBlock>
+                                </StyledTableCell>
+                            </StyledTr>
+                        </React.Fragment>)
+                    )) : (<StyledTr>
+                        <StyledTableCell colSpan="6" align="right">{t('translation:notFoundRecord')}
+                        </StyledTableCell>
+                    </StyledTr>)}
+            </StyledTable>);
 }
 
 export default withNamespaces('users, translation')(UsersTableComponent);

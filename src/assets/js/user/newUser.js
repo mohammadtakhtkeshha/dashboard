@@ -91,6 +91,7 @@ export const StyledFlexItemInside = styled.div`
 export const StyledRolesBlock = styled.div`
               display:flex;
               flex-direction:column;
+              margin-top:10px;
 `
 
 export const StyledInsideModalBody = styled.div`
@@ -104,6 +105,21 @@ export const StyledRegisterButton=styled.button`
              }
              font-size:21px;
              font-weight:bold;
+`
+
+export const StyledRoleMargin = styled.div`
+        margin-top:10px;
+`
+
+export const StyledHeightInput = styled.div`
+        height:100px;
+        & p{
+            margin:0!important;
+        }
+`
+export const StyledFormControl = styled.fieldset`
+        margin-top:10px;
+        border:0!important;
 `
 
 

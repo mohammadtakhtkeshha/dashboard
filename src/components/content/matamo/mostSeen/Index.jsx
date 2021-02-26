@@ -1,22 +1,29 @@
 import React, {useEffect, useState, useContext} from "react"
 import {withNamespaces} from "react-i18next"
-import {getMostSeenContentMethod} from "./Index.js"
-import AppContext from "contexts/AppContext";
-import {
-    StyledTable, StyledTableBody, StyledTableBodyRow,
-    StyledTableCell,
-    StyledTableHeadRow,
-    StyledTablePaper,
-    StyledTableParent
-} from "../../../../assets/js/App";
-import {Typography} from "@material-ui/core";
-import {StyledPaginationBox} from "../../../../assets/js/pagination";
-import Pagination from "@material-ui/lab/Pagination";
-import {handlePaginationMethod} from "./Index.js";
+
 import i18next from "i18next";
 
+import Pagination from "@material-ui/lab/Pagination";
+import {Typography} from "@material-ui/core";
+
+import {
+    StyledTablePaper,
+    StyledTableParent
+} from "assets/js/App";
+import {StyledTableCell} from "assets/js/library/components/table"
+import {
+    StyledMatamoTable,
+    StyledMatamoTableRow,
+    StyledMatamoTableHeadRow
+} from "assets/js/library/pages/matamo/matamoTable"
+import {StyledPaginationBox} from "assets/js/pagination";
+import {handlePaginationMethod} from "./Index.js";
+import {getMostSeenContentMethod} from "./Index.js"
+import AppContext from "contexts/AppContext";
+
 function Index({t}) {
-    const lang=i18next.language
+    const lang = i18next.language
+    let leftRightAlign = lang === "en" ? "left" : "right"
     const appContext = useContext(AppContext)
     const [chunks, setChunks] = useState([])
     const [totalPage, setTotalPage] = useState(0)
@@ -24,7 +31,7 @@ function Index({t}) {
     const [mostSeen, setMostSeen] = useState([])
 
     const handlePagination = (items) => {
-        handlePaginationMethod(items, setChunks, setTotalPage,setMostSeen)
+        handlePaginationMethod(items, setChunks, setTotalPage, setMostSeen)
     }
 
     const paginate = (e, value) => {
@@ -32,44 +39,42 @@ function Index({t}) {
     }
 
     useEffect(() => {
-        getMostSeenContentMethod(appContext,handlePagination);
+        getMostSeenContentMethod(appContext, handlePagination);
     }, [])
 
     return (
         <StyledTableParent length={mostSeen.length}>
             <StyledTablePaper lang={lang}>
                 <Typography variant="h4">_____ {t('sidebar:mostSeen')} _____</Typography>
-                <StyledTable>
-                    <StyledTableHeadRow lang={lang}>
-                        <StyledTableCell align="right">{t('matamo:pageAddress')}</StyledTableCell>
-                        <StyledTableCell align="right">{t('matamo:visitNum')}</StyledTableCell>
-                        <StyledTableCell align="right">{t('matamo:uniqueDisplay')}</StyledTableCell>
-                        <StyledTableCell align="right">{t('matamo:overflow')}</StyledTableCell>
-                        <StyledTableCell align="right">{t('matamo:passedTime')}</StyledTableCell>
-                        <StyledTableCell align="right">{t('matamo:exitRate')}</StyledTableCell>
-                        <StyledTableCell align="right">avg,page load time</StyledTableCell>
-                    </StyledTableHeadRow>
-                    <StyledTableBody>
-                        {chunks.length > 0  && chunks[page].map((item, index) =>
-                            <StyledTableBodyRow key={index}>
-                                <StyledTableCell align="right">  {item.url}</StyledTableCell>
-                                <StyledTableCell align="right"> {item.nb_hits} </StyledTableCell>
-                                <StyledTableCell align="right"> {item.nb_visits} </StyledTableCell>
-                                <StyledTableCell align="right"> {item.bounce_rate} </StyledTableCell>
-                                <StyledTableCell align="right"> {item.sum_time_spent} </StyledTableCell>
-                                <StyledTableCell align="right"> {item.exit_rate} </StyledTableCell>
-                                <StyledTableCell align="right"> {item.avg_page_load_time} </StyledTableCell>
-                            </StyledTableBodyRow>
-                        )}
-                    </StyledTableBody>
-                </StyledTable>
+                <StyledMatamoTable>
+                    <StyledMatamoTableHeadRow lang={lang}>
+                        <StyledTableCell align={leftRightAlign} width="40">{t('matamo:pageAddress')}</StyledTableCell>
+                        <StyledTableCell align="center" width="10">{t('matamo:visitNum')}</StyledTableCell>
+                        <StyledTableCell align="center" width="10">{t('matamo:uniqueDisplay')}</StyledTableCell>
+                        <StyledTableCell align="center" width="10">{t('matamo:overflow')}</StyledTableCell>
+                        <StyledTableCell align="center" width="10">{t('matamo:passedTime')}</StyledTableCell>
+                        <StyledTableCell align="center" width="10">{t('matamo:exitRate')}</StyledTableCell>
+                        <StyledTableCell align="center" width="10">avg,page load time</StyledTableCell>
+                    </StyledMatamoTableHeadRow>
+                    {chunks.length > 0 && chunks[page].map((item, index) =>
+                        <StyledMatamoTableRow key={index}>
+                            <StyledTableCell align={leftRightAlign} width="40">  {item.url}</StyledTableCell>
+                            <StyledTableCell align="center" width="10"> {item.nb_hits} </StyledTableCell>
+                            <StyledTableCell align="center" width="10"> {item.nb_visits} </StyledTableCell>
+                            <StyledTableCell align="center" width="10"> {item.bounce_rate} </StyledTableCell>
+                            <StyledTableCell align="center" width="10"> {item.sum_time_spent} </StyledTableCell>
+                            <StyledTableCell align="center" width="10"> {item.exit_rate} </StyledTableCell>
+                            <StyledTableCell align="center" width="10"> {item.avg_page_load_time} </StyledTableCell>
+                        </StyledMatamoTableRow>
+                    )}
+                </StyledMatamoTable>
             </StyledTablePaper>
             <StyledPaginationBox>
                 <Pagination count={(totalPage)} onChange={paginate}/>
             </StyledPaginationBox>
         </StyledTableParent>
 
-   )
+    )
 }
 
 export default withNamespaces('translation,matamo')(Index)

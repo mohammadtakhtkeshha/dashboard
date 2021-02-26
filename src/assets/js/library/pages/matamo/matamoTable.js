@@ -5,7 +5,7 @@ export const StyledMatamoTable=styled.div`
                 display:flex;
                 margin:1rem;
                 flex-direction:column;
-                border-radius:15px;
+                border-radius:4px;
                 overflow:hidden;
                 font-size:12px;
 `
@@ -40,6 +40,7 @@ export const StyledMatamoTableHeadRow=styled(StyledMatamoTableRow)`
                     background-color:${grey[21]}
                     padding: 10px 20px;
                     font-size:11px;
+                    align-items:center;
 `
 
 export const StyledMatamoTableCell=styled.div`
@@ -48,9 +49,11 @@ export const StyledMatamoTableCell=styled.div`
 
 export const StyledMatamoTabelFooter=styled.div`
                 background-color:${green[0]};
-                color: white;
                 padding: 5px 10px;
                 text-align:${props => props.lang === "en" ? "left" : "right"};
+                & a{
+                  color: white;
+                }
 `
 
 export const StyledMatamoTableHead=styled.div`

@@ -219,7 +219,7 @@ export const handleCloseContentFormMethod = (setOpenRegisterForm, setId, setCont
 }
 
 export const getContentsMethod = (appContext, handlePagination) => {
-    // appContext.setLoading(true);
+    appContext.setLoading(true);
     contentService.getContents(appContext.handleError).then((response) => {
             let contents = response.data;
             contents.reverse();
@@ -417,6 +417,7 @@ export const defaultNewNews ={
     "publish_on": [],
     "unpublish_on": []
 }
+
 export const defaultNewSounds ={
     "type": [
         {
@@ -491,6 +492,7 @@ export const defaultNewSounds ={
     }]
 
 }
+
 export const defaultNewImages ={
     "type": [
         {
@@ -562,6 +564,7 @@ export const defaultNewImages ={
     }]
 
 }
+
 export const defaultNewVideos ={
     "type": [
         {
@@ -633,6 +636,7 @@ export const defaultNewVideos ={
     }]
 
 }
+
 export const defaultContent ={
     "type": [{
         "target_id": ""

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import moveIcon from "../../../media/image/move-icon.svg"
 import {grey} from "components/partials/Colors";
-import {StyledNotScrollbar} from "assets/js/App";
+import {StyledNotScrollbar} from "assets/js/library/base/all";
 
 export const StyledTreeTable = styled(StyledNotScrollbar)`
         width:100%;
@@ -77,5 +77,4 @@ export const StyledTreeTable = styled(StyledNotScrollbar)`
            // border:1px solid blue!important;
            // display:block!important;
          }
-
 `

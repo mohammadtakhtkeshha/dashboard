@@ -7,7 +7,6 @@ import {StyledDirection, StyledInput, StyledRegisterButton, StyledRadioButton, M
 import {primary} from "components/partials/Colors"
 import {StyledText} from "assets/js/ticket/ticketModal";
 
-import {StyledModalFooter, StyledModalBody} from "assets/js/library/layout/modal"
 import {
     listModalStyles,
     listItemModalStyles,
@@ -21,12 +20,12 @@ import List from "@material-ui/core/List";
 const StyledListModalItem = withStyles(listItemModalStyles)(ListItem);
 const StyledModalList = withStyles(listModalStyles)(List);
 
-function NewUserComponent({t, departemanList, setChosenDeparteman, setTicket}) {
+function NewUserComponent({t, departemanList, setChosenDepartment, setTicket}) {
     const lang = i18next.language
 
     const departmentClicked = (e) => {
         const departmentId=e.currentTarget.value
-        setChosenDeparteman(departmentId)
+        setChosenDepartment(departmentId)
         setTicket(prevState => {
             return {...prevState,deptid:departmentId}
         })

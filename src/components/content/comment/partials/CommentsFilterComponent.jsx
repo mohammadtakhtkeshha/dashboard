@@ -8,6 +8,7 @@ import {Typography, Grid, withStyles} from "@material-ui/core";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 
 import {StyledRegisterButton, StyledBox} from "assets/js/App";
+import {MarginTop1} from "assets/js/library/base/all";
 import {filterByMethod, doFilterHandlerMethod} from "./CommentsFilterComponent.js";
 import {styledExpansionPanelDetails,StyledCommentInput} from "assets/js/library/pages/comment/commentFilter";
 
@@ -23,14 +24,13 @@ function CommentFilterComponent({t, commentStatus, unconfirmedComments, publishe
         filterByMethod(e, key, setSearchedComment)
     }
 
-    let doFilterHandler = () => {
+    const doFilterHandler = () => {
         doFilterHandlerMethod(commentStatus, searchedComment, unconfirmedComments, publishedComments, handlePagination);
     }
 
     const changeExpanding = (e,checked) => {
         setExpandedFilter(checked)
     }
-
 
     return (
         <StyledBox>
@@ -51,9 +51,11 @@ function CommentFilterComponent({t, commentStatus, unconfirmedComments, publishe
                                              onChange={e => filterBy(e, 'author')}/>
                             </Grid>
                         </Grid>
+                    <MarginTop1>
                             <StyledRegisterButton onClick={doFilterHandler}>
                                 {t('translation:do')}
                             </StyledRegisterButton>
+                    </MarginTop1>
                 </StyledExpansionPanelDetails>
             </ExpansionPanel>
         </StyledBox>

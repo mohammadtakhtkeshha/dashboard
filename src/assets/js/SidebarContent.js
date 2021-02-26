@@ -77,6 +77,7 @@ export const StyledSidebar = styled.div`
 
 export const LiStyles = () => ({
     root: {
+        // border: '1px solid red',
         borderBottom: `1px solid ${grey[11]}`,
         justifyContent: 'center',
         cursor: 'pointer',
@@ -106,6 +107,7 @@ export const LiStyles = () => ({
             alignItems: 'center',
             justifyContent: 'space-between',
             padding: '14px 13px',
+            boxSizing: 'border-box',
             width: '100%',
             textAlign: props => props.lang === 'en' ? 'left' : 'right',
             '& span': {
@@ -117,9 +119,22 @@ export const LiStyles = () => ({
 
 export const styledExpansionPanel = () => ({
     root: {
+        // border: '1px solid blue',
         width: '100%',
         textAlign: props => props.lang === "en" ? 'left' : 'right',
-        margin: '0!important'
+        margin: '0!important',
+        '&>div':{
+            padding:'0!important'
+        },
+        '& .MuiExpansionPanelSummary-content':{
+            alignItems:'center',
+            margin:'0!important',
+        },
+        '& .MuiIconButton-root':{
+            '& span':{
+                padding:'0!important'
+            }
+        }
     }
 })
 
@@ -165,12 +180,13 @@ export const StyledLi = styled.li`
 
 export const styledExpansionPanelSummary = () => ({
     root: {
+        width:"100%",
+        padding:'0!important',
         '&>.MuiExpansionPanelSummary-content': {
             '& .MuiTypography-root': {
-                margin: '4px 10px!important',
+                margin: '0px 10px!important',
             }
         },
-        padding: '14px 13px'
     }
 })
 

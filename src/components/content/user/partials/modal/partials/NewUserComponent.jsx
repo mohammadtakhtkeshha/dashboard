@@ -10,17 +10,19 @@ import {Box, Checkbox, Typography} from '@material-ui/core/index'
 
 import AppContext from 'contexts/AppContext'
 import {StyledInput, StyledRadioButton} from "assets/js/App"
-import {StyledLabel, StyledTypographyError} from "assets/js/App"
+import {StyledLabel, StyledTypographyError, StyledModalFooter, StyledModalHeader, StyledModalBody} from "assets/js/App"
 import UploadImgComponent from "components/partials/UploadImgComponent"
 import {
     StyledFlexColumn,
     StyledFlexItemInside,
     StyledRolesBlock,
     StyledInsideModalBody,
+    StyledRoleMargin,
+    StyledHeightInput,
+    StyledFormControl,
     StyledRegisterButton
 } from "assets/js/user/newUser"
 
-import {StyledModalFooter, StyledModalHeader, StyledModalBody} from "assets/js/library/layout/modal"
 import {allValidationMethod} from "../../../index.js";
 
 import {
@@ -36,6 +38,8 @@ import {
     handleCheckRolesMethod
 } from "./NewUserComponent.js"
 import {isObjectEmpty} from "methods/commons";
+import StyledCheckboxComponent from "components/partials/StyledCheckboxComponent";
+import {StyledHeight} from "assets/js/taxonomy/stateForm";
 
 function NewUserComponent({t, id, userNameList, userMailList, errors, setErrors, user, setUser, getEditedUser, getRegisteredUser, closeForm}) {
     const lang = i18next.language
@@ -99,7 +103,7 @@ function NewUserComponent({t, id, userNameList, userMailList, errors, setErrors,
     const handleErrors = () => {
         if (id === "") {
             setErrors({
-                pass: {required: "حداقل تعداد کاراکترهای انتخابی 8 میباشد!"},
+                pass: {required: "حداقل تعداد کاراکتر 8 میباشد!"},
                 name: {required: "حداقل تعداد کاراکتر 3 میباشد!"},
                 mail: {required: "وارد کردن فیلد مورد نظر الزامیست!"}
             })
@@ -121,18 +125,22 @@ function NewUserComponent({t, id, userNameList, userMailList, errors, setErrors,
                 <StyledInsideModalBody>
                     <StyledFlexColumn>
                         <StyledFlexItemInside>
+                            <StyledHeightInput>
                             <StyledLabel>{t('users:enter your name')}</StyledLabel>
                             <StyledInput className="first-name"
                                          value={user.field_name.length > 0 ? user.field_name[0].value : ""} type="text"
                                          placeholder={t('translation:name')}
                                          onChange={e => handleChange(e, "field_name")}/>
+                            </StyledHeightInput>
+                        <StyledHeightInput>
                             <StyledLabel>{t('users:enter your family')}</StyledLabel>
                             <StyledInput className="last-name"
                                          value={user.field_last_name.length > 0 ? user.field_last_name[0].value : ''}
                                          type="text"
                                          placeholder={t('users:family')}
                                          onChange={e => handleChange(e, "field_last_name")}/>
-                            <Box>
+                        </StyledHeightInput>
+                            <StyledHeightInput>
                                 <StyledLabel>{t('users:enter your username')}</StyledLabel>
                                 <StyledInput className="username" value={user.name[0].value} type="text"
                                              placeholder={t('users:username')}
@@ -144,23 +152,28 @@ function NewUserComponent({t, id, userNameList, userMailList, errors, setErrors,
                                         <StyledTypographyError>{errors.name.unique}</StyledTypographyError> : ''}
                                 </div> : ""}
 
-                            </Box>
+                            </StyledHeightInput>
                             {/*-------------------------------------------------- role -----------------------------------------------------*/}
                             <StyledRolesBlock className="my-role">
                                 <label><Typography>{t('users:choose role')}</Typography></label>
                                 {faRoles ? Object.keys(faRoles).map((keyName, index) => (
-                                    <FormControlLabel
-                                                      key={index}
-                                                      control={<Checkbox onChange={(e) => handleCheckRoles(e)}
-                                                                         name="roles"/>}
-                                                      label={lang === 'en' ? enRoles [keyName] : faRoles[keyName]}
-                                                      value={keyName}
-                                                      checked={defaultRoles.includes(enRoles[index])}/>
+                                    // <FormControlLabel key={index}
+                                    //                   value={keyName}
+                                    //                   control={<Checkbox onChange={(e) => handleCheckRoles(e)} name="roles"/>}
+                                    //                   label={lang === 'en' ? enRoles [keyName] : faRoles[keyName]}
+                                    //                   checked={defaultRoles.includes(enRoles[index])}/>
+                                    <StyledRoleMargin>
+                                    <StyledCheckboxComponent key={index}
+                                                             value={keyName}
+                                                             change={(e) => handleCheckRoles(e)}
+                                                             label={lang === 'en' ? enRoles [keyName] : faRoles[keyName]}
+                                                             checked={defaultRoles.includes(enRoles[index])}/>
+                                    </StyledRoleMargin>
                                 )) : ''}
                             </StyledRolesBlock>
                         </StyledFlexItemInside>
                         <StyledFlexItemInside>
-                            <Box>
+                            <StyledHeightInput>
                                 <StyledLabel>{t('users:enter your email')}</StyledLabel>
                                 <StyledInput className="email"
                                              value={user.mail.length > 0 ? user.mail[0].value : ""} type="email"
@@ -175,8 +188,8 @@ function NewUserComponent({t, id, userNameList, userMailList, errors, setErrors,
                                         <StyledTypographyError>{errors.mail.required}</StyledTypographyError> : ''}
                                 </> : ""}
 
-                            </Box>
-                            <Box>
+                            </StyledHeightInput>
+                            <StyledHeightInput>
                                 <StyledLabel>{t('users:password')}</StyledLabel>
                                 <StyledInput type="password"
                                              className="password"
@@ -188,8 +201,8 @@ function NewUserComponent({t, id, userNameList, userMailList, errors, setErrors,
                                         <StyledTypographyError>{errors.pass.required}</StyledTypographyError> : ''}
                                     {errors.pass.valid ?
                                         <StyledTypographyError>{errors.pass.valid}</StyledTypographyError> : ''}</> : ""}
-                            </Box>
-                            <Box>
+                            </StyledHeightInput>
+                            <StyledHeightInput>
                                 <StyledLabel>{t('users:confirm password')}</StyledLabel>
                                 <StyledInput type="password"
                                              className="confirm-pass"
@@ -199,12 +212,12 @@ function NewUserComponent({t, id, userNameList, userMailList, errors, setErrors,
                                              error={errors.confirm_pass}/>
                                 {errors.confirmPass ? <> {errors.confirmPass.harmony ?
                                     <StyledTypographyError>{errors.confirmPass.harmony}</StyledTypographyError> : ''}</> : ""}
-                            </Box>
-                            <FormControl component="fieldset">
+                            </StyledHeightInput>
+                            <StyledFormControl component="fieldset">
                                 <label><Typography>{t('translation:status')}</Typography></label>
                                 <StyledRadioButton>
                                     <RadioGroup className="status"
-                                        aria-label="status" name="status" value={user.status[0].value}
+                                                aria-label="status" name="status" value={user.status[0].value}
                                                 onChange={handleStatusChange}>
                                         <FormControlLabel value={false} control={<Radio/>}
                                                           label={t('translation:block')}/>
@@ -212,7 +225,7 @@ function NewUserComponent({t, id, userNameList, userMailList, errors, setErrors,
                                                           label={t('translation:confirm')}/>
                                     </RadioGroup>
                                 </StyledRadioButton>
-                            </FormControl>
+                            </StyledFormControl>
                         </StyledFlexItemInside>
                     </StyledFlexColumn>
                     <Box mt={4} className="image-upload-block">

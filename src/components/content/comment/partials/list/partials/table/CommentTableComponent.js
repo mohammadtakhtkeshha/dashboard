@@ -105,3 +105,6 @@ export const makeActiveHandlerMethod = (id,appContext,t,publishedComments,unconf
     });
 
 }
+
+export const getDateOfFullDate = (fullDate) => {
+}

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {grey} from "components/partials/Colors";
+import {StyledTableCell} from "../../library/components/table";
 
 export const StyledDetailBlock =  styled.div`
                position:absolute;
@@ -12,13 +13,20 @@ export const StyledDetailBlock =  styled.div`
                border-radius:5px;
                // border: 2px solid #dddddd;
                border-radius: 5px;
-               box-shadow: 10px 10px 10px #dddddd;
+               box-shadow: 1px 5px 14px #aea7a7;
 `
 
 export const StyledMoreIconBlock = styled.div`
-            & svg{
-                z-index:1;
+            & button {
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                margin:auto;
+                & svg{
+                    z-index:1;
+                }
             }
+            
 `
 
 export const DetailTable = styled.div`
@@ -37,5 +45,8 @@ export const DetailTableCell = styled.div`
             white-space:nowrap;
             width:100%;
             padding: 8px 9px;
+`
+export const StyledTableCellDetail = styled(StyledTableCell)`
+            overflow:unset!important;
 `
 

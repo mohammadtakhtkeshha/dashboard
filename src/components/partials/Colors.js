@@ -51,6 +51,8 @@ const green = ['#3ecd90',//[0]default
     '#b0dfd7',//[7]font color breadcrumbs deactive
     '#32ae96',//[8]left-sidebar-top
     '#32ae96',//[9]right-sidebar-top
+    '#3bc78d',//[10]right-gradiant-for-tableHeader
+    '#3ecd91',//[11]right-gradiant-for-tableHeader
 ];
 
 const blue= ['#2e91b0',//[0]default
@@ -71,6 +73,7 @@ const blue= ['#2e91b0',//[0]default
     '#3193dc',//[15]radio-button
     '#606CEC',//[16]radio-button
     '#2a9fbb',//[17]tid-color-attach
+    '#2c85f0',//[18]left-header-gradiant
 ];
 
 const orange=[
@@ -101,6 +104,7 @@ const grey = ['#ced4da',//[0]input border
     '#616161',//[20]
     '#eff0f1',//[21]for table header matamo
     '#f2f2f2',//[22]for-table-row-hover matamo
+    '#495057',//[23]input-placeholder
 ];
 
 export const purpel = ["#3F51B5"]

@@ -28,6 +28,7 @@ import {
 } from "assets/js/library/pages/matamo/matamoTable"
 
 import {StyledMatamoLeftHeadRealTime} from "assets/js/library/pages/matamo/realTime"
+import {NavLink} from "react-router-dom";
 
 function RealTimeComponent({t}) {
     const lang = i18next.language
@@ -107,7 +108,11 @@ function RealTimeComponent({t}) {
                             </StyledMatamoTableRow>
                         </div>
                     )}
-                    <StyledMatamoTabelFooter lang={lang}>{t('translation:moreItems')}</StyledMatamoTabelFooter>
+                    <StyledMatamoTabelFooter lang={lang}>
+                        <NavLink to='/report/real-time-visit'>
+                            {t('translation:moreItems')}
+                        </NavLink>
+                       </StyledMatamoTabelFooter>
                 </StyledMatamoTable>
             </StyledTablePaper>
         </StyledTableParent>

@@ -3,9 +3,9 @@ import {chunkItem, handleTotalPage} from "structure/layout"
 
 let arr = ["root"]
 
-const getIdForExpanding = function f(data) {
-    data.map(item => {
-        arr.push(item.id)
+const handleExpanding = function f(data) {
+    data.map(item => {debugger
+        arr.push(item.expanded=true)
         if (item.children) {
             f(item.children)
         }
@@ -13,11 +13,10 @@ const getIdForExpanding = function f(data) {
     return arr
 }
 
-export const getStatesMethod = (handleError, setStates, handlePagination, setIds, type) => {
+export const getStatesMethod = (handleError, setStates, type) => {
     getStates(handleError, type).then((response) => {
-        const ids = getIdForExpanding(response.data, setIds)
-        setIds(ids)
-        handlePagination(response.data)
+        handleExpanding(response.data)
+        setStates(response.data)
     })
 }
 
@@ -31,21 +30,21 @@ export const getTaxonomyStatesList = (appContext, handlePagination) => {
 }
 
 export const handlePaginationMethod = (currentStates, setStates, setTotalPage, setChunks, t) => {
-    setStates({
-        id: 'root',
-        title: t('taxonomy:categories'), children: currentStates
-    })
+    // setStates({
+    //     id: 'root',
+    //     title: t('taxonomy:categories'), children: currentStates
+    // })
     const chunks = chunkItem(currentStates);
-    const total = handleTotalPage(currentStates);
-    setTotalPage(total);
+    // const total = handleTotalPage(currentStates);
+    // setTotalPage(total);
     let currentChunks = []
-    for (let chunk of chunks) {
-        currentChunks.push({
-            id: 'root',
-            title: t('translation:categories'), children: chunk
-        })
-    }
-    setChunks(chunks);
+    // for (let chunk of chunks) {
+    //     currentChunks.push({
+    //         id: 'root',
+    //         title: t('translation:categories'), children: chunk
+    //     })
+    // }
+    setChunks(currentStates);
 }
 
 export const getCategoryMethod = (id, appContext, setState) => {

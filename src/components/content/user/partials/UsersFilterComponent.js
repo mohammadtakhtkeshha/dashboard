@@ -4,17 +4,20 @@ import {withNamespaces} from "react-i18next"
 import ExpansionPanel from "@material-ui/core/ExpansionPanel"
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
-import {Box, Typography, withStyles} from "@material-ui/core"
+import {Box, Typography, withStyles, Grid} from "@material-ui/core"
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails"
 import TextField from "@material-ui/core/TextField"
 
 import {StyledFilterBlock} from "assets/js/user/users"
 import {StyledRegisterButton, StyledInput, styledTextField} from "assets/js/App"
+import {StyledInsideGrid} from "assets/js/content/partials/contentFilter";
+import i18next from "i18next";
 
 const StyledTextField = withStyles(styledTextField)(TextField)
 
-function UsersFilterComponent({t, users, handlePagination, valueRoles, keyRoles, expandedFilter,setExpandedFilter}) {
+function UsersFilterComponent({t, users, handlePagination, valueRoles, keyRoles, expandedFilter, setExpandedFilter}) {
     const [role, setRole] = useState('')
+    const lang = i18next.language
     const [searchedUser, setSearcheUser] = useState({
         firs_name: "",
         last_name: "",
@@ -33,9 +36,8 @@ function UsersFilterComponent({t, users, handlePagination, valueRoles, keyRoles,
         let fieldLastName = searchedUser.last_name
         let name = searchedUser.user_name
         let mail = searchedUser.mail
-        let filteredUser
-
-        filteredUser = users.filter((user) => {
+        let filteredUser = users.filter((user) => {
+            debugger
             let newUser = user['firs_name'].includes(fieldName) &&
                 user['last_name'].includes(fieldLastName) &&
                 user['user_name'].includes(name) &&
@@ -55,7 +57,7 @@ function UsersFilterComponent({t, users, handlePagination, valueRoles, keyRoles,
         })
     }
 
-    const changeExpanding = (e,checked) => {
+    const changeExpanding = (e, checked) => {
         setExpandedFilter(checked)
     }
 
@@ -69,34 +71,54 @@ function UsersFilterComponent({t, users, handlePagination, valueRoles, keyRoles,
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <StyledFilterBlock>
-                            <Box>
-                                <StyledInput className="filter-first-name"
-                                             placeholder={t('translation:name')}
-                                             onChange={e => filterBy(e, 'firs_name')}/>
-                                <StyledInput className="filter-last-name"
-                                             placeholder={t('users:family')}
-                                             onChange={e => filterBy(e, 'last_name')}/>
-                                <StyledInput className="filter-username"
-                                             placeholder={t('users:username')}
-                                             onChange={e => filterBy(e, 'user_name')}/>
-                                <StyledInput className="filter-email"
-                                             placeholder={t('users:email')}
-                                             onChange={e => filterBy(e, 'mail')}/>
-                                {valueRoles ? <StyledTextField id="outlined-select-role-native"
-                                                               select
-                                                               className="user-filter-role"
-                                                               value={role}
-                                                               onChange={e => changeRole(e)}
-                                                               SelectProps={{native: true}}
-                                                               variant="outlined">
-                                    <option value="">{t('translation:none')}</option>
-                                    {valueRoles.map((current, index) => (
-                                        <option key={keyRoles[index]} value={current}>
-                                            {current}
-                                        </option>
-                                    ))}
-                                </StyledTextField> : ''}
-                            </Box>
+                            <Grid container>
+                                <Grid item md={4} xs={4}>
+                                    <StyledInsideGrid lang={lang}>
+                                        <StyledInput className="filter-first-name"
+                                                     placeholder={t('translation:name')}
+                                                     onChange={e => filterBy(e, 'firs_name')}/>
+                                    </StyledInsideGrid>
+                                </Grid>
+                                <Grid item md={4} xs={4}>
+                                    <StyledInsideGrid lang={lang}>
+                                    <StyledInput className="filter-last-name"
+                                                 placeholder={t('users:family')}
+                                                 onChange={e => filterBy(e, 'last_name')}/>
+                                    </StyledInsideGrid>
+                                </Grid>
+                                <Grid item md={4} xs={4}>
+                                <StyledInsideGrid lang={lang}>
+                                    <StyledInput className="filter-username"
+                                                 placeholder={t('users:username')}
+                                                 onChange={e => filterBy(e, 'user_name')}/>
+                                </StyledInsideGrid>
+                                </Grid>
+                                <Grid item md={4} xs={6}>
+                                    <StyledInsideGrid lang={lang}>
+                                    <StyledInput className="filter-email"
+                                                 placeholder={t('users:email')}
+                                                 onChange={e => filterBy(e, 'mail')}/>
+                                    </StyledInsideGrid>
+                                </Grid>
+                                <Grid item md={4} xs={6}>
+                                    <StyledInsideGrid lang={lang}>
+                                    {valueRoles ? <StyledTextField id="outlined-select-role-native"
+                                                                   select
+                                                                   className="user-filter-role"
+                                                                   value={role}
+                                                                   onChange={e => changeRole(e)}
+                                                                   SelectProps={{native: true}}
+                                                                   variant="outlined">
+                                        <option value="">{t('translation:none')}</option>
+                                        {valueRoles.map((current, index) => (
+                                            <option key={keyRoles[index]} value={current}>
+                                                {current}
+                                            </option>
+                                        ))}
+                                    </StyledTextField> : ''}
+                                    </StyledInsideGrid>
+                                </Grid>
+                            </Grid>
                             <StyledRegisterButton onClick={doFilterHandler}>
                                 {t('translation:do')}
                             </StyledRegisterButton>

@@ -17,7 +17,6 @@ function FormContentDescriptionComponent({t}) {
         })
     }
 
-    console.log(contentsContext.content.body ? (contentsContext.content.body.length > 0 && contentsContext.content.body[0].value) : '')
     return (<Grid container>
         <Grid item xs={12}>
             <Box className="editor">

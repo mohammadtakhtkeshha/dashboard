@@ -12,7 +12,8 @@ import {withStyles} from "@material-ui/core/styles";
 
 
 import ContentsContext from "contexts/ContentsContext";
-import {StyledFilterBlock, StyledInsideGrid} from "assets/js/content/partials/contentFilter";
+import { StyledInsideGrid} from "assets/js/content/partials/contentFilter";
+import {MarginTop1} from "assets/js/library/base/all";
 import {StyledRegisterButton, StyledInput} from "assets/js/App";
 import {styledTextField} from "assets/js/App";
 import {changeTitleMethod, changeStatusMethod,changeContentTypeMethod,doFilterHandlerMethod} from "./ContentsFilterComponent.js";
@@ -102,11 +103,11 @@ function ContentsFilterComponent({t,expandedFilter,setExpandedFilter}) {
                         </StyledInsideGrid>
                     </Grid>
                     <Grid item xs={12}>
-                        <StyledFilterBlock>
+                        <MarginTop1>
                             <StyledRegisterButton onClick={doFilterHandler}>
                                 {t('translation:do')}
                             </StyledRegisterButton>
-                        </StyledFilterBlock>
+                        </MarginTop1>
                     </Grid>
                 </Grid>
             </ExpansionPanelDetails>

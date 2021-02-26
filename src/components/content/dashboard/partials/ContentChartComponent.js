@@ -57,7 +57,9 @@ export const changeFormatMethod = (contents, setChunks, index) => {
     //         array2.push(currentArray[i])
     //     }
     // }
-    let restCurrentArray = currentArray.splice(index + 3)
-    newList = [[...currentArray], [...restCurrentArray]]
-    setChunks(newList)
+    // let restCurrentArray = currentArray.splice(index + 3)
+    // newList = [[...currentArray], [...restCurrentArray]]
+    // setChunks(newList)
+
+    setChunks([...contents])
 }

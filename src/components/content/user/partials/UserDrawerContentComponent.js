@@ -18,7 +18,7 @@ const useStyles = makeStyles(UserDrawerContentStyle);
 function UserDrawerContentComponent({t}) {
     const classes = useStyles();
     const appContext = useContext(AppContext);
-    // const currentUser = JSON.parse(storage.get('user'));
+    const currentUser = JSON.parse(storage.get('user'));
 
     let changeUserDrawer = () => {
         appContext.toggleUserDrawer(false);
@@ -29,22 +29,22 @@ function UserDrawerContentComponent({t}) {
         <Box className={classes.content}>
             <Box className="item avatar">
                 <AvatarComponent width="4.8rem" height="4.8rem" style={{justifyContent: 'center'}}/>
-                {/*<Typography variant="h4" id="name">{currentUser !== null ? currentUser.field_name : ''}</Typography>*/}
-                {/*<Typography variant="h4" id="name">{currentUser !== null ? currentUser.field_last_name:''}</Typography>*/}
+                <Typography variant="h4" id="name">{currentUser !== null ? currentUser.field_name : ''}</Typography>
+                <Typography variant="h4" id="name">{currentUser !== null ? currentUser.field_last_name:''}</Typography>
                 <Box id="nameBlock">
                     <SettingsIcon id="setting"/>
                     <Typography className="role" variant='h5'>
-                        {/*{currentUser !==null && currentUser.roles !== undefined ?currentUser.name:''}*/}
+                        {currentUser !==null && currentUser.roles !== undefined ?currentUser.name:''}
                     </Typography>
                 </Box>
                 <Box id="roleBlock">
                     <Typography className="role" variant="h6">{t('users:role')}</Typography>
                     <Typography className="role" variant='h5'>
-                        {/*{currentUser !== null && currentUser.roles !== undefined && currentUser.roles.length>0 ?currentUser.roles.toString():''}*/}
+                        {currentUser !== null && currentUser.roles !== undefined && currentUser.roles.length>0 ?currentUser.roles.toString():''}
                     </Typography>
                 </Box>
-                {/*<Typography variant="h4" id="username">{currentUser !== null && currentUser.name}</Typography>*/}
-                {/*<Typography variant="h3" id="email">{currentUser !== null && currentUser.mail}</Typography>*/}
+                <Typography variant="h4" id="username">{currentUser !== null && currentUser.name}</Typography>
+                <Typography variant="h3" id="email">{currentUser !== null && currentUser.mail}</Typography>
             </Box>
             <Box className="buttons">
                 <Link className="link" to="/comments" onClick={changeUserDrawer}>

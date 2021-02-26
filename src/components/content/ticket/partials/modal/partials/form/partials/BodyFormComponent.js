@@ -1,39 +1,23 @@
-import {stripHtml} from "../../../../../../../../methods/commons";
+import {stripHtml} from "methods/commons";
 
 export const changeOrderMethod = (e, setTicket) => {
     const id = e.currentTarget.value
     setTicket(prevState => {
-        return {...prevState, serviceid: id}
+        return {...prevState, serviceid: parseInt(id)}
     })
-}
-
-const toBase64 = (e, setTicket) => {
-    var file = e[0],
-        reader = new FileReader();
-
-    reader.onloadend = function () {
-        // Since it contains the Data URI, we should remove the prefix and keep only Base64 string
-        let base64 = reader.result.replace(/^data:.+;base64,/, '');
-        setTicket(prevState => {
-            return {...prevState, attachments: base64}
-        })
-        console.log(base64); //-> "R0lGODdhAQABAPAAAP8AAAAAACwAAAAAAQABAAACAkQBADs="
-    };
-    reader.readAsDataURL(file);
 }
 
 export const uploadImgMethod = (e, setTicket) => {
-    // toBase64(e, setTicket)
     setTicket(prevState => {
-        return {...prevState,file1:e[0]}
+        return {...prevState, files:e}
     })
 }
 
-export const changeDepartmentMethod = (e, setDeparteman, setTicket) => {
+export const changeDepartmentMethod = (e, setTicket,setChosenDepartment) => {
     const value = e.currentTarget.value
-    setDeparteman(value)
+    setChosenDepartment(value)
     setTicket(prevState => {
-        return {...prevState, deptid: value}
+        return {...prevState, deptid: parseInt(value)}
     })
 }
 

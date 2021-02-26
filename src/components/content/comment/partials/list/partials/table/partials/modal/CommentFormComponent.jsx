@@ -12,7 +12,6 @@ import {
 import {StyledHeader, StyledFooter, StyledForm, styledGrid, StyledTextArea} from "assets/js/comment/commentForm";
 import i18next from "i18next";
 import TextField from "@material-ui/core/TextField";
-import {StyledModalFooter, StyledModalHeader, StyledModalBody} from "assets/js/library/layout/modal"
 
 import {
     StyledStatusButton,
@@ -72,16 +71,16 @@ function CommentFormComponent({t, open, setOpen, publishedComments, unconfirmedC
                     }}/>
                 </Grid>
                 <StyledGrid item xs={4}>
-                    <StyledStatusButtonBlock className="status">
-                        <StyledStatusButton value={true} status={comment.status ? comment.status[0].value : false}
-                                            onClick={handleChangeStatus}>
-                            {t('contents:published')}
-                        </StyledStatusButton>
-                        <StyledStatusButton value={false} status={comment.status ? comment.status[0].value : false}
-                                            onClick={handleChangeStatus}>
-                            {t('contents:unpublished')}
-                        </StyledStatusButton>
-                    </StyledStatusButtonBlock>
+                    {/*<StyledStatusButtonBlock className="status">*/}
+                    {/*    <StyledStatusButton value={true} status={comment.status ? comment.status[0].value : false}*/}
+                    {/*                        onClick={handleChangeStatus}>*/}
+                    {/*        {t('contents:published')}*/}
+                    {/*    </StyledStatusButton>*/}
+                    {/*    <StyledStatusButton value={false} status={comment.status ? comment.status[0].value : false}*/}
+                    {/*                        onClick={handleChangeStatus}>*/}
+                    {/*        {t('contents:unpublished')}*/}
+                    {/*    </StyledStatusButton>*/}
+                    {/*</StyledStatusButtonBlock>*/}
                 </StyledGrid>
                 <Grid item xs={12}>
                     <StyledAlignTypography lang={lang}>{t('comments:commentBody')}</StyledAlignTypography>

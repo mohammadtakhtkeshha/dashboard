@@ -14,7 +14,6 @@ import {
 } from "assets/js/authorized";
 import {withStyles} from "@material-ui/core/styles";
 import i18next from "i18next";
-import {grey} from "components/partials/Colors";
 
 const StyledGridSidebar = withStyles(styledGridSidebar)(Grid);
 const StyledGridContent = withStyles(styledGridContent)(Grid);
@@ -30,7 +29,7 @@ function AuthorizedComponent({t}) {
                     <components.SidebarComponent/>
                 </StyledSidebarBox> : ''}
             </StyledGridSidebar>
-            <StyledGridContent lang={lang}>
+            <StyledGridContent lang={lang} ismobile={(width>992).toString()}>
                 <StyledPaper>
                     <StyledContentBox>
                         {width > 992 ? <components.HeaderWebComponent/> :

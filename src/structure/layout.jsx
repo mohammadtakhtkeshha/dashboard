@@ -11,6 +11,7 @@ import 'assets/css/yekanFont.css'
 import {StyledDirection} from "../assets/js/App"
 import history from "../configs/History"
 import * as components from "../assets/js/AppImports"
+import {LoginComponent} from "../assets/js/AppImports";
 import ProtectedRoute from "../shared/routes/protected-routes"
 import LoadingComponent from "../components/content/partials/LoadingComponent"
 import {defaultStyles, StyledBox} from "assets/js/layout"
@@ -20,7 +21,7 @@ const theme = createMuiTheme(defaultStyles)
 
 export function Layout({t}) {
     const lang = i18next.language
-    const perPage = 5
+    const perPage = 30
     const [showUserDrawer, setShowUserDrawer] = useState(false)
     const [loading, setLoading] = useState(false)
 
@@ -48,7 +49,7 @@ export function Layout({t}) {
                         }}>
                         <StyledBox lang={lang}>
                             <Router history={history}>
-                                <Route path="/login" component={components.LoginComponent}/>
+                                <Route path="/login" component={LoginComponent}/>
                                 <Route path="/forget-password" component={components.ForgetPasswordComponent}/>
                                 <ProtectedRoute path="/" component={components.AuthorizedComponent}/>
                             </Router>

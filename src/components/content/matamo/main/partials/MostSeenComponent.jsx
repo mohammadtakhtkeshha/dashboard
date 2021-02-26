@@ -4,33 +4,24 @@ import {withNamespaces} from "react-i18next"
 import {getMostSeenContentMethod} from "./MostSeenComponent.js"
 import AppContext from "contexts/AppContext"
 import {
-    StyledTable, StyledTableBody, StyledTableBodyRow,
     StyledTableCell,
-    StyledTableHeadRow,
     StyledTablePaper,
     StyledTableParent
 } from "assets/js/App"
 import {
     StyledMatamoTable,
     StyledMatamoTableRow,
-    StyledMatamoTableRowGrey,
     StyledMatamoTableCell,
-    StyledMatamoTabelFooter,
-    StyledMatamoTableHeadRow
+    StyledMatamoTableHeadRow, StyledMatamoTabelFooter
 } from "assets/js/library/pages/matamo/matamoTable"
-
-import {
-    StyledIconMatamo,
-    StyledMatamoLeftHead,
-    StyledTableCellActivity,
-    StyledTableCellRealtime,
-    StyledBoxRefer
-} from "assets/js/library/pages/matamo/matamo"
 
 import {StyledMatamoLeftHeadMostSeen} from "assets/js/library/pages/matamo/mostSeen";
 
 import {Typography} from "@material-ui/core"
 import i18next from "i18next"
+import {NavLink} from "react-router-dom";
+import ListItemText from "@material-ui/core/ListItemText";
+import {StyledLi} from "../../../../../assets/js/SidebarContent";
 
 function Index({t}) {
     const lang = i18next.language
@@ -59,7 +50,6 @@ function Index({t}) {
                     </StyledMatamoTableHeadRow>
                     {mostSeen.length > 0 && mostSeen.map((item, index) =>
                         <StyledMatamoTableRow key={index}>
-                            {/*<StyledTableCell>*/}
                             <StyledTableCell align="right">{item.url}</StyledTableCell>
                             <StyledTableCell>
                                 <StyledMatamoLeftHeadMostSeen>
@@ -73,6 +63,11 @@ function Index({t}) {
                             </StyledTableCell>
                         </StyledMatamoTableRow>
                     )}
+                    <StyledMatamoTabelFooter lang={lang}>
+                        <NavLink to='/report/most-seen'>
+                            {t('translation:moreItems')}
+                        </NavLink>
+                    </StyledMatamoTabelFooter>
                 </StyledMatamoTable>
             </StyledTablePaper>
         </StyledTableParent>

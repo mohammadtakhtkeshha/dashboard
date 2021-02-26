@@ -22,9 +22,7 @@ export default function WelcomeDashboardComponent() {
         <StyledDashboardBlock show={show}>
             <StyledPaper>
                 <StyledFile>
-                    <ReactPlayer
-                        controls={true}
-                        url={video}/>
+                    <ReactPlayer controls={true} url={video}/>
                 </StyledFile>
                 <StyledDescription>
                     <StyledTitle>به خانواده بزرگ بهمن پرداز خوش آمدید!</StyledTitle>

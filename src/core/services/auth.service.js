@@ -1,5 +1,5 @@
 import axios from "axios";
-import storage from "libraries/local-storage";
+import storage, {changeValueStorage} from "libraries/local-storage";
 import authUrl, {debugUrl, logOutUrl,csrfUrl} from 'utils/urls/auth.urls';
 
 export function getLoginUser(access_token) {
@@ -23,18 +23,37 @@ export async function login(user) {
 
     const loginResult = await axios.post(tokenUrl, body);
     const token = `Bearer ${loginResult.data.access_token}`;
-    storage.store('token', token);
+
     const config={
         headers:{
             'Authorization':token
         }
-    };
+    }
     const getAdminData = await axios.get(debugUrl,config);
+    const {data} = await axios.get(csrfUrl)
+    storage.store(process.env.REACT_APP_TOKEN_KEY, token);
     storage.store('user', JSON.stringify(getAdminData.data));
-    const {data} = await axios.get(csrfUrl);
-
     storage.store(process.env.REACT_APP_CSRF, JSON.stringify(data));
     return loginResult;
+}
+
+export async function loginTicketService() {debugger
+    const params = {
+        action:'ValidateLogin',
+        username:'sBnBbvTbSBpFfIWKeCycxDHNqh8U2vn6',
+        password:'F5tqf9CdD6rLYpIdITlHryNzevXUDe6d',
+        responsetype:'json',
+        email:'farhangyaran@gmail.com',
+        password2:'147/*'
+    }
+    return axios.get('http://crm.webrbp.ir/includes/api.php', {params:params
+    },{
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }).then(()=>{debugger
+        storage.store('isLoginTicket', 'aasdfasd');
+    })
 }
 
 export async function logout(history) {
@@ -53,9 +72,13 @@ export async function logout(history) {
     storage.remove(process.env.REACT_APP_TOKEN_KEY);
     history.push("/login");
     storage.remove('user');
+    storage.remove(process.env.REACT_APP_ISTICKET_LOGIN)
+    storage.remove(process.env.REACT_APP_CSRF)
+    storage.remove(process.env.REACT_APP_TICKET_PERIOD)
+
     // return  axios.post('http://sitesazyas.rbp/web/user/logout');
     return  'yes';
 
 }
 
-export default {login, logout, getLoginUser}
+export default {login, logout, getLoginUser,loginTicketService}

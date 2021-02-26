@@ -1,11 +1,12 @@
 import styled from "styled-components"
 import {makeStyles} from "@material-ui/styles";
 import {blue, green, white,grey} from "components/partials/Colors";
+import {StyledTable} from "../App";
 
 export const useStyles = makeStyles((theme) => ({
     paper: {
         margin: theme.spacing(2),
-        borderRadius:'20px',
+        borderRadius:'4px',
         overflow:'hidden',
         '@media(max-width:992px)': {
             margin: `${theme.spacing(2)}px 0`,
@@ -52,8 +53,12 @@ export const StyledPaper = styled.div`
                text-align:center;
                padding:.6rem;
                color:white;
-               background-image: ${props=>props.lang === 'en' ?` linear-gradient(to left,${blue[5]}, ${green[4]}) `:`linear-gradient(to right,${blue[5]}, ${green[4]})`};
+               background-image: ${props=>props.lang === 'en' ?` linear-gradient(to left,${blue[5]}, ${green[10]}) `:`linear-gradient(to right,${blue[5]}, ${green[10]})`};
             }   
+`
+
+export const StyledDashboardTable = styled(StyledTable)`
+              border-radius:0 0 4px 4px!important;
 `
 
 export const dashboardStyles={
@@ -69,10 +74,15 @@ export const dashboardStyles={
 
 export const StyledDashboardBlock = styled.div`
             background-color:${grey[17]};
-            border-radius: 20px;
+            border-radius: 4px;
             margin: 1.5rem 0;
             overflow:hidden;
             display:${props=>props.show === false ? 'none' : 'block'}
+            & > div {
+                & > div {
+                    box-shadow:0 0 0 !important;
+                }
+            }
 `
 
 

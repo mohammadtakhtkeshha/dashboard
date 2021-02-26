@@ -24,7 +24,7 @@ import {constSteps} from "./Index.js"
 
 const useStyle = makeStyles(useStyles)
 
-function Index({t, openForm, setOpenForm, handleCloseForm, states, errors, setErrors, category, setCategory, setStates, setIds, handlePagination, closeForm, getStates, type, setExpandedFilter}) {
+function Index({t, openForm, setOpenForm, handleCloseForm, states, errors, setErrors, category, setCategory, setStates, closeForm, getStates, type, setExpandedFilter}) {
     let lang = i18next.language
     const classes = useStyle()
     const [steps, setSteps] = useState(constSteps);
@@ -60,8 +60,6 @@ function Index({t, openForm, setOpenForm, handleCloseForm, states, errors, setEr
                 <ModalBody>
                     <StateFormComponent closeForm={closeForm}
                                         errors={errors}
-                                        setIds={setIds}
-                                        handlePagination={handlePagination}
                                         setOpenForm={setOpenForm}
                                         setStates={setStates}
                                         category={category}

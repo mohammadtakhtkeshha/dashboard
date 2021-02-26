@@ -9,8 +9,8 @@ import iconImg from 'assets/media/image/logo-login.png';
 import AppContext from 'contexts/AppContext';
 import authService from 'core/services/auth.service';
 import {green} from "components/partials/Colors";
-import {StyledInput, StyledRegisterButton} from "assets/js/App";
-import {InputBlock, LoginBlock, StyledGridLogin,LoginButton} from "assets/js/login";
+import {StyledInput,StyledTypographyError} from "assets/js/App";
+import {InputBlock, LoginBlock, StyledGridLogin,LoginButton,StyledRegisterLoginButton} from "assets/js/login";
 
 function LoginComponent({t}) {
     const [errors, setErrors] = useState({errorName: false, errorPass: false, loginError: false});
@@ -92,14 +92,13 @@ function LoginComponent({t}) {
                             <StyledInput name="name" type="text" placeholder={t('users:username')}
                                             border={errors.errorName ? 'red' : ''}
                                             onChange={e => changeInput(e, 'name')}/>
-                            {errors.errorName ? <div>{t('users:forceUsername')}</div> : ''}
+                            {errors.errorName ? <StyledTypographyError>{t('users:forceUsername')}</StyledTypographyError> : ''}
                         </InputBlock>
                     </Box>
                     <LoginButton>
-                        <StyledRegisterButton bg={green[0]}  onClick={login}>
+                        <StyledRegisterLoginButton bg={green[0]}  onClick={login}>
                             {t('translation:register')}
-                        </StyledRegisterButton>
-
+                        </StyledRegisterLoginButton>
                     </LoginButton>
                 </Box>
             </StyledGridLogin>

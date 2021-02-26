@@ -12,6 +12,7 @@ import AppContext from "contexts/AppContext";
 
 export default function DashboardComponent() {
     const appContext=useContext(AppContext);
+
     return (
         <>
             <MessageDashaboardSettingComponent/>

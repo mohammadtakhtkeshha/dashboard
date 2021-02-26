@@ -10,8 +10,7 @@ export const StyledFlex=styled.div`
             display:flex;
             flex-direction:column;
             margin:20px 45px;
-          
-
+            align-items: center;
 `
 
 export const StyledFlexRow=styled(White)`
@@ -28,6 +27,8 @@ export const StyledFlexBlock=styled(White)`
             justify-content:space-around;
             align-items:center;
             width:100%;
+            height:100%;
+            margin:auto;
 `
 
 export const StyledIcon=styled.div`
@@ -43,8 +44,14 @@ export const StyledFlexColumn=styled.div`
             flex-direction:column;
 `
 
+export const StyledFlexColumnNum=styled.div`
+            display:flex;
+            flex-direction:column;
+            width:200px;
+`
+
 export const ContentChartBlock = styled(StyledNotScrollbar)`
-            background-image: linear-gradient(to right, ${blue[6]} , ${green[4]});
+            background-image: linear-gradient(to right, ${blue[6]} , ${green[0]});
             display:flex;
             overflow-x:scroll;
             &:last-child::after{//bcs of overflow ignoring
@@ -67,14 +74,8 @@ export const StyledPercentLine=styled.div`
 `
 
 export const PercentageNumber= styled(White)`
-             margin:${props=>props.lang === 'fa' ? `0 ${props.length-8}% 0 0`:`0 0 0 ${props.length-8}%`}
+             margin:${props=>props.lang === 'fa' ? `0 0 0 ${props.length-8}% `:`0 0 0 ${props.length-8}%`}
 `
-
-export const styledCarousel = () => ({
-    root:{
-        width:'100%'
-    }
-})
 
 
 export const StyledFlexBox =styled.div`

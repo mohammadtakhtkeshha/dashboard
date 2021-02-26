@@ -5,7 +5,6 @@ import styled from "styled-components";
 
 const useStyles = makeStyles({
     root: {
-        border: '1px solid red',
         '& svg': {
             fill: 'blue'
         }

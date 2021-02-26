@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const StyledPaper = styled.div`
         display:flex;
         flex-direction:column;
+        padding:0 16px;
          & h3{
             font-size: 23px;
             line-height: 32px;

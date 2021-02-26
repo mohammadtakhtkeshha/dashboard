@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import {grey} from "components/partials/Colors"
 
 export const StyledSidebarBox = styled.div`
         height: 100vh;
@@ -25,7 +24,7 @@ export const styledGridSidebar = () => ({
         //     scrollbarWidth: 'none'  /* Firefox */
         // }
     }
-});
+})
 
 export const styledGridContent = (theme) => ({
     root: {
@@ -36,16 +35,15 @@ export const styledGridContent = (theme) => ({
         },
         boxSizing: 'border-box',
         padding: theme.spacing(2),
-        margin: props => props.lang === 'en' ? '0 0 0 auto' : '0 auto 0 0',
+        margin: props => props.lang === 'en' ? (props.ismobile === "true" ? '0 0 0 auto':'50px 0 0 auto') : (props.ismobile === "true" ? '0 auto 0 0':'50px auto 0 0'),
     }
-});
+})
 
 export const StyledPaper = styled.div`
             background-color:transparent;
-            padding:0 9px;
+            padding:0 8px;
             box-shadow: 0 0 0 0;
             @media(min-width : 992px) {
                 margin-top: 64px;
             }
 `
-

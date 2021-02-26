@@ -3,39 +3,25 @@ import {withNamespaces} from "react-i18next"
 import {Helmet} from "react-helmet"
 import ModalState from "./partials/modal/Index.jsx"
 
-import Pagination from "@material-ui/lab/Pagination"
-
 import AppContext from "contexts/AppContext"
-import {StyledPaper} from "assets/js/App"
-import {StyledPaginationBox} from "assets/js/pagination"
-import {handlePaginationMethod, getCategoryMethod, constState, emptyCategory, getStatesMethod} from "./Index.js"
+import {getCategoryMethod, constState, emptyCategory, getStatesMethod} from "./Index.js"
 import StateTableComponent from "./partials/StateTableComponent.jsx"
 import StateHeaderComponent from "./partials/StateHeaderComponent.jsx"
 import {useParams} from "react-router-dom";
-import GuideBlockComponent from "../../../../partials/GuideBlockComponent";
 
 function Index({t}) {
-    const [chunks, setChunks] = useState([])
-    const [totalPage, setTotalPage] = useState(0)
-    const [page, setPage] = useState(0)
-    const [openForm, setOpenForm] = useState({show: false, id: ''})
+    const [openForm, setOpenForm] = useState({show: false, id:''})
     const appContext = useContext(AppContext)
     const [states, setStates] = useState({})
-    const [ids, setIds] = useState(['root'])
     const [errors, setErrors] = useState({})//{name: [], path: []}
     const type = useParams()
+    console.log(type.type)
     const [category, setCategory] = useState(constState(type.type))
+    console.log(category.vid[0].target_id)
 
-    const handlePagination = (currentStates) => {
-        handlePaginationMethod(currentStates, setStates, setTotalPage, setChunks, t)
-    }
-
-    const paginate = (e, value) => {
-        setPage(value - 1)
-    }
 
     const getStates = () => {
-        getStatesMethod(appContext.handleError, setStates, handlePagination, setIds,type)
+        getStatesMethod(appContext.handleError, setStates,type)
     }
 
     const getCategory = (id) => {
@@ -45,9 +31,9 @@ function Index({t}) {
     }
 
     const closeForm = () => {
-        setOpenForm({id: "", show: false})
+        setOpenForm({id:"", show: false})
         setErrors({})
-        setCategory(emptyCategory)
+        setCategory(constState(type.type))
     }
 
     useEffect(() => {
@@ -58,28 +44,20 @@ function Index({t}) {
         getCategory(openForm.id)
     }, [openForm.id])
 
-    return (<StyledPaper>
+    return (<>
         <Helmet>
             <title>
                 {t('taxonomy:categoryList')}
             </title>
         </Helmet>
         <StateHeaderComponent setOpenForm={setOpenForm} type={type}/>
-        <StateTableComponent ids={ids}
-                             setOpenForm={setOpenForm}
+        <StateTableComponent setOpenForm={setOpenForm}
                              states={states}
-                             chunks={chunks}
-                             setChunks={setChunks}
-                             handlePagination={handlePagination}
-                             setIds={setIds}
-                             page={page}
                              type={type}
                              getStates={getStates}
                              setStates={setStates}/>
         <ModalState states={states}
                     openForm={openForm}
-                    setIds={setIds}
-                    handlePagination={handlePagination}
                     setOpenForm={setOpenForm}
                     setErrors={setErrors}
                     errors={errors}
@@ -90,10 +68,7 @@ function Index({t}) {
                     setCategory={setCategory}
                     setStates={setStates}
                     handleCloseForm={closeForm}/>
-        <StyledPaginationBox>
-            <Pagination count={(totalPage)} onChange={paginate}/>
-        </StyledPaginationBox>
-    </StyledPaper>)
+    </>)
 }
 
 export default withNamespaces('translation,taxonomy')(Index)

@@ -37,12 +37,11 @@ function LeftWebHeaderComponent({t}) {
 
     const changeDrawerUser = () => {
         appContext.toggleUserDrawer(true);
-    };
+    }
 
     const handleChange = (event) => {
         i18next.changeLanguage(event.target.value);
-    };
-
+    }
 
     return (<>
         <StyledBox>
@@ -87,7 +86,7 @@ function LeftWebHeaderComponent({t}) {
                     <UserSvg fontSize="small"/>
                 </button>
             </StyledBoxItem>
-            <StyledPowerBox>
+            <StyledPowerBox lang={lang}>
                 <button onClick={() => authSevice.logout(history)}>
                     <PowerSettingsNewIcon/>
                 </button>

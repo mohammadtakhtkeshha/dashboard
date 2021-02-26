@@ -1,10 +1,13 @@
 import {Method} from "structure/layout";
 import {authHeader, cjcsrfauthHeader} from "utils/headers";
 import {getMenusWebUrl,addMenuUrl,getMenusMobileUrl,getDeleteEditMenuUrl} from "utils/urls/menu.urls"
+import storage from "libraries/local-storage"
+
+const auth = storage.get(process.env.REACT_APP_TOKEN_KEY)
 
 export const getMenus = (type,handleError) => {
     let url = type === "web" ? getMenusWebUrl : getMenusMobileUrl
-    return Method({method:'GET',url:url,headers: authHeader,handleError:handleError});
+    return Method({method:'GET',url:url,headers: authHeader(auth),handleError:handleError});
 }
 
 export const deleteMenu = (id,handleError) => {

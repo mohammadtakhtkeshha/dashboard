@@ -7,6 +7,11 @@ export const StyledBackgroundColor= styled.div`
 `
 export const StyledConfirmButton= styled(StyledDefaultButton)`
              display:${props => props.commentStatus === "published" ? "none!important" : "flex!important"};
-             border:1px solid red;
-             background-color:${green[0]}
+             background-color:${green[0]};
+             color: white;
+             border: 0;
+             align-items: center;
+             justify-content: center;
+             padding: 7px 15px;
+             margin:0 2px;
 `

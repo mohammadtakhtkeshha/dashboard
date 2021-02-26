@@ -80,7 +80,7 @@ export const StyledAfterUploadHere = styled.div`
             }
 `
 
-export const StyledAfterUploadBlock = styled(StyledNotScrollbar)`
+export const StyledAfterUploadBlock = styled.div`
             display:flex;
             margin-top: 2rem;
             width:100%;

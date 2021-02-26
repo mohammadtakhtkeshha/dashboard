@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {StyledNotScrollbar} from "../../App";
+import {StyledNotScrollbar} from "../base/all";
 import {grey} from "components/partials/Colors";
 
 export const StyledModalBody = styled(StyledNotScrollbar)`
@@ -47,4 +47,16 @@ export const StyledModalFooter = styled.div`
                     outline:0;
                 }
              }
+`
+
+export const ModalBody = styled.div`
+                border:1px solid ${grey[1]}!important;
+                border-radius:15px;
+                overflow-y:hidden;
+                box-shadow: 0 2px 10px rgba(31,45,61,0.16);
+                background-color:white;
+                width:100%;
+                position: relative;
+                height: calc(100vh - 50px);
+                width: 100%;
 `

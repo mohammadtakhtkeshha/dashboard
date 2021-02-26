@@ -7,7 +7,7 @@ function checkPassWithConfirm(pass, confirmPass) {
     let required = ""
     let harmony = ""
     if (confirmPass !== pass) {
-        harmony = 'پسوردهای وارد شده باهم همخوانی ندارند!'
+        harmony = 'عدم همخوانی پسورد ها!'
     }
     return {harmony}
 }
@@ -51,7 +51,7 @@ function checkPass(pass, type, id) {
     let valid = ""
     if (id === "") {//not to be edit
         if (pass.length < 8) {
-            required = 'حداقل تعداد کاراکترهای انتخابی 8 میباشد!'
+            required = 'حداقل تعداد کاراکترها 8 میباشد!'
         }
     }
     let regex = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}:؟|,\.?~_+-=\|])/
@@ -157,14 +157,15 @@ export const editUserMethod = (id, user, appContext, t, getEditedUser,errors) =>
         userService.editUser(id, JSON.stringify(user), appContext.handleError).then((response) => {
             appContext.setLoading(false)
             let item = response.data
+            debugger
             let currentEditedUser = {
                 user_id: `${item.uid[0].value}`,
                 picture: item.user_picture.length > 0 ? item.user_picture[0].url : "",
                 status: `${item.status[0].value}`,
                 roles: item.roles.length > 0 ? item.roles : "",
                 user_name: item.name[0].value,
-                firs_name: item.field_name[0].value,
-                last_name: item.field_last_name[0].value,
+                firs_name: item.field_name.length>0 ? item.field_name[0].value : "",
+                last_name: item.field_last_name.length>0 ?item.field_last_name[0].value:"",
                 mail: item.mail[0].value,
             }
             getEditedUser(currentEditedUser)
@@ -290,28 +291,30 @@ export const handleCheckRolesMethod = (e, user, defaultRoles, enRoles, faRoles, 
     let currentValue = e.target.value
     let checkedRolesArr = []
     let userEnRoles = user.roles
-    let userFaRolesArr = user.field_fa_role[0].value === "" ? [] : user.field_fa_role[0].value.split(',')
+    // let userFaRolesArr = user.field_fa_role[0].value === "" ? [] : user.field_fa_role[0].value.split(',')
+   debugger
     if (checked) {
         checkedRolesArr = [enRoles[currentValue], ...defaultRoles]
         userEnRoles.push({
             "target_id": enRoles[currentValue],
             "target_type": "user_role"
         })
-        userFaRolesArr.push(faRoles[currentValue])
+        // userFaRolesArr.push(faRoles[currentValue])
     } else {
         let newCheckedRoles = defaultRoles.filter(role => role !== enRoles[currentValue])
         const newRoles = userEnRoles.filter(role => role.target_id !== enRoles[currentValue])
         userEnRoles = newRoles
 
-        let newFaCheckedRoles = faRoles.filter(role => role !== faRoles[currentValue])
-        userFaRolesArr = newFaCheckedRoles
+        // let newFaCheckedRoles = faRoles.filter(role => role !== faRoles[currentValue])
+        // userFaRolesArr = newFaCheckedRoles
         checkedRolesArr = [...newCheckedRoles]
     }
     setDefaultRoles([...checkedRolesArr])
 
     setUser((prevState) => {
         return {
-            ...prevState, roles: userEnRoles, field_fa_role: [{value: userFaRolesArr.toString()}]
+            ...prevState, roles: userEnRoles
+            // ,field_fa_role: [{value: userFaRolesArr.toString()}]
         }
     })
 }
@@ -354,6 +357,7 @@ export const getUserMethod = (appContext, id, setDefaultRoles, setUser, setGotte
                 roles: user.roles,
                 status: user.status[0].value === undefined ? '' : (user.status[0].value === true ? [{value: true}] : [{value: false}])
             })
+            debugger
             if (user.mail.length > 0) {
                 setGottenMail(user.mail[0].value)
             }

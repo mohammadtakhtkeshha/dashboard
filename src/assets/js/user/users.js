@@ -192,27 +192,9 @@ export const StyledActionBlock = styled.div`
 `
 
 export const StyledFilterBlock = styled.div`
-            display:flex;
-            flex-direction:column;
             width:100%;
-            & > div{
-            margin-bottom:1rem;
-              display:flex;
-              flex-wrap:wrap;
-              & input  {
-              width :19rem;
-              }
-              & input {
-              margin:.2rem;
-              height:30px;
-              } 
-              & select {
-                padding: 13.8px 0;
-              }
-              &>div{
-                margin:.2rem;
-                width :19rem;
-              }
+            & input,& .MuiOutlinedInput-root {
+               margin:.2rem 0;
             }
 `
 

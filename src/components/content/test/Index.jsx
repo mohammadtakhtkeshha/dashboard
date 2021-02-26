@@ -9,7 +9,7 @@ import SortableTree from 'react-sortable-tree/dist/index.esm.js';
 import styled from "styled-components";
 import {makeStyles} from "@material-ui/styles";
 const StyledButton = styled.button`
-border:1px solid red;
+// border:1px solid red;
 `
 
 const StyledDiv = styled.div`

@@ -11,6 +11,9 @@ import {
     cjcdajcsrfauth
 } from "utils/headers";
 import {Method} from "structure/layout";
+import storage from "../../libraries/local-storage";
+
+const auth = storage.get(process.env.REACT_APP_TOKEN_KEY);
 
 export function getDomainSource() {
     let url = contentUrl.domainSourceUrl;
@@ -63,7 +66,7 @@ export function uploadMultiFile(e) {
 
 export function getContents(handleError) {
     let url = contentUrl.getContentsUrl
-    return Method({method:'get',url:url,headers: authHeader,handleError:handleError});
+    return Method({method:'get',url:url,headers: authHeader(auth),handleError:handleError});
 }
 
 export function deleteContent(id,handleError) {
@@ -136,7 +139,6 @@ export function handleContentAction(action, selectedCheckBoxes,handleError) {
             return Method({method:'post',url:urlStatus,headers: caauthHeader,body: body,handleError:handleError});
     }
 }
-
 
 export default {
     getDomainSource,

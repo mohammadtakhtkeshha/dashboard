@@ -4,7 +4,7 @@ import leave from "../../../media/image/dashboard/bg-leave.svg";
 
 export const StyledTitle = styled.div`
              background-color:${green[6]};
-             border-radius: 0 10px 0 10px;
+             border-radius: 4px;
              padding: 12px;
              // margin: 20px;
              position:relative;
@@ -49,7 +49,7 @@ export const StyledDescriptionIcon = styled.div`
         display:block;
         position:relative;
         background-color:${white[0]};
-        border-radius:20px;
+        border-radius:4px;
         overflow:hidden;
 `
 

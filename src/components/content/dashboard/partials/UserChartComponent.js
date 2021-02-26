@@ -52,7 +52,8 @@ const setDatesAndNumberOfUsers = (t,setUsers, users) => {
 };
 
 export const getUsers = (t,setUsers,handleError) => {
-    dashboardService.getUsers(handleError).then((response) => {
+    const result=dashboardService.getUsers(handleError);
+    result.then((response) => {
         const sortedUserByDate = response.data.sort((a, b) => (a.created > b.created) ? 1 : -1);
         setDatesAndNumberOfUsers(t,setUsers, sortedUserByDate);
     });

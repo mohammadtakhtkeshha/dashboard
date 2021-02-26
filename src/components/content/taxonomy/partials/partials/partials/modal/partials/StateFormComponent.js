@@ -2,8 +2,8 @@ import {registerState} from "core/services/taxonomy/partials/category.taxonomy.s
 import {success} from "methods/swal";
 import {isObjectEmpty} from "methods/commons";
 
-export const registerMethod = (appContext, body, openForm, setOpenForm, setStates, t, setIds, handlePagination, closeForm,errors,getStates) => {
-    if(isObjectEmpty(errors)){
+export const registerMethod = (appContext, body, openForm, setStates, t, closeForm, errors, getStates) => {
+    if (isObjectEmpty(errors)) {
         appContext.setLoading(true)
         registerState(appContext.handleError, body, openForm).then(response => {
             appContext.setLoading(false)
@@ -13,7 +13,6 @@ export const registerMethod = (appContext, body, openForm, setOpenForm, setState
             } else {//delete
                 success(t('translation:successEdited'), t('translation:ok'))
             }
-            setOpenForm({show: false, id: ''})
             closeForm()
         })
     }
@@ -26,7 +25,7 @@ export const changePublishStatusMethod = (isChecked, setState) => {
 }
 
 export const handleErrorsMethod = (category, setErrors, t) => {
-    const name =category.name[0].value
+    const name = category.name[0].value
     if (name.length === 0) {
         setErrors(prevState => {
             return {...prevState, name: {required: t('translation:requiredValid')}}
@@ -42,34 +41,6 @@ export const changeParentMethod = (e, setState) => {
     setState(prevState => {
         return {...prevState, parent: ids}
     });
-}
-
-export const getParentAndItsIdsMethod = (id, category, states, setParentStates) => {
-    let parents = []
-    let list = [...states.children]
-    for (let category of list) {
-        if (category.id === id) {
-            const index = list.indexOf(category)
-            list.splice(index, 1)
-        }
-    }
-    for (let category of list) {
-        let idAndName = {id: category.id, name: category.title}
-        parents.push(idAndName)
-        if (category.children.length > 0) {
-            for (let item of category.children) {
-                let idAndName = {id: item.id, name: item.title}
-                parents.push(idAndName)
-                if (item.children && item.children.length > 0) {
-                    for (let part of item.children) {
-                        let idAndName = {id: part.id, name: part.title}
-                        parents.push(idAndName)
-                    }
-                }
-            }
-        }
-    }
-    setParentStates(parents)
 }
 
 export const handleChangeMethod = (e, field, setState, setErrors, t) => {
@@ -96,7 +67,7 @@ export const handleChangeMethod = (e, field, setState, setErrors, t) => {
 export const handleChangePathMethod = (e, setState, setErrors, t) => {
     const currentValue = e.currentTarget.value
     let patt = new RegExp("^\/[a-zA-Z0-9-]+$");
-    if(currentValue.length !== 0){
+    if (currentValue.length !== 0) {
         if (!patt.test(currentValue)) {
             setErrors(prevState => {
                 return {...prevState, path: {regex: t('translation:validPath')}}
@@ -107,7 +78,7 @@ export const handleChangePathMethod = (e, setState, setErrors, t) => {
                 return {...prevState}
             });
         }
-    }else{
+    } else {
         setErrors(prevState => {
             delete prevState.path
             return {...prevState}
@@ -131,13 +102,40 @@ export const clickEditorMethod = (text, setCategory) => {
     })
 }
 
+export const getParentAndItsIdsMethod = (id, category, states, setParentStates) => {
+    let parents = []
+    let list = [...states]
+    for (let category of list) {
+        if (category.id === id) {
+            const index = list.indexOf(category)
+            list.splice(index, 1)
+        }
+    }
+    for (let category of list) {
+        let idAndName = {id: category.id, name: category.title}
+        parents.push(idAndName)
+        if (category.children.length > 0) {
+            for (let item of category.children) {
+                let idAndName = {id: item.id, name: item.title}
+                parents.push(idAndName)
+                if (item.children && item.children.length > 0) {
+                    for (let part of item.children) {
+                        let idAndName = {id: part.id, name: part.title}
+                        parents.push(idAndName)
+                    }
+                }
+            }
+        }
+    }
+    setParentStates(parents)
+}
+
 export const handleDefaultParentMethod = (category, setSelectedParents, states) => {
     let selectedParent = []
     if (category.tid) {
         const id = category.parent[0].target_id
         if (id !== null) {
             let title = ""
-
             function recursive(list) {
                 for (let item of list) {
                     if (parseInt(item.id) === id) {
@@ -150,8 +148,7 @@ export const handleDefaultParentMethod = (category, setSelectedParents, states) 
                 }
                 return title
             }
-
-            title = recursive(states.children)
+            title = recursive(states)
             for (let parent of category.parent) {
                 selectedParent.push({id: id, name: title})
             }
