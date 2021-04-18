@@ -39,7 +39,13 @@ const danger={
     light:'#f8d7da',
     dark:'#721c24',
 };
-const red=['#fe2947','#fe4660','#dc213b'];//{0:default,1:hover,2:focus}
+const red=['#fe2947',//[0]:default
+    '#fe4660',//[1]:hover
+    '#dc213b',//[2]:focus
+    '#EC6060',//[3] button-background
+    '#ee6d6d',//[4] button-background-hover
+    '#bd4d4d',//[5] button-background-active
+]
 
 const green = ['#3ecd90',//[0]default
     '#5acb9b',//[1]hover
@@ -51,6 +57,8 @@ const green = ['#3ecd90',//[0]default
     '#b0dfd7',//[7]font color breadcrumbs deactive
     '#32ae96',//[8]left-sidebar-top
     '#32ae96',//[9]right-sidebar-top
+    '#3bc78d',//[10]right-gradiant-for-tableHeader
+    '#3ecd91',//[11]right-gradiant-for-tableHeader
 ];
 
 const blue= ['#2e91b0',//[0]default
@@ -69,11 +77,19 @@ const blue= ['#2e91b0',//[0]default
     '#66abf0',//[13]border-checkbox
     '#1264b0',//[14]dashboard-icon-title
     '#3193dc',//[15]radio-button
-    '#606CEC',//[16]radio-button
+    '#606CEC',//[16]radio-button,background-button
+    '#2a9fbb',//[17]tid-color-attach
+    '#2c85f0',//[18]left-header-gradiant
+    '#4d56bd',//[19]button-background-active
+    '#6d78ee',//[20]button-background-hover
 ];
 
 const orange=[
-    'rgb(236, 152, 96)',//background-tour-button
+    'rgb(236, 152, 96)',//[0]background-tour-button
+    '#f60',//[1]color-for-title-ticket
+    '#EC9860',//[2]background-color-button
+    '#eea06d',//[3]background-color-button-hover
+    '#bd7a4d',//[4]background-color-button-active
 ];
 
 const grey = ['#ced4da',//[0]input border
@@ -95,8 +111,14 @@ const grey = ['#ced4da',//[0]input border
     '#757575',//[16]text-color dashboard-welcome
     '#f3f4f6',//[17]background-color dashboard-block
     '#dfe0e2',//[18]background-color base-all-content
-
+    '#f9f8f8',//[19]
+    '#616161',//[20]
+    '#eff0f1',//[21]for table header matamo
+    '#f2f2f2',//[22]for-table-row-hover matamo
+    '#495057',//[23]input-placeholder
 ];
+
+export const purpel = ["#3F51B5"]
 
 export {
     primary, primaryBright, secondary, secondaryBright, success, successBright, danger,dangerBright,

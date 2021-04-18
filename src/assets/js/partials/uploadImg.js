@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {grey,black,white,green} from "components/partials/Colors";
+import {grey,black,white,green} from "assets/js/library/abstracts/colors";
 import {StyledNotScrollbar} from "../App";
 
 export const InputBlock = styled.div`

@@ -1,6 +1,5 @@
-import {makeStyles} from '@material-ui/core/styles/index';
 
-export const styles = makeStyles((theme) => ({
+export const styles = (theme) => ({
 
     show: {
         marginTop: 0,
@@ -67,4 +66,4 @@ export const styles = makeStyles((theme) => ({
         },
     }
 
-}));
+});

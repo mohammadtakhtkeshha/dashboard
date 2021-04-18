@@ -8,7 +8,7 @@ import {
     getTaxonomyVideosUrl, getTaxonomyTagsUrl
 } from 'utils/urls/taxonomy.urls';
 import {ahchauthHeader, authHeader} from "utils/headers";
-import {Method} from "structure/layout.js";
+import {Method} from "infrastructure/layout.js";
 import storage from "libraries/local-storage"
 
 const auth = storage.get(process.env.REACT_APP_TOKEN_KEY)

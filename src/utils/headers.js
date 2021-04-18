@@ -1,6 +1,5 @@
 import storage from "libraries/local-storage";
 
-
 // Content-Type:application/json => cj
 // 'Content-Type': 'multipart/form-data' => cm
 // Content-Type:application/octet-stream => co
@@ -121,7 +120,7 @@ export const avcoAuthcdHeader = (img, csrf) => {
     }
 }
 
-export const cjajauhthHeader = {
+export const cjajauthHeader = {
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -135,14 +134,6 @@ export const cmHeader = {
             }
 }
 
-// export const aacaAuthauHeader = {
-//     headers: {
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json',
-//         'Authorization': storage.get(process.env.REACT_APP_TOKEN_KEY),
-//     }
-// }
-
 export const ContentTypeAppJsonHeader = {//just-content-type
     'Content-Type': 'application/json'
 }
@@ -155,9 +146,3 @@ export const cjauthHeader = (auth)=>{//just-content-type
         }
     }
 }
-
-// export default {
-//     authHeader, ahchauthHeader, aacaauthHeader, caauthHeader, chauthHeader,
-//     avcoAuthcdHeader, cjajauhthHeader, ContentTypeAppJsonHeader, xcsrfCtAppJ,
-//     cjajcharsetauthHeader, cjajcsrfauthHeader
-// };

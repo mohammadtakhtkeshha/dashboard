@@ -1,5 +1,5 @@
 import loginImg from "../media/image/login.png";
-import {green, white, danger, darkBlue, light} from "../../components/partials/Colors";
+import {green, white, danger, grey} from "assets/js/library/abstracts/colors";
 import styled from "styled-components"
 import {StyledInput} from "./App";
 
@@ -90,14 +90,7 @@ export const InputBlock = styled.div`
 `
 
 export const StyledPasswordEye = styled.img`
-                       position: absolute;
-                       width:20px;
-                       height:20px;
-                       left:10px;
-                       top:0;
-                       bottom:0;
-                       margin:auto;
-                       cursor:pointer;
+                       
 `
 
 export const RememberBlock = styled.div`
@@ -220,9 +213,33 @@ export const StyledRegisterLoginButton = styled.button`
             }
 `
 
+export const StyledInputLogin = styled(StyledInput)`
+        direction:ltr!important;
+        &::placeholder{
+            text-align:right;
+        }
+        padding-left:35px;
+`
 
+export const StyledRelativeBlock = styled.div`
+        position:relative;
+        & span {
+            display:flex;
+            align-items:center;
+            position: absolute;
+            font-size:17px;
+            left:10px;
+            top:0;
+            bottom:0;
+            margin:auto;
+            cursor:pointer;
+        }
+`
 
-
+export const StyledSvgInput = styled.span`
+              color:${grey[10]};
+              font-family:icomoon!important;
+`
 
 
 

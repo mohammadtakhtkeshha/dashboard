@@ -1,6 +1,6 @@
-import * as colors from "components/partials/Colors";
+import * as colors from "assets/js/library/abstracts/colors";
 import styled from "styled-components";
-import {grey,black,green} from "components/partials/Colors";
+import {grey,black,green} from "assets/js/library/abstracts/colors";
 import {StyledNotScrollbar} from "../App";
 
 export const useStyles = (theme) => ({
@@ -85,7 +85,7 @@ export const StyledFlexColumn = styled.div`
 
 export const StyledFlexItemInside = styled.div`
              width:49%;
-            margin-top:15px;
+             margin-top:15px;
 `
 
 export const StyledRolesBlock = styled.div`
@@ -98,14 +98,7 @@ export const StyledInsideModalBody = styled.div`
         margin-bottom:120px;
 `
 
-export const StyledRegisterButton=styled.button`
-             color:${props => props.status === false ? grey[0] : black[1]};
-             &:hover{
-               color:${props => props.status === false ? grey[0] : green[0]};
-             }
-             font-size:21px;
-             font-weight:bold;
-`
+
 
 export const StyledRoleMargin = styled.div`
         margin-top:10px;

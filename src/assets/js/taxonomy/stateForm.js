@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {grey, black, green} from "components/partials/Colors"
+import {grey, black, green} from "assets/js/library/abstracts/colors"
 
 export const StyledMarginTop = styled.div`
         margin-top:30px;

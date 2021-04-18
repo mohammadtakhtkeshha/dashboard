@@ -4,7 +4,7 @@ export const StyledCarsoul = styled.div`
             width:100%;
             height:100%;
             margin:auto;
-            direction:ltr;
+            direction:ltr!important;
             & .react-multi-carousel-list {
                 margin:auto;
             }
@@ -19,6 +19,9 @@ export const StyledCarsoul = styled.div`
                 z-index:1!important;
             }
             & li {
+            }
+            & .react-multi-carousel-list  {
+                direction:ltr!important;
             }
 `
 

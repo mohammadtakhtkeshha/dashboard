@@ -1,4 +1,4 @@
-import {grey, green,white} from "../../components/partials/Colors";
+import {grey, green,white} from "assets/js/library/abstracts/colors";
 import styled from "styled-components";
 
 export const StyledPaginationBox = styled.div`

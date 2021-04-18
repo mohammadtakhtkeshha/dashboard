@@ -36,6 +36,10 @@ export const getDeleteEditTermUrl =(id)=>{
 
 }
 
+export const saveDragDropChangesStatesURL = (type) => {
+    return `${url}/api/rest/taxonomyordered/${type}`
+}
+
 export const registerStateUrl =`${url}/taxonomy/term?_format=json`
 
 // const url = process.env.REACT_APP_API_URL;

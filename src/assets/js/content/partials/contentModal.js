@@ -1,20 +1,31 @@
-import {white, green,grey} from "components/partials/Colors";
+import {white, green, grey} from "assets/js/library/abstracts/colors";
 import styled from "styled-components";
+
 
 export const useStyles = {
     modal: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        zIndex:'50!important',
+        zIndex: '50!important',
         '& .MuiBackdrop-root': {
             backgroundColor: 'white!important',
         },
         '& #modal': {
-            width: '100%',
-            minWidth: '100px',
-            marginTop: '5rem 5rem',
-            maxWidth: '1000px',
+            // height: 'calc(100vh - 100px)',
+            border: '0!important',
+            maxWidth: props=>props.maxWidth,
+            width: props=>props.width,
+            display: 'flex',
+            alignItems: 'center',
+            '&::-webkit-scrollbar': {
+                display: 'none'
+            },
+            msOverflowStyle: 'none',  /* IE and Edge */
+            scrollbarWidth: 'none',  /* Firefox */
+            '&:focus': {
+                outline: '0!important',
+            },
             '& .header': {
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -24,8 +35,7 @@ export const useStyles = {
                 right: 0,
                 height: '40px',
                 zIndex: '50',
-                backgroundColor: green[0],
-                '& .button': {
+                '& button': {
                     background: 'transparent',
                     cursor: 'pointer',
                     border: 0,
@@ -42,27 +52,19 @@ export const useStyles = {
                     color: white[0]
                 }
             },
-            '& .footer': {
-                // border: '1px solid red',
-                backgroundColor: green[0],
-            },
             '& .flexDirL': {
                 flexDirection: 'row-reverse'
             },
             '& .flexDirR': {
                 flexDirection: 'row'
-
-            }
-        },
-        '& #modalContentList' :{
-            width: '24%',
-            height:'auto',
-            '&:focus':{
-                outline:'0!important'
+            },
+            '& .body': {
+                marginTop: '16px',
             }
         }
     }
 }
+
 
 export const StyledFooterRegisterContent = styled.div`
                 background-color:${white[0]};
@@ -74,15 +76,6 @@ export const StyledFooterRegisterContent = styled.div`
                 border-top:1px solid ${grey[1]};
 `
 
-export const StyledCancelButton = styled.button`
-                position:absolute;
-                top:1rem;
-                right:1rem;
-                background-color:transparent;
-                border: 0!important;
-                &:focus{
-                    outline: 0!important;
-                }
-`
+
 
 

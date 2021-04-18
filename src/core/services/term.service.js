@@ -1,4 +1,4 @@
-import {Method} from "structure/layout";
+import {Method} from "infrastructure/layout";
 import {aacaauthHeader, ahchauthHeader} from "../../utils/headers";
 import {registerTermUrl,deleteTermUrl} from "../../utils/urls/term.urls";
 

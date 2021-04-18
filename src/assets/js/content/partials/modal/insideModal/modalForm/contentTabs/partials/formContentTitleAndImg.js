@@ -68,6 +68,10 @@ export const styledGridSoundsVideosImages = ()=>({
     }
 })
 
+export const StyledCheckboxBody = styled.div`
+            padding:10px;
+`
+
 export const StyledImgsInputBlock = styled.div`
  display: ${props=>props.showImgInputs ? 'flex' : 'none'}
  justify-content:space-between;

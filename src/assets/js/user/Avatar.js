@@ -4,6 +4,7 @@ export const badgeStyles=(theme) => ({
         backgroundColor: '#44b700',
         color: '#44b700',
         boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+        display: props => props.show === 'true' ? 'block' : 'none',
         '&::after': {
             position: 'absolute',
             top: 0,

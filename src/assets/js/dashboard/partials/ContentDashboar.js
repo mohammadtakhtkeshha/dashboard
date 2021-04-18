@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import {makeStyles} from "@material-ui/styles";
-import {blue, green, white} from "components/partials/Colors";
+import {blue, green, white} from "assets/js/library/abstracts/colors";
 
 export const useStyles = makeStyles((theme) => ({
     paper: {

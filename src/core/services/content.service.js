@@ -5,13 +5,13 @@ import {
     ahchauthHeader,
     authHeader,
     avcoAuthcdHeader,
-    caauthHeader, cjajauhthHeader,
+    caauthHeader, cjajauthHeader,
     cjajcharsetauthHeader,
     cjajcsrfauthHeader,
     cjcdajcsrfauth
 } from "utils/headers";
-import {Method} from "structure/layout";
-import storage from "../../libraries/local-storage";
+import {Method} from "infrastructure/layout";
+import storage from "libraries/local-storage";
 
 const auth = storage.get(process.env.REACT_APP_TOKEN_KEY);
 
@@ -23,7 +23,7 @@ export function getDomainSource() {
 export function getTags(handleError){
     let url = contentUrl.getTagsUrl;
     // return axios.get(url,authHeader);
-    return Method({method:'get',url:url,headers: authHeader,handleError:handleError});
+    return Method({method:'get',url:url,headers: authHeader(auth),handleError:handleError});
 }
 
 export function getNewsCategory(handleError) {
@@ -76,7 +76,7 @@ export function deleteContent(id,handleError) {
 
 export function getContent(id,handleError) {
     let url = contentUrl.getContentUrl(id);
-    return Method({method:'get',url:url,headers:authHeader,handleError:handleError});
+    return Method({method:'get',url:url,headers:authHeader(auth),handleError:handleError});
 
 }
 
@@ -88,22 +88,22 @@ export function registerContent(content,handleError) {
 
 export function editContent(content,id,handleError) {
     let url = contentUrl.editContentUrl(id);
-    return Method({method:'patch',url:url,headers:cjajauhthHeader,body:content,handleError:handleError});
+    return Method({method:'patch',url:url,headers:cjajauthHeader,body:content,handleError:handleError});
 }
 
 export function getContentTypeList(handleError) {
     let url = contentUrl.getContentTypeListUrl;
-    return Method({method:'get',headers:authHeader,url:url,handleError:handleError});
+    return Method({method:'get',headers:authHeader(auth),url:url,handleError:handleError});
 }
 
 export function getStates(handleError) {
     let url = contentUrl.getStatesUrl;
-    return Method({method:'get',headers:authHeader,url:url,handleError:handleError});
+    return Method({method:'get',headers:authHeader(auth),url:url,handleError:handleError});
 }
 
 export function getImagesCategory(handleError) {
     let url = contentUrl.getImagesCategoryUrl;
-    return Method({method:'get',headers:cjajauhthHeader,url:url,handleError:handleError});
+    return Method({method:'get',headers:cjajauthHeader,url:url,handleError:handleError});
 }
 
 export function handleContentAction(action, selectedCheckBoxes,handleError) {

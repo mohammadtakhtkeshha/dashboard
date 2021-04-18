@@ -1,4 +1,4 @@
-import {grey, white} from "components/partials/Colors"
+import {grey, white} from "assets/js/library/abstracts/colors"
 import styled from "styled-components"
 // import {isNum} from "react-toastify/dist/utils";
 

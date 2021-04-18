@@ -5,7 +5,6 @@ import {
     StyledNotScrollbar,
     Center,
     StyledSvg,
-    StyledDirection,
     MarginTop1,
     StyledValidError,
     StyledHead
@@ -25,7 +24,7 @@ import {
     StyledRadioButton,
     StyledBtn,
     StyledMultiButtonsBlock,
-    StyledRegisterButton,
+    StyledAddButton,
     StyledEditButton,
     StyledButton,
     StyledDefaultButton,
@@ -67,7 +66,7 @@ export {
     StyledRadioButton,
     StyledBtn,
     StyledMultiButtonsBlock,
-    StyledRegisterButton,
+    StyledAddButton,
     StyledEditButton,
     StyledButton,
     StyledDefaultButton,
@@ -96,7 +95,6 @@ export {
     StyledNotScrollbar,
     Center,
     StyledSvg,
-    StyledDirection,
     MarginTop1,
     StyledValidError,
     StyledHead

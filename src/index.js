@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Layout from './structure/layout.jsx';
+import 'assets/css/icons.css';
+import Layout from './infrastructure/layout.jsx';
+import "assets/new-svg/style.css"
 import * as serviceWorker from './serviceWorker';
-import {StyledDirection} from "./assets/js/App";
 
 ReactDOM.render(
   <>
-    <Layout/>
+      <Layout/>
   </>,
   document.getElementById('root')
 );

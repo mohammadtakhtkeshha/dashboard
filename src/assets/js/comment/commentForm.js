@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {grey} from "components/partials/Colors";
+import {grey} from "assets/js/library/abstracts/colors";
 import {StyledNotScrollbar} from "../App";
 
 export const StyledHeader = styled.div`
@@ -34,10 +34,7 @@ export const StyledFooter = styled.div`
 `
 
 export const StyledForm = styled(StyledNotScrollbar)`
-            padding:20px;
-            margin-top:70px;
-            // height:18rem;
-            overflow:scroll;
+           margin-bottom:120px;
 `
 
 export const styledGrid = () => ({
@@ -49,16 +46,7 @@ export const styledGrid = () => ({
 })
 
 export const StyledTextArea = styled.div`
-       // & div{
-       //     width: 100%;
-       //     border-radius: 10px;
-       //     border:1px solid ${grey[0]}
-       //     padding:10px;
-       //     box-sizing:border-box;
-       //     &:focus{
-       //      outline:0!important;
-       //     }
-       // }
+       margin-top:1rem;
        & .se-toolbar{
             display:none!important;
        }

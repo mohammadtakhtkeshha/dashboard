@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import {Box, Typography} from "@material-ui/core";
-import {white,grey,green,blue,black} from "components/partials/Colors";
+import {white,grey,green,blue,black} from "assets/js/library/abstracts/colors";
 
 export const useStyles = (theme) => ({
     // paper: {

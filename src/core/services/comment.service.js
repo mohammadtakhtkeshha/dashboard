@@ -2,7 +2,7 @@ import axios from "axios";
 import tagUrl from 'utils/urls/tag.urls';
 import {getPublishedCommentsUrl,getUnConfirmedCommentsUrl,deleteCommentUrl,
     multiActionStatusUrl,multiActionDeleteUrl,editCommentUrl} from "utils/urls/comment.url";
-import {Method} from "structure/layout";
+import {Method} from "infrastructure/layout";
 import {authHeader,cjcsrfauthHeader} from "utils/headers";
 import storage from "libraries/local-storage";
 

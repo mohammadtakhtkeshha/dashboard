@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {grey,green} from "components/partials/Colors";
+import {grey,green} from "assets/js/library/abstracts/colors";
 import {StyledDefaultButton} from "assets/js/App";
 
 export const StyledBackgroundColor= styled.div`

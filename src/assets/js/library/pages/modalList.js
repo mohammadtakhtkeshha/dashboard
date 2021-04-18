@@ -1,4 +1,4 @@
-import {black} from "components/partials/Colors"
+import {black} from "assets/js/library/abstracts/colors"
 import styled from "styled-components"
 
 export const listModalStyles = (theme) => ({

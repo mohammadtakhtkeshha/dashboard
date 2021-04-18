@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {blue, grey, white, green} from "components/partials/Colors";
+import {blue, grey, white, green} from "assets/js/library/abstracts/colors";
 
 export const StyledPowerBox = styled.div`
             background-color:${blue[8]};

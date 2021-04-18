@@ -1,6 +1,6 @@
-import {Method} from "structure/layout";
-import {authHeader, cjcsrfauthHeader} from "utils/headers";
-import {getMenusWebUrl,addMenuUrl,getMenusMobileUrl,getDeleteEditMenuUrl} from "utils/urls/menu.urls"
+import {Method} from "infrastructure/layout";
+import {authHeader, cjcsrfauthHeader,cjauthHeader} from "utils/headers";
+import {getMenusWebUrl,addMenuUrl,getMenusMobileUrl,getDeleteEditMenuUrl,saveDragDropChangesMenuURL} from "utils/urls/menu.urls"
 import storage from "libraries/local-storage"
 
 const auth = storage.get(process.env.REACT_APP_TOKEN_KEY)
@@ -12,6 +12,10 @@ export const getMenus = (type,handleError) => {
 
 export const deleteMenu = (id,handleError) => {
     return Method({method:'DELETE',url:getDeleteEditMenuUrl(id),headers: cjcsrfauthHeader,handleError:handleError});
+}
+
+export const saveDragDropChanges = (type,handleError,body) => {
+    return Method({method:'PATCH',url:saveDragDropChangesMenuURL(type),headers: cjauthHeader(auth),body:body,handleError:handleError});
 }
 
 export const editMenu = (handleError,body) => {

@@ -5,5 +5,7 @@
   "unconfirmedComments": "unconfirmed comments",
   "editComment": "edit comment",
   "sentIn": "sent in",
+  "commentInMonth": "number of comments in a month",
+  "commentsNum": "comments number",
   "commentBody": "comment"
 }

@@ -1,14 +1,14 @@
 import axios from "axios";
 import storage, {changeValueStorage} from "libraries/local-storage";
 import authUrl, {debugUrl, logOutUrl,csrfUrl} from 'utils/urls/auth.urls';
+import {Method} from "../../infrastructure/layout";
+import {authHeader} from "../../utils/headers";
 
-export function getLoginUser(access_token) {
-    let config = {
-        headers: {
-            Authorization: `Bearer ${access_token}`
-        }
-    }
-    return axios.get('http://dash.webrbp.ir/oauth/debug', config);
+export function getLoginUser(access_token,appContext) {
+    appContext.setLoading(true)
+    return Method({method:'get',url:'http://dash.webrbp.ir/oauth/debug',headers: authHeader(`Bearer ${access_token}`),handleError:appContext.handleError}).then(()=>{
+        appContext.setLoading(false)
+    });
 }
 
 export async function login(user) {
@@ -23,7 +23,6 @@ export async function login(user) {
 
     const loginResult = await axios.post(tokenUrl, body);
     const token = `Bearer ${loginResult.data.access_token}`;
-
     const config={
         headers:{
             'Authorization':token
@@ -37,7 +36,7 @@ export async function login(user) {
     return loginResult;
 }
 
-export async function loginTicketService() {debugger
+export async function loginTicketService() {
     const params = {
         action:'ValidateLogin',
         username:'sBnBbvTbSBpFfIWKeCycxDHNqh8U2vn6',
@@ -51,7 +50,7 @@ export async function loginTicketService() {debugger
         headers: {
             'Content-Type': 'multipart/form-data'
         }
-    }).then(()=>{debugger
+    }).then(()=>{
         storage.store('isLoginTicket', 'aasdfasd');
     })
 }

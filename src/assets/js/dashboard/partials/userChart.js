@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {white,blue,green} from "components/partials/Colors";
+import {white,blue,green} from "assets/js/library/abstracts/colors";
 import {StyledFigure} from "assets/js/library/abstracts/hicharts"
 
 export const StyledUserChartTitle=styled.div`
@@ -11,6 +11,6 @@ export const StyledUserChartTitle=styled.div`
 
 export const StyledFigureUser = styled(StyledFigure)`
                 #userchart{
-                    margin: 35px 0;
+                    margin: 0!important;
                 }
 `

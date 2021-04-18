@@ -2,7 +2,7 @@ export function store(key,object) {
     localStorage.setItem(key,object);
 }
 
-export function changeValueStorage(key,value) {debugger
+export function changeValueStorage(key,value) {
     localStorage.setItem(key,value);
 }
 

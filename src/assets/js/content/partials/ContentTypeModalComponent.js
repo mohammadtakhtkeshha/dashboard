@@ -21,7 +21,7 @@ import {StyledFooterRegisterContent} from "assets/js/content/contentRegisterModa
 import Fade from "@material-ui/core/Fade";
 
 import {StyledButton, StyledHead, StyledSvg} from "assets/js/App";
-import {primary} from "components/partials/Colors";
+import {primary} from "assets/js/library/abstracts/colors";
 import {ModalBody} from "assets/js/content/partials/contentModal";
 
 import NewContent from "./../new/index"

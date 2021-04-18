@@ -103,6 +103,11 @@
   "mobile": "mobile",
   "web": "web",
   "list": "list",
+  "complete": "complete",
+  "strict": "strict",
+  "logout": "logout",
+  "idNumber": "id",
+  "registeredChanges": "changes have been registered",
   "validPath": "your input must start with / and use - instead of space"
 
 }

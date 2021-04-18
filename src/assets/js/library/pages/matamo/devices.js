@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {white,grey} from "components/partials/Colors"
+import {white,grey} from "assets/js/library/abstracts/colors"
 
 export const StyledDeviceBox = styled.div`
           background-color:${white[0]};

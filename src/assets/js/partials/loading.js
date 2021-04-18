@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {green} from 'components/partials/Colors';
+import {green} from 'assets/js/library/abstracts/colors';
 
 export const StyledLoadingBox = styled.div`
             position: fixed;

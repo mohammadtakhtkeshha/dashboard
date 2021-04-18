@@ -1,4 +1,4 @@
-import {grey, green} from "components/partials/Colors";
+import {grey, green} from "assets/js/library/abstracts/colors";
 import styled from "styled-components"
 
 // export const styledCheckbox = {

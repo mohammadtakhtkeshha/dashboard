@@ -1,4 +1,3 @@
-
 body {
     background-color: #e7ebee;
 }
@@ -127,5 +126,3 @@ a {
 .swal-icon--warning__body,.swal-icon--warning__dot,.swal-icon--error__line,.swal-icon--success__line {
     background-color: white !important;
 }
-
-/*@import url('https://fonts.googleapis.com/css?family=Lato');*/

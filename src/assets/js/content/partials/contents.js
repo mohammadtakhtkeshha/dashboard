@@ -1,6 +1,6 @@
-import * as colors from "components/partials/Colors";
+import * as colors from "assets/js/library/abstracts/colors";
 import styled from "styled-components";
-import NewSvg from "../../../../assets/media/image/us.jpg"
+import NewSvg from "assets/media/image/us.jpg"
 
 export const useStyles = (theme) => ({
     contentBlock: {

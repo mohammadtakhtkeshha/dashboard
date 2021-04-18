@@ -1,5 +1,5 @@
 import {makeStyles} from "@material-ui/styles";
-import * as colors from "../../../../components/partials/Colors";
+import * as colors from "assets/js/library/abstracts/colors";
 
 export const useStyles = makeStyles((theme) => ({
     paper: {

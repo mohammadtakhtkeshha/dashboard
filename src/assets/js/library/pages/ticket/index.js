@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {blue, green, grey, purpel, white} from "../../../../../components/partials/Colors";
+import {blue, green, grey, purpel, white} from "assets/js/library/abstracts/colors";
 
 export const StyledTicketPaper= styled.div`
             margin:-64px -27px 0 -26px; 

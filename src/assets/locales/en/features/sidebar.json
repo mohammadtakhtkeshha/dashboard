@@ -24,7 +24,9 @@
   "keywords": "searched words in site",
   "lastVisit": "last visit detail",
   "realTime": "real time",
-  "permission": "permission",
+  "roles": "roles",
+  "permissions": "permissions",
+  "factors": "factors",
   "users": "users"
 
 

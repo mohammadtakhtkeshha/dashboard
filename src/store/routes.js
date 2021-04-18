@@ -1,24 +1,25 @@
-import BaseFormComponent from "../components/content/partials/BaseFormComponent";
-import CustomizedForm from "../components/content/partials/CustomizedForm";
-import BreadcrumbsComponent from './../components/header/BreadcrumbsComponent';
-import UsersComponent from '../components/content/user/index.jsx';
-import ContentsComponent from '../components/content/content/Index.jsx';
-import CommentsComponent from '../components/content/comment/Index.jsx';
-import DashboardComponent from '../components/content/dashboard/DashboardComponent';
-import TicketsComponent from '../components/content/ticket/Index.jsx';
-import TestComponent from '../components/content/test/Index.jsx';
-import TicketComponent from '../components/content/ticket/partials/TicketComponent.jsx';
-import MenuTypeComponent from '../components/content/menu/partials/MenuTypeComponent.jsx';
-import MenuComponent from '../components/content/menu/Index.jsx';
-import MatamoComponent from '../components/content/matamo/main/Index.jsx';
-import DevicesComponent from '../components/content/matamo/devices/Index.jsx';
-import MostSeenContent from '../components/content/matamo/mostSeen/Index.jsx';
-import Keywords from '../components/content/matamo/keywords/Index.jsx';
-import LastVisitDetail from '../components/content/matamo/lastVisitDetail/Index.jsx';
-import RealTime from '../components/content/matamo/realTime/Index.jsx';
-import VocabsComponent from "../components/content/taxonomy/Index.jsx";
-import TermsComponent from "../components/content/taxonomy/partials/partials/Index.jsx";
-import PermissionComponent from "components/content/permissions/Index.jsx";
+import BaseFormComponent from "features/partials/BaseFormComponent";
+import CustomizedForm from "features/partials/CustomizedForm";
+import BreadcrumbsComponent from 'infrastructure/authorized/header/BreadcrumbsComponent';
+import UsersComponent from 'features/user/index.jsx';
+import EditProfileComponent from 'features/user/partials/userDrawer/partials/editProfile/EditProfileComponent.jsx';
+import ContentsComponent from 'features/content/Index.jsx';
+import CommentsComponent from 'features/comment/Index.jsx';
+import DashboardComponent from 'features/dashboard/DashboardComponent';
+import TicketsComponent from 'features/ticket/Index.jsx';
+import TicketComponent from 'features/ticket/partials/TicketComponent.jsx';
+import FactorComponent from 'features/ticket/partials/factor/Index.jsx';
+import MenuTypeComponent from 'features/menu/partials/MenuTypeComponent.jsx';
+import MenuComponent from 'features/menu/Index.jsx';
+import MatamoComponent from 'features/matamo/main/Index.jsx';
+import DevicesComponent from 'features/matamo/devices/Index.jsx';
+import MostSeenContent from 'features/matamo/mostSeen/Index.jsx';
+import Keywords from 'features/matamo/keywords/Index.jsx';
+import LastVisitDetail from 'features/matamo/lastVisitDetail/Index.jsx';
+import RealTime from 'features/matamo/realTime/Index.jsx';
+import VocabsComponent from "features/taxonomy/Index.jsx";
+import TermsComponent from "features/taxonomy/partials/partials/Index.jsx";
+import RoleComponent from "features/user/partials/roles/Index.jsx";
 
 import React from "react";
 
@@ -33,11 +34,6 @@ export const routes = [
         path: '/custom',
         breadcrumbs: () => <BreadcrumbsComponent bread="فرم های سفارشی"/>,
         component: () => <CustomizedForm/>
-    },
-    {
-        path: '/users',
-        breadcrumbs: () => <BreadcrumbsComponent bread="users"/>,
-        component: () => <UsersComponent/>
     },
     {
         path: '/comments',
@@ -62,18 +58,19 @@ export const routes = [
         path: '/menu',
         breadcrumbs: () => <BreadcrumbsComponent bread="menu"/>,
         component: () => <MenuTypeComponent/>
+    },{
+        path: '/ticket/factors',
+        breadcrumbs: () => <BreadcrumbsComponent bread="factors"/>,
+        component: () => <FactorComponent/>
     }, {
         path: '/ticket/:id',
         breadcrumbs: () => <BreadcrumbsComponent bread="support"/>,
         component: () => <TicketComponent/>
-    }, {
+    },
+    {
         path: '/ticket',
         breadcrumbs: () => <BreadcrumbsComponent bread="support"/>,
         component: () => <TicketsComponent/>
-    }, {
-        path: '/test',
-        breadcrumbs: () => <BreadcrumbsComponent bread="support"/>,
-        component: () => <TestComponent/>
     },
     {
         path: '/taxonomy/:type',
@@ -132,9 +129,18 @@ export const routes = [
         component: () => <DashboardComponent isLoginSuccess={false}/>
     },
     {
-        path: '/permissions',
-        breadcrumbs: () => <BreadcrumbsComponent bread="home"/>,
-        component: () => <PermissionComponent isLoginSuccess={false}/>
+        path: '/users/roles',
+        breadcrumbs: () => <BreadcrumbsComponent bread="roles"/>,
+        component: () => <RoleComponent isLoginSuccess={false}/>
+    },
+    {
+        path: '/users',
+        breadcrumbs: () => <BreadcrumbsComponent bread="users"/>,
+        component: () => <UsersComponent/>
+    },{
+        path: '/edit-profile',
+        breadcrumbs: () => <BreadcrumbsComponent bread="editProfile"/>,
+        component: () => <EditProfileComponent/>
     },
     {
         path: '/',

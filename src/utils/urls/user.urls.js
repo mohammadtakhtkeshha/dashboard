@@ -24,6 +24,5 @@ export const  getNotPaginateUserUrl = `${baseUrl}/api/users/all`;
 
 export const imgUrlForRegisterUser = `${baseUrl}`;
 
-export default {
-    deleteUserAndGetUserForEditUrl,getRolesUrl,getUsersUrl,multiActionUrl,getUserUrl,registerUserUrl,saveUserImageUrl,getNotPaginateUserUrl
-}
+export const changePassUrl = `${baseUrl}/api/rest/userpass`;
+

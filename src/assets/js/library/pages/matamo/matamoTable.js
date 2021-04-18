@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {grey,white,green} from "components/partials/Colors"
+import {grey,white,green} from "assets/js/library/abstracts/colors"
 
 export const StyledMatamoTable=styled.div`
                 display:flex;

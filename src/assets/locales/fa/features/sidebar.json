@@ -24,6 +24,8 @@
   "keywords": "کلمات جستجوشده در سایت",
   "lastVisit": "جزییات آخرین بازدید",
   "realTime": "در لحظه",
-  "permission": "دسترسی ها",
+  "roles": "نقش ها",
+  "permissions": "دسترسی ها",
+  "factors": "فاکتور ها",
   "users": "کاربران"
 }

@@ -20,6 +20,8 @@ import menuFa from 'assets/locales/fa/features/menu.json';
 import menuEn from 'assets/locales/en/features/menu.json';
 import matamoEn from 'assets/locales/en/features/matamo.json';
 import matamoFa from 'assets/locales/fa/features/matamo.json';
+import roleFa from 'assets/locales/fa/features/roles.json';
+import roleEn from 'assets/locales/en/features/roles.json';
 //localstorage
 import storage from 'libraries/local-storage'
 
@@ -35,6 +37,7 @@ const resources = {
         tickets:ticketsEn,
         menu:menuEn,
         matamo:matamoEn,
+        roles:roleEn,
     },
     fa:{
         comments:commentsFa,
@@ -46,6 +49,7 @@ const resources = {
         tickets:ticketsFa,
         menu:menuFa,
         matamo:matamoFa,
+        roles:roleFa,
     }
 };
 

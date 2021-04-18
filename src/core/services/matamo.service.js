@@ -1,5 +1,4 @@
-import {Method} from "structure/layout";
-import {authHeader} from "utils/headers";
+import {Method} from "infrastructure/layout";
 
 
 export const baseUrlMatamo = 'https://foroshgahsaz.ir/matomo/index.php'

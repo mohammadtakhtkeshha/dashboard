@@ -6,6 +6,7 @@
   "role": "role",
   "username": "username",
   "usersList": "users list",
+  "usersNum": "users number",
   "enter your name": "enter you name",
   "enter your family": "enter you last name",
   "enter your username": "enter you username",
@@ -22,5 +23,15 @@
   "usersStatistic": "registered users statistic",
   "registerNow": "register now?",
   "notAcount": "don't have an acount?",
+  "changePassword": "change password",
+  "observeProfile": "observe profile",
+  "exPassword": "previous password",
+  "enterExPassword": "enter previous password",
+  "newPassword": "new password",
+  "enterNewPassword": "enter new password",
+  "reNewPassword": "repeat new password",
+  "enterReNewPassword": "reEnter new password",
+  "wrongExpassword": "expassword is not correct",
+  "harmonyPass": "passwords don't match",
   "editUser": "edit user"
 }
