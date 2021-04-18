@@ -1,4 +1,4 @@
-import {getFactors} from "core/factor.service";
+import {getFactors} from "core/services/factor.service";
 
 export const getFactorsMethod = (appContext,setFactors,clientId) => {
     appContext.setLoading(true)

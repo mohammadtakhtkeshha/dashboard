@@ -1,6 +1,6 @@
-import {Method} from "../infrastructure/layout";
-import {registerTermUrl} from "../utils/urls/term.urls";
-import {aacaauthHeader,cmHeader} from "../utils/headers";
+import {Method} from "infrastructure/layout";
+import {registerTermUrl} from "utils/urls/term.urls";
+import {aacaauthHeader,cmHeader} from "utils/headers";
 
 export const getFactors = (handleError,clientId) => {
     let formData = new FormData();
