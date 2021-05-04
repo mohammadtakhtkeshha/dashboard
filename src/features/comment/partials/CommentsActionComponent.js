@@ -1,5 +1,5 @@
 import {multiActionRequest} from "core/services/comment.service";
-import {danger, success} from "methods/swal";
+import {success} from "methods/swal";
 
 const body = (action, selectedCheckBoxes) => {
     let data = [];
@@ -33,7 +33,7 @@ export const multiAction = (t, action, appContext,commentStatus, publishedCommen
     const data = body(action, selectedCheckBoxes);
     multiActionRequest(data, appContext.handleError,action).then((response) => {
         appContext.setLoading(false);
-        selectedCheckBoxes.map((id) => {
+        selectedCheckBoxes.forEach(id => {
             let comments=commentStatus === 'published' ? publishedComments : unconfirmedComments;
             if (action === 'delete') {
                 const currentComment = comments.filter(comment => comment.cid === id);
@@ -62,6 +62,7 @@ export const multiAction = (t, action, appContext,commentStatus, publishedCommen
                 }
             }
         });
+        
         success(t('translation:successDone'), t('translation:ok'));
     });
 }

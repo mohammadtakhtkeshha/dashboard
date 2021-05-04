@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from "react"
+import React, {useState, useEffect, useContext, useCallback} from "react"
 import {withNamespaces} from 'react-i18next'
 
 import {Grid, Box, withStyles} from "@material-ui/core"
@@ -8,7 +8,6 @@ import {StyledInput, StyledTypographyError} from "assets/js/App"
 import {StyledLabel, styledTextField} from "assets/js/App"
 import {styledGrid, styledGridFromReply} from "assets/js/ticket/ticketRegister"
 import UploadImgComponent from "infrastructure/authorized/partials/UploadImgPreviewComponent.jsx"
-import storage from 'libraries/local-storage'
 import EditorComponent from "infrastructure/authorized/partials/EditorComponent.jsx"
 import {getOrderListMethod, handleErrorsMethod} from "./../Index.js";//uploadimg method
 import AppContext from "contexts/AppContext"
@@ -57,16 +56,8 @@ function BodyFormComponent({t, departemanList, setPreviewUrl, previewUrl, ticket
         })
     }
 
-    const getOrderList = () => {
-        getOrderListMethod(appContext, setOrderList)
-    }
-
     const changePriority = (e) => {
         changePriorityMethod(e, setTicket)
-    }
-
-    const handleErrors = () => {
-        handleErrorsMethod(openForm.id, setErrors, t)
     }
 
     const setAction = () => {
@@ -77,13 +68,16 @@ function BodyFormComponent({t, departemanList, setPreviewUrl, previewUrl, ticket
     }
 
     useEffect(() => {
-        getOrderList();
+        getOrderListMethod(appContext, setOrderList)
+    }, [])
+
+    useEffect(() => {
         setAction()
     }, [])
 
     useEffect(() => {
-        handleErrors();
-    }, [openForm.id])
+        handleErrorsMethod(openForm.id, setErrors, t)
+    }, [])
 
     return (
         <Box m={3}>

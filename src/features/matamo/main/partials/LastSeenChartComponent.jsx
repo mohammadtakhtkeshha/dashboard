@@ -14,7 +14,7 @@ function LastSeenChartComponent({t}) {
 
     useEffect(() => {
         getLastSeenMethod(t, setLastSeen,appContext);
-    }, []);
+    }, [appContext,t]);
 
     return (
         <>

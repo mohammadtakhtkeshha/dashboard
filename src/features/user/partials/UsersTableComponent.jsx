@@ -1,17 +1,17 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
-import {withNamespaces} from "react-i18next";
-import i18next from "i18next";
+import React, {useContext, useEffect, useRef, useState} from "react"
+import {withNamespaces} from "react-i18next"
+import i18next from "i18next"
 
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MoreVertIcon from '@material-ui/icons/MoreVert'
 
-import userImg from "assets/media/image/user.jpg";
-import AppContext from "contexts/AppContext";
-import {deleteUser} from "core/services/user.service";
-import {danger, success, warning} from "methods/swal";
-import storage from "libraries/local-storage";
+import userImg from "assets/media/image/user.jpg"
+import AppContext from "contexts/AppContext"
+import {deleteUser} from "core/services/user.service"
+import {danger, success, warning} from "methods/swal"
+import storage from "libraries/local-storage"
 import {StyledTr, StyledTableHeadTr, StyledTable, StyledTableImg,StyledCheckboxImgInTable,StyledTableCell} from "assets/js/library/components/table"
 import {StyledBtn,StyledStatusButton} from "assets/js/library/components/buttons"
-import StyledCheckboxComponent from "infrastructure/authorized/partials/StyledCheckboxComponent";
+import StyledCheckboxComponent from "infrastructure/authorized/partials/StyledCheckboxComponent"
 import {
     StyledDetailBlock,
     StyledMoreIconBlock,
@@ -19,110 +19,107 @@ import {
     DetailTableRow,
     DetailTableCell,
     StyledTableCellDetail,
-} from "assets/js/user/partials/userTable";
-import {StyledActionButtons, StyledActionsBlock} from "assets/js/library/components/buttons";
-import deleteIcon from "assets/svg/delete.png";
-import editIcon from "assets/svg/edit.png";
+} from "assets/js/user/partials/userTable"
+import {StyledActionButtons, StyledActionsBlock} from "assets/js/library/components/buttons"
+import deleteIcon from "assets/svg/delete.png"
+import editIcon from "assets/svg/edit.png"
 
 function UsersTableComponent({t, page, roles, openUserForm, setOpenUserForm, valueRoles, chunkUsers, setSelectedCheckBoxes, passChunckUserList, passTotalPage, perPage, chunckUserHandler, selectedCheckBoxes, users, handlePagination, keyRoles}) {
-    let id = '';
-    const lang = i18next.language;
-    const anchorRef = useRef(null);
-    const [openDetail, setOpenDetail] = useState(false);
-    const prevOpenDetail = useRef(openDetail);
-    const node = useRef(id);
-    const appContext = useContext(AppContext);
-    const loginedUser = JSON.parse(storage.get('user'));
-    const [showUserDetail, setShowUserDetail] = useState('');
+    let id = ''
+    const lang = i18next.language
+    const anchorRef = useRef(null)
+    let openDetail = false
+    const prevOpenDetail = useRef(openDetail)
+    const node = useRef(id)
+    const appContext = useContext(AppContext)
+    const loginedUser = JSON.parse(storage.get('user'))
+    const [showUserDetail, setShowUserDetail] = useState('')
 
     const handleUserDetail = (e) => {
-        const id = e.currentTarget.value;
-        setShowUserDetail(id);
-    };
+        const id = e.currentTarget.value
+        setShowUserDetail(id)
+    }
 
     const clickOutSide = e => {
         if (node.current !== "" && node.current !== null && node.current.contains(e.target)) {
-            setShowUserDetail(true);
-            return;
+            setShowUserDetail(true)
+            return
         }
-        setShowUserDetail(false);
-    };
+        setShowUserDetail(false)
+    }
 
     const handleEditFormOpen = (e) => {
-        const id = e.currentTarget.value;
-        setOpenUserForm({show: true, id: id});
-    };
+        const id = e.currentTarget.value
+        setOpenUserForm({show: true, id: id})
+    }
 
     const allCheckboxHandler = (e) => {
-        let isChecked = e.currentTarget.checked;
-        let currentUserList = chunkUsers[page];
-        let ids = currentUserList !== undefined ? currentUserList.map(user => user.user_id) : [];
+        let isChecked = e.currentTarget.checked
+        let currentUserList = chunkUsers[page]
+        let ids = currentUserList !== undefined ? currentUserList.map(user => user.user_id) : []
         if (!isChecked) {
             setSelectedCheckBoxes(
                 []
-            );
+            )
         } else {
             setSelectedCheckBoxes(
                 [...ids]
-            );
+            )
         }
 
-    };
+    }
 
     const isCheckedHandler = (e, user) => {
-        let currentId = user.user_id;
+        let currentId = user.user_id
         if (e.currentTarget.checked) {
             setSelectedCheckBoxes(
                 [...selectedCheckBoxes, currentId]
-            );
+            )
         } else {
-            let filteredSelected = selectedCheckBoxes.filter(item => item !== currentId);
+            let filteredSelected = selectedCheckBoxes.filter(item => item !== currentId)
             setSelectedCheckBoxes(
                 [...filteredSelected]
-            );
+            )
         }
-    };
+    }
 
     const delUser = (id) => {
-        appContext.setLoading(true);
-        let loginUserId = loginedUser.id;
+        appContext.setLoading(true)
+        let loginUserId = loginedUser.id
         if (id === loginUserId) {
-            danger(t('translation:loginDelete'), t('translation:ok'));
-            return;
+            danger(t('translation:loginDelete'), t('translation:ok'))
+            return
         }
-        deleteUser(id).then((response) => {
-            appContext.setLoading(false);
-            let selectedUser = users.filter(user => user.user_id === id);
-            let selectedUserIndex = users.indexOf(selectedUser[0]);
-            users.splice(selectedUserIndex, 1);
-            handlePagination(users, true);
-            success(t('translation:deletedSuccessfully'), t('translation:ok'));
-
-        }).catch((error) => {
-            appContext.handleError(error);
-        });
-    };
+        deleteUser(id,appContext.handleError).then((response) => {
+            appContext.setLoading(false)
+            let selectedUser = users.filter(user => user.user_id === id)
+            let selectedUserIndex = users.indexOf(selectedUser[0])
+            users.splice(selectedUserIndex, 1)
+            handlePagination(users, true)
+            success(t('translation:deletedSuccessfully'), t('translation:ok'))
+        })
+    }
 
     const confirmDeleteHandler = (e) => {
-        let id = e.currentTarget.value;
+        let id = e.currentTarget.value
         warning(t('translation:sureQuestion'), t('translation:ok'), t('translation:cancel'), t('translation:notDone'), function () {
             delUser(id)
-        });
-    };
+        })
+    }
 
     useEffect(() => {
         if (prevOpenDetail.current === true && openDetail === false) {
-            anchorRef.current.focus();
+            anchorRef.current.focus()
         }
-        prevOpenDetail.current = openDetail;
-    }, [openDetail]);
+        prevOpenDetail.current = openDetail
+    }, [openDetail])
 
     useEffect(() => {
-        document.addEventListener("mousedown", clickOutSide);  // return function to be called when unmounted
+        document.addEventListener("mousedown", clickOutSide)  // return function to be called when unmounted
         return () => {
-            document.removeEventListener("mousedown", clickOutSide);
-        };
-    }, [node]);
+            document.removeEventListener("mousedown", clickOutSide)
+        }
+    }, [node])
 
     return (<StyledTable>
                 <StyledTableHeadTr>
@@ -155,7 +152,7 @@ function UsersTableComponent({t, page, roles, openUserForm, setOpenUserForm, val
                                         />
                                         <StyledTableImg>
                                             {user.picture ? <img src={user.picture} alt="user.name"/> :
-                                                <img src={userImg}/>}
+                                                <img src={userImg} alt={user.name}/>}
                                         </StyledTableImg>
                                     </StyledCheckboxImgInTable>
                                 </StyledTableCell>
@@ -229,7 +226,7 @@ function UsersTableComponent({t, page, roles, openUserForm, setOpenUserForm, val
                         <StyledTableCell colSpan="6" align="right">{t('translation:notFoundRecord')}
                         </StyledTableCell>
                     </StyledTr>)}
-            </StyledTable>);
+            </StyledTable>)
 }
 
-export default withNamespaces('users, translation')(UsersTableComponent);
+export default withNamespaces('users, translation')(UsersTableComponent)

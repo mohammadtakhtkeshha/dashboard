@@ -1,6 +1,5 @@
 import React, {useState} from "react"
 import {withNamespaces} from "react-i18next"
-import i18next from "i18next"
 
 import {makeStyles} from "@material-ui/styles"
 import {Backdrop,Box,Modal} from "@material-ui/core"
@@ -24,7 +23,6 @@ import {constSteps} from "./Index.js"
 const useStyle = makeStyles(modalClasses)
 
 function Index({t, openForm, setOpenForm, handleCloseForm, states, errors, setErrors, category, setCategory, setStates, closeForm, getStates, type, setExpandedFilter}) {
-    let lang = i18next.language
     const classes = useStyle({maxWidth:'700px'})
     const steps = constSteps;
     const [isTourOpen, setIsTourOpen] = useState(false);

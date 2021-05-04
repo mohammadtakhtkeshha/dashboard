@@ -1,8 +1,4 @@
 import {getStates, getState} from "core/services/taxonomy/partials/category.taxonomy.service";
-import {chunkItem, handleTotalPage} from "infrastructure/layout"
-
-let arr = ["root"]
-
 
 export const getStatesMethod = (handleError, setStates, type) => {
     getStates(handleError, type).then((response) => {
@@ -24,10 +20,10 @@ export const handlePaginationMethod = (currentStates, setStates, setTotalPage, s
     //     id: 'root',
     //     title: t('taxonomy:categories'), children: currentStates
     // })
-    const chunks = chunkItem(currentStates);
+    // const chunks = chunkItem(currentStates);
     // const total = handleTotalPage(currentStates);
     // setTotalPage(total);
-    let currentChunks = []
+    // let currentChunks = []
     // for (let chunk of chunks) {
     //     currentChunks.push({
     //         id: 'root',

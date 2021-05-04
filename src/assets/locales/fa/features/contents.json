@@ -28,6 +28,7 @@
   "chooseUnpublishDate":"تاریخ عدم انتشار را انتخاب کنید",
   "nullTitle":"!فیلد عنوان خالی میباشد",
   "unPublishAfterPublishError":"تاریخ زمان عدم انتشار باید بعد از زمان انتشار باشد!",
+  "firstPulishDateThenUnpublish":"ابتدا زمان انتشار را انتخاب کنید!",
   "furtherDate":"زمان انتخاب شده مربوط به گذشته میباشد!",
   "chooseContentType":"لطفا نوع محتوا را انتخاب کنید",
   "title&picture": "عنوان و عکس",

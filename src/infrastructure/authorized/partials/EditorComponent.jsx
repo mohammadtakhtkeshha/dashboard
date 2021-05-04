@@ -8,7 +8,7 @@ import 'suneditor/dist/css/suneditor.min.css';
 import { Box} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 
-import contentService from "core/services/content.service";
+import {uploadSingImg} from "core/services/content.service";
 import {editorStyle} from "assets/js/partials/editorStyle";
 import AppContext from "contexts/AppContext";
 import {previewImgInEditorMethod} from "./EditorComponent.js";
@@ -25,7 +25,7 @@ function EditorComponent({t, title, value, onClick}) {
 
     const beforeUploading = (files, info, uploadHandler) => {
         const uploadFile = files[0];
-        contentService.uploadSingImg(files[0], appContext.handleError).then((response) => {
+        uploadSingImg(files[0], appContext.handleError).then((response) => {
             const str = response.data.uri[0].url;
             const baseUrl = process.env.REACT_APP_PICTURE_URL;
             src = baseUrl + str;

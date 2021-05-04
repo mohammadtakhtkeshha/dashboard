@@ -1,11 +1,11 @@
-import contentService from "core/services/content.service";
+import {uploadSingImg} from "core/services/content.service";
 import {getOrders} from "core/services/ticket.service";
 
 export const uploadImgMethod = (e, multiple, setTicket, setImgsAndUrls, appContext) => {
     appContext.setLoading(true);
     if (e.length > 0) {
         for (let file of e) {
-            contentService.uploadSingImg(file, appContext.handleError).then((response) => {
+            uploadSingImg(file, appContext.handleError).then((response) => {
                 appContext.setLoading(false);
                 let item = response.data;
                 let url = 'http://sitesazyas.rbp' + item.uri[0].url;

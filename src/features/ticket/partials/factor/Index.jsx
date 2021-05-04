@@ -3,7 +3,7 @@ import {withNamespaces} from "react-i18next";
 
 import storage from "libraries/local-storage";
 import {StyledTicketPaper} from "assets/js/library/pages/ticket";
-import LoginComponent from "infrastructure/unauthorized/LoginComponent.jsx";
+import LoginComponent from "infrastructure/unauthorized/login/LoginComponent.jsx";
 import FactorsComponent from "./partials/FactorsComponent.jsx"
 
 export function Index() {

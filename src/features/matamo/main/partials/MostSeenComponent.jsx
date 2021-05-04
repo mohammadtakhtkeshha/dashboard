@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from "react"
+import React, {useEffect, useState, useContext, useCallback} from "react"
 import {withNamespaces} from "react-i18next"
 
 import {getMostSeenContentMethod} from "./MostSeenComponent.js"
@@ -20,17 +20,17 @@ import {StyledMatamoLeftHeadMostSeen} from "assets/js/library/pages/matamo/mostS
 import {Typography} from "@material-ui/core"
 import i18next from "i18next"
 import {NavLink} from "react-router-dom";
-import ListItemText from "@material-ui/core/ListItemText";
-import {StyledLi} from "assets/js/SidebarContent";
 
 function Index({t}) {
     const lang = i18next.language
     const appContext = useContext(AppContext)
     const [mostSeen, setMostSeen] = useState([])
 
+    const getMostSeenContent = useCallback(getMostSeenContentMethod(appContext, setMostSeen),[appContext])
+
     useEffect(() => {
-        getMostSeenContentMethod(appContext, setMostSeen)
-    }, [])
+        getMostSeenContent()
+    }, [getMostSeenContent])
 
     return (
         <StyledTableParent length={mostSeen.length}>

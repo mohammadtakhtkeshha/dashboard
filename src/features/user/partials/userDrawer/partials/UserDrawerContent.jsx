@@ -19,8 +19,8 @@ import {
 } from "assets/js/user/UserDrawerContent"
 import AvatarComponent from "infrastructure/authorized/partials/AvatarComponent.jsx"
 import AppContext from "contexts/AppContext"
-import sinusSvg from "assets/svg/Vector_Smart _Object.svg"
-import authSevice from "core/services/auth.service"
+import sinusSvg from "assets/svg/sinusSvg.svg"
+import {logout} from "core/services/auth.service"
 import ObserveProfileModal from "./modal/ChangePasswordModal.jsx"
 
 const useStyles = makeStyles(UserDrawerContentStyle)
@@ -42,7 +42,7 @@ function ProfileContentComponent({t}) {
     }
 
     const logoutHandle = () => {
-        authSevice.logout(history)
+        logout(history)
         closeDrawer()
     }
 

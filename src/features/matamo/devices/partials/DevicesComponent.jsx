@@ -1,11 +1,11 @@
-import React, {useEffect, useState, useContext} from "react"
-import {withNamespaces} from "react-i18next"
+import React, { useEffect, useState, useContext, useCallback } from "react"
+import { withNamespaces } from "react-i18next"
 import i18next from "i18next";
 
-import {Typography} from "@material-ui/core"
+import { Typography } from "@material-ui/core"
 import Pagination from "@material-ui/lab/Pagination";
 
-import {getDevicesMethod, handlePaginationMethod} from "./DevicesComponent.js"
+import { getDevicesMethod, handlePaginationMethod } from "./DevicesComponent.js"
 import AppContext from "contexts/AppContext"
 import {
     StyledTableParent,
@@ -16,39 +16,40 @@ import {
     StyledMatamoTableRow,
     StyledMatamoTableHeadRow
 } from "assets/js/library/pages/matamo/matamoTable"
-import {StyledTableCell} from "assets/js/library/components/table"
-import {StyledPaginationBox} from "assets/js/pagination";
+import { StyledTableCell } from "assets/js/library/components/table"
+import { StyledPaginationBox } from "assets/js/pagination";
 
-function DevicesComponent({t}) {
+function DevicesComponent({ t }) {
     const appContext = useContext(AppContext)
     const [page, setPage] = useState(0)
     const lang = i18next.language
     let leftRightAlign = lang === "en" ? "left" : "right"
     const [devices, setDevices] = useState([
-        {label: "negar", nb_visits: "visits"},
-        {label: "negar", nb_visits: "visits"},
-        {label: "negar", nb_visits: "visits"},
-        {label: "negar", nb_visits: "visits"},
-        {label: "negar", nb_visits: "visits"},
-        {label: "negar", nb_visits: "visits"},
-        {label: "negar", nb_visits: "visits"},
-        {label: "negar", nb_visits: "visits"},
-        {label: "negar", nb_visits: "visits"},
+        { label: "negar", nb_visits: "visits" },
+        { label: "negar", nb_visits: "visits" },
+        { label: "negar", nb_visits: "visits" },
+        { label: "negar", nb_visits: "visits" },
+        { label: "negar", nb_visits: "visits" },
+        { label: "negar", nb_visits: "visits" },
+        { label: "negar", nb_visits: "visits" },
+        { label: "negar", nb_visits: "visits" },
+        { label: "negar", nb_visits: "visits" },
     ])
     const [chunks, setChunks] = useState([])
     const [totalPage, setTotalPage] = useState(0)
 
     const handlePagination = (items) => {
-        handlePaginationMethod(items, setChunks, setTotalPage,setDevices)
+        handlePaginationMethod(items, setChunks, setTotalPage, setDevices)
     }
 
     const paginate = (e, value) => {
         setPage(value - 1);
     }
-
+    const getDevices = useCallback(getDevicesMethod(appContext, setDevices, handlePagination), [])
+    
     useEffect(() => {
-        getDevicesMethod(appContext,setDevices,handlePagination)
-    }, [])
+        getDevices()
+    }, [getDevices])
 
     return (<>
         <StyledTableParent length={devices.length}>
@@ -59,16 +60,16 @@ function DevicesComponent({t}) {
                         <StyledTableCell width="95" align={leftRightAlign}>{t('translation:type')}</StyledTableCell>
                         <StyledTableCell minWidth="50" width="5" align="center">{t('matamo:visits')}</StyledTableCell>
                     </StyledMatamoTableHeadRow>
-                        {chunks.length > 0  && chunks[page].map((device, index) =>
-                            <StyledMatamoTableRow key={index}>
-                                <StyledTableCell width="95" align={leftRightAlign}>  {device.label}</StyledTableCell>
-                                <StyledTableCell minWidth="50" width="5" align="center"> {device.nb_visits} </StyledTableCell>
-                            </StyledMatamoTableRow>
-                        )}
+                    {chunks.length > 0 && chunks[page].map((device, index) =>
+                        <StyledMatamoTableRow key={index}>
+                            <StyledTableCell width="95" align={leftRightAlign}>  {device.label}</StyledTableCell>
+                            <StyledTableCell minWidth="50" width="5" align="center"> {device.nb_visits} </StyledTableCell>
+                        </StyledMatamoTableRow>
+                    )}
                 </StyledMatamoTable>
             </StyledTablePaper>
             <StyledPaginationBox>
-                <Pagination count={(totalPage)} onChange={paginate}/>
+                <Pagination count={(totalPage)} onChange={paginate} />
             </StyledPaginationBox>
         </StyledTableParent>
     </>)

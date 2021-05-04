@@ -1,6 +1,5 @@
 import {success, warning} from "methods/swal";
 import {deleteComment, getComment, multiActionRequest} from "core/services/comment.service";
-import {reverseDateString} from "methods/commons";
 
 export const isHandlerMethod=(e,cid,selectedCheckBoxes,setSelectedCheckBoxes)=>{
     const status = e.currentTarget.checked;

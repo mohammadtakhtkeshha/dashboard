@@ -15,7 +15,6 @@ import {StyledInsideModalBody} from "assets/js/user/newUser"
 import {StyledRegisterButton} from "assets/js/library/components/buttons"
 import {isObjectEmpty} from "methods/commons"
 import {styledGridItem} from "assets/js/library/pages/user/profile"
-import storage from "libraries/local-storage"
 import {registerChangePassMethod} from "../ChangePasswordModal.js"
 import AppContext from "contexts/AppContext"
 import {setUserName,changePassMethod,changeConfirmPassMethod} from "./ChangePasswordComponent.js";
@@ -27,8 +26,6 @@ function ChangePasswordComponent({t, setOpenObserveProfile}) {
     const [data, setData] = useState({username: "", oldPassword: "", newPassword: ""})
     const [confirmPass, setConfirmPass] = useState('')
     const lang = i18next.language
-    const currentUser = JSON.parse(storage.get('user'))
-    console.log(errors)
     const appContext = useContext(AppContext)
 
     const changePass = (e, field) => {

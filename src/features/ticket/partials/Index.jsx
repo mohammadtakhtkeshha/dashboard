@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react"
+import React, {useContext, useEffect, useState,useCallback} from "react"
 import {Helmet} from "react-helmet"
 import {withNamespaces} from 'react-i18next'
 
@@ -6,7 +6,7 @@ import Pagination from "@material-ui/lab/Pagination"
 
 import {StyledPaginationBox} from "assets/js/pagination"
 import AppContext from "contexts/AppContext"
-import {StyledPaper, StyledBox} from "assets/js/App"
+import { StyledBox} from "assets/js/App"
 import TicketTableComponent from "./TicketsTableComponent.jsx"
 import TicketHeaderComponent from "./TicketHeaderComponent.jsx"
 import TicketFilterComponent from "./TicketFilterComponent.jsx"
@@ -18,7 +18,6 @@ import {
     getClientIdMethod,
     handlePaginationMethod
 } from "./Index.js";
-import storage from "libraries/local-storage";
 
 function Index({t}) {
     const appContext = useContext(AppContext)
@@ -33,8 +32,6 @@ function Index({t}) {
     const [previewUrl, setPreviewUrl] = useState([])
     const [chosenDepartment, setChosenDepartment] = useState('')
     const [expandedFilter, setExpandedFilter] = useState(false)
-
-    const currentUser = JSON.parse(storage.get('user'))
 
     const handlePagination = (tickets, changeDefault) => {
         handlePaginationMethod(tickets, changeDefault, setChunkTickets, setTotalPage, setTickets)
@@ -55,14 +52,13 @@ function Index({t}) {
         setPreviewUrl([])
     }
 
-    const getClientId = () => {
-        getClientIdMethod(setTicket, currentUser, setTicket)
-    }
+    useEffect(() => {
+        getDepartmenListMethod(appContext, setDepartemanList)
+        getTicketsMethod(appContext, setTickets, handlePagination)
+    }, [])
 
     useEffect(() => {
-        getTicketsMethod(appContext, setTickets, handlePagination)
-        getDepartmenListMethod(appContext, setDepartemanList)
-        getClientId()
+        getClientIdMethod(setTicket)
     }, [])
 
     return (

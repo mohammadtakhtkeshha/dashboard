@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
 
-import {Box, Typography} from "@material-ui/core";
+import {Box} from "@material-ui/core";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";

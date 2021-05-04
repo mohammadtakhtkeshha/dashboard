@@ -1,27 +1,27 @@
-import React, {useEffect, useState, useContext} from "react"
-import {withNamespaces} from "react-i18next"
+import React, { useEffect, useState, useContext, useCallback } from "react"
+import { withNamespaces } from "react-i18next"
 
 import i18next from "i18next";
 
 import Pagination from "@material-ui/lab/Pagination";
-import {Typography} from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 
 import {
     StyledTablePaper,
     StyledTableParent
 } from "assets/js/App";
-import {StyledTableCell} from "assets/js/library/components/table"
+import { StyledTableCell } from "assets/js/library/components/table"
 import {
     StyledMatamoTable,
     StyledMatamoTableRow,
     StyledMatamoTableHeadRow
 } from "assets/js/library/pages/matamo/matamoTable"
-import {StyledPaginationBox} from "assets/js/pagination";
-import {handlePaginationMethod} from "./Index.js";
-import {getMostSeenContentMethod} from "./Index.js"
+import { StyledPaginationBox } from "assets/js/pagination";
+import { handlePaginationMethod } from "./Index.js";
+import { getMostSeenContentMethod } from "./Index.js"
 import AppContext from "contexts/AppContext";
 
-function Index({t}) {
+function Index({ t }) {
     const lang = i18next.language
     let leftRightAlign = lang === "en" ? "left" : "right"
     const appContext = useContext(AppContext)
@@ -38,9 +38,11 @@ function Index({t}) {
         setPage(value - 1);
     }
 
+    const getMostSeenContent = useCallback(getMostSeenContentMethod(appContext, handlePagination), [appContext,handlePagination])
+
     useEffect(() => {
-        getMostSeenContentMethod(appContext, handlePagination);
-    }, [])
+        getMostSeenContent()
+    }, [getMostSeenContent])
 
     return (
         <StyledTableParent length={mostSeen.length}>
@@ -70,7 +72,7 @@ function Index({t}) {
                 </StyledMatamoTable>
             </StyledTablePaper>
             <StyledPaginationBox>
-                <Pagination count={(totalPage)} onChange={paginate}/>
+                <Pagination count={(totalPage)} onChange={paginate} />
             </StyledPaginationBox>
         </StyledTableParent>
 

@@ -1,6 +1,5 @@
 import React from "react";
 import {withNamespaces} from "react-i18next";
-import i18next from "i18next";
 
 import {makeStyles} from "@material-ui/styles";
 import {Modal,Box,Backdrop,Fade} from "@material-ui/core";

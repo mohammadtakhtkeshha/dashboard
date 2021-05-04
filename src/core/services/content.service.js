@@ -2,18 +2,15 @@ import axios from "axios";
 import contentUrl from 'utils/urls/content.urls';
 import {
     cocdavcsrfauthHeader,
-    ahchauthHeader,
+    chahauthHeader,
     authHeader,
-    avcoAuthcdHeader,
-    caauthHeader, cjajauthHeader,
+    caauthHeader,
+    cjajauthHeader,
     cjajcharsetauthHeader,
     cjajcsrfauthHeader,
     cjcdajcsrfauth
 } from "utils/headers";
 import {Method} from "infrastructure/layout";
-import storage from "libraries/local-storage";
-
-const auth = storage.get(process.env.REACT_APP_TOKEN_KEY);
 
 export function getDomainSource() {
     let url = contentUrl.domainSourceUrl;
@@ -22,17 +19,12 @@ export function getDomainSource() {
 
 export function getTags(handleError){
     let url = contentUrl.getTagsUrl;
-    // return axios.get(url,authHeader);
-    return Method({method:'get',url:url,headers: authHeader(auth),handleError:handleError});
+    return Method({method:'get',url:url,headers: authHeader(),handleError:handleError});
 }
 
 export function getNewsCategory(handleError) {
     let url = contentUrl.getNewsCategoryUrl;
-    // return axios.get(url, cjajcsrfauthHeader);
-    return Method({method:'get',url:url,headers: cjajcsrfauthHeader,handleError:handleError})
-        // .then((response)=>{})
-        ;
-
+    return Method({method:'get',url:url,headers: cjajcsrfauthHeader(),handleError:handleError})
 }
 
 export function uploadSingImg(file,handleError) {
@@ -41,10 +33,11 @@ export function uploadSingImg(file,handleError) {
 
 }
 
-export function uploadMultiImg(e) {
-    let url = contentUrl.uploadMultiImgUrl;
-    return axios.post(url, e, avcoAuthcdHeader(e));
-}
+// export function uploadMultiImg(e,handleError) {
+//     let url = contentUrl.uploadMultiImgUrl;
+//     // return axios.post(url, e, avcoAuthcdHeader(e));
+//     return Method({method:'post',url:url,body:e,headers: avcoAuthcdHeader(e),handleError:handleError});
+// }
 
 export function uploadVideo(e,handleError) {
     let url = contentUrl.uploadVideoUrl;
@@ -54,56 +47,48 @@ export function uploadVideo(e,handleError) {
 
 export function uploadVoice(e,handleError) {
     let url = contentUrl.uploadVoiceUrl;
-    return Method({method:'post',url:url,headers: cocdavcsrfauthHeader(e.name),handleError:handleError,body:e});
-
-
+    return Method({method:'POST',url:url,headers: cocdavcsrfauthHeader(e.name),handleError:handleError,body:e});
 }
 
-export function uploadMultiFile(e) {
-    let url = contentUrl.uploadFileUrl;
-    return axios.post(url, e, avcoAuthcdHeader(e));
-}
+// export function uploadMultiFile(e) {
+//     let url = contentUrl.uploadFileUrl;
+//     // return axios.post(url, e, avcoAuthcdHeader(e));
+//     return Method({method:'POST',url:url,body:e, headers:avcoAuthcdHeader(e)});
+// }
 
 export function getContents(handleError) {
     let url = contentUrl.getContentsUrl
-    return Method({method:'get',url:url,headers: authHeader(auth),handleError:handleError});
+    return Method({method:'get',url:url,headers: authHeader(),handleError:handleError});
 }
 
 export function deleteContent(id,handleError) {
     let url = contentUrl.deleteContentUrl(id);
-    return Method({method:'delete',url:url,headers:ahchauthHeader,handleError:handleError});
+    return Method({method:'delete',url:url,headers:chahauthHeader(),handleError:handleError});
 }
 
 export function getContent(id,handleError) {
     let url = contentUrl.getContentUrl(id);
-    return Method({method:'get',url:url,headers:authHeader(auth),handleError:handleError});
-
+    return Method({method:'get',url:url,headers:authHeader(),handleError:handleError});
 }
 
 export function registerContent(content,handleError) {
     let url = contentUrl.registerContentUrl;
-    return Method({method:'post',url:url,headers:cjajcharsetauthHeader,body:content,handleError:handleError});
-
+    return Method({method:'post',url:url,headers:cjajcharsetauthHeader(),body:content,handleError:handleError});
 }
 
 export function editContent(content,id,handleError) {
     let url = contentUrl.editContentUrl(id);
-    return Method({method:'patch',url:url,headers:cjajauthHeader,body:content,handleError:handleError});
+    return Method({method:'patch',url:url,headers:cjajauthHeader(),body:content,handleError:handleError});
 }
 
 export function getContentTypeList(handleError) {
     let url = contentUrl.getContentTypeListUrl;
-    return Method({method:'get',headers:authHeader(auth),url:url,handleError:handleError});
+    return Method({method:'get',headers:authHeader(),url:url,handleError:handleError});
 }
 
 export function getStates(handleError) {
     let url = contentUrl.getStatesUrl;
-    return Method({method:'get',headers:authHeader(auth),url:url,handleError:handleError});
-}
-
-export function getImagesCategory(handleError) {
-    let url = contentUrl.getImagesCategoryUrl;
-    return Method({method:'get',headers:cjajauthHeader,url:url,handleError:handleError});
+    return Method({method:'get',headers:authHeader(),url:url,handleError:handleError});
 }
 
 export function handleContentAction(action, selectedCheckBoxes,handleError) {
@@ -118,7 +103,7 @@ export function handleContentAction(action, selectedCheckBoxes,handleError) {
                     "setdelete": "deleted"
                 })
             }
-            return Method({method:'post',url:urlDelete,headers:caauthHeader,body:body,handleError:handleError});
+            return Method({method:'post',url:urlDelete,headers:caauthHeader(),body:body,handleError:handleError});
             break;
         case 'true':
             for (let item of selectedCheckBoxes) {
@@ -127,7 +112,7 @@ export function handleContentAction(action, selectedCheckBoxes,handleError) {
                     "setPublished": true
                 })
             }
-            return Method({method:'post',url:urlStatus,headers:caauthHeader ,body:body,handleError:handleError});
+            return Method({method:'post',url:urlStatus,headers:caauthHeader() ,body:body,handleError:handleError});
             break;
         default:
             for (let item of selectedCheckBoxes) {
@@ -136,26 +121,6 @@ export function handleContentAction(action, selectedCheckBoxes,handleError) {
                     "setPublished": false
                 })
             }
-            return Method({method:'post',url:urlStatus,headers: caauthHeader,body: body,handleError:handleError});
+            return Method({method:'post',url:urlStatus,headers: caauthHeader(),body: body,handleError:handleError});
     }
 }
-
-export default {
-    getDomainSource,
-    getNewsCategory,
-    uploadSingImg,
-    uploadVideo,
-    uploadVoice,
-    uploadMultiImg,
-    uploadMultiFile,
-    registerContent,
-    getContents,
-    deleteContent,
-    getContentTypeList,
-    getContent,
-    handleContentAction,
-    editContent,
-    getTags,
-    getStates,
-    getImagesCategory
-};

@@ -1,11 +1,9 @@
 import React from "react"
 import {withNamespaces} from "react-i18next"
-import i18next from "i18next"
 
 import {makeStyles} from "@material-ui/styles"
 import {Modal,Backdrop,Box,Fade} from "@material-ui/core/"
 
-import {useStyles} from "assets/js/ticket/ticketModal"
 import {ReactComponent as Exit} from "assets/svg/exit.svg"
 import TicketRegisterComponent from "./partials/form/Index.jsx"
 import TicketDepartemanListComponent from "./partials/TicketDepartemanListComponent.jsx";
@@ -16,7 +14,6 @@ import {modalClasses} from "assets/js/library/components/modal";
 const useStyle = makeStyles(modalClasses)
 
 function Index({t, openForm, previewUrl,setPreviewUrl,setOpenForm, departemanList, closeForm, ticket, setTicket, errors, setErrors, chosenDepartment, setChosenDepartment, setTickets, handlePagination}) {
-    let lang = i18next.language
     const classes = useStyle({maxWidth: chosenDepartment === "" ?'600px':'800px'})
 
     return (<Modal

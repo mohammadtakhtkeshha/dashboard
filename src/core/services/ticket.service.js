@@ -3,6 +3,7 @@ import axios from 'axios';
 import {getTicketsUrl, getDepartemantUrl, getOrdersUrl, baseTicket} from "utils/urls/ticket.url";
 import {cmHeader} from "utils/headers";
 import {get} from "libraries/local-storage"
+
 export const getTickets = (handleError) => {
     const params = {
         action:'GetTickets',
@@ -86,7 +87,7 @@ export const addTicketReply = (handleError, params) => {
         headers: {
             'Content-Type': 'multipart/form-data'
         }
-    }).catch(res=>{debugger})
+    })
 }
 
 export const getOrders = (handleError) => {

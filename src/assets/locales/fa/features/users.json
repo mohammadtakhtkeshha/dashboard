@@ -33,5 +33,7 @@
   "enterReNewPassword": " رمز جدید را دوباره وارد کنید",
   "wrongExpassword": "رمز قبلی اشتباه میباشد",
   "harmonyPass": "عدم هماهنگی پسوردها",
+  "editPicture": "ویرایش تصویر پروفایل",
+  "unauthorizedLogin": "ابتدا وارد شوید",
   "registerNow": "هم اکنون ثبت نام کنید?"
 }

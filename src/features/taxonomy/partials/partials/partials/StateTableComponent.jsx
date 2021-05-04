@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react'
+import React, {useContext, useState, useEffect, useCallback} from 'react'
 import i18next from "i18next"
 import 'react-sortable-tree/style.css'; // This only needs to be imported once in your app
 import 'react-sortable-tree/style.css'; // This only needs to be imported once in your app
@@ -7,7 +7,7 @@ import {makeStyles} from "@material-ui/core/styles"
 import {Box} from "@material-ui/core"
 import {withNamespaces} from 'react-i18next'
 
-import {StyledAddButton, StyledTable, StyledTableCell, StyledTableHeadRow} from "assets/js/App"
+import {StyledAddButton, StyledTable, StyledTableCell} from "assets/js/App"
 import {StyledActionsBlock, StyledActionButtons, StyledTreeTable} from "assets/js/App"
 import {warning} from "methods/swal"
 import {deleteStateMethod} from "./StateTableComponent.js"
@@ -22,7 +22,6 @@ import deleteIcon from "assets/svg/delete.png"
 import editIcon from "assets/svg/edit.png"
 import {StyledTableHeadTr} from "assets/js/library/components/table";
 import {saveChangesMethod} from "./StateTableComponent.js";
-import {Link} from "react-router-dom";
 
 const useStyles = makeStyles(treeStyles)
 

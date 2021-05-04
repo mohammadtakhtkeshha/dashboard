@@ -1,4 +1,4 @@
-import {success, warning} from "methods/swal";
+import {success} from "methods/swal";
 import {deleteRole, getRole} from "core/services/role.service";
 
 

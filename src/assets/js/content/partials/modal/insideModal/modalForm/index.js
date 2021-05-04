@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {grey, white, blue} from "assets/js/library/abstracts/colors";
+import {blue} from "assets/js/library/abstracts/colors";
 
 export const StyledTourButton = styled.button`
               display:flex;

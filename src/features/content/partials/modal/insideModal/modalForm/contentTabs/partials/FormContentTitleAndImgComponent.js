@@ -1,4 +1,4 @@
-import contentService from "core/services/content.service";
+import {uploadSingImg} from "core/services/content.service";
 
 export const handleChangeMethodTitle = (e, contentContext, t) => {
     const currentName = e.currentTarget.value;
@@ -18,12 +18,13 @@ export const handleChangeMethodTitle = (e, contentContext, t) => {
 }
 
 const pathValidation = (value) => {
-    let patt = new RegExp("^\/[a-zA-Z0-9-]+$");
+    // let patt = new RegExp("^\/[a-zA-Z0-9-]+$");
+    let patt = new RegExp("^/[a-zA-Z0-9-]+$");
     const status = patt.test(value);
     return status;
 }
 
-export const handleChangePathMethod = (t, e, contentContext) => {
+export const handleChangePathMethod = (e,t, contentContext) => {
     const currentValue = e.currentTarget.value;
     if (!pathValidation(currentValue)) {
         contentContext.setErrors(prevState => {
@@ -100,7 +101,7 @@ export const uploadImgMethod = (e, multiple, contentContext, appContext) => {
     appContext.setLoading(true);
     if (e.length > 0) {
         for (let file of e) {
-            contentService.uploadSingImg(file, appContext.handleError).then((response) => {
+            uploadSingImg(file, appContext.handleError).then((response) => {
                 appContext.setLoading(false);
                 let item = response.data;
                 let url = 'http://sitesazyas.rbp' + item.uri[0].url;
@@ -143,14 +144,7 @@ export const uploadImgMethod = (e, multiple, contentContext, appContext) => {
     }
 }
 
-export const handleVoteChangeMethod = (e, contentContext) => {
-    const status = e.currentTarget.value;
-    contentContext.setContent(prevState => {
-        return {
-            ...prevState, field_vote: [{status: status === "true" ? 1 : 0}]
-        }
-    });
-}
+
 
 export const handleChangeSubtitleMethod = (e, contentContext) => {
     const currentSubtitle = e.currentTarget.value;
@@ -170,7 +164,8 @@ export const handleChangeUrgentNewsMethod = (e, contentContext) => {
     });
 }
 
-export const handleChangeChosenMethod = (isChecked, contentContext) => {
+export const handleChangeChosenMethod = (e, contentContext) => {
+    const isChecked = e.currentTarget.checked
     contentContext.setContent(prevState => {
         return {
             ...prevState, field_chosen: [{value: isChecked}]
@@ -178,15 +173,17 @@ export const handleChangeChosenMethod = (isChecked, contentContext) => {
     });
 }
 
-export const handleChangeHightlightMethod = (isCheck, contentContext) => {
+export const handleChangeHightlightMethod = (e, contentContext) => {
+    const isChecked = e.currentTarget.checked
     contentContext.setContent(prevState => {
         return {
-            ...prevState, field_highlight: [{value: isCheck}]
+            ...prevState, field_highlight: [{value: isChecked}]
         }
     });
 }
 
-export const handleChangeSpecialMethod = (isChecked, contentContext) => {
+export const handleChangeSpecialMethod = (e, contentContext) => {
+    const isChecked = e.currentTarget.checked
     contentContext.setContent(prevState => {
         return {
             ...prevState, field_special_mm: [{value: isChecked}]
@@ -206,18 +203,7 @@ export const handleChangeSpecialMethod = (isChecked, contentContext) => {
 *
 * */
 
-export const handleChangeStatesMethod = (e, contentContext, setSelectedState) => {
-    const id = e.currentTarget.value;
-    contentContext.setContent(prevState => {
-        return {
-            ...prevState, field_states: [{
-                "target_id": parseInt(id),
-                "target_type": "taxonomy_term",
-            }]
-        }
-    });
-    setSelectedState(id)
-}
+
 
 export const clickImageTitleAndAltMethod = (e, field, contentContext) => {
     const id = e.currentTarget.value;
@@ -271,17 +257,6 @@ export const handleChangeNewsCategoryMethod = (e, contentContext, setSelectedNew
     }
 }
 
-export const handleChangeImagesCategoryMethod = (e, contentContext) => {
-    const currentImagesCategory = e.currentTarget.value;
-    contentContext.setContent(prevState => {
-        return {
-            ...prevState, field_images_category: [{
-                "target_id": currentImagesCategory,
-                "target_type": "taxonomy_term",
-            }]
-        }
-    });
-}
 
 /*Description:by changing it change comment
 *@return : "field_tags": [
@@ -341,16 +316,6 @@ export const removeImgMethod = (contentContext, field) => {
     contentContext.setImgAndUrl([]);
 }
 
-export const handleDefaultTagMethod = (tags, setDefaultTags) => {
-    if (tags.length > 0) {
-        const nameOfTags = [];
-        for (let tag of tags) {
-            nameOfTags.push(tag.target_id)
-        }
-        setDefaultTags(nameOfTags)
-    }
-}
-
 export const handleChangeAutoPathMethod = (e, contentContext) => {
     let check = e.currentTarget.checked
     if (check === false) {
@@ -380,36 +345,29 @@ export const handleChangeAutoPathMethod = (e, contentContext) => {
     }
 }
 
-export const changeTagsByGettingContentMethod = (contentContext, setSelectedTags) => {
+export const changeTagsByGettingContentMethod = (contentContext) => {
     const tagsArr = []
-    if (contentContext.content.field_tags) {
-        contentContext.content.field_tags.map((item) => {
-            tagsArr.push({name: `${item.target_id}`, tid: `${item.target_id}`})
+    if (contentContext.content.field_tags.length>0) {
+        contentContext.content.field_tags.foreach((item) => {
+            contentContext.tags.foreach((tag) =>{
+                if(tag.tid === item.target_id){
+                    tagsArr.push({name: `${tag.name}`, tid: `${item.target_id}`})
+                }
+            })
         })
-        setSelectedTags([...tagsArr])
+        contentContext.setSelectedTags([...tagsArr])
     }
 }
 
-export const changeStateByGettingContentMethod = (contentContext, setSelectedState) => {
-    if (contentContext.content.field_states !== undefined && contentContext.content.field_states.length > 0) {
-        const currentState = contentContext.content.field_states[0].target_id;
-        setSelectedState(`${currentState}`);
-    }
-}
+
 
 export const changeNewsCategoryByGettingContentMethod = (contentContext, setSelectedNewsCategory) => {
     if (contentContext.content.field_news_category !== undefined && contentContext.content.field_news_category.length > 0) {
         const currentNewsCategoryArr = []
-        contentContext.content.field_news_category.map((item) => {
+        contentContext.content.field_news_category.foreach((item) => {
             currentNewsCategoryArr.push(`${item.target_id}`)
         });
         setSelectedNewsCategory([...currentNewsCategoryArr])
     }
 }
 
-export const changeImagesCategoryByGettingContentMethod = (contentContext, setSelectedImagesCategory) => {
-    if (contentContext.content.field_images_category !== undefined && contentContext.content.field_images_category.length > 0) {
-        const currentImagesCategory = contentContext.content.field_images_category[0].target_id
-        setSelectedImagesCategory(`${currentImagesCategory}`)
-    }
-}

@@ -7,13 +7,9 @@ import {withStyles} from "@material-ui/core/styles"
 import DialogContent from '@material-ui/core/DialogContent'
 
 import ContentListOfContentType from "./insideModal/contentTypeList/ContentTypeListModalComponent.jsx"
-import {useStyles} from "assets/js/content/partials/contentModal"
 import {modalClasses} from "assets/js/library/components/modal"
 import NewContent from "./insideModal/modalForm/Index.jsx"
 import ContentsContext from "contexts/ContentsContext"
-
-import AppContext from "contexts/AppContext"
-import {getImagesCategory} from "core/services/content.service"
 
 const useStyle = makeStyles(modalClasses)
 

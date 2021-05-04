@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {withNamespaces} from "react-i18next";
-import i18next from "i18next";
 
 import {Modal,Box,Fade} from '@material-ui/core';
 import HelpIcon from "@material-ui/icons/Help";
@@ -17,7 +16,7 @@ import {StyledTourButton} from "assets/js/content/partials/modal/insideModal/mod
 import {ReactComponent as Exit} from "assets/svg/exit.svg";
 import {constSteps} from "./CommentModalComponent.js"
 import {StyledCancelButton,ModalBody} from "assets/js/library/components/modal"
-import {StyledSvg, StyledHead} from "assets/js/library/base/all"
+import {StyledSvg} from "assets/js/library/base/all"
 
 import {makeStyles} from "@material-ui/styles";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -27,7 +26,6 @@ import {modalClasses} from "assets/js/library/components/modal";
 const useStyles = makeStyles(modalClasses)
 
 function CommentModalComponent({t, open, setOpen, publishedComments, unconfirmedComments, handlePagination, comment, setComment, commentStatus}) {
-    const lang = i18next.language
     const classes = useStyles({maxWidth:'470px'})
     const [isTourOpen, setIsTourOpen] = useState(false);
     const [totalStep, setTotalStep] = useState('');

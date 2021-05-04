@@ -19,6 +19,7 @@ function Index() {
         {icon: <PhotoSvg/>, name: 'گالری', machin_name: 'images', description: 'description', number: 0},
         {icon: <ContentSvg/>, name: 'صفحه ساده', machin_name: 'page', description: 'description', number: 0}
     ];
+
     return (
         <AuthorizedContext.Provider value={{
             contentTypeNameList: contentTypeNameList

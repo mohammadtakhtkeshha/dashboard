@@ -64,7 +64,7 @@ function UploadFileComponent({t, title, multiple, getFileInParent, imgsAndUrls, 
                             return (<div key={i}>
                                 <StyledUploadedImgBlock>
                                     {(type === 'image') ?
-                                        <img src={item.url}/>
+                                        <img src={item.url} alt={item.url}/>
                                         : (type === 'video' ?
                                                 <ReactPlayer controls={true} url={item.url}/> :
                                                 <AudioPlayer src={item.url}/>
@@ -77,15 +77,13 @@ function UploadFileComponent({t, title, multiple, getFileInParent, imgsAndUrls, 
                                 </StyledUploadedImgBlock>
                             </div>)
                         })}
-                        <div>
-                            <StyledAfterUploadHere>
-                                <input type='file' multiple={multiple} onChange={uploadImg}/>
-                                <UploadImgSvg/>
-                                <span>{type === 'image' ? t('translation:uploadNewImg') : (
-                                    type === "video" ? t('translation:uploadNewVideo') : t('translation:uploadNewVoice')
-                                )}</span>
-                            </StyledAfterUploadHere>
-                        </div>
+                        <StyledAfterUploadHere>
+                            <input type='file' multiple={multiple} onChange={uploadImg}/>
+                            <UploadImgSvg/>
+                            <span>{type === 'image' ? t('translation:uploadNewImg') : (
+                                type === "video" ? t('translation:uploadNewVideo') : t('translation:uploadNewVoice')
+                            )}</span>
+                        </StyledAfterUploadHere>
                     </StyledAfterUploadBlock>
                 </>
                 :

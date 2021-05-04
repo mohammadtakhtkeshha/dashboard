@@ -1,7 +1,7 @@
 import GuideBlockComponent from "infrastructure/authorized/partials/GuideBlockComponent";
 import React from "react";
 
-export const constSteps = [
+export const steps = [
     {
         selector: '.first-name',
         content: ({goTo, inDOM}) => (

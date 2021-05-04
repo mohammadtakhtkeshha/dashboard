@@ -2,21 +2,19 @@ import React, {useContext} from "react";
 import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
 
-import {Grid, withStyles} from "@material-ui/core";
+import {Grid} from "@material-ui/core";
 
 import {StyledAlignTypography,StyledInput} from "assets/js/App";
-import {StyledFooter, StyledForm, styledGrid, StyledTextArea} from "assets/js/comment/commentForm";
+import {StyledFooter, StyledForm, StyledTextArea} from "assets/js/comment/commentForm";
 import {StyledModalHeader, StyledModalBody} from "assets/js/library/components/modal"
 import {
     handleChangeCommentMethod,
-    handleChangeStatusMethod,
     editCommentMethod
 } from './CommentFormComponent.js'
 import AppContext from "contexts/AppContext";
 import EditorComponent from "infrastructure/authorized/partials/EditorComponent.jsx";
 import {toHtml} from "methods/commons";
 
-const StyledGrid = withStyles(styledGrid)(Grid);
 
 function CommentFormComponent({t, open, setOpen, publishedComments, unconfirmedComments, handlePagination, comment, setComment, commentStatus}) {
     const lang = i18next.language;
@@ -24,10 +22,6 @@ function CommentFormComponent({t, open, setOpen, publishedComments, unconfirmedC
 
     const handleChangeComment = (e, field) => {
         handleChangeCommentMethod(e, setComment, field);
-    }
-
-    const handleChangeStatus = (e) => {
-        handleChangeStatusMethod(e, setComment)
     }
 
     const editComment = (e) => {

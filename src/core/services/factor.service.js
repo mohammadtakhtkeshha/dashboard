@@ -18,7 +18,7 @@ export function registerTerm (term,handleError) {
     return Method({
         url:registerTermUrl,
         method:'post',
-        headers:aacaauthHeader,
+        headers:aacaauthHeader(),
         body:term,
         handleError:handleError
     });

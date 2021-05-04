@@ -6,10 +6,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import {makeStyles, withStyles} from "@material-ui/styles";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import { AccordionSummary,Accordion,AccordionDetails} from '@material-ui/core';
 
 import {
     StyledSidebar,
@@ -41,18 +39,14 @@ import reportsImg from "assets/svg/sidebarIcons/reports.png"
 import reportsImgHover from "assets/svg/sidebarIcons/reports-hover.png"
 import settingsImg from "assets/svg/sidebarIcons/settings.png"
 import settingsImgHover from "assets/svg/sidebarIcons/settings-hover.png"
-import activitiesImg from "assets/svg/sidebarIcons/activities.png"
-import activitiesImgHover from "assets/svg/sidebarIcons/activities-hover.png"
 import supportImg from "assets/svg/sidebarIcons/support.png"
 import supportImgHover from "assets/svg/sidebarIcons/support-hover.png"
-import {Grid, Typography} from "@material-ui/core";
-
 
 const styles = makeStyles(active);
 const StyledListItem = withStyles(LiStyles)(ListItem);
-const StyledExpansionPanelSummary = withStyles(styledExpansionPanelSummary)(ExpansionPanelSummary);
-const StyledExpansionPanelDetails = withStyles(styledExpansionPanelDetails)(ExpansionPanelDetails);
-const StyledExpansionPanel = withStyles(styledExpansionPanel)(ExpansionPanel);
+const StyledExpansionPanelSummary = withStyles(styledExpansionPanelSummary)(AccordionSummary);
+const StyledExpansionPanelDetails = withStyles(styledExpansionPanelDetails)(AccordionDetails);
+const StyledExpansionPanel = withStyles(styledExpansionPanel)(Accordion);
 const StyledList = withStyles(styledList)(List);
 
 function SimpleTabs({t}) {
@@ -62,6 +56,12 @@ function SimpleTabs({t}) {
     return (
         <StyledSidebar lang={lang}>
             <StyledList lang={lang}>
+                <StyledListItem lang={lang} img={dashboardImg} imghover={dashboardImgHover}>
+                    <NavLink to='/edit-profile' activeClassName={classes.active}>
+                        <span className="icon"></span>
+                        <ListItemText primary={t('sidebar:editProfile')}/>
+                    </NavLink>
+                </StyledListItem>
                 <StyledListItem lang={lang} img={dashboardImg} imghover={dashboardImgHover}>
                     <NavLink to='/dashboard' activeClassName={classes.active}>
                         <span className="icon"></span>
@@ -199,7 +199,6 @@ function SimpleTabs({t}) {
                         </StyledExpansionPanelDetails>
                     </StyledExpansionPanel>
                 </StyledListItem>
-
             </StyledList>
         </StyledSidebar>
     );

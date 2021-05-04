@@ -1,7 +1,5 @@
 import * as colors from "assets/js/library/abstracts/colors";
 import styled from "styled-components";
-import {grey,black,green} from "assets/js/library/abstracts/colors";
-import {StyledNotScrollbar} from "../App";
 
 export const useStyles = (theme) => ({
     paper: {
@@ -98,8 +96,6 @@ export const StyledInsideModalBody = styled.div`
         margin-bottom:120px;
 `
 
-
-
 export const StyledRoleMargin = styled.div`
         margin-top:10px;
 `
@@ -110,6 +106,7 @@ export const StyledHeightInput = styled.div`
             margin:0!important;
         }
 `
+
 export const StyledFormControl = styled.fieldset`
         margin-top:10px;
         border:0!important;

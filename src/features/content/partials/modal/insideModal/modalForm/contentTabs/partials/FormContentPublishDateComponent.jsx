@@ -38,28 +38,6 @@ function CategoryAndDescriptionComponent({t, contentype}) {
         validateDate(field, date, contentsContext, t);
     }
 
-    const handleStatusChange = (e) => {
-        handleStatusChangeMethod(e, contentsContext);
-    }
-
-    const handleShowInMainPage = (e) => {
-        handleShowInMainPageMethod(e, contentsContext);
-    }
-
-    const handleShowInSidebar = (e) => {
-        handleShowInSidebarMethod(e, contentsContext);
-    }
-
-    const setSelectedDate = (date, field) => {
-        // if (date !== null && field !== undefined) {
-        //     contentsContext.setContent(prevState => {
-        //         return {
-        //             ...prevState, [field]: [{value:date}]
-        //         }
-        //     });
-        // }
-    }
-
     return (<Grid container>
         <StyledGridPublishOnAndUnpublish className="publish-date" contentype={contentsContext.content.type[0].target_id}
                                          item xs={6}>
@@ -69,7 +47,7 @@ function CategoryAndDescriptionComponent({t, contentype}) {
                     placeholder={t('contents:choosePublishDate')}
                     passedDate={(e) => passedDate('publish_on', e)}
                     selectedDate={contentsContext.content.publish_on ? (contentsContext.content.publish_on.length > 0 ? (contentsContext.content.publish_on[0].value) : null) : null}
-                    setSelectedDate={setSelectedDate}/>
+                    />
                 {contentsContext.errors.publish_on ?
                     <StyledTypographyError>{contentsContext.errors.publish_on}</StyledTypographyError> : ''}
             </StyledGridBlock>
@@ -81,7 +59,7 @@ function CategoryAndDescriptionComponent({t, contentype}) {
                                       placeholder={t('contents:chooseUnpublishDate')}
                                       passedDate={(e) => passedDate('unpublish_on', e)}
                                       selectedDate={contentsContext.content.unpublish_on ? (contentsContext.content.unpublish_on.length > 0 ? (contentsContext.content.unpublish_on[0].value) : null) : null}
-                                      setSelectedDate={setSelectedDate}/>
+                                      />
                 {contentsContext.errors.unpublish_on ?
                     <StyledTypographyError>{contentsContext.errors.unpublish_on}</StyledTypographyError> : ''}
             </StyledGridBlock>
@@ -94,12 +72,12 @@ function CategoryAndDescriptionComponent({t, contentype}) {
                 <StyledStatusButtonBlock align={antiAlign}>
                     <StyledStatusButtons value="true"
                                          status={contentsContext.content.field_home_slider && contentsContext.content.field_home_slider[0]?.value}
-                                         onClick={handleShowInMainPage}>
+                                         onClick={e=>handleShowInMainPageMethod(e, contentsContext)}>
                         {t('translation:active')}
                     </StyledStatusButtons>
                     <StyledStatusButtons value="false"
                                          status={contentsContext.content.field_home_slider && contentsContext.content.field_home_slider[0].value}
-                                         onClick={handleShowInMainPage}>
+                                         onClick={e=>handleShowInMainPageMethod(e, contentsContext)}>
                         {t('translation:notActive')}
                     </StyledStatusButtons>
                 </StyledStatusButtonBlock>
@@ -112,11 +90,11 @@ function CategoryAndDescriptionComponent({t, contentype}) {
             <StyledGridBlock>
                 <StyledStatusButtonBlock align={antiAlign}>
                     <StyledStatusButtons value="true" status={contentsContext.content.status[0].value}
-                                         onClick={handleStatusChange}>
+                                         onClick={(e)=>handleStatusChangeMethod(e, contentsContext)}>
                         {t('translation:active')}
                     </StyledStatusButtons>
                     <StyledStatusButtons value="false" status={contentsContext.content.status[0].value}
-                                         onClick={handleStatusChange}>
+                                         onClick={(e)=>handleStatusChangeMethod(e, contentsContext)}>
                         {t('translation:notActive')}
                     </StyledStatusButtons>
                 </StyledStatusButtonBlock>
@@ -130,14 +108,13 @@ function CategoryAndDescriptionComponent({t, contentype}) {
                 <StyledStatusButtonBlock align={antiAlign}>
                     <StyledStatusButtons value="true"
                                          status={contentsContext.content.field_sidebar_news_slider && contentsContext.content.field_sidebar_news_slider[0].value}
-                                         onClick={handleShowInSidebar}>
+                                         onClick={e=>handleShowInSidebarMethod(e, contentsContext)}>
                         {t('translation:active')}
                     </StyledStatusButtons>
                     <StyledStatusButtons value="false"
                                          status={contentsContext.content.field_sidebar_news_slider && contentsContext.content.field_sidebar_news_slider[0].value}
-                                         onClick={handleShowInSidebar}>
+                                         onClick={e=>handleShowInSidebarMethod(e, contentsContext)}>
                         {t('translation:notActive')}
-
                     </StyledStatusButtons>
                 </StyledStatusButtonBlock>
             </StyledGridBlock>

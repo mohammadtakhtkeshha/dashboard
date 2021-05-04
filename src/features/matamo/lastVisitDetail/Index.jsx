@@ -1,11 +1,9 @@
-import React, {useEffect, useState, useContext} from "react"
+import React, {useEffect, useState, useContext, useCallback} from "react"
 import {withNamespaces} from "react-i18next"
 import {getMostSeenContentMethod} from "./Index.js"
 import AppContext from "contexts/AppContext";
 import {
-    StyledTable, StyledTableBody, StyledTableBodyRow,
     StyledTableCell,
-    StyledTableHeadRow,
     StyledTablePaper,
     StyledTableParent
 } from "assets/js/App";
@@ -16,8 +14,7 @@ import {handlePaginationMethod} from "./Index.js";
 import i18next from "i18next";
 import actionSvg from "assets/svg/action.svg"
 import {StyledFlexColumn, StyledDate, StyledIconMatamo} from "assets/js/library/pages/matamo/matamo"
-import {StyledImgAction,StyledMatamoTableTr} from "assets/js/library/pages/matamo/lastVisitsDetails"
-// import {toShamsi} from "methods/commons";
+import {StyledImgAction} from "assets/js/library/pages/matamo/lastVisitsDetails"
 import {StyledMatamoTableHeadRow,StyledMatamoTable,StyledMatamoTableRow} from "assets/js/library/pages/matamo/matamoTable";
 
 function Index({t}) {
@@ -37,9 +34,11 @@ function Index({t}) {
         setPage(value - 1);
     }
 
+    const getMostSeenContent = useCallback(getMostSeenContentMethod(appContext, handlePagination),[appContext])
+
     useEffect(() => {
-        getMostSeenContentMethod(appContext, handlePagination);
-    }, [])
+        getMostSeenContent()
+    }, [getMostSeenContent])
 
     return (
         <StyledTableParent length={mostSeen.length}>

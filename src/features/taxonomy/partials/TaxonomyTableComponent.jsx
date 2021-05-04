@@ -21,9 +21,9 @@ function TaxonomyTableComponent({t, taxonomies}) {
         </StyledTableHeadTr>
         <StyledTableBody>
             {taxonomies.length > 0 ? (taxonomies?.map((taxonomy, index) => (
-                <Link key={index} to={{pathname: `/taxonomy/${taxonomy.vid_machin}`, state: {vocab: taxonomy.name}}}>
+                <Link key={index} to={{pathname: `/taxonomy/${taxonomy.vid}`, state: {vocab: taxonomy.name}}}>
                     <StyledTabeBodyRowCustomized key={index} lang={lang}>
-                        <StyledTableCell>{t(`taxonomy:${taxonomy.vid}`)}</StyledTableCell>
+                        <StyledTableCell>{t(`taxonomy:${taxonomy.name}`)}</StyledTableCell>
                         <StyledTableCell>
                             <StyledVisibilityIcon lang={lang}>
                                 <img src={require('assets/svg/visibility.png')} alt=""/>

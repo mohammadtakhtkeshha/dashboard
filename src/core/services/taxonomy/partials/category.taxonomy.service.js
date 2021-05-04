@@ -7,16 +7,14 @@ import {
     getTaxonomyTermUrl
 } from "utils/urls/taxonomy.urls";
 import {authHeader, cjcsrfauthHeader} from "utils/headers";
-import storage from "libraries/local-storage"
 
-const auth = storage.get(process.env.REACT_APP_TOKEN_KEY)
 
 export function getStates(handleError, type) {
-    return Method({method: 'get', url: getTaxonomyTermUrl(type), headers: authHeader(auth), handleError: handleError});
+    return Method({method: 'get', url: getTaxonomyTermUrl(type), headers: authHeader(), handleError: handleError});
 }
 
 export function getState(id, handleError) {
-    return Method({method: 'get', url: getDeleteEditTermUrl(id), headers: authHeader(auth), handleError: handleError});
+    return Method({method: 'get', url: getDeleteEditTermUrl(id), headers: authHeader, handleError: handleError});
 }
 
 export function registerState(handleError, body, openForm) {

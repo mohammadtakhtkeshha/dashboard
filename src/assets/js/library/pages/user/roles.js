@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {black, blue, green,orange, grey, red, white} from "assets/js/library/abstracts/colors";
+import {black, blue,orange, grey, red, white} from "assets/js/library/abstracts/colors";
 import {StyledDefaultButton} from "assets/js/library/components/buttons"
 
 export const StyledPermissionButtonsBlock = styled.div`

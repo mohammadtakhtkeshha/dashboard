@@ -1,5 +1,5 @@
 import Highcharts from "highcharts";
-import dashboardService from "core/services/dashboard.service";
+import {getUsers} from "core/services/dashboard.service";
 import { toShamsiDate} from "methods/commons";
 
 export const highChartsRender = (t, dates, numberOfUser) => {
@@ -58,8 +58,8 @@ const setDatesAndNumberOfUsers = (t, setUsers, users, lang) => {
 
 };
 
-export const getUsers = (t, setUsers, handleError, lang) => {
-    const result = dashboardService.getUsers(handleError);
+export const getUsersMethod = (t, setUsers, handleError, lang) => {
+    const result = getUsers(handleError);
     result.then((response) => {
         const currentUsers = response.data
         const sortedUserByDate = currentUsers.sort((a, b) => (a.created > b.created) ? 1 : -1);

@@ -1,4 +1,4 @@
-import {getImagesCategory, getNewsCategory, getStates} from "core/services/content.service"
+import { getNewsCategory, getStates} from "core/services/content.service"
 
 export const getNewsCategoryMethod = (contentType,handleError,setNewsCategory) => {
             if(contentType === "news"){
@@ -16,13 +16,6 @@ export const getStatesMethod = (contentType,handleError,setStates) => {
             }
 }
 
-export const getImagesCategoryMethod = (contentType,handleError,setImagesCategory) => {
-            if(contentType === "images"){
-                getImagesCategory(handleError).then((response)=>{
-                    setImagesCategory(response.data);
-                });
-            }
-}
 
 export const changeContentWhenChangingContentType= (id,contentType,setContent,newPage,newNews,newArticle,newSounds,newVideos,newImages,content) => {
     if(id === ""){

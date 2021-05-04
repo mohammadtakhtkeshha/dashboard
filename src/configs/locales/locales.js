@@ -22,6 +22,9 @@ import matamoEn from 'assets/locales/en/features/matamo.json';
 import matamoFa from 'assets/locales/fa/features/matamo.json';
 import roleFa from 'assets/locales/fa/features/roles.json';
 import roleEn from 'assets/locales/en/features/roles.json';
+import settingsEn from 'assets/locales/en/features/settings.json';
+import settingsFa from 'assets/locales/fa/features/settings.json';
+
 //localstorage
 import storage from 'libraries/local-storage'
 
@@ -38,6 +41,7 @@ const resources = {
         menu:menuEn,
         matamo:matamoEn,
         roles:roleEn,
+        settings:settingsEn,
     },
     fa:{
         comments:commentsFa,
@@ -50,6 +54,7 @@ const resources = {
         menu:menuFa,
         matamo:matamoFa,
         roles:roleFa,
+        settings:settingsFa,
     }
 };
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from "react";
+import React, {useEffect, useState, useContext, useRef, useCallback} from "react";
 import {Helmet} from "react-helmet";
 import {withNamespaces} from 'react-i18next';
 
@@ -36,18 +36,13 @@ function UsersComponent({t}) {
     const [errors, setErrors] = useState({}); //errorName: {},errorPass: {},specialChar: {},errorMail: {},confirmPass: {}
     const [user, setUser] = useState(constUser)
     const [expandedFilter, setExpandedFilter] = useState(false)
-
-    const getUsers = () => {
-        getUsersMethod(handlePagination, appContext)
-    }
+    const topNode = useRef(null)
+    const lastActiveFocus = useRef()
 
     const handlePagination = (items, changeDefaultUsers) => {
         handlePaginationMethod(setUserMailList, changeDefaultUsers, setTotalPage, setUsers, items, setChunkUsers, setUserNameList);
     }
 
-    const getRoles = () => {
-        getRolesMethod(setKeyRoles, setValueRoles, setRoles, appContext);
-    }
 
     const paginate = (e, value) => {
         setPage(value - 1);
@@ -69,9 +64,25 @@ function UsersComponent({t}) {
     }
 
     useEffect(() => {
-        getUsers(page);
-        getRoles();
+        getUsersMethod(handlePagination, appContext)
+        getRolesMethod(setKeyRoles, setValueRoles, setRoles, appContext);
+
     }, []);
+
+
+    useEffect(() => {
+        if (openUserForm.show === true) {
+            if (topNode.current !== null) {
+                //     moveFocusInside(topNode, lastActiveFocus);
+            }
+        }
+
+    }, [openUserForm.show])
+
+    useEffect(() => {
+    }, [topNode]);
+
+// && !focusInside(topNode)
 
     return (
         <>
@@ -80,7 +91,8 @@ function UsersComponent({t}) {
                     {t('sidebar:users')}
                 </title>
             </Helmet>
-            <UsersHeaderComponent setOpenUserForm={setOpenUserForm} setExpandedFilter={setExpandedFilter}/>
+            <UsersHeaderComponent lastActiveFocus={lastActiveFocus} setOpenUserForm={setOpenUserForm}
+                                  setExpandedFilter={setExpandedFilter}/>
             <StyledBox>
                 <UsersFilterComponent users={users}
                                       valueRoles={valueRoles}
@@ -112,7 +124,9 @@ function UsersComponent({t}) {
                                          errors={errors}
                                          setErrors={setErrors}
                                          userNameList={userNameList}
-                                         userMailList={userMailList}/>
+                                         userMailList={userMailList}
+                                         topNode={topNode}
+            />
             <UsersActionComponent selectedCheckBoxes={selectedCheckBoxes}
                                   users={users}
                                   handlePagination={handlePagination}/>

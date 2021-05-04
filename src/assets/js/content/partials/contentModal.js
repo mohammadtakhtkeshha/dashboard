@@ -1,4 +1,4 @@
-import {white, green, grey} from "assets/js/library/abstracts/colors";
+import {white, grey} from "assets/js/library/abstracts/colors";
 import styled from "styled-components";
 
 

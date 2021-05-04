@@ -1,6 +1,5 @@
 import {getDepartmenList, getTickets} from "core/services/ticket.service"
 import {chunkItem, handleTotalPage} from "infrastructure/layout"
-import {getClientId, getTicket} from "core/services/ticket.service"
 import {get} from "libraries/local-storage"
 
 export const handlePaginationMethod = (tickets, changeDefault, setChunkTickets, setTotalPage, setTickets) => {
@@ -42,7 +41,7 @@ export const constTicket = {
     // 'Access-Control-Allow-Origin': '*',
 }
 
-export const getClientIdMethod = (appContext, currentUser, setTicket) => {
+export const getClientIdMethod = (setTicket) => {
     const curClientid = get(process.env.REACT_APP_USER_CLIENT_ID)
     setTicket(prevState => {
         return {
@@ -51,5 +50,6 @@ export const getClientIdMethod = (appContext, currentUser, setTicket) => {
         }
     })
 }
+
 
 

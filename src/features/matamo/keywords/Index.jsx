@@ -1,11 +1,7 @@
-import React, {useEffect, useState, useContext} from "react"
+import React, {useEffect, useState, useContext, useCallback} from "react"
 import {withNamespaces} from "react-i18next"
 import AppContext from "contexts/AppContext";
 import {
-    StyledTable,
-    StyledTableBody,
-    StyledTableBodyRow,
-    StyledTableHeadRow,
     StyledTablePaper,
     StyledTableParent
 } from "assets/js/App";
@@ -34,9 +30,11 @@ function Index({t}) {
         setPage(value - 1);
     }
 
+    const getKeywords = useCallback(getKeywordsMethod(appContext,handlePagination),[])
+
     useEffect(() => {
-        getKeywordsMethod(appContext,handlePagination);
-    }, [])
+        getKeywords()
+    }, [getKeywords])
 
     return (
         <StyledTableParent length={mostSeen.length}>

@@ -1,18 +1,16 @@
 import React, {useState, useContext} from 'react';
-import {Link,} from "react-router-dom";
 import {useHistory} from "react-router-dom";
 import {withNamespaces} from "react-i18next";
 
-import {Box, CardMedia, Grid, Paper, Typography} from "@material-ui/core/index";
+import {Box, CardMedia, Grid, Typography} from "@material-ui/core/index";
 
 import iconImg from 'assets/media/image/logo-login.png';
 import AppContext from 'contexts/AppContext';
-import authService from 'core/services/auth.service';
 import {green} from "assets/js/library/abstracts/colors";
 import {StyledInput,StyledTypographyError} from "assets/js/App";
 import {InputBlock, LoginBlock, StyledGridLogin,LoginButton,StyledRegisterLoginButton} from "assets/js/login";
 
-function LoginComponent({t}) {
+function ForgetPasswordComponent({t}) {
     const [errors, setErrors] = useState({errorName: false, errorPass: false, loginError: false});
     const history = useHistory();
     const context = useContext(AppContext);
@@ -48,7 +46,7 @@ function LoginComponent({t}) {
             }
             return;
         }
-        authService.login(user).then((response) => {
+        login(user).then((response) => {
             setErrors({errorName: false, errorPass: false, loginError: false});
             context.isLoginSuccess = true;
             history.push("/");
@@ -67,7 +65,7 @@ function LoginComponent({t}) {
     };
 
     document.onkeydown = function (event) {
-        if (window.event.keyCode == '13') {
+        if (window.event.keyCode === '13') {
             login();
         }
     }
@@ -106,4 +104,4 @@ function LoginComponent({t}) {
     </LoginBlock>);
 }
 
-export default withNamespaces('translation')(LoginComponent);
+export default withNamespaces('translation')(ForgetPasswordComponent);

@@ -1,4 +1,4 @@
-import React, {useEffect, useContext, useState} from "react"
+import React, {useEffect, useContext, useState, useCallback} from "react"
 import {withNamespaces} from "react-i18next"
 
 import {getPermissionsMethod,getRolesMethod,constRole,defaultConstRole} from "./Index.js"
@@ -16,10 +16,16 @@ function Index() {
     const [enRoles, setEnRoles] = useState([])
     const [showPermission, setShowPermission] = useState([])
 
+    const getPermissions = useCallback(getPermissionsMethod(appContext, setPermissions),[appContext])
+    const getRoles = useCallback(getRolesMethod(appContext, setFaRoles, setEnRoles),[appContext])
+
     useEffect(() => {
-        getRolesMethod(appContext, setFaRoles, setEnRoles)
-        getPermissionsMethod(appContext, setPermissions)
-    }, [])
+        getPermissions()
+    }, [getPermissions])
+
+    useEffect(() => {
+        getRoles()
+    }, [getRoles])
 
     const handleClose = () => {
         setOpenForm({show: false, id: ''})

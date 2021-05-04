@@ -657,3 +657,6 @@ export const updateTourMethod = (contentsContext,setValue,curr) => {
         }
     }
 }
+
+
+

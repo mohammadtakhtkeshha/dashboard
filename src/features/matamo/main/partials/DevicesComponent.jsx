@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from "react"
+import React, {useEffect, useState, useContext, useCallback} from "react"
 import {withNamespaces} from "react-i18next"
 import i18next from "i18next";
 
@@ -25,9 +25,11 @@ function DevicesComponent({t}) {
     const lang = i18next.language
     const [devices, setDevices] = useState([])
 
+    const getDevices = useCallback(getDevicesMethod(appContext, setDevices),[appContext])
+
     useEffect(() => {
-        getDevicesMethod(appContext, setDevices)
-    }, [])
+        getDevices()
+    }, [getDevices])
 
     return (<>
         <StyledTableParent length={devices.length}>

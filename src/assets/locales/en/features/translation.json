@@ -108,6 +108,8 @@
   "logout": "logout",
   "idNumber": "id",
   "registeredChanges": "changes have been registered",
-  "validPath": "your input must start with / and use - instead of space"
-
+  "validPath": "your input must start with / and use - instead of space",
+  "safeCode": "safe code",
+  "summary": "summary",
+  "wrongSafeCode": "wrong safe code"
 }

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react"
+import React, {useCallback, useContext, useEffect} from "react"
 import {withNamespaces} from "react-i18next"
 
 import {Box} from "@material-ui/core"
@@ -41,27 +41,29 @@ function NewContentTabsComponent({t, newsCategory, states, value, setValue}) {
         setValue(newValue);
     }
 
-    const setTitleError = () => {
+    const setTitleError = useCallback(() => {
         setTitleValidationMethod(contentContext, t);
-    }
+    },[contentContext,t])
 
-    const setFieldImageContentTypeGallaryError = () => {
+    const setFieldImageContentTypeGallaryError = useCallback(() => {
         setFieldImageContentTypeGallaryErrorMethod(contentContext, t);
-    }
+    },[contentContext,t])
 
-    const changeErrorsWhenFillFieldImage = () => {
+    const changeErrorsWhenFillFieldImage =  useCallback(() => {
         changeErrorsWhenFillFieldImageMethod(t, contentContext);
-
-    }
+    },[contentContext,t])
 
     useEffect(() => {
         setTitleError();
+    }, [setTitleError]);
+
+    useEffect(() => {
         setFieldImageContentTypeGallaryError();
-    }, []);
+    }, [setFieldImageContentTypeGallaryError]);
 
     useEffect(() => {
         changeErrorsWhenFillFieldImage();
-    }, [contentContext.content.field_image]);
+    }, [changeErrorsWhenFillFieldImage]);
 
     return (<>
             <StyledTabs value={value} onChange={handleTabChange}>
@@ -78,8 +80,7 @@ function NewContentTabsComponent({t, newsCategory, states, value, setValue}) {
             <StyledTabPanels>
                 <TabPanel value={value} index={0}>
                     <Box>
-                        <TitleAndImgComponent states={states}
-                                              contentype={contentContext.contentType}
+                        <TitleAndImgComponent contentype={contentContext.contentType}
                                               newsCategory={newsCategory}/>
                     </Box>
                 </TabPanel>

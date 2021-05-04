@@ -1,7 +1,7 @@
 import loginImg from "../media/image/login.png";
 import {green, white, danger, grey} from "assets/js/library/abstracts/colors";
 import styled from "styled-components"
-import {StyledInput} from "./App";
+import {StyledDefaultButton, StyledInput} from "./App";
 
 export const LoginBlock = styled.div`
                 width: 100%;
@@ -61,7 +61,6 @@ export const StyledGridLogin = styled.div`
                             font-size: 17px;
                             font-weight: bold;
                             margin-bottom: 2rem;
-                            margin-top: 2rem;
                         }
                    }
                 }
@@ -215,6 +214,7 @@ export const StyledRegisterLoginButton = styled.button`
 
 export const StyledInputLogin = styled(StyledInput)`
         direction:ltr!important;
+        font-family:byekan!important;
         &::placeholder{
             text-align:right;
         }
@@ -242,5 +242,16 @@ export const StyledSvgInput = styled.span`
 `
 
 
-
-
+export const StyledRefreshBlock = styled.div`
+              display:flex;
+              margin-bottom:1.5rem;
+`
+export const StyledRefreshBtn = styled(StyledDefaultButton)`
+              background-color:${white[0]};
+              & span{
+                font-size:32px;
+                &::before{
+                    color:${green[0]};
+                }
+              }
+`

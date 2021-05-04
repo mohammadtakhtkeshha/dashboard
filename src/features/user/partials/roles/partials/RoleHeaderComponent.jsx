@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, useState} from "react";
+import React, {useRef, useState} from "react";
 import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
 import Tour from 'reactour';
@@ -10,7 +10,7 @@ import {StyledRelative} from "assets/js/App";
 import {StyledCloseGuideButton, StyledNextButton, StyledPrevButton} from "assets/js/partials/guideBlock";
 import {constSteps} from "./RoleHeaderComponent.js";
 import {StyledHelpButton} from "assets/js/library/pages/content/contentHeader"
-import {get} from "../../../../../libraries/local-storage";
+import {get} from "libraries/local-storage";
 
 function Index({t, setOpenForm}) {
     const lang = i18next.language;

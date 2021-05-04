@@ -1,5 +1,4 @@
 import {getLastVisit, getLiveVisits} from "core/services/matamo.service";
-import {chunkItem, handleTotalPage} from "infrastructure/layout";
 
 export const visitsDetailsMethod = (appContext,setVisitsDetails) => {
     appContext.setLoading(true)

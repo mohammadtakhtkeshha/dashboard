@@ -4,23 +4,16 @@
 import {chunkItem, handleTotalPage} from "infrastructure/layout"
 import {getRoles,getNotPaginateUser} from "core/services/user.service"
 
-
-
-
-
-
-
-
 /*Description:get name and mail from users list in an array
 *@return :object
 * */
 export function getUsersNameAndMail(users) {
     let nameList = []
     let mailList = []
-    users.map(user => {
+    users.forEach(user => {
         nameList.push(user.user_name)
         mailList.push(user.mail)
-    })
+    });
     return {nameList, mailList}
 }
 
@@ -40,7 +33,7 @@ export const constUser = {
             "value": false
         }
     ],
-    "roles": [],
+    "roles": [{target_id: "rest_user", target_type: "user_role"}],
     "field_last_name": [
         {
             "value": ""

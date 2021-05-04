@@ -1,6 +1,6 @@
 const url = process.env.REACT_APP_API_URL
 
-export const getTaxonomiesUrl = `${url}/vocablist?_format=json`
+export const getTaxonomiesUrl = `${url}/api/rest/tax_list?_format=json`
 
 export const getTaxonomyStatesUrl =`${url}/api/rest/taxonomy/state`
 

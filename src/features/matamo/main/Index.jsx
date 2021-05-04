@@ -1,6 +1,6 @@
 import React from "react"
 
-import {Grid, withStyles} from "@material-ui/core"
+import {Grid} from "@material-ui/core"
 
 import DevicesComponent from "./partials/DevicesComponent.jsx"
 import RealTimeComponent from "./partials/RealTimeComponent.jsx";

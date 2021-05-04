@@ -1,6 +1,6 @@
 import {success, danger} from "methods/swal";
 
-export const showNotification = async (t, history) => {
+export const showNotificationMethod = async (t, history) => {
     if (history.location.search !== "") {
         const locationArr = history.location.search.split('&')
         const messageArr = locationArr[1].split('=')

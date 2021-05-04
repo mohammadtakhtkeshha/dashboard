@@ -1,11 +1,8 @@
 import React, {useState} from "react";
 import {withNamespaces} from "react-i18next";
 
-import {Typography} from "@material-ui/core";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import {Typography,Accordion,AccordionDetails ,AccordionSummary} from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 
 import {StyledFilterBlock} from "assets/js/ticket/ticketFilter";
 import {MarginTop1} from "assets/js/library/base/all";
@@ -34,13 +31,13 @@ function TicketFilterComponent({t, tickets, expandedFilter,setExpandedFilter,han
     const changeExpanding = (e,checked) => {
         setExpandedFilter(checked)
     }
-    return (<ExpansionPanel  expanded={expandedFilter} onChange={changeExpanding}>
-            <ExpansionPanelSummary
+    return (<Accordion  expanded={expandedFilter} onChange={changeExpanding}>
+            <AccordionSummary
                 expandIcon={<ExpandMoreIcon/>}
                 aria-controls="panel1a-content">
                 <Typography>{t('translation:filter')}</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            </AccordionSummary>
+            <AccordionDetails>
                 <StyledFilterBlock>
                     <Grid container>
                         <Grid item xs={4}>
@@ -97,8 +94,8 @@ function TicketFilterComponent({t, tickets, expandedFilter,setExpandedFilter,han
                     </StyledAddButton>
                     </MarginTop1>
                 </StyledFilterBlock>
-            </ExpansionPanelDetails>
-        </ExpansionPanel>);
+            </AccordionDetails>
+        </Accordion>);
 }
 
 export default withNamespaces('users,translation')(TicketFilterComponent);

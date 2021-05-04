@@ -75,7 +75,7 @@ function MenuListComponent({t, setOpenForm, menus, setMenus, getMenus}) {
         saveChangesMethod(t,appContext,menus,mobileOrWeb)
     }
 
-    useEffect(() => {
+    const setCurrentDynamicHeigh = () => {
         if (!collpase && menus !== undefined && menus.length > 0) {
             let count = menus.length
             for (let item of menus) {
@@ -90,7 +90,9 @@ function MenuListComponent({t, setOpenForm, menus, setMenus, getMenus}) {
             }
             setDynamicHeight(`${count * 63}px`)
         }
-    }, [menus])
+    }
+
+    useEffect(setCurrentDynamicHeigh, [menus]);
 
     return (<>
             <StyledTable>

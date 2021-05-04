@@ -11,7 +11,7 @@ import MessageIcon from '@material-ui/icons/Message';
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import AppContext from 'contexts/AppContext';
-import authSevice from 'core/services/auth.service';
+import {logout} from 'core/services/auth.service';
 import {
     StyledPowerBox,
     StyledBoxItem,
@@ -23,7 +23,7 @@ import {
 } from "assets/js/header/leftWebHeader";
 import Iran from 'assets/media/image/iran.png';
 import Us from 'assets/media/image/us.jpg';
-import UserDrawerComponent from "features/user/partials/userDrawer/ProfileComponent.jsx";
+import UserDrawerComponent from "features/user/partials/userDrawer/Index.jsx";
 import {ReactComponent as UserSvg} from 'assets/svg/user.svg';
 
 const StyledSelect = withStyles(styledSelect)(Select);
@@ -88,7 +88,7 @@ function LeftWebHeaderComponent({t}) {
                 </button>
             </StyledBoxItem>
             <StyledPowerBox lang={lang}>
-                <button onClick={() => authSevice.logout(history)}>
+                <button onClick={() => logout(history)}>
                     <PowerSettingsNewIcon/>
                 </button>
             </StyledPowerBox>

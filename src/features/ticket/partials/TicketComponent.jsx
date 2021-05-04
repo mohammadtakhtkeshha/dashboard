@@ -1,8 +1,8 @@
-import React, {useContext, useEffect, useState} from "react"
+import React, {useCallback, useContext, useEffect, useState} from "react"
 import {Helmet} from "react-helmet"
 import {withNamespaces} from 'react-i18next'
 import AppContext from "contexts/AppContext"
-import {useParams, useLocation} from "react-router-dom"
+import {useParams} from "react-router-dom"
 import i18next from "i18next"
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
@@ -17,7 +17,6 @@ import {getTicketRepliesMethod, registerReplyMethod} from "./TicketComponent.js"
 import {toHtml} from "methods/commons";
 import {getClientIdMethod} from "./Index.js"
 import TicketRegisterBody from "./modal/partials/form/partials/BodyFormComponent.jsx"
-import storage from "libraries/local-storage"
 import gravatar from "assets/media/image/ticket/gravatar.jpg"
 import user from "assets/svg/user.svg"
 import {StyledUrlBlock} from "assets/js/ticket/ticket"
@@ -52,20 +51,19 @@ const StyledUserCardMedia = withStyles(styledUserCardMedia)(CardMedia)
 function TicketComponent({t}) {
     const appContext = useContext(AppContext)
     const lang = i18next.language
-    const location = useLocation()
-    const [ticketId, setTicketId] = useState(0)
     const params = useParams()
     const [ticket, setTicket] = useState(constTicket)
     const [replies, setReplies] = useState([])
     const [errors, setErrors] = useState({})
-    const currentUser = JSON.parse(storage.get('user'))
     const [isExpanded, setIsExpanded] = useState(false)
     const [previewUrl, setPreviewUrl] = useState([])
 
     useEffect(() => {
+        getClientIdMethod(setTicket)
+    }, [])
+
+    useEffect(() => {
         getTicketRepliesMethod(appContext, setTicket, params.id, setReplies)
-        getClientIdMethod(appContext, currentUser, setTicket)
-        setTicketId(location.id)
     }, [])
 
     const closeForm = () => {
@@ -124,7 +122,7 @@ function TicketComponent({t}) {
                                     item.attachments.map((item, index) => {
                                         return (<StyledUrlBlock key={index}>
                                             <img src={downloadPng} alt=""/>
-                                            <a href={item.dlUrl} target="_blank">{item.filename}</a>
+                                            <a href={item.dlUrl} rel="noopener noreferrer" target="_blank">{item.filename}</a>
                                         </StyledUrlBlock>)
                                     })
                                     }

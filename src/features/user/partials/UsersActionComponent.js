@@ -36,7 +36,7 @@ export const multiActionMethod = (action, appContext, selectedCheckBoxes, logine
     const data = body(action, selectedCheckBoxes);
     multiAction(data, appContext.handleError).then((response) => {
         appContext.setLoading(false);
-        selectedCheckBoxes.map((id) => {
+        selectedCheckBoxes.forEach(id => {
             if (action === 'delete') {
                 const currentUser = users.filter(user => user.user_id === id);
                 const currentIndex = users.indexOf(currentUser[0]);
@@ -48,7 +48,6 @@ export const multiActionMethod = (action, appContext, selectedCheckBoxes, logine
                     }
                 }
             }
-
         });
         handlePagination(users,true);
         success(t('translation:successDone'), t('translation:ok'));

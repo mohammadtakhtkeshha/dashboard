@@ -1,20 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import i18next from "i18next";
 
 import makeStyles from "@material-ui/styles/makeStyles";
-import LuxonUtils from '@date-io/luxon';
 import {ThemeProvider} from '@material-ui/styles';
 import {DatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 
 import {myStyles, themeEnn, themeFaa} from "assets/js/partials/datePicker";
 // ----------------------- jalali -------------------
-import moment from "moment";
 import jMoment from "moment-jalaali";
 import JalaliUtils from "@date-io/jalaali";
 import {createMuiTheme} from '@material-ui/core/styles';
 
 import MomentUtils from '@date-io/moment';
-import DateFnsUtils from '@date-io/date-fns';
 // ----------------------- jalali -------------------
 jMoment.loadPersian({dialect: "persian-modern", usePersianDigits: true});
 
@@ -22,7 +19,7 @@ const styles = makeStyles(myStyles);
 const themeFa = createMuiTheme(themeFaa);
 const themeEn = createMuiTheme(themeEnn);
 
-function DatePickerrComponent({placeholder,currentKey,passedDate,selectedDate,setSelectedDate}) {
+function DatePickerrComponent({placeholder,currentKey,passedDate,selectedDate}) {
     let lang = i18next.language;
     const classes = styles();
 
@@ -33,7 +30,6 @@ function DatePickerrComponent({placeholder,currentKey,passedDate,selectedDate,se
         }else{
             date=e.format();
         }
-        setSelectedDate(date,currentKey);
         passedDate(date);
     }
 

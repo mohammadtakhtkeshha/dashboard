@@ -1,16 +1,26 @@
-import authService from "core/services/auth.service";
+import {login} from "core/services/auth.service";
 import {ticketLogin} from "core/services/ticket.service";
 import storage from "libraries/local-storage"
 
-const userLogin = (appContext, setErrors, user, history) => {
-    authService.login(user, appContext.handleError).then((response) => {
+const userLogin = (appContext, setErrors, user, history,refreshCaptcha) => {
+    login(user, appContext.handleError).then((response) => {
         appContext.setLoading(false);
         setErrors({errorName: false, errorPass: false, loginError: false});
         appContext.isLoginSuccess = true;
         history.push("/");
     }).catch((error) => {
+        const status =error.response.status;
         appContext.setLoading(false);
-        setErrors({errorName: false, errorPass: false, loginError: true});
+        switch (status) {
+            case 403:
+                setErrors({errorName: false, errorPass: false, loginError: false,captchaError:true});
+                refreshCaptcha()
+                break;
+            default:
+                setErrors({errorName: false, errorPass: false, loginError: true,captchaError:false})
+                
+        }
+
     });
 }
 
@@ -25,7 +35,7 @@ const loginTicket = (user,lang,t, appContext, setIsTicketLogIn) => {
     })
 }
 
-export const loginMethod = (user, lang,t,setErrors, appContext, history, rememberMe, setReemberMe, isTicketLogin, setIsTicketLogIn) => {
+export const loginMethod = (user, lang,t,setErrors, appContext, history, rememberMe, setReemberMe, isTicketLogin, setIsTicketLogIn,refreshCaptcha) => {
     setErrors({errorName: false, errorPass: false, loginError: false});
     if (user.name === "" || user.pass === "") {
         if (user.name === "") {
@@ -71,7 +81,7 @@ export const loginMethod = (user, lang,t,setErrors, appContext, history, remembe
         } else {
             storage.remove(process.env.REACT_APP_USER_LOGIN)
         }
-        userLogin(appContext, setErrors, user, history)
+        userLogin(appContext, setErrors, user, history,refreshCaptcha)
     }
 }
 
@@ -92,7 +102,7 @@ export const changeInputMethod = (e, setUser, keyName, setErrors) => {
 
 export const keyUpMethod = (e, login) => {
     let enterKey = 13; //Key Code for Enter Key
-    if (e.which == enterKey) {
+    if (e.which === enterKey) {
         login();
     }
 }

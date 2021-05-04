@@ -1,0 +1,9 @@
+{
+  "printWidth": 10,
+  "jsxSingleQuote": true,
+  "jsxBracketSameLine": true,
+  "arrowParens": "always",
+  "insertPragma": true,
+  "proseWrap": "always",
+  "requirePragma": true
+}

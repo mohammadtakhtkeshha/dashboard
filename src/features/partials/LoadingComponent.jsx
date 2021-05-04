@@ -4,7 +4,7 @@ import {StyledLoadingBox} from 'assets/js/partials/loading';
 
 export default function LoadingComponent({loading}) {
   return (
-    <StyledLoadingBox loading={loading}>
+    <StyledLoadingBox loading={`${loading}`}>
       <CircularProgress />
     </StyledLoadingBox>
   );

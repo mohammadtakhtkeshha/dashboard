@@ -1,5 +1,5 @@
 import {warning} from "methods/swal";
-import contentService from "core/services/content.service";
+import {deleteContent} from "core/services/content.service";
 
 export const isCheckedHandlerMethod = (e, content, setSelectedCheckBoxes, selectedCheckBoxes) => {
     let currentId = content.nid;
@@ -15,8 +15,8 @@ export const isCheckedHandlerMethod = (e, content, setSelectedCheckBoxes, select
     }
 }
 
-const deleteContent = (id,appContext,contentsContext) => {
-    contentService.deleteContent(id,appContext.handleError).then((response) => {
+const deleteContentMethod = (id,appContext,contentsContext) => {
+    deleteContent(id,appContext.handleError).then((response) => {
         let newContents = contentsContext.contents.filter(content => content.nid !== id);
         contentsContext.handlePagination(newContents,true, 'deletedSuccessfully');
     });
@@ -25,6 +25,6 @@ const deleteContent = (id,appContext,contentsContext) => {
 export const confirmDeleteHandlerMethod = (e, t, appContext, contentsContext) => {
     let id = e.currentTarget.value;
     warning(t('translation:sureQuestion'), t('translation:ok'), t('translation:cancel'), t('translation:notDone'), function () {
-        deleteContent(id, appContext, contentsContext)
+        deleteContentMethod(id, appContext, contentsContext)
     });
 }

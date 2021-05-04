@@ -1,28 +1,31 @@
 import axios from "axios";
-import storage, {changeValueStorage} from "libraries/local-storage";
-import authUrl, {debugUrl, logOutUrl,csrfUrl} from 'utils/urls/auth.urls';
-import {Method} from "../../infrastructure/layout";
-import {authHeader} from "../../utils/headers";
+import storage from "libraries/local-storage";
+import  {debugUrl,csrfUrl,tokenUrl,exTokenUrl} from 'utils/urls/auth.urls';
+import {Method} from "infrastructure/layout.js";
+import {authHeader} from "utils/headers";
 
 export function getLoginUser(access_token,appContext) {
     appContext.setLoading(true)
-    return Method({method:'get',url:'http://dash.webrbp.ir/oauth/debug',headers: authHeader(`Bearer ${access_token}`),handleError:appContext.handleError}).then(()=>{
+    return Method({method:'get',url:'http://dash.webrbp.ir/oauth/debug',headers: authHeader,handleError:appContext.handleError}).then(()=>{
         appContext.setLoading(false)
     });
 }
 
 export async function login(user) {
     //get userdata and token and csrf
-    let tokenUrl = authUrl.tokenUrl;
     const body = new URLSearchParams();
     body.append('grant_type', 'password');
     body.append('username', user.name);
+    body.append('cValue', user.cValue);
     body.append('password', user.pass);
-    body.append('client_id', '6ffb042e-988a-437b-9e30-db515a719cc8');
+    // body.append('client_id', '6ffb042e-988a-437b-9e30-db515a719cc8');
+    body.append('client_id', '2663b597-fa63-4191-9c75-5b36e01c7fca');
     body.append('client_secret', '147/*');
 
     const loginResult = await axios.post(tokenUrl, body);
     const token = `Bearer ${loginResult.data.access_token}`;
+    storage.store(process.env.REACT_APP_TOKEN_KEY, token);
+    storage.store(process.env.REACT_APP_REFRESH_TOKEN, loginResult.data.refresh_token);
     const config={
         headers:{
             'Authorization':token
@@ -30,7 +33,6 @@ export async function login(user) {
     }
     const getAdminData = await axios.get(debugUrl,config);
     const {data} = await axios.get(csrfUrl)
-    storage.store(process.env.REACT_APP_TOKEN_KEY, token);
     storage.store('user', JSON.stringify(getAdminData.data));
     storage.store(process.env.REACT_APP_CSRF, JSON.stringify(data));
     return loginResult;
@@ -56,10 +58,10 @@ export async function loginTicketService() {
 }
 
 export async function logout(history) {
-    const params = {
-        "_format": "json",
-        "token": JSON.parse(storage.get('logout_token'))
-    };
+    // const params = {
+    //     "_format": "json",
+    //     "token": JSON.parse(storage.get('logout_token'))
+    // };
     // axios({
     //     method: 'POST', //you can set what request you want to be
     //     url: logOutUrl,
@@ -80,4 +82,8 @@ export async function logout(history) {
 
 }
 
-export default {login, logout, getLoginUser,loginTicketService}
+export const getNewTokenWithRefreshToken = (body,handleError) => {
+    return Method({method:'post',url:exTokenUrl,body:body,handleError:handleError})
+}
+
+

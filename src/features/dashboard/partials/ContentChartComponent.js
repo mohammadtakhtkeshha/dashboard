@@ -1,8 +1,8 @@
-import dashboardService from "core/services/dashboard.service";
+import {getContentList} from "core/services/dashboard.service";
 
-export const getContentList = async (setContents, setTotalLength, appContext,setIsRequestSuccess) => {
+export const getContentListMethod =  (setContents, setTotalLength, appContext,setIsRequestSuccess) => {
     appContext.setLoading(true)
-    dashboardService.getContentList(appContext.handleError).then((response) => {
+    getContentList(appContext.handleError).then((response) => {
         appContext.setLoading(false)
         setIsRequestSuccess(true)
         let contents = response.data;

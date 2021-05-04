@@ -57,10 +57,6 @@ function StateFormComponent({t, openForm, closeForm, setOpenForm, states, setErr
         registerMethod(appContext, category, openForm, setStates, t, closeForm, errors, getStates)
     }
 
-    const getParentAndItsIds = () => {
-        getParentAndItsIdsMethod(openForm.id, category, states, setParentStates)
-    }
-
     const changeParent = (e) => {
         changeParentMethod(e, setCategory)
     }
@@ -69,24 +65,22 @@ function StateFormComponent({t, openForm, closeForm, setOpenForm, states, setErr
         changePublishStatusMethod(isChecked, setCategory)
     }
 
-    const handleErrors = () => {
-        if (openForm.id === "") {
-            handleErrorsMethod(category, setErrors, t)
-        }
-    }
 
     const handleDefaultParent = () => {
         handleDefaultParentMethod(category, setSelectedParents, states)
     }
 
     useEffect(() => {
-        getParentAndItsIds();
+        getParentAndItsIdsMethod(openForm.id, category, states, setParentStates)
+        const handleErrors = () => {
+            if (openForm.id === "") {
+                handleErrorsMethod(category, setErrors, t)
+            }
+        }
         handleErrors()
     }, [])
 
-    useEffect(() => {
-        handleDefaultParent();
-    }, [category.tid])
+    useEffect(handleDefaultParent, [category.tid])
 
 
     return (<>

@@ -1,21 +1,21 @@
-import contentService from "core/services/content.service";
+import {handleContentAction} from "core/services/content.service";
 import {multiAction} from "../Index.js";
 import {warning} from "methods/swal"
 
 const doAction = (action,selectedCheckBoxes,appContext,contentsContext) => {
     if (action === 'delete') {
-        contentService.handleContentAction('deleted', selectedCheckBoxes, appContext.handleError).then(() => {
+        handleContentAction('deleted', selectedCheckBoxes, appContext.handleError).then(() => {
             const currentContents = multiAction(selectedCheckBoxes, contentsContext.contents, 'delete');
             contentsContext.handlePagination(currentContents, true,'deletedSuccessfully');
         });
 
     } else if (action === 'block') {
-        contentService.handleContentAction('false', selectedCheckBoxes, appContext.handleError).then(() => {
+        handleContentAction('false', selectedCheckBoxes, appContext.handleError).then(() => {
             const currentContents = multiAction(selectedCheckBoxes, contentsContext.contents, 'false');
             contentsContext.handlePagination(currentContents, true,'successDone');
         });
     } else {
-        contentService.handleContentAction('true', selectedCheckBoxes, appContext.handleError).then(() => {
+        handleContentAction('true', selectedCheckBoxes, appContext.handleError).then(() => {
             const currentContents = multiAction(selectedCheckBoxes, contentsContext.contents, 'true');
             contentsContext.handlePagination(currentContents, 'successDone');
         });

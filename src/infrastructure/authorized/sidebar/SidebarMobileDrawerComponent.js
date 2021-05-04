@@ -9,11 +9,12 @@ import {styles} from 'assets/js/SidebarMobile'
 export default function (props) {
     const node = useRef()
     const classes = makeStyles(styles)
+
     const handleClick = useCallback((e)=> {
         if (!node.current.contains(e.target)) {
             props.changeDrawer()
         }
-    },[])
+    },[props])
 
     useEffect(() => {
         // add when mounted

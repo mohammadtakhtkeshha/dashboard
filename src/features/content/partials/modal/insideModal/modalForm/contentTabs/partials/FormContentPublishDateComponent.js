@@ -9,31 +9,33 @@ export const validateDate = (field, date, contentsContext, t) => {
     if (englishDate === null) { //delete field publish and unpublish from content
         contentsContext.setContent(prevState => {
             return {
-                ...prevState,[field]:[]
+                ...prevState, [field]: []
             }
         });
         contentsContext.setErrors(prevState => {
-            delete prevState['publish_on'];
-            delete prevState['unpublish_on'];
+            delete prevState[field];
             return {...prevState}
         });
+        if (contentsContext.content.unpublish_on.length > 0 && field === 'publish_on') {
+            contentsContext.setErrors(prevState => {
+                return {...prevState, unpublish_on: t('contents:firstPulishDateThenUnpublish')}
+            });
+        }
     } else {
         if (englishDate < isoTomorrow) {//check times be for future
-            if (field === "publish_on") {
-                contentsContext.setErrors(prevState => {
-                    return {...prevState, publish_on: t('contents:furtherDate')}
-                });
-            } else {
-                contentsContext.setErrors(prevState => {
-                    return {...prevState, unpublish_on: t('contents:furtherDate')}
-                });
-            }
+            contentsContext.setErrors(prevState => {
+                return {...prevState, [field]: t('contents:furtherDate')}
+            });
         } else {
             contentsContext.setErrors(prevState => {
                 delete prevState[field];
                 return {...prevState}
             });
-            if (field === 'unpublish_on' && contentsContext.content.publish_on.length > 0) {
+            if (field === 'unpublish_on' && contentsContext.content.publish_on.length === 0) {
+                contentsContext.setErrors(prevState => {
+                    return {...prevState, unpublish_on: t('contents:firstPulishDateThenUnpublish')}
+                });
+            } else if (field === 'unpublish_on' && contentsContext.content.publish_on.length > 0) {
                 if (englishDate < contentsContext.content.publish_on[0].value) {
                     contentsContext.setErrors(prevState => {
                         return {...prevState, unpublish_on: t('contents:unPublishAfterPublishError')}
@@ -44,7 +46,7 @@ export const validateDate = (field, date, contentsContext, t) => {
                         return {...prevState}
                     });
                 }
-            } else if (field === 'publish_on' && contentsContext.content.unpublish_on > 0) {
+            } else if (field === 'publish_on' && contentsContext.content.unpublish_on.length > 0) {
                 if (englishDate > contentsContext.content.unpublish_on[0].value) {
                     contentsContext.setErrors(prevState => {
                         return {...prevState, unpublish_on: t('contents:unPublishAfterPublishError')}

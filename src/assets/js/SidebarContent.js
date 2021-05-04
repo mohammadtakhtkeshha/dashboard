@@ -1,8 +1,5 @@
-import {green, white, grey, blue} from 'assets/js/library/abstracts/colors';
+import {green, white, grey} from 'assets/js/library/abstracts/colors';
 import styled from 'styled-components';
-import {StyledNotScrollbar} from "./App";
-import dashboardImg from "assets/svg/sidebarIcons/dashboard.png"
-import dashboardHover from "assets/svg/sidebarIcons/dashboard-hover.png"
 
 export const active = () => ({
     active: {

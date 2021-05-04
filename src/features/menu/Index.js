@@ -45,7 +45,7 @@ export const constMenu = {
 }
 
 const changeBelowToChildren = function f(arr) {
-    arr.map((item) => {
+    arr.forEach(item => {
         if (item.below) {
             item['children'] = item.below
             delete item.below
@@ -59,7 +59,7 @@ const changeBelowToChildren = function f(arr) {
                 f(item.children)
             }
         }
-    })
+    });
     return arr
 }
 

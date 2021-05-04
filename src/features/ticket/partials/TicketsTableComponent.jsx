@@ -1,32 +1,20 @@
-import React, {useContext, useEffect, ticketef, useState} from "react"
+import React, { useEffect, useState} from "react"
 import {withNamespaces} from "react-i18next"
-import i18next from "i18next"
 
-import {CardMedia, Typography} from "@material-ui/core"
 import {NavLink} from 'react-router-dom';
 
-import {
-    StyledActionButtonBlock,
-    StyledBtn,
-    StyledTableBody,
-    StyledTableHeadRow,
-    StyledTableBodyRow,
-} from "assets/js/App"
-import {StyledTr, StyledTableHeadTr, StyledTable, StyledTableImg,StyledCheckboxImgInTable,StyledTableCell} from "assets/js/library/components/table"
+import {StyledTableBody,StyledTableBodyRow} from "assets/js/App"
+import {StyledTableHeadTr, StyledTable, StyledTableCell} from "assets/js/library/components/table"
 import {adjustDepartemanMethod} from "./TicketsTableComponent.js"
 import {StyledTid,StyledTitle,StyledStatusButton} from "assets/js/ticket/ticketTable"
 
 function TicketsTableComponent({t, chunkTickets, page, departemanList}) {
-    const lang = i18next.language
     const [departmentNames, setDepartmentNames] = useState([])
 
-    const adjustDeparteman = () => {
-        adjustDepartemanMethod(departemanList, setDepartmentNames)
-    }
-
     useEffect(() => {
-        adjustDeparteman()
+        adjustDepartemanMethod(departemanList, setDepartmentNames)
     }, [departemanList])
+
     return (
         <>
             <StyledTable>

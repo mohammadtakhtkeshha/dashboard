@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, {useContext, useState, useEffect, useCallback} from "react";
 import {Helmet} from "react-helmet";
 import {withNamespaces} from 'react-i18next';
 
@@ -23,22 +23,27 @@ function Index({t}) {
     const [commentStatus, setCommentStatus] = useState('published');
     const [expandedFilter,setExpandedFilter]=useState(false)
 
-    const getPublishedComments = () => {
-        getPublishedCommentsMethod(handlePagination, setPublishedComments, appContext, setCommentStatus);
-    }
-
-    const getUnconfirmedComments = () => {
-        getUnconfirmedCommentsMethod(handlePagination, setUnconfirmedComments, appContext);
-    }
-
-    const handlePagination = (comments, showSuccessMessage, changeDefaultComments, begining) => {
+    const handlePagination = useCallback((comments, showSuccessMessage, changeDefaultComments, begining) => {
         handlePaginationMethod(t, showSuccessMessage, comments, changeDefaultComments, commentStatus, begining, setUnconfirmedComments, setPublishedComments, setChunkPublishedComments, setChunkUnconfirmedComments, setTotalUnconfirmPage,setTotalPublishPage,setSelectedCheckBoxes)
-    }
+    },[commentStatus,t])
+    
+    const getPublishedComments = useCallback(() => {
+        getPublishedCommentsMethod(handlePagination, setPublishedComments, appContext, setCommentStatus);
+    },[appContext,handlePagination])
+
+    const getUnconfirmedComments = useCallback(() => {
+        getUnconfirmedCommentsMethod(handlePagination, setUnconfirmedComments, appContext);
+    },[appContext,handlePagination])
+
+    
+
+    useEffect(() => {
+        getUnconfirmedComments();
+    }, [getUnconfirmedComments]);
 
     useEffect(() => {
         getPublishedComments();
-        getUnconfirmedComments();
-    }, []);
+    }, [getPublishedComments]);
 
     return (<>
         <Helmet>

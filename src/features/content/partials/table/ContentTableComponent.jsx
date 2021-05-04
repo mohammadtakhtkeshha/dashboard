@@ -28,15 +28,6 @@ function ContentTableComponent({t, selectedCheckBoxes, setSelectedCheckBoxes, pa
 
     return (<StyledTable>
         <StyledTableHeadTr>
-            {/*<StyledTableCell width="10" align={leftRightAlign} minWidth="92">*/}
-            {/*    <StyledCheckboxImgInTable minWidth="100">*/}
-            {/*        <StyledCheckboxComponent*/}
-            {/*            checked={selectedCheckBoxes.length === appContext.perPage}*/}
-            {/*            change={allCheckboxHandler}*/}
-            {/*            inputProps={{'aria-label': 'primary checkbox'}}/>*/}
-            {/*        <div>{t('translation:image')}</div>*/}
-            {/*    </StyledCheckboxImgInTable>*/}
-            {/*</StyledTableCell>*/}
             <StyledTableCell width="70" align={leftRightAlign}>
                 <StyledCheckboxImgInTable minWidth="100">
                     <StyledCheckboxComponent

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {withNamespaces} from "react-i18next"
 import i18next from "i18next"
 import {Route, Router} from "react-router-dom"
-import i18ne from './../configs/locales/locales'
+import 'configs/locales/locales'
 import "assets/css/yekanFont.css"
 import "assets/css/byekanFont.css"
 import AppContext from 'contexts/AppContext'
@@ -16,7 +16,7 @@ import {handleErrorMethod} from "./layout.js"
 import {makeStyles} from "@material-ui/styles";
 import AuthorizedComponent from "infrastructure/authorized/authorized.jsx"
 import ForgetPasswordComponent from "infrastructure/unauthorized/ForgetPasswordComponent"
-import LoginComponent from "infrastructure/unauthorized/LoginComponent.jsx"
+import LoginComponent from "infrastructure/unauthorized/login/LoginComponent.jsx"
 
 const theme = createMuiTheme(defaultStyles)
 const useStyles = makeStyles(layoutClasses)
@@ -33,13 +33,15 @@ export function Layout({t}) {
     }
 
     let handleError = (error) => {
-        handleErrorMethod(t, error, setLoading)
+        handleErrorMethod(t, error, setLoading,history)
     }
 
-    useEffect(() => {
+    const changeFontFamily = () => {
         let fontFamily =  lang === "en" ? classes.fontFamilyByekan:classes.fontFamilyPrimary
         document.body.className = fontFamily;
-    }, [lang]);
+    }
+
+    useEffect(changeFontFamily, [lang])
 
     return (<>
             <LoadingComponent loading={loading}/>

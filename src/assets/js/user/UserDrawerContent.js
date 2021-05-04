@@ -95,24 +95,40 @@ export const StyledGreenBackground =styled.div`
 
 export const StyledProfile= styled.div`
          position:relative;
-         &>div{
-          background:url(${cirlcleSvg}) no-repeat center;
+         top:20%;
+         margin:0 160px;
+         display:flex;
+         bottom:10%;
+         &>div:first-child{
+          background:url(${cirlcleSvg}) no-repeat ${lang => lang === "en" ? 'left' : 'right'};
+          display:inline-block;
          }
-          & h4{
+     
+         
+        
+`
+
+export const StyledData = styled.div`
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color:${black[5]};
+            & > span{
                 text-align:center;
                 font-size:1rem;
                 font-weight:300;
-                margin-top:10px;
-          }
-          // & > img {
-          //   width:20px;
-          //   height:20px;
-          //   position:absolute;
-          //   top:0;
-          //   right:0;
-          //   z-index:1;
-          // }
-        
+                display:block;
+                margin:0 14px;
+                text-align:right;
+                line-height:31px;
+                &:first-child{
+                 font-size:25px;
+                 font-weight:bold;
+                } 
+                 &:last-child{
+                 font-size:14px;
+                }
+          } 
 `
 
 export const StyledWhiteBackground =styled.div`

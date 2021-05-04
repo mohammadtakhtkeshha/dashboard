@@ -24,6 +24,7 @@ const black = ['#212529',//[0]
     '#32325d',//[2]upload img color
     '#242527',//[3]background color for hover img upload
     '#2e2e2e',//[4]text-color-dashboard-welcome
+    '#4C4C4C',//[5]
 ];
 const white =["#fff",//[0] base-white
     "#fffdfe",//[1] dashboard-title-text-color

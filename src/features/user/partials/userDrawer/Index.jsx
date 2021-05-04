@@ -5,7 +5,7 @@ import i18next from "i18next"
 import {makeStyles} from '@material-ui/core/styles/index'
 import {Box} from '@material-ui/core/index'
 
-import ProfileContentComponent from "./partials/ProfileContentComponent.jsx"
+import ProfileContentComponent from "./partials/UserDrawerContent.jsx"
 import AppContext from "contexts/AppContext"
 import {currentStyles} from "assets/js/library/pages/user/profile"
 
@@ -21,7 +21,7 @@ export default function () {
         if (!node.current.contains(e.target)) {
             appContext.toggleUserDrawer(false)
         }
-    }, [])
+    }, [appContext])
 
     useEffect(() => {
         document.addEventListener("mousedown", handleClick)

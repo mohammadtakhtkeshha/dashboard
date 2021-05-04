@@ -1,22 +1,13 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, {useState, useEffect, useContext, useCallback} from "react";
 import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
 
 import {Typography} from "@material-ui/core";
 
-import dashboardService from "core/services/dashboard.service";
-import {
-    StyledTableBody,
-    StyledTableHeadRow,
-    StyledTableBodyRow,
-} from "assets/js/App";
-import {
-    StyledTableCell
-} from "assets/js/library/components/table"
-import {
-    StyledDashboardTable,
-    StyledPaper, StyledDashboardBlock
-} from "assets/js/dashboard/dashboard";
+import {getTenNumberOfComments} from "core/services/dashboard.service";
+import {StyledTableBody,StyledTableHeadRow,StyledTableBodyRow} from "assets/js/App";
+import {StyledTableCell} from "assets/js/library/components/table"
+import {StyledDashboardTable,StyledPaper, StyledDashboardBlock} from "assets/js/dashboard/dashboard";
 import {StyledStatusButton} from "assets/js/library/components/buttons"
 import AppContext from "contexts/AppContext";
 
@@ -25,17 +16,18 @@ function CommentDashboardComponent({t}) {
     const lang = i18next.language
     const appContext=useContext(AppContext)
     let leftRightAlign = lang === "en" ? "left" : "right"
-    const getTenNumberOfComments = () => {
-        dashboardService.getTenNumberOfComments(appContext.handleError).then((response) => {
+
+    const getTenNumberOfCommentsMethod = useCallback(() => {
+        getTenNumberOfComments(appContext.handleError).then((response) => {
             let comments = response.data;
             setComments([...comments]);
-        }).catch((error) => {
         });
-    };
+    },[appContext]);
+
 
     useEffect(() => {
-        getTenNumberOfComments();
-    }, []);
+        getTenNumberOfCommentsMethod();
+    }, [getTenNumberOfCommentsMethod]);
 
     return (<>
             {comments.length > 0 && <StyledDashboardBlock length={comments.length}>
@@ -51,7 +43,7 @@ function CommentDashboardComponent({t}) {
                         </StyledTableHeadRow>
                         <StyledTableBody>
                             {comments.length > 0 && comments.map((comment, index) =>
-                                <a key={index} href={comment.link} target='_blank'>
+                                <a key={index} href={comment.link} target='_blank' rel="noopener noreferrer">
                                     <StyledTableBodyRow key={index}>
                                         {/*<StyledTableCell align="center" >{row.name}</StyledTableCell>*/}
                                         {/*<StyledTableCell align="center">*/}

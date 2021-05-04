@@ -1,8 +1,7 @@
-import BaseFormComponent from "features/partials/BaseFormComponent";
 import CustomizedForm from "features/partials/CustomizedForm";
 import BreadcrumbsComponent from 'infrastructure/authorized/header/BreadcrumbsComponent';
 import UsersComponent from 'features/user/index.jsx';
-import EditProfileComponent from 'features/user/partials/userDrawer/partials/editProfile/EditProfileComponent.jsx';
+import EditProfileComponent from 'features/user/partials/userDrawer/partials/editProfile/Index.jsx';
 import ContentsComponent from 'features/content/Index.jsx';
 import CommentsComponent from 'features/comment/Index.jsx';
 import DashboardComponent from 'features/dashboard/DashboardComponent';
@@ -20,16 +19,11 @@ import RealTime from 'features/matamo/realTime/Index.jsx';
 import VocabsComponent from "features/taxonomy/Index.jsx";
 import TermsComponent from "features/taxonomy/partials/partials/Index.jsx";
 import RoleComponent from "features/user/partials/roles/Index.jsx";
+import SettingsComponent from "features/settings/Index.jsx";
 
 import React from "react";
 
 export const routes = [
-    {
-        path: '/base',
-        exact: true,
-        breadcrumbs: () => <BreadcrumbsComponent bread="main-page"/>,
-        component: () => <BaseFormComponent/>
-    },
     {
         path: '/custom',
         breadcrumbs: () => <BreadcrumbsComponent bread="فرم های سفارشی"/>,
@@ -116,13 +110,13 @@ export const routes = [
     {
         path: '/settings',
         breadcrumbs: () => <BreadcrumbsComponent bread="settings"/>,
-        component: () => <DashboardComponent isLoginSuccess={false}/>
+        component: () => <SettingsComponent isLoginSuccess={false}/>
     },
-    {
-        path: '/platform-settings',
-        breadcrumbs: () => <BreadcrumbsComponent bread="platformSettings"/>,
-        component: () => <DashboardComponent isLoginSuccess={false}/>
-    },
+    // {
+    //     path: '/platform-settings',
+    //     breadcrumbs: () => <BreadcrumbsComponent bread="platformSettings"/>,
+    //     component: () => <DashboardComponent isLoginSuccess={false}/>
+    // },
     {
         path: '/activities',
         breadcrumbs: () => <BreadcrumbsComponent bread="activities"/>,

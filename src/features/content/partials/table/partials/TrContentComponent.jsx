@@ -30,19 +30,7 @@ function TrContentComponent({t, content, setSelectedCheckBoxes, selectedCheckBox
         confirmDeleteHandlerMethod(e, t, appContext, contentsContext)
     }
 
-
     return (<StyledTr>
-        {/*<StyledTableCell width="10" align={leftRightAlign}  minWidth="92" >*/}
-        {/*<StyledCheckboxImgInTable minWidth="100">*/}
-        {/*    <StyledCheckboxComponent change={(e) => isCheckedHandler(e, content)}*/}
-        {/*                             inputProps={{'aria-label': 'primary checkbox'}}*/}
-        {/*                             checked={selectedCheckBoxes.includes(content.nid)}/>*/}
-        {/*<StyledTableImg>*/}
-        {/*{content.field_image ? <img src={content.field_image} alt="content.name"/> :*/}
-        {/*    <img src={contentImg}/>}*/}
-        {/*</StyledTableImg>*/}
-        {/*</StyledCheckboxImgInTable>*/}
-        {/*</StyledTableCell>*/}
         <StyledTableCell width="70" align={leftRightAlign} minWidth="92">
             <StyledCheckboxImgInTable width="60" align={leftRightAlign}>
                 <StyledCheckboxComponent change={(e) => isCheckedHandler(e, content)}
@@ -67,17 +55,6 @@ function TrContentComponent({t, content, setSelectedCheckBoxes, selectedCheckBox
             {content.created}
         </StyledTableCell>
         <StyledTableCell width="5" align="center" minWidth={58}>
-            {/*<StyledActionButtonBlock>*/}
-            {/*    <button value={content.nid} onClick={handleOpenContentForm}>*/}
-            {/*        <Typography>*/}
-            {/*            {t('translation:edit')}*/}
-            {/*        </Typography>*/}
-            {/*    </button>*/}
-            {/*    <button value={content.nid} onClick={confirmDeleteHandler}>*/}
-            {/*        {t('translation:delete')}*/}
-            {/*    </button>*/}
-            {/*</StyledActionButtonBlock>*/}
-
             <StyledActionsBlock>
                 <StyledActionButtons value={content.nid} onClick={confirmDeleteHandler}>
                     <img src={deleteIcon} alt=""/>

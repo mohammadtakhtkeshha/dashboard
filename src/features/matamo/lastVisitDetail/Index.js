@@ -1,7 +1,5 @@
 import {getLastVisit} from "core/services/matamo.service";
 import {chunkItem, handleTotalPage} from "infrastructure/layout";
-import moment from "jalali-moment";
-
 
 export const handlePaginationMethod = (items, setChunks, setTotalPage,setMostSeen) => {
     setMostSeen(items)

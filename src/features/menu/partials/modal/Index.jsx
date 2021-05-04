@@ -1,13 +1,11 @@
 import React, {useState} from "react"
 import {withNamespaces} from "react-i18next"
-import i18next from "i18next"
 import Tour from "reactour";
 
 import {makeStyles} from "@material-ui/styles"
 import {Modal,Box,Backdrop,Fade} from "@material-ui/core"
 import HelpIcon from "@material-ui/icons/Help";
 
-import {useStyles} from "assets/js/user/users"
 import {StyledCancelButton,ModalBody} from "assets/js/library/components/modal"
 import {StyledSvg} from "assets/js/library/base/all"
 import {ReactComponent as Exit} from "assets/svg/exit.svg"
@@ -20,9 +18,7 @@ import {modalClasses} from "assets/js/library/components/modal";
 const useStyle = makeStyles(modalClasses)
 
 function Index({t, openForm, setOpenForm, menus, errors, setErrors, menu, setMenu, getMenus, closeForm, link, setLink}) {
-    let lang = i18next.language
     const classes = useStyle({maxWidth:'700px'})
-    const [steps, setSteps] = useState(constSteps);
     const [isTourOpen, setIsTourOpen] = useState(false);
     const [totalStep, setTotalStep] = useState('');
     const [currentStep, setCurrentStep] = useState('');
@@ -70,7 +66,7 @@ function Index({t, openForm, setOpenForm, menus, errors, setErrors, menu, setMen
                       nextButton={<StyledNextButton><span>{totalStep}/{currentStep}</span> {t('translation:nextStep')}
                       </StyledNextButton>}
                       prevButton={<StyledPrevButton>{t('translation:prevStep')}</StyledPrevButton>}
-                      steps={steps}
+                      steps={constSteps}
                       customizedCloseButton={
                           <StyledCloseGuideButton>{t('translation:closeGuide')}</StyledCloseGuideButton>}
                       isOpen={isTourOpen}

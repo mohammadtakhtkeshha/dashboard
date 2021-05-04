@@ -10,12 +10,8 @@ function Index({t}) {
     const [taxonomies, setTaxonomies] = useState([])
     const appContext = useContext(AppContext)
 
-    const getTaxonomies = () => {
-        getTaxonomiesMethod(appContext, setTaxonomies)
-    }
-
     useEffect(() => {
-        getTaxonomies()
+        getTaxonomiesMethod(appContext, setTaxonomies)
     }, [])
 
     return (<>

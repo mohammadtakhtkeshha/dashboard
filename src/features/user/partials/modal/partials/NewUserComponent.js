@@ -1,9 +1,8 @@
-import {getRoles,saveUserImage,registerUser,editUser,getUser} from "core/services/user.service";
+import {getRoles, saveUserImage, registerUser, editUser, getUser} from "core/services/user.service";
 import {success} from "methods/swal";
 import {isObjectEmpty} from "methods/commons";
 
 function checkPassWithConfirm(pass, confirmPass) {
-    let required = ""
     let harmony = ""
     if (confirmPass !== pass) {
         harmony = 'عدم همخوانی پسورد ها!'
@@ -15,7 +14,8 @@ function checkPassWithConfirm(pass, confirmPass) {
 *@return :object
 * */
 function checkMail(mail, exMail, userMailList) {
-    let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+    // let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+    let regex = /^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/
     let valid = ""
     let unique = ""
     let required = ""
@@ -53,7 +53,8 @@ function checkPass(pass, type, id) {
             required = 'حداقل تعداد کاراکترها 8 میباشد!'
         }
     }
-    let regex = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}:؟|,\.?~_+-=\|])/
+    // let regex = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}:؟|,\.?~_+-=\|])/
+    let regex = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}:؟|,.?~_+-=|])/
     if (!regex.test(pass)) {
         valid = 'شامل اعداد حروف بزرگ و کوچک و علامت ها خاص نمیباشد!'
     }
@@ -124,11 +125,9 @@ export const uploadImgMethod = (e, setUser, setImgAndUrl, appContext) => {
         );
 }
 
-export const saveUserMethod = (t, user, confirmPass, appContext, getRegisteredUser, errors,closeForm) => {
+export const saveUserMethod = (t, user, appContext, getRegisteredUser, errors, closeForm) => {
     if (isObjectEmpty(errors)) {
         appContext.setLoading(true)
-        debugger
-
         registerUser(user, appContext.handleError).then((response) => {
             let item = response.data
             appContext.setLoading(false)
@@ -153,26 +152,29 @@ export const saveUserMethod = (t, user, confirmPass, appContext, getRegisteredUs
     }
 }
 
-export const editUserMethod = (id, user, appContext, t, getEditedUser,errors) => {
-    if(isObjectEmpty(errors)){
+export const editUserMethod = (id, user, appContext, t, getEditedUser, errors) => {
+    if (isObjectEmpty(errors)) {
         appContext.setLoading(true)
         editUser(id, JSON.stringify(user), appContext.handleError).then((response) => {
             appContext.setLoading(false)
             let item = response.data
+            let rolesArray = []
+            for (let role of item.roles) {
+                rolesArray.push(role.target_id)
+            }
+            let stringRoles = rolesArray.toString()
             let currentEditedUser = {
                 user_id: `${item.uid[0].value}`,
                 picture: item.user_picture.length > 0 ? item.user_picture[0].url : "",
                 status: `${item.status[0].value}`,
-                roles: item.roles.length > 0 ? item.roles : "",
+                roles: stringRoles,
                 user_name: item.name[0].value,
-                firs_name: item.field_name.length>0 ? item.field_name[0].value : "",
-                last_name: item.field_last_name.length>0 ?item.field_last_name[0].value:"",
+                firs_name: item.field_name.length > 0 ? item.field_name[0].value : "",
+                last_name: item.field_last_name.length > 0 ? item.field_last_name[0].value : "",
                 mail: item.mail[0].value,
             }
             getEditedUser(currentEditedUser)
             success(t('translation:successEdited'), t('translation:ok'))
-        }).catch((error) => {
-            appContext.handleError(error)
         })
     }
 }
@@ -184,7 +186,7 @@ export const removedFileIdMethod = (setUser, setImgAndUrl) => {
     setImgAndUrl([])
 }
 
-const nameValidation = (name, exName, userNameList, setErrors, t) => {
+export const nameValidation = (name, exName, userNameList, setErrors, t) => {
     const {unique, required} = checkName(name, exName, userNameList, t)
     setErrors(prevState => {
         if (required !== "") {
@@ -200,7 +202,7 @@ const nameValidation = (name, exName, userNameList, setErrors, t) => {
 
 }
 
-const mailValidation = (mail, exMail, userMailList, setErrors) => {
+export const mailValidation = (mail, exMail, userMailList, setErrors) => {
     const {valid, unique, required} = checkMail(mail, exMail, userMailList)
     setErrors(prevState => {
         if (required !== "") {
@@ -353,7 +355,7 @@ export const getUserMethod = (appContext, id, setDefaultRoles, setUser, setGotte
                 field_last_name: user.field_last_name.length > 0 ? (user.field_last_name[0].value === undefined ? '' : [{value: user.field_last_name[0].value}]) : "",
                 mail: user.mail.length > 0 ? (user.mail[0].value === undefined ? '' : [{value: user.mail[0].value}]) : "",
                 user_picture: user.user_picture.length === 0 ? [] : user.user_picture,
-            // {target_id: 775, target_type: "file", target_uuid: "71cd6999-47b5-4334-9a5a-13b80b19bf50", url: "http://sitesazyas.rbp/web/sites/default/files/pictures/1399-10/images_0.jpg"}
+                // {target_id: 775, target_type: "file", target_uuid: "71cd6999-47b5-4334-9a5a-13b80b19bf50", url: "http://sitesazyas.rbp/web/sites/default/files/pictures/1399-10/images_0.jpg"}
                 roles: user.roles,
                 status: user.status[0].value === undefined ? '' : (user.status[0].value === true ? [{value: true}] : [{value: false}])
             })

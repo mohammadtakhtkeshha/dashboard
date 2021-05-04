@@ -13,7 +13,7 @@ function FactorsComponent({t}) {
 
     useEffect(() => {
         getFactorsMethod(appContext, setFactors,clientId);
-    }, [])
+    }, [clientId])
 
     return (
         <>

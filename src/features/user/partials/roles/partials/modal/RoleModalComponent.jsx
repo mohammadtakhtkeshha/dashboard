@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {withNamespaces} from "react-i18next";
-import i18next from "i18next";
 
 import {Modal,Box,Fade} from '@material-ui/core';
 import HelpIcon from "@material-ui/icons/Help";
@@ -25,7 +24,6 @@ import {roleModal} from "assets/js/library/pages/user/rolesModal";
 const useStyles = makeStyles(roleModal)
 
 function RoleModalComponent({t, openForm, role,handleClose,setShowPermission,showPermission,permissions,setRole,setPermissions,faRoles,setFaRoles,setEnRoles}) {
-    const lang = i18next.language
     const classes = useStyles()
     const [isTourOpen, setIsTourOpen] = useState(false);
     const [totalStep, setTotalStep] = useState('');

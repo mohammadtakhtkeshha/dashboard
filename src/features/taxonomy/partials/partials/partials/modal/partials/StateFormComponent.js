@@ -66,7 +66,8 @@ export const handleChangeMethod = (e, field, setState, setErrors, t) => {
 
 export const handleChangePathMethod = (e, setState, setErrors, t) => {
     const currentValue = e.currentTarget.value
-    let patt = new RegExp("^\/[a-zA-Z0-9-]+$");
+    // let patt = new RegExp("^\/[a-zA-Z0-9-]+$");
+    let patt = new RegExp("^/[a-zA-Z0-9-]+$");
     if (currentValue.length !== 0) {
         if (!patt.test(currentValue)) {
             setErrors(prevState => {
@@ -102,6 +103,35 @@ export const clickEditorMethod = (text, setCategory) => {
     })
 }
 
+export const handleDefaultParentMethod = (category, setSelectedParents, states) => {
+    let selectedParent = []
+    if (category.tid) {
+        const id = category.parent[0].target_id
+        if (id !== null) {
+            let title = ""
+            function recursive(list) {
+                for (let item of list) {
+                    if (parseInt(item.id) === id) {
+                        title = item.title
+                    } else {
+                        if (item.children && item.children.length > 0) {
+                            recursive(item.children)
+                        }
+                    }
+                }
+                return title
+            }
+            title = recursive(states)
+            for (let i=0;i<category.parent;i++) {
+            // for (let parent of category.parent) {
+                selectedParent.push({id: id, name: title})
+            }
+            setSelectedParents(selectedParent)
+        }
+    }
+}
+
+
 export const getParentAndItsIdsMethod = (id, category, states, setParentStates) => {
     let parents = []
     let list = [...states]
@@ -128,31 +158,4 @@ export const getParentAndItsIdsMethod = (id, category, states, setParentStates) 
         }
     }
     setParentStates(parents)
-}
-
-export const handleDefaultParentMethod = (category, setSelectedParents, states) => {
-    let selectedParent = []
-    if (category.tid) {
-        const id = category.parent[0].target_id
-        if (id !== null) {
-            let title = ""
-            function recursive(list) {
-                for (let item of list) {
-                    if (parseInt(item.id) === id) {
-                        title = item.title
-                    } else {
-                        if (item.children && item.children.length > 0) {
-                            recursive(item.children)
-                        }
-                    }
-                }
-                return title
-            }
-            title = recursive(states)
-            for (let parent of category.parent) {
-                selectedParent.push({id: id, name: title})
-            }
-            setSelectedParents(selectedParent)
-        }
-    }
 }

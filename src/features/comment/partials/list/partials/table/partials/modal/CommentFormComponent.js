@@ -19,10 +19,7 @@ export const handleChangeStatusMethod = (e, setComment) => {
     });
 }
 
-const removeHourFromMiladiDate = (date) => {
-    const currentDate = date.split('T').shift()
-    return currentDate
-}
+
 export const editCommentMethod = (id,t,lang, comment, appContext, handlePagination, open, unconfirmedComments, publishedComments,commentStatus,setOpen) => {
     const getCurrentCommentInList = commentStatus === 'published' ? publishedComments.filter(item => item.cid === id) : unconfirmedComments.filter(item => item.cid === id);
     const currentStatus=comment.status[0].value;

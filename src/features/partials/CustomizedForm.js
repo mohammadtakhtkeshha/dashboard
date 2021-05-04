@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function BaseFormComponent() {
+export default function CustomizedForm() {
     const classes = useStyles();
     return (<>
         <Grid container>

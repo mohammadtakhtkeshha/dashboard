@@ -21,14 +21,7 @@ export const changeStatusMethod = (isChecked, setState,field) => {
     });
 }
 
-export const handleErrorsMethod = (setErrors, t, openForm) => {
-    if (openForm.id === "") {//register
-        setErrors({
-            title: {required: t('translation:requiredValid')},
-            link: {required: t('translation:requiredValid')}
-        });
-    }
-}
+
 
 export const changeParentMethod = (e, setState) => {
     const parentIds = e.map(menu => {
@@ -39,39 +32,11 @@ export const changeParentMethod = (e, setState) => {
     });
 }
 
-export const getParentAndItsIdsMethod = (id, menu, menus, setParentMenus) => {
-    let parents = []
-    let list = [...menus]
-    for (let menu of list) {
-        if (menu.id === id) {
-            const index = list.indexOf(menu)
-            list.splice(index, 1)
-        }
-    }
-    for (let menu of list) {
-        let idMenu = `menu_link_content:${menu.uuid}`
-        let idAndName = {id: idMenu, name: menu.title}
-        parents.push(idAndName)
-        if (menu.children && menu.children.length > 0) {
-            for (let item of menu.children) {
-                let idValue = `menu_link_content:${item.uuid}`
-                let idAndName = {id: idValue, name: item.title}
-                parents.push(idAndName)
-                if (item.children && item.children.length > 0) {
-                    for (let part of item.children) {
-                        let partId = `menu_link_content:${item.uuid}`
-                        let idAndName = {id: partId, name: part.title}
-                        parents.push(idAndName)
-                    }
-                }
-            }
-        }
-    }
-    setParentMenus(parents)
-}
+
 
 const linkValidation = (value, setErrors, t) => {
-    let externalRegex = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+    // let externalRegex = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+    let externalRegex = /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/g;
     let internalRegex = /^\/[a-zA-Z0-9]+/g;
     let externalRegexTest = externalRegex.test(value)
     let internalRegexTest = internalRegex.test(value)
@@ -111,7 +76,7 @@ export const handleChangeMethod = (e, field, setMenu, setErrors, t) => {
         currentValue = e.currentTarget.value
     }
     if (field === "link") {
-        const {internalRegexTest, externalRegexTest} = linkValidation(currentValue, setErrors, t)
+        const {internalRegexTest} = linkValidation(currentValue, setErrors, t)
         if (internalRegexTest) {
             setMenu(prevState => {
                 return {
@@ -162,7 +127,8 @@ export const handleDefaultParentMethod = (menu, setSelectedParents, menus) => {
                     return value
                 }
                 value = recursive(menus)
-                for (let parent of menu.parent) {
+                for (let i = 0 ; i<menu.parent.length;i++) {
+                // for (let parent of menu.parent) {
                     selectedParent.push({id: parentId, name: value})
                 }
 

@@ -1,11 +1,11 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, {useState, useEffect, useContext, useCallback} from "react";
 import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
 
 import {Typography} from "@material-ui/core";
 
 import userImg from 'assets/media/image/user.jpg';
-import dashboardService from "core/services/dashboard.service";
+import {getTenNumberOfUsers} from "core/services/dashboard.service";
 import {
     StyledTableBody,
     StyledTableHeadRow,
@@ -30,17 +30,16 @@ function UserDashboardComponent({t}) {
     let leftRightAlign = lang === "en" ? "left" : "right"
     const appContext=useContext(AppContext)
 
-    let getTenNumberOfUsers = () => {
-        dashboardService.getTenNumberOfUsers(appContext.handleError).then((response) => {
+     let getTenNumberOfUsersMethod =useCallback( () => {
+       getTenNumberOfUsers(appContext.handleError).then((response) => {
             let users = response.data;
             setUsers([...users]);
-        }).catch((error) => {
         });
-    };
+    },[appContext,setUsers]);
 
-    useEffect(() => {
-        getTenNumberOfUsers();
-    }, []);
+                       useEffect(() => {
+        getTenNumberOfUsersMethod();
+        }, [getTenNumberOfUsersMethod]);
 
     return (<>
             {users.length > 0 ?
@@ -57,13 +56,13 @@ function UserDashboardComponent({t}) {
                             </StyledTableHeadRow>
                             <StyledTableBody>
                                 {users.map((user, index) =>
-                                    <a key={index} href={user.view_user} target='_blank'>
+                                    <a key={index} href={user.view_user} target='_blank' rel="noopener noreferrer">
                                         <StyledTableBodyRow key={index}>
                                             <StyledTableCell width="8" align={leftRightAlign} minWidth={52}>
                                                 <StyledCheckboxImgInTable minWidth="90">
                                                     <StyledTableImg>
                                                         {user.picture ? <img src={user.picture} alt="user.name"/> :
-                                                            <img src={userImg}/>}
+                                                            <img src={userImg} alt={userImg}/>}
                                                     </StyledTableImg>
                                                 </StyledCheckboxImgInTable>
                                             </StyledTableCell>

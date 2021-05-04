@@ -1,6 +1,6 @@
-import Highcharts from "highcharts";
-import dashboardService from "core/services/dashboard.service";
-import {toMiladiDate} from "methods/commons";
+import Highcharts from "highcharts"
+import {getCommentChart} from "core/services/dashboard.service"
+import {toMiladiDate} from "methods/commons"
 
 const highChartsRender = (t,dates, confirmComment, blockedComment) => {
     Highcharts.chart('commentchart', {
@@ -39,39 +39,60 @@ const highChartsRender = (t,dates, confirmComment, blockedComment) => {
             }]
     })
 
-};
+}
 
-export const getCommentChart = (t,setComments, handleError, lang) => {
-    dashboardService.getCommentChart(handleError).then((response) => {
+export const getCommentChartMethod = (t,setComments, handleError, lang) => {
+    getCommentChart(handleError).then((response) => {
         let currentComments = response.data
         setComments(currentComments)
         let sortCommentsByDate = currentComments.sort((a, b) => (a.created > b.created) ? 1 : -1)
         let dates = []
         const result = sortCommentsByDate.reduce((initial, current) => {
-            let customDate = current.created;
+            let customDate = current.created
             if (!initial[customDate]) {
-                initial[customDate] = [];
+                initial[customDate] = []
             }
-            initial[customDate].push(current);
-            return initial;
+            initial[customDate].push(current)
+            return initial
         }, {})
-        const setDateArray = Object.entries(result);
+        const setDateArray = Object.entries(result)
         let confimedArr = []
         let unConfimedArr = []
-        setDateArray.map(function (item, index) {
-            dates.push(item[0]);
-            let num1 = 0;
-            let num2 = 0;
-            item[1].map(function (current, index) {//the same date
+        setDateArray.forEach(item => {
+            dates.push(item[0])
+            let num1 = 0
+            let num2 = 0
+            item[1].forEach(current => {
                 if (current.status === "confirmed") {
-                    num1++;
-                } else {
-                    num2++;
-                }
+                            num1++
+                        } else {
+                            num2++
+                        }
             });
-            confimedArr.push(num1);
-            unConfimedArr.push(num2);
-        })
+            // item[1].map(function (current, index) {//the same date
+            //     if (current.status === "confirmed") {
+            //         num1++
+            //     } else {
+            //         num2++
+            //     }
+            // })
+            confimedArr.push(num1)
+            unConfimedArr.push(num2)
+        });
+        // setDateArray.map(function (item, index) {
+        //     dates.push(item[0])
+        //     let num1 = 0
+        //     let num2 = 0
+        //     item[1].map(function (current, index) {//the same date
+        //         if (current.status === "confirmed") {
+        //             num1++
+        //         } else {
+        //             num2++
+        //         }
+        //     })
+        //     confimedArr.push(num1)
+        //     unConfimedArr.push(num2)
+        // })
         let miladiDates = []
         for (let date of dates) {
             miladiDates.push(toMiladiDate(date))

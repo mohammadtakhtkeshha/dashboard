@@ -3,7 +3,7 @@ import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
 
 import {StyledUserChartTitle,StyledFigureUser} from "assets/js/dashboard/partials/userChart";
-import {getUsers} from "./UserChartComponent.js";
+import {getUsersMethod} from "./UserChartComponent.js";
 import {StyledDashboardBlock} from "assets/js/dashboard/dashboard"
 import AppContext from "contexts/AppContext";
 
@@ -13,8 +13,8 @@ function UserChartComponent({t}) {
     const appContext = useContext(AppContext)
 
     useEffect(() => {
-        getUsers(t, setUsers,appContext.handleError,lang);
-    }, [lang]);
+        getUsersMethod(t, setUsers,appContext.handleError,lang);
+    }, [lang,appContext,t]);
 
     return (
         <>

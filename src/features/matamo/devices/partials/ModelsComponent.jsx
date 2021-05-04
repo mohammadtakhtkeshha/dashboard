@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from "react"
+import React, {useEffect, useState, useContext, useCallback} from "react"
 import {withNamespaces} from "react-i18next"
 
 import {Typography} from "@material-ui/core"
@@ -44,9 +44,11 @@ function DevicesComponent({t}) {
         handlePaginationMethod(items, setChunks, setTotalPage)
     }
 
+    const getModelDevices = useCallback(getModelDevicesMethod(appContext,setModels ,handlePagination),[appContext,setModels,handlePagination])
+
     useEffect(() => {
-        getModelDevicesMethod(appContext,setModels ,handlePagination)
-    }, [])
+        getModelDevices()
+    }, [getModelDevices])
 
     const paginate = (e, value) => {
         setPage(value - 1);

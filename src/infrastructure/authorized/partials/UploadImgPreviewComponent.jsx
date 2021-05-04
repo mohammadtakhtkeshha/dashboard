@@ -18,8 +18,6 @@ import {ReactComponent as UploadImgSvg} from "assets/svg/uploadImgSvg.svg";
 function UploadImgPreviewComponent({t, title, multiple, getFileInParent, removeImgInParent, previewUrl, setPreviewUrl}) {
     const lang = i18next.language;
     const [validation, setValidation] = useState('');
-    const [files, setFiles] = useState([])
-    const [lastModified, setLastModified] = useState([]);//use lastmodified as id for deleteing img
 
     const uploadImg = (e) => {
         let files = e.currentTarget.files;
@@ -30,10 +28,7 @@ function UploadImgPreviewComponent({t, title, multiple, getFileInParent, removeI
                 setValidation(t('translation:imgValidation'));
                 return
             }
-            setLastModified(prevState => {
-                return [...prevState, file.lastModified]
-            })
-
+         
             let reader = new FileReader();
             reader.onload = function (e) {
                 setPreviewUrl(prevState => {
@@ -43,7 +38,6 @@ function UploadImgPreviewComponent({t, title, multiple, getFileInParent, removeI
             }
             reader.readAsDataURL(file); // convert to base64 string
         }
-        setFiles()
         getFileInParent(e.currentTarget.files);
     }
 
@@ -66,7 +60,7 @@ function UploadImgPreviewComponent({t, title, multiple, getFileInParent, removeI
                         {previewUrl.map((url, index) => {
                             return (<div key={index}>
                                 <StyledUploadedImgBlock>
-                                    <img src={url}/>
+                                    <img src={url} alt={url}/>
                                     <UploadedImgHoverBlock>
                                     <span id={index} onClick={(e) => handleRemoveImg(e, index)}>
                                         <CancelIcon/>

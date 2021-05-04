@@ -64,13 +64,9 @@ function RoleFormComponent({t, openForm, handleClose, permissions, role, setRole
         }
     }
 
-    useEffect(() => {
-        selectedButton()
-    }, [permissions])
+    useEffect(selectedButton(), [permissions])
 
-    useEffect(() => {
-        handleError()
-    }, [role])
+    useEffect(handleError(), [role])
 
     const checkIncludes = (arr,value) => {
         for(let item of arr){
@@ -79,13 +75,6 @@ function RoleFormComponent({t, openForm, handleClose, permissions, role, setRole
             }
 
         }
-    }
-    const countOfPermissions = (permission) => {
-        let count = 0
-        for(let item of permission.subGroups){
-                count += item.permissions.length
-        }
-        return count
     }
 
     return (<>

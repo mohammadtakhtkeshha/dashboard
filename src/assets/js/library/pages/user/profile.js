@@ -47,11 +47,34 @@ export const currentStyles =(theme) => ({
 })
 
 export const StyledEditProfileHeader = styled.div`
-            height:40vh;
+            height:300px;
             background-color:${green[6]};
             position:relative;
-            & img{
+            & > img{
                 position:absolute;
                 bottom:0;
+                left:0;
+                right:0;
             }
+`
+
+
+export const StyledEditProfileBody = styled.div`
+            padding:0 10vw 5vw;
+`
+export const StyledEditSvgBlock = styled.div`
+         display:flex;
+         border-radius:100%;
+         padding:7px;
+         position:absolute;
+         top: 17%;
+         right: -11px;
+         background-color: rgb(62 04 144 / 9%);
+          & > img {
+            width:18px;
+            height:18px;
+            z-index:1;
+            cursor:pointer;
+            opacity:1!important;
+          }
 `

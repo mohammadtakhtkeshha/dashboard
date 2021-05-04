@@ -33,5 +33,7 @@
   "enterReNewPassword": "reEnter new password",
   "wrongExpassword": "expassword is not correct",
   "harmonyPass": "passwords don't match",
+  "editPicture": "edit profile picture",
+  "unauthorizedLogin": "unauthorized login",
   "editUser": "edit user"
 }

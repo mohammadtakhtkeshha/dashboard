@@ -36,15 +36,16 @@ export const Method = async (option) => {
     }
 }
 
-export const handleErrorMethod=(t,error,setLoading) => {
+export const handleErrorMethod=(t,error,setLoading,history) => {
     let errorString;
     if(error.response?.status === 422){
         errorString =t('translation:incorrectData')
     }else if(error.response?.status === 503){
         errorString =t('translation:netError')
     }else if(error.response?.status === 401){
-        remove(process.env.REACT_APP_TOKEN_KEY);
-        errorString =t('translation:netError')
+        remove(process.env.REACT_APP_TOKEN_KEY)
+        history.replace('/login')
+        errorString =t('users:unauthorizedLogin')
     }
     else {
         errorString = error.toString();
@@ -61,4 +62,5 @@ export const StyledDiv = Styled.div`
             font-family:${lang => lang === "en" ? "byekan" : "primary-font"};
         }
 `
+
 export default {chunkItem, handleTotalPage,Method,handleErrorMethod};

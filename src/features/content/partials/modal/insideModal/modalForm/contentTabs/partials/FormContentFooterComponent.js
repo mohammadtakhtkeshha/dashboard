@@ -1,12 +1,12 @@
-import contentService from "core/services/content.service";
+import {editContent,registerContent} from "core/services/content.service";
 import {removeHourFromMiladiDate, toShamsiDate} from "methods/commons";
 
 export const registerMethod = (t, lang, contentsContext, appContext, id, contentype) => {
     let currentRequest;
     if (id !== '') {
-        currentRequest = contentService.editContent(contentsContext.content, id, appContext.handleError);
+        currentRequest = editContent(contentsContext.content, id, appContext.handleError);
     } else {
-        currentRequest = contentService.registerContent(contentsContext.content, appContext.handleError);
+        currentRequest = registerContent(contentsContext.content, appContext.handleError);
     }
     currentRequest.then((response) => {
         appContext.setLoading(false);
