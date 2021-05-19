@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import {grey} from "assets/js/library/abstracts/colors";
-import {StyledNotScrollbar} from "../App";
 
 export const StyledHeader = styled.div`
         padding:15px;
@@ -31,10 +30,6 @@ export const StyledFooter = styled.div`
                 ${props=>props.lang==="fa"?`border-left:1px solid ${grey[1]}`:`border-right:1px solid ${grey[1]}`}
             }
         }
-`
-
-export const StyledForm = styled(StyledNotScrollbar)`
-           margin-bottom:120px;
 `
 
 export const styledGrid = () => ({

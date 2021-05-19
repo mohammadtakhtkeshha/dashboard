@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useCallback } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import i18next from "i18next"
 import { withNamespaces } from "react-i18next"
 
@@ -27,27 +27,23 @@ import {
 } from "assets/js/library/pages/matamo/matamoTable"
 
 function Index({ t }) {
-    const lang = i18next.language
-    const appContext = useContext(AppContext)
+    const lang = i18next.language;
+    const {setLoading} = useContext(AppContext)
     const [last30Minutes, setLast30Minutes] = useState([])
     const [last24Ours, setLast24Ours] = useState([])
     const [VisitsDetails, setVisitsDetails] = useState([])
 
-    const get30MinutesVisits = useCallback(get30MinutesVisitsMethod(appContext, setLast30Minutes), [appContext])
-    const get24OursVisits = useCallback(get24OursVisitsMethod(appContext, setLast24Ours), [appContext])
-    const visitsDetails = useCallback(visitsDetailsMethod(appContext, setVisitsDetails), [appContext])
+    useEffect(() => {
+        get30MinutesVisitsMethod(setLoading, setLast30Minutes)
+    }, [setLoading,setLast30Minutes])
 
     useEffect(() => {
-        get30MinutesVisits()
-    }, [get30MinutesVisits])
+        get24OursVisitsMethod(setLoading, setLast24Ours)
+    }, [setLoading,setLast24Ours])
 
     useEffect(() => {
-        get24OursVisits()
-    }, [get24OursVisits])
-
-    useEffect(() => {
-        visitsDetails()
-    }, [visitsDetails])
+        visitsDetailsMethod(setLoading, setVisitsDetails)
+    }, [setLoading,setVisitsDetails])
 
     return (<>
         <StyledTableParent length={last30Minutes.length}>

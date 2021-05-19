@@ -1,20 +1,20 @@
 import React from "react"
-import {withNamespaces} from "react-i18next"
 
 import {makeStyles} from "@material-ui/styles"
-import {Modal,Backdrop,Box,Fade} from "@material-ui/core/"
+import {Modal, Backdrop, Box, Fade} from "@material-ui/core"
 
 import {ReactComponent as Exit} from "assets/svg/exit.svg"
 import TicketRegisterComponent from "./partials/form/Index.jsx"
 import TicketDepartemanListComponent from "./partials/TicketDepartemanListComponent.jsx";
-import {StyledCancelButton,ModalBody} from "assets/js/library/components/modal"
+import {StyledCancelButton, ModalBody} from "assets/js/library/components/modal"
 import {StyledSvg} from "assets/js/library/base/all"
 import {modalClasses} from "assets/js/library/components/modal";
+import TicketTourComponent from "./partials/TicketTourComponent.jsx";
 
 const useStyle = makeStyles(modalClasses)
 
-function Index({t, openForm, previewUrl,setPreviewUrl,setOpenForm, departemanList, closeForm, ticket, setTicket, errors, setErrors, chosenDepartment, setChosenDepartment, setTickets, handlePagination}) {
-    const classes = useStyle({maxWidth: chosenDepartment === "" ?'600px':'800px'})
+export default function Index({openForm, previewUrl, setPreviewUrl, departemanList, closeForm, ticket, setTicket, errors, setErrors, chosenDepartment, setChosenDepartment, setTickets, handlePagination}) {
+    const classes = useStyle({maxWidth: chosenDepartment === "" ? '600px' : '800px'})
 
     return (<Modal
         aria-labelledby="transition-modal-title"
@@ -55,9 +55,9 @@ function Index({t, openForm, previewUrl,setPreviewUrl,setOpenForm, departemanLis
                         />}
 
                 </ModalBody>
+                <TicketTourComponent chosenDepartment={chosenDepartment}/>
             </Box>
         </Fade>
     </Modal>)
 }
 
-export default withNamespaces('translation')(Index)

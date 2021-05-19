@@ -11,16 +11,6 @@ export const StyledFooter = styled.div`
 
 `
 
-export const styledGrid = () => ({
-    root:{
-        // marginBottom:'120px'
-    }
-})
-
-export const StyledMarginBottom = styled.div`
-        margin-bottom:120px;
-`
-
 export const styledGridFromReply = () => ({
     root:{
         display:props=>props.fromreply === "true" ? "block" : "none"

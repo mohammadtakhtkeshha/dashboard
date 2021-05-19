@@ -1,10 +1,10 @@
-import {getFactors} from "core/services/factor.service";
+import { getFactors } from 'core/services/factor.service';
 
-export const getFactorsMethod = (appContext,setFactors,clientId) => {
-    appContext.setLoading(true)
-    getFactors(appContext.handleError,clientId).then((response)=>{
-        appContext.setLoading(false)
-        let factors =  response.data.invoices.invoice.length > 0 ?response.data.invoices.invoice : []
-        setFactors(factors)
-    })
-}
+export const getFactorsMethod = (setLoading, setFactors, clientId) => {
+  setLoading(true);
+  getFactors(setLoading, clientId).then(response => {
+    setLoading(false);
+    let factors = response.data.invoices.invoice.length > 0 ? response.data.invoices.invoice : [];
+    setFactors(factors);
+  });
+};

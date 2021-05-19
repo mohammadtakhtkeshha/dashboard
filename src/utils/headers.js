@@ -59,7 +59,7 @@ export const cjajcharsetauthHeader = () => {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'Accept-Charset': 'utf-8',
+            // 'Accept-Charset': 'utf-8',
             'X-CSRF-Token': get(process.env.REACT_APP_CSRF),
             'Authorization': get(process.env.REACT_APP_TOKEN_KEY)
         }

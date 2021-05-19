@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {withNamespaces} from "react-i18next";
 
-import {Modal,Box,Fade} from '@material-ui/core';
+import {Modal, Box, Fade} from '@material-ui/core';
 import HelpIcon from "@material-ui/icons/Help";
 
 import CommentFormComponent from "./modal/CommentFormComponent.jsx";
@@ -15,28 +15,21 @@ import Tour from "reactour";
 import {StyledTourButton} from "assets/js/content/partials/modal/insideModal/modalForm";
 import {ReactComponent as Exit} from "assets/svg/exit.svg";
 import {constSteps} from "./CommentModalComponent.js"
-import {StyledCancelButton,ModalBody} from "assets/js/library/components/modal"
+import {StyledCancelButton, ModalBody} from "assets/js/library/components/modal"
 import {StyledSvg} from "assets/js/library/base/all"
 
 import {makeStyles} from "@material-ui/styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import {modalClasses} from "assets/js/library/components/modal";
 
-// const useStyles = makeStyles(commentModal)
 const useStyles = makeStyles(modalClasses)
 
 function CommentModalComponent({t, open, setOpen, publishedComments, unconfirmedComments, handlePagination, comment, setComment, commentStatus}) {
-    const classes = useStyles({maxWidth:'470px'})
+    const classes = useStyles({maxWidth: '470px'})
     const [isTourOpen, setIsTourOpen] = useState(false);
-    const [totalStep, setTotalStep] = useState('');
-    const [currentStep, setCurrentStep] = useState('');
+    const [currentStep, setCurrentStep] = useState(1);
     const steps = constSteps
 
-    // const updateTour = (curr) => {
-    //     if(curr>1){
-    //         setExpandedFilter(true)
-    //     }
-    // }
     const handleClose = () => {
         setOpen({show: false, id: ''});
     }
@@ -78,7 +71,7 @@ function CommentModalComponent({t, open, setOpen, publishedComments, unconfirmed
                       showNavigationNumber={false}
                       disableDotsNavigation={false}
                       lastStepNextButton={<StyledCloseGuideButton>{t('translation:endGuide')}</StyledCloseGuideButton>}
-                      nextButton={<StyledNextButton><span>{totalStep}/{currentStep}</span> {t('translation:nextStep')}
+                      nextButton={<StyledNextButton><span>{steps.length}/{currentStep}</span> {t('translation:nextStep')}
                       </StyledNextButton>}
                       prevButton={<StyledPrevButton>{t('translation:prevStep')}</StyledPrevButton>}
                       steps={steps}
@@ -86,12 +79,8 @@ function CommentModalComponent({t, open, setOpen, publishedComments, unconfirmed
                           <StyledCloseGuideButton>{t('translation:closeGuide')}</StyledCloseGuideButton>}
                       isOpen={isTourOpen}
                       showNumber={true}
-                      badgeContent={(curr, tot) => {
-                          setTotalStep(tot);
-                          setCurrentStep(curr);
-                          // updateTour(curr, tot)
-                      }}
-                    // getCurrentStep={(curr) =>updateTour(curr)}
+                      startAt={0}
+                      getCurrentStep={(curr) => setCurrentStep(curr + 1)}
                       onRequestClose={() => setIsTourOpen(false)}/>
             </Box>
         </Fade>

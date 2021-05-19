@@ -11,8 +11,9 @@ export const clickEditorMetaTagMethod = (e, keyName, setTitle, setDescription,se
             setKeywords(currentValue);
     }
 };
-export const seoChangedMethod = (contentsContext, title, description, keywords) => {
-    contentsContext.setContent(prevState => {
+
+export const seoChangedMethod = (setContent, title, description, keywords) => {
+    setContent(prevState => {
         return {
             ...prevState, field_seo_list:[{value:{
                     title: title,
@@ -22,4 +23,5 @@ export const seoChangedMethod = (contentsContext, title, description, keywords) 
         }
     });
 }
+
 export default {clickEditorMetaTagMethod};

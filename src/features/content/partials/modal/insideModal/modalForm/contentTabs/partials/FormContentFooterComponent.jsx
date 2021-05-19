@@ -12,12 +12,12 @@ import {isObjectEmpty} from "methods/commons";
 const FormContentFooterComponent = React.memo(({t, value, setValue, contentype}) => {
     const lang = i18next.language;
     const contentsContext = useContext(ContentsContext);
-    const appContext = useContext(AppContext);
+    const {setLoading} = useContext(AppContext);
 
     const register = () => {
         if (isObjectEmpty(contentsContext.errors)) {
-            appContext.setLoading(true);
-            registerMethod(t, lang, contentsContext, appContext, contentsContext.id, contentype);
+            setLoading(true);
+            registerMethod(lang, contentsContext, setLoading, contentsContext.id, contentype);
         }
     }
 

@@ -35,31 +35,30 @@ function CategoryAndDescriptionComponent({t, contentype}) {
     let antiAlign = (lang === 'en' ? 'right' : 'left');
 
     const passedDate = (field, date) => {
-        validateDate(field, date, contentsContext, t);
+        validateDate(field, date, contentsContext);
     }
 
     return (<Grid container>
-        <StyledGridPublishOnAndUnpublish className="publish-date" contentype={contentsContext.content.type[0].target_id}
-                                         item xs={6}>
+        <StyledGridPublishOnAndUnpublish item xs={6} className="publish-date"
+                                         contentype={contentsContext.content.type[0].target_id}>
             <StyledGridBlock>
-                <DatePickerrComponent
-                    currentKey={'publish_on'}
-                    placeholder={t('contents:choosePublishDate')}
-                    passedDate={(e) => passedDate('publish_on', e)}
-                    selectedDate={contentsContext.content.publish_on ? (contentsContext.content.publish_on.length > 0 ? (contentsContext.content.publish_on[0].value) : null) : null}
-                    />
+                <DatePickerrComponent currentKey={'publish_on'}
+                                      placeholder={t('contents:choosePublishDate')}
+                                      passedDate={(e) => passedDate('publish_on', e)}
+                                      selectedDate={contentsContext.content.publish_on ? (contentsContext.content.publish_on.length > 0 ? (contentsContext.content.publish_on[0].value) : null) : null}
+                />
                 {contentsContext.errors.publish_on ?
                     <StyledTypographyError>{contentsContext.errors.publish_on}</StyledTypographyError> : ''}
             </StyledGridBlock>
         </StyledGridPublishOnAndUnpublish>
-        <StyledGridPublishOnAndUnpublish className="unpublish-date"
-                                         contentype={contentsContext.content.type[0].target_id} item xs={6}>
+        <StyledGridPublishOnAndUnpublish item xs={6} className="unpublish-date"
+                                         contentype={contentsContext.content.type[0].target_id}>
             <StyledGridBlock>
                 <DatePickerrComponent currentKey={'unpublish_on'}
                                       placeholder={t('contents:chooseUnpublishDate')}
                                       passedDate={(e) => passedDate('unpublish_on', e)}
                                       selectedDate={contentsContext.content.unpublish_on ? (contentsContext.content.unpublish_on.length > 0 ? (contentsContext.content.unpublish_on[0].value) : null) : null}
-                                      />
+                />
                 {contentsContext.errors.unpublish_on ?
                     <StyledTypographyError>{contentsContext.errors.unpublish_on}</StyledTypographyError> : ''}
             </StyledGridBlock>
@@ -72,12 +71,12 @@ function CategoryAndDescriptionComponent({t, contentype}) {
                 <StyledStatusButtonBlock align={antiAlign}>
                     <StyledStatusButtons value="true"
                                          status={contentsContext.content.field_home_slider && contentsContext.content.field_home_slider[0]?.value}
-                                         onClick={e=>handleShowInMainPageMethod(e, contentsContext)}>
+                                         onClick={e => handleShowInMainPageMethod(e, contentsContext)}>
                         {t('translation:active')}
                     </StyledStatusButtons>
                     <StyledStatusButtons value="false"
                                          status={contentsContext.content.field_home_slider && contentsContext.content.field_home_slider[0].value}
-                                         onClick={e=>handleShowInMainPageMethod(e, contentsContext)}>
+                                         onClick={e => handleShowInMainPageMethod(e, contentsContext)}>
                         {t('translation:notActive')}
                     </StyledStatusButtons>
                 </StyledStatusButtonBlock>
@@ -90,11 +89,11 @@ function CategoryAndDescriptionComponent({t, contentype}) {
             <StyledGridBlock>
                 <StyledStatusButtonBlock align={antiAlign}>
                     <StyledStatusButtons value="true" status={contentsContext.content.status[0].value}
-                                         onClick={(e)=>handleStatusChangeMethod(e, contentsContext)}>
+                                         onClick={(e) => handleStatusChangeMethod(e, contentsContext)}>
                         {t('translation:active')}
                     </StyledStatusButtons>
                     <StyledStatusButtons value="false" status={contentsContext.content.status[0].value}
-                                         onClick={(e)=>handleStatusChangeMethod(e, contentsContext)}>
+                                         onClick={(e) => handleStatusChangeMethod(e, contentsContext)}>
                         {t('translation:notActive')}
                     </StyledStatusButtons>
                 </StyledStatusButtonBlock>
@@ -108,12 +107,12 @@ function CategoryAndDescriptionComponent({t, contentype}) {
                 <StyledStatusButtonBlock align={antiAlign}>
                     <StyledStatusButtons value="true"
                                          status={contentsContext.content.field_sidebar_news_slider && contentsContext.content.field_sidebar_news_slider[0].value}
-                                         onClick={e=>handleShowInSidebarMethod(e, contentsContext)}>
+                                         onClick={e => handleShowInSidebarMethod(e, contentsContext)}>
                         {t('translation:active')}
                     </StyledStatusButtons>
                     <StyledStatusButtons value="false"
                                          status={contentsContext.content.field_sidebar_news_slider && contentsContext.content.field_sidebar_news_slider[0].value}
-                                         onClick={e=>handleShowInSidebarMethod(e, contentsContext)}>
+                                         onClick={e => handleShowInSidebarMethod(e, contentsContext)}>
                         {t('translation:notActive')}
                     </StyledStatusButtons>
                 </StyledStatusButtonBlock>

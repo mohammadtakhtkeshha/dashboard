@@ -19,7 +19,7 @@ const gClass=makeStyles(globalCss);
 
 function UploadVoice({t,multiple, title, getFile, voices,removedFileId,sendIdAfterUpload,voicesPreviewUrl,setVoicesPreviewUrl}) {
     const classes = styles();
-    const appContext = useContext(AppContext);
+    const {setLoading} = useContext(AppContext);
     const gClasses=gClass();
     const lang=i18next.language;
     const [files, setFiles] = useState([]);
@@ -27,7 +27,7 @@ function UploadVoice({t,multiple, title, getFile, voices,removedFileId,sendIdAft
     const [currentId, setCurrentId] = useState('');
 
     useEffect(() => {
-        appContext.setLoading(false);
+        setLoading(false);
         if (voices && voices[0] !== undefined && voices.length > 0) {//for edit user
             let urls = [];
             let fids = [];
@@ -41,7 +41,7 @@ function UploadVoice({t,multiple, title, getFile, voices,removedFileId,sendIdAft
     }, [voices]);
 
     useEffect(()=>{
-        appContext.setLoading(false);
+        setLoading(false);
 
         if (sendIdAfterUpload !== undefined && sendIdAfterUpload !== "") {
             setCurrentId(prevState => {
@@ -62,7 +62,7 @@ function UploadVoice({t,multiple, title, getFile, voices,removedFileId,sendIdAft
     },[sendIdAfterUpload]);
 
     let uploadFile = (e) => {
-        appContext.setLoading(true);
+        setLoading(true);
         let extention = (e.currentTarget.files[0].name).split('.').pop();
         setValidation('');
         setFiles(prevState => {
@@ -73,10 +73,9 @@ function UploadVoice({t,multiple, title, getFile, voices,removedFileId,sendIdAft
         });
         if (extention !== ('mp3')) {
             setValidation(t('translation:voiceValidation'));
-            appContext.setLoading(false);
+            setLoading(false);
             return
         }
-
 
         let arrayOfFiles = [];
         if (multiple) {//check mutliple voice or not

@@ -21,7 +21,7 @@ const gClass = makeStyles(globalCss);
 function UploadVideo({ t, multiple, title, getFile,removedFileId, videos, sendIdAfterUpload ,videoPreviewUrl,setvideoPreviewUrl}) {
     const classes = styles();
     const gClasses = gClass();
-    const appContext = useContext(AppContext);
+    const {setLoading} = useContext(AppContext);
     const lang = i18next.language;
 
     const [files, setFiles] = useState([]);
@@ -43,7 +43,7 @@ function UploadVideo({ t, multiple, title, getFile,removedFileId, videos, sendId
     }, [videos]);
 
     useEffect(() => {
-        appContext.setLoading(false);
+        setLoading(false);
         if (sendIdAfterUpload !== undefined && sendIdAfterUpload !== "") {
             setCurrentId(prevState => {
                 return [...prevState, sendIdAfterUpload.id]
@@ -65,7 +65,7 @@ function UploadVideo({ t, multiple, title, getFile,removedFileId, videos, sendId
     }, [sendIdAfterUpload]);
 
     let uploadFile = (e) => {
-        appContext.setLoading(true);
+        setLoading(true);
         let extention = (e.currentTarget.files[0].name).split('.').pop();
         setValidation('');
         setFiles(prevState => {
@@ -76,7 +76,7 @@ function UploadVideo({ t, multiple, title, getFile,removedFileId, videos, sendId
         });
         if (extention !== ('mp4')) {
             setValidation(t('translation:videoValidation'));
-            appContext.setLoading(false);
+            setLoading(false);
             return
         }
 

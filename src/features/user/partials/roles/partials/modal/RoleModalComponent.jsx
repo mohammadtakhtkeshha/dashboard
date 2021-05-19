@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {withNamespaces} from "react-i18next";
 
-import {Modal,Box,Fade} from '@material-ui/core';
+import {Modal, Box, Fade} from '@material-ui/core';
 import HelpIcon from "@material-ui/icons/Help";
 
 import RoleFormComponent from "./partials/RoleFormComponent.jsx";
@@ -13,7 +13,7 @@ import {
 } from "assets/js/partials/guideBlock";
 import Tour from "reactour";
 import {StyledTourButton} from "assets/js/content/partials/modal/insideModal/modalForm";
-import {StyledCancelButton,ModalBody} from "assets/js/library/components/modal"
+import {StyledCancelButton, ModalBody} from "assets/js/library/components/modal"
 import {StyledSvg} from "assets/js/library/base/all"
 import {ReactComponent as Exit} from "assets/svg/exit.svg";
 import {constSteps} from "./RoleModalComponent.js"
@@ -23,22 +23,27 @@ import {roleModal} from "assets/js/library/pages/user/rolesModal";
 
 const useStyles = makeStyles(roleModal)
 
-function RoleModalComponent({t, openForm, role,handleClose,setShowPermission,showPermission,permissions,setRole,setPermissions,faRoles,setFaRoles,setEnRoles}) {
+function RoleModalComponent({t, openForm, role, handleClose, setShowPermission, showPermission, permissions, setRole, setPermissions, faRoles, setFaRoles, setEnRoles}) {
     const classes = useStyles()
     const [isTourOpen, setIsTourOpen] = useState(false);
-    const [totalStep, setTotalStep] = useState('');
-    const [currentStep, setCurrentStep] = useState('');
-    const steps = constSteps
+    const [currentStep, setCurrentStep] = useState(1);
+    const [steps, setSteps] = useState([])
 
-    // const updateTour = (curr) => {
-    //     if(curr>1){
-    //         setExpandedFilter(true)
-    //     }
-    // }
+    useEffect(() => {
+        if (permissions.length > 0) {
+            constSteps(permissions.length, setSteps, Tour)
+        }
+    }, [permissions.length, setSteps]);
 
     const clicked = () => {
         setIsTourOpen(true);
     }
+
+    const closeTour = () => {
+        setIsTourOpen(false)
+        setCurrentStep(1)
+    }
+
 
     return (<Modal aria-labelledby="transition-modal-title"
                    aria-describedby="transition-modal-description"
@@ -76,21 +81,19 @@ function RoleModalComponent({t, openForm, role,handleClose,setShowPermission,sho
                       showNavigationNumber={false}
                       disableDotsNavigation={false}
                       lastStepNextButton={<StyledCloseGuideButton>{t('translation:endGuide')}</StyledCloseGuideButton>}
-                      nextButton={<StyledNextButton><span>{totalStep}/{currentStep}</span> {t('translation:nextStep')}
-                      </StyledNextButton>}
+                      nextButton={
+                          <StyledNextButton><span>{steps.length}/{currentStep}</span>
+                              {t('translation:nextStep')}
+                          </StyledNextButton>}
                       prevButton={<StyledPrevButton>{t('translation:prevStep')}</StyledPrevButton>}
                       steps={steps}
                       customizedCloseButton={
                           <StyledCloseGuideButton>{t('translation:closeGuide')}</StyledCloseGuideButton>}
                       isOpen={isTourOpen}
                       showNumber={true}
-                      badgeContent={(curr, tot) => {
-                          setTotalStep(tot);
-                          setCurrentStep(curr);
-                          // updateTour(curr, tot)
-                      }}
-                    // getCurrentStep={(curr) =>updateTour(curr)}
-                      onRequestClose={() => setIsTourOpen(false)}/>
+                      startAt={0}
+                      getCurrentStep={(curr) => setCurrentStep(curr + 1)}
+                      onRequestClose={closeTour}/>
             </Box>
         </Fade>
     </Modal>);

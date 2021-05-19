@@ -18,7 +18,7 @@ import ContentsContext from "contexts/ContentsContext";
 
 function TrContentComponent({t, content, setSelectedCheckBoxes, selectedCheckBoxes,handleOpenContentForm}) {
     const lang = i18next.language;
-    const appContext = useContext(AppContext);
+    const {setLoading} = useContext(AppContext);
     const contentsContext = useContext(ContentsContext);
 
     let leftRightAlign = lang === "en" ? "left" : "right"
@@ -27,7 +27,7 @@ function TrContentComponent({t, content, setSelectedCheckBoxes, selectedCheckBox
     }
 
     const confirmDeleteHandler = (e) => {
-        confirmDeleteHandlerMethod(e, t, appContext, contentsContext)
+        confirmDeleteHandlerMethod(e, setLoading, contentsContext)
     }
 
     return (<StyledTr>
@@ -59,7 +59,7 @@ function TrContentComponent({t, content, setSelectedCheckBoxes, selectedCheckBox
                 <StyledActionButtons value={content.nid} onClick={confirmDeleteHandler}>
                     <img src={deleteIcon} alt=""/>
                 </StyledActionButtons>
-                <StyledActionButtons value={content.nid} onClick={handleOpenContentForm}>
+                <StyledActionButtons value={content.nid} onClick={(e)=>handleOpenContentForm(e,content.uid)}>
                     <img src={editIcon} alt=""/>
                 </StyledActionButtons>
             </StyledActionsBlock>

@@ -1,5 +1,6 @@
 {
   "search": "search",
+  "saveChanges": "save Changes",
   "message": "message",
   "customer": "customer",
   "operator": "actions",
@@ -67,6 +68,7 @@
   "voiceValidation": "just files with .mp3 extension is acceptable",
   "files": "files",
   "chooseFile": "select your file",
+  "choosingFile": "choose file",
   "fileValidation":"just files with .jpg , .txt , .rar ,.text extension is acceptable!",
   "loginDelete": "you cant delete logined user",
   "loginChangeStatus": "you cant do this action for admin",
@@ -109,6 +111,7 @@
   "idNumber": "id",
   "registeredChanges": "changes have been registered",
   "validPath": "your input must start with / and use - instead of space",
+  "mailValidation": "your email is not valid",
   "safeCode": "safe code",
   "summary": "summary",
   "wrongSafeCode": "wrong safe code"

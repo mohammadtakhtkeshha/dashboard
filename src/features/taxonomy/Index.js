@@ -1,11 +1,10 @@
-import {getTaxonomies} from "core/services/taxonomy/taxonomy.service"
+import { getTaxonomies } from 'core/services/taxonomy/taxonomy.service';
 
-export const getTaxonomiesMethod = (appContext,setTaxonomies) => {
-    appContext.setLoading(true)
-    getTaxonomies(appContext.handleError).then((response) => {
-        appContext.setLoading(false)
-        const taxonomies = response.data
-        setTaxonomies(taxonomies)
-    })
-}
-
+export const getTaxonomiesMethod = (setLoading, setTaxonomies) => {
+  setLoading(true);
+  getTaxonomies(setLoading).then(response => {
+    setLoading(false);
+    const taxonomies = response.data;
+    setTaxonomies(taxonomies);
+  });
+};

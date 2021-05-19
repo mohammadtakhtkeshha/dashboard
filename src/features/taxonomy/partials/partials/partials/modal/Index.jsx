@@ -18,24 +18,22 @@ import {
     StyledNextButton,
     StyledPrevButton
 } from "assets/js/partials/guideBlock";
-import {constSteps} from "./Index.js"
+import {steps} from "./Index.js"
 
 const useStyle = makeStyles(modalClasses)
 
 function Index({t, openForm, setOpenForm, handleCloseForm, states, errors, setErrors, category, setCategory, setStates, closeForm, getStates, type, setExpandedFilter}) {
     const classes = useStyle({maxWidth:'700px'})
-    const steps = constSteps;
     const [isTourOpen, setIsTourOpen] = useState(false);
-    const [totalStep, setTotalStep] = useState('');
-    const [currentStep, setCurrentStep] = useState('');
+    const [currentStep, setCurrentStep] = useState(1);
 
     const clicked = () => {
         setIsTourOpen(true);
     }
 
-    const getTotalAndCurrentStep = (curr,tot) => {
-        setTotalStep(tot);
-        setCurrentStep(curr);
+    const closeTour = () => {
+        setIsTourOpen(false)
+        setCurrentStep(1)
     }
 
     return (<Modal
@@ -76,7 +74,7 @@ function Index({t, openForm, setOpenForm, handleCloseForm, states, errors, setEr
                       showNavigationNumber={false}
                       disableDotsNavigation={false}
                       lastStepNextButton={<StyledCloseGuideButton>{t('translation:endGuide')}</StyledCloseGuideButton>}
-                      nextButton={<StyledNextButton><span>{totalStep}/{currentStep}</span> {t('translation:nextStep')}
+                      nextButton={<StyledNextButton><span>{steps.length}/{currentStep}</span> {t('translation:nextStep')}
                       </StyledNextButton>}
                       prevButton={<StyledPrevButton>{t('translation:prevStep')}</StyledPrevButton>}
                       steps={steps}
@@ -84,14 +82,9 @@ function Index({t, openForm, setOpenForm, handleCloseForm, states, errors, setEr
                           <StyledCloseGuideButton>{t('translation:closeGuide')}</StyledCloseGuideButton>}
                       isOpen={isTourOpen}
                       showNumber={true}
-                      badgeContent={(curr, tot) => {
-                          // setTotalStep(tot);
-                          // setCurrentStep(curr);
-                          // updateTour(curr, tot)
-                          getTotalAndCurrentStep(curr,tot)
-                      }}
-                    // getCurrentStep={(curr) =>updateTour(curr)}
-                      onRequestClose={() => setIsTourOpen(false)}/>
+                      startAt={0}
+                      getCurrentStep={(curr)=>setCurrentStep(curr+1)}
+                      onRequestClose={() => closeTour()}/>
             </Box>
         </Fade>
     </Modal>)

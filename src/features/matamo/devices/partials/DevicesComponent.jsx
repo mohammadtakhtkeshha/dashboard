@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useCallback } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import { withNamespaces } from "react-i18next"
 import i18next from "i18next";
 
@@ -20,7 +20,7 @@ import { StyledTableCell } from "assets/js/library/components/table"
 import { StyledPaginationBox } from "assets/js/pagination";
 
 function DevicesComponent({ t }) {
-    const appContext = useContext(AppContext)
+    const {setLoading} = useContext(AppContext)
     const [page, setPage] = useState(0)
     const lang = i18next.language
     let leftRightAlign = lang === "en" ? "left" : "right"
@@ -45,11 +45,10 @@ function DevicesComponent({ t }) {
     const paginate = (e, value) => {
         setPage(value - 1);
     }
-    const getDevices = useCallback(getDevicesMethod(appContext, setDevices, handlePagination), [])
-    
+
     useEffect(() => {
-        getDevices()
-    }, [getDevices])
+        getDevicesMethod(setLoading, setDevices, handlePagination)
+    }, [setLoading,setDevices])//Once
 
     return (<>
         <StyledTableParent length={devices.length}>

@@ -9,6 +9,11 @@ import {steps} from './TourNewUser.js'
 function Index({t, isTourOpen, setIsTourOpen}) {
     const [currentStep, setCurrentStep] = useState(1);
 
+    const closeTour = () => {
+        setIsTourOpen(false)
+        setCurrentStep(1)
+    }
+
     return (<Tour showCloseButton={false}
                   showNavigation={false}
                   showNavigationNumber={false}
@@ -21,9 +26,10 @@ function Index({t, isTourOpen, setIsTourOpen}) {
                   customizedCloseButton={
                       <StyledCloseGuideButton>{t('translation:closeGuide')}</StyledCloseGuideButton>}
                   isOpen={isTourOpen}
+                  startAt={0}
                   getCurrentStep={(curr) => setCurrentStep(curr + 1)}
                   showNumber={true}
-                  onRequestClose={() => setIsTourOpen(false)}/>)
+                  onRequestClose={() => closeTour()}/>)
 
 }
 

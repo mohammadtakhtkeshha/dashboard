@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext, useCallback} from "react"
+import React, {useEffect, useState, useContext} from "react"
 import {withNamespaces} from "react-i18next"
 
 import {getMostSeenContentMethod} from "./MostSeenComponent.js"
@@ -23,14 +23,12 @@ import {NavLink} from "react-router-dom";
 
 function Index({t}) {
     const lang = i18next.language
-    const appContext = useContext(AppContext)
+    const {setLoading} = useContext(AppContext)
     const [mostSeen, setMostSeen] = useState([])
 
-    const getMostSeenContent = useCallback(getMostSeenContentMethod(appContext, setMostSeen),[appContext])
-
     useEffect(() => {
-        getMostSeenContent()
-    }, [getMostSeenContent])
+        getMostSeenContentMethod(setLoading, setMostSeen)
+    }, [setLoading,setMostSeen])//Once
 
     return (
         <StyledTableParent length={mostSeen.length}>

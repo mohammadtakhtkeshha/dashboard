@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField'
 
 import {StyledAutocomplete} from "assets/js/partials/autocomplete";
 
-function AutocompleteComponent({t,array,selectedTags,changedTags,setSelectedTags,label}) {
+function AutocompleteComponent({t, array, selectedTags, changedTags, setSelectedTags, label}) {
     const lang = i18next.language;
 
     const handleChange = (e) => {
@@ -19,7 +19,7 @@ function AutocompleteComponent({t,array,selectedTags,changedTags,setSelectedTags
     }
     return (
         <StyledAutocomplete lang={lang}>
-            {array.length > 0 &&  <Autocomplete
+            {array.length > 0 && <Autocomplete
                 multiple
                 id="tags-filled"
                 // options={array.map((option) => option.name)}
@@ -28,7 +28,7 @@ function AutocompleteComponent({t,array,selectedTags,changedTags,setSelectedTags
                 value={selectedTags}
                 label={label}
                 // defaultValue={selectedTags}
-                onChange={(event,value)=>handleChange(value)}
+                onChange={(event, value) => handleChange(value)}
                 // getOptionSelected={getCurrentOptionSelected}
                 freeSolo
                 renderTags={(value, getTagProps) =>

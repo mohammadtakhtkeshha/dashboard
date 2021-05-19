@@ -7,9 +7,9 @@ export const StyledHeadTypography = styled.div`
        padding:16px;
 `
 
-export const StyledLabel = styled.div`
+export const StyledLabel = styled.p`
         font-size:.75rem;
-        margin-bottom:.75rem;
+        // margin-bottom:.75rem;
         // display:inline-block;
 `
 
@@ -25,7 +25,6 @@ export const StyledTypographyError = styled.p`
 export const StyledAlignTypography = styled.p`
               text-align : ${props => props.lang === 'en' ? 'left' : 'right'};
               font-size : 13px;
-              margin-bottom:1rem;
 `
 
 export const StyledMt1 = styled.div`

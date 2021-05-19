@@ -14,16 +14,18 @@ export const handleContentStepsMethod = (contentType,setSteps) => {
                 ),
                 position: 'top',
                 stepInteraction: false,
-            }, {
-                selector: '.description',
+            },
+            {
+                selector: '.editor',
                 content: ({goTo, inDOM}) => (
                     <div>
                         <GuideBlockComponent/>
                     </div>
                 ),
                 position: 'top',
-            },{
-                selector: '.publishStatus',
+            },
+            {
+                selector: '.publish-status',
                 content: ({goTo, inDOM}) => (
                     <div>
                         <GuideBlockComponent/>
@@ -74,7 +76,7 @@ export const handleContentStepsMethod = (contentType,setSteps) => {
                 position: 'top',
             },
             {
-                selector: '.description',
+                selector: '.editor',
                 content: ({goTo, inDOM}) => (
                     <div>
                         <GuideBlockComponent title="description"/>
@@ -217,16 +219,7 @@ export const handleContentStepsMethod = (contentType,setSteps) => {
                 position: 'top',
             },
             {
-                selector: '.states',
-                content: ({goTo, inDOM}) => (
-                    <div>
-                        <GuideBlockComponent title="seo"/>
-                    </div>
-                ),
-                position: 'top',
-            },
-            {
-                selector: '.description',
+                selector: '.editor',
                 content: ({goTo, inDOM}) => (
                     <div>
                         <GuideBlockComponent title="description"/>
@@ -395,7 +388,7 @@ export const handleContentStepsMethod = (contentType,setSteps) => {
                 position: 'top',
             },
             {
-                selector: '.description',
+                selector: '.editor',
                 content: ({goTo, inDOM}) => (
                     <div>
                         <GuideBlockComponent title="description"/>
@@ -536,7 +529,7 @@ export const handleContentStepsMethod = (contentType,setSteps) => {
                 position: 'top',
             },
             {
-                selector: '.description',
+                selector: '.editor',
                 content: ({goTo, inDOM}) => (
                     <div>
                         <GuideBlockComponent title="description"/>
@@ -612,8 +605,8 @@ export const handleContentStepsMethod = (contentType,setSteps) => {
     return stepArr;
 }
 
-export const updateTourMethod = (contentsContext,setValue,curr) => {
-    if (contentsContext.contentType === 'page') {
+export const updateTourMethod = (contentType,setValue,curr) => {
+    if (contentType === 'page') {
         if (curr === 1) {
             setValue(0) // value for current tab curr for current step
         } else if (curr === 2){
@@ -621,19 +614,19 @@ export const updateTourMethod = (contentsContext,setValue,curr) => {
         }else{
             setValue(3)
         }
-    }else if (contentsContext.contentType === 'news') {
-        if (0<curr && curr<9) {
+    }else if (contentType === 'news') {
+        if (0<curr && curr<8) {
             setValue(0)
-        } else if (curr === 9){
+        } else if (curr === 8){
             setValue(1)
-        }else if (curr === 10){
+        }else if (curr === 9){
             setValue(2)
-        }else if (curr > 10 && curr < 16){
+        }else if (curr > 9 && curr < 15){
             setValue(3)
         }else{
             setValue(4)
         }
-    }else if (contentsContext.contentType === 'article') {
+    }else if (contentType === 'article') {
         if (0<curr && curr<5) {
             setValue(0)
         } else if (curr === 5){
@@ -643,7 +636,7 @@ export const updateTourMethod = (contentsContext,setValue,curr) => {
         }else{
             setValue(4)
         }
-    }else if (contentsContext.contentType === 'videos' || contentsContext.contentType === 'sounds' || contentsContext.contentType === 'images') {
+    }else if (contentType === 'videos' || contentType === 'sounds' || contentType === 'images') {
         if (0<curr && curr<8) {
             setValue(0)
         } else if (curr === 8){

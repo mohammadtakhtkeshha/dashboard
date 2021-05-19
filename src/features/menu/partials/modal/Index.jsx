@@ -1,31 +1,19 @@
-import React, {useState} from "react"
-import {withNamespaces} from "react-i18next"
-import Tour from "reactour";
+import React from "react"
 
 import {makeStyles} from "@material-ui/styles"
-import {Modal,Box,Backdrop,Fade} from "@material-ui/core"
-import HelpIcon from "@material-ui/icons/Help";
+import {Modal, Box, Backdrop, Fade} from "@material-ui/core"
 
-import {StyledCancelButton,ModalBody} from "assets/js/library/components/modal"
+import {StyledCancelButton, ModalBody} from "assets/js/library/components/modal"
 import {StyledSvg} from "assets/js/library/base/all"
 import {ReactComponent as Exit} from "assets/svg/exit.svg"
 import MenuFormComponent from "./partials/MenuFormComponent.jsx"
-import {constSteps} from "./Index.js";
-import {StyledCloseGuideButton, StyledNextButton, StyledPrevButton} from "assets/js/partials/guideBlock";
-import {StyledTourButton} from "assets/js/content/partials/modal/insideModal/modalForm";
 import {modalClasses} from "assets/js/library/components/modal";
+import MenuTourComponent from "./partials/MenuTourComponent.jsx";
 
 const useStyle = makeStyles(modalClasses)
 
-function Index({t, openForm, setOpenForm, menus, errors, setErrors, menu, setMenu, getMenus, closeForm, link, setLink}) {
-    const classes = useStyle({maxWidth:'700px'})
-    const [isTourOpen, setIsTourOpen] = useState(false);
-    const [totalStep, setTotalStep] = useState('');
-    const [currentStep, setCurrentStep] = useState('');
-
-    const clicked = () => {
-        setIsTourOpen(true);
-    }
+export default function Index({openForm, setOpenForm, menus, errors, setErrors, menu, setMenu, getMenus, closeForm, link, setLink}) {
+    const classes = useStyle({maxWidth: '700px'})
 
     return (<Modal
         aria-labelledby="transition-modal-title"
@@ -54,33 +42,9 @@ function Index({t, openForm, setOpenForm, menus, errors, setErrors, menu, setMen
                                        setMenu={setMenu}
                                        setErrors={setErrors} menus={menus} openForm={openForm}/>
                 </ModalBody>
-                <StyledTourButton onClick={clicked}>
-                    <HelpIcon/>
-                </StyledTourButton>
-                <Tour showCloseButton={false}
-                      showNavigation={false}
-                      disableFocusLock={true}
-                      showNavigationNumber={false}
-                      disableDotsNavigation={false}
-                      lastStepNextButton={<StyledCloseGuideButton>{t('translation:endGuide')}</StyledCloseGuideButton>}
-                      nextButton={<StyledNextButton><span>{totalStep}/{currentStep}</span> {t('translation:nextStep')}
-                      </StyledNextButton>}
-                      prevButton={<StyledPrevButton>{t('translation:prevStep')}</StyledPrevButton>}
-                      steps={constSteps}
-                      customizedCloseButton={
-                          <StyledCloseGuideButton>{t('translation:closeGuide')}</StyledCloseGuideButton>}
-                      isOpen={isTourOpen}
-                      showNumber={true}
-                      badgeContent={(curr, tot) => {
-                          setTotalStep(tot);
-                          setCurrentStep(curr);
-                          // updateTour(curr, tot)
-                      }}
-                    // getCurrentStep={(curr) =>updateTour(curr)}
-                      onRequestClose={() => setIsTourOpen(false)}/>
+                <MenuTourComponent/>
             </Box>
         </Fade>
     </Modal>)
 }
 
-export default withNamespaces('translation')(Index)

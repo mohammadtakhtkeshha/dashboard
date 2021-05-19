@@ -28,54 +28,40 @@ import {
     handleChangeNameMethod,
     clickPermissionButtonMethod,
     changePermissionCheckBoxMethod,
+    handleErrorMethod,
+    checkIncludes,
     selectedButtonMethod
 } from "./RoleFormComponent.js"
 
-function RoleFormComponent({t, openForm, handleClose, permissions, role, setRole, setShowPermission,showPermission, faRoles, setFaRoles, setEnRoles}) {
+function RoleFormComponent({t, openForm, handleClose, permissions, role, setRole, setShowPermission, showPermission, faRoles, setFaRoles, setEnRoles}) {
     const lang = i18next.language
-    const appContext = useContext(AppContext)
+    const {setLoading} = useContext(AppContext)
     const [error, setError] = useState({required: true, unique: false})
+
 
     const handleChangeName = (e) => {
         handleChangeNameMethod(e, setRole, setError, faRoles)
     }
 
     const editAndAddRole = (e) => {
-        editAndAddRoleMethod(t, e, appContext, role, faRoles, openForm.id, error, handleClose, setFaRoles, setEnRoles)
+        editAndAddRoleMethod( e, setLoading, role, faRoles, openForm.id, error, handleClose, setFaRoles, setEnRoles)
     }
 
     const clickPermissionButton = (e) => {
-        clickPermissionButtonMethod(e, setShowPermission,permissions,setRole)
+        clickPermissionButtonMethod(e, setShowPermission, permissions, setRole)
     }
 
     const changePermissionCheckBox = (e) => {
-        changePermissionCheckBoxMethod(e, setRole,permissions,setShowPermission)
+        changePermissionCheckBoxMethod(e, setRole, permissions, setShowPermission)
     }
 
-    const selectedButton = () => {
-        selectedButtonMethod(permissions, setShowPermission,role)
-    }
+    useEffect(() => {
+        selectedButtonMethod(permissions, setShowPermission)
+    }, [permissions, setShowPermission])
 
-    const handleError = () => {
-        if (role.role.length > 0) {
-            setError({required: false, unique: false})
-        } else {
-            setError({required: true, unique: false})
-        }
-    }
-
-    useEffect(selectedButton(), [permissions])
-
-    useEffect(handleError(), [role])
-
-    const checkIncludes = (arr,value) => {
-        for(let item of arr){
-            if(item.permisssion === value){
-                return item.status
-            }
-
-        }
-    }
+    useEffect(() => {
+        handleErrorMethod(role.role.length,setError)
+    }, [role.role.length,setError])//Once
 
     return (<>
         <StyledModalHeader>{openForm.id === "" ? t('roles:newRole') : t('roles:editRole')}</StyledModalHeader>
@@ -93,10 +79,10 @@ function RoleFormComponent({t, openForm, handleClose, permissions, role, setRole
                         {error.unique &&
                         <StyledTypographyError>{t('translation:uniqueValidation')}</StyledTypographyError>}
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} >
                         {(permissions.length > 0 && showPermission.length > 0) && permissions.map((permission, i) => {
-                            return (<StyledPermissionBlock key={i}>
-                                <StyledFirstRowPermission>
+                            return (<StyledPermissionBlock key={i} >
+                                <StyledFirstRowPermission className={`status-${i}`}>
                                     <StyledPermissionName>{permission.groupName}</StyledPermissionName>
                                     <StyledPermissionButtonsBlock>
                                         <StyledCompleteButton value={`complete-${i}-${permission.groupName}`}
@@ -126,7 +112,7 @@ function RoleFormComponent({t, openForm, handleClose, permissions, role, setRole
                                                     return (<div key={index}>
                                                         <StyledCheckboxComponent label={item.label}
                                                                                  value={item.permission}
-                                                                                 checked={checkIncludes(role.permissions,item.permission)}
+                                                                                 checked={checkIncludes(role.permissions, item.permission)}
                                                                                  change={changePermissionCheckBox}/>
                                                     </div>)
                                                 })}

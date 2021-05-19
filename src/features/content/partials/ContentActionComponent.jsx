@@ -11,11 +11,11 @@ import {doActionMethod} from "./ContentActionComponent.js";
 
 function ContentActionComponent({t, selectedCheckBoxes}) {
     const lang = i18next.language;
-    const appContext = useContext(AppContext);
+    const {setLoading} = useContext(AppContext);
     const contentsContext = useContext(ContentsContext);
 
     const doAction = (e) => {
-        doActionMethod(e,t,selectedCheckBoxes, appContext, contentsContext);
+        doActionMethod(e,selectedCheckBoxes, setLoading, contentsContext);
     }
 
     return (

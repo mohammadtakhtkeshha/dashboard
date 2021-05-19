@@ -1,6 +1,7 @@
 body {
-    background-color: #e7ebee;
+    margin:0;
 }
+
 
 .card {
     border-radius: 5px;
@@ -10,6 +11,23 @@ body {
     border: none;
 }
 
+span[class|=icon],
+span[class|=path1],
+span[class|=path1],
+span[class|=path2],
+span[class|=path3],
+span[class|=path4],
+span[class|=path5],
+span[class|=path6],
+span[class|=path7]
+{
+    font-family: 'icomoon'!important;
+}
+
+/*span{*/
+/*    color:yellow!important;*/
+/*    font-family: icomoon!important;*/
+/*}*/
 
 ::placeholder, select {
     font-size: .8rem !important;
@@ -126,3 +144,5 @@ a {
 .swal-icon--warning__body,.swal-icon--warning__dot,.swal-icon--error__line,.swal-icon--success__line {
     background-color: white !important;
 }
+
+

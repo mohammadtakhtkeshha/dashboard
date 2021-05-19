@@ -26,8 +26,7 @@ function Index({t, openRegisterForm, handleCloseRegisterForm, newsCategory, stat
     const [domainAccesses, setDomainAccesses] = useState([]);
     const [selectedDomainAccess, setSelectedDomainAccess] = useState([]);
     const [descriptionFileSrc, setDescriptionFileSrc] = useState('');
-    const [totalStep, setTotalStep] = useState('');
-    const [currentStep, setCurrentStep] = useState('');
+    const [currentStep, setCurrentStep] = useState(1);
     const [isTourOpen, setIsTourOpen] = useState(false);
     const [steps, setSteps] = useState([]);
 
@@ -43,27 +42,22 @@ function Index({t, openRegisterForm, handleCloseRegisterForm, newsCategory, stat
         return true;
     }
 
-    // const getDomainSource = () => {
-    //     getDomainSource().then((response) => {
-    //         // newContentContext.setDomainAccesses(response.data);
-    //     }).catch((error) => {
-    //         // console.log(error)
-    //     });
+    // const updateTour = (curr, tot) => {
+    //     updateTourMethod(contentsContext, setValue, curr)
     // }
 
-
-
-    const updateTour = (curr, tot) => {
-        updateTourMethod(contentsContext, setValue, curr)
-    }
-
-    const handleContentSteps = (contentType) => {
-        handleContentStepsMethod(contentType, setSteps)
-    }
+    useEffect(() => {
+        updateTourMethod(contentsContext.contentType, setValue, currentStep)
+    }, [contentsContext.contentType,currentStep,setValue]);//contentsContext.contentType
 
     useEffect(() => {
-        handleContentSteps(contentsContext.contentType);
-    }, [contentsContext.contentType]);
+        handleContentStepsMethod(contentsContext.contentType, setSteps)
+    }, [contentsContext.contentType,setSteps]);//contentsContext.contentType
+
+    const closeTour = () => {
+        setIsTourOpen(false)
+        setCurrentStep(1)
+    }
 
     return (<NewContentContext.Provider value={{
         selectedTags: selectedTags,
@@ -99,19 +93,16 @@ function Index({t, openRegisterForm, handleCloseRegisterForm, newsCategory, stat
               showNavigationNumber={false}
               disableDotsNavigation={false}
               lastStepNextButton={<StyledCloseGuideButton>{t('translation:endGuide')}</StyledCloseGuideButton>}
-              nextButton={<StyledNextButton><span>{totalStep}/{currentStep}</span> {t('translation:nextStep')}
+              nextButton={<StyledNextButton><span>{steps.length}/{currentStep}</span> {t('translation:nextStep')}
               </StyledNextButton>}
               prevButton={<StyledPrevButton>{t('translation:prevStep')}</StyledPrevButton>}
               steps={steps}
               customizedCloseButton={<StyledCloseGuideButton>{t('translation:closeGuide')}</StyledCloseGuideButton>}
               isOpen={isTourOpen}
               showNumber={true}
-              badgeContent={(curr, tot) => {
-                  setTotalStep(tot);
-                  setCurrentStep(curr);
-                  updateTour(curr, tot)
-              }}
-              onRequestClose={() => setIsTourOpen(false)}
+              startAt={0}
+              getCurrentStep={(curr) =>setCurrentStep(curr+1)}
+              onRequestClose={() => closeTour()}
         />
     </NewContentContext.Provider>);
 }

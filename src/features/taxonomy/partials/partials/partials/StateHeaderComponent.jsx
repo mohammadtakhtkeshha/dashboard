@@ -20,9 +20,13 @@ import {StyledHelpButton} from "assets/js/library/pages/content/contentHeader"
 function StateHeaderComponent({t, setOpenForm, type}) {
     const lang = i18next.language
     const [isTourOpen, setIsTourOpen] = useState(false)
-    const [totalStep, setTotalStep] = useState('')
-    const [currentStep, setCurrentStep] = useState('')
+    const [currentStep, setCurrentStep] = useState(1)
     const helpPermission = JSON.parse(get(process.env.REACT_APP_USER))
+
+    const closeTour = () => {
+        setIsTourOpen(false)
+        setCurrentStep(1)
+    }
 
     return (<StyledHead lang={lang}>
         <StyledHeadTypography className="state-list">{t(`taxonomy:${type.type}List`)}</StyledHeadTypography>
@@ -39,19 +43,16 @@ function StateHeaderComponent({t, setOpenForm, type}) {
               showNavigationNumber={false}
               disableDotsNavigation={false}
               lastStepNextButton={<StyledCloseGuideButton>{t('translation:endGuide')}</StyledCloseGuideButton>}
-              nextButton={<StyledNextButton><span>{totalStep}/{currentStep}</span> {t('translation:nextStep')}
+              nextButton={<StyledNextButton><span>{steps.length}/{currentStep}</span> {t('translation:nextStep')}
               </StyledNextButton>}
               prevButton={<StyledPrevButton>{t('translation:prevStep')}</StyledPrevButton>}
               steps={steps}
               customizedCloseButton={<StyledCloseGuideButton>{t('translation:closeGuide')}</StyledCloseGuideButton>}
               isOpen={isTourOpen}
               showNumber={true}
-              badgeContent={(curr, tot) => {
-                  setTotalStep(tot)
-                  setCurrentStep(curr)
-              }}
-              // getCurrentStep={(curr, tot) => console.log(`The current step is ${curr + 1}=${tot}`)}
-              onRequestClose={() => setIsTourOpen(false)}
+              startAt={0}
+              getCurrentStep={(curr) => setCurrentStep(curr+1)}
+              onRequestClose={() => closeTour()}
         />
     </StyledHead>)
 }

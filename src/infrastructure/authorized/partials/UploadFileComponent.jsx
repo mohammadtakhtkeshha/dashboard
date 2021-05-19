@@ -20,7 +20,7 @@ const gClass = makeStyles(globalCss);
 
 function UploadFileComponent({ t, multiple, title, getFile, files,setFiles, removedFileId, sendIdAfterUpload ,filesPreviewUrl,setFilesPreviewUrl}) {
     const classes = styles();
-    const appContext = useContext(AppContext);
+    const {setLoading} = useContext(AppContext);
     const gClasses = gClass();
     const lang = i18next.language;
     const [validation, setValidation] = useState('');
@@ -48,7 +48,7 @@ function UploadFileComponent({ t, multiple, title, getFile, files,setFiles, remo
     }, [files]);
 
     useEffect(() => {
-        appContext.setLoading(false);
+        setLoading(false);
         if (sendIdAfterUpload !== undefined && sendIdAfterUpload !== "") {
             let currentFile=sendIdAfterUpload.file
             let fileName=currentFile.name;
@@ -56,7 +56,7 @@ function UploadFileComponent({ t, multiple, title, getFile, files,setFiles, remo
             setCurrentId(prevState => {
                 return [...prevState, sendIdAfterUpload.id]
             });
-            
+
             if (['rar', 'zip'].includes(extention)) {
                 setFilesPreviewUrl(prevState => {
                     return [...prevState, rarImg]
@@ -87,7 +87,7 @@ function UploadFileComponent({ t, multiple, title, getFile, files,setFiles, remo
     }, [sendIdAfterUpload]);
 
     const uploadFile = (e) => {
-        appContext.setLoading(true);
+        setLoading(true);
         if (e.currentTarget.files[0] !== undefined) {
             let extention = (e.currentTarget.files[0].name).split('.').pop();
             setValidation('');
@@ -99,11 +99,10 @@ function UploadFileComponent({ t, multiple, title, getFile, files,setFiles, remo
             }));
             if (!['jpg', 'txt', 'zip', 'rar'].includes(extention)) {
                 setValidation(t('translation:fileValidation'));
-                appContext.setLoading(false);
+                setLoading(false);
                 return
             }
             let arrayOfFiles = [];
-
             if (multiple) {//check mutliple file or not
                 arrayOfFiles = e.currentTarget.files;
             } else {

@@ -121,12 +121,12 @@ export const StyledButton = styled.button`
 
 export const StyledAddButton = styled.button`
             color: ${white[0]};
+            background-color: ${green[0]};
             border: 0;
             cursor: pointer;
             padding: 10px 15px;
             line-height: 14px;
             border-radius: 4px;
-            background-color: ${green[0]};
             width:fit-content;
             &:focus{
                 outline:0!important;

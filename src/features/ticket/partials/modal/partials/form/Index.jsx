@@ -2,7 +2,6 @@ import React from "react"
 import {withNamespaces} from "react-i18next"
 
 import {StyledModalBody} from "assets/js/App"
-import {StyledMarginBottom} from "assets/js/ticket/ticketRegister"
 
 import FooterFormComponent from "./partials/FooterFormComponent.jsx"
 import HeaderFormComponent from "./partials/HeaderFormComponent.jsx"
@@ -13,7 +12,6 @@ function Index({t, departemanList,setPreviewUrl,previewUrl, ticket, setTicket, e
     return (<>
         <HeaderFormComponent/>
         <StyledModalBody>
-            <StyledMarginBottom>
                 <BodyFormComponent departemanList={departemanList}
                                    ticket={ticket}
                                    setTicket={setTicket}
@@ -25,7 +23,6 @@ function Index({t, departemanList,setPreviewUrl,previewUrl, ticket, setTicket, e
                                    setChosenDepartment={setChosenDepartment}
                                    setPreviewUrl={setPreviewUrl}
                                    errors={errors}/>
-            </StyledMarginBottom>
         </StyledModalBody>
         <FooterFormComponent errors={errors}
                              params={ticket}

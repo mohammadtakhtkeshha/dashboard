@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import {withNamespaces} from "react-i18next"
 import i18next from "i18next"
 
@@ -12,30 +12,34 @@ import {StyledCloseGuideButton, StyledNextButton, StyledPrevButton} from "assets
 import {steps} from "./Index.js"
 import {get} from "libraries/local-storage";
 
-function Index({t, setOpenRegisterForm, setExpandedFilter}) {
+function Index({t, handleOpenContentForm, setExpandedFilter}) {
     const lang = i18next.language
-    const [totalStep, setTotalStep] = useState('')
-    const [currentStep, setCurrentStep] = useState('')
+    const [currentStep, setCurrentStep] = useState(1)
     const [isTourOpen, setIsTourOpen] = useState(false)
     const helpPermission = JSON.parse(get(process.env.REACT_APP_USER))
 
     const clicked = () => {
         setIsTourOpen(true)
     }
+    const closeTour = () => {
+        setIsTourOpen(false)
+        setCurrentStep(1)
+    }
 
-    const updateTour = (curr) => {
-        if (curr > 1) {
+    useEffect(() => {
+        if (currentStep > 1) {
             setExpandedFilter(true)
         }
-    }
+    }, [currentStep,setExpandedFilter]);
 
     return (
         <StyledHead lang={lang}>
             <StyledHeadTypography className='content-list'>{t('contents:contentList')}</StyledHeadTypography>
-            <StyledHelpButton permission={helpPermission.permissions['access administration pages'].access} onClick={clicked}>
+            <StyledHelpButton permission={helpPermission.permissions['access administration pages'].access}
+                              onClick={clicked}>
                 <Typography>{t('translation:guide')}</Typography>
             </StyledHelpButton>
-            <StyledAddButton className='register-button' bg={green[0]} onClick={setOpenRegisterForm}>
+            <StyledAddButton className='register-button' bg={green[0]} onClick={(e)=>handleOpenContentForm(e,helpPermission.accountName)}>
                 <Typography>{t('translation:registerContent')}</Typography>
             </StyledAddButton>
             <div id="tour" style={{direction: 'ltr!important'}}>
@@ -44,21 +48,18 @@ function Index({t, setOpenRegisterForm, setExpandedFilter}) {
                       showNavigationNumber={false}
                       disableDotsNavigation={false}
                       lastStepNextButton={<StyledCloseGuideButton>{t('translation:endGuide')}</StyledCloseGuideButton>}
-                      nextButton={<StyledNextButton><span>{totalStep}/{currentStep}</span> {t('translation:nextStep')}
-                      </StyledNextButton>}
+                      nextButton={
+                          <StyledNextButton><span>{steps.length}/{currentStep}</span> {t('translation:nextStep')}
+                          </StyledNextButton>}
                       prevButton={<StyledPrevButton>{t('translation:prevStep')}</StyledPrevButton>}
                       steps={steps}
                       customizedCloseButton={
                           <StyledCloseGuideButton>{t('translation:closeGuide')}</StyledCloseGuideButton>}
                       isOpen={isTourOpen}
                       showNumber={true}
-                      badgeContent={(curr, tot) => {
-                          setTotalStep(tot)
-                          setCurrentStep(curr)
-                          updateTour(curr)
-                      }}
-                      getCurrentStep={(curr, tot) => console.log(`The current step is ${curr + 1}=${tot}`)}
-                      onRequestClose={() => setIsTourOpen(false)}
+                      startAt={0}
+                      getCurrentStep={(curr) => setCurrentStep(curr + 1)}
+                      onRequestClose={closeTour}
                 />
             </div>
         </StyledHead>

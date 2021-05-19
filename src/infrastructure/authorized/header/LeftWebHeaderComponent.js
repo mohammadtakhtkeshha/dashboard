@@ -30,12 +30,12 @@ const StyledSelect = withStyles(styledSelect)(Select);
 const StyledListItemIcon = withStyles(styledListItemIcon)(ListItemIcon);
 
 function LeftWebHeaderComponent({t}) {
-    const appContext = useContext(AppContext);
+    const {toggleUserDrawer} = useContext(AppContext);
     const lang = i18next.language;
     let history = useHistory();
 
     const changeDrawerUser = () => {
-        appContext.toggleUserDrawer(true);
+        toggleUserDrawer(true);
     }
 
     const handleChange = (event) => {

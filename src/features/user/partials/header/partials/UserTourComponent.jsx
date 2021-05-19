@@ -14,6 +14,11 @@ function UserTourComponent({t, setExpandedFilter, setIsTourOpen, isTourOpen}) {
                 }
     }, [currentStep,setExpandedFilter]);
 
+    const closeTour = () => {
+        setIsTourOpen(false)
+        setCurrentStep(1)
+    }
+
     return (<Tour showCloseButton={false}
                   showNavigation={false}
                   showNavigationNumber={false}
@@ -26,8 +31,9 @@ function UserTourComponent({t, setExpandedFilter, setIsTourOpen, isTourOpen}) {
                   customizedCloseButton={<StyledCloseGuideButton>{t('translation:closeGuide')}</StyledCloseGuideButton>}
                   isOpen={isTourOpen}
                   showNumber={true}
+                  startAt={0}
                   getCurrentStep={(curr) => setCurrentStep(curr+1)}
-                  onRequestClose={()=>setIsTourOpen(false)}/>);
+                  onRequestClose={()=>closeTour()}/>);
 }
 
 export default withNamespaces('users,translation')(UserTourComponent);

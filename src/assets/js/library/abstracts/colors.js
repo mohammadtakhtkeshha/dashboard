@@ -60,6 +60,7 @@ const green = ['#3ecd90',//[0]default
     '#32ae96',//[9]right-sidebar-top
     '#3bc78d',//[10]right-gradiant-for-tableHeader
     '#3ecd91',//[11]right-gradiant-for-tableHeader
+    '#ccdf33',//[12]settings-box
 ];
 
 const blue= ['#2e91b0',//[0]default
@@ -83,6 +84,8 @@ const blue= ['#2e91b0',//[0]default
     '#2c85f0',//[18]left-header-gradiant
     '#4d56bd',//[19]button-background-active
     '#6d78ee',//[20]button-background-hover
+    '#4be1d1',//[21]settings-box
+    '#2e99ff',//[22]settings-box
 ];
 
 const orange=[
@@ -91,6 +94,7 @@ const orange=[
     '#EC9860',//[2]background-color-button
     '#eea06d',//[3]background-color-button-hover
     '#bd7a4d',//[4]background-color-button-active
+    '#ffb82c ',//[5]settings-box
 ];
 
 const grey = ['#ced4da',//[0]input border
@@ -117,6 +121,7 @@ const grey = ['#ced4da',//[0]input border
     '#eff0f1',//[21]for table header matamo
     '#f2f2f2',//[22]for-table-row-hover matamo
     '#495057',//[23]input-placeholder
+    '#c4c4c4',//[24]settings-button-status
 ];
 
 export const purpel = ["#3F51B5"]

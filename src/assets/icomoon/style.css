@@ -1,0 +1,88 @@
+@font-face {
+  font-family: 'icomoon';
+  src:
+    url('fonts/icomoon.ttf?ees0av') format('truetype'),
+    url('fonts/icomoon.woff?ees0av') format('woff'),
+    url('fonts/icomoon.svg?ees0av#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-chat .path1:before {
+  content: "\e900";
+  color: rgb(255, 255, 255);
+  opacity: 0.3;
+}
+.icon-chat .path2:before {
+  content: "\e901";
+  margin-left: -1.5625em;
+  color: rgb(255, 255, 255);
+}
+.icon-chat .path3:before {
+  content: "\e902";
+  margin-left: -1.5625em;
+  color: rgb(255, 255, 255);
+  opacity: 0.7;
+}
+.icon-chat .path4:before {
+  content: "\e903";
+  margin-left: -1.5625em;
+  color: rgb(255, 255, 255);
+}
+.icon-chat .path5:before {
+  content: "\e904";
+  margin-left: -1.5625em;
+  color: rgb(255, 255, 255);
+}
+.icon-chat .path6:before {
+  content: "\e905";
+  margin-left: -1.5625em;
+  color: rgb(255, 255, 255);
+}
+.icon-chat .path7:before {
+  content: "\e906";
+  margin-left: -1.5625em;
+  color: rgb(255, 255, 255);
+}
+.icon-key:before {
+  content: "\e907";
+}
+.icon-message:before {
+  content: "\e908";
+}
+.icon-password:before {
+  content: "\e909";
+}
+.icon-password-blocked:before {
+  content: "\e90a";
+}
+.icon-refresh:before {
+  content: "\e90b";
+  color: #fff;
+}
+.icon-soon:before {
+  content: "\e90c";
+}
+.icon-upload:before {
+  content: "\e90d";
+  color: #3ecd90;
+}
+.icon-user:before {
+  content: "\e90e";
+}

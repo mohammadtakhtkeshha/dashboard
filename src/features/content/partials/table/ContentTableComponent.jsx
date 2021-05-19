@@ -17,7 +17,7 @@ import TrContentComponent from "./partials/TrContentComponent.jsx";
 
 function ContentTableComponent({t, selectedCheckBoxes, setSelectedCheckBoxes, page, handleOpenContentForm}) {
     const contentsContext = useContext(ContentsContext);
-    const appContext = useContext(AppContext);
+    const {perPage} = useContext(AppContext);
     const lang = i18next.language;
 
     let leftRightAlign = lang === "en" ? "left" : "right"
@@ -31,7 +31,7 @@ function ContentTableComponent({t, selectedCheckBoxes, setSelectedCheckBoxes, pa
             <StyledTableCell width="70" align={leftRightAlign}>
                 <StyledCheckboxImgInTable minWidth="100">
                     <StyledCheckboxComponent
-                        checked={selectedCheckBoxes.length === appContext.perPage}
+                        checked={selectedCheckBoxes.length === perPage}
                         change={allCheckboxHandler}
                         inputProps={{'aria-label': 'primary checkbox'}}/>
                     <div>{t('translation:title')}</div>

@@ -5,5 +5,7 @@
   "site_front_abs" : "tst5",
   "site_front_keys" : "test6",
   "logo" : "public://index.png",
+  "chooseNexWithEnt" : "برای انتخاب کلمه بعدی enter را وارد کنید",
+  "siteIcon" : "آیکون سایت",
   "favicon" : "/web/sites/default/files/Nederland_1_Logo_2000.png"
 }

@@ -1,235 +1,266 @@
-import {editComment} from "core/services/comment.service";
-import {addRole, editRole} from "core/services/role.service";
-import {success} from "methods/swal";
+import {editComment} from 'core/services/comment.service';
+import {addRole, editRole} from 'core/services/role.service';
+import {success} from 'methods/swal';
+import i18next from 'i18next';
 
 export const handleChangeCommentMethod = (e, setComment, field) => {
     let currentValue;
-    if (field === "comment_body") {
+    if (field === 'comment_body') {
         currentValue = e;
     } else {
         currentValue = e.currentTarget.value;
     }
     setComment(prevState => {
-        return {...prevState, [field]: [{value: currentValue}]}
+        return {...prevState, [field]: [{value: currentValue}]};
     });
-}
+};
 
 export const handleChangeStatusMethod = (e, setComment) => {
-    const status = e.currentTarget.value === "true" ? true : false;
+    const status = e.currentTarget.value === 'true' ? true : false;
     setComment(prevState => {
-        return {...prevState, status: [{value: status}]}
+        return {...prevState, status: [{value: status}]};
     });
-}
+};
 
-export const editCommentMethod = (id, t, comment, appContext, handlePagination, open, unconfirmedComments, publishedComments, commentStatus, setOpen) => {
-    const getCurrentCommentInList = commentStatus === 'published' ? publishedComments.filter(item => item.cid === id) : unconfirmedComments.filter(item => item.cid === id);
+export const editCommentMethod = (
+    id,
+    comment,
+    setLoading,
+    handlePagination,
+    open,
+    unconfirmedComments,
+    publishedComments,
+    commentStatus,
+    setOpen
+) => {
+    const getCurrentCommentInList =
+        commentStatus === 'published' ? publishedComments.filter(item => item.cid === id) : unconfirmedComments.filter(item => item.cid === id);
     const currentStatus = comment.status[0].value;
-    editComment(id, comment, appContext.handleError, handlePagination).then((response) => {
+    editComment(id, comment, setLoading, handlePagination).then(response => {
         const curComment = response.data;
         const changedComment = {
-            "subject": curComment.subject[0].value,
-            "last_updated": curComment.created[0].value,
-            "field_image": getCurrentCommentInList[0].field_image,
-            "link": `http://sitesazyas.rbp/web/comment/${curComment.cid[0].value}`,
-            "status": curComment.status[0].value,
-            "cid": `${curComment.cid[0].value}`,
-            "name": getCurrentCommentInList[0].name,
-            "view_node": `http://sitesazyas.rbp/${curComment.entity_id[0].url}`,
-        }
-        if ((commentStatus === 'published' && currentStatus === false) || (commentStatus === 'unconfirmed' && currentStatus === true)) {//if status has changed
+            subject: curComment.subject[0].value,
+            last_updated: curComment.created[0].value,
+            field_image: getCurrentCommentInList[0].field_image,
+            link: `http://sitesazyas.rbp/web/comment/${curComment.cid[0].value}`,
+            status: curComment.status[0].value,
+            cid: `${curComment.cid[0].value}`,
+            name: getCurrentCommentInList[0].name,
+            view_node: `http://sitesazyas.rbp/${curComment.entity_id[0].url}`,
+        };
+        if ((commentStatus === 'published' && currentStatus === false) || (commentStatus === 'unconfirmed' && currentStatus === true)) {
+            //if status has changed
             if (commentStatus === 'published') {
                 const filteredComment = publishedComments.filter(item => item.cid === id);
                 const currentIndex = publishedComments.indexOf(filteredComment[0]);
                 publishedComments.splice(currentIndex, 1);
                 unconfirmedComments.push(changedComment);
-                handlePagination(publishedComments, t('translation:successEdited'), true, 'published')
-                handlePagination(unconfirmedComments, false, true, 'unconfirmed')
+                handlePagination(publishedComments, i18next.t('translation:successEdited'), true, 'published');
+                handlePagination(unconfirmedComments, false, true, 'unconfirmed');
             } else {
                 const filteredComment = unconfirmedComments.filter(item => item.cid === id);
                 const currentIndex = unconfirmedComments.indexOf(filteredComment[0]);
                 unconfirmedComments.splice(currentIndex, 1);
                 publishedComments.push(changedComment);
-                handlePagination(unconfirmedComments, t('translation:successEdited'), true, 'unconfirmed')
-                handlePagination(publishedComments, false, true, 'published')
+                handlePagination(unconfirmedComments, i18next.t('translation:successEdited'), true, 'unconfirmed');
+                handlePagination(publishedComments, false, true, 'published');
             }
         } else {
             if (comment.status[0].value) {
                 const filteredComment = publishedComments.filter(item => item.cid === id);
                 const currentIndex = publishedComments.indexOf(filteredComment[0]);
                 publishedComments[currentIndex] = changedComment;
-                handlePagination(publishedComments, t('translation:successEdited'), true, 'published')
+                handlePagination(publishedComments, i18next.t('translation:successEdited'), true, 'published');
             } else {
                 const filteredComment = unconfirmedComments.filter(item => item.cid === id);
                 const currentIndex = unconfirmedComments.indexOf(filteredComment[0]);
                 unconfirmedComments[currentIndex] = changedComment;
-                handlePagination(unconfirmedComments, t('translation:successEdited'), true, 'unconfirmed')
+                handlePagination(unconfirmedComments, i18next.t('translation:successEdited'), true, 'unconfirmed');
             }
-
         }
     });
     setOpen({show: false, id: ''});
-}
+};
 
-export const editAndAddRoleMethod = (t, e, appContext, role, faRoles, id, error, handleClose, setFaRoles, setEnRoles) => {
-    appContext.setLoading(true)
-    if (id === "") { //for adding
-        if (error.unique !== "" && error.unique !== "") {
-            addRole(appContext.handleError, role).then((resposne) => {
+export const editAndAddRoleMethod = (e, setLoading, role, faRoles, id, error, handleClose, setFaRoles, setEnRoles) => {
+    setLoading(true);
+    if (id === '') {
+        //for adding
+        if (error.unique !== '' && error.unique !== '') {
+            addRole(setLoading, role).then(resposne => {
                 setFaRoles(prevState => {
-                    return [...prevState, role.role]
-                })
-                const enRole = JSON.parse(resposne.data).id
+                    return [...prevState, role.role];
+                });
+                const enRole = JSON.parse(resposne.data).id;
                 setEnRoles(prevState => {
-                    return [...prevState, enRole]
-                })
-                appContext.setLoading(false)
-                success(t('translation:successRegistered'), t('translation:ok'));
-                handleClose()
-            })
+                    return [...prevState, enRole];
+                });
+                setLoading(false);
+                success(i18next.t('translation:successRegistered'), i18next.t('translation:ok'));
+                handleClose();
+            });
         }
     } else {
-        editRole(id, role, appContext.handleError).then((resposne) => {
+        editRole(id, role, setLoading).then(resposne => {
             setFaRoles(prevState => {
-                const currentIndex = prevState.indexOf(id)
-                prevState.splice(currentIndex,1)
-                return [...prevState, role.role]
-            })
-            appContext.setLoading(false)
-            success(t('translation:successEdited'), t('translation:ok'));
-            handleClose()
-        })
+                const currentIndex = prevState.indexOf(id);
+                prevState.splice(currentIndex, 1);
+                return [...prevState, role.role];
+            });
+            setLoading(false);
+            success(i18next.t('translation:successEdited'), i18next.t('translation:ok'));
+            handleClose();
+        });
     }
-}
+};
 
 const nameUniqueValidation = (value, setError) => {
     if (value.length > 0) {
         setError(prevState => {
-            prevState.required = false
-            return {...prevState}
-        })
+            prevState.required = false;
+            return {...prevState};
+        });
     } else {
         setError(prevState => {
-            prevState.required = true
-            return {...prevState}
-        })
+            prevState.required = true;
+            return {...prevState};
+        });
     }
-}
+};
 
 const nameRequireValidation = (faRoles, value, setError) => {
-    let curStatus = false
+    let curStatus = false;
     if (faRoles.includes(value)) {
-        curStatus = true
+        curStatus = true;
     } else {
-        curStatus = false
+        curStatus = false;
     }
     setError(prevState => {
-        prevState.unique = curStatus
-        return {...prevState}
-    })
-}
+        prevState.unique = curStatus;
+        return {...prevState};
+    });
+};
 
 export const handleChangeNameMethod = (e, setRole, setError, faRoles) => {
-    const value = e.currentTarget.value
-    nameUniqueValidation(value, setError)
-    nameRequireValidation(faRoles, value, setError)
+    const value = e.currentTarget.value;
+    nameUniqueValidation(value, setError);
+    nameRequireValidation(faRoles, value, setError);
     setRole(prevState => {
-        return {...prevState, role: value}
-    })
-
-}
+        return {...prevState, role: value};
+    });
+};
 
 export const clickPermissionButtonMethod = (e, setShowPermission, permissions, setRole) => {
-    const arr = e.currentTarget.value.split('-')
-    const currentStatus = arr[0]
-    const currentIndex = arr[1]
-    const permGroup = arr[2]
-    const subGroup = permissions.find(item => item.groupName === permGroup)
-    let currentArrPermissions = []
+    const arr = e.currentTarget.value.split('-');
+    const currentStatus = arr[0];
+    const currentIndex = arr[1];
+    const permGroup = arr[2];
+    const subGroup = permissions.find(item => item.groupName === permGroup);
+    let currentArrPermissions = [];
     for (let item of subGroup.subGroups) {
         for (let per of item.permissions) {
-            currentArrPermissions.push(per.permission)
+            currentArrPermissions.push(per.permission);
         }
     }
     setRole(prevState => {
         for (let prev of prevState.permissions) {
             for (let checkedPerm of currentArrPermissions) {
                 if (prev.permisssion === checkedPerm) {
-                    currentStatus === 'complete' ? prev.status = 1 : prev.status = 0;
+                    currentStatus === 'complete' ? (prev.status = 1) : (prev.status = 0);
                 }
             }
         }
-        return {...prevState}
-    })
+        return {...prevState};
+    });
     setShowPermission(prevState => {
         for (let index in prevState) {
-            if (index === currentIndex) {
-                prevState[index].status = currentStatus
+            if (index === currentIndex) {debugger
+                prevState[index].status = currentStatus;
             }
         }
-        return [...prevState]
-    })
-}
+        return [...prevState];
+
+    });
+    debugger
+};
+
 const findIndexOfParent = (permissions, value) => {
     for (let permission in permissions) {
-        let index = permission
+        let index = permission;
         for (let item of permissions[permission].subGroups) {
             for (let part of item.permissions) {
                 if (part.permission === value) {
-                    return index
+                    return index;
                 }
             }
         }
     }
-}
-
+};
 
 export const changePermissionCheckBoxMethod = (e, setRole, permissions, setShowPermission) => {
     const checked = e.currentTarget.checked ? 1 : 0;
-    const value = e.currentTarget.value
-    let currIndex = findIndexOfParent(permissions, value)
+    const value = e.currentTarget.value;
+    let currIndex = findIndexOfParent(permissions, value);
     if (checked === 1) {
         // ----------------------- if all checkboxes checked -------------------------
         setShowPermission(prevState => {
-            prevState[currIndex].checked++
+            prevState[currIndex].checked++;
             if (prevState[currIndex].num === prevState[currIndex].checked) {
-                return [...prevState, prevState[currIndex].status = 'complete']
+                return [...prevState, (prevState[currIndex].status = 'complete')];
             } else {
-                return [...prevState]
+                return [...prevState];
             }
-        })
+        });
     } else {
         setShowPermission(prevState => {
-            prevState[currIndex].checked--
-            return [...prevState]
-        })
+            prevState[currIndex].checked--;
+            return [...prevState];
+        });
     }
 
     setRole(prevState => {
         for (let item of prevState.permissions) {
             if (item.permisssion === value) {
-                item.status = checked
+                item.status = checked;
             }
         }
-        return {...prevState}
-    })
-}
+        return {...prevState};
+    });
+};
 
-
-const countOfPermissions = (permission) => {
-    let count = 0
+const countOfPermissions = permission => {
+    let count = 0;
     for (let item of permission.subGroups) {
-        count += item.permissions.length
+        count += item.permissions.length;
     }
-    return count
-}
+    return count;
+};
 
-export const selectedButtonMethod = (permissions, setShowPermission, role) => {
-    let arr = []
+export const selectedButtonMethod = (permissions, setShowPermission) => {
+    let arr = [];
     if (permissions.length > 0) {
         for (let item in permissions) {
-            let count = countOfPermissions(permissions[item])
-            arr.push({index: parseInt(item), status: "disactive", num: count, checked: 0})
+            let count = countOfPermissions(permissions[item]);
+            arr.push({index: parseInt(item), status: 'disactive', num: count, checked: 0});
         }
     }
-    setShowPermission(arr)
+    setShowPermission(arr);
+};
+
+export const handleErrorMethod = (lengthOfRole,setError) => {
+    if (lengthOfRole > 0) {
+        setError({required: false, unique: false})
+    } else {
+        setError({required: true, unique: false})
+    }
 }
+
+export const checkIncludes = (arr, value) => {
+    for (let item of arr) {
+        if (item.permisssion === value) {
+            return item.status
+        }
+    }
+}
+
+

@@ -26,7 +26,8 @@ export const StyledInput = styled.input`
             }
             &::placeholder{
                 color:${grey[23]};
-            }
+            } 
+          
 `
 
 export const styledTextField = () => ({

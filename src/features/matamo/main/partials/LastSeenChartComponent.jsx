@@ -10,11 +10,11 @@ import {StyledTablePaper, StyledTableParent} from "assets/js/App"
 function LastSeenChartComponent({t}) {
     const lang = i18next.language;
     const [lastSeen, setLastSeen] = useState([]);
-    const appContext=useContext(AppContext)
+    const {setLoading}=useContext(AppContext)
 
     useEffect(() => {
-        getLastSeenMethod(t, setLastSeen,appContext);
-    }, [appContext,t]);
+        getLastSeenMethod(setLastSeen,setLoading);
+    }, [setLoading]);
 
     return (
         <>

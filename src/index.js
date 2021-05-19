@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import 'assets/css/icons.css';
+import 'App.css';
 import Layout from './infrastructure/layout.jsx';
 // import Test from './Test.jsx';
-import "assets/new-svg/style.css"
 import * as serviceWorker from './serviceWorker';
 
 

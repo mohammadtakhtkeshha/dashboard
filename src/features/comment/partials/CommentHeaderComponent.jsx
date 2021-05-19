@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react"
+import React, {useRef, useState,useEffect} from "react"
 import {withNamespaces} from "react-i18next"
 import i18next from "i18next"
 import Tour from 'reactour'
@@ -15,8 +15,7 @@ import {get} from "libraries/local-storage"
 function CommentHeaderComponent({t, setExpandedFilter}) {
     const lang = i18next.language
     const [isTourOpen, setIsTourOpen] = useState(false)
-    const [totalStep, setTotalStep] = useState('')
-    const [currentStep, setCurrentStep] = useState('')
+    const [currentStep, setCurrentStep] = useState(1)
     const refList = useRef(null)
     const helpPermission = JSON.parse(get(process.env.REACT_APP_USER))
 
@@ -25,14 +24,20 @@ function CommentHeaderComponent({t, setExpandedFilter}) {
         setIsTourOpen(true)
     }
 
-    const updateTour = (curr) => {
-        if (curr > 1) {
+    useEffect(() => {
+        if (currentStep > 1) {
             setExpandedFilter(true)
         }
+    }, [currentStep,setExpandedFilter]);
+
+
+    const closeTour = () => {
+        setIsTourOpen(false)
+        setCurrentStep(1)
     }
 
     return (<StyledHeadComment lang={lang}>
-        <StyledHeadTypography className="user-list" ref={refList}>{t('comments:commentsList')}</StyledHeadTypography>
+        <StyledHeadTypography ref={refList} className="commentList">{t('comments:commentsList')}</StyledHeadTypography>
         <StyledHelpButton permission={helpPermission.permissions['access administration pages'].access}  onClick={clicked}>
             <Typography>{t('translation:guide')}</Typography>
         </StyledHelpButton>
@@ -41,20 +46,16 @@ function CommentHeaderComponent({t, setExpandedFilter}) {
               showNavigationNumber={false}
               disableDotsNavigation={false}
               lastStepNextButton={<StyledCloseGuideButton>{t('translation:endGuide')}</StyledCloseGuideButton>}
-              nextButton={<StyledNextButton><span>{totalStep}/{currentStep}</span> {t('translation:nextStep')}
+              nextButton={<StyledNextButton><span>{steps.length}/{currentStep}</span> {t('translation:nextStep')}
               </StyledNextButton>}
               prevButton={<StyledPrevButton>{t('translation:prevStep')}</StyledPrevButton>}
               steps={steps}
               customizedCloseButton={<StyledCloseGuideButton>{t('translation:closeGuide')}</StyledCloseGuideButton>}
               isOpen={isTourOpen}
               showNumber={true}
-              badgeContent={(curr, tot) => {
-                  setTotalStep(tot)
-                  setCurrentStep(curr)
-                  updateTour(curr)
-              }}
-              getCurrentStep={(curr, tot) => console.log(`The current step is ${curr + 1}=${tot}`)}
-              onRequestClose={() => setIsTourOpen(false)}/>
+              startAt={0}
+              getCurrentStep={(curr) => setCurrentStep(curr+1)}
+              onRequestClose={() => closeTour()}/>
     </StyledHeadComment>)
 }
 

@@ -1,69 +1,37 @@
-import {addSettings, getSettings} from "core/services/settings.service";
-import {saveUserImage} from "core/services/user.service";
-import {success} from "methods/swal";
+import {getSettings } from 'core/services/settings.service';
 
-export const getSettingsMethod = (appContext,setSettings,setLogo,setFavIcon) => {
-    getSettings(appContext.handleError).then(res => {
-        const settings = res.data
-        settings.favicon = res.data.fav
-        delete settings.fav
-        settings.logo = res.data.logos
-        delete settings.logos
-        debugger
-        // setLogo([`http://sitesazyas.rbp${settings.logos}`])
-        setLogo([{id: 1, url: `http://sitesazyas.rbp${settings.logo}`}]);
-        // setLogo([{id: 1, url:settings.logo}]);
-        // setLogo([settings.logos])
-        // setFavIcon([`http://sitesazyas.rbp${settings.fav}`])
-        // setFavIcon([{id: 1, url:`http://sitesazyas.rbp${settings.fav}`}]);
-        setFavIcon([{id: 1, url:settings.favicon}]);
-        // setFavIcon([settings.fav])
-        setSettings(settings)
+export const getSettingsMethod = (setLoading, setSettingsName,setSettingsTags,setSettingsIcons) => {
+  setLoading(true);
+  getSettings(setLoading).then(res => {
+    setLoading(false);
+    const settings = res.data;
+    setSettingsName({
+      site_name: settings.site_name,
+      site_mail: settings.site_mail,
+      site_slogan: settings.site_slogan,
     })
-}
-
-export const addSettingsMethod = (t,appContext,settings) => {
-    appContext.setLoading(true)
-    addSettings(settings, appContext.handleError).then(res => {
-        appContext.setLoading(false)
-        success(t('translation:successEdited'), t('translation:ok'))
+    setSettingsTags({
+      site_front_desc:settings.site_front_desc , //description
+      site_front_abs:settings.site_front_abs , //summary
+      site_front_keys:settings.site_front_keys , //keywords
     })
+    setSettingsIcons({logo:res.data.logos,favicon:res.data.fav})
+  });
+};
+
+export const constSettingsName = {
+  site_name: '',
+  site_mail: '',
+  site_slogan: '',
 }
 
-
-export const uploadFavIconMethod = (e, setSettings, setFavIcon, appContext) => {
-    appContext.setLoading(true);
-    saveUserImage(e, appContext.handleError).then((response) => {
-                appContext.setLoading(false);
-                const item = response.data;
-                const baseUrl = process.env.REACT_APP_PICTURE_URL;
-                let url = baseUrl + item.uri[0].url;
-                setSettings(prevState => {
-                    return {...prevState,favicon:url}
-                });
-            setFavIcon([{id: item.fid, url: url}]);
-            }
-        );
+export const constSettingsTags = {
+  site_front_desc: '', //description
+  site_front_abs: '', //summary
+  site_front_keys: '', //keywords
 }
 
-export const uploadLogoMethod = (e, setSettings, setLogo, appContext) => {
-    appContext.setLoading(true);
-    saveUserImage(e, appContext.handleError).then((response) => {
-                appContext.setLoading(false);
-                const item = response.data;
-                const baseUrl = process.env.REACT_APP_PICTURE_URL;
-                let url = baseUrl + item.uri[0].url;
-                setSettings(prevState => {
-                    return {...prevState,logo:url}
-                });
-            setLogo([{id: item.fid, url: url}]);
-            }
-        );
-}
-
-
-export const keyUpMethod = (e,appContext,addSettings) => {
-    if(e.which === 13){
-        addSettings()
-    }
+export const constSettingsIcons = {
+  logo: '',
+  favicon: '',
 }

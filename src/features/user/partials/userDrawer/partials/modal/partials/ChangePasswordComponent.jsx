@@ -26,7 +26,7 @@ function ChangePasswordComponent({t, setOpenObserveProfile}) {
     const [data, setData] = useState({username: "", oldPassword: "", newPassword: ""})
     const [confirmPass, setConfirmPass] = useState('')
     const lang = i18next.language
-    const appContext = useContext(AppContext)
+    const {setLoading} = useContext(AppContext)
 
     const changePass = (e, field) => {
         changePassMethod(e,t,field,confirmPass,setErrors,setData)
@@ -74,7 +74,7 @@ function ChangePasswordComponent({t, setOpenObserveProfile}) {
         </StyledModalBody>
         <StyledModalFooter>
             <StyledRegisterButton status={isObjectEmpty(errors)}
-                                  onClick={() => registerChangePassMethod(t, data, appContext, setOpenObserveProfile, setErrors)}>
+                                  onClick={() => registerChangePassMethod(data, setLoading, setOpenObserveProfile, setErrors)}>
                 {t('translation:register')}
             </StyledRegisterButton>
         </StyledModalFooter>

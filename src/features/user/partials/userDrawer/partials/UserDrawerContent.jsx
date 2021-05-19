@@ -28,17 +28,17 @@ const useStyles = makeStyles(UserDrawerContentStyle)
 function ProfileContentComponent({t}) {
     const classes = useStyles()
     const lang = i18next.language
-    const appContext = useContext(AppContext)
+    const {toggleUserDrawer} = useContext(AppContext)
     const [openObserveProfile, setOpenObserveProfile] = useState(false)
     let history = useHistory()
     const currentUser = JSON.parse(storage.get('user'))
 
     const changeUserDrawer = () => {
-        appContext.toggleUserDrawer(false)
+        toggleUserDrawer(false)
     }
 
     const closeDrawer = () => {
-        appContext.toggleUserDrawer(false)
+        toggleUserDrawer(false)
     }
 
     const logoutHandle = () => {
@@ -67,7 +67,7 @@ function ProfileContentComponent({t}) {
         <StyledWhiteBackground>
             <StyledUl lang={lang}>
                 <StyledLi onClick={changeUserDrawer}>
-                    <NavLink to='/dashboard' activeClassName={classes.active}>
+                    <NavLink to='/edit-profile' activeClassName={classes.active}>
                         <span className="icon"></span>
                         <ListItemText primary={t('users:observeProfile')}/>
                     </NavLink>

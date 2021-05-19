@@ -4,6 +4,8 @@
   "site_front_desc": "site slogan",
   "site_front_abs" : "tst5",
   "site_front_keys" : "test6",
+  "chooseNexWithEnt" : "choose next word with press enter",
   "logo" : "public://index.png",
+  "siteIcon" : "site icon",
   "favicon" : "/web/sites/default/files/Nederland_1_Logo_2000.png"
 }

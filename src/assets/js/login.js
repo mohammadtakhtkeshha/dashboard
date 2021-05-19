@@ -238,7 +238,6 @@ export const StyledRelativeBlock = styled.div`
 
 export const StyledSvgInput = styled.span`
               color:${grey[10]};
-              font-family:icomoon!important;
 `
 
 

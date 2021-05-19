@@ -1,16 +1,17 @@
-import { getContent, getContents, getTags } from "core/services/content.service";
-import { chunkItem, handleTotalPage } from "infrastructure/layout";
-import { success } from "methods/swal";
+import { getContent, getContents, getTags } from 'core/services/content.service';
+import { chunkItem, handleTotalPage } from 'infrastructure/layout';
+import { success } from 'methods/swal';
+import i18next from 'i18next';
 
 export function multiAction(selectedCheckBoxes, currentContents, status) {
   for (let selected of selectedCheckBoxes) {
-    let currentContent = currentContents.filter((item) => item.nid === selected);
+    let currentContent = currentContents.filter(item => item.nid === selected);
     let index = currentContents.indexOf(currentContent[0]);
     switch (status) {
-      case "true":
+      case 'true':
         currentContents[index].status = status;
         break;
-      case "false":
+      case 'false':
         currentContents[index].status = status;
         break;
       default:
@@ -22,10 +23,23 @@ export function multiAction(selectedCheckBoxes, currentContents, status) {
 /* description : fill content partials for edit partials
  *   @param(number) : id for the selected content
  */
-export const setContentWhenEditButtonClicked = (id, setId, setOpenRegisterForm, setContent, setImgAndUrl, setImgsAndUrls, setVideosAndUrl, setVoicesAndUrl, appContext, setContentType, setErrors, setSelectedTags) => {
-  getContent(id, appContext.handleError)
-    .then((response) => {
-      appContext.setLoading(false);
+export const setContentWhenEditButtonClicked = (
+  id,
+  setId,
+  setOpenRegisterForm,
+  setContent,
+  setImgAndUrl,
+  setImgsAndUrls,
+  setVideosAndUrl,
+  setVoicesAndUrl,
+  setLoading,
+  setContentType,
+  setErrors,
+  setSelectedTags,
+) => {
+  getContent(id, setLoading)
+    .then(response => {
+      setLoading(false);
       const item = response.data;
       setContentType(item.type[0].target_id);
       // ------------- set img for the edit time -------------
@@ -36,7 +50,7 @@ export const setContentWhenEditButtonClicked = (id, setId, setOpenRegisterForm, 
       // ------------- set multiimgs for the edit time -------------
       if (item.field_images_gallery && item.field_images_gallery.length > 0) {
         for (let image of item.field_images_gallery) {
-          setImgsAndUrls((prevState) => {
+          setImgsAndUrls(prevState => {
             return [
               ...prevState,
               {
@@ -50,7 +64,7 @@ export const setContentWhenEditButtonClicked = (id, setId, setOpenRegisterForm, 
       // ------------- set videos for the edit time -------------
       if (item.field_video && item.field_video.length > 0) {
         for (let video of item.field_video) {
-          setVideosAndUrl((prevState) => {
+          setVideosAndUrl(prevState => {
             return [
               ...prevState,
               {
@@ -64,7 +78,7 @@ export const setContentWhenEditButtonClicked = (id, setId, setOpenRegisterForm, 
       // ------------- set voices for the edit time -------------
       if (item.field_sound && item.field_sound.length > 0) {
         for (let sound of item.field_sound) {
-          setVoicesAndUrl((prevState) => {
+          setVoicesAndUrl(prevState => {
             return [
               ...prevState,
               {
@@ -75,87 +89,106 @@ export const setContentWhenEditButtonClicked = (id, setId, setOpenRegisterForm, 
           });
         }
       }
+
+      //set selected default tags
+      let defaultTagsArr = [];
+      if (item.field_tags) {
+        item.field_tags.forEach(item => {
+          defaultTagsArr.push({
+            // name: `${item.url}`,
+            name: decodeURI(item.url.split('/').pop()),
+            tid: `${item.target_id}`,
+          });
+        });
+        // {name: "تایرخ", tid: "6", parent_target_id: "", parent_target_id_1: "", weight: "3"}
+        setSelectedTags([...defaultTagsArr]);
+      }
       // ------------- check default tags -------------
       let newFieldTags = [];
       if (item.field_tags && item.field_tags.length > 0) {
         for (let tag of item.field_tags) {
           newFieldTags.push({
             target_id: `${tag.target_id}`,
-            target_type: "taxonomy_term",
+            target_type: 'taxonomy_term',
           });
         }
         item.field_tags = newFieldTags;
       }
       setContent(item);
-      //set selected default tags
-      let defaultTagsArr = [];
-      if (item.field_tags) {
-        item.field_tags.foreach((item) => {
-          defaultTagsArr.push({
-            name: `${item.target_id}`,
-            tid: `${item.target_id}`,
-          });
-        });
-        setSelectedTags([...defaultTagsArr]);
-      }
+
       setOpenRegisterForm(true);
     })
-    .catch((error) => {
-      setId("");
+    .catch(error => {
+      setId('');
     });
 };
 
-export const handleOpenContentFormMethod = (e, setOpenRegisterForm, setId, appContext) => {
+export const handleOpenContentFormMethod = (e, setOpenRegisterForm, setId, setLoading,passedAuthor,setAuthor) => {
+  setAuthor(passedAuthor)
   const value = e.currentTarget.value;
-  if (value === "") {
+  if (value === '') {
     setOpenRegisterForm(true);
   } else {
-    appContext.setLoading(true);
+    setLoading(true);
     setId(value);
   }
 };
 
-export const getTagsMethod = (appContext, setTags) => {
-  getTags(appContext.handleError).then((response) => {
-    appContext.setLoading(false);
+export const getTagsMethod = (setLoading, setTags) => {
+  setLoading(true);
+  getTags(setLoading).then(response => {
+    setLoading(false);
     setTags(response.data);
   });
 };
 
-export const getRegisteredContentMethod = (t, content, contents, id, handlePagination, handleCloseContentForm) => {
+export const getRegisteredContentMethod = (t, content, contents, id, handlePagination, handleCloseContentForm,author) => {
   const formatedDate = content.created[0].value.substr(0, 10);
-  const dateArr = formatedDate.split("-");
-  const date = dateArr.join("/");
+  const dateArr = formatedDate.split('-');
+  const date = dateArr.join('/');
   const newContent = {
     type: content.type[0].target_id,
     status: `${content.status[0].value}`,
     title: content.title[0].value,
     created: date,
     nid: `${content.nid[0].value}`,
-    field_image: content.field_image?.length > 0 ? content.field_image[0].url : "",
+    uid: `${author}`,
+    field_image: content.field_image?.length > 0 ? content.field_image[0].url : '',
   };
-  if (id !== "") {
-    const filteredContent = contents.filter((item) => item.nid === id);
+  if (id !== '') {
+    const filteredContent = contents.filter(item => item.nid === id);
     const index = contents.indexOf(filteredContent[0]);
     contents[index] = newContent;
   } else {
     contents.unshift(newContent);
   }
-  handlePagination(contents, true, id !== "" ? t("translation:successEdited") : t("translation:successRegistered"));
+  handlePagination(contents, true, id !== '' ? t('translation:successEdited') : t('translation:successRegistered'));
   handleCloseContentForm();
 };
 
-export const handleCloseContentFormMethod = (setOpenRegisterForm, setId, setContent, setImgsAndUrls, setImgAndUrl, setVideosAndUrl, setVoicesAndUrl, setFilesPreviewUrl, setErrors, setContentType) => {
+export const handleCloseContentFormMethod = (
+  setOpenRegisterForm,
+  setId,
+  setContent,
+  setImgsAndUrls,
+  setImgAndUrl,
+  setVideosAndUrl,
+  setVoicesAndUrl,
+  setFilesPreviewUrl,
+  setErrors,
+  setContentType,
+  setSelectedTags
+) => {
   setOpenRegisterForm(false);
-  setId(""); // id is filled when pushing edit button
+  setId(''); // id is filled when pushing edit button
   setContent({
     type: [
       {
-        target_id: "",
+        target_id: '',
       },
     ],
-    title: [{ value: "" }],
-    body: [{ value: "" }],
+    title: [{ value: '' }],
+    body: [{ value: '' }],
     field_alias_status: [
       {
         value: true,
@@ -173,9 +206,9 @@ export const handleCloseContentFormMethod = (setOpenRegisterForm, setId, setCont
     field_seo_list: [
       {
         value: {
-          title: "",
-          description: "",
-          keywords: "",
+          title: '',
+          description: '',
+          keywords: '',
         },
       },
     ],
@@ -184,7 +217,7 @@ export const handleCloseContentFormMethod = (setOpenRegisterForm, setId, setCont
     path: [
       {
         pathauto: true,
-        alias: "",
+        alias: '',
       },
     ],
     field_home_slider: [
@@ -235,38 +268,39 @@ export const handleCloseContentFormMethod = (setOpenRegisterForm, setId, setCont
   setVoicesAndUrl([]);
   setFilesPreviewUrl([]);
   setErrors({});
-  setContentType("");
+  setContentType('');
+  setSelectedTags([]);
 };
 
-export const getContentsMethod = (appContext, handlePagination) => {
-  appContext.setLoading(true);
-  getContents(appContext.handleError).then((response) => {
+export const getContentsMethod = (setLoading, handlePagination) => {
+  setLoading(true);
+  getContents(setLoading).then(response => {
     let contents = response.data;
     contents.reverse();
-    appContext.setLoading(false);
+    setLoading(false);
     handlePagination(contents, true);
   });
 };
 
-export const handlePaginationMethod = (t, setSelectedCheckBoxes, action, setContentsState, setContents, contents, setTotalPage, setChunkContents) => {
+export const handlePaginationMethod = (setSelectedCheckBoxes, action, setContentsState, setContents, contents, setTotalPage, setChunkContents) => {
   setContentsState && setContents(contents);
   let currentTotalPage = handleTotalPage(contents);
   setTotalPage(currentTotalPage);
   const chunked = chunkItem(contents);
   setChunkContents(chunked);
   setSelectedCheckBoxes([]);
-  action && success(t(`translation:${action}`), t("translation:ok"));
+  action && success(i18next.t(`translation:${action}`), i18next.t('translation:ok'));
 };
 
 export const defaultNewPage = {
   type: [
     {
-      target_id: "page",
+      target_id: 'page',
     },
   ],
   field_con_type: [
     {
-      value: "page",
+      value: 'page',
     },
   ],
   status: [
@@ -277,9 +311,9 @@ export const defaultNewPage = {
   field_seo_list: [
     {
       value: {
-        title: "",
-        description: "",
-        keywords: "",
+        title: '',
+        description: '',
+        keywords: '',
       },
     },
   ],
@@ -291,18 +325,18 @@ export const defaultNewPage = {
   // ],
   title: [
     {
-      value: "",
+      value: '',
     },
   ],
   body: [
     {
-      value: "",
-      summary: "",
+      value: '',
+      summary: '',
     },
   ],
   path: [
     {
-      alias: "",
+      alias: '',
       pathauto: true,
     },
   ],
@@ -316,12 +350,12 @@ export const defaultNewPage = {
 export const defaultNewArticle = {
   type: [
     {
-      target_id: "article",
+      target_id: 'article',
     },
   ],
   field_con_type: [
     {
-      value: "article",
+      value: 'article',
     },
   ],
   field_alias_status: [
@@ -331,13 +365,13 @@ export const defaultNewArticle = {
   ],
   title: [
     {
-      value: "",
+      value: '',
     },
   ],
   body: [
     {
-      value: "",
-      summary: "",
+      value: '',
+      summary: '',
     },
   ],
   status: [
@@ -348,9 +382,9 @@ export const defaultNewArticle = {
   field_seo_list: [
     {
       value: {
-        title: "",
-        description: "",
-        keywords: "",
+        title: '',
+        description: '',
+        keywords: '',
       },
     },
   ],
@@ -365,7 +399,7 @@ export const defaultNewArticle = {
   ],
   path: [
     {
-      alias: "",
+      alias: '',
       pathauto: true,
     },
   ],
@@ -374,23 +408,23 @@ export const defaultNewArticle = {
 export const defaultNewNews = {
   type: [
     {
-      target_id: "news",
+      target_id: 'news',
     },
   ],
   field_con_type: [
     {
-      value: "news",
+      value: 'news',
     },
   ],
   title: [
     {
-      value: "",
+      value: '',
     },
   ],
   body: [
     {
-      value: "",
-      summary: "",
+      value: '',
+      summary: '',
     },
   ],
   status: [
@@ -401,15 +435,15 @@ export const defaultNewNews = {
   field_seo_list: [
     {
       value: {
-        title: "",
-        description: "",
-        keywords: "",
+        title: '',
+        description: '',
+        keywords: '',
       },
     },
   ],
   path: [
     {
-      alias: "",
+      alias: '',
       pathauto: true,
     },
   ],
@@ -434,7 +468,7 @@ export const defaultNewNews = {
   field_states: [],
   field_subtitle: [
     {
-      value: "",
+      value: '',
     },
   ],
   field_tags: [],
@@ -455,23 +489,23 @@ export const defaultNewNews = {
 export const defaultNewSounds = {
   type: [
     {
-      target_id: "sounds",
+      target_id: 'sounds',
     },
   ],
   field_con_type: [
     {
-      value: "sounds",
+      value: 'sounds',
     },
   ],
   title: [
     {
-      value: "",
+      value: '',
     },
   ],
   body: [
     {
-      value: "",
-      summary: "",
+      value: '',
+      summary: '',
     },
   ],
   status: [
@@ -482,9 +516,9 @@ export const defaultNewSounds = {
   field_seo_list: [
     {
       value: {
-        title: "",
-        description: "",
-        keywords: "",
+        title: '',
+        description: '',
+        keywords: '',
       },
     },
   ],
@@ -519,7 +553,7 @@ export const defaultNewSounds = {
   ],
   path: [
     {
-      alias: "",
+      alias: '',
       pathauto: true,
     },
   ],
@@ -533,23 +567,23 @@ export const defaultNewSounds = {
 export const defaultNewImages = {
   type: [
     {
-      target_id: "images",
+      target_id: 'images',
     },
   ],
   field_con_type: [
     {
-      value: "images",
+      value: 'images',
     },
   ],
   title: [
     {
-      value: "",
+      value: '',
     },
   ],
   body: [
     {
-      value: "",
-      summary: "",
+      value: '',
+      summary: '',
     },
   ],
   status: [
@@ -560,9 +594,9 @@ export const defaultNewImages = {
   field_seo_list: [
     {
       value: {
-        title: "",
-        description: "",
-        keywords: "",
+        title: '',
+        description: '',
+        keywords: '',
       },
     },
   ],
@@ -597,7 +631,7 @@ export const defaultNewImages = {
   field_images_gallery: [],
   path: [
     {
-      alias: "",
+      alias: '',
       pathauto: true,
     },
   ],
@@ -611,23 +645,23 @@ export const defaultNewImages = {
 export const defaultNewVideos = {
   type: [
     {
-      target_id: "videos",
+      target_id: 'videos',
     },
   ],
   field_con_type: [
     {
-      value: "videos",
+      value: 'videos',
     },
   ],
   title: [
     {
-      value: "",
+      value: '',
     },
   ],
   body: [
     {
-      value: "",
-      summary: "",
+      value: '',
+      summary: '',
     },
   ],
   status: [
@@ -638,9 +672,9 @@ export const defaultNewVideos = {
   field_seo_list: [
     {
       value: {
-        title: "",
-        description: "",
-        keywords: "",
+        title: '',
+        description: '',
+        keywords: '',
       },
     },
   ],
@@ -676,7 +710,7 @@ export const defaultNewVideos = {
   field_images_gallery: [],
   path: [
     {
-      alias: "",
+      alias: '',
       pathauto: true,
     },
   ],
@@ -690,7 +724,7 @@ export const defaultNewVideos = {
 export const defaultContent = {
   type: [
     {
-      target_id: "",
+      target_id: '',
     },
   ],
   field_alias_status: [
@@ -698,25 +732,25 @@ export const defaultContent = {
       value: true,
     },
   ],
-  title: [{ value: "" }],
-  body: [{ value: "" }],
+  title: [{ value: '' }],
+  body: [{ value: '' }],
   field_domain_access: {},
   field_domain_all_affiliates: true,
   field_domain_source: [],
   field_field_galeries: [],
   field_files: [],
   field_image: [],
-  field_rotitr: "",
-  field_sotitr: "",
+  field_rotitr: '',
+  field_sotitr: '',
   field_sound: [],
   field_article_cat: {},
   field_tags: [],
   field_seo_list: [
     {
       value: {
-        title: "",
-        description: "",
-        keywords: "",
+        title: '',
+        description: '',
+        keywords: '',
       },
     },
   ],
@@ -725,7 +759,7 @@ export const defaultContent = {
   path: [
     {
       pathauto: true,
-      alias: "",
+      alias: '',
     },
   ],
   field_home_slider: [
@@ -758,7 +792,7 @@ export const defaultContent = {
   unpublish_on: [],
   field_subtitle: [
     {
-      value: "",
+      value: '',
     },
   ],
   field_chosen: [

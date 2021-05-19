@@ -93,7 +93,8 @@ export const StyledRolesBlock = styled.div`
 `
 
 export const StyledInsideModalBody = styled.div`
-        margin-bottom:120px;
+        // margin-bottom:120px;
+        // margin-top:74px;
 `
 
 export const StyledRoleMargin = styled.div`

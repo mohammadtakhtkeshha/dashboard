@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useCallback } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import { withNamespaces } from "react-i18next"
 
 import { Typography } from "@material-ui/core"
@@ -22,7 +22,7 @@ import { handlePaginationMethod } from "./DevicesComponent.js";
 import { StyledPaginationBox } from "assets/js/pagination";
 
 function DevicesComponent({ t }) {
-    const appContext = useContext(AppContext)
+    const {setLoading} = useContext(AppContext)
     const lang = i18next.language
     let leftRightAlign = lang === "en" ? "left" : "right"
     const [page, setPage] = useState(0)
@@ -44,11 +44,9 @@ function DevicesComponent({ t }) {
         handlePaginationMethod(items, setChunks, setTotalPage)
     }
 
-    const getResolution = useCallback(getResolutionMethod(appContext, setResolutions, handlePagination), [appContext, setResolutions, handlePagination])
-
     useEffect(() => {
-        getResolution()
-    }, [getResolution])
+        getResolutionMethod(setLoading, setResolutions, handlePagination)
+    }, [setLoading])
 
     const paginate = (e, value) => {
         setPage(value - 1);

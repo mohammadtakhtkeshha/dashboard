@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext, useCallback} from "react"
+import React, {useEffect, useState, useContext} from "react"
 import {withNamespaces} from "react-i18next"
 import AppContext from "contexts/AppContext";
 import {
@@ -16,7 +16,7 @@ import {StyledMatamoTableHeadRow,StyledMatamoTable,StyledMatamoTableRow} from "a
 function Index({t}) {
     const lang=i18next.language
     let leftRightAlign = lang === "en" ? "left" : "right"
-    const appContext = useContext(AppContext)
+    const {setLoading} = useContext(AppContext)
     const [chunks, setChunks] = useState([])
     const [totalPage, setTotalPage] = useState(0)
     const [page, setPage] = useState(0)
@@ -30,11 +30,9 @@ function Index({t}) {
         setPage(value - 1);
     }
 
-    const getKeywords = useCallback(getKeywordsMethod(appContext,handlePagination),[])
-
     useEffect(() => {
-        getKeywords()
-    }, [getKeywords])
+        getKeywordsMethod(setLoading,handlePagination)
+    }, [setLoading])
 
     return (
         <StyledTableParent length={mostSeen.length}>

@@ -76,7 +76,7 @@ export const toEnglishDigits = (string) => {
     if (str === null) {
         return null
     } else {
-        return str.split(' ').map(c => englishNumbers[persianNumbers.indexOf(c)] ||
+        return str.split('').map(c => englishNumbers[persianNumbers.indexOf(c)] ||
             englishNumbers[arabicNumbers.indexOf(c)] || c).join("")
     }
 }
