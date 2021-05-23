@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, {useEffect} from "react"
 
 import {
     StyledInputLogin,
@@ -8,10 +8,10 @@ import {
     StyledSvgInput,
     StyledRefreshBlock
 } from "assets/js/login";
-import { withNamespaces } from "react-i18next";
-import { StyledTypographyError } from "assets/js/library/base/typography"
+import {withNamespaces} from "react-i18next";
+import {StyledTypographyError} from "assets/js/library/base/typography"
 
-function CaptchaComponent({ t, setUser, user, errors, setErrors, src, setSrc, refreshCaptcha }) {
+function CaptchaComponent({t, setUser, errors, src, refreshCaptcha, keyUp}) {
 
     const changeCaptcha = (e) => {
         const currentValue = e.currentTarget.value
@@ -32,14 +32,16 @@ function CaptchaComponent({ t, setUser, user, errors, setErrors, src, setSrc, re
             <StyledRefreshBtn onClick={refreshCaptcha}>
                 <span className="icon-refresh"></span>
             </StyledRefreshBtn>
-            <img src={src} alt="" />
+            <img src={src} alt=""/>
         </StyledRefreshBlock>
         <InputBlock>
             <StyledRelativeBlock>
-                <StyledInputLogin name="name"
+                <StyledInputLogin
+                    name="name"
                     type="text"
                     placeholder={t('translation:safeCode')}
                     onChange={changeCaptcha}
+                    onKeyUp={keyUp}
                 />
                 <StyledSvgInput className="icon-key"></StyledSvgInput>
             </StyledRelativeBlock>

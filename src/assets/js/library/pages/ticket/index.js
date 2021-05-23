@@ -65,7 +65,8 @@ export const StyledReplyBox = styled.div`
 `;
 
 export const StyledCollapse = styled.div`
-  border-radius: 0 0 5px 5px;
+  border-radius: 4px;
+  overflow:hidden;
 `;
 
 export const styledCardMedia = () => ({

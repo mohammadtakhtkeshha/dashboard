@@ -3,7 +3,7 @@ import {withNamespaces} from "react-i18next"
 import i18next from "i18next";
 
 import {StyledEditProfileHeader, StyledEditSvgBlock} from "assets/js/library/pages/user/profile"
-import {StyledProfile, StyledData} from "assets/js/user/UserDrawerContent"
+import {StyledData, StyledEditProfile} from "assets/js/user/UserDrawerContent"
 import AvatarComponent from "infrastructure/authorized/partials/AvatarComponent"
 import storage from "libraries/local-storage"
 import sinusSvg from "assets/svg/sinusSvg.svg"
@@ -16,15 +16,15 @@ function EditProfileHeaderComponent({t, user, setUser}) {
     const lang = i18next.language
 
     return (<StyledEditProfileHeader>
-        <StyledProfile lang={lang}>
+        <StyledEditProfile lang={lang}>
             <AvatarComponent showBadge={false}
                              width="4.8rem"
                              height="4.8rem"
                              style={{justifyContent: 'center'}}/>
-            <StyledEditSvgBlock onClick={()=>setIsOpen(true)}>
+            <StyledEditSvgBlock lang={lang} onClick={()=>setIsOpen(true)}>
                 <img src={EditIcon} alt=""/>
             </StyledEditSvgBlock>
-            <StyledData>
+            <StyledData lang={lang}>
                 <span>
                     {currentUser !== null && currentUser.roles !== undefined ? currentUser.accountName : ''}
                 </span>
@@ -32,7 +32,7 @@ function EditProfileHeaderComponent({t, user, setUser}) {
                      {currentUser !== null && currentUser.roles !== undefined ? currentUser.accountName : ''}
                 </span>
             </StyledData>
-        </StyledProfile>
+        </StyledEditProfile>
         <img src={sinusSvg} alt=""/>
         <EditProfileModalPictureComponent user={user}
                                           setUser={setUser}

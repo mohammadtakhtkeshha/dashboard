@@ -84,7 +84,6 @@ export const styles=(theme) => ({
 
 export const StyledGreenBackground =styled.div`
         position:relative;
-        width:300px;
         background-color:${green[6]};
         height:45%;
         display:flex;
@@ -93,19 +92,39 @@ export const StyledGreenBackground =styled.div`
         
 `
 
+export const StyledWhiteBackground =styled.div`
+        height:55%;
+`
+
 export const StyledProfile= styled.div`
          position:relative;
-         top:20%;
          margin:0 160px;
          display:flex;
-         bottom:10%;
+         flex-direction:column;
          &>div:first-child{
           background:url(${cirlcleSvg}) no-repeat ${lang => lang === "en" ? 'left' : 'right'};
           display:inline-block;
          }
-     
-         
-        
+         & h6{
+            text-align:center;
+            margin:10px;
+         }
+`
+
+export const StyledEditProfile= styled.div`
+         position:relative;
+         margin:0 160px;
+         display:flex;
+         top: 25%;
+         bottom: 40%;
+         &>div:first-child{
+          background:url(${cirlcleSvg}) no-repeat ${lang => lang === "en" ? 'left' : 'right'};
+          display:inline-block;
+         }
+         & h6{
+            text-align:center;
+            margin:10px;
+         }
 `
 
 export const StyledData = styled.div`
@@ -119,7 +138,7 @@ export const StyledData = styled.div`
                 font-weight:300;
                 display:block;
                 margin:0 14px;
-                text-align:right;
+                text-align:${({lang})=>lang === 'en' ? 'left':'right'};
                 line-height:31px;
                 &:first-child{
                  font-size:25px;
@@ -131,9 +150,6 @@ export const StyledData = styled.div`
           } 
 `
 
-export const StyledWhiteBackground =styled.div`
-        height:55%;
-`
 
 export const StyledSinusSvg = styled.img`
         position:absolute;

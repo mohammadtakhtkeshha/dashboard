@@ -1,43 +1,37 @@
-import React, { useEffect, useRef, useCallback } from 'react';
-import clsx from 'clsx';
+import React, {useEffect, useRef, useCallback} from 'react';
 import i18next from 'i18next';
-
-import { makeStyles } from '@material-ui/core/styles/index';
-import { Box } from '@material-ui/core/index';
 
 import ProfileContentComponent from './partials/UserDrawerContent.jsx';
 import AppContext from 'contexts/AppContext';
-import { currentStyles } from 'assets/js/library/pages/user/profile';
+import { StyledUserDrawer, StyledDrawerContent} from 'assets/js/library/pages/user/profile';
 
-const styles = makeStyles(currentStyles);
 
 export default function () {
-  const node = useRef();
-  const classes = styles();
-  const { toggleUserDrawer, showUserDrawer } = React.useContext(AppContext);
-  let lang = i18next.language;
+    const node = useRef();
+    const {toggleUserDrawer, showUserDrawer} = React.useContext(AppContext);
+    let lang = i18next.language;
 
-  const handleClick = useCallback(
-    e => {
-      if (!node.current.contains(e.target)) {
-        toggleUserDrawer(false);
-      }
-    },
-    [toggleUserDrawer]
-  );
+    const handleClick = useCallback(
+        e => {
+            if (!node.current.contains(e.target)) {
+                toggleUserDrawer(false);
+            }
+        },
+        [toggleUserDrawer]
+    );
 
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClick);
-    return () => {
-      document.removeEventListener('mousedown', handleClick);
-    };
-  }, [handleClick]);
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClick);
+        return () => {
+            document.removeEventListener('mousedown', handleClick);
+        };
+    }, [handleClick]);
 
-  return (
-    <Box className={clsx(showUserDrawer ? classes.show : classes.notShow, lang === 'fa' ? classes.dirLeft : classes.dirRight)}>
-      <Box id="openedSidebar" ref={node} className={classes.openedSidebar}>
-        <ProfileContentComponent changeUserDrawer={handleClick} />
-      </Box>
-    </Box>
-  );
+    return (
+        <StyledUserDrawer lang={lang} showUserDrawer={showUserDrawer}>
+            <StyledDrawerContent ref={node} showUserDrawer={showUserDrawer}>
+                <ProfileContentComponent changeUserDrawer={handleClick}/>
+            </StyledDrawerContent>
+        </StyledUserDrawer>
+    );
 }

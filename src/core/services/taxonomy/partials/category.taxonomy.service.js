@@ -7,15 +7,15 @@ export function getStates(setLoading, type) {
 }
 
 export function getState(id, setLoading) {
-  return Method({ method: 'get', url: getDeleteEditTermUrl(id), headers: authHeader, setLoading: setLoading });
+  return Method({ method: 'get', url: getDeleteEditTermUrl(id), headers: authHeader(), setLoading: setLoading });
 }
 
-export function registerState(setLoading, body, openForm) {
+export const registerState=(setLoading, body, openForm) => {debugger
   const url = openForm.id === '' ? registerStateUrl : editStateUrl(openForm.id);
   const method = openForm.id === '' ? 'post' : 'patch';
-  return Method({ method: method, url: url, body: body, headers: cjcsrfauthHeader, setLoading: setLoading });
+  return Method({ method: method, url: url, body: body, headers: cjcsrfauthHeader(), setLoading: setLoading });
 }
 
 export function deleteState(id, setLoading) {
-  return Method({ method: 'DELETE', url: deleteTerm(id), headers: cjcsrfauthHeader, setLoading: setLoading });
+  return Method({ method: 'DELETE', url: deleteTerm(id), headers: cjcsrfauthHeader(), setLoading: setLoading });
 }

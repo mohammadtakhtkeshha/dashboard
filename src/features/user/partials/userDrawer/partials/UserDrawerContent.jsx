@@ -58,7 +58,7 @@ function ProfileContentComponent({t}) {
                                  width="4.8rem"
                                  height="4.8rem"
                                  style={{justifyContent: 'center'}}/>
-                <Typography variant="h4">
+                <Typography variant="h6">
                     {currentUser !== null && currentUser.roles !== undefined ? currentUser.name : ''}
                 </Typography>
             </StyledProfile>

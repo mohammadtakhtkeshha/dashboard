@@ -13,6 +13,12 @@ export const StyledFooter = styled.div`
 
 export const styledGridFromReply = () => ({
     root:{
-        display:props=>props.fromreply === "true" ? "block" : "none"
+        display:props=>props.fromreply === "true" ? "block" : "none",
+    }
+})
+
+export const styledGridIfReply = () => ({
+    root:{
+        margin:props=>props.fromreply === "true" ? "0 10px" : "20px",
     }
 })

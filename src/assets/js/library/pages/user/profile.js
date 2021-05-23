@@ -1,53 +1,14 @@
-import storage from "libraries/local-storage"
 import styled from "styled-components"
 import {green} from "assets/js/library/abstracts/colors";
 
-export const styledGridItem = ()=>({
-    root:{
-        marginTop:'22px'
-    }
-})
-
-export const currentStyles =(theme) => ({
-    openedSidebar: {
-        display: 'inline-block',
-        backgroundColor: 'white',
-        height: '100%'
-    },
-    show: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        direction: (storage.get('lang') === 'fa' ? 'ltr' : 'rtl'),
-        marginTop: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.3)',
-        zIndex: 50,
-        overflow: 'hidden',
-    },
-    notShow: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: 0,
-        height: '100vh',
-        direction: 'ltr',
-        backgroundColor: 'rgba(0, 0, 0, 0.3)',
-        zIndex: 50,
-        overflow: 'hidden',
-
-    },
-    dirLeft:{
-        direction:'ltr'
-    },
-    dirRight:{
-        direction:'rtl'
+export const styledGridItem = () => ({
+    root: {
+        marginTop: '22px'
     }
 })
 
 export const StyledEditProfileHeader = styled.div`
-            height:300px;
+            height:400px;
             background-color:${green[6]};
             position:relative;
             & > img{
@@ -68,7 +29,8 @@ export const StyledEditSvgBlock = styled.div`
          padding:7px;
          position:absolute;
          top: 17%;
-         right: -11px;
+         left: ${({lang})=> lang === 'en'? '-11px':''};
+         right: ${({lang})=> lang === 'en'? '':'-11px'};
          background-color: rgb(62 04 144 / 9%);
           & > img {
             width:18px;
@@ -77,4 +39,27 @@ export const StyledEditSvgBlock = styled.div`
             cursor:pointer;
             opacity:1!important;
           }
+`
+
+export const StyledUserDrawer = styled.div`
+             position: fixed;
+             top: 0;
+             left: 0;
+             width: ${({showUserDrawer})=> showUserDrawer  ? '100vw' : '0'};
+             height: 100vh;
+             direction: ${({lang}) => lang === 'fa' ? 'ltr!important' : 'rtl!important'};
+             marginTop: 0;
+             background-color: rgba(0, 0, 0, 0.3);
+             z-index: 50;
+             overflow: hidden;
+`
+
+export const StyledDrawerContent = styled.div`
+             position:fixed;
+             transition:all .5s;
+             display: inline-block;
+             background-color: white;
+             height: 100%;
+             overflow:hidden;
+             width: ${({showUserDrawer})=> showUserDrawer  ? '300px' : '0'};
 `

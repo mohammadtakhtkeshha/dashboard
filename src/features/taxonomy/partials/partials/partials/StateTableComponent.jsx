@@ -41,7 +41,7 @@ function StateTableComponent({ t, setOpenForm, setDynamicHeight,dynamicHeight, s
     let currentCount = e.length;
     const addToHeight = (children) => {
       for (let state of children) {
-        if (state.expanded === true) {debugger
+        if (state.expanded === true) {
           currentCount = currentCount + state.children.length
           if (state.children) {
             if (state.children.length > 0) {

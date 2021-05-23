@@ -136,11 +136,9 @@ function LoginComponent({ t, isTicketLogin, setIsTicketLogIn }) {
             <CaptchaComponent
               refreshCaptcha={refreshCaptcha}
               setUser={setUser}
-              user={user}
-              setErrors={setErrors}
               errors={errors}
               src={src}
-              setSrc={setSrc}
+              keyUp={key_up}
             />
             <RememberBlock>
               <Box>

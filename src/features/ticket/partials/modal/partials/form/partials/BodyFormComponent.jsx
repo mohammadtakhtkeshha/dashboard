@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 
 import {StyledInput, StyledTypographyError} from 'assets/js/App';
 import {StyledLabel, styledTextField} from 'assets/js/App';
-import { styledGridFromReply} from 'assets/js/ticket/ticketRegister';
+import { styledGridFromReply,styledGridIfReply} from 'assets/js/ticket/ticketRegister';
 import UploadImgComponent from 'infrastructure/authorized/partials/UploadImgPreviewComponent.jsx';
 import EditorComponent from 'infrastructure/authorized/partials/EditorComponent.jsx';
 import {getOrderListMethod, handleErrorsMethod} from './../Index.js'; //uploadimg method
@@ -22,6 +22,7 @@ import {
 
 const StyledTextField = withStyles(styledTextField)(TextField);
 const StyledGridFromReply = withStyles(styledGridFromReply)(Grid);
+const StyledGridIfReply = withStyles(styledGridIfReply)(Grid);
 
 function BodyFormComponent({t,
                                departemanList,
@@ -182,13 +183,13 @@ function BodyFormComponent({t,
                     </StyledTextField>
                 </Box>
             </StyledGridFromReply>
-            <Grid item xs={12} className="message">
+            <StyledGridIfReply fromreply={fromreply} item xs={12} className="message">
                 <EditorComponent value={ticket.message} title={t('translation:message')}
                                  onClick={clickEditorMessage}/>
                 {errors.message ? <div>{errors.message.required ?
                     <StyledTypographyError>{errors.message.required}</StyledTypographyError> : ''}</div> : ''}
-            </Grid>
-            <Grid item xs={12} mb={7} className="uploadImg">
+            </StyledGridIfReply>
+            <StyledGridIfReply fromreply={fromreply} item xs={12} mb={7} className="uploadImg">
                 <UploadImgComponent
                     type="image"
                     getFileInParent={e => uploadImg(e, 'multiple')}
@@ -198,7 +199,7 @@ function BodyFormComponent({t,
                     removeImgInParent={index => removeImg(index)}
                     multiple={true}
                 />
-            </Grid>
+            </StyledGridIfReply>
         </Grid>);
 }
 
