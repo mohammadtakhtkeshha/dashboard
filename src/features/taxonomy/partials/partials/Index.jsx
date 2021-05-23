@@ -16,9 +16,11 @@ function Index({ t }) {
   const [errors, setErrors] = useState({}); //{name: [], path: []}
   const type = useParams();
   const [category, setCategory] = useState(constState(type.type));
+  const [dynamicHeight, setDynamicHeight] = useState(0);
+
 
   const getStates = () => {
-    getStatesMethod(setLoading, setStates, type);
+    getStatesMethod(setLoading, setStates, type,setDynamicHeight);
   }
 
   const closeForm = () => {
@@ -28,7 +30,7 @@ function Index({ t }) {
   };
 
   useEffect(() => {
-    getStatesMethod(setLoading, setStates, type);
+    getStatesMethod(setLoading, setStates, type,setDynamicHeight);
   }, [setLoading,setStates,type]);
 
   useEffect(() => {
@@ -43,7 +45,14 @@ function Index({ t }) {
         <title>{t('taxonomy:categoryList')}</title>
       </Helmet>
       <StateHeaderComponent setOpenForm={setOpenForm} type={type} />
-      <StateTableComponent setOpenForm={setOpenForm} states={states} type={type} getStates={getStates} setStates={setStates} />
+      <StateTableComponent
+          setOpenForm={setOpenForm}
+          states={states}
+          type={type}
+          setDynamicHeight={setDynamicHeight}
+          dynamicHeight={dynamicHeight}
+          getStates={getStates}
+          setStates={setStates} />
       <ModalState
         states={states}
         openForm={openForm}

@@ -60,7 +60,7 @@ export const StyledEditProfileHeader = styled.div`
 
 
 export const StyledEditProfileBody = styled.div`
-            padding:0 10vw 5vw;
+            padding:0 11vw 5vw;
 `
 export const StyledEditSvgBlock = styled.div`
          display:flex;

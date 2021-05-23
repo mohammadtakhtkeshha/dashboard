@@ -1,8 +1,16 @@
 import { getStates, getState } from 'core/services/taxonomy/partials/category.taxonomy.service';
 
-export const getStatesMethod = (setLoading, setStates, type) => {
+export const setCurrentDynamicHeigh = (statesValue,setDynamicHeight) => {
+  if (statesValue !== undefined && statesValue.length > 0) {
+    let count = statesValue.length;
+    setDynamicHeight(`${count * 63}px`);
+  }
+};
+
+export const getStatesMethod = (setLoading, setStates, type,setDynamicHeight) => {
   getStates(setLoading, type).then(response => {
     setStates(response.data);
+    setCurrentDynamicHeigh(response.data,setDynamicHeight)
   });
 };
 

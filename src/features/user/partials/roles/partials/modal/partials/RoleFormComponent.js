@@ -42,11 +42,11 @@ export const editCommentMethod = (
             subject: curComment.subject[0].value,
             last_updated: curComment.created[0].value,
             field_image: getCurrentCommentInList[0].field_image,
-            link: `http://sitesazyas.rbp/web/comment/${curComment.cid[0].value}`,
+            link: `${process.env.REACT_APP_API_URL}/comment/${curComment.cid[0].value}`,
             status: curComment.status[0].value,
             cid: `${curComment.cid[0].value}`,
             name: getCurrentCommentInList[0].name,
-            view_node: `http://sitesazyas.rbp/${curComment.entity_id[0].url}`,
+            view_node: `${process.env.REACT_APP_PICTURE_URL}/${curComment.entity_id[0].url}`,
         };
         if ((commentStatus === 'published' && currentStatus === false) || (commentStatus === 'unconfirmed' && currentStatus === true)) {
             //if status has changed

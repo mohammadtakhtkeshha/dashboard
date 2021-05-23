@@ -11,13 +11,12 @@ import {
     StyledModalFooter,
     StyledModalHeader
 } from "assets/js/library/components/modal"
-import {StyledInsideModalBody} from "assets/js/user/newUser"
 import {StyledRegisterButton} from "assets/js/library/components/buttons"
 import {isObjectEmpty} from "methods/commons"
 import {styledGridItem} from "assets/js/library/pages/user/profile"
 import {registerChangePassMethod} from "../ChangePasswordModal.js"
 import AppContext from "contexts/AppContext"
-import {setUserName,changePassMethod,changeConfirmPassMethod} from "./ChangePasswordComponent.js";
+import {setUserName, changePassMethod, changeConfirmPassMethod} from "./ChangePasswordComponent.js";
 
 const StyledGridItem = withStyles(styledGridItem)(Grid)
 
@@ -29,11 +28,11 @@ function ChangePasswordComponent({t, setOpenObserveProfile}) {
     const {setLoading} = useContext(AppContext)
 
     const changePass = (e, field) => {
-        changePassMethod(e,t,field,confirmPass,setErrors,setData)
+        changePassMethod(e, t, field, confirmPass, setErrors, setData)
     }
 
     const changeConfirmPass = (e) => {
-        changeConfirmPassMethod(e,t,data,setErrors,setConfirmPass)
+        changeConfirmPassMethod(e, t, data, setErrors, setConfirmPass)
     }
 
     useEffect(() => {
@@ -43,34 +42,32 @@ function ChangePasswordComponent({t, setOpenObserveProfile}) {
     return (<>
         <StyledModalHeader>{t('users:changePassword')}</StyledModalHeader>
         <StyledModalBody>
-            <StyledInsideModalBody>
-                <Grid container>
-                    <StyledGridItem item sm={12}>
-                        <StyledLabel>{t('users:exPassword')}</StyledLabel>
-                        <StyledInput type="password"
-                                     placeholder={t('users:enterExPassword')}
-                                     border={errors.expassword ? 'red' : false}
-                                     onChange={e => changePass(e, "oldPassword")}/>
-                        {errors.expassword &&
-                        <StyledTypographyError lang={lang}>{errors.expassword}</StyledTypographyError>}
-                    </StyledGridItem>
-                    <StyledGridItem item sm={12}>
-                        <StyledLabel>{t('users:newPassword')}</StyledLabel>
-                        <StyledInput type="password"
-                                     placeholder={t('users:enterNewPassword')}
-                                     border={errors.harmony ? 'red' : false}
-                                     onChange={e => changePass(e, "newPassword")}/>
-                        {errors.harmony && <StyledTypographyError lang={lang}>{errors.harmony}</StyledTypographyError>}
-                    </StyledGridItem>
-                    <StyledGridItem item sm={12}>
-                        <StyledLabel>{t('users:reNewPassword')}</StyledLabel>
-                        <StyledInput type="password"
-                                     border={errors.harmony ? 'red' : false}
-                                     placeholder={t('users:enterReNewPassword')}
-                                     onChange={changeConfirmPass}/>
-                    </StyledGridItem>
-                </Grid>
-            </StyledInsideModalBody>
+            <Grid container>
+                <StyledGridItem item sm={12}>
+                    <StyledLabel>{t('users:exPassword')}</StyledLabel>
+                    <StyledInput type="password"
+                                 placeholder={t('users:enterExPassword')}
+                                 border={errors.expassword ? 'red' : false}
+                                 onChange={e => changePass(e, "oldPassword")}/>
+                    {errors.expassword &&
+                    <StyledTypographyError lang={lang}>{errors.expassword}</StyledTypographyError>}
+                </StyledGridItem>
+                <StyledGridItem item sm={12}>
+                    <StyledLabel>{t('users:newPassword')}</StyledLabel>
+                    <StyledInput type="password"
+                                 placeholder={t('users:enterNewPassword')}
+                                 border={errors.harmony ? 'red' : false}
+                                 onChange={e => changePass(e, "newPassword")}/>
+                    {errors.harmony && <StyledTypographyError lang={lang}>{errors.harmony}</StyledTypographyError>}
+                </StyledGridItem>
+                <StyledGridItem item sm={12}>
+                    <StyledLabel>{t('users:reNewPassword')}</StyledLabel>
+                    <StyledInput type="password"
+                                 border={errors.harmony ? 'red' : false}
+                                 placeholder={t('users:enterReNewPassword')}
+                                 onChange={changeConfirmPass}/>
+                </StyledGridItem>
+            </Grid>
         </StyledModalBody>
         <StyledModalFooter>
             <StyledRegisterButton status={isObjectEmpty(errors)}

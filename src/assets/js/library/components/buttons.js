@@ -156,6 +156,12 @@ export const StyledMultiButtonsBlock = styled.div`
 `
 
 export const StyledRadioButton = styled.div`
+             & label{
+                margin:0;
+                &>span:first-child{
+                    padding:9px 5px!important;
+                }
+             }
              & .MuiFormGroup-root{
                    flex-direction:row;
              }

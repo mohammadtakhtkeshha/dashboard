@@ -9,7 +9,7 @@ export const uploadImgMethod = (e, multiple, setTicket, setImgsAndUrls, setLoadi
       uploadSingImg(file, setLoading).then(response => {
         setLoading(false);
         let item = response.data;
-        let url = 'http://sitesazyas.rbp' + item.uri[0].url;
+        let url = process.env.REACT_APP_API_URL + item.uri[0].url;
         if (multiple !== 'multiple') {
           setImgsAndUrls([{ id: item.fid[0].value, url: url }]);
           setTicket(prevState => {

@@ -28,21 +28,12 @@ import {StyledAddButton} from "assets/js/library/components/buttons";
 
 const useStyles = makeStyles(treeStyles);
 
-function MenuListComponent({t, setOpenForm, menus, setMenus, getMenus,dynamicHeight,setDynamicHeight}) {
+function MenuListComponent({t, setOpenForm, menus, setMenus, getMenus, dynamicHeight, setDynamicHeight}) {
     const classes = useStyles();
     const lang = i18next.language;
     const {setLoading} = useContext(AppContext);
-    const location=useLocation()
+    const location = useLocation()
     const mobileOrWeb = location.pathname.split('/').pop() === "mobile" ? "mobile-menu" : "main"
-
-    // const [collpase, setCollapse] = useState('');
-
-    const changeTreeData = e => {
-        setMenus(prevState => {
-            prevState = e;
-            return [...prevState];
-        });
-    };
 
     const deleteMenu = id => {
         deleteMenuMethod(id, setLoading, getMenus);
@@ -55,45 +46,34 @@ function MenuListComponent({t, setOpenForm, menus, setMenus, getMenus,dynamicHei
         });
     };
 
-    const onToggleCollapse = (e) => {
-        let status = e.expanded;
-        // setCollapse(status);
-        let currentCount = e.treeData.length;
-        if (e.node.children.length > 0) {
-            currentCount = e.node.children.length;
-        }
-
-        setDynamicHeight(prevState => {
-            let exCount = parseInt(prevState) / 63;
-            let newCount ;
-            if(status){
-               newCount = exCount + currentCount
-            }else{
-               newCount = exCount - currentCount
-            }
-            setDynamicHeight(`${newCount * 63}px`);
+    const changeTreeData = e => {
+        setMenus(prevState => {
+            prevState = e;
+            return [...prevState];
         });
+        changeHeight(e)
+    }
+
+    const changeHeight = (e) => {
+        let currentCount = e.length;
+        const addToHeight = (child) => {
+            for (let menu of child) {
+                if (menu.expanded === true) {
+                    currentCount = currentCount + menu.children.length
+                    if (menu.children) {
+                        if (menu.children.length > 0) {
+                            addToHeight(menu.children)
+                        }
+                    }
+                }
+            }
+        }
+        addToHeight(e)
+        debugger
+        setDynamicHeight(`${currentCount * 63}px`);
     };
 
-    // const changingCollapse = () => {
-    //     if ( !collpase && menus !== undefined && menus.length > 0) {
-    //         let count = menus.length;
-    //         for (let item of menus) {
-    //             if (item.children > 0) {
-    //                 count = count + item.children.length;
-    //                 for (let part of item) {
-    //                     if (part.children > 0) {
-    //                         count = count + item.children.length;
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //         setDynamicHeight(`${count * 63}px`);
-    //     }
-    // }
-
-    return (
-        <>
+    return (<>
             <StyledTable>
                 <StyledTableHeadTr>
                     <StyledTableCell>{t('menu:menuList')}</StyledTableCell>
@@ -105,7 +85,6 @@ function MenuListComponent({t, setOpenForm, menus, setMenus, getMenus,dynamicHei
                             treeData={menus}
                             className={classes.root}
                             onChange={changeTreeData}
-                            onVisibilityToggle={onToggleCollapse}
                             generateNodeProps={({node, path}) => ({
                                 title: (
                                     <StyledTreeRow>
@@ -135,11 +114,10 @@ function MenuListComponent({t, setOpenForm, menus, setMenus, getMenus,dynamicHei
                     </StyledTreeRow>
                 )}
             </StyledTable>
-            <StyledAddButton value="active" onClick={()=>saveChangesMethod(setLoading, menus, mobileOrWeb)}>
+            <StyledAddButton value="active" onClick={() => saveChangesMethod(setLoading, menus, mobileOrWeb)}>
                 {t('translation:register')}
             </StyledAddButton>
-        </>
-    );
+        </>);
 }
 
 export default withNamespaces('translation,menu')(MenuListComponent);

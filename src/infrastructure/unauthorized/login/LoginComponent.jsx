@@ -29,7 +29,7 @@ import { get } from 'libraries/local-storage';
 
 function LoginComponent({ t, isTicketLogin, setIsTicketLogIn }) {
   const [errors, setErrors] = useState({ errorName: false, errorPass: false, loginError: false, captchaError: false });
-  const [src, setSrc] = useState('http://sitesazyas.rbp/web/soc/captcha');
+  const [src, setSrc] = useState(`${process.env.REACT_APP_API_URL}/soc/captcha`);
   const history = useHistory();
   const { setLoading, isLoginSuccess } = useContext(AppContext);
   const [user, setUser] = useState(
@@ -84,7 +84,7 @@ function LoginComponent({ t, isTicketLogin, setIsTicketLogIn }) {
 
   const refreshCaptcha = useCallback(() => {
     const date = new Date();
-    setSrc('http://sitesazyas.rbp/web/soc/captcha?' + date.getTime());
+    setSrc(`${process.env.REACT_APP_API_URL}/soc/captcha?` + date.getTime());
   }, [setSrc]);
 
   return (

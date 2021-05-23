@@ -40,7 +40,7 @@ import styled from "styled-components"
 export const StyledCheckBox = styled.label`
              display: flex;
              align-items:center;
-             margin:1rem 0;
+             margin:.4rem 0;
               position: relative;
               padding-right: 35px;
               cursor: pointer;

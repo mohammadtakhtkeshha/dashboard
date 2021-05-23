@@ -23,6 +23,7 @@ function CaptchaComponent({ t, setUser, user, errors, setErrors, src, setSrc, re
     }
 
     useEffect(() => {
+        debugger
         refreshCaptcha()
     }, [refreshCaptcha]);
 

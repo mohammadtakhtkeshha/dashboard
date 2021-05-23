@@ -1,10 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import i18next from 'i18next';
 import 'react-sortable-tree/style.css'; // This only needs to be imported once in your app
 import 'react-sortable-tree/style.css'; // This only needs to be imported once in your app
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Box } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 
 import { StyledAddButton, StyledTable, StyledTableCell } from 'assets/js/App';
@@ -21,12 +20,10 @@ import { saveChangesMethod } from './StateTableComponent.js';
 
 const useStyles = makeStyles(treeStyles);
 
-function StateTableComponent({ t, setOpenForm, ids, states, setStates, setIds, getStates, type }) {
+function StateTableComponent({ t, setOpenForm, setDynamicHeight,dynamicHeight, states, setStates, setIds, getStates, type }) {
   const classes = useStyles();
   const lang = i18next.language;
-  const [dynamicHeight, setDynamicHeight] = useState(0);
   const { setLoading } = useContext(AppContext);
-  const [collpase, setCollapse] = useState(false);
 
   const deleteState = id => {
     deleteStateMethod(id, states, setLoading, setStates, setIds, getStates);
@@ -37,6 +34,25 @@ function StateTableComponent({ t, setOpenForm, ids, states, setStates, setIds, g
       prevState = e;
       return [...prevState];
     });
+    changeHeight(e)
+  };
+
+  const changeHeight = (e) => {
+    let currentCount = e.length;
+    const addToHeight = (children) => {
+      for (let state of children) {
+        if (state.expanded === true) {debugger
+          currentCount = currentCount + state.children.length
+          if (state.children) {
+            if (state.children.length > 0) {
+              addToHeight(state.children)
+            }
+          }
+        }
+      }
+    }
+    addToHeight(e)
+    setDynamicHeight(`${currentCount * 63}px`);
   };
 
   const confirmDeleteHandler = e => {
@@ -46,33 +62,11 @@ function StateTableComponent({ t, setOpenForm, ids, states, setStates, setIds, g
     });
   };
 
-  const onToggleCollapse = e => {
-    setCollapse(true);
-    let currentCount = e.treeData.length;
-    let status = e.expanded;
-    if (e.node.children.length > 0) {
-      currentCount = e.node.children.length;
-    }
-    setDynamicHeight(prevState => {
-      let exCount = parseInt(prevState) / 63;
-      let newCount = status ? exCount + currentCount : exCount - currentCount;
-      return `${newCount * 63}px`;
-    });
-  };
-
-  useEffect(() => {
-    if (!collpase && states !== undefined && states.length > 0) {
-      let count = states.length;
-      setDynamicHeight(`${count * 63}px`);
-    }
-  }, [states, collpase]); //Once
-
   const saveChanges = () => {
     saveChangesMethod(setLoading, states, type);
   };
 
-  return (
-    <Box>
+  return (<>
       <StyledTable>
         <StyledTableHeadTr>
           <StyledTableCell>{t(`taxonomy:${type.type}`)}</StyledTableCell>
@@ -84,7 +78,6 @@ function StateTableComponent({ t, setOpenForm, ids, states, setStates, setIds, g
               treeData={states}
               className={classes.root}
               onChange={changeTreeData}
-              onVisibilityToggle={onToggleCollapse}
               generateNodeProps={({ node, path }) => ({
                 title: (
                   <StyledTreeRow>
@@ -113,8 +106,7 @@ function StateTableComponent({ t, setOpenForm, ids, states, setStates, setIds, g
       <StyledAddButton value="active" onClick={saveChanges}>
         {t('translation:register')}
       </StyledAddButton>
-    </Box>
-  );
+    </>);
 }
 
 export default withNamespaces('translation')(StateTableComponent);

@@ -103,7 +103,7 @@ export const uploadImgMethod = (e, multiple, contentContext, setLoading) => {
             uploadSingImg(file, setLoading).then(response => {
                 setLoading(false);
                 let item = response.data;
-                let url = 'http://sitesazyas.rbp' + item.uri[0].url;
+                let url = process.env.REACT_APP_PICTURE_URL + item.uri[0].url;
                 if (multiple !== 'multiple') {
                     contentContext.setImgAndUrl([{id: item.fid[0].value, url: url}]);
                     contentContext.setContent(prevState => {
