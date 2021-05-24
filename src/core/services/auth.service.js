@@ -22,6 +22,7 @@ export async function login(user) {
     body.append('client_secret', '147/*');
 
     const loginResult = await axios.post(tokenUrl, body);
+    debugger
     const token = `Bearer ${loginResult.data.access_token}`;
 
     const config={
@@ -57,10 +58,10 @@ export async function loginTicketService() {debugger
 }
 
 export async function logout(history) {
-    const params = {
-        "_format": "json",
-        "token": JSON.parse(storage.get('logout_token'))
-    };
+    // const params = {
+    //     "_format": "json",
+    //     "token": JSON.parse(storage.get('logout_token'))
+    // };
     // axios({
     //     method: 'POST', //you can set what request you want to be
     //     url: logOutUrl,
@@ -77,7 +78,7 @@ export async function logout(history) {
     storage.remove(process.env.REACT_APP_TICKET_PERIOD)
 
     // return  axios.post('http://sitesazyas.rbp/web/user/logout');
-    return  'yes';
+    // return  'yes';
 
 }
 

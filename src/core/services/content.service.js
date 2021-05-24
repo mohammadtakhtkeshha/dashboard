@@ -66,6 +66,7 @@ export function uploadMultiFile(e) {
 
 export function getContents(handleError) {
     let url = contentUrl.getContentsUrl
+    console.log(authHeader(auth))
     return Method({method:'get',url:url,headers: authHeader(auth),handleError:handleError});
 }
 
