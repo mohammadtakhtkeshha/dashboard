@@ -67,7 +67,7 @@ export const useStyles = {
 
 
 export const StyledFooterRegisterContent = styled.div`
-                background-color:${white[0]};
+                background-color:${grey[9]};
                 position:absolute;
                 bottom:0;
                 width:100%;

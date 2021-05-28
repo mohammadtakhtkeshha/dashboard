@@ -27,5 +27,7 @@
   "roles": "نقش ها",
   "permissions": "دسترسی ها",
   "factors": "فاکتور ها",
-  "users": "کاربران"
+  "users": "کاربران",
+  "elements": "فیلد ها",
+  "forms": "فرم ها"
 }

@@ -132,9 +132,12 @@ const nameRequireValidation = (faRoles, value, setError) => {
     let curStatus = false;
     if (faRoles.includes(value)) {
         curStatus = true;
+        debugger
     } else {
         curStatus = false;
+        debugger
     }
+    debugger
     setError(prevState => {
         prevState.unique = curStatus;
         return {...prevState};
@@ -249,9 +252,13 @@ export const selectedButtonMethod = (permissions, setShowPermission) => {
 
 export const handleErrorMethod = (lengthOfRole,setError) => {
     if (lengthOfRole > 0) {
-        setError({required: false, unique: false})
+        setError(prevState => {
+            return {...prevState,required:false}
+        })
     } else {
-        setError({required: true, unique: false})
+        setError(prevState => {
+            return {...prevState,required:true}
+        })
     }
 }
 

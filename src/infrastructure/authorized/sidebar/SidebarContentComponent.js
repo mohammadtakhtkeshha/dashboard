@@ -65,7 +65,7 @@ function SimpleTabs({ t }) {
         <StyledListItem lang={lang} img={dashboardImg} imghover={dashboardImgHover}>
           <NavLink to="/webform" activeClassName={classes.active}>
             <span className="icon"></span>
-            <ListItemText primary={t('sidebar:dashboard')} />
+            <ListItemText primary={t('sidebar:forms')} />
           </NavLink>
         </StyledListItem>
         <StyledListItem lang={lang} img={contentImg} imghover={contentImgHover}>

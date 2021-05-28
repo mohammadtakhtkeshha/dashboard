@@ -75,4 +75,4 @@ function EditorComponent({ t, title, value, onClick }) {
   );
 }
 
-export default withNamespaces()(EditorComponent);
+export default withNamespaces('translation')(EditorComponent);

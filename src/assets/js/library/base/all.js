@@ -55,3 +55,6 @@ export const StyledHead = styled.div`
         };
 `
 
+export const StyledTrashEditSvg=styled.span`
+             font-size:20px;
+`

@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import {blue} from "assets/js/library/abstracts/colors";
+import {green} from "assets/js/library/abstracts/colors";
 
 export const StyledTourButton = styled.button`
               display:flex;
               position:absolute;
-              left:73px;
+              left:1rem;
+              top:1rem;
               border-radius:100%;
-              top:50px;
               border:0!important;
               background-color:transparent;
               width:50px;
@@ -19,6 +19,6 @@ export const StyledTourButton = styled.button`
               & svg{
                 width:100%;
                 height:100%;
-                color:${blue[16]};
+                color:${green[0]};
               }
 `

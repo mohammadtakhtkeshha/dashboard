@@ -113,6 +113,9 @@
   "hidden":"پنهان",
   "safeCode": "کد امنیتی",
   "summary": "خلاصه",
+  "results": "نتایج",
+  "settings": "تنظیمات",
+  "observe": "مشاهده",
   "mailValidation": "ایمیل مورد نظر معتبر نمیباشد!",
   "wrongSafeCode": "کد امنیتی اشتباه میباشد"
 }

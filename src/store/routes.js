@@ -21,14 +21,19 @@ import TermsComponent from "features/taxonomy/partials/partials/Index.jsx";
 import RoleComponent from "features/user/partials/roles/Index.jsx";
 import SettingsComponent from "features/settings/Index.jsx";
 import WebFormComponent from "features/webform/Index.jsx";
+import ElementsComponent from "features/webform/partials/elements/Index.jsx";
 
 import React from "react";
 
 export const routes = [
     {
         path: '/webform',
-        breadcrumbs: () => <BreadcrumbsComponent bread="فرم های سفارشی"/>,
+        breadcrumbs: () => <BreadcrumbsComponent bread="forms"/>,
         component: () => <WebFormComponent/>
+    },{
+        path: '/elements',
+        breadcrumbs: () => <BreadcrumbsComponent bread="elements"/>,
+        component: () => <ElementsComponent/>
     },
     {
         path: '/custom',

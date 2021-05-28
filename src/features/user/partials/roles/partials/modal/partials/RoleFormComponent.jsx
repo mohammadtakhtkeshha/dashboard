@@ -2,7 +2,7 @@ import React, {useContext, useState, useEffect} from "react"
 import {withNamespaces} from "react-i18next"
 import {Box, Grid, Typography} from "@material-ui/core"
 import {
-    StyledInput,
+    StyledInput, StyledModalFooter,
     StyledTypographyError
 } from "assets/js/App"
 import {StyledFooter} from "assets/js/comment/commentForm"
@@ -32,13 +32,14 @@ import {
     checkIncludes,
     selectedButtonMethod
 } from "./RoleFormComponent.js"
+import {StyledRegisterButton} from "assets/js/library/components/buttons";
+import {isObjectEmpty} from "methods/commons";
 
 function RoleFormComponent({t, openForm, handleClose, permissions, role, setRole, setShowPermission, showPermission, faRoles, setFaRoles, setEnRoles}) {
     const lang = i18next.language
     const {setLoading} = useContext(AppContext)
     const [error, setError] = useState({required: true, unique: false})
-
-
+console.log(error)
     const handleChangeName = (e) => {
         handleChangeNameMethod(e, setRole, setError, faRoles)
     }
@@ -126,10 +127,12 @@ function RoleFormComponent({t, openForm, handleClose, permissions, role, setRole
                 </Grid>
             </StyledInsideModal>
         </StyledModalBody>
-        <StyledFooter lang={lang}>
-            <button value={openForm.id} onClick={editAndAddRole}>{t('translation:register')}</button>
+        <StyledModalFooter>
+            <StyledRegisterButton status={error.required === false && error.unique === false} onClick={editAndAddRole}>
+                {t('translation:register')}
+            </StyledRegisterButton>
             <button onClick={handleClose}>{t('translation:cancel')}</button>
-        </StyledFooter>
+        </StyledModalFooter>
     </>)
 }
 

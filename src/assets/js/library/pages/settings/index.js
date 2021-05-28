@@ -16,7 +16,7 @@ export const StyledSettingsButton = styled(StyledAddButton)`
             font-size: 13px!important;
             font-weight:500;
             padding: 13px 30px;
-            border-radius: 10px!important;
+            border-radius: 4px!important;
             color: ${white[0]};
             background-color: ${({error}) => error === "true" ? `${red[0]}!important` : `${green[0]}!important`};
 `

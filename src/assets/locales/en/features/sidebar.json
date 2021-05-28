@@ -27,7 +27,10 @@
   "roles": "roles",
   "permissions": "permissions",
   "factors": "factors",
-  "users": "users"
+  "users": "users",
+  "elements": "elements",
+  "forms": "forms"
+
 
 
 }

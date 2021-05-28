@@ -11,11 +11,10 @@ import {StyledRegisterButton} from 'assets/js/library/components/buttons';
 import {
     uploadImgMethod,
     removedFileIdMethod,
-    editUserMethod
 } from 'features/user/partials/modal/partials/NewUserComponent';
 import {get} from 'libraries/local-storage';
 import EditProfilePicTour from './EditProfilePicTour.jsx';
-import {getNewTokenMethod} from './EditPictureContent.js';
+import {getNewTokenMethod, editUserMethod} from './EditPictureContent.js';
 
 function EditPictureContent({t, user, setUser, setIsOpen, isTourOpen, setIsTourOpen}) {
     const {setLoading} = useContext(AppContext);
@@ -30,13 +29,13 @@ function EditPictureContent({t, user, setUser, setIsOpen, isTourOpen, setIsTourO
         uploadImgMethod(e, setUser, setImgAndUrl, setLoading);
     };
 
-    const getEditedUser = () => {
+    const getEditedUser = (user) => {
         setIsOpen(false);
         getNewTokenMethod(setLoading);
     };
 
     const register = () => {
-        editUserMethod(currentUserId, user, setLoading, getEditedUser, []);
+        editUserMethod(currentUserId, user, setLoading, getEditedUser, [],setIsOpen);
     };
 
     return (

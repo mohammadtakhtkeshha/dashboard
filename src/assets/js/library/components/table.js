@@ -37,7 +37,7 @@ export const StyledTableParent = styled.div`
             background-color:${grey[17]};
             border-radius: 4px;
             margin: 1.5rem 0;
-            // overflow:hidden;
+            overflow:hidden;
             display:${props => props.length === 0 ? 'none' : 'block'};
 `
 
@@ -114,7 +114,7 @@ export const StyledTableCell = styled.div`
                 min-width:${props=>props.minWidth}px;
                 width:${props=>props.width}%;
                 // border:1px solid red;
-                overflow:hidden;
+                overflow:${({overflow})=>overflow ? overflow : 'hidden'};
 `
 
 export const StyledTableImg = styled.span`

@@ -40,7 +40,7 @@ export const StyledInput=styled.div`
                & button {
                     cursor: pointer;
                     background-color:${green[0]};
-                    border-radius:10px;
+                    border-radius:4px;
                     border:0;
                     padding: 5px 39px;
                     color:${white[0]};

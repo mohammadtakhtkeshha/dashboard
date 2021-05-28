@@ -114,5 +114,8 @@
   "mailValidation": "your email is not valid",
   "safeCode": "safe code",
   "summary": "summary",
+  "results": "results",
+  "settings": "settings",
+  "observe": "observe",
   "wrongSafeCode": "wrong safe code"
 }

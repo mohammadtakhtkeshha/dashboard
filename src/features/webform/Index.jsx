@@ -1,29 +1,62 @@
-import React, {useContext, useEffect} from "react"
-import {addForm,addElement} from "core/services/webforms.service";
-import AppContext from "contexts/AppContext";
+import React, {useState, useContext} from 'react';
+import {Helmet} from 'react-helmet';
+import {withNamespaces} from 'react-i18next';
 
-export default function Component() {
-    const {setLoading} = useContext(AppContext)
+import Pagination from '@material-ui/lab/Pagination';
 
+import WebformsTableComponent from './partials/WebformsTableComponent.jsx';
+import FormsFilterComponent from './partials/FormsFilterComponent';
+import AddWebformModalComponent from './partials/modal/Index.jsx';
+import UsersHeaderComponent from './partials/header/UserHeaderComponent.jsx';
+import {StyledBox} from 'assets/js/App';
+import {StyledPaginationBox} from 'assets/js/pagination';
+import AppContext from 'contexts/AppContext';
+import {
+    constUser,
+    handlePaginationMethod,
+    getUsersMethod,
+    getRolesMethod,
+    getEditedUserMethod,
+    getRegisteredUserMethod
+} from './Index.js';
 
+function Index({t}) {
+    const {setLoading} = useContext(AppContext);
+    const [element, setElement] = useState({})
+    const [openWebform, setOpenWebform] = useState(false);
+    const [errors, setErrors] = useState({}); //errorName: {},errorPass: {},specialChar: {},errorMail: {},confirmPass: {}
+    const [expandedFilter, setExpandedFilter] = useState(false);
 
-    useEffect(() => {
-        addForm(setLoading,{
-            "machin_name": "dashfo1rm11",
-            "description": "توضیح فرم",
-            "title": "110فرم برای تست داشبورد"
-        });
-        addElement(setLoading,{
-            "form_id": "dashform11",
-            "field_options": "مورد دوم ,مورد سوم, مورد چهارم",
-            "field_required": false,
-            "field_title": "رادیو",
-            "field_type": "radios",
-            "field_id": "radi1os11"
-        })
-    }, [setLoading]);
+    const closeForm = () => {
+        setOpenWebform(false);
+        setErrors({});
+    };
 
-    return (<>
-        webForm
-    </>)
+    return (
+        <>
+            <Helmet>
+                <title>{t('sidebar:forms')}</title>
+            </Helmet>
+            <UsersHeaderComponent setOpenWebform={setOpenWebform} setExpandedFilter={setExpandedFilter}/>
+            <StyledBox>
+                <FormsFilterComponent
+                    expandedFilter={expandedFilter}
+                    setExpandedFilter={setExpandedFilter}
+                />
+            </StyledBox>
+            <WebformsTableComponent
+                setOpenWebform={setOpenWebform}
+                openWebform={openWebform}
+            />
+            <AddWebformModalComponent
+                setElement={setElement}
+                closeForm={closeForm}
+                openWebform={openWebform}
+                errors={errors}
+                setErrors={setErrors}
+            />
+        </>
+    );
 }
+
+export default withNamespaces('users')(Index);

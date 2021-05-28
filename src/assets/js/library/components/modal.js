@@ -31,12 +31,11 @@ export const StyledModalFooter = styled.div`
              padding: 0;
              margin: 0;
              height: 45px;
-             background-color: white;
              border-top:1px solid ${grey[0]};
+             background-color:${grey[9]};
              & button {
                 cursor:pointer;
                 width:100%;
-                background-color:white;
                 border:0;
                 height:100%;
                 &:focus{

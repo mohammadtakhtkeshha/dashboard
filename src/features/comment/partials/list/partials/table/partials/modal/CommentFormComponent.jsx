@@ -5,8 +5,8 @@ import i18next from 'i18next';
 import {Grid} from '@material-ui/core';
 
 import {StyledAlignTypography, StyledInput} from 'assets/js/App';
-import {StyledFooter, StyledTextArea} from 'assets/js/comment/commentForm';
-import {StyledModalHeader, StyledModalBody} from 'assets/js/library/components/modal';
+import { StyledTextArea} from 'assets/js/comment/commentForm';
+import {StyledModalHeader, StyledModalBody,StyledModalFooter} from 'assets/js/library/components/modal';
 import {handleChangeCommentMethod, editCommentMethod} from './CommentFormComponent.js';
 import AppContext from 'contexts/AppContext';
 import EditorComponent from 'infrastructure/authorized/partials/EditorComponent.jsx';
@@ -65,12 +65,12 @@ function CommentFormComponent({t, open, setOpen, publishedComments, unconfirmedC
                     </Grid>
                 </Grid>
             </StyledModalBody>
-            <StyledFooter lang={lang}>
+            <StyledModalFooter>
                 <button value={open.id} onClick={editComment}>
                     {t('translation:register')}
                 </button>
                 <button onClick={() => setOpen({show: false, id: ''})}>{t('translation:cancel')}</button>
-            </StyledFooter>
+            </StyledModalFooter>
         </>
     );
 }

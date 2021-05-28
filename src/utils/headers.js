@@ -12,7 +12,6 @@ import {get} from "libraries/local-storage";
 // X-CSRF-Token:csrf => csrf
 // Authorization:token => auth
 
-
 export const authHeader = () => {
     return {
         headers: {
