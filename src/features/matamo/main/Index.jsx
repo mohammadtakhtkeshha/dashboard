@@ -14,7 +14,7 @@ export default function Index({t}) {
 
     return (<>
         <Grid container>
-            <Grid item xs={8}>
+            <Grid item  md={8} xs={12} >
                 <StyledBoxMarginLeft lang={lang}>
                     <LastSeenChartComponent/>
                 </StyledBoxMarginLeft>
@@ -22,12 +22,12 @@ export default function Index({t}) {
                     <DevicesComponent/>
                 </StyledBoxMarginLeft>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item md={4} xs={12} >
                 <StyledBoxMarginRight lang={lang}>
                     <RealTimeComponent/>
                 </StyledBoxMarginRight>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item md={12} xs={12} >
                 <StyledBoxMarginRight lang={lang}>
                     <MostSeenComponent/>
                 </StyledBoxMarginRight>

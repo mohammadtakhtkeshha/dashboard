@@ -6,7 +6,7 @@ import {white,grey,green,blue,black} from "assets/js/library/abstracts/colors";
 
 export const useStyles = (theme) => ({
     // paper: {
-        // '& .tabs': {
+        // '& .elementTabs': {
         //     height:'50vh',
         //     '& .tabButtons': {
         //         borderBottom:`1px solid ${grey[1]}`,

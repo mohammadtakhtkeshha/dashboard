@@ -15,17 +15,19 @@ export const handleChange = (e, field, setWebform) => {
     })
 };
 
-export const register = (webForm, setLoading,setElement) => {
+export const register = (webForm, setLoading, setElement, history) => {
     setLoading(true)
     addForm(setLoading, webForm).then(response => {
         setLoading(false)
-        const {machin_name}=response.data
+        const {machin_name} = response.data
         setElement(prevState => {
-            return{
-                ...prevState,form_id:machin_name
+            return {
+                ...prevState, form_id: machin_name
             }
         })
         success(i18next.t('translation:successRegistered'), i18next.t('translation:ok'));
+        history.push('/elements');
+
     })
 };
 

@@ -20,7 +20,7 @@ export function multiAction(selectedCheckBoxes, currentContents, status) {
   }
   return currentContents;
 }
-/* description : fill content partials for edit partials
+/* description : fill content elementTabs for edit elementTabs
  *   @param(number) : id for the selected content
  */
 export const setContentWhenEditButtonClicked = (

@@ -1,6 +1,7 @@
 import React, {useEffect, useState,useContext} from 'react';
 import {withNamespaces} from 'react-i18next';
 import i18next from 'i18next';
+import { useHistory } from "react-router-dom";
 
 import {StyledInput} from 'assets/js/App';
 import {StyledModalFooter, StyledModalHeader, StyledModalBody} from 'assets/js/library/components/modal';
@@ -16,11 +17,7 @@ import AppContext from "contexts/AppContext";
 function NewWebformComponent({t,errors,closeForm,setErrors,setElement,webform, setWebform}) {
     const lang = i18next.language;
     const {setLoading}=useContext(AppContext);
-
-
-    useEffect(() => {
-
-    }, []); //Once
+    const history = useHistory()
 
     return (<>
         <StyledModalHeader>{t('webforms:newForm')}</StyledModalHeader>
@@ -45,7 +42,7 @@ function NewWebformComponent({t,errors,closeForm,setErrors,setElement,webform, s
                             onChange={e => handleChange(e, 'machin_name',setWebform)}
                         />
                 </Grid>
-                <Grid item item xs={12}>
+                <Grid item xs={12}>
                     <StyledTextArea className="textarea">
                         <EditorComponent
                             value={webform.description}
@@ -54,20 +51,18 @@ function NewWebformComponent({t,errors,closeForm,setErrors,setElement,webform, s
                         />
                     </StyledTextArea>
                 </Grid>
-                {errors.name ? (
-                    <div>
+                {errors.name ? (<div>
                         {errors.name.required ?
                             <StyledTypographyError>{errors.name.required}</StyledTypographyError> : ''}
                         {errors.name.unique ?
                             <StyledTypographyError>{errors.name.unique}</StyledTypographyError> : ''}
-                    </div>
-                ) : (
+                    </div>) : (
                     ''
                 )}
             </Grid>
         </StyledModalBody>
         <StyledModalFooter>
-            <StyledRegisterButton status={isObjectEmpty(errors)} onClick={()=>register(webform,setLoading,setElement)}>
+            <StyledRegisterButton status={isObjectEmpty(errors)} onClick={()=>register(webform,setLoading,setElement,history)}>
                 {t('translation:register')}
             </StyledRegisterButton>
         </StyledModalFooter>
