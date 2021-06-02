@@ -3,6 +3,7 @@ import {
     addFormUrl,
     addElementUrl,
     getFormsUrl,
+    getElementsUrl,
 } from 'utils/urls/webforms.urls';
 import {
     cjcsrfauthHeader,
@@ -20,4 +21,8 @@ export const addElement = (setLoading,body) => {
 export const getFormsList = (setLoading) => {
     return Method({ method:"get",url: getFormsUrl, headers: authHeader(), setLoading: setLoading });
 };
+
+export const getElementsList = (setLoading,form) => {
+    return Method({ method:"get",url: getElementsUrl(form), headers: authHeader(), setLoading: setLoading });
+}
 

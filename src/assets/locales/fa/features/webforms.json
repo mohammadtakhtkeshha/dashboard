@@ -3,5 +3,8 @@
   "machineName": "نام ماشینی",
   "editForm": "ویرایش فرم",
   "addElement": "افزودن المنت",
+  "elementsList": "لیست المنت ها",
+  "chooseElementType": "نوع المنت را انتخاب کنید",
+  "fieldId": "شناسه المنت",
   "newForm": "ایجاد فرم"
 }

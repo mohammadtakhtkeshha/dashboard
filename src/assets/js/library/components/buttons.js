@@ -205,12 +205,14 @@ export const StyledStatusButtons = styled.button`
                     box-shadow:${props => props.status === false ? white : `0 0 10px ${green[0]}`};
                     background-color: ${props => props.status === false ? white[0] : green[0]};
                     color:${props => props.status === true ? white[0] : black[1]};
+                    z-index:${props => props.status === true ? 1 : 0};
 
                 }
                 &:last-child{
                     box-shadow:${props => props.status === false ? `0 0 10px ${red[0]}` : white[0]};
                     background-color: ${props => props.status === false ? red[0] : white[0]};
                     color:${props => props.status === false ? white[0] : black[1]};
+                    z-index:${props => props.status === false ? 1 : 0};
 
                 }
 `

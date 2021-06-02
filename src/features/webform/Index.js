@@ -4,7 +4,7 @@
 import { chunkItem, handleTotalPage } from 'infrastructure/layout';
 import { getRoles, getNotPaginateUser } from 'core/services/user.service';
 
-/*Description:get name and mail from users list in an array
+/*Description:get name and mail from users elementsTable in an array
  *@return :object
  * */
 export function getUsersNameAndMail(users) {

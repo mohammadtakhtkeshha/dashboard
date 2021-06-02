@@ -21,7 +21,6 @@ import {getFormsMethod} from "./WebformsTableComponent.js";
 import {StyledActionBtnForm, StyledUl} from "assets/js/library/pages/webform/webformTable"
 import {makeStyles} from '@material-ui/core/styles';
 
-
 function WebformsTableComponent({t, setOpenUserForm}) {
     let id = '';
     const editBtn = useRef(null)

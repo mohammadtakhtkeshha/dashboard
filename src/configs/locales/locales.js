@@ -25,7 +25,7 @@ import roleEn from 'assets/locales/en/features/roles.json';
 import settingsEn from 'assets/locales/en/features/settings.json';
 import settingsFa from 'assets/locales/fa/features/settings.json';
 import webFormsFa from 'assets/locales/fa/features/webforms.json';
-import webFormsEn from 'assets/locales/fa/features/webforms.json';
+import webFormsEn from 'assets/locales/en/features/webforms.json';
 
 //localstorage
 import storage from 'libraries/local-storage'

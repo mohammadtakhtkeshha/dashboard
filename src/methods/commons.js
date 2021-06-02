@@ -85,4 +85,8 @@ export const reverseDate = (str) => {
     return str.split("/").reverse().join("/");
 }
 
+export const stringToBoolean = (string) => {
+            return string === "true" ? true : false;
+}
+
 export default {isObjectEmpty, offsetLeft}

@@ -6,6 +6,7 @@ export const StyledActionBtnForm = styled.button`
             display: flex;
             align-items: center;
             justify-content: space-between;
+            margin:auto;
             cursor:pointer;
             border: 1px solid ${blue[1]};
             width: 7rem;

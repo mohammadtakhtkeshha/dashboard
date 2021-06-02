@@ -12,7 +12,7 @@ export const steps = [
         position: 'top',
         stepInteraction: false,
     }, {
-        selector: '.state-list',
+        selector: '.state-elementsTable',
         content: ({goTo, inDOM}) => (
             <div>
                 <GuideBlockComponent/>

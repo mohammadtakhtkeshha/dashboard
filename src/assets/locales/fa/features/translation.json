@@ -58,7 +58,7 @@
   "login": "ورود",
   "deletedSuccessfully": "رکورد مورد نظر با موفقیت حذف شد",
   "notDone": "انجام نشد",
-  "notFoundRecord": "!موردی یافت نشد",
+  "notFoundRecord": "موردی یافت نشد !",
   "or": "یا",
   "enter": "ورود",
   "doEnter": "!وارد شوید",
@@ -117,5 +117,8 @@
   "settings": "تنظیمات",
   "observe": "مشاهده",
   "mailValidation": "ایمیل مورد نظر معتبر نمیباشد!",
+  "key": "کلید",
+  "compulsory": "اجباری",
+  "preview": "مرور",
   "wrongSafeCode": "کد امنیتی اشتباه میباشد"
 }

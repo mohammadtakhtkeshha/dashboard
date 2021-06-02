@@ -6,4 +6,8 @@ export const addElementUrl = `${baseUrl}/webform/add/fields`;
 
 export const getFormsUrl = `${baseUrl}/webform/list?_format=json`;
 
+export const getElementsUrl = (form) => {
+    return `${baseUrl}/webform/fields/${form}`;
+}
+
 

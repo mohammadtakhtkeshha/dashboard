@@ -2,19 +2,16 @@ import React from "react";
 import {withNamespaces} from "react-i18next";
 
 import Tab from "@material-ui/core/Tab";
-import {withStyles} from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 
 import {
     TabPanel,
     a11yProps,
     StyledPaper,
-    styledTabs,
 } from "assets/js/comment/commentTabs";
 import CommentTableComponent from "./partials/table/CommentTableComponent.jsx";
 import {handleChangeMethod} from "./CommentTabsComponent.js";
 
-const StyledTabs = withStyles(styledTabs)(Tabs);
 
 function CommentDashboardComponent({t, chunkPublishedComments, chunkUnconfirmedComments, publishPage, unconfirmPage, setUnconfirmPage, setPublishPage, selectedCheckBoxes, setSelectedCheckBoxes, unconfirmedComments, setCommentStatus, commentStatus, handlePagination, publishedComments, totalUnconfirmPage, totalPublishPage}) {
     const [value, setValue] = React.useState(0);
@@ -25,10 +22,10 @@ function CommentDashboardComponent({t, chunkPublishedComments, chunkUnconfirmedC
 
     return (
         <StyledPaper>
-            <StyledTabs value={value} onChange={handleChange} aria-label="simple tabs example">
+            <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                 <Tab label={t('comments:publishedComments')} {...a11yProps(0)} />
                 <Tab label={`${t('comments:unconfirmedComments')}(${unconfirmedComments.length})`}  {...a11yProps(1)} />
-            </StyledTabs>
+            </Tabs>
             <TabPanel value={value} index={0}>
                 <CommentTableComponent setSelectedCheckBoxes={setSelectedCheckBoxes}
                                        selectedCheckBoxes={selectedCheckBoxes}

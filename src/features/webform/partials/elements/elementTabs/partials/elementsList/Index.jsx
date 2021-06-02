@@ -1,21 +1,20 @@
-import React, {useState} from "react";
-import {ReactSortable} from "react-sortablejs";
+import React, {useState} from 'react';
+import {withNamespaces} from "react-i18next";
+import ElementHeader from "./partials/elementHeader/Index.jsx";
+import ElementList from "./partials/elementsTable/Index.jsx";
+import ElementModal from "./partials/elementModal/Index.jsx";
 
-const App = () => {
-    const [state, setState] = useState([
-        {id: 1, name: "shrek"},
-        {id: 2, name: "fiona"},
-    ]);
+function Index({t}) {
+    const [openElementForm, setOpenElementForm] = useState({show: false, id: ''})
 
-    return (<ReactSortable
-        group="groupName"
-        animation={200}
-        delayOnTouchStart={true}
-        delay={2}>
-        {state.map((item) => (
-            <div key={item.id}>{item.name}</div>
-        ))}
-    </ReactSortable>);
-};
+    const closeForm = () => {
+        setOpenElementForm({show: false, id: ''})
+    }
+    return (<>
+        <ElementHeader setOpenElementForm={setOpenElementForm}/>
+        <ElementModal closeForm={closeForm} openElementForm={openElementForm}/>
+        <ElementList/>
+    </>)
+}
 
-export default App
+export default withNamespaces('translation')(Index)

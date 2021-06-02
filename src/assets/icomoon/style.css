@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'icomoon';
   src:
-    url('fonts/icomoon.ttf?lf7smq') format('truetype'),
-    url('fonts/icomoon.woff?lf7smq') format('woff'),
-    url('fonts/icomoon.svg?lf7smq#icomoon') format('svg');
+    url('fonts/icomoon.ttf?2ezf3p') format('truetype'),
+    url('fonts/icomoon.woff?2ezf3p') format('woff'),
+    url('fonts/icomoon.svg?2ezf3p#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -24,77 +24,81 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-arrow-up:before {
-  content: "\e912";
-}
 .icon-arrow-down:before {
   content: "\e900";
 }
-.icon-chat .path1:before {
+.icon-arrow-up:before {
   content: "\e901";
+}
+.icon-chat .path1:before {
+  content: "\e902";
   color: rgb(255, 255, 255);
   opacity: 0.3;
 }
 .icon-chat .path2:before {
-  content: "\e902";
+  content: "\e903";
   margin-left: -1em;
   color: rgb(255, 255, 255);
 }
 .icon-chat .path3:before {
-  content: "\e903";
+  content: "\e904";
   margin-left: -1em;
   color: rgb(255, 255, 255);
   opacity: 0.7;
 }
 .icon-chat .path4:before {
-  content: "\e904";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
-}
-.icon-chat .path5:before {
   content: "\e905";
   margin-left: -1em;
   color: rgb(255, 255, 255);
 }
-.icon-chat .path6:before {
+.icon-chat .path5:before {
   content: "\e906";
   margin-left: -1em;
   color: rgb(255, 255, 255);
 }
-.icon-chat .path7:before {
+.icon-chat .path6:before {
   content: "\e907";
   margin-left: -1em;
   color: rgb(255, 255, 255);
 }
-.icon-key:before {
+.icon-chat .path7:before {
   content: "\e908";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
 }
-.icon-message:before {
+.icon-key:before {
   content: "\e909";
 }
-.icon-password:before {
+.icon-message:before {
   content: "\e90a";
 }
-.icon-password-blocked:before {
+.icon-move-icon:before {
   content: "\e90b";
+  color: #787878;
 }
-.icon-pencil:before {
+.icon-password:before {
   content: "\e90c";
 }
-.icon-refresh:before {
+.icon-password-blocked:before {
   content: "\e90d";
+}
+.icon-pencil:before {
+  content: "\e90e";
+}
+.icon-refresh:before {
+  content: "\e90f";
   color: #fff;
 }
 .icon-soon:before {
-  content: "\e90e";
+  content: "\e910";
 }
 .icon-trash-bin:before {
-  content: "\e90f";
+  content: "\e911";
 }
 .icon-upload:before {
-  content: "\e910";
+  content: "\e912";
   color: #3ecd90;
 }
 .icon-user:before {
-  content: "\e911";
+  content: "\e913";
 }

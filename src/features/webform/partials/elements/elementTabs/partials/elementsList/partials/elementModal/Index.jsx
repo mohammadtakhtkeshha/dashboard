@@ -1,47 +1,54 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {withNamespaces} from 'react-i18next';
+import {useHistory} from "react-router-dom"
 
 import {makeStyles} from '@material-ui/styles';
 import {Modal, Box, Fade} from '@material-ui/core';
 import Backdrop from '@material-ui/core/Backdrop';
 import HelpIcon from '@material-ui/icons/Help';
 
-import NewWebformComponent from './partials/NewWebformComponent.jsx';
 import {ReactComponent as Exit} from 'assets/svg/exit.svg';
-import TourNewUser from './partials/TourNewUser.jsx';
 import {StyledTourButton} from 'assets/js/content/partials/modal/insideModal/modalForm';
 import {StyledCancelButton, ModalBody} from 'assets/js/library/components/modal';
 import {StyledSvg} from 'assets/js/library/base/all';
 import {modalClasses} from 'assets/js/library/components/modal';
+import ElementTourComponent from "../elementHeader/partials/ElementTourComponent.jsx";
+import NewElementComponent from "./partials/NewElementComponent.jsx";
+import ElementTypeListComponent from "./partials/ElementTypeListComponent.jsx";
 
 const useStyle = makeStyles(modalClasses);
 
-function Index({openWebform,errors,setErrors,closeForm,setElement}) {
-    const topNode = useRef(null);
+function Index({closeForm, openElementForm}) {
     const classes = useStyle({maxWidth: '700px'});
     const [isTourOpen, setIsTourOpen] = useState(false);
-    const [webform, setWebform] = useState({
-        "machin_name": "",
-        "description": "",
-        "title": "",
-        "status":'closed'
-    });
+    const history = useHistory()
+    const form_id = history.location.pathname.split('/').pop()
+    const [element, setElement] = useState({
+        "form_id": form_id,
+        "field_options": "",
+        "field_required": false,
+        "field_title": "",
+        "field_type": "",
+        "field_id": "",
+        "admin_title": ""
+    })
 
     const clicked = () => {
         setIsTourOpen(true);
     };
 
-    return (
-        <Modal
+    console.log(element)
+
+    return (<Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             className={classes.modal}
-            open={openWebform}
+            open={openElementForm.show}
             onClose={closeForm}
             closeAfterTransition
             BackdropComponent={Backdrop}
             BackdropProps={{timeout: 500}}>
-            <Fade in={openWebform} id="modal">
+            <Fade in={openElementForm.show} id="modal">
                 <Box>
                     <StyledCancelButton onClick={closeForm}>
                         <StyledSvg>
@@ -49,19 +56,19 @@ function Index({openWebform,errors,setErrors,closeForm,setElement}) {
                         </StyledSvg>
                     </StyledCancelButton>
                     <ModalBody>
-                        <NewWebformComponent
-                            closeForm={closeForm}
-                            errors={errors}
-                            setErrors={setErrors}
-                            setElement={setElement}
-                            webform={webform}
-                            setWebform={setWebform}
-                        />
+                        {element.field_type !== "" ?
+                            <NewElementComponent
+                                element={element}
+                                setElement={setElement}
+                                closeForm={closeForm}
+                                id={openElementForm.id}
+                            /> : <ElementTypeListComponent setElement={setElement}/>
+                        }
                     </ModalBody>
-                    <StyledTourButton onClick={clicked} ref={topNode}>
+                    <StyledTourButton onClick={clicked}>
                         <HelpIcon/>
                     </StyledTourButton>
-                    <TourNewUser setIsTourOpen={setIsTourOpen} isTourOpen={isTourOpen}/>
+                    <ElementTourComponent setIsTourOpen={setIsTourOpen} isTourOpen={isTourOpen}/>
                 </Box>
             </Fade>
         </Modal>

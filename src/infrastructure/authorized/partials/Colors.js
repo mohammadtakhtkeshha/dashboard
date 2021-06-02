@@ -50,9 +50,9 @@ const red=['#fe2947',//[0]:default
 const green = ['#3ecd90',//[0]default
     '#5acb9b',//[1]hover
     '#34aa78',//[2]focus
-    '#3bc68d',//[3]right-header-gradiant
+    '#3bc68d',//[3]right-elementHeader-gradiant
     '#3dcd90',//[4]right-body-gradiant
-    '#3abea6',//[5]right main header
+    '#3abea6',//[5]right main elementHeader
     '#3ecc90',//[6]right sidebar background
     '#b0dfd7',//[7]font color breadcrumbs deactive
     '#32ae96',//[8]left-sidebar-top
@@ -66,10 +66,10 @@ const blue= ['#2e91b0',//[0]default
     '#25738b',//[2]focus
     '#303f9f',//[3]
     '#008CBA',//[4]
-    '#2369be',//[5]left-header-gradiant
+    '#2369be',//[5]left-elementHeader-gradiant
     '#2d85ef',//[6]left-body-gradiant
     '#2c84f0',//[7]left-main-head
-    '#1461b1',//[8]power-in-header-background
+    '#1461b1',//[8]power-in-elementHeader-background
     '#32ac93',//[9]left-sidebar-background
     '#2c84f0',//[10]end-sidebar-background
     '#6e79ee',//[11]background-button-tour
@@ -79,7 +79,7 @@ const blue= ['#2e91b0',//[0]default
     '#3193dc',//[15]radio-button
     '#606CEC',//[16]radio-button,background-button
     '#2a9fbb',//[17]tid-color-attach
-    '#2c85f0',//[18]left-header-gradiant
+    '#2c85f0',//[18]left-elementHeader-gradiant
     '#4d56bd',//[19]button-background-active
     '#6d78ee',//[20]button-background-hover
 ];
@@ -102,7 +102,7 @@ const grey = ['#ced4da',//[0]input border
     '#D6DBE1',//[7]
     '#6B7C93',//[8]color for upload img border hover,close-tour-color,close-tour-button-border,tour-description
     '#F1F3F5',//[9]background of upload here
-    '#525368',//[10]color for icons in header
+    '#525368',//[10]color for icons in elementHeader
     '#dddddd',//[11]color for border bottom item sidebar
     '#E2E3E2',//[12]background-colors:hover sidebar icons
     '#EEF0F2',//[13]background-colors sidebar icons
@@ -113,7 +113,7 @@ const grey = ['#ced4da',//[0]input border
     '#dfe0e2',//[18]background-color base-all-content
     '#f9f8f8',//[19]
     '#616161',//[20]
-    '#eff0f1',//[21]for table header matamo
+    '#eff0f1',//[21]for table elementHeader matamo
     '#f2f2f2',//[22]for-table-row-hover matamo
     '#495057',//[23]input-placeholder
 ];

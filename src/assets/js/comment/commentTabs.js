@@ -4,10 +4,6 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import {white} from "assets/js/library/abstracts/colors"
 
-export const styledTabs = () =>({
-    root:{
-    }
-})
 
 export function TabPanel(props) {
     const { children, value, index, ...other } = props;

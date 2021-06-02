@@ -62,6 +62,7 @@ export const StyledCancelButton = styled.button`
                 right:1rem;
                 background-color:transparent;
                 border: 0!important;
+                z-index:100;
                 &:focus{
                     outline: 0!important;
                 }

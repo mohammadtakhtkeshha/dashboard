@@ -62,7 +62,7 @@ function EditorComponent({ t, title, value, onClick }) {
               ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'removeFormat'],
               ['fontColor', 'hiliteColor', 'outdent', 'indent', 'align', 'horizontalRule', 'list', 'table'],
               ['link', 'image', 'video', 'fullScreen', 'showBlocks', 'codeView', 'preview', 'print', 'save'],
-            ], // Or Array of button list, eg. [['font', 'align'], ['image']]
+            ], // Or Array of button elementsTable, eg. [['font', 'align'], ['image']]
           }}
           onImageUploadBefore={beforeUploading}
           onImageUpload={imageUploadHandler}

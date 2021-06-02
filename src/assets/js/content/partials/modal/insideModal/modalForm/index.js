@@ -13,6 +13,7 @@ export const StyledTourButton = styled.button`
               height:50px;
               padding:0!important;
               cursor:pointer;
+              z-index:10;
               &:focus{
                 outline:0!important;
               }

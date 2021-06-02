@@ -12,4 +12,5 @@ function Index({t}) {
         <ElementTabsComponent/>
     </>)
 }
+
 export default withNamespaces('translation')(Index);

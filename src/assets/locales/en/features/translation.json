@@ -117,5 +117,8 @@
   "results": "results",
   "settings": "settings",
   "observe": "observe",
+  "key": "key",
+  "compulsory": "compulsory",
+  "preview": "preview",
   "wrongSafeCode": "wrong safe code"
 }

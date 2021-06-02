@@ -102,7 +102,6 @@ export const StyledTable = styled.div`
                 display:flex;
                 flex-direction:column;
                 border-radius: 4px;
-                // background-color:#f3f4f6;
                 background-color:${grey[17]};
                 box-shadow: rgb(192 192 199 / 65%) 0px 6px 20px 0px;
                 margin-bottom:10px;
@@ -113,7 +112,6 @@ export const StyledTableCell = styled.div`
                 text-align:${props=>props.align};
                 min-width:${props=>props.minWidth}px;
                 width:${props=>props.width}%;
-                // border:1px solid red;
                 overflow:${({overflow})=>overflow ? overflow : 'hidden'};
 `
 

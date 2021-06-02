@@ -27,33 +27,27 @@ export const StyledFooter = styled.div`
             padding:15px;
             z-index:1000;
             &:first-child{
-                ${props=>props.lang==="fa"?`border-left:1px solid ${grey[1]}`:`border-right:1px solid ${grey[1]}`}
+                ${props => props.lang === "fa" ? `border-left:1px solid ${grey[1]}` : `border-right:1px solid ${grey[1]}`}
             }
         }
 `
 
 export const styledGrid = () => ({
-    root:{
-        '& div':{
+    root: {
+        '& div': {
             margin: 'auto',
         }
     }
 })
 
-export const StyledTextArea = styled.div`
-       margin-top:1rem;
-       & .se-toolbar{
-            display:none!important;
-       }
-        & .sun-editor-common{
-            display:none!important;
-       }
-        & .sun-editor{
-            border:0;
-       }
-        
-        & .se-wrapper{
-            border-radius:10px;
-            border:1px solid ${grey[0]};
-       }
+export const StyledTextArea = styled.textarea`
+             border:1px solid ${grey[0]};
+             border-radius:4px;
+             width:100%;
+             padding:10px;
+             box-sizing:border-box;
+             &:focus-visible{
+                outline:0!important;
+                outline-offset:0!important;
+             }
 `

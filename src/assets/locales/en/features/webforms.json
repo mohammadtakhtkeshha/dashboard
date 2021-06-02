@@ -3,5 +3,8 @@
   "machineName": "machine name",
   "editForm": "edit form",
   "addElement": "add element",
+  "elementsList": "elements list",
+  "chooseElementType": "choose element type",
+  "fieldId": "field id",
   "newForm": "new form"
 }
