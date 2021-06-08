@@ -60,7 +60,26 @@ function NewElementComponent({t, setElement}) {
     const chooseElementType = (e) => {
         const currentValue = e.currentTarget.value
         setElement(prevState => {
-            return {...prevState, field_type: currentValue}
+            switch (currentValue) {
+                case 'textfield':
+                    return {...prevState, field_type: 'textfield'}
+                case 'textarea':
+                    return {...prevState, field_type: 'textarea'}
+                case 'radios':
+                    return {...prevState, field_type: 'radios', field_options: ''}
+                case 'checkboxes':
+                    return {...prevState, field_type: 'checkboxes', field_options: ''}
+                case 'date':
+                    return {...prevState, field_type: 'date'}
+                case 'select':
+                    return {...prevState, field_type: 'select', field_options: ''}
+                case 'email':
+                    return {...prevState, field_type: 'email'}
+                case 'tel':
+                    return {...prevState, field_type: 'tel'}
+                default:
+                    return {...prevState, field_type: 'number'}
+            }
         })
     }
 
@@ -80,7 +99,7 @@ function NewElementComponent({t, setElement}) {
                     <StyledElementTypeItem flex={1}>{field.type}</StyledElementTypeItem>
                     <StyledElementTypeItem flex={1}>{field.preview}</StyledElementTypeItem>
                     <StyledElementTypeItem flex={1}>
-                        <StyledButton value={field.type} onClick={chooseElementType}
+                        <StyledButton value={field.type} id={field.element} onClick={chooseElementType}
                                       bg={green[0]}>{t('webforms:addElement')}</StyledButton>
                     </StyledElementTypeItem>
                 </StyledElementTypeLi>);

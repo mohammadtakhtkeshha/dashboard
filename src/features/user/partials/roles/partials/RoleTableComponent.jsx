@@ -6,8 +6,8 @@ import { StyledTableBody, StyledTableBodyRow, StyledActionButtons, StyledActions
 import { StyledTr, StyledTableHeadTr, StyledTable, StyledTableCell } from 'assets/js/library/components/table';
 import { deleteRoleMethod, showEditFormMethod } from './RoleTableComponent.js';
 import { warning } from 'methods/swal';
-import deleteIcon from 'assets/svg/delete.png';
-import editIcon from 'assets/svg/edit.png';
+// import deleteIcon from 'assets/svg/delete.png';
+// import editIcon from 'assets/svg/edit.png';
 import i18next from 'i18next';
 import {StyledTrashEditSvg} from "assets/js/library/base/all";
 

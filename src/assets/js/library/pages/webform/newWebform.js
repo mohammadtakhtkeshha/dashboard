@@ -9,6 +9,12 @@ export const styledGrid = () => ({
     }
 })
 
+export const stylesGridOptions = () => ({
+    root: {
+        display:props => props.display !== undefined ? 'block' : 'none'
+    }
+})
+
 export const StyledStatusButtonBox = styled(StyledStatusButtonBlock)`
             height: 2.8rem!important;
             padding:.3rem .3rem!important;

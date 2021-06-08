@@ -22,7 +22,7 @@ function TicketTourComponent({t,chosenDepartment}) {
     }
 
     return (<>
-        <StyledTourButton onClick={clicked} style={{display: chosenDepartment === "" ? 'none' : 'block'}}>
+        <StyledTourButton onClick={clicked} show={ chosenDepartment === "" ? 'false' : 'true'}>
             <HelpIcon/>
         </StyledTourButton>
         <Tour showCloseButton={false}

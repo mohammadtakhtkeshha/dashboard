@@ -3,7 +3,7 @@ import {StyledNotScrollbar} from "../base/all";
 import {grey, white} from "assets/js/library/abstracts/colors";
 
 export const StyledModalBody = styled(StyledNotScrollbar)`
-             padding:57px 34px;
+             padding:57px 34px 69px;
              height:100%;
              overflow-y:scroll;
              box-sizing:border-box;

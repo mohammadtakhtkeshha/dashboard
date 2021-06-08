@@ -1,9 +1,9 @@
-import GuideBlockComponent from "infrastructure/authorized/partials/GuideBlockComponent";
 import React from "react";
+import GuideBlockComponent from "infrastructure/authorized/partials/GuideBlockComponent";
 
-export const steps = [
+export const stepsWithOptions = [
     {
-        selector: '.register-button',
+        selector: '.element-title',
         content: ({goTo, inDOM}) => (
             <div>
                 <GuideBlockComponent/>
@@ -12,7 +12,7 @@ export const steps = [
         position: 'top',
         stepInteraction: false,
     }, {
-        selector: '.user-elementsTable',
+        selector: '.element-status',
         content: ({goTo, inDOM}) => (
             <div>
                 <GuideBlockComponent/>
@@ -20,7 +20,7 @@ export const steps = [
         ),
         position: 'top',
     }, {
-        selector: '.filter-first-name',
+        selector: '.element-id',
         content: ({goTo, inDOM}) => (
             <div>
                 <GuideBlockComponent/>
@@ -28,7 +28,28 @@ export const steps = [
         ),
         position: 'top',
     }, {
-        selector: '.filter-last-name',
+        selector: '.element-option',
+        content: ({goTo, inDOM}) => (
+            <div>
+                <GuideBlockComponent/>
+            </div>
+        ),
+        position: 'top',
+    }
+]
+
+export const stepsNoOptions = [
+    {
+        selector: '.element-title',
+        content: ({goTo, inDOM}) => (
+            <div>
+                <GuideBlockComponent/>
+            </div>
+        ),
+        position: 'top',
+        stepInteraction: false,
+    }, {
+        selector: '.element-status',
         content: ({goTo, inDOM}) => (
             <div>
                 <GuideBlockComponent/>
@@ -36,23 +57,7 @@ export const steps = [
         ),
         position: 'top',
     }, {
-        selector: '.filter-username',
-        content: ({goTo, inDOM}) => (
-            <div>
-                <GuideBlockComponent/>
-            </div>
-        ),
-        position: 'top',
-    }, {
-        selector: '.filter-email',
-        content: ({goTo, inDOM}) => (
-            <div>
-                <GuideBlockComponent/>
-            </div>
-        ),
-        position: 'top',
-    }, {
-        selector: '.user-filter-role',
+        selector: '.element-id',
         content: ({goTo, inDOM}) => (
             <div>
                 <GuideBlockComponent/>

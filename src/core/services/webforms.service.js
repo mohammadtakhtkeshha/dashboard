@@ -6,7 +6,6 @@ import {
     getElementsUrl,
 } from 'utils/urls/webforms.urls';
 import {
-    cjcsrfauthHeader,
     cjauthHeader, authHeader
 } from 'utils/headers';
 

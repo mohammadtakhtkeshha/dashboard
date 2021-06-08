@@ -6,7 +6,7 @@ import {useParams} from 'react-router-dom';
 import i18next from 'i18next';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import {withStyles, Typography, AccordionSummary, Accordion, AccordionDetails, Grid} from '@material-ui/core';
+import {withStyles, Typography, AccordionSummary, Accordion, AccordionDetails} from '@material-ui/core';
 import {CardMedia} from '@material-ui/core';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 
@@ -82,13 +82,13 @@ function TicketComponent({t}) {
         setIsExpanded(!isExpanded);
     };
 
-    useEffect(() => {
-        if(replies.length > 0 ){
-            const height=heightBlock
-            console.log('height:'+height.current.offsetHeight)
-
-        }
-    }, [heightBlock.current]);
+    // useEffect(() => {
+    //     if(replies.length > 0 ){
+    //         const height=heightBlock
+    //         console.log('height:'+height.current.offsetHeight)
+    //
+    //     }
+    // }, [replies]);
 
     // console.log(window.innerWidth)
     useEffect (() => {

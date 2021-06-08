@@ -1,25 +1,22 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useEffect, useContext} from 'react';
 import {useHistory} from "react-router-dom";
 import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
 
-import {StyledUl} from "assets/js/library/pages/webform/elements";
 import ElementLiComponent from "./paritals/ElementLiComponent";
 import {getElementsListMethod} from "./Index.js"
 import AppContext from "contexts/AppContext";
 import {StyledTable, StyledTableCell, StyledTableHeadTr} from "assets/js/library/components/table";
 
-function Index({t}) {
+function Index({t,elements,setElements}) {
     const history = useHistory();
     const lang = i18next.language
     const {setLoading} = useContext(AppContext);
     let align = lang === 'en' ? 'left' : 'right'
 
-    const [items, setItems] = useState([]);
-
     useEffect(() => {
-        getElementsListMethod(setLoading,history.location.pathname.split('/').pop(),setItems)
-    }, []);
+        getElementsListMethod(setLoading,history.location.pathname.split('/').pop(),setElements)
+    }, [setLoading,setElements,history.location.pathname]);//once
 
     return (<StyledTable>
         <StyledTableHeadTr>
@@ -29,7 +26,7 @@ function Index({t}) {
             <StyledTableCell width="5" align="center" minWidth={58}>{t('translation:compulsory')}</StyledTableCell>
             <StyledTableCell width="11" align="center" minWidth={58}></StyledTableCell>
         </StyledTableHeadTr>
-        <ElementLiComponent items={items} setItems={setItems}/>
+        <ElementLiComponent elements={elements} setElements={setElements}/>
     </StyledTable>)
 }
 

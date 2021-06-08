@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {green} from "assets/js/library/abstracts/colors";
 
 export const StyledTourButton = styled.button`
-              display:flex;
+              display:${props=>props.show==='true' ? 'flex':'none'};
               position:absolute;
               left:1rem;
               top:1rem;

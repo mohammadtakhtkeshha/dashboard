@@ -73,7 +73,7 @@ function RoleModalComponent({t, openForm, role, handleClose, setShowPermission, 
                                        setEnRoles={setEnRoles}
                                        handleClose={handleClose}/>
                 </ModalBody>
-                <StyledTourButton onClick={clicked}>
+                <StyledTourButton show="true" onClick={clicked}>
                     <HelpIcon/>
                 </StyledTourButton>
                 <Tour showCloseButton={false}

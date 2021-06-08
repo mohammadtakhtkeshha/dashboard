@@ -3,7 +3,7 @@ import React from "react";
 
 export const steps = [
     {
-        selector: '.first-name',
+        selector: '.register-button',
         content: ({goTo, inDOM}) => (
             <div>
                 <GuideBlockComponent/>
@@ -13,34 +13,7 @@ export const steps = [
         stepInteraction: false,
     },
     {
-        selector: '.last-name',
-        content: ({goTo, inDOM}) => (
-            <div>
-                <GuideBlockComponent/>
-            </div>
-        ),
-        position: 'top',
-    },
-    {
-        selector: '.username',
-        content: ({goTo, inDOM}) => (
-            <div>
-                <GuideBlockComponent/>
-            </div>
-        ),
-        position: 'top',
-    },
-    {
-        selector: '.my-role',
-        content: ({goTo, inDOM}) => (
-            <div>
-                <GuideBlockComponent/>
-            </div>
-        ),
-        position: 'top',
-    },
-    {
-        selector: '.email',
+        selector: '.form-list',
         content: ({goTo, inDOM}) => (
             <div>
                 <GuideBlockComponent/>
@@ -50,7 +23,7 @@ export const steps = [
         stepInteraction: false,
     },
     {
-        selector: '.password',
+        selector: '.filter-title',
         content: ({goTo, inDOM}) => (
             <div>
                 <GuideBlockComponent/>
@@ -60,7 +33,7 @@ export const steps = [
         stepInteraction: false,
     },
     {
-        selector: '.confirm-pass',
+        selector: '.filter-author',
         content: ({goTo, inDOM}) => (
             <div>
                 <GuideBlockComponent/>
@@ -70,7 +43,7 @@ export const steps = [
         stepInteraction: false,
     },
     {
-        selector: '.status',
+        selector: '.filter-status',
         content: ({goTo, inDOM}) => (
             <div>
                 <GuideBlockComponent/>
@@ -79,14 +52,4 @@ export const steps = [
         position: 'top',
         stepInteraction: false,
     },
-    {
-        selector: '.image-upload-block',
-        content: ({goTo, inDOM}) => (
-            <div>
-                <GuideBlockComponent/>
-            </div>
-        ),
-        position: 'top',
-        stepInteraction: false,
-    }
 ]

@@ -17,6 +17,7 @@ function AutocompleteComponent({t, array, selectedTags, changedTags, setSelected
         }
         changedTags(e)
     }
+
     return (
         <StyledAutocomplete lang={lang}>
             {array.length > 0 && <Autocomplete

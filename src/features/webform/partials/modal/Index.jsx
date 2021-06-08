@@ -8,7 +8,7 @@ import HelpIcon from '@material-ui/icons/Help';
 
 import NewWebformComponent from './partials/NewWebformComponent.jsx';
 import {ReactComponent as Exit} from 'assets/svg/exit.svg';
-import TourNewUser from './partials/TourNewUser.jsx';
+import TourNewForm from './partials/TourNewForm.jsx';
 import {StyledTourButton} from 'assets/js/content/partials/modal/insideModal/modalForm';
 import {StyledCancelButton, ModalBody} from 'assets/js/library/components/modal';
 import {StyledSvg} from 'assets/js/library/base/all';
@@ -16,7 +16,7 @@ import {modalClasses} from 'assets/js/library/components/modal';
 
 const useStyle = makeStyles(modalClasses);
 
-function Index({openWebform,errors,setErrors,closeForm,setElement}) {
+function Index({openWebform,errors,setErrors,closeForm}) {
     const topNode = useRef(null);
     const classes = useStyle({maxWidth: '700px'});
     const [isTourOpen, setIsTourOpen] = useState(false);
@@ -53,15 +53,14 @@ function Index({openWebform,errors,setErrors,closeForm,setElement}) {
                             closeForm={closeForm}
                             errors={errors}
                             setErrors={setErrors}
-                            setElement={setElement}
                             webform={webform}
                             setWebform={setWebform}
                         />
                     </ModalBody>
-                    <StyledTourButton onClick={clicked} ref={topNode}>
+                    <StyledTourButton onClick={clicked} ref={topNode} show="true">
                         <HelpIcon/>
                     </StyledTourButton>
-                    <TourNewUser setIsTourOpen={setIsTourOpen} isTourOpen={isTourOpen}/>
+                    <TourNewForm setIsTourOpen={setIsTourOpen} isTourOpen={isTourOpen}/>
                 </Box>
             </Fade>
         </Modal>

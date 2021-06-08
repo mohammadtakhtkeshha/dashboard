@@ -83,7 +83,7 @@ function Index({t, openRegisterForm, handleCloseRegisterForm, newsCategory, stat
                                              states={states}
                                              newsCategory={newsCategory}/>
                 </ModalBody>
-                <StyledTourButton onClick={clicked}>
+                <StyledTourButton onClick={clicked} show="true">
                     <HelpIcon/>
                 </StyledTourButton>
             </Box>

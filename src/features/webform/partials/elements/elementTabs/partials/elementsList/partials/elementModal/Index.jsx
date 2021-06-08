@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {withNamespaces} from 'react-i18next';
-import {useHistory} from "react-router-dom"
 
 import {makeStyles} from '@material-ui/styles';
 import {Modal, Box, Fade} from '@material-ui/core';
@@ -18,26 +17,13 @@ import ElementTypeListComponent from "./partials/ElementTypeListComponent.jsx";
 
 const useStyle = makeStyles(modalClasses);
 
-function Index({closeForm, openElementForm}) {
+function Index({closeForm, openElementForm,setElements,element,setElement}) {
     const classes = useStyle({maxWidth: '700px'});
     const [isTourOpen, setIsTourOpen] = useState(false);
-    const history = useHistory()
-    const form_id = history.location.pathname.split('/').pop()
-    const [element, setElement] = useState({
-        "form_id": form_id,
-        "field_options": "",
-        "field_required": false,
-        "field_title": "",
-        "field_type": "",
-        "field_id": "",
-        "admin_title": ""
-    })
 
     const clicked = () => {
         setIsTourOpen(true);
     };
-
-    console.log(element)
 
     return (<Modal
             aria-labelledby="transition-modal-title"
@@ -55,20 +41,21 @@ function Index({closeForm, openElementForm}) {
                             <Exit width={'40px'} height={'40px'}/>
                         </StyledSvg>
                     </StyledCancelButton>
-                    <ModalBody>
+                    <ModalBody height={element.field_type !== '' ? 'fit-content' : ''}>
                         {element.field_type !== "" ?
                             <NewElementComponent
                                 element={element}
                                 setElement={setElement}
+                                setElements={setElements}
                                 closeForm={closeForm}
                                 id={openElementForm.id}
                             /> : <ElementTypeListComponent setElement={setElement}/>
                         }
                     </ModalBody>
-                    <StyledTourButton onClick={clicked}>
+                    <StyledTourButton onClick={clicked} show={element.field_type !== '' ? 'true' : 'false'}>
                         <HelpIcon/>
                     </StyledTourButton>
-                    <ElementTourComponent setIsTourOpen={setIsTourOpen} isTourOpen={isTourOpen}/>
+                    <ElementTourComponent element={element} setIsTourOpen={setIsTourOpen} isTourOpen={isTourOpen}/>
                 </Box>
             </Fade>
         </Modal>

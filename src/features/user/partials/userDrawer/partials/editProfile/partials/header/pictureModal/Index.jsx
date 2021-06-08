@@ -41,7 +41,7 @@ function EditProfileModalPictureComponent({t, user, setUser, isOpen, setIsOpen})
                 <ModalBody height='390px'>
                     <EditPictureContent user={user} setUser={setUser} setIsOpen={setIsOpen} isTourOpen={isTourOpen} setIsTourOpen={setIsTourOpen}/>
                 </ModalBody>
-                <StyledTourButton onClick={clicked}>
+                <StyledTourButton show="true" onClick={clicked}>
                     <HelpIcon/>
                 </StyledTourButton>
             </Box>

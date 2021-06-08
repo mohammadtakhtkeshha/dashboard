@@ -3,11 +3,12 @@ import {sortable} from "react-sortable";
 import {withNamespaces} from "react-i18next";
 
 import {StyledTableBodyRow, StyledTableCell, StyledTr} from "assets/js/library/components/table";
-import {StyledTitle} from "assets/js/library/pages/webform/elements"
+import {StyledRequiredBlock, StyledTitle} from "assets/js/library/pages/webform/elements"
 import i18next from "i18next";
 import {StyledActionBtnForm, StyledUl} from "assets/js/library/pages/webform/webformTable";
+import StyledCheckboxComponent from "infrastructure/authorized/partials/StyledCheckboxComponent";
 
-function ElementLiComponent({t, items, setItems}) {
+function ElementLiComponent({t, elements, setElements}) {
     const lang = i18next.language
     const editBtn = useRef(null)
     const [editButtonShow, setEditButtonShow] = useState({show: false, id: ''})
@@ -15,6 +16,10 @@ function ElementLiComponent({t, items, setItems}) {
     const clickEditBtn = (e) => {
         const curId = e.currentTarget.id
         setEditButtonShow({show: true, id: curId})
+    }
+
+    const changeRequired = () => {
+
     }
 
     function Item(props) {
@@ -32,7 +37,11 @@ function ElementLiComponent({t, items, setItems}) {
                 {props.children.type}
             </StyledTableCell>
             <StyledTableCell width="5" align="center" minWidth={58}>
-                <button>{props.children.required ? 'true' : 'false'}</button>
+                {/*<button>{props.children.required ? 'true' : 'false'}</button>*/}
+                {/*<StyledCheckBox checked={props.children.required} changed={changeRequired} value={props.children.required}/>*/}
+                <StyledRequiredBlock>
+                    <StyledCheckboxComponent checked={props.children.required} changed={changeRequired} value={props.children.required}/>
+                </StyledRequiredBlock>
             </StyledTableCell>
             <StyledTableCell width="11" align="center" minWidth={58}>
                 <StyledActionBtnForm ref={editBtn} onClick={clickEditBtn} id={props.children.field_id}>
@@ -50,18 +59,18 @@ function ElementLiComponent({t, items, setItems}) {
 
     let SortableItem = sortable(Item);
 
-    const onSortItems = (items) => {
-        setItems([...items]);
+    const onSortItems = (elements) => {
+        setElements([...elements]);
     }
 
     return (<>
-        {items.length > 0 ? items.map((item, i) =>
-            <SortableItem
-                key={i}
-                onSortItems={onSortItems}
-                items={items}
-                sortId={i}>{item}</SortableItem>)
-            :<StyledTableBodyRow>
+        {elements.length > 0 ? elements.map((item, i) =>
+                <SortableItem
+                    key={i}
+                    onSortItems={onSortItems}
+                    items={elements}
+                    sortId={i}>{item}</SortableItem>)
+            : <StyledTableBodyRow>
                 <StyledTableCell colSpan="6" align="right">
                     {t('translation:notFoundRecord')}
                 </StyledTableCell>

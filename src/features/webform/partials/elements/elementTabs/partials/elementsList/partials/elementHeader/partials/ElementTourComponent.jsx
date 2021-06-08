@@ -3,16 +3,19 @@ import {withNamespaces} from "react-i18next";
 import Tour from 'reactour';
 
 import {StyledCloseGuideButton, StyledNextButton, StyledPrevButton} from "assets/js/partials/guideBlock";
-import {steps} from "./ElementTourComponent.js";
+import {stepsWithOptions, stepsNoOptions} from "./ElementTourComponent.js";
 
-function ElementTourComponent({t, setExpandedFilter, setIsTourOpen, isTourOpen}) {
+function ElementTourComponent({t, setExpandedFilter, setIsTourOpen, isTourOpen, element}) {
     const [currentStep, setCurrentStep] = useState(1);
+    const [steps,setSteps] = useState(stepsNoOptions);
 
     useEffect(() => {
-        if (currentStep > 1) {
-                    setExpandedFilter(true)
-                }
-    }, [currentStep,setExpandedFilter]);
+        if (element?.field_type === 'radios' || element?.field_type === 'checkboxes' || element?.field_type === 'select') {
+            setSteps(stepsWithOptions)
+        } else {
+            setSteps(stepsNoOptions)
+        }
+    }, [element]);
 
     const closeTour = () => {
         setIsTourOpen(false)
@@ -32,8 +35,8 @@ function ElementTourComponent({t, setExpandedFilter, setIsTourOpen, isTourOpen})
                   isOpen={isTourOpen}
                   showNumber={true}
                   startAt={0}
-                  getCurrentStep={(curr) => setCurrentStep(curr+1)}
-                  onRequestClose={()=>closeTour()}/>);
+                  getCurrentStep={(curr) => setCurrentStep(curr + 1)}
+                  onRequestClose={() => closeTour()}/>);
 }
 
 export default withNamespaces('users,translation')(ElementTourComponent);

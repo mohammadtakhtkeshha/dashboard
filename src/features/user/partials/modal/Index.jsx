@@ -73,7 +73,7 @@ function Index({
               id={openUserForm.id}
             />
           </ModalBody>
-          <StyledTourButton onClick={clicked} ref={topNode}>
+          <StyledTourButton show="true" onClick={clicked} ref={topNode}>
             <HelpIcon />
           </StyledTourButton>
           <TourNewUser setIsTourOpen={setIsTourOpen} isTourOpen={isTourOpen} />

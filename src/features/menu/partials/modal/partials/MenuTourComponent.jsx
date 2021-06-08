@@ -23,7 +23,7 @@ function MenuTourComponent({t}) {
     }
 
     return (<>
-                <StyledTourButton onClick={clicked}>
+                <StyledTourButton onClick={clicked} show="true">
                     <HelpIcon/>
                 </StyledTourButton>
                 <Tour showCloseButton={false}

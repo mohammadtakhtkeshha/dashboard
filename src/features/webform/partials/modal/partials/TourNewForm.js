@@ -3,7 +3,7 @@ import React from "react";
 
 export const steps = [
     {
-        selector: '.register-button',
+        selector: '.form-title',
         content: ({goTo, inDOM}) => (
             <div>
                 <GuideBlockComponent/>
@@ -11,48 +11,27 @@ export const steps = [
         ),
         position: 'top',
         stepInteraction: false,
-    }, {
-        selector: '.user-elementsTable',
+    },
+    {
+        selector: '.form-status',
         content: ({goTo, inDOM}) => (
             <div>
                 <GuideBlockComponent/>
             </div>
         ),
         position: 'top',
-    }, {
-        selector: '.filter-first-name',
+    },
+    {
+        selector: '.form-machine-name',
         content: ({goTo, inDOM}) => (
             <div>
                 <GuideBlockComponent/>
             </div>
         ),
         position: 'top',
-    }, {
-        selector: '.filter-last-name',
-        content: ({goTo, inDOM}) => (
-            <div>
-                <GuideBlockComponent/>
-            </div>
-        ),
-        position: 'top',
-    }, {
-        selector: '.filter-username',
-        content: ({goTo, inDOM}) => (
-            <div>
-                <GuideBlockComponent/>
-            </div>
-        ),
-        position: 'top',
-    }, {
-        selector: '.filter-email',
-        content: ({goTo, inDOM}) => (
-            <div>
-                <GuideBlockComponent/>
-            </div>
-        ),
-        position: 'top',
-    }, {
-        selector: '.user-filter-role',
+    },
+    {
+        selector: '.form-description',
         content: ({goTo, inDOM}) => (
             <div>
                 <GuideBlockComponent/>

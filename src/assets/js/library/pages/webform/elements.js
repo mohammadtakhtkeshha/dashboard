@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {green, white, grey} from "../../abstracts/colors";
+import {green, grey} from "../../abstracts/colors";
 
 export const StyledLi = styled.li`
             border:1px solid red;
@@ -48,4 +48,12 @@ export const styledTabs = (theme) => ({
 export const StyledElementList = styled.div`
              background-color:${grey[17]};
              padding: 32px 33px;
+`
+
+export const StyledRequiredBlock = styled.div`
+              display:flex;
+              min-height:32px;
+              align-items:center;
+              max-width:23px;
+              margin:auto;
 `

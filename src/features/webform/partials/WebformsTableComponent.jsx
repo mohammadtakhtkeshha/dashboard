@@ -1,53 +1,24 @@
 import React, {useContext, useEffect, useState, useRef} from 'react';
 import {withNamespaces} from 'react-i18next';
 import i18next from 'i18next';
+import {NavLink} from 'react-router-dom';
 
 import AppContext from 'contexts/AppContext';
-import {danger, success, warning} from 'methods/swal';
-import storage from 'libraries/local-storage';
 import {
     StyledTr,
     StyledTableHeadTr,
     StyledTable,
-    StyledTableImg,
-    StyledCheckboxImgInTable,
     StyledTableCell,
 } from 'assets/js/library/components/table';
-import {StyledBtn, StyledStatusButton} from 'assets/js/library/components/buttons';
-import {StyledActionButtons, StyledActionsBlock} from 'assets/js/library/components/buttons';
-import deleteIcon from 'assets/svg/delete.png';
-import editIcon from 'assets/svg/edit.png';
 import {getFormsMethod} from "./WebformsTableComponent.js";
 import {StyledActionBtnForm, StyledUl} from "assets/js/library/pages/webform/webformTable"
-import {makeStyles} from '@material-ui/core/styles';
 
-function WebformsTableComponent({t, setOpenUserForm}) {
-    let id = '';
+function WebformsTableComponent({t, forms,setForms,setBasicForms}) {
     const editBtn = useRef(null)
+    // const editBtnBlock = useRef(null)
     const lang = i18next.language;
     const {setLoading} = useContext(AppContext);
-    const [forms, setForms] = useState([])
-    const [age, setAge] = useState('');
     const [editButtonShow, setEditButtonShow] = useState({show: false, id: ''})
-
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
-    const handleEditFormOpen = e => {
-        const id = e.currentTarget.value;
-        setOpenUserForm(true);
-    };
-
-    const delForm = id => {
-
-    }
-
-    const confirmDeleteHandler = e => {
-        let id = e.currentTarget.value;
-        warning(t('translation:sureQuestion'), t('translation:yes'), t('translation:cancel'), t('translation:notDone'), function () {
-            delForm(id);
-        });
-    };
 
     const clickEditBtn = (e) => {
         const curId = e.currentTarget.id
@@ -64,10 +35,8 @@ function WebformsTableComponent({t, setOpenUserForm}) {
     }
 
     useEffect(() => {
-        getFormsMethod(setLoading, setForms)
-    }, []);
-
-    console.log(editBtn)
+        getFormsMethod(setLoading, setForms,setBasicForms)
+    }, [setLoading,setBasicForms,setForms]);
 
     useEffect(() => {
         document.addEventListener('mousedown', clickOutSide); // return function to be called when unmounted
@@ -122,7 +91,9 @@ function WebformsTableComponent({t, setOpenUserForm}) {
                                     <span className="icon-arrow-up"></span>
                                     <StyledUl show={editButtonShow.show === true && editButtonShow.id === form.id}>
                                         <li>{t('translation:observe')}</li>
-                                        <li>negar</li>
+                                        <li>
+                                            <NavLink to={`elements/${form.title}`}>{t('webforms:addElement')}</NavLink>
+                                        </li>
                                         <li>negar</li>
                                     </StyledUl>
                                 </StyledActionBtnForm>

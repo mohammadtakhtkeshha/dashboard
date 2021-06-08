@@ -11,7 +11,7 @@ import {
     StyledSettingsButton
 } from 'assets/js/library/pages/settings';
 import {StyledLabel} from 'assets/js/library/base/typography';
-import SettingsMultiSelect from "./partials/SettingsMultiSelect.jsx"
+import MultiSelectComponent from "infrastructure/authorized/partials/MultiSelectComponent.jsx"
 import {StyledPaddingRelative} from "assets/js/library/pages/settings/settingsTags";
 
 import {addSettingsMethod, handleChangeMethod} from './Index.js';
@@ -31,10 +31,11 @@ function Index({t, settingsTags, setSettingsTags}) {
         <Grid item xs={12} md={4} xl={4}>
             <StyledPaddingRelative>
                 <StyledLabel>{t('contents:keywords')}</StyledLabel>
-                <SettingsMultiSelect field="site_front_keys"
+                <MultiSelectComponent field="site_front_keys"
                                      stringField={settingsTags.site_front_keys}
+                                      placeholder={t('contents:keywords')}
                                      setStringField={setSettingsTags}/>
-                <span>{t('settings:chooseNexWithEnt')}</span>
+
             </StyledPaddingRelative>
         </Grid>
         <Grid item xs={12} md={4} xl={4}>

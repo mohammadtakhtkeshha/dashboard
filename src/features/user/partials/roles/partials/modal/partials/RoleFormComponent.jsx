@@ -5,8 +5,6 @@ import {
     StyledInput, StyledModalFooter,
     StyledTypographyError
 } from "assets/js/App"
-import {StyledFooter} from "assets/js/comment/commentForm"
-import i18next from "i18next"
 import {StyledChoosePermission, StyledPermissionsList} from "assets/js/library/pages/user/roleForm"
 import {grey} from "assets/js/library/abstracts/colors"
 import AppContext from "contexts/AppContext"
@@ -33,13 +31,11 @@ import {
     selectedButtonMethod
 } from "./RoleFormComponent.js"
 import {StyledRegisterButton} from "assets/js/library/components/buttons";
-import {isObjectEmpty} from "methods/commons";
 
 function RoleFormComponent({t, openForm, handleClose, permissions, role, setRole, setShowPermission, showPermission, faRoles, setFaRoles, setEnRoles}) {
-    const lang = i18next.language
     const {setLoading} = useContext(AppContext)
     const [error, setError] = useState({required: true, unique: false})
-console.log(error)
+
     const handleChangeName = (e) => {
         handleChangeNameMethod(e, setRole, setError, faRoles)
     }

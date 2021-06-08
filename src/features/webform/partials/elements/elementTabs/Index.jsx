@@ -4,18 +4,16 @@ import {withNamespaces} from "react-i18next";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 
-import {TabPanel, a11yProps, StyledPaper} from "assets/js/comment/commentTabs";
+import {TabPanel, a11yProps} from "assets/js/comment/commentTabs";
 import {changeTab} from "./Index.js";
 import ElementsList from "./partials/elementsList/Index.jsx"
 import withStyles from "@material-ui/core/styles/withStyles";
 import {styledTabs,StyledElementList} from "assets/js/library/pages/webform/elements";
-import i18next from "i18next";
 
 const StyledTabs = withStyles(styledTabs)(Tabs)
 
 function Index({t}) {
     const [value, setValue] = useState(0);
-    const lang = i18next.language
 
     return (<StyledElementList>
         <StyledTabs value={value} onChange={(e, newValue) => changeTab(e, newValue, setValue)}>

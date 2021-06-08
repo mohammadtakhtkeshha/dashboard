@@ -1,27 +1,22 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useContext} from 'react';
 import {withNamespaces} from 'react-i18next';
-import i18next from 'i18next';
 import {useHistory} from "react-router-dom";
 
 import {StyledInput} from 'assets/js/App';
 import {StyledModalFooter, StyledModalHeader, StyledModalBody} from 'assets/js/library/components/modal';
 import {StyledLabel, StyledTypographyError} from 'assets/js/library/base/typography';
-import {StyledRegisterButton, StyledStatusButtons} from 'assets/js/library/components/buttons';
-import {changeDescription, handleChange, register} from './NewWebformComponent.js'
+import {StyledRegisterButton} from 'assets/js/library/components/buttons';
+import {handleChange, register} from './NewWebformComponent.js'
 import {isObjectEmpty} from 'methods/commons';
 import {Grid} from "@material-ui/core";
 import {StyledTextArea} from "assets/js/comment/commentForm";
-import EditorComponent from "infrastructure/authorized/partials/EditorComponent.jsx";
 import AppContext from "contexts/AppContext";
-import {handleShowInMainPageMethod} from "../../../../content/partials/modal/insideModal/modalForm/contentTabs/partials/FormContentPublishDateComponent";
 import {styledGrid, StyledStatusButtonBox, StyledStatusButton} from "assets/js/library/pages/webform/newWebform";
-import {stringToBoolean} from "methods/commons";
 import {withStyles} from "@material-ui/styles";
 
 const StypedGrid = withStyles(styledGrid)(Grid)
 
-function NewWebformComponent({t, errors, closeForm, setErrors, setElement, webform, setWebform}) {
-    const lang = i18next.language;
+function NewWebformComponent({t, errors, closeForm, setErrors, webform, setWebform}) {
     const {setLoading} = useContext(AppContext);
     const history = useHistory()
     console.log(webform)
@@ -29,16 +24,15 @@ function NewWebformComponent({t, errors, closeForm, setErrors, setElement, webfo
         <StyledModalHeader>{t('webforms:newForm')}</StyledModalHeader>
         <StyledModalBody>
             <Grid container>
-                <Grid item xs={6} md={6}>
+                <Grid item xs={6} md={6} className='form-title'>
                     <StyledLabel>{t('translation:title')}</StyledLabel>
                     <StyledInput
-                        className="first-name"
                         value={webform.title}
                         type="text"
                         placeholder={t('translation:title')}
                         onChange={e => handleChange(e, 'title', setWebform)}/>
                 </Grid>
-                <StypedGrid item xs={6} md={6}>
+                <StypedGrid item xs={6} md={6} className='form-status'>
                     <StyledLabel>{t('translation:status')}</StyledLabel>
                     <StyledStatusButtonBox align='center'>
                         <StyledStatusButton value="true"
@@ -54,21 +48,23 @@ function NewWebformComponent({t, errors, closeForm, setErrors, setElement, webfo
                         </StyledStatusButton>
                     </StyledStatusButtonBox>
                 </StypedGrid>
-                <Grid item xs={12} md={12}>
+                <Grid item xs={12} md={12} className='form-machine-name'>
                     <StyledLabel>{t('webforms:machineName')}</StyledLabel>
                     <StyledInput
-                        className="last-name"
                         value={webform.machin_name}
                         type="text"
                         placeholder={t('webforms:machineName')}
                         onChange={e => handleChange(e, 'machin_name', setWebform)}
                     />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} className='form-description'>
                     <StyledLabel>{t('translation:description')}</StyledLabel>
-                    <StyledTextArea className="textarea" cols="30" rows="10" placeholder={t('translation:description')}
-                                    onChange={(e) => handleChange(e,'description',setWebform)}
-                                    value={webform.description}
+                    <StyledTextArea
+                        cols="30"
+                        rows="10"
+                        placeholder={t('translation:description')}
+                        onChange={(e) => handleChange(e, 'description', setWebform)}
+                        value={webform.description}
                     />
                 </Grid>
                 {errors.name ? (<div>
@@ -83,7 +79,7 @@ function NewWebformComponent({t, errors, closeForm, setErrors, setElement, webfo
         </StyledModalBody>
         <StyledModalFooter>
             <StyledRegisterButton status={isObjectEmpty(errors)}
-                                  onClick={() => register(webform, setLoading, setElement, history)}>
+                                  onClick={() => register(webform, setLoading, history)}>
                 {t('translation:register')}
             </StyledRegisterButton>
         </StyledModalFooter>

@@ -9,25 +9,29 @@ import {StyledRelative} from "assets/js/App";
 import {StyledHelpButton} from "assets/js/library/pages/content/contentHeader";
 import {get} from "libraries/local-storage";
 
-function UserHeaderContentComponent({t, lastActiveFocus,setOpenWebform, setIsTourOpen}) {
+function FormHeaderContentComponent({t, lastActiveFocus, setOpenWebform, setIsTourOpen}) {
     const lang = i18next.language;
     const refList = useRef(null);
     const helpPermission = JSON.parse(get(process.env.REACT_APP_USER))
 
     return (<StyledHead lang={lang}>
-        <StyledHeadTypography className="user-list" ref={refList}>{t('webforms:formsList')}</StyledHeadTypography>
-        <StyledHelpButton permission={helpPermission.permissions['access administration pages'].access} onClick={() => {
-            setIsTourOpen(true)
-        }}>
+        <StyledHeadTypography className="form-list" ref={refList}>{t('webforms:formsList')}</StyledHeadTypography>
+        <StyledHelpButton
+            permission={helpPermission.permissions['access administration pages'].access}
+            onClick={() => {
+                setIsTourOpen(true)
+            }}>
             <Typography>{t('translation:guide')}</Typography>
         </StyledHelpButton>
         <StyledRelative>
-                    <StyledAddButton ref={lastActiveFocus}  className="register-button"
-                                     onClick={() => setOpenWebform(true)}>
-                        <Typography>{t('webforms:newForm')}</Typography>
-                    </StyledAddButton>
+            <StyledAddButton
+                ref={lastActiveFocus}
+                className="register-button"
+                onClick={() => setOpenWebform(true)}>
+                <Typography>{t('webforms:newForm')}</Typography>
+            </StyledAddButton>
         </StyledRelative>
     </StyledHead>);
 }
 
-export default withNamespaces('users,translation')(UserHeaderContentComponent);
+export default withNamespaces('users,translation')(FormHeaderContentComponent);

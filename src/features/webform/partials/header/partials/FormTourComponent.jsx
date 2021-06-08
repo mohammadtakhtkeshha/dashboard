@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from "react";
+import React, {useState, useEffect} from "react";
 import {withNamespaces} from "react-i18next";
 import Tour from 'reactour';
 
 import {StyledCloseGuideButton, StyledNextButton, StyledPrevButton} from "assets/js/partials/guideBlock";
-import {steps} from "./UserTourComponent.js";
+import {steps} from "./FormTourComponent.js";
 
-function UserTourComponent({t, setExpandedFilter, setIsTourOpen, isTourOpen}) {
+function FormTourComponent({t, setExpandedFilter, setIsTourOpen, isTourOpen}) {
     const [currentStep, setCurrentStep] = useState(1);
 
     useEffect(() => {
         if (currentStep > 1) {
-                    setExpandedFilter(true)
-                }
-    }, [currentStep,setExpandedFilter]);
+            setExpandedFilter(true)
+        }
+    }, [currentStep, setExpandedFilter]);
 
     const closeTour = () => {
         setIsTourOpen(false)
@@ -32,8 +32,8 @@ function UserTourComponent({t, setExpandedFilter, setIsTourOpen, isTourOpen}) {
                   isOpen={isTourOpen}
                   showNumber={true}
                   startAt={0}
-                  getCurrentStep={(curr) => setCurrentStep(curr+1)}
-                  onRequestClose={()=>closeTour()}/>);
+                  getCurrentStep={(curr) => setCurrentStep(curr + 1)}
+                  onRequestClose={() => closeTour()}/>);
 }
 
-export default withNamespaces('users,translation')(UserTourComponent);
+export default withNamespaces('users,translation')(FormTourComponent);

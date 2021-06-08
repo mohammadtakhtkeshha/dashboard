@@ -63,7 +63,7 @@ function CommentModalComponent({t, open, setOpen, publishedComments, unconfirmed
                                           commentStatus={commentStatus}
                                           publishedComments={publishedComments}/>
                 </ModalBody>
-                <StyledTourButton onClick={clicked}>
+                <StyledTourButton onClick={clicked} show="true">
                     <HelpIcon/>
                 </StyledTourButton>
                 <Tour showCloseButton={false}

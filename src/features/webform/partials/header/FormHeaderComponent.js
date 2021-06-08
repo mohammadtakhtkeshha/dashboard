@@ -11,7 +11,8 @@ export const steps = [
         ),
         position: 'top',
         stepInteraction: false,
-    }, {
+    },
+    {
         selector: '.user-elementsTable',
         content: ({goTo, inDOM}) => (
             <div>
@@ -19,7 +20,8 @@ export const steps = [
             </div>
         ),
         position: 'top',
-    }, {
+    },
+    {
         selector: '.filter-first-name',
         content: ({goTo, inDOM}) => (
             <div>
@@ -27,7 +29,8 @@ export const steps = [
             </div>
         ),
         position: 'top',
-    }, {
+    },
+    {
         selector: '.filter-last-name',
         content: ({goTo, inDOM}) => (
             <div>
@@ -35,7 +38,8 @@ export const steps = [
             </div>
         ),
         position: 'top',
-    }, {
+    },
+    {
         selector: '.filter-username',
         content: ({goTo, inDOM}) => (
             <div>
@@ -43,7 +47,8 @@ export const steps = [
             </div>
         ),
         position: 'top',
-    }, {
+    },
+    {
         selector: '.filter-email',
         content: ({goTo, inDOM}) => (
             <div>
@@ -51,7 +56,8 @@ export const steps = [
             </div>
         ),
         position: 'top',
-    }, {
+    },
+    {
         selector: '.user-filter-role',
         content: ({goTo, inDOM}) => (
             <div>

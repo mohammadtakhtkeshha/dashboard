@@ -42,11 +42,11 @@ function CommentTableComponent({
   totalPublishPage,
   totalUnconfirmPage,
 }) {
+  const lang = i18next.language;
   const { setLoading } = useContext(AppContext);
   const [page, setPage] = useState(0);
   const [open, setOpen] = useState({ show: false, id: '' });
   const [comment, setComment] = useState({});
-  const lang = i18next.language;
 
   const allCheckboxHandler = e => {
     allCheckboxHandlerMethod(e, comments, page, setSelectedCheckBoxes);

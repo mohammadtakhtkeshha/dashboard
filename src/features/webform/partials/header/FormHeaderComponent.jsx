@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {withNamespaces} from "react-i18next";
 
-import TourHeader from './partials/UserTourComponent.jsx';
-import UserHeaderContentComponent from "./partials/UserHeaderContentComponent.jsx";
+import TourHeader from './partials/FormTourComponent.jsx';
+import UserHeaderContentComponent from "./partials/FormHeaderContentComponent.jsx";
 
-function UserHeaderComponent({t, setOpenWebform, setExpandedFilter,lastActiveFocus}) {
+function FormHeaderComponent({t, setOpenWebform, setExpandedFilter,lastActiveFocus}) {
     const [isTourOpen, setIsTourOpen] = useState(false);
 
     return (<>
@@ -13,4 +13,4 @@ function UserHeaderComponent({t, setOpenWebform, setExpandedFilter,lastActiveFoc
     </>);
 }
 
-export default withNamespaces('users,translation')(UserHeaderComponent);
+export default withNamespaces('users,translation')(FormHeaderComponent);

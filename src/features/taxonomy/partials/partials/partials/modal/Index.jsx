@@ -65,7 +65,7 @@ function Index({t, openForm, setOpenForm, handleCloseForm, states, errors, setEr
                                         getStates={getStates}
                                         openForm={openForm}/>
                 </ModalBody>
-                <StyledTourButton onClick={clicked}>
+                <StyledTourButton onClick={clicked} show="true">
                     <HelpIcon/>
                 </StyledTourButton>
                 <Tour showCloseButton={false}

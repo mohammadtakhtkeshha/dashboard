@@ -3,7 +3,7 @@ import {withNamespaces} from "react-i18next";
 import Tour from "reactour";
 
 import {StyledCloseGuideButton, StyledNextButton, StyledPrevButton} from "assets/js/partials/guideBlock";
-import {steps} from './TourNewUser.js'
+import {steps} from './TourNewForm.js'
 
 
 function Index({t, isTourOpen, setIsTourOpen}) {
