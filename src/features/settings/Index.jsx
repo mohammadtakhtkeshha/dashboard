@@ -21,11 +21,11 @@ function Index({t}) {
   }, [setLoading,setSettingsName,setSettingsTags,setSettingsIcons]); //Once
 
   return (<StyledSettings>
-      <SettingsName settingsName={settingsName} setSettingsName={setSettingsName}/>
-        <SettingsIcons settingsIcons={settingsIcons} setSettingsIcons={setSettingsIcons}/>
-        <SettingsTag settingsTags={settingsTags} setSettingsTags={setSettingsTags}/>
-      <SettingsServices/>
-    </StyledSettings>);
+    <SettingsName settingsName={settingsName} setSettingsName={setSettingsName}/>
+    <SettingsIcons settingsIcons={settingsIcons} setSettingsIcons={setSettingsIcons}/>
+    <SettingsTag settingsTags={settingsTags} setSettingsTags={setSettingsTags}/>
+    <SettingsServices/>
+  </StyledSettings>);
 }
 
 export default withNamespaces('settings, translation')(Index);

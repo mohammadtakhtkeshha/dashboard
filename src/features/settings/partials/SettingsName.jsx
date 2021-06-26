@@ -65,7 +65,7 @@ function SettingsName({t, settingsName, setSettingsName}) {
         <Grid item xs={12} md={12} xl={12}>
             <StyledButtonBlock>
                 <StyledSettingsButton error={`${!isObjectEmpty(errors)}`}
-                    onClick={() => addSettingsMethod(!isObjectEmpty(errors),setLoading, settingsName)}>{t('translation:saveChanges')}</StyledSettingsButton>
+                                      onClick={() => addSettingsMethod(!isObjectEmpty(errors),setLoading, settingsName)}>{t('translation:saveChanges')}</StyledSettingsButton>
             </StyledButtonBlock>
         </Grid>
     </Grid>);

@@ -21,8 +21,7 @@ function UserHeaderContentComponent({t, lastActiveFocus, setOpenUserForm, setIsT
         <StyledGreenButton
             onClick={() => {
                 setIsTourOpen(true)
-            }}
-        >
+            }}>
             <Typography>{t('translation:guide')}</Typography>
         </StyledGreenButton>
         <StyledRelative>
