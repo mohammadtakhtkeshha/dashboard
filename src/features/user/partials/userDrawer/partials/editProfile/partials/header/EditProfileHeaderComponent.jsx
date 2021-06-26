@@ -4,7 +4,7 @@ import i18next from "i18next";
 
 import {StyledEditProfileHeader, StyledEditSvgBlock} from "assets/js/library/pages/user/profile"
 import {StyledData, StyledEditProfile} from "assets/js/user/UserDrawerContent"
-import AvatarComponent from "infrastructure/authorized/partials/AvatarComponent"
+import AvatarComponent from "features/partials/AvatarComponent"
 import storage from "libraries/local-storage"
 import sinusSvg from "assets/svg/sinusSvg.svg"
 import EditIcon from "assets/svg/edit.png"

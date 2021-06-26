@@ -9,15 +9,13 @@ import { StyledHeadTypography} from "assets/js/App"
 import {StyledCloseGuideButton, StyledNextButton, StyledPrevButton} from "assets/js/partials/guideBlock"
 import {steps} from "./CommentHeaderComponent.js"
 import {StyledHeadComment} from "assets/js/library/pages/comment/commentHeader"
-import {StyledHelpButton} from "assets/js/library/pages/content/contentHeader"
-import {get} from "libraries/local-storage"
+import {StyledGreenButton} from "assets/js/library/components/buttons";
 
 function CommentHeaderComponent({t, setExpandedFilter}) {
     const lang = i18next.language
-    const [isTourOpen, setIsTourOpen] = useState(false)
-    const [currentStep, setCurrentStep] = useState(1)
-    const refList = useRef(null)
-    const helpPermission = JSON.parse(get(process.env.REACT_APP_USER))
+    const [isTourOpen, setIsTourOpen] = useState(false);
+    const [currentStep, setCurrentStep] = useState(1);
+    const refList = useRef(null);
 
     const clicked = () => {
         setExpandedFilter(true)
@@ -37,10 +35,12 @@ function CommentHeaderComponent({t, setExpandedFilter}) {
     }
 
     return (<StyledHeadComment lang={lang}>
-        <StyledHeadTypography ref={refList} className="commentList">{t('comments:commentsList')}</StyledHeadTypography>
-        <StyledHelpButton permission={helpPermission.permissions['access administration pages'].access}  onClick={clicked}>
+        <StyledHeadTypography ref={refList} className="commentList">
+            {t('comments:commentsList')}
+        </StyledHeadTypography>
+        <StyledGreenButton onClick={clicked}>
             <Typography>{t('translation:guide')}</Typography>
-        </StyledHelpButton>
+        </StyledGreenButton>
         <Tour showCloseButton={false}
               showNavigation={false}
               showNavigationNumber={false}

@@ -8,7 +8,7 @@ import Radio from '@material-ui/core/Radio';
 
 import {StyledLabel, StyledTypographyError} from 'assets/js/library/base/typography';
 import {StyledInput} from 'assets/js/library/components/input';
-import StyledCheckboxComponent from 'infrastructure/authorized/partials/StyledCheckboxComponent';
+import StyledCheckboxComponent from 'features/partials/StyledCheckboxComponent';
 import {StyledRadioButton, StyledAddButton} from 'assets/js/library/components/buttons';
 import {
     StyledFlexColumn,

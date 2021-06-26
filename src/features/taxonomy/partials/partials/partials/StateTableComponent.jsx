@@ -82,11 +82,14 @@ function StateTableComponent({ t, setOpenForm, setDynamicHeight,dynamicHeight, s
                 title: (
                   <StyledTreeRow>
                     <StyledTypographyTitle>{node.title}</StyledTypographyTitle>
-                    <StyledActionsBlock>
-                      <StyledActionButtons value={node.id} onClick={confirmDeleteHandler}>
+                    <StyledActionsBlock >
+                      <StyledActionButtons
+                          permission="true"
+                          value={node.id} onClick={confirmDeleteHandler}>
                         <img src={deleteIcon} alt="" />
                       </StyledActionButtons>
                       <StyledActionButtons
+                          permission="true"
                         value={node.id}
                         onClick={() => {
                           setOpenForm({ show: true, id: node.id });

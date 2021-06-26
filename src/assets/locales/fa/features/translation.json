@@ -11,6 +11,8 @@
   "active": "فعال",
   "activities": "فعالیت ها",
   "notActive": "غیر فعال",
+  "inactivate": "غیرفعال کردن",
+  "activate": "فعال کردن",
   "actions": "عملیات",
   "date": "تاریخ",
   "published": "منتشر شده",

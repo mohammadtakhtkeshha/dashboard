@@ -3,7 +3,7 @@ import {withNamespaces} from "react-i18next";
 
 import {Box, Grid} from "@material-ui/core";
 
-import EditorComponent from "infrastructure/authorized/partials/EditorComponent.jsx";
+import EditorComponent from "features/partials/EditorComponent.jsx";
 import ContentsContext from "contexts/ContentsContext";
 
 function FormContentDescriptionComponent({t}) {

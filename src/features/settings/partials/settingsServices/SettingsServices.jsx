@@ -19,7 +19,7 @@ function SettingsServices({t}) {
             <StyledServiceBox>
                 <SettingsStatusButton setValue={setMessageStatus} value={messageStatus}/>
                 <StyledImgBox backgroundColor={green[12]} soon={false} status={messageStatus}>
-                    <span className="icon-message"></span>
+                    <span className="icon-message1"></span>
                     <span>سرویس پیامک</span>
                 </StyledImgBox>
             </StyledServiceBox>
@@ -41,7 +41,7 @@ function SettingsServices({t}) {
             <StyledServiceBox>
                 <SettingsStatusButton setValue={setChatStatus} value={chatStatus}/>
                 <StyledImgBox backgroundColor={orange[5]} soon={false} status={chatStatus}>
-                       <span className="icon-chat"><span className="path1"></span><span
+                       <span className="icon-chat1"><span className="path1"></span><span
                            className="path2"></span><span
                            className="path3"></span><span className="path4"></span><span className="path5"></span><span
                            className="path6"></span><span className="path7"></span></span>
@@ -53,7 +53,7 @@ function SettingsServices({t}) {
             <StyledServiceBox>
                 <SettingsStatusButton setValue={setChatStatus} value={chatStatus}/>
                 <StyledImgBox backgroundColor={blue[22]} soon={false} status={chatStatus}>
-                       <span className="icon-chat"><span className="path1"></span><span
+                       <span className="icon-chat1"><span className="path1"></span><span
                            className="path2"></span><span
                            className="path3"></span><span className="path4"></span><span className="path5"></span><span
                            className="path6"></span><span className="path7"></span></span>

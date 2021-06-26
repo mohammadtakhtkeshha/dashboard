@@ -33,6 +33,7 @@ export const listItemModalStyles = (theme) => ({
         borderBottom: '1px solid #BBC3CE',
         cursor: 'pointer',
         color: black[0],
+        display:props => props.permission === 'true' ? 'flex' : 'none',
         '&:last-child': {
             borderBottom: '0!important'
         },

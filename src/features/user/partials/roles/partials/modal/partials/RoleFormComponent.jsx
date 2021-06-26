@@ -20,7 +20,7 @@ import {
     StyledPermissionName,
 } from "assets/js/library/pages/user/roles"
 import {StyledModalBody, StyledModalHeader} from "assets/js/library/components/modal"
-import StyledCheckboxComponent from "infrastructure/authorized/partials/StyledCheckboxComponent"
+import StyledCheckboxComponent from "features/partials/StyledCheckboxComponent"
 import {
     editAndAddRoleMethod,
     handleChangeNameMethod,

@@ -5,7 +5,7 @@ import {Box} from '@material-ui/core/index';
 
 import AppContext from 'contexts/AppContext';
 import {StyledModalFooter, StyledModalHeader, StyledModalBody} from 'assets/js/library/components/modal';
-import UploadImgComponent from 'infrastructure/authorized/partials/UploadImgComponent';
+import UploadImgComponent from 'features/partials/UploadImgComponent';
 
 import {StyledRegisterButton} from 'assets/js/library/components/buttons';
 import {

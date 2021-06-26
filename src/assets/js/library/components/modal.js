@@ -73,7 +73,7 @@ export const modalClasses = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        zIndex: '50!important',
+        zIndex: '200!important',
         '& .MuiBackdrop-root': {
             backgroundColor: 'white!important',
         },

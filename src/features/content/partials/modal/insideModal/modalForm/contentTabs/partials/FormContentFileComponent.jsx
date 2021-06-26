@@ -3,7 +3,7 @@ import { withNamespaces } from 'react-i18next';
 
 import { Grid, withStyles } from '@material-ui/core';
 
-import UploadFile from 'infrastructure/authorized/partials/UploadImgComponent.jsx';
+import UploadFile from 'features/partials/UploadImgComponent.jsx';
 import AppContext from 'contexts/AppContext';
 import { removeMultiImgMethod, uploadVideoMethod, uploadVoiceMethod, removeVideoMethod, removeVoiceMethod } from './FormContentFileComponent.js';
 import { uploadImgMethod } from './FormContentTitleAndImgComponent.js';
@@ -11,7 +11,7 @@ import { uploadImgMethod } from './FormContentTitleAndImgComponent.js';
 import ContentsContext from 'contexts/ContentsContext';
 import { StyledAlignTypography } from 'assets/js/App';
 import { styledGridSoundFile, styledGridVideoFile } from 'assets/js/content/partials/modal/insideModal/modalForm/contentTabs/contentTabs';
-import UploadImgComponent from 'infrastructure/authorized/partials/UploadImgComponent';
+import UploadImgComponent from 'features/partials/UploadImgComponent';
 import {
   styledGridMultiImgBlock,
   StyledImgsInputBlock,

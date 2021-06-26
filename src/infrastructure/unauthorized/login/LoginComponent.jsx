@@ -23,7 +23,7 @@ import {
   StyledRegisterLoginButton,
 } from 'assets/js/login';
 import { loginMethod, changeInputMethod, keyUpMethod } from './LoginComponent.js';
-import StyledCheckboxComponent from 'infrastructure/authorized/partials/StyledCheckboxComponent';
+import StyledCheckboxComponent from 'features/partials/StyledCheckboxComponent';
 import { grey } from 'assets/js/library/abstracts/colors';
 import { get } from 'libraries/local-storage';
 
@@ -90,9 +90,11 @@ function LoginComponent({ t, isTicketLogin, setIsTicketLogIn }) {
   return (
     <LoginBlock>
       <Grid container>
+
         <StyledGridLogin item sm>
           <Box>
             <Box>
+
               <CardMedia>
                 <img src={iconImg} alt="recipe thumbnail" />
               </CardMedia>
@@ -111,7 +113,7 @@ function LoginComponent({ t, isTicketLogin, setIsTicketLogIn }) {
                     onKeyUp={key_up}
                     onChange={e => changeInput(e, 'name')}
                   />
-                  <StyledSvgInput className="icon-user"></StyledSvgInput>
+                  <StyledSvgInput className="icon-user1"></StyledSvgInput>
                 </StyledRelativeBlock>
                 {errors.errorName ? <StyledTypographyError lang={lang}>{t('users:forceUsername')}</StyledTypographyError> : ''}
               </InputBlock>
@@ -128,7 +130,8 @@ function LoginComponent({ t, isTicketLogin, setIsTicketLogIn }) {
                   />
                   <StyledSvgInput
                     className={passwordType === 'type' ? 'icon-password' : 'icon-password-blocked'}
-                    onClick={clickEypePassword}></StyledSvgInput>
+                    // className={passwordType === 'type' ? 'icon-eye1' : 'icon-eye-hide1'}
+                    onClick={clickEypePassword}/>
                 </StyledRelativeBlock>
                 {errors.errorPass ? <StyledTypographyError lang={lang}>{t('users:forcePassword')}</StyledTypographyError> : ''}
               </InputBlock>

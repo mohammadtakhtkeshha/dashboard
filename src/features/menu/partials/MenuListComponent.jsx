@@ -69,7 +69,6 @@ function MenuListComponent({t, setOpenForm, menus, setMenus, getMenus, dynamicHe
             }
         }
         addToHeight(e)
-        debugger
         setDynamicHeight(`${currentCount * 63}px`);
     };
 

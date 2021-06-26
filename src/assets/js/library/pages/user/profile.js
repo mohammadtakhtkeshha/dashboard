@@ -45,10 +45,11 @@ export const StyledUserDrawer = styled.div`
              position: fixed;
              top: 0;
              left: 0;
+             bottom:0;
              width: ${({showUserDrawer})=> showUserDrawer  ? '100vw' : '0'};
              height: 100vh;
              direction: ${({lang}) => lang === 'fa' ? 'ltr!important' : 'rtl!important'};
-             marginTop: 0;
+             margin-top: 0;
              background-color: rgba(0, 0, 0, 0.3);
              z-index: 50;
              overflow: hidden;

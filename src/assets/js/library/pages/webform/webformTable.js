@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import {blue, white, black} from "assets/js/library/abstracts/colors"
+import {withStyles} from "@material-ui/core/styles";
+import MenuItem from "@material-ui/core/MenuItem";
 
 export const StyledActionBtnForm = styled.button`
             position:relative;
@@ -24,11 +26,11 @@ export const StyledActionBtnForm = styled.button`
 
 export const StyledUl = styled.ul`
                 list-style-type:none;
-                display:${({show}) => show ? 'block' : 'none'};
                 color:${black[0]};
                 position:absolute;
                 border-radius:4px;
-                top:82%;
+                // bottom:1.9rem;
+                top:80%;
                 left:0;
                 width:100%;
                 padding:0;
@@ -36,12 +38,34 @@ export const StyledUl = styled.ul`
                 z-index:100;
                 background-color:${white[0]};
                 & li {
-                    padding: 10px 10px;
+                    padding: 5px 10px;
                     text-align:right;
                     &:hover{
                         background-color:${blue[12]};
                     }
                 }
 `
+
+
+export const StyledMenuItem = withStyles((theme) => ({
+    root: {
+        display:props => props.permission === 'true' ? 'block' : 'none',
+        '&:focus': {
+            '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+                color: theme.palette.common.white,
+            },
+        },
+    },
+}))(MenuItem);
+
+export const menu = {
+    paper: {
+        width: '112px',
+        boxShadow: '1px 1px 10px grey',
+        borderRadius: '0!important',
+    },
+}
+
+
 
 

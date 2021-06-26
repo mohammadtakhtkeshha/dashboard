@@ -17,7 +17,7 @@ import {
     StyledLi,
     StyledUl,
 } from "assets/js/user/UserDrawerContent"
-import AvatarComponent from "infrastructure/authorized/partials/AvatarComponent.jsx"
+import AvatarComponent from "features/partials/AvatarComponent.jsx"
 import AppContext from "contexts/AppContext"
 import sinusSvg from "assets/svg/sinusSvg.svg"
 import {logout} from "core/services/auth.service"

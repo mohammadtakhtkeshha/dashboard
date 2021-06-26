@@ -10,7 +10,7 @@ import {
     StyledCheckboxImgInTable,
     StyledTableCell
 } from "assets/js/library/components/table"
-import StyledCheckboxComponent from "infrastructure/authorized/partials/StyledCheckboxComponent";
+import StyledCheckboxComponent from "features/partials/StyledCheckboxComponent";
 import AppContext from "contexts/AppContext";
 import { allCheckboxHandlerMethod} from "./ContentTableComponent.js"
 import TrContentComponent from "./partials/TrContentComponent.jsx";
@@ -25,6 +25,7 @@ function ContentTableComponent({t, selectedCheckBoxes, setSelectedCheckBoxes, pa
     const allCheckboxHandler = (e) => {
         allCheckboxHandlerMethod(e, contentsContext, page, setSelectedCheckBoxes)
     }
+
 
     return (<StyledTable>
         <StyledTableHeadTr>

@@ -82,16 +82,16 @@ function RealTimeComponent({ t }) {
                       {item.serverTimePrettyFirstAction}
                       {item.serverDatePretty}
                       <span>
-                        <StyledIconMatamo src={`https://foroshgahsaz.ir/matomo/${item.deviceTypeIcon}`} alt="" />
+                        {item.deviceTypeIcon && <StyledIconMatamo src={`https://foroshgahsaz.ir/matomo/${item.deviceTypeIcon}`} alt="" />}
                       </span>
                       <span>
-                        <StyledIconMatamo src={`https://foroshgahsaz.ir/matomo/${item.browserIcon}`} alt="" />
+                        {item.browserIcon && <StyledIconMatamo src={`https://foroshgahsaz.ir/matomo/${item.browserIcon}`} alt="" />}
                       </span>
                       <span>
-                        <StyledIconMatamo src={`https://foroshgahsaz.ir/matomo/${item.operatingSystemIcon}`} alt="" />
+                        {item.operatingSystemIcon && <StyledIconMatamo src={`https://foroshgahsaz.ir/matomo/${item.operatingSystemIcon}`} alt="" />}
                       </span>
                       <span>
-                        <StyledIconMatamo src={`https://foroshgahsaz.ir/matomo/${item.visitorTypeIcon}`} alt="" />
+                        {item.visitorTypeIcon && <StyledIconMatamo src={`https://foroshgahsaz.ir/matomo/${item.visitorTypeIcon}`} alt=""/>}
                       </span>
                     </StyledTableCellRealtime>
                     <StyledBoxRefer>

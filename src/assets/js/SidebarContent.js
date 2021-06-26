@@ -50,6 +50,7 @@ export const StyledSidebar = styled.div`
 
 export const LiStyles = () => ({
   root: {
+    display:props=>props.display === 'true' ? 'block':'none',
     '&:not(:last-child)': {
       borderBottom: `1px solid  ${grey[11]}`,
     },
@@ -57,15 +58,19 @@ export const LiStyles = () => ({
     cursor: 'pointer',
     padding: '0!important',
     // paddingBottom:'0!important',
-    '& .icon': {
+    '& [class*=icon-]': {
       width: '35px',
       height: '35px',
       backgroundColor: `${grey[13]}!important`,
       borderRadius: '5px',
-      background: props => `url(${props.img}) no-repeat center`,
+      // background: props => `url(${props.img}) no-repeat center`,
       transition: 'background .3s',
       transitionDelay: '.3s',
       padding: '0',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      fontSize: '21px',
     },
     '&:hover': {
       '& .icon': {

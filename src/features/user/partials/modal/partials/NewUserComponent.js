@@ -57,7 +57,7 @@ function checkPass(pass, type, id) {
         }
     }
     // let regex = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}:؟|,\.?~_+-=\|])/
-    let regex = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}:؟|,.?~_+-=|])/;
+    let regex = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*!@$%^&(){}:؟|,\.?~_+=\|-])/;
     if (!regex.test(pass)) {
         valid = 'شامل اعداد حروف بزرگ و کوچک و علامت ها خاص نمیباشد!';
     }
@@ -86,7 +86,6 @@ function checkName(name, exName, userNameList) {
     } else if (currentNameList.includes(name)) {
         unique = i18next.t('translation:uniqueValidation');
     }
-    debugger
     return {unique, required};
 }
 
@@ -209,7 +208,6 @@ export const nameValidation = (name, exName, userNameList, setErrors) => {
 export const mailValidation = (mail, exMail, userMailList, setErrors) => {
     const {valid, unique, required} = checkMail(mail, exMail, userMailList);
     setErrors(prevState => {
-        debugger
         if (required !== '') {
             return {
                 ...prevState,

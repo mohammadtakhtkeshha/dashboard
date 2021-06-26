@@ -17,7 +17,7 @@ function MenuHeaderComponent({t, setOpenForm}) {
     const lang = i18next.language;
     const [isTourOpen, setIsTourOpen] = useState(false);
     const [currentStep, setCurrentStep] = useState(1);
-    const helpPermission = JSON.parse(get(process.env.REACT_APP_USER));
+    const {permissions} = JSON.parse(get(process.env.REACT_APP_USER));
 
     const closeTour = () => {
         setIsTourOpen(false)
@@ -27,7 +27,7 @@ function MenuHeaderComponent({t, setOpenForm}) {
     return (
         <StyledHead lang={lang}>
             <StyledHeadTypography className='user-list'>{t("menu:menuList")}</StyledHeadTypography>
-            <StyledHelpButton permission={helpPermission.permissions["access administration pages"].access}
+            <StyledHelpButton permission={permissions["access administration pages"].access}
                               onClick={() => setIsTourOpen(true)}>
                 <Typography>{t("translation:guide")}</Typography>
             </StyledHelpButton>

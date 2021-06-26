@@ -15,5 +15,10 @@ export const handleChangeMethod = (e, field, setSettingsTags) => {
     setSettingsTags(prevState =>{
         return {...prevState,[field]:value}
     })
+}
 
+export const changeMultiSelectMethod = (arr, setSettingsTags) => {
+    setSettingsTags(prevState => {
+        return {...prevState, site_front_keys: arr.toString()}
+    })
 }

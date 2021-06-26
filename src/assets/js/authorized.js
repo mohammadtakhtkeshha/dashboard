@@ -35,6 +35,11 @@ export const styledGridContent = (theme) => ({
         },
         boxSizing: 'border-box',
         padding: theme.spacing(2),
+        '@media only screen and (max-width: 992px)':{
+            '&':{
+                padding: `${theme.spacing(2)}px 5px`,
+            }
+        },
         margin: props => props.lang === 'en' ? (props.ismobile === "true" ? '0 0 0 auto':'50px 0 0 auto') : (props.ismobile === "true" ? '0 auto 0 0':'50px auto 0 0'),
     }
 })

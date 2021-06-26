@@ -32,15 +32,13 @@ function Index({t}) {
     //     }
     // }, [appContext])
 
-
-
     const getMenus = () => {
-        getMenusMethod(setLoading, setMenus, type,setDynamicHeight);
+        getMenusMethod(setLoading, setMenus, type, setDynamicHeight);
     }
 
     useEffect(() => {
-        getMenusMethod(setLoading, setMenus, type,setDynamicHeight);
-    }, [setLoading, type,setDynamicHeight]);
+        getMenusMethod(setLoading, setMenus, type, setDynamicHeight);
+    }, [setLoading, type, setDynamicHeight]);
 
     useEffect(() => {
         if (openForm.id !== '') {//edit
@@ -48,32 +46,29 @@ function Index({t}) {
         }
     }, [openForm.id, setLoading]);
 
-
-    return (
-        <>
-            <Helmet>
-                <title>{t('taxonomy:menus')}</title>
-            </Helmet>
-            <MenuHeaderComponent setOpenForm={setOpenForm}/>
-            <MenuListComponent
-                setOpenForm={setOpenForm} menus={menus} setDynamicHeight={setDynamicHeight}
-                               dynamicHeight={dynamicHeight} getMenus={getMenus} setMenus={setMenus}/>
-            <ModalMenu
-                menus={menus}
-                openForm={openForm}
-                link={link}
-                setLink={setLink}
-                setOpenForm={setOpenForm}
-                setErrors={setErrors}
-                errors={errors}
-                closeForm={closeForm}
-                menu={menu}
-                setMenu={setMenu}
-                getMenus={getMenus}
-                handleCloseForm={closeForm}
-            />
-        </>
-    );
+    return (<>
+        <Helmet>
+            <title>{t('taxonomy:menus')}</title>
+        </Helmet>
+        <MenuHeaderComponent setOpenForm={setOpenForm}/>
+        {/*<MenuListComponent*/}
+        {/*    setOpenForm={setOpenForm} menus={menus} setDynamicHeight={setDynamicHeight}*/}
+        {/*    dynamicHeight={dynamicHeight} getMenus={getMenus} setMenus={setMenus}/>*/}
+        {/*<ModalMenu*/}
+        {/*    menus={menus}*/}
+        {/*    openForm={openForm}*/}
+        {/*    link={link}*/}
+        {/*    setLink={setLink}*/}
+        {/*    setOpenForm={setOpenForm}*/}
+        {/*    setErrors={setErrors}*/}
+        {/*    errors={errors}*/}
+        {/*    closeForm={closeForm}*/}
+        {/*    menu={menu}*/}
+        {/*    setMenu={setMenu}*/}
+        {/*    getMenus={getMenus}*/}
+        {/*    handleCloseForm={closeForm}*/}
+        {/*/>*/}
+    </>);
 }
 
 export default withNamespaces('translation,taxonomy')(Index);

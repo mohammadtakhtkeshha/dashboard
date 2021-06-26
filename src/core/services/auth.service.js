@@ -24,8 +24,7 @@ export async function login(user) {
 
   const loginResult = await axios.post(tokenUrl, body);
   const token = `Bearer ${loginResult.data.access_token}`;
-  storage.store(process.env.REACT_APP_TOKEN_KEY, token);
-  storage.store(process.env.REACT_APP_REFRESH_TOKEN, loginResult.data.refresh_token);
+
   const config = {
     headers: {
       Authorization: token,
@@ -33,6 +32,13 @@ export async function login(user) {
   };
   const getAdminData = await axios.get(debugUrl, config);
   const { data } = await axios.get(csrfUrl);
+
+  debugger
+  storage.store(process.env.REACT_APP_TOKEN_KEY, token);
+  storage.store(process.env.REACT_APP_REFRESH_TOKEN, loginResult.data.refresh_token);
+
+
+
   storage.store('user', JSON.stringify(getAdminData.data));
   storage.store(process.env.REACT_APP_CSRF, JSON.stringify(data));
   return loginResult;

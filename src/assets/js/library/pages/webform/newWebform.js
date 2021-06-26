@@ -9,6 +9,12 @@ export const styledGrid = () => ({
     }
 })
 
+export const styledGridFormId = () => ({
+    root: {
+        display: props => props.display ? 'block' : 'none',
+    }
+})
+
 export const stylesGridOptions = () => ({
     root: {
         display:props => props.display !== undefined ? 'block' : 'none'

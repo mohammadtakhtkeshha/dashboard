@@ -125,8 +125,7 @@ export const handleDefaultParentMethod = (category, setSelectedParents, states) 
         return title;
       }
       title = recursive(states);
-      for (let i = 0; i < category.parent; i++) {
-        // for (let parent of category.parent) {
+      for (let i of category.parent) {
         selectedParent.push({ id: id, name: title });
       }
       setSelectedParents(selectedParent);

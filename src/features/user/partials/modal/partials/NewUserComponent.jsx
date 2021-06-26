@@ -11,7 +11,7 @@ import AppContext from 'contexts/AppContext';
 import {StyledInput, StyledRadioButton} from 'assets/js/App';
 import {StyledModalFooter, StyledModalHeader, StyledModalBody} from 'assets/js/library/components/modal';
 import {StyledLabel, StyledTypographyError} from 'assets/js/library/base/typography';
-import UploadImgComponent from 'infrastructure/authorized/partials/UploadImgComponent';
+import UploadImgComponent from 'features/partials/UploadImgComponent';
 import {
     StyledFlexColumn,
     StyledFlexItemInside,
@@ -34,7 +34,7 @@ import {
     handleCheckRolesMethod,
 } from './NewUserComponent.js';
 import {isObjectEmpty} from 'methods/commons';
-import StyledCheckboxComponent from 'infrastructure/authorized/partials/StyledCheckboxComponent';
+import StyledCheckboxComponent from 'features/partials/StyledCheckboxComponent';
 
 function NewUserComponent({
                               t,
@@ -99,7 +99,11 @@ function NewUserComponent({
         handleStatusChangeMethod(e, setUser);
     };
 
-    const handleErrors = useCallback(() => {
+    useEffect(() => {
+        getUserMethod(setLoading, id, setDefaultRoles, setUser, setGottenMail, setImgAndUrl, setGottenName);
+    }, [setLoading, id, setUser]); //Once
+
+    useEffect(() => {
         if (id === '') {
             setErrors({
                 pass: {required: 'حداقل تعداد کاراکتر 8 میباشد!'},
@@ -107,15 +111,7 @@ function NewUserComponent({
                 mail: {required: 'وارد کردن فیلد مورد نظر الزامیست!'},
             });
         }
-    }, [setErrors, id]);
-
-    useEffect(() => {
-        getUserMethod(setLoading, id, setDefaultRoles, setUser, setGottenMail, setImgAndUrl, setGottenName);
-    }, [setLoading, id, setUser]); //Once
-
-    useEffect(() => {
-        handleErrors();
-    }, [handleErrors]);
+    }, [setErrors,id]);
 
     return (
         <>

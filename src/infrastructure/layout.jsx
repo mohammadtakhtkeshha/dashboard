@@ -15,7 +15,7 @@ import LoadingComponent from 'features/partials/LoadingComponent';
 import { defaultStyles, StyledBox, layoutClasses } from 'assets/js/layout.js';
 import { handleErrorMethod } from './layout.js';
 import { makeStyles } from '@material-ui/styles';
-import AuthorizedComponent from 'infrastructure/authorized/authorized.jsx';
+import AuthorizedComponent from 'infrastructure/authorized/Authorized.jsx';
 import ForgetPasswordComponent from 'infrastructure/unauthorized/ForgetPasswordComponent';
 import LoginComponent from 'infrastructure/unauthorized/login/LoginComponent.jsx';
 

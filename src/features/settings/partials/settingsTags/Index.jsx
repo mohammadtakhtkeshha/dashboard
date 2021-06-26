@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {withNamespaces} from 'react-i18next';
 
 import {Grid} from '@material-ui/core';
@@ -11,13 +11,14 @@ import {
     StyledSettingsButton
 } from 'assets/js/library/pages/settings';
 import {StyledLabel} from 'assets/js/library/base/typography';
-import MultiSelectComponent from "infrastructure/authorized/partials/MultiSelectComponent.jsx"
+import MultiSelectComponent from "features/partials/MultiSelectComponent.jsx"
 import {StyledPaddingRelative} from "assets/js/library/pages/settings/settingsTags";
 
-import {addSettingsMethod, handleChangeMethod} from './Index.js';
+import {addSettingsMethod, handleChangeMethod, changeMultiSelectMethod} from './Index.js';
 
 function Index({t, settingsTags, setSettingsTags}) {
     const {setLoading} = useContext(AppContext);
+    const [fieldOptionArr, setFieldOptionArr] = useState([]);
 
     const handleChange = (e, field) => {
         handleChangeMethod(e, field, setSettingsTags);
@@ -27,15 +28,32 @@ function Index({t, settingsTags, setSettingsTags}) {
     // site_front_abs , //summary
     // site_front_keys , //keywords
 
+    const changeMultiSelect = (arr) => {
+        changeMultiSelectMethod(arr, setSettingsTags)
+    }
+
+    useEffect(() => {
+        const {site_front_keys} = settingsTags;
+        switch (site_front_keys) {
+            case '':
+                setFieldOptionArr([]);
+                break;
+            default:
+                const arrSiteFrontKeys = site_front_keys.split(',');
+                setFieldOptionArr([...arrSiteFrontKeys]);
+        }
+    }, [setFieldOptionArr, settingsTags]);
+
     return (<Grid container>
         <Grid item xs={12} md={4} xl={4}>
             <StyledPaddingRelative>
                 <StyledLabel>{t('contents:keywords')}</StyledLabel>
-                <MultiSelectComponent field="site_front_keys"
-                                     stringField={settingsTags.site_front_keys}
-                                      placeholder={t('contents:keywords')}
-                                     setStringField={setSettingsTags}/>
-
+                <MultiSelectComponent
+                    array={fieldOptionArr}
+                    setArray={setFieldOptionArr}
+                    placeholder={t('contents:keywords')}
+                    changeMultiSelect={changeMultiSelect}
+                />
             </StyledPaddingRelative>
         </Grid>
         <Grid item xs={12} md={4} xl={4}>
@@ -59,7 +77,6 @@ function Index({t, settingsTags, setSettingsTags}) {
                 />
             </StyledPadding>
         </Grid>
-
         <Grid item xs={12} md={12} xl={12}>
             <StyledButtonBlock>
                 <StyledSettingsButton error={false} onClick={() => addSettingsMethod(setLoading, settingsTags)}>

@@ -30,7 +30,6 @@ export const editUserMethod = (id, user, setLoading, getEditedUser, errors,setIs
             setLoading(false);
             let item = response.data;
             const currentUser = JSON.parse(get('user'))
-            debugger
             currentUser.image = item.user_picture[0].url
             store('user',JSON.stringify(currentUser))
             getNewTokenMethod(setLoading)

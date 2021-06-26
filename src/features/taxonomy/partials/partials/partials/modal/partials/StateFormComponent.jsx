@@ -14,7 +14,7 @@ import {
     StyledModalHeader,
     StyledModalBody,
 } from 'assets/js/App';
-import MultiSelect from 'infrastructure/authorized/partials/AutocompleteComponent.jsx';
+import MultiSelect from 'features/partials/AutocompleteComponent.jsx';
 import {
     registerMethod,
     changePublishStatusMethod,
@@ -24,9 +24,9 @@ import {
     handleDefaultParentMethod,
     handleChangeMethod,
 } from './StateFormComponent.js';
-import EditorComponent from 'infrastructure/authorized/partials/EditorComponent.jsx';
+import EditorComponent from 'features/partials/EditorComponent.jsx';
 import {getParentAndItsIdsMethod} from './StateFormComponent.js';
-import StyledCheckboxComponent from 'infrastructure/authorized/partials/StyledCheckboxComponent';
+import StyledCheckboxComponent from 'features/partials/StyledCheckboxComponent';
 import {styledGridParent} from 'assets/js/taxonomy/stateForm';
 import {isObjectEmpty} from 'methods/commons';
 import {StyledRegisterButton} from 'assets/js/taxonomy/stateForm';

@@ -10,7 +10,7 @@ import SettingsTag from "./partials/settingsTags/Index.jsx";
 import SettingsIcons from "./partials/settingsIcon/Index.jsx";
 import SettingsServices from "./partials/settingsServices/SettingsServices.jsx";
 
-function Index({ t }) {
+function Index({t}) {
   const { setLoading } = useContext(AppContext);
   const [settingsName, setSettingsName] = useState(constSettingsName);
   const [settingsIcons, setSettingsIcons] = useState(constSettingsIcons);
@@ -20,14 +20,12 @@ function Index({ t }) {
     getSettingsMethod(setLoading,setSettingsName,setSettingsTags,setSettingsIcons);
   }, [setLoading,setSettingsName,setSettingsTags,setSettingsIcons]); //Once
 
-  return (
-    <StyledSettings>
+  return (<StyledSettings>
       <SettingsName settingsName={settingsName} setSettingsName={setSettingsName}/>
         <SettingsIcons settingsIcons={settingsIcons} setSettingsIcons={setSettingsIcons}/>
         <SettingsTag settingsTags={settingsTags} setSettingsTags={setSettingsTags}/>
       <SettingsServices/>
-    </StyledSettings>
-  );
+    </StyledSettings>);
 }
 
 export default withNamespaces('settings, translation')(Index);

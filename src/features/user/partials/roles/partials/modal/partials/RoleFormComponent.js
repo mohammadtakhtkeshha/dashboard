@@ -132,12 +132,9 @@ const nameRequireValidation = (faRoles, value, setError) => {
     let curStatus = false;
     if (faRoles.includes(value)) {
         curStatus = true;
-        debugger
     } else {
         curStatus = false;
-        debugger
     }
-    debugger
     setError(prevState => {
         prevState.unique = curStatus;
         return {...prevState};
@@ -177,14 +174,13 @@ export const clickPermissionButtonMethod = (e, setShowPermission, permissions, s
     });
     setShowPermission(prevState => {
         for (let index in prevState) {
-            if (index === currentIndex) {debugger
+            if (index === currentIndex) {
                 prevState[index].status = currentStatus;
             }
         }
         return [...prevState];
 
     });
-    debugger
 };
 
 const findIndexOfParent = (permissions, value) => {

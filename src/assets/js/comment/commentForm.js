@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import {grey} from "assets/js/library/abstracts/colors";
+import {green, grey, red, white} from "assets/js/library/abstracts/colors";
+import {StyledDefaultButton, StyledStatusButtons} from "../library/components/buttons";
 
 export const StyledHeader = styled.div`
         padding:15px;
@@ -51,3 +52,16 @@ export const StyledTextArea = styled.textarea`
                 outline-offset:0!important;
              }
 `
+
+export const StyledButtonStatus = styled(StyledDefaultButton)`
+             background-color:${({status})=> status ? green[0] : red[0]};
+             color:${white[0]};
+             height:44px;
+             width:100%;
+`
+export const styledGridStatus = () => ({
+    root: {
+        padding:props => props.lang === 'en' ? '0 0 0 10px' : '0 10px 0 0 ' ,
+        boxSizing:'border-box'
+    }
+})

@@ -1,5 +1,4 @@
 import React from 'react';
-// import 'App.css';
 import {Switch, Route} from "react-router-dom";
 import {routes} from 'store/routes';
 import AuthorizedContext from "contexts/AuthorizedContext";

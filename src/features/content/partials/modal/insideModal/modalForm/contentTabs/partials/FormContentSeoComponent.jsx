@@ -9,7 +9,7 @@ import { StyledInput, MarginTop1, StyledAlignTypography, StyledTypographyError }
 import { StyledRowBox, StyledRow, StyledCol } from 'assets/js/content/partials/contents';
 import { clickEditorMetaTagMethod, seoChangedMethod } from './FormContentSeoComponent.js';
 import ContentsContext from 'contexts/ContentsContext';
-import StyledCheckboxComponent from 'infrastructure/authorized/partials/StyledCheckboxComponent';
+import StyledCheckboxComponent from 'features/partials/StyledCheckboxComponent';
 import { handleChangeAutoPathMethod, handleChangePathMethod } from './FormContentTitleAndImgComponent.js';
 import { StyledMt1 } from 'assets/js/library/base/typography';
 

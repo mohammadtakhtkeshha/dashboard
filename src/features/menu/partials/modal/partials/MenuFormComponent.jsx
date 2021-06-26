@@ -6,7 +6,7 @@ import {withStyles} from '@material-ui/core/styles';
 
 import AppContext from 'contexts/AppContext';
 import {StyledInput, StyledTypographyError, StyledModalFooter, StyledModalHeader, StyledModalBody} from 'assets/js/App';
-import MultiSelect from 'infrastructure/authorized/partials/AutocompleteComponent.jsx';
+import MultiSelect from 'features/partials/AutocompleteComponent.jsx';
 import {StyledLabel} from 'assets/js/App';
 import {StyledRegisterButton} from 'assets/js/library/components/buttons';
 
@@ -20,7 +20,7 @@ import {
     handleErrorsMethod,
     getParentAndItsIdsMethod,
 } from './MenuFormComponent.js';
-import StyledCheckboxComponent from 'infrastructure/authorized/partials/StyledCheckboxComponent';
+import StyledCheckboxComponent from 'features/partials/StyledCheckboxComponent';
 import {styledGridParent, styledGridActive} from 'assets/js/taxonomy/stateForm';
 import {isObjectEmpty} from 'methods/commons';
 

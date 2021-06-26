@@ -50,6 +50,12 @@ export const StyledElementList = styled.div`
              padding: 32px 33px;
 `
 
+export const styledTabPanel = () => ({
+    root:{
+        display:props => props.permission === 'true' ? 'block' : 'none'
+    }
+})
+
 export const StyledRequiredBlock = styled.div`
               display:flex;
               min-height:32px;

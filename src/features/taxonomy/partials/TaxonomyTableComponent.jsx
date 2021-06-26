@@ -15,9 +15,6 @@ function TaxonomyTableComponent({t, taxonomies}) {
             <StyledTableCell>
                 {t('translation:name')}
             </StyledTableCell>
-            {/*<StyledTableCell>*/}
-            {/*    {t('translation:action')}*/}
-            {/*</StyledTableCell>*/}
         </StyledTableHeadTr>
         <StyledTableBody>
             {taxonomies.length > 0 ? (taxonomies?.map((taxonomy, index) => (

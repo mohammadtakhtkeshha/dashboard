@@ -5,7 +5,7 @@ import {withNamespaces} from "react-i18next";
 import {Grid} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 
-import DatePickerrComponent from "infrastructure/authorized/partials/DatePickerrComponent";
+import DatePickerrComponent from "features/partials/DatePickerrComponent";
 import {StyledStatusButtons, StyledStatusButtonBlock} from "assets/js/library/components/buttons";
 import {StyledTypographyError} from "assets/js/library/base/typography";
 import ContentsContext from "contexts/ContentsContext";

@@ -5,8 +5,9 @@ import {StyledDefaultButton} from "assets/js/App";
 export const StyledBackgroundColor= styled.div`
              background-color:${grey[17]};
 `
+
 export const StyledConfirmButton= styled(StyledDefaultButton)`
-             display:${props => props.commentStatus === "published" ? "none!important" : "flex!important"};
+             display:${props => props.commentStatusAndPermission ? "flex!important" : "none!important"};
              background-color:${green[0]};
              color: white;
              border: 0;

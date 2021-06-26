@@ -18,7 +18,7 @@ import {
   StyledTableCell,
 } from 'assets/js/library/components/table';
 import { StyledBtn, StyledStatusButton } from 'assets/js/library/components/buttons';
-import StyledCheckboxComponent from 'infrastructure/authorized/partials/StyledCheckboxComponent';
+import StyledCheckboxComponent from 'features/partials/StyledCheckboxComponent';
 import {
   StyledDetailBlock,
   StyledMoreIconBlock,

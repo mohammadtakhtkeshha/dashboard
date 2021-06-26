@@ -64,7 +64,6 @@ export const styles = (theme) => ({
             marginLeft: '12px',
         },
     },
-
     showWebHeader: {
         backgroundColor: '#f5f5f5',
         padding: '10px 10px',

@@ -5,7 +5,7 @@ export const StyledPowerBox = styled.div`
             background-color:${blue[8]};
             margin : ${props => props.lang === 'en' ? '0 0 0 6px' : '0 6px 0 0'}
             padding: .4rem .2rem .1rem;
-            border-radius: ${props => props.lang === "en" ? "100% 0 100% 100%":"0 100% 100% 100%"};
+            border-radius: ${props => props.lang === "en" ? "100% 0 100% 100%" : "0 100% 100% 100%"};
             cursor:pointer;
             & button{
                 background-color:transparent;
@@ -22,7 +22,6 @@ export const StyledBoxItem = styled.div`
             cursor:pointer;
             margin-left:6px;
             margin-right:6px;
-
             & button{
                 border-radius:5px;
                 padding: .5rem .5rem .1rem;
@@ -39,7 +38,10 @@ export const StyledBoxItem = styled.div`
                     height:19px;
                 }
             }
-          
+`;
+
+export const StyledBoxItemUser = styled(StyledBoxItem)`
+            display:${props => props.permission === 'true' ? 'block' : 'none'};
 `;
 
 export const styledSelect = () => ({

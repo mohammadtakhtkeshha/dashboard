@@ -18,7 +18,6 @@ function Index({ t }) {
   const [category, setCategory] = useState(constState(type.type));
   const [dynamicHeight, setDynamicHeight] = useState(0);
 
-
   const getStates = () => {
     getStatesMethod(setLoading, setStates, type,setDynamicHeight);
   }

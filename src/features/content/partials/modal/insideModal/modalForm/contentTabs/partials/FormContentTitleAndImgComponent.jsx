@@ -39,9 +39,9 @@ import {
     styledGridSingleImg,
     styledGridComment,
 } from 'assets/js/content/partials/modal/insideModal/modalForm/contentTabs/partials/formContentTitleAndImg';
-import StyledCheckboxComponent from 'infrastructure/authorized/partials/StyledCheckboxComponent.jsx';
-import UploadImgComponent from 'infrastructure/authorized/partials/UploadImgComponent.jsx';
-import MultiSelect from 'infrastructure/authorized/partials/AutocompleteComponent.jsx';
+import StyledCheckboxComponent from 'features/partials/StyledCheckboxComponent.jsx';
+import UploadImgComponent from 'features/partials/UploadImgComponent.jsx';
+import MultiSelect from 'features/partials/AutocompleteComponent.jsx';
 import {StyledTypography} from 'assets/js/content/partials/new/contentPublishDate';
 
 const StyledGridSingleImg = withStyles(styledGridSingleImg)(Grid);

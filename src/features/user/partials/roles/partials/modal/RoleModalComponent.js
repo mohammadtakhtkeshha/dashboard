@@ -1,4 +1,4 @@
-import GuideBlockComponent from "infrastructure/authorized/partials/GuideBlockComponent";
+import GuideBlockComponent from "features/partials/GuideBlockComponent";
 import React from "react";
 
 export const constSteps = (permissionsLength,setSteps ) => {

@@ -3,7 +3,7 @@ import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
 
 import {StyledCheckboxImgInTable, StyledTableCell, StyledTr} from "assets/js/library/components/table";
-import StyledCheckboxComponent from "infrastructure/authorized/partials/StyledCheckboxComponent";
+import StyledCheckboxComponent from "features/partials/StyledCheckboxComponent";
 
 import {
     StyledActionButtons,
@@ -15,13 +15,30 @@ import editIcon from "assets/svg/edit.png";
 import {confirmDeleteHandlerMethod, isCheckedHandlerMethod} from "./TrContentComponent.js";
 import AppContext from "contexts/AppContext";
 import ContentsContext from "contexts/ContentsContext";
+import {get} from "libraries/local-storage";
 
-function TrContentComponent({t, content, setSelectedCheckBoxes, selectedCheckBoxes,handleOpenContentForm}) {
+function TrContentComponent({t, content, setSelectedCheckBoxes, selectedCheckBoxes, handleOpenContentForm}) {
     const lang = i18next.language;
     const {setLoading} = useContext(AppContext);
     const contentsContext = useContext(ContentsContext);
-
+    const {permissions} = JSON.parse(get(process.env.REACT_APP_USER));
+    const currentUser = JSON.parse(get(process.env.REACT_APP_USER)).accountName;
     let leftRightAlign = lang === "en" ? "left" : "right"
+
+    /*Description:permission for delete and
+     edit for own content and any content is
+    *different
+    *@return :object
+    * */
+
+    let hasPermission = (author, contentType, editOrDelete) => {
+        if (author === currentUser) {
+            return `${permissions[`${editOrDelete} own ${contentType} content`]?.access}`;
+        } else {
+            return`${permissions[`${editOrDelete} own ${contentType} content`]?.access}`;
+        }
+    }
+
     const isCheckedHandler = (e, content) => {
         isCheckedHandlerMethod(e, content, setSelectedCheckBoxes, selectedCheckBoxes);
     }
@@ -48,7 +65,6 @@ function TrContentComponent({t, content, setSelectedCheckBoxes, selectedCheckBox
             </StyledStatusButton>
         </StyledTableCell>
         <StyledTableCell width="5" align="center" minWidth="50">
-            {/*{content.status === "true" ? t('translation:published') : t('translation:unpublished')}*/}
             {content.uid}
         </StyledTableCell>
         <StyledTableCell width="5" align="center" minWidth={58}>
@@ -56,10 +72,17 @@ function TrContentComponent({t, content, setSelectedCheckBoxes, selectedCheckBox
         </StyledTableCell>
         <StyledTableCell width="5" align="center" minWidth={58}>
             <StyledActionsBlock>
-                <StyledActionButtons value={content.nid} onClick={confirmDeleteHandler}>
+                <StyledActionButtons
+                    permission={hasPermission(content.uid, content.en_type, 'delete')}
+                    value={content.nid}
+                    onClick={confirmDeleteHandler}>
                     <img src={deleteIcon} alt=""/>
                 </StyledActionButtons>
-                <StyledActionButtons value={content.nid} onClick={(e)=>handleOpenContentForm(e,content.uid)}>
+                <StyledActionButtons
+                    // permission={`${permissions[`create ${value.machin_name} content`].access}`}
+                    permission={hasPermission(content.uid, content.en_type, 'edit')}
+                    value={content.nid}
+                    onClick={(e) => handleOpenContentForm(e, content.uid)}>
                     <img src={editIcon} alt=""/>
                 </StyledActionButtons>
             </StyledActionsBlock>

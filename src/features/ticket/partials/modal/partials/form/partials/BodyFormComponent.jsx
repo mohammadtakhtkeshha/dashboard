@@ -7,8 +7,8 @@ import TextField from '@material-ui/core/TextField';
 import {StyledInput, StyledTypographyError} from 'assets/js/App';
 import {StyledLabel, styledTextField} from 'assets/js/App';
 import { styledGridFromReply,styledGridIfReply} from 'assets/js/ticket/ticketRegister';
-import UploadImgComponent from 'infrastructure/authorized/partials/UploadImgPreviewComponent.jsx';
-import EditorComponent from 'infrastructure/authorized/partials/EditorComponent.jsx';
+import UploadImgComponent from 'features/partials/UploadImgPreviewComponent.jsx';
+import EditorComponent from 'features/partials/EditorComponent.jsx';
 import {getOrderListMethod, handleErrorsMethod} from './../Index.js'; //uploadimg method
 import AppContext from 'contexts/AppContext';
 import {

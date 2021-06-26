@@ -1,5 +1,5 @@
 import React from "react";
-import GuideBlockComponent from "infrastructure/authorized/partials/GuideBlockComponent";
+import GuideBlockComponent from "features/partials/GuideBlockComponent";
 
 export const handleContentStepsMethod = (contentType,setSteps) => {
     let stepArr = [];

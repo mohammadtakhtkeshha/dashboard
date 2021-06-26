@@ -90,12 +90,10 @@ function TicketComponent({t}) {
     //     }
     // }, [replies]);
 
-    // console.log(window.innerWidth)
     useEffect (() => {
         // if(replies.length > 0 ){
 
             const method = () => {
-            console.log(heightBlock.current?.offsetHeight)
         }
         window.addEventListener('resize', method);
         return () => {

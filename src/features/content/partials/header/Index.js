@@ -1,4 +1,4 @@
-import GuideBlockComponent from "infrastructure/authorized/partials/GuideBlockComponent";
+import GuideBlockComponent from "features/partials/GuideBlockComponent";
 import React from "react";
 
 export const steps = [
@@ -11,15 +11,17 @@ export const steps = [
         ),
         position: 'top',
         stepInteraction: false,
-    }, {
-        selector: '.content-elementsTable',
+    },
+    {
+        selector: '.content-list',
         content: ({goTo, inDOM}) => (
             <div>
                 <GuideBlockComponent/>
             </div>
         ),
         position: 'top',
-    }, {
+    },
+    {
         selector: '.filter-title',
         content: ({goTo, inDOM}) => (
             <div>
@@ -45,3 +47,14 @@ export const steps = [
         position: 'top',
     }
 ];
+
+export const checkPermissionAllTypeContent = (setAllContentPer,permissions) => {
+    const imagesPer = permissions['create images content'].access;
+    const soundPer = permissions['create sounds content'].access;
+    const newsPer = permissions['create news content'].access;
+    const videosPer = permissions['create videos content'].access;
+    const articlePer = permissions['create article content'].access;
+    if(imagesPer && soundPer && newsPer && videosPer && articlePer){
+        setAllContentPer(true)
+    }
+}

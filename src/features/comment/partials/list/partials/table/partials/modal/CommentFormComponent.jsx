@@ -3,22 +3,27 @@ import {withNamespaces} from 'react-i18next';
 import i18next from 'i18next';
 
 import {Grid} from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles'
 
 import {StyledAlignTypography, StyledInput} from 'assets/js/App';
-import { StyledTextArea} from 'assets/js/comment/commentForm';
-import {StyledModalHeader, StyledModalBody,StyledModalFooter} from 'assets/js/library/components/modal';
+import {StyledTextArea, StyledButtonStatus,styledGridStatus} from 'assets/js/comment/commentForm';
+import {StyledModalHeader, StyledModalBody, StyledModalFooter} from 'assets/js/library/components/modal';
 import {handleChangeCommentMethod, editCommentMethod} from './CommentFormComponent.js';
 import AppContext from 'contexts/AppContext';
-import EditorComponent from 'infrastructure/authorized/partials/EditorComponent.jsx';
-import {toHtml} from 'methods/commons';
+import {stripHtml, toHtml} from 'methods/commons';
+import {handleChange} from "features/forms/partials/modal/partials/NewWebformComponent";
+
+const StyledGridStatus = withStyles(styledGridStatus)(Grid)
 
 function CommentFormComponent({t, open, setOpen, publishedComments, unconfirmedComments, handlePagination, comment, setComment, commentStatus}) {
     const lang = i18next.language;
     const {setLoading} = useContext(AppContext);
 
+
     const handleChangeComment = (e, field) => {
         handleChangeCommentMethod(e, setComment, field);
     };
+    console.log(true)
 
     const editComment = e => {
         editCommentMethod(e.currentTarget.value, comment, setLoading, handlePagination, unconfirmedComments, publishedComments, commentStatus, setOpen);
@@ -29,7 +34,7 @@ function CommentFormComponent({t, open, setOpen, publishedComments, unconfirmedC
             <StyledModalHeader>{t('comments:editComment')}</StyledModalHeader>
             <StyledModalBody>
                 <Grid container>
-                    <Grid item xs={12}>
+                    <Grid item xs={8}>
                         <StyledAlignTypography lang={lang}>{t('comments:commentBody')}</StyledAlignTypography>
                         <StyledInput
                             className="subject"
@@ -40,28 +45,19 @@ function CommentFormComponent({t, open, setOpen, publishedComments, unconfirmedC
                             }}
                         />
                     </Grid>
-
-                    {/*<StyledGrid item xs={12}>*/}
-                    {/*<StyledStatusButtonBlock className="status">*/}
-                    {/*    <StyledStatusButton value={true} status={comment.status ? comment.status[0].value : false}*/}
-                    {/*                        onClick={handleChangeStatus}>*/}
-                    {/*        {t('contents:published')}*/}
-                    {/*    </StyledStatusButton>*/}
-                    {/*    <StyledStatusButton value={false} status={comment.status ? comment.status[0].value : false}*/}
-                    {/*                        onClick={handleChangeStatus}>*/}
-                    {/*        {t('contents:unpublished')}*/}
-                    {/*    </StyledStatusButton>*/}
-                    {/*</StyledStatusButtonBlock>*/}
-                    {/*</StyledGrid>*/}
-
+                    <StyledGridStatus item xs={4} lang={lang}>
+                        <StyledAlignTypography lang={lang}>{t('comments:commentBody')}</StyledAlignTypography>
+                        <StyledButtonStatus status={comment.status[0].value} onClick={e=>handleChangeComment(e,'status')}>
+                            {comment.status[0].value ? t('translation:inactivate') : t('translation:activate')}
+                        </StyledButtonStatus>
+                    </StyledGridStatus>
                     <Grid item xs={12}>
-                        <StyledTextArea className="textarea">
-                            <EditorComponent
-                                value={comment.comment_body && comment.comment_body.length > 0 ? toHtml(comment.comment_body[0].value) : ''}
-                                title={t('translation:description')}
-                                onClick={e => handleChangeComment(e, 'comment_body')}
-                            />
-                        </StyledTextArea>
+                        <StyledAlignTypography>{t('translation:description')}</StyledAlignTypography>
+                        <StyledTextArea
+                            className="textarea"
+                            cols={10}
+                            value={comment.comment_body && comment.comment_body.length > 0 ? toHtml(comment.comment_body[0].value) : ''}
+                            onChange={e => handleChangeComment(e, 'comment_body')}/>
                     </Grid>
                 </Grid>
             </StyledModalBody>

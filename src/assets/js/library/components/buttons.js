@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {black, blue, green, grey, red, white} from "assets/js/library/abstracts/colors";
 
 export const StyledDeleteButton = styled.button`
+            display:${({permission})=> permission ? 'block' : 'none'};
             color: ${white[0]};
             border: 0;
             cursor: pointer;
@@ -50,6 +51,7 @@ export const StyledActionsBlock = styled.div`
 `
 
 export const StyledActionButtons = styled.button`
+                display:${({permission}) => permission === 'true' ? 'block' : 'none'};
                 border: 0;
                 cursor: pointer;
                 line-height: 14px;
@@ -60,6 +62,7 @@ export const StyledActionButtons = styled.button`
                 }
                     display:flex;
                     & img{
+                        display:${({permission}) => permission === 'true' ? 'block' : 'none'};
                         width:18px;
                         height:18px;
                     }
@@ -119,7 +122,7 @@ export const StyledButton = styled.button`
             }
 `
 
-export const StyledAddButton = styled.button`
+export const StyledGreenButton = styled.button`
             color: ${white[0]};
             background-color: ${green[0]};
             border: 0;
@@ -131,6 +134,10 @@ export const StyledAddButton = styled.button`
             &:focus{
                 outline:0!important;
             }
+`
+
+export const StyledAddButton = styled(StyledGreenButton)`
+            display:${props => props.permission === 'true' ? 'block' : 'none'};
 `
 
 export const StyledEditButton = styled.button`

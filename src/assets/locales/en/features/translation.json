@@ -10,6 +10,8 @@
   "block": "block",
   "active": "active",
   "notActive": "non-active",
+  "inactivate": "inactivate",
+  "activate": "activate",
   "confirmed": "confirmed",
   "notConfirmed": "not confirmed",
   "actions": "actions",

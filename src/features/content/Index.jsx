@@ -6,7 +6,7 @@ import Pagination from '@material-ui/lab/Pagination';
 
 import Modal from './partials/modal/ModalComponent.jsx';
 import ContentSearchExpansion from './partials/ContentsFilterComponent.jsx';
-import TitleComponent from 'infrastructure/authorized/partials/TitleComponent';
+import TitleComponent from 'features/partials/TitleComponent';
 import AppContext from 'contexts/AppContext';
 import ContentActionComponent from './partials/ContentActionComponent.jsx';
 import ContentTableComponent from './partials/table/ContentTableComponent.jsx';

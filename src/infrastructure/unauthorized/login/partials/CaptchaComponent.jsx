@@ -23,7 +23,6 @@ function CaptchaComponent({t, setUser, errors, src, refreshCaptcha, keyUp}) {
     }
 
     useEffect(() => {
-        debugger
         refreshCaptcha()
     }, [refreshCaptcha]);
 
@@ -43,12 +42,11 @@ function CaptchaComponent({t, setUser, errors, src, refreshCaptcha, keyUp}) {
                     onChange={changeCaptcha}
                     onKeyUp={keyUp}
                 />
-                <StyledSvgInput className="icon-key"></StyledSvgInput>
+                <StyledSvgInput className="icon-key1"></StyledSvgInput>
             </StyledRelativeBlock>
             {errors.captchaError ?
                 <StyledTypographyError>{t('translation:wrongSafeCode')}</StyledTypographyError> : ''}
         </InputBlock>
-
     </>)
 }
 

@@ -50,6 +50,7 @@ function Index({ t }) {
   useEffect(() => {
     getPublishedCommentsMethod(handlePagination, setPublishedComments, setLoading, setCommentStatus);
   }, [setLoading, setCommentStatus, setPublishedComments, handlePagination]); //Once
+
   return (
     <>
       <Helmet>

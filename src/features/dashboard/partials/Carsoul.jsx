@@ -31,12 +31,12 @@ function CarsoulComponent({t, chunks, totalLength}) {
             items: 4
         },
         tablet: {
-            breakpoint: {max: 1259, min: 685},
-            items: 3
+            breakpoint: {max: 1259, min: 476},
+            items: 2
         },
         mobile: {
-            breakpoint: {max: 685, min: 0},
-            items: 2
+            breakpoint: {max: 476, min: 0},
+            items: 1
         }
     };
 
