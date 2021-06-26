@@ -14,9 +14,10 @@ import {get} from "libraries/local-storage";
 function UserHeaderContentComponent({t, lastActiveFocus, setOpenUserForm, setIsTourOpen}) {
     const lang = i18next.language;
     const refList = useRef(null);
+    const {permissions} = JSON.parse(get(process.env.REACT_APP_USER))
 
     return (<StyledHead lang={lang}>
-        {/*<StyledHeadTypography className="user-list" ref={refList}>{t('users:usersList')}</StyledHeadTypography>*/}
+        <StyledHeadTypography className="user-list" ref={refList}>{t('users:usersList')}</StyledHeadTypography>
         <StyledGreenButton
             onClick={() => {
                 setIsTourOpen(true)
@@ -26,6 +27,7 @@ function UserHeaderContentComponent({t, lastActiveFocus, setOpenUserForm, setIsT
         </StyledGreenButton>
         <StyledRelative>
             <StyledAddButton
+                permission={`${permissions['administer users'].access}`}
                 ref={lastActiveFocus}
                 className="register-button"
                 onClick={() => setOpenUserForm({show: true, id: ''})}>

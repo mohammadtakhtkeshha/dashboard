@@ -53,7 +53,7 @@ const StyledList = withStyles(styledList)(List);
 function SimpleTabs({t}) {
     const classes = styles();
     const lang = i18next.language;
-    const {permissions}=JSON.parse(get(process.env.REACT_APP_USER))
+    const {permissions} = JSON.parse(get(process.env.REACT_APP_USER))
 
     const mouseEnter = (e) => {
         let SpanClassName = e.currentTarget.children[0].children[0].classList.value
@@ -61,61 +61,69 @@ function SimpleTabs({t}) {
     }
 
     const mouseLeave = (e) => {
-        let SpanClassName=e.currentTarget.children[0].children[0].classList.value
-        const SpanClassNameWithOutHover=SpanClassName.replace('-hover',"");
-        e.currentTarget.children[0].children[0].classList.value=SpanClassNameWithOutHover
+        let SpanClassName = e.currentTarget.children[0].children[0].classList.value
+        const SpanClassNameWithOutHover = SpanClassName.replace('-hover', "");
+        e.currentTarget.children[0].children[0].classList.value = SpanClassNameWithOutHover
     }
 
     return (
         <StyledSidebar lang={lang}>
             <StyledList lang={lang}>
-                <StyledListItem  display='true' lang={lang} onMouseLeave={mouseLeave}
+                <StyledListItem display='true' lang={lang} onMouseLeave={mouseLeave}
                                 onMouseEnter={mouseEnter}>
                     <NavLink to="/dashboard" activeClassName={classes.active}>
                         <span className="icon-dashboard-sidebar"></span>
                         <ListItemText primary={t('sidebar:dashboard')}/>
                     </NavLink>
                 </StyledListItem>
-                <StyledListItem display={`${permissions['restful get webform_list_rest_resource'].access}`}   lang={lang} onMouseLeave={mouseLeave}
-                                onMouseEnter={mouseEnter}>
+                <StyledListItem
+                    display={`${permissions['restful get webform_list_rest_resource'].access}`}
+                    lang={lang} onMouseLeave={mouseLeave}
+                    onMouseEnter={mouseEnter}>
                     <NavLink to="/forms" activeClassName={classes.active}>
                         <span className="icon-form-sidebar"></span>
                         <ListItemText primary={t('sidebar:forms')}/>
                     </NavLink>
                 </StyledListItem>
-                <StyledListItem display="true"  lang={lang} onMouseLeave={mouseLeave}
+                <StyledListItem display={`${permissions['access content'].access}`}
+                                lang={lang}
+                                onMouseLeave={mouseLeave}
                                 onMouseEnter={mouseEnter}>
                     <NavLink to="/contents" activeClassName={classes.active}>
                         <span className="icon-content-sidebar"></span>
                         <ListItemText primary={t('sidebar:contentManager')}/>
                     </NavLink>
                 </StyledListItem>
-                <StyledListItem display={`${permissions['access comments'].access}`}  lang={lang} onMouseLeave={mouseLeave}
+                <StyledListItem display={`${permissions['access comments'].access}`} lang={lang}
+                                onMouseLeave={mouseLeave}
                                 onMouseEnter={mouseEnter}>
                     <NavLink to="/comments" activeClassName={classes.active}>
                         <span className="icon-comment-sidebar"></span>
                         <ListItemText primary={t('sidebar:commentsManager')}/>
                     </NavLink>
                 </StyledListItem>
-                <StyledListItem display={`${permissions['access reports'].access}`}  lang={lang} onMouseLeave={mouseLeave}
+                <StyledListItem display={`${permissions['restful get get_tax_list_rest_resource'].access}`} lang={lang}
+                                onMouseLeave={mouseLeave}
                                 onMouseEnter={mouseEnter}>
                     <NavLink to="/taxonomy" activeClassName={classes.active}>
                         <span className="icon-category-sidebar"></span>
                         <ListItemText primary={t('sidebar:categories')}/>
                     </NavLink>
                 </StyledListItem>
-                <StyledListItem display={`${permissions['administer menu'].access}`} lang={lang} onMouseLeave={mouseLeave}
+                <StyledListItem display={`${permissions['administer menu'].access}`} lang={lang}
+                                onMouseLeave={mouseLeave}
                                 onMouseEnter={mouseEnter}>
                     <NavLink to="/menu" activeClassName={classes.active}>
                         <span className="icon-menu-sidebar"></span>
                         <ListItemText primary={t('sidebar:menu')}/>
                     </NavLink>
                 </StyledListItem>
-                <StyledListItem display={`${permissions['administer users'].access}`} >
+                <StyledListItem display={`${permissions['administer users'].access}`}>
                     {/*_____________________________________________________________________________*/}
                     <StyledExpansionPanel lang={lang}>
-                        <NavLink to="/users" activeClassName={classes.active} lang={lang} >
-                            <StyledExpansionPanelSummary expandIcon={<ExpandMoreIcon/>} aria-controls="panel1a-content" onMouseLeave={mouseLeave}
+                        <NavLink to="/users" activeClassName={classes.active} lang={lang}>
+                            <StyledExpansionPanelSummary expandIcon={<ExpandMoreIcon/>} aria-controls="panel1a-content"
+                                                         onMouseLeave={mouseLeave}
                                                          onMouseEnter={mouseEnter}>
                                 <span className="icon-user-sidebar"></span>
                                 <ListItemText primary={t('sidebar:usersManager')}/>
@@ -133,11 +141,12 @@ function SimpleTabs({t}) {
                     </StyledExpansionPanel>
                     {/*_____________________________________________________________________________*/}
                 </StyledListItem>
-                <StyledListItem display={`${permissions['access reports'].access}`} lang={lang} >
+                <StyledListItem display={`${permissions['access reports'].access}`} lang={lang}>
                     {/*_____________________________________________________________________________*/}
                     <StyledExpansionPanel lang={lang}>
                         <NavLink to="/report" activeClassName={classes.active}>
-                            <StyledExpansionPanelSummary expandIcon={<ExpandMoreIcon/>} aria-controls="panel1a-content"  onMouseLeave={mouseLeave}
+                            <StyledExpansionPanelSummary expandIcon={<ExpandMoreIcon/>} aria-controls="panel1a-content"
+                                                         onMouseLeave={mouseLeave}
                                                          onMouseEnter={mouseEnter}>
                                 <span className="icon-report-sidebar"></span>
                                 <ListItemText primary={t('sidebar:reports')}/>
@@ -180,7 +189,8 @@ function SimpleTabs({t}) {
                     </StyledExpansionPanel>
                     {/*_____________________________________________________________________________*/}
                 </StyledListItem>
-                <StyledListItem display={`${permissions['restful get get_setting_rest_resource'].access}`} lang={lang} onMouseLeave={mouseLeave}
+                <StyledListItem display={`${permissions['restful get get_setting_rest_resource'].access}`} lang={lang}
+                                onMouseLeave={mouseLeave}
                                 onMouseEnter={mouseEnter}>
                     <NavLink to="/settings" activeClassName={classes.active}>
                         <span className="icon-setting-sidebar"></span>
@@ -202,7 +212,8 @@ function SimpleTabs({t}) {
                 <StyledListItem lang={lang} display={`${permissions['access tickets'].access}`}>
                     <StyledExpansionPanel lang={lang}>
                         <NavLink to="/ticket" activeClassName={classes.active}>
-                            <StyledExpansionPanelSummary expandIcon={<ExpandMoreIcon/>} aria-controls="panel1a-content" onMouseLeave={mouseLeave}
+                            <StyledExpansionPanelSummary expandIcon={<ExpandMoreIcon/>} aria-controls="panel1a-content"
+                                                         onMouseLeave={mouseLeave}
                                                          onMouseEnter={mouseEnter}>
                                 <span className="icon-support-sidebar"></span>
                                 <ListItemText primary={t('sidebar:support')}/>

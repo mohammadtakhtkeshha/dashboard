@@ -20,30 +20,31 @@ function StateHeaderComponent({t, setOpenForm, type}) {
     const lang = i18next.language
     const [isTourOpen, setIsTourOpen] = useState(false);
     const [currentStep, setCurrentStep] = useState(1);
-    const [permissionType, setPermissionType] = useState('');
+    const {permissions} = JSON.parse(get(process.env.REACT_APP_USER));
+    const [currentPermission, setCurrentPermission] = useState('');
 
     useEffect(() => {
-        // switch (type.type) {
-        //     case 'category':
-        //         setPermissionType(`${permissions[`create terms in category`].access}`)
-        //         break;
-        //     case 'images_category':
-        //         setPermissionType(`${permissions[`create terms in images category`].access}`)
-        //         break;
-        //     case 'sounds_category':
-        //         setPermissionType(`${permissions[`create terms in sounds category`].access}`)
-        //         break;
-        //     case 'videos_category':
-        //         setPermissionType(`${permissions[`create terms in videos category`].access}`)
-        //         break;
-        //     default:
-        //         setPermissionType('true')
-        // }
+        switch (type.type) {
+            case 'tags':
+                setCurrentPermission(`${permissions[`create terms in tags`].access}`)
+                break;
+            case 'category':
+                setCurrentPermission(`${permissions[`create terms in category`].access}`)
+                break;
+            case 'images_category':
+                setCurrentPermission(`${permissions[`create terms in images_category`].access}`)
+                break;
+            case 'sounds_category':
+                setCurrentPermission(`${permissions[`create terms in sounds_category`].access}`)
+                break;
+            case 'videos_category':
+                setCurrentPermission(`${permissions[`create terms in videos_category`].access}`)
+                break;
+            default:
+                setCurrentPermission(`${permissions[`create terms in state`].access}`)
+        }
     }, []);
 
-    const {permissions} = JSON.parse(get(process.env.REACT_APP_USER));
-
-    console.log(permissions[`create terms in category`])
 
     const closeTour = () => {
         setIsTourOpen(false)
@@ -57,10 +58,9 @@ function StateHeaderComponent({t, setOpenForm, type}) {
         </StyledGreenButton>
         <StyledRelative>
             <StyledAddButton
-                permission={`${permissionType}`}
+                permission={`${currentPermission}`}
                 className="register-button" onClick={() => setOpenForm({show: true, id: ''})}>
                 <Typography>{t(`taxonomy:new${type.type}`)}</Typography>
-                <Typography>{type.type}</Typography>
             </StyledAddButton>
         </StyledRelative>
         <Tour showCloseButton={false}

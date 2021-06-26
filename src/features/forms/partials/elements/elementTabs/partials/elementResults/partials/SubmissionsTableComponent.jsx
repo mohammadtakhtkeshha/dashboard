@@ -17,6 +17,7 @@ import {StyledTrashEditSvg} from "assets/js/library/base/all";
 import deleteIcon from 'assets/svg/delete.png';
 import {warning} from "methods/swal";
 import {deleteSubmissionMethod} from './SubmissionsTableComponent.js'
+import {get} from "libraries/local-storage";
 
 function SubmissionsTableComponent({t}) {
     const lang = i18next.language;
@@ -24,6 +25,8 @@ function SubmissionsTableComponent({t}) {
     let align = lang === 'en' ? 'left' : 'right';
     const [submissions, setSubmissions] = useState([]);
     const {form_id} = useParams();
+    const {permissions}=JSON.parse(get(process.env.REACT_APP_USER));
+
 
     useEffect(() => {
         getSubmissionListMethod(setLoading, setSubmissions, form_id);
@@ -53,7 +56,8 @@ function SubmissionsTableComponent({t}) {
             <StyledTableCell width="100" align="center" minWidth={58}></StyledTableCell>
         </StyledTableHeadTr>
         <StyledTableBody>
-            {submissions.length > 0 ? (
+            {(submissions.length > 0
+            && permissions['restful get webform_sub_lst_rest_resource'].access)? (
                 submissions.map((submission, index) => (
                     <React.Fragment key={index}>
                         <StyledTr>

@@ -33,8 +33,7 @@ function ContentTypeListModalComponent({t, openRegisterForm, handleCloseRegister
         contentsContext.setContentType(value.machin_name);
     }
 
-    return (
-        <Fade in={openRegisterForm} id="modal">
+    return (<Fade in={openRegisterForm} id="modal">
             <Box>
                 <StyledCancelButton onClick={handleCloseRegisterForm}>
                     <StyledSvg>
@@ -58,7 +57,8 @@ function ContentTypeListModalComponent({t, openRegisterForm, handleCloseRegister
                                     lang={lang}
                                     id={labelId}
                                     primary={lang === 'en' ? value.machin_name : value.name}
-                                    secondary={value.description}/>
+                                    secondary={value.description}
+                                />
                             </StyledListModalItem>);
                         })}
                     </StyledModalList>

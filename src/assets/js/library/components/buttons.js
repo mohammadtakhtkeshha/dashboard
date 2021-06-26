@@ -51,7 +51,7 @@ export const StyledActionsBlock = styled.div`
 `
 
 export const StyledActionButtons = styled.button`
-                display:${({permission}) => permission === 'true' ? 'block' : 'none'};
+                display:${({permission}) => permission ? 'block' : 'none'};
                 border: 0;
                 cursor: pointer;
                 line-height: 14px;
@@ -60,12 +60,12 @@ export const StyledActionButtons = styled.button`
                 &:focus{
                     outline:0!important;
                 }
-                    display:flex;
-                    & img{
-                        display:${({permission}) => permission === 'true' ? 'block' : 'none'};
-                        width:18px;
-                        height:18px;
-                    }
+                display:flex;
+                & img{
+                    display:${({permission}) => permission ? 'block' : 'none'};
+                    width:18px;
+                    height:18px;
+                }
 `
 
 export const StyledActionButtonBlock = styled.div`

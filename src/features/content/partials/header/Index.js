@@ -54,7 +54,8 @@ export const checkPermissionAllTypeContent = (setAllContentPer,permissions) => {
     const newsPer = permissions['create news content'].access;
     const videosPer = permissions['create videos content'].access;
     const articlePer = permissions['create article content'].access;
-    if(imagesPer && soundPer && newsPer && videosPer && articlePer){
+    const simplePagePer = permissions['create simplenews_issue content'].access;
+    if(imagesPer || soundPer || newsPer || videosPer || articlePer || simplePagePer){
         setAllContentPer(true)
     }
 }

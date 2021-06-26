@@ -23,9 +23,9 @@ function ElementLiComponent({t, elements, setElements, setOpenElementForm, setEl
     const lang = i18next.language
     const ref = useRef(null)
     const [editButtonShow, setEditButtonShow] = useState({show: false, id: ''});
-    const {form_id}=useParams();
+    const {form_id} = useParams();
     const {setLoading} = useContext(AppContext)
-    const {permissions}=JSON.parse(get(process.env.REACT_APP_USER));
+    const {permissions} = JSON.parse(get(process.env.REACT_APP_USER));
 
     const clickEditBtn = (e) => {
         const curId = e.currentTarget.id
@@ -39,7 +39,7 @@ function ElementLiComponent({t, elements, setElements, setOpenElementForm, setEl
     const confirmDeleteHandler = e => {
         let field_id = e.currentTarget.value;
         warning(t('translation:sureQuestion'), t('translation:yes'), t('translation:cancel'), t('translation:notDone'), function () {
-            deleteElementMethod(setLoading,form_id,field_id,setElements);
+            deleteElementMethod(setLoading, form_id, field_id, setElements);
         });
     };
 
@@ -103,12 +103,14 @@ function ElementLiComponent({t, elements, setElements, setOpenElementForm, setEl
                 <StyledActionsBlock>
                     <StyledActionButtons
                         permission={`${permissions['restful post webform_delete_field_rest_resource'].access}`}
-                        value={props.children.field_id} onClick={confirmDeleteHandler}>
+                        value={props.children.field_id}
+                        onClick={confirmDeleteHandler}>
                         <img src={deleteIcon}/>
                     </StyledActionButtons>
                     <StyledActionButtons
                         permission={`${permissions['restful patch webform_edit_rest_resource'].access}`}
-                         value={props.children.field_id} onClick={handleEditFormOpen}>
+                        value={props.children.field_id}
+                        onClick={handleEditFormOpen}>
                         <img src={editIcon}/>
                     </StyledActionButtons>
                 </StyledActionsBlock>

@@ -20,7 +20,7 @@ export const StyledFlexItems = styled.div`
 `
 
 export const StyledTabeBodyRowCustomized = styled.div`
-             display:flex;
+             display:${({permission})=> permission === 'true' ? 'flex' : 'none'};
              direction:${props => props.lang === 'en' ? 'ltr':'rtl'};
              border-radius:4px;
              margin:20px;
@@ -28,7 +28,6 @@ export const StyledTabeBodyRowCustomized = styled.div`
              background-color:#ffffff;
              font-size:13px;
              padding:10px 10px;
-             display: flex;
              align-items: center;
              &:hover{
                  box-shadow:0 14px 11px #d3d3d5;
