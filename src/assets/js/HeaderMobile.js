@@ -1,7 +1,6 @@
-import {makeStyles} from '@material-ui/core/styles/index';
-import {blue, green} from "../../components/partials/Colors";
+import {blue, green} from "assets/js/library/abstracts/colors";
 
-export const styles = makeStyles((theme) => ({
+export const styles = (theme) => ({
     mobileHeader: {
         position: 'fixed',
         top: '0',
@@ -65,7 +64,6 @@ export const styles = makeStyles((theme) => ({
             marginLeft: '12px',
         },
     },
-
     showWebHeader: {
         backgroundColor: '#f5f5f5',
         padding: '10px 10px',
@@ -83,5 +81,5 @@ export const styles = makeStyles((theme) => ({
             }
         },
     }
-}));
+});
 

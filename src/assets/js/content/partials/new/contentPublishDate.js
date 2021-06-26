@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {grey,green,red,white,black} from "components/partials/Colors";
+import {black} from "assets/js/library/abstracts/colors";
 
 export const StyledGridBlock = styled.div`
                 padding:.3rem;

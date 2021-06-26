@@ -1,4 +1,4 @@
-import {primary} from "components/partials/Colors";
+import {primary} from "assets/js/library/abstracts/colors";
 
 export const globalCss = {
     textLeft:{

@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import Layout from './structure/layout.jsx';
+import 'App.css';
+import Layout from './infrastructure/layout.jsx';
+// import Test from './Test.jsx';
 import * as serviceWorker from './serviceWorker';
-import {StyledDirection} from "./assets/js/App";
+
 
 ReactDOM.render(
   <>
-    <Layout/>
+      <Layout/>
+       {/*<Test/>*/}
   </>,
   document.getElementById('root')
 );

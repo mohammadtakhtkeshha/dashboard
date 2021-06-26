@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import {black, grey} from "../../../../components/partials/Colors";
+import {black, grey} from "assets/js/library/abstracts/colors";
+
 
 export const StyledRelative = styled.div`
             position:relative;
@@ -32,9 +33,6 @@ export const StyledSvg = styled.div`
             }
 `
 
-export const StyledDirection = styled.div`
-               direction:${props => props.lang === 'en' ? 'ltr' : 'rtl'};
-`
 
 export const MarginTop1 = styled.div`
        margin-top : 1rem;
@@ -45,13 +43,18 @@ export const StyledValidError = styled.p`
             text-align : ${props => props.lang === 'en' ? 'left' : 'right'}
 `
 
-
 export const StyledHead = styled.div`
         display: flex;
         align-items: center;
         margin-bottom: 1rem ;
+        &>div:first-child{
+           margin:${props => props.lang === 'en' ? '0 auto 0 10px' : '0 10px 0 auto'};
+        };
         &>button:nth-child(2){
-           margin:${props => props.lang === 'fa' ? '0 auto 0 10px' : '0 10px 0 auto'};
+           margin:0 10px;
         };
 `
 
+export const StyledTrashEditSvg=styled.span`
+             font-size:20px;
+`

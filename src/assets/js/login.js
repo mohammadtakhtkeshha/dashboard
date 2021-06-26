@@ -1,7 +1,7 @@
 import loginImg from "../media/image/login.png";
-import {green, white, danger, darkBlue, light} from "../../components/partials/Colors";
+import {green, white, danger, grey} from "assets/js/library/abstracts/colors";
 import styled from "styled-components"
-import {StyledInput} from "./App";
+import {StyledDefaultButton, StyledInput} from "./App";
 
 export const LoginBlock = styled.div`
                 width: 100%;
@@ -61,7 +61,6 @@ export const StyledGridLogin = styled.div`
                             font-size: 17px;
                             font-weight: bold;
                             margin-bottom: 2rem;
-                            margin-top: 2rem;
                         }
                    }
                 }
@@ -90,14 +89,7 @@ export const InputBlock = styled.div`
 `
 
 export const StyledPasswordEye = styled.img`
-                       position: absolute;
-                       width:20px;
-                       height:20px;
-                       left:10px;
-                       top:0;
-                       bottom:0;
-                       margin:auto;
-                       cursor:pointer;
+                       
 `
 
 export const RememberBlock = styled.div`
@@ -220,10 +212,45 @@ export const StyledRegisterLoginButton = styled.button`
             }
 `
 
+export const StyledInputLogin = styled(StyledInput)`
+        direction:ltr!important;
+        font-family:byekan!important;
+        &::placeholder{
+            text-align:right;
+        }
+        padding-left:35px;
+`
+
+export const StyledRelativeBlock = styled.div`
+        position:relative;
+        & span {
+            display:flex;
+            align-items:center;
+            position: absolute;
+            font-size:17px;
+            left:10px;
+            top:0;
+            bottom:0;
+            margin:auto;
+            cursor:pointer;
+        }
+`
+
+export const StyledSvgInput = styled.span`
+              color:${grey[10]};
+`
 
 
-
-
-
-
-
+export const StyledRefreshBlock = styled.div`
+              display:flex;
+              margin-bottom:1.5rem;
+`
+export const StyledRefreshBtn = styled(StyledDefaultButton)`
+              background-color:${white[0]};
+              & span{
+                font-size:32px;
+                &::before{
+                    color:${green[0]};
+                }
+              }
+`

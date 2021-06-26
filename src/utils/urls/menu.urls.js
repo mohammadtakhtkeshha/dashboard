@@ -7,5 +7,9 @@ export const getDeleteEditMenuUrl = (id) => {
     return `${baseUrl}/admin/structure/menu/item/${id}/edit?_format=json`
 }
 
+export const saveDragDropChangesMenuURL = (type) => {
+    return `${baseUrl}/api/rest/menuordered/${type}`
+}
+
 export const addMenuUrl = `${baseUrl}/entity/menu_link_content`
 

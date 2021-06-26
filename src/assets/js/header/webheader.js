@@ -1,4 +1,4 @@
-import {blue, green} from "components/partials/Colors";
+import {blue, green} from "assets/js/library/abstracts/colors";
 
 export const webHeaderStyle = {
     root: {

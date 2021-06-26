@@ -429,7 +429,7 @@ export function changeNodeAtPath({
         }
 
         if (pathIndex >= path.length - 1) {
-            // If this is the final location in the path, return its changed partials
+            // If this is the final location in the path, return its changed elementTabs
             return typeof newNode === 'function'
                 ? newNode({ node, treeIndex: currentTreeIndex })
                 : newNode;
@@ -1180,7 +1180,7 @@ export function find({
         }
 
         // Add this node to the matches if it fits the search criteria.
-        // This is performed at the last minute so newNode can be sent in its final partials.
+        // This is performed at the last minute so newNode can be sent in its final elementTabs.
         if (isSelfMatch) {
             matches = [{ ...extraInfo, node: newNode }, ...matches];
         }

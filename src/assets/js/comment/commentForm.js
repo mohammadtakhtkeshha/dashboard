@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import {grey} from "components/partials/Colors";
-import {StyledNotScrollbar} from "../App";
+import {green, grey, red, white} from "assets/js/library/abstracts/colors";
+import {StyledDefaultButton, StyledStatusButtons} from "../library/components/buttons";
 
 export const StyledHeader = styled.div`
         padding:15px;
@@ -28,49 +28,40 @@ export const StyledFooter = styled.div`
             padding:15px;
             z-index:1000;
             &:first-child{
-                ${props=>props.lang==="fa"?`border-left:1px solid ${grey[1]}`:`border-right:1px solid ${grey[1]}`}
+                ${props => props.lang === "fa" ? `border-left:1px solid ${grey[1]}` : `border-right:1px solid ${grey[1]}`}
             }
         }
 `
 
-export const StyledForm = styled(StyledNotScrollbar)`
-            padding:20px;
-            margin-top:70px;
-            // height:18rem;
-            overflow:scroll;
-`
-
 export const styledGrid = () => ({
-    root:{
-        '& div':{
+    root: {
+        '& div': {
             margin: 'auto',
         }
     }
 })
 
-export const StyledTextArea = styled.div`
-       // & div{
-       //     width: 100%;
-       //     border-radius: 10px;
-       //     border:1px solid ${grey[0]}
-       //     padding:10px;
-       //     box-sizing:border-box;
-       //     &:focus{
-       //      outline:0!important;
-       //     }
-       // }
-       & .se-toolbar{
-            display:none!important;
-       }
-        & .sun-editor-common{
-            display:none!important;
-       }
-        & .sun-editor{
-            border:0;
-       }
-        
-        & .se-wrapper{
-            border-radius:10px;
-            border:1px solid ${grey[0]};
-       }
+export const StyledTextArea = styled.textarea`
+             border:1px solid ${grey[0]};
+             border-radius:4px;
+             width:100%;
+             padding:10px;
+             box-sizing:border-box;
+             &:focus-visible{
+                outline:0!important;
+                outline-offset:0!important;
+             }
 `
+
+export const StyledButtonStatus = styled(StyledDefaultButton)`
+             background-color:${({status})=> status ? green[0] : red[0]};
+             color:${white[0]};
+             height:44px;
+             width:100%;
+`
+export const styledGridStatus = () => ({
+    root: {
+        padding:props => props.lang === 'en' ? '0 0 0 10px' : '0 10px 0 0 ' ,
+        boxSizing:'border-box'
+    }
+})

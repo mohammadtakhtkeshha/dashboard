@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import {StyledDefaultButton} from "assets/js/App";
 
 export const StyledTreeRow = styled.div`
                 display:flex;

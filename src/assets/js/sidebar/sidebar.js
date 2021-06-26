@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {blue,green} from "components/partials/Colors";
+import {blue,green} from "assets/js/library/abstracts/colors";
 
 export const StyledPaper = styled.div`
          background-image: linear-gradient(to bottom right, ${green[8]},${green[9]}, ${blue[10]});

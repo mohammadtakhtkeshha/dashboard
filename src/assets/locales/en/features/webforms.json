@@ -1,0 +1,12 @@
+{
+  "formsList": "formsList",
+  "machineName": "machine name",
+  "editForm": "edit form",
+  "editElement": "edit element",
+  "addElement": "add element",
+  "elementsList": "elements list",
+  "chooseElementType": "choose element type",
+  "fieldId": "field id",
+  "formIdJustW": "this field must be alphabetical or underscore",
+  "newForm": "new form"
+}

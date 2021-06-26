@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import {green,white,red,grey,blue} from "components/partials/Colors";
-import leave from "../../../media/image/dashboard/bg-leave.svg";
+import {green,white,red,grey,blue} from "assets/js/library/abstracts/colors";
 
 export const StyledTitle = styled.div`
              background-color:${green[6]};

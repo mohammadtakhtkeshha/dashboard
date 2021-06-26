@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledBox=styled.div`
+export const StyledBox = styled.div`
                display:flex;
                flex-direction:row;
                direction:${props => props.lang === 'en' ? 'ltr' : 'rtl'}
@@ -27,3 +27,18 @@ export const defaultStyles = {
         }
     }
 };
+
+export const layoutClasses = (props) => ({
+    fontFamilyPrimary: {
+        '& *': {
+            fontFamily: 'primary-font',
+            direction: 'rtl',
+        }
+    },
+    fontFamilyByekan: {
+        '& *': {
+            fontFamily: 'byekan',
+            direction: 'ltr',
+        }
+    }
+})

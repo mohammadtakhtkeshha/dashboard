@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {grey} from "components/partials/Colors";
+import {grey} from "assets/js/library/abstracts/colors";
 import {StyledTableCell} from "../../library/components/table";
 
 export const StyledDetailBlock =  styled.div`

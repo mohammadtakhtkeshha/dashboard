@@ -8,5 +8,44 @@
   "low": "کم",
   "priority": "اهمیت",
   "relatedService": "سرویس مرتبط",
-  "newTicket": "ثبت تیکت"
+  "price": "قیمت",
+  "ticketNum": "شماره تیکت",
+  "timePay": "مهلت پرداخت",
+  "newTicket": "ثبت تیکت",
+  "payment success": "پرداخت شما با موفقیت انجام شد",
+  "invoice not submitted": " هنگام ثبت فاکتور خطایی رخ داده، با پشتیبانی بررسی کنید",
+  "payment not authorized": " پرداخت تایید نشده، با پشتیبانی بررسی کنید",
+  "payment waiting": " در انتظار پرداخت",
+  "internal error": "خطای داخلی",
+  "cancelled by user": "کنسل شده توسط کاربر",
+  "number not validate": "شماره کارت نامعتبر می‌باشد",
+  "low credit": " ‌موجودی حساب کافی نمی‌باشد",
+  "wrong password": " رمز واردشده اشتباه می‌باشد",
+  "too many reauests": " ‌تعداد درخواست‌ها بیش از حد مجاز می‌باشد",
+  "too many payments": " ‌تعداد پرداخت اینترنتی روزانه بیش از حد مجاز می‌باشد",
+  "not allowed price": "مبلغ پرداخت اینترنتی روزانه بیش از حد مجاز می‌باشد",
+  "unauthorized provider": " ‌صادرکننده‌ی کارت نامعتبر می‌باشد",
+  "switch error": "‌خطای سوییچ",
+  "unavailable card": " کارت قابل دسترسی نمی‌باشد",
+  "pay": "پرداخت",
+  "paid": "پرداخت شده",
+  "unpredicted error": " خطلای پیشبینی نشده"
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

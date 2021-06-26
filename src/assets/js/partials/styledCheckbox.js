@@ -1,4 +1,4 @@
-import {grey, green} from "components/partials/Colors";
+import {grey, green} from "assets/js/library/abstracts/colors";
 import styled from "styled-components"
 
 // export const styledCheckbox = {
@@ -37,13 +37,11 @@ import styled from "styled-components"
     // },
 // }
 
-
-
 export const StyledCheckBox = styled.label`
              display: flex;
              align-items:center;
+             margin:.4rem 0;
               position: relative;
-              padding-right: 35px;
               cursor: pointer;
               -webkit-user-select: none;
               -moz-user-select: none;
@@ -90,5 +88,7 @@ export const StyledCheckBox = styled.label`
              & input:checked ~ span:after{
                 display:block;
              } 
-         
+             & div {
+                padding:${({lang})=>lang === 'fa' ? '0 30px 0 0' : '0 0 0 30px'}
+             }
 `

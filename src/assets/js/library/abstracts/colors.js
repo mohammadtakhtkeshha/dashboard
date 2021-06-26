@@ -24,6 +24,7 @@ const black = ['#212529',//[0]
     '#32325d',//[2]upload img color
     '#242527',//[3]background color for hover img upload
     '#2e2e2e',//[4]text-color-dashboard-welcome
+    '#4C4C4C',//[5]
 ];
 const white =["#fff",//[0] base-white
     "#fffdfe",//[1] dashboard-title-text-color
@@ -39,18 +40,27 @@ const danger={
     light:'#f8d7da',
     dark:'#721c24',
 };
-const red=['#fe2947','#fe4660','#dc213b'];//{0:default,1:hover,2:focus}
+const red=['#fe2947',//[0]:default
+    '#fe4660',//[1]:hover
+    '#dc213b',//[2]:focus
+    '#EC6060',//[3] button-background
+    '#ee6d6d',//[4] button-background-hover
+    '#bd4d4d',//[5] button-background-active
+]
 
 const green = ['#3ecd90',//[0]default
     '#5acb9b',//[1]hover
     '#34aa78',//[2]focus
-    '#3bc68d',//[3]right-header-gradiant
+    '#3bc68d',//[3]right-elementHeader-gradiant
     '#3dcd90',//[4]right-body-gradiant
-    '#3abea6',//[5]right main header
+    '#3abea6',//[5]right main elementHeader
     '#3ecc90',//[6]right sidebar background
     '#b0dfd7',//[7]font color breadcrumbs deactive
     '#32ae96',//[8]left-sidebar-top
     '#32ae96',//[9]right-sidebar-top
+    '#3bc78d',//[10]right-gradiant-for-tableHeader
+    '#3ecd91',//[11]right-gradiant-for-tableHeader
+    '#ccdf33',//[12]settings-box
 ];
 
 const blue= ['#2e91b0',//[0]default
@@ -58,10 +68,10 @@ const blue= ['#2e91b0',//[0]default
     '#25738b',//[2]focus
     '#303f9f',//[3]
     '#008CBA',//[4]
-    '#2369be',//[5]left-header-gradiant
+    '#2369be',//[5]left-elementHeader-gradiant
     '#2d85ef',//[6]left-body-gradiant
     '#2c84f0',//[7]left-main-head
-    '#1461b1',//[8]power-in-header-background
+    '#1461b1',//[8]power-in-elementHeader-background
     '#32ac93',//[9]left-sidebar-background
     '#2c84f0',//[10]end-sidebar-background
     '#6e79ee',//[11]background-button-tour
@@ -69,11 +79,22 @@ const blue= ['#2e91b0',//[0]default
     '#66abf0',//[13]border-checkbox
     '#1264b0',//[14]dashboard-icon-title
     '#3193dc',//[15]radio-button
-    '#606CEC',//[16]radio-button
+    '#606CEC',//[16]radio-button,background-button
+    '#2a9fbb',//[17]tid-color-attach
+    '#2c85f0',//[18]left-elementHeader-gradiant
+    '#4d56bd',//[19]button-background-active
+    '#6d78ee',//[20]button-background-hover
+    '#4be1d1',//[21]settings-box
+    '#2e99ff',//[22]settings-box
 ];
 
 const orange=[
-    'rgb(236, 152, 96)',//background-tour-button
+    'rgb(236, 152, 96)',//[0]background-tour-button
+    '#f60',//[1]color-for-title-ticket
+    '#EC9860',//[2]background-color-button
+    '#eea06d',//[3]background-color-button-hover
+    '#bd7a4d',//[4]background-color-button-active
+    '#ffb82c ',//[5]settings-box
 ];
 
 const grey = ['#ced4da',//[0]input border
@@ -86,7 +107,7 @@ const grey = ['#ced4da',//[0]input border
     '#D6DBE1',//[7]
     '#6B7C93',//[8]color for upload img border hover,close-tour-color,close-tour-button-border,tour-description
     '#F1F3F5',//[9]background of upload here
-    '#525368',//[10]color for icons in header
+    '#525368',//[10]color for icons in elementHeader
     '#dddddd',//[11]color for border bottom item sidebar
     '#E2E3E2',//[12]background-colors:hover sidebar icons
     '#EEF0F2',//[13]background-colors sidebar icons
@@ -95,8 +116,15 @@ const grey = ['#ced4da',//[0]input border
     '#757575',//[16]text-color dashboard-welcome
     '#f3f4f6',//[17]background-color dashboard-block
     '#dfe0e2',//[18]background-color base-all-content
-
+    '#f9f8f8',//[19]
+    '#616161',//[20]
+    '#eff0f1',//[21]for table elementHeader matamo
+    '#f2f2f2',//[22]for-table-row-hover matamo
+    '#495057',//[23]input-placeholder
+    '#c4c4c4',//[24]settings-button-status
 ];
+
+export const purpel = ["#3F51B5"]
 
 export {
     primary, primaryBright, secondary, secondaryBright, success, successBright, danger,dangerBright,

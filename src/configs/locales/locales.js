@@ -20,6 +20,13 @@ import menuFa from 'assets/locales/fa/features/menu.json';
 import menuEn from 'assets/locales/en/features/menu.json';
 import matamoEn from 'assets/locales/en/features/matamo.json';
 import matamoFa from 'assets/locales/fa/features/matamo.json';
+import roleFa from 'assets/locales/fa/features/roles.json';
+import roleEn from 'assets/locales/en/features/roles.json';
+import settingsEn from 'assets/locales/en/features/settings.json';
+import settingsFa from 'assets/locales/fa/features/settings.json';
+import webFormsFa from 'assets/locales/fa/features/webforms.json';
+import webFormsEn from 'assets/locales/en/features/webforms.json';
+
 //localstorage
 import storage from 'libraries/local-storage'
 
@@ -35,6 +42,9 @@ const resources = {
         tickets:ticketsEn,
         menu:menuEn,
         matamo:matamoEn,
+        roles:roleEn,
+        settings:settingsEn,
+        webforms:webFormsEn,
     },
     fa:{
         comments:commentsFa,
@@ -46,6 +56,9 @@ const resources = {
         tickets:ticketsFa,
         menu:menuFa,
         matamo:matamoFa,
+        roles:roleFa,
+        settings:settingsFa,
+        webforms:webFormsFa,
     }
 };
 
@@ -56,7 +69,7 @@ i18n
         resources,
         lng: storage.get('lang') || 'fa',
         ns: ['sidebar', 'users','translation','menu'],
-        keySeparator: false, // we do not use keys in partials messages.welcome
+        keySeparator: false, // we do not use keys in elementTabs messages.welcome
         interpolation: {
             escapeValue: false // react already safes from xss
         }

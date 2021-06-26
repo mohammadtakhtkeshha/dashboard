@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import {makeStyles} from "@material-ui/styles";
-import {blue, green, white} from "components/partials/Colors";
+import {blue, green, white} from "assets/js/library/abstracts/colors";
 
 export const useStyles = makeStyles((theme) => ({
     paper: {
@@ -98,11 +98,11 @@ export const StyledTableCell = styled.div`
            
 `
 
-export const StyledPaper = styled.div`
-     margin: theme.spacing(2);
-        borderRadius:20px;
-        overflow:hidden;
-        @media(max-width:992px) {
-            margin: 2rem 0;
-        }
-`
+// export const StyledPaper = styled.div`
+//      margin: theme.spacing(2);
+//         borderRadius:20px;
+//         overflow:hidden;
+//         @media(max-width:992px) {
+//             margin: 2rem 0;
+//         }
+// `

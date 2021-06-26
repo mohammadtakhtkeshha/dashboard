@@ -1,4 +1,4 @@
-import * as colors from "../../../components/partials/Colors";
+import * as colors from "assets/js/library/abstracts/colors";
 
 export const editUserStyels =(theme) => ({
     paper: {

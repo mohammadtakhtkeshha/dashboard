@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import {grey,black,white,green} from "components/partials/Colors";
-import {StyledNotScrollbar} from "../App";
+import {grey,black,white,green} from "assets/js/library/abstracts/colors";
 
 export const InputBlock = styled.div`
         position: relative;
@@ -53,7 +52,7 @@ export const StyledAfterUploadHere = styled.div`
                 background-color:${white};
                 position:relative;
                 border: 2px dashed ${grey[0]};
-                z-index: 50;
+                // z-index: 50;
                 cursor:pointer;
                 &:hover{
                    border: 2px dashed ${grey[8]};

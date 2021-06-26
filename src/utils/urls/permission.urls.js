@@ -1,6 +1,6 @@
 const baseUrl =process.env.REACT_APP_API_URL;
 
-export const getPermissionListUrl =`${baseUrl}/api/rest/permissions/list`
+export const getPermissionListUrl =`${baseUrl}/api/rest/listPermissions`
 
 export const addRoleUrl =`${baseUrl}/api/rest/role`
 

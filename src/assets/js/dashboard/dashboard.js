@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import {makeStyles} from "@material-ui/styles";
-import {blue, green, white,grey} from "components/partials/Colors";
+import {blue, green, white,grey} from "assets/js/library/abstracts/colors";
 import {StyledTable} from "../App";
 
 export const useStyles = makeStyles((theme) => ({
@@ -83,6 +83,10 @@ export const StyledDashboardBlock = styled.div`
                     box-shadow:0 0 0 !important;
                 }
             }
+`
+
+export const StyledDate = styled.span`
+        padding:10px;
 `
 
 

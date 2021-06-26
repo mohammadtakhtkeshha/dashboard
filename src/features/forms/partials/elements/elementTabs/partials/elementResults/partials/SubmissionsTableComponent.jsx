@@ -1,0 +1,100 @@
+import React, {useEffect, useContext, useState} from 'react';
+import {withNamespaces} from "react-i18next";
+import i18next from "i18next";
+import {useParams} from 'react-router-dom';
+
+import {getSubmissionListMethod} from "./SubmissionsTableComponent.js";
+import AppContext from "contexts/AppContext";
+import {
+    StyledTable,
+    StyledTableBody, StyledTableBodyRow,
+    StyledTableCell,
+    StyledTableHeadTr,
+    StyledTr
+} from "assets/js/library/components/table";
+import {StyledActionButtons, StyledActionsBlock} from "assets/js/library/components/buttons";
+import {StyledTrashEditSvg} from "assets/js/library/base/all";
+import deleteIcon from 'assets/svg/delete.png';
+import {warning} from "methods/swal";
+import {deleteSubmissionMethod} from './SubmissionsTableComponent.js'
+
+function SubmissionsTableComponent({t}) {
+    const lang = i18next.language;
+    const {setLoading} = useContext(AppContext);
+    let align = lang === 'en' ? 'left' : 'right';
+    const [submissions, setSubmissions] = useState([]);
+    const {form_id} = useParams();
+
+    useEffect(() => {
+        getSubmissionListMethod(setLoading, setSubmissions, form_id);
+    }, [setLoading, setSubmissions]);//once
+
+    const confirmDeleteHandler = e => {
+        let stringValue = e.currentTarget.value;
+        const arrayValue = stringValue.split('-');
+        const body={
+            form_id:arrayValue[0],
+            sid:arrayValue[1],
+        }
+        warning(t('translation:sureQuestion'), t('translation:yes'), t('translation:cancel'), t('translation:notDone'),
+            function () {
+            deleteSubmissionMethod(setLoading,body,setSubmissions);
+        });
+    };
+    return (<StyledTable>
+        <StyledTableHeadTr>
+            <StyledTableCell width="100" align="center" minWidth={58}>{t('translation:sid')}</StyledTableCell>
+            <StyledTableCell width="100" align="center" minWidth={58}>{t('translation:ip')}</StyledTableCell>
+            <StyledTableCell width="100" align="center" minWidth={58}>{t('translation:author')}</StyledTableCell>
+            <StyledTableCell width="100" align="center" minWidth={58}>{t('translation:date')}</StyledTableCell>
+            {submissions.length > 0 && Object.keys(submissions[0].fields).map((index) => {
+                return (<StyledTableCell width="100" align="center" minWidth={58}>{index}</StyledTableCell>)
+            })}
+            <StyledTableCell width="100" align="center" minWidth={58}></StyledTableCell>
+        </StyledTableHeadTr>
+        <StyledTableBody>
+            {submissions.length > 0 ? (
+                submissions.map((submission, index) => (
+                    <React.Fragment key={index}>
+                        <StyledTr>
+                            <StyledTableCell width="100" minWidth={58} align="center">
+                                {submission.sid}
+                            </StyledTableCell>
+                            <StyledTableCell width="100" minWidth={58} align="center">
+                                {submission.ip}
+                            </StyledTableCell>
+                            <StyledTableCell width="100" minWidth={58} align="center">
+                                {submission.created}
+                            </StyledTableCell>
+                            <StyledTableCell width="100" minWidth={58} align="center">
+                                {submission.author}
+                            </StyledTableCell>
+                            {Object.entries(submission.fields).map(([key, value]) => {
+                                    return (<StyledTableCell key={key} width="100" minWidth={58} align="center">
+                                        {value}
+                                    </StyledTableCell>)
+                                }
+                            )}
+                            <StyledTableCell width="100" minWidth={58} align="center">
+                                <StyledActionsBlock>
+                                    <StyledActionButtons permission='true' value={`${form_id}-${submission.sid}`}
+                                                         onClick={confirmDeleteHandler}>
+                                        <img src={deleteIcon}/>
+                                    </StyledActionButtons>
+                                </StyledActionsBlock>
+                            </StyledTableCell>
+                        </StyledTr>
+                    </React.Fragment>
+                ))
+            ) : (
+                <StyledTableBodyRow>
+                    <StyledTableCell colSpan="6" align="right">
+                        {t('translation:notFoundRecord')}
+                    </StyledTableCell>
+                </StyledTableBodyRow>
+            )}
+        </StyledTableBody>
+    </StyledTable>)
+}
+
+export default withNamespaces('translation')(SubmissionsTableComponent)

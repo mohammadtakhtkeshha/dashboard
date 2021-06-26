@@ -5,7 +5,6 @@ import {
     StyledNotScrollbar,
     Center,
     StyledSvg,
-    StyledDirection,
     MarginTop1,
     StyledValidError,
     StyledHead
@@ -25,7 +24,7 @@ import {
     StyledRadioButton,
     StyledBtn,
     StyledMultiButtonsBlock,
-    StyledRegisterButton,
+    StyledAddButton,
     StyledEditButton,
     StyledButton,
     StyledDefaultButton,
@@ -40,7 +39,6 @@ import {StyledTreeTable} from "./library/components/dragDrop";//base
 import {StyledInput, styledTextField} from "./library/components/input";//components/input
 import {
     StyledModalBody,
-    StyledBottomMargin,
     StyledModalHeader,
     StyledModalFooter,
     ModalBody
@@ -67,7 +65,7 @@ export {
     StyledRadioButton,
     StyledBtn,
     StyledMultiButtonsBlock,
-    StyledRegisterButton,
+    StyledAddButton,
     StyledEditButton,
     StyledButton,
     StyledDefaultButton,
@@ -89,18 +87,18 @@ export {
     StyledTableMultiCell,
     StyledCheckboxImgInTable
 }
-export {StyledModalBody, StyledBottomMargin, StyledModalHeader, StyledModalFooter, ModalBody}
+export {StyledModalBody, StyledModalHeader, StyledModalFooter, ModalBody}
 export {StyledTreeTable}//components/dragDrop
 export {
     StyledRelative,
     StyledNotScrollbar,
     Center,
     StyledSvg,
-    StyledDirection,
     MarginTop1,
     StyledValidError,
     StyledHead
 }//all
+
 export {StyledPaper, StyledBox, StyledFlex}//box
 export {StyledInput, styledTextField}//components/input
 export {StyledHeadTypography, StyledLabel, StyledTypographyError, StyledAlignTypography}//base/typography

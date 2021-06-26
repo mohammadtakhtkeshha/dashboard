@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {green,grey,orange,blue} from "components/partials/Colors";
+import {green,grey,orange,blue} from "assets/js/library/abstracts/colors";
 
 export const StyledStatusButton = styled.button`
         background-color:${props => props.status === "Open" ? green[0] : (props.status === "Answered" ? blue[0]:(props.status === "Closed" ? grey[15] : orange[0]))};

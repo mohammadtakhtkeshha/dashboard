@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import {black, blue, green, grey, red, white} from "components/partials/Colors";
+import {black, blue, green, grey, red, white} from "assets/js/library/abstracts/colors";
 
 export const StyledDeleteButton = styled.button`
+            display:${({permission})=> permission ? 'block' : 'none'};
             color: ${white[0]};
             border: 0;
             cursor: pointer;
@@ -50,6 +51,7 @@ export const StyledActionsBlock = styled.div`
 `
 
 export const StyledActionButtons = styled.button`
+                display:${({permission}) => permission === 'true' ? 'block' : 'none'};
                 border: 0;
                 cursor: pointer;
                 line-height: 14px;
@@ -60,6 +62,7 @@ export const StyledActionButtons = styled.button`
                 }
                     display:flex;
                     & img{
+                        display:${({permission}) => permission === 'true' ? 'block' : 'none'};
                         width:18px;
                         height:18px;
                     }
@@ -119,18 +122,22 @@ export const StyledButton = styled.button`
             }
 `
 
-export const StyledRegisterButton = styled.button`
+export const StyledGreenButton = styled.button`
             color: ${white[0]};
+            background-color: ${green[0]};
             border: 0;
             cursor: pointer;
             padding: 10px 15px;
             line-height: 14px;
             border-radius: 4px;
-            background-color: ${green[0]};
             width:fit-content;
             &:focus{
                 outline:0!important;
             }
+`
+
+export const StyledAddButton = styled(StyledGreenButton)`
+            display:${props => props.permission === 'true' ? 'block' : 'none'};
 `
 
 export const StyledEditButton = styled.button`
@@ -146,6 +153,7 @@ export const StyledEditButton = styled.button`
                 outline:0!important;
             }
 `
+
 export const StyledMultiButtonsBlock = styled.div`
     display:flex;
         & button{
@@ -155,6 +163,12 @@ export const StyledMultiButtonsBlock = styled.div`
 `
 
 export const StyledRadioButton = styled.div`
+             & label{
+                margin:0;
+                &>span:first-child{
+                    padding:9px 5px!important;
+                }
+             }
              & .MuiFormGroup-root{
                    flex-direction:row;
              }
@@ -172,6 +186,7 @@ export const StyledBtn = styled.button`
                 outline:0!important;
              }
 `
+
 export const StyledStatusButtonBlock = styled.div`
                 border: 1px solid ${grey[1]};
                 height: 50px;
@@ -183,29 +198,31 @@ export const StyledStatusButtonBlock = styled.div`
                 width : fit-content!important;
 `
 
-// export const StyledStatusButton = styled.button`
-//                 height : 100%;
-//                 border-radius: 5px;
-//                 height: 100%;
-//                 border: 0;
-//                 padding: 0 20px;
-//                 cursor:pointer;
-//                 &:focus{
-//                     outline:0!important;
-//                 }
-//                 &:first-child{
-//                     box-shadow:${props => props.status === false ? white : `0 0 10px ${green[0]}`};
-//                     background-color: ${props => props.status === false ? white[0] : green[0]};
-//                     color:${props => props.status === true ? white[0] : black[1]};
-//
-//                 }
-//                 &:last-child{
-//                     box-shadow:${props => props.status === false ? `0 0 10px ${red[0]}` : white[0]};
-//                     background-color: ${props => props.status === false ? red[0] : white[0]};
-//                     color:${props => props.status === false ? white[0] : black[1]};
-//
-//                 }
-// `
+export const StyledStatusButtons = styled.button`
+                height : 100%;
+                border-radius: 5px;
+                height: 100%;
+                border: 0;
+                padding: 0 20px;
+                cursor:pointer;
+                &:focus{
+                    outline:0!important;
+                }
+                &:first-child{
+                    box-shadow:${props => props.status === false ? white : `0 0 10px ${green[0]}`};
+                    background-color: ${props => props.status === false ? white[0] : green[0]};
+                    color:${props => props.status === true ? white[0] : black[1]};
+                    z-index:${props => props.status === true ? 1 : 0};
+
+                }
+                &:last-child{
+                    box-shadow:${props => props.status === false ? `0 0 10px ${red[0]}` : white[0]};
+                    background-color: ${props => props.status === false ? red[0] : white[0]};
+                    color:${props => props.status === false ? white[0] : black[1]};
+                    z-index:${props => props.status === false ? 1 : 0};
+
+                }
+`
 
 export const StyledStatusButton = styled(StyledDefaultButton)`
                 background-color:red;
@@ -215,4 +232,11 @@ export const StyledStatusButton = styled(StyledDefaultButton)`
                 background-color:${props=>props.status !== "false" ? green[0] : red[0]}
 `
 
-
+export const StyledRegisterButton=styled.button`
+             color:${props => props.status === false ? grey[0] : black[1]};
+             &:hover{
+               color:${props => props.status === false ? grey[0] : green[0]};
+             }
+             font-size:21px;
+             font-weight:bold;
+`

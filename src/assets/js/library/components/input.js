@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {grey} from "../../../../components/partials/Colors";
+import {grey} from "assets/js/library/abstracts/colors";
 
 export const StyledInput = styled.input`
             display: block;
@@ -12,7 +12,7 @@ export const StyledInput = styled.input`
             color: ${grey[23]};
             background-color: #fff;
             background-clip: padding-box;
-            border: ${props => props.border ? `1px solid ${props.border}` : `1px solid ${grey[0]}`};
+            border: ${({border}) => border ? `1px solid ${border}` : `1px solid ${grey[0]}`};
             border-radius: 4px;
             box-sizing:border-box;
             transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
@@ -26,7 +26,8 @@ export const StyledInput = styled.input`
             }
             &::placeholder{
                 color:${grey[23]};
-            }
+            } 
+          
 `
 
 export const styledTextField = () => ({

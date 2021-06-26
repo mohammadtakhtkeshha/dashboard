@@ -1,6 +1,6 @@
 const url = process.env.REACT_APP_API_URL
 
-export const getTaxonomiesUrl = `${url}/vocablist?_format=json`
+export const getTaxonomiesUrl = `${url}/api/rest/tax_list?_format=json`
 
 export const getTaxonomyStatesUrl =`${url}/api/rest/taxonomy/state`
 
@@ -34,6 +34,10 @@ export const deleteTerm =(id)=>{
 export const getDeleteEditTermUrl =(id)=>{
     return `${url}/taxonomy/term/${id}?_format=json`
 
+}
+
+export const saveDragDropChangesStatesURL = (type) => {
+    return `${url}/api/rest/taxonomyordered/${type}`
 }
 
 export const registerStateUrl =`${url}/taxonomy/term?_format=json`

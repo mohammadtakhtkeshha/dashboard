@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {grey, black, orange, blue,white} from "components/partials/Colors"
+import {grey, black, orange, blue,white} from "assets/js/library/abstracts/colors"
 
 export const StyledFlexRow = styled.div`
              display:flex;
@@ -74,7 +74,7 @@ export const IconBlock = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: ${props => props.lang === 'en' ? '15px 15px 0 0' : '15px 0 0 15px'};
+            margin: ${props => props.lang === 'en' ? '15px 15px 0 0' : '15px 0 0 0'};
             
 `
 

@@ -1,5 +1,3 @@
-
-
 @font-face {
     font-family: "primary-font";
     src: url("../fonts/iran-yekan-300.eot");
@@ -39,10 +37,3 @@
     url("../fonts/iran-yekan-700.ttf") format("truetype");
     font-weight: 700;
 }
-
-*{
-    font-family: primary-font !important;
-}
-
-
-

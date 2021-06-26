@@ -30,6 +30,7 @@
   "chooseUnpublishDate":"choose unpublish date",
   "nullTitle":"title can not be null",
   "unPublishAfterPublishError":"unpublish date must be after publish Date!",
+  "firstPulishDateThenUnpublish":"choose publish date first!",
   "furtherDate":"selected time must be for further!",
   "chooseContentType":"please choose content type",
   "title&picture": "title and picture",

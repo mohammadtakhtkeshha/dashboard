@@ -12,13 +12,6 @@ export const styledGridSingleImg = ()=>({
     }
 })
 
-// export const styledGridVote = ()=>({
-//     root:{
-//         display: props=>props.contentype === "page" || 'none',
-//         padding:'12px',
-//     }
-// })
-
 export const StyledImgError = styled.div`
              display:${props => props.error || 'none'}
 `
@@ -40,12 +33,6 @@ export const styledGridNewsCategory = ()=>({
     }
 })
 
-export const styledGridStates = ()=>({
-    root:{
-        display: props=>props.contentype === "news" || 'none',
-        padding:'12px',
-    }
-})
 
 export const styledGridSubtitle = ()=>({
     root:{
@@ -68,6 +55,10 @@ export const styledGridSoundsVideosImages = ()=>({
     }
 })
 
+export const StyledCheckboxBody = styled.div`
+            padding:10px;
+`
+
 export const StyledImgsInputBlock = styled.div`
  display: ${props=>props.showImgInputs ? 'flex' : 'none'}
  justify-content:space-between;
@@ -75,12 +66,6 @@ export const StyledImgsInputBlock = styled.div`
     width : 49%!important;
  }
 `
-
-export const styledGridImagesCategory =()=>({
-    root:{
-        display: props=>(props.contentype === "images") || 'none'
-    }
-})
 
 export const styledGridComment =()=>({
     root:{

@@ -1,4 +1,4 @@
-import moment from "jalali-moment";
+import moment from "moment-jalaali";
 
 export const isObjectEmpty = (obj) => {
     for (let key in obj) {
@@ -23,37 +23,70 @@ export const stripHtml = (html) => {
     return temporalDivElement.textContent || temporalDivElement.innerText || "";
 }
 
-export const toShamsiDate = (date) => {//1989/01/24
-    let shamsi = moment(date, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD'); // 1367/11/04
-    return shamsi
+export const toHtml = (message) => {
+    message = message.replaceAll("&lt;", "<");
+    message = message.replaceAll("&gt;", ">");
+    message = message.replaceAll("&amp;lt;", "<");
+    message = message.replaceAll("&amp;amp;lt;", "<");
+    message = message.replaceAll("&amp;gt;", ">");
+    message = message.replaceAll("&amp;amp;gt;", "<");
+    message = message.replaceAll("&nbsp;", " ");
+    message = message.replaceAll("&amp;nbsp;", " ");
+    return message
 }
 
-export const toMiladiDate = (date) => { //1989/01/24
-    let miladi = moment(date, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD'); // 1367/11/04
-    return miladi
+export const formatDayToEnd = (date) => {
+   let da= moment(date, 'YYYY/DD/MM').format('YYYY/MM/DD')
+    return da
+}
+
+export const toShamsiDate = (date) => {
+    let shamsi = moment(date, 'YYYY/M/D').format('jYYYY/jM/jD')
+    return shamsi //1392/6/31
+}
+
+export const toMiladiDate = (date) => {
+    let miladi = moment(date, 'jYYYY/jM/jD').format('YYYY/M/D')
+    let englishMiladi = toEnglishDigits(miladi)
+    return englishMiladi //1989/01/24
 }
 
 export const reverseDateString = (string) => {
     const arrayString = string.split("/")
-    const date=arrayString.reverse().join("/")
-    debugger
+    const date = arrayString.reverse().join("/")
     return date
 }
 
-export const getJustDate = (date,reverse) => {debugger
-    const dateArray = date.split(" ")
-    for(let item of dateArray){
-        if(item.includes('/')){
-            if(reverse){
-                const date=reverseDateString(item)
-                return date
-            }else{
-                return item
-            }
-        }
+export const removeHourFromMiladiDate = (date) => {
+    const currentDate = date.split(' ').shift()
+    return currentDate
+}
+
+export const convertDashToSlashInDate = (date) => {
+    const currentDate = date.split('-')
+    const updatedDated = currentDate.join('/')
+    return updatedDated
+}
+
+export const toEnglishDigits = (string) => {
+    const persianNumbers = ["۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹", "۰"]
+    const arabicNumbers = ["١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩", "٠"]
+    const englishNumbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+    let str = string !== null ? string.toString() : null
+    if (str === null) {
+        return null
+    } else {
+        return str.split('').map(c => englishNumbers[persianNumbers.indexOf(c)] ||
+            englishNumbers[arabicNumbers.indexOf(c)] || c).join("")
     }
 }
 
+export const reverseDate = (str) => {
+    return str.split("/").reverse().join("/");
+}
 
+export const stringToBoolean = (string) => {
+            return string === "true" ? true : false;
+}
 
 export default {isObjectEmpty, offsetLeft}

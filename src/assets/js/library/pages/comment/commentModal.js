@@ -1,4 +1,4 @@
-import {green, white,grey} from "components/partials/Colors";
+import {green, white,grey} from "assets/js/library/abstracts/colors";
 import styled from "styled-components";
 import {ModalBody} from "../../../App";
 // export const commentModal = () => ({

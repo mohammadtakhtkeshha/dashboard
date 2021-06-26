@@ -18,12 +18,11 @@ export const multiActionUrl =`${baseUrl}/api/rest/user/delete?_format=json`;
 
 export const registerUserUrl =`${baseUrl}/entity/user?_format=json`;
 
-export const saveUserImageUrl =`http://sitesazyas.rbp/web/file/upload/user/user/user_picture?_format=json`;
+export const saveUserImageUrl =`${process.env.REACT_APP_API_URL}/file/upload/user/user/user_picture?_format=json`;
 
 export const  getNotPaginateUserUrl = `${baseUrl}/api/users/all`;
 
 export const imgUrlForRegisterUser = `${baseUrl}`;
 
-export default {
-    deleteUserAndGetUserForEditUrl,getRolesUrl,getUsersUrl,multiActionUrl,getUserUrl,registerUserUrl,saveUserImageUrl,getNotPaginateUserUrl
-}
+export const changePassUrl = `${baseUrl}/api/rest/userpass`;
+

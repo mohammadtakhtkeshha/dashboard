@@ -1,4 +1,4 @@
-import {green,grey} from "components/partials/Colors";
+import {green,grey} from "assets/js/library/abstracts/colors";
 
 export const themeEnn={
     overrides: {

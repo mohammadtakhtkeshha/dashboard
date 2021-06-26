@@ -1,13 +1,9 @@
-import {Box, Typography} from "@material-ui/core";
+import {Box} from "@material-ui/core";
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import {white} from "components/partials/Colors.js"
+import {white} from "assets/js/library/abstracts/colors"
 
-export const styledTabs = () =>({
-    root:{
-    }
-})
 
 export function TabPanel(props) {
     const { children, value, index, ...other } = props;

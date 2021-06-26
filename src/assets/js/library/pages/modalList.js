@@ -1,4 +1,4 @@
-import {black} from "components/partials/Colors"
+import {black} from "assets/js/library/abstracts/colors"
 import styled from "styled-components"
 
 export const listModalStyles = (theme) => ({
@@ -33,6 +33,7 @@ export const listItemModalStyles = (theme) => ({
         borderBottom: '1px solid #BBC3CE',
         cursor: 'pointer',
         color: black[0],
+        display:props => props.permission === 'true' ? 'flex' : 'none',
         '&:last-child': {
             borderBottom: '0!important'
         },
