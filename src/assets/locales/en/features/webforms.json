@@ -9,5 +9,6 @@
   "fieldId": "field id",
   "formIdJustW": "this field must be alphabetical or underscore",
   "downloadResult": "download registered results",
+  "addEmail": "add email",
   "newForm": "new form"
 }

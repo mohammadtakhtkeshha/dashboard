@@ -12,6 +12,10 @@ export const defaultStyles = {
         fontFamily: ["primary-font", "segoe ui", "tahoma"],
         body1: {
             fontSize: '13px'
+        },
+        caption:{
+            fontSize: '13px',
+            wordBreak:'break-all',
         }
     },
     breakpoints: {

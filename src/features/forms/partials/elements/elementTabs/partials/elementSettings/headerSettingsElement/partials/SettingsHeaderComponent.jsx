@@ -11,27 +11,27 @@ import {StyledAddButton, StyledGreenButton} from "assets/js/library/components/b
 import {clickDownload} from './SettingsHeaderComponent.js'
 import AppContext from "contexts/AppContext";
 
-function SettingsHeaderComponent({t, setIsTourOpen, setOpenForm}) {
+function SettingsHeaderComponent({t, setIsTourOpen, setOpenForm,openForm}) {
     const lang = i18next.language;
     const {setLoading} = useContext(AppContext);
     const {form_id} = useParams();
 
     return (<StyledHead lang={lang}>
         <StyledHeadTypography className="element-list">
-            {t('webforms:elementsList')}
+            {t('translation:settings')}
         </StyledHeadTypography>
         <StyledGreenButton onClick={() => {
-            setIsTourOpen(true)
+            setIsTourOpen({show:true,id:''})
         }}>
             <Typography>{t('translation:guide')}</Typography>
         </StyledGreenButton>
         <StyledAddButton
             permission="true"
             className='download'
-            onClick={() => clickDownload(setLoading, form_id)}>
+            onClick={() => setOpenForm({show:true,id:''})}>
             <Typography>{t('translation:register')}</Typography>
         </StyledAddButton>
     </StyledHead>);
 }
 
-export default withNamespaces('users,translation')(SettingsHeaderComponent);
+export default withNamespaces('translation')(SettingsHeaderComponent);

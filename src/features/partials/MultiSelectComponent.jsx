@@ -44,9 +44,9 @@ function MultiSelectComponent({t, array, setArray, placeholder, changeMultiSelec
             />
             <StyledValueBlock>
                 {array.map((item, index) => {
-                    return (
-                        <StyledInputValue key={index}>{item}<span
-                            onClick={(e) => removeKey(e, index)}><CancelIcon/></span></StyledInputValue>)
+                    return (<StyledInputValue key={index}>{item}
+                        <span onClick={(e) => removeKey(e, index)}><CancelIcon/></span>
+                    </StyledInputValue>)
                 })}
             </StyledValueBlock>
         </StyledMultiSelect>

@@ -3,17 +3,16 @@ import React, {useState} from "react";
 import TourHeader from './partials/SettingsTourComponent.jsx';
 import SettingsHeader from './partials/SettingsHeaderComponent.jsx';
 
-export default function HeaderSettingsComponent({setOpenElementForm, setExpandedFilter, setIsEditForm}) {
+export default function HeaderSettingsComponent({setOpenForm,openForm}) {
     const [isTourOpen, setIsTourOpen] = useState(false);
 
     return (<>
         <SettingsHeader
             setIsTourOpen={setIsTourOpen}
-            setOpenElementForm={setOpenElementForm}
-            setIsEditForm={setIsEditForm}
+            setOpenForm={setOpenForm}
+            openForm={openForm}
         />
         <TourHeader
-            setExpandedFilter={setExpandedFilter}
             setIsTourOpen={setIsTourOpen}
             isTourOpen={isTourOpen}
         />
