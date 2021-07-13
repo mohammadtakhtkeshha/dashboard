@@ -34,7 +34,7 @@ function NewUserComponent({t, departemanList, setChosenDepartment, setTicket}) {
         </StyledModalHeader>
         <StyledModalList lang={lang}>
             {departemanList.map((department, index) => (
-                <StyledListModalItem value={department.id} key={index} xs={12} onClick={departmentClicked}>
+                <StyledListModalItem permission="true" value={department.id} key={index} xs={12} onClick={departmentClicked}>
                     <StyledText>
                         {department.name}
                     </StyledText>

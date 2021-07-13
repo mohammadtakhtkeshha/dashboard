@@ -26,7 +26,6 @@ function ContentTableComponent({t, selectedCheckBoxes, setSelectedCheckBoxes, pa
         allCheckboxHandlerMethod(e, contentsContext, page, setSelectedCheckBoxes)
     }
 
-
     return (<StyledTable>
         <StyledTableHeadTr>
             <StyledTableCell width="70" align={leftRightAlign}>

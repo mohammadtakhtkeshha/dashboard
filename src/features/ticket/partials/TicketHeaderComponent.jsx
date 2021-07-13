@@ -5,11 +5,11 @@ import Tour from 'reactour'
 
 import {Typography} from "@material-ui/core"
 
-import {StyledAddButton, StyledHead, StyledHeadTypography} from "assets/js/App"
-import {StyledRelative} from "assets/js/App"
+import {StyledAddButton,StyledGreenButton} from "assets/js/library/components/buttons"
+import { StyledHead,StyledRelative} from "assets/js/library/base/all"
+import { StyledHeadTypography} from "assets/js/library/base/typography"
 import {steps} from "./TicketHeaderComponent.js";
 import {StyledCloseGuideButton,StyledNextButton,StyledPrevButton} from "assets/js/partials/guideBlock"
-import {StyledHelpButton} from "assets/js/library/pages/content/contentHeader"
 import {get} from "libraries/local-storage";
 
 function TicketHeaderComponent({t, setOpenForm,setExpandedFilter}) {
@@ -18,8 +18,6 @@ function TicketHeaderComponent({t, setOpenForm,setExpandedFilter}) {
     const [currentStep,setCurrentStep]=useState(1)
     const refRegisterButton = useRef(null)
     const refList = useRef(null)
-    const helpPermission = JSON.parse(get(process.env.REACT_APP_USER))
-
 
     useEffect(() => {
         if(currentStep  >1){
@@ -33,10 +31,10 @@ function TicketHeaderComponent({t, setOpenForm,setExpandedFilter}) {
     }
 
     return (<StyledHead lang={lang}>
-        <StyledHeadTypography className="user-list" ref={refList}>{t('tickets:ticketList')}</StyledHeadTypography>
-        <StyledHelpButton permission={helpPermission.permissions['access administration pages'].access} onClick={()=>setIsTourOpen(true)}>
+        <StyledHeadTypography className="ticket-list" ref={refList}>{t('tickets:ticketList')}</StyledHeadTypography>
+        <StyledGreenButton onClick={()=>setIsTourOpen(true)}>
             <Typography>{t('translation:guide')}</Typography>
-        </StyledHelpButton>
+        </StyledGreenButton>
         <Tour
             showCloseButton={false}
             showNavigation={false}
@@ -54,7 +52,7 @@ function TicketHeaderComponent({t, setOpenForm,setExpandedFilter}) {
             onRequestClose={() => closeTour()}
         />
         <StyledRelative>
-            <StyledAddButton className="register-button" ref={refRegisterButton} onClick={()=>{setOpenForm({show:true,id:""})}}>
+            <StyledAddButton permission="true" className="register-button" ref={refRegisterButton} onClick={()=>{setOpenForm({show:true,id:""})}}>
                 <Typography>{t('tickets:newTicket')}</Typography>
             </StyledAddButton>
         </StyledRelative>

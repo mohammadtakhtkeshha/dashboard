@@ -7,7 +7,7 @@ import {
     StyledTableCell,
     StyledTablePaper,
     StyledTableParent
-} from "assets/js/App"
+} from "assets/js/library/components/table"
 import {
     StyledMatamoTable,
     StyledMatamoTableRow,

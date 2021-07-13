@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {StyledHead} from "assets/js/App";
+import {StyledHead} from "assets/js/library/base/all";
 
 export const StyledHeadComment = styled(StyledHead)`
           &>button:nth-child(2){

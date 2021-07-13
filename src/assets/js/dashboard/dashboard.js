@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import {makeStyles} from "@material-ui/styles";
 import {blue, green, white,grey} from "assets/js/library/abstracts/colors";
-import {StyledTable} from "../App";
+import {StyledTable} from "assets/js/library/components/table";
 
 export const useStyles = makeStyles((theme) => ({
     paper: {

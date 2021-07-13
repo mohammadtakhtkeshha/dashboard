@@ -1,7 +1,7 @@
 import React from "react"
 import {withNamespaces} from "react-i18next"
 
-import {StyledModalBody} from "assets/js/App"
+import {StyledModalBody} from "assets/js/library/components/modal"
 
 import FooterFormComponent from "./partials/FooterFormComponent.jsx"
 import HeaderFormComponent from "./partials/HeaderFormComponent.jsx"

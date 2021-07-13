@@ -5,7 +5,9 @@ import i18next from 'i18next';
 import { Typography } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 
-import { StyledInput, MarginTop1, StyledAlignTypography, StyledTypographyError } from 'assets/js/App';
+import { StyledInput} from 'assets/js/library/components/input';
+import { MarginTop1} from 'assets/js/library/base/all';
+import { StyledAlignTypography, StyledTypographyError } from 'assets/js/library/base/typography';
 import { StyledRowBox, StyledRow, StyledCol } from 'assets/js/content/partials/contents';
 import { clickEditorMetaTagMethod, seoChangedMethod } from './FormContentSeoComponent.js';
 import ContentsContext from 'contexts/ContentsContext';

@@ -1,12 +1,13 @@
 import React, {useContext, useEffect, useState} from "react";
 import {withNamespaces} from "react-i18next";
+import Tour from "reactour";
 
 import {Fade,Box} from "@material-ui/core";
 import HelpIcon from '@material-ui/icons/Help';
 
 import NewContentContext from "contexts/NewContentContext";
-import {StyledCancelButton} from "assets/js/library/components/modal";
-import {ModalBody, StyledSvg} from "assets/js/App";
+import {StyledCancelButton,ModalBody} from "assets/js/library/components/modal";
+import {StyledSvg} from "assets/js/library/base/all";
 import ContentsContext from "contexts/ContentsContext";
 import {ReactComponent as Exit} from "assets/svg/exit.svg";
 import NewContentTabsComponent from "./contentTabs/ContentTabs.jsx";
@@ -17,7 +18,6 @@ import {
     StyledNextButton,
     StyledPrevButton
 } from "assets/js/partials/guideBlock";
-import Tour from "reactour";
 
 function Index({t, openRegisterForm, handleCloseRegisterForm, newsCategory, states}) {
     const contentsContext = useContext(ContentsContext);

@@ -5,7 +5,7 @@ import i18next from "i18next";
 import {getLastSeenMethod} from "./LastSeenChartComponent.js";
 import AppContext from "contexts/AppContext";
 import {Typography} from "@material-ui/core";
-import {StyledTablePaper, StyledTableParent} from "assets/js/App"
+import {StyledTablePaper, StyledTableParent} from "assets/js/library/components/table"
 
 function LastSeenChartComponent({t}) {
     const lang = i18next.language;

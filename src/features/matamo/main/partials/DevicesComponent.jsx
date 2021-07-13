@@ -6,7 +6,7 @@ import { Typography } from '@material-ui/core';
 
 import { getDevicesMethod } from './DevicesComponent.js';
 import AppContext from 'contexts/AppContext';
-import { StyledTableParent, StyledTablePaper } from 'assets/js/App';
+import { StyledTableParent, StyledTablePaper } from 'assets/js/library/components/table';
 import {
   StyledMatamoTable,
   StyledMatamoTableRow,

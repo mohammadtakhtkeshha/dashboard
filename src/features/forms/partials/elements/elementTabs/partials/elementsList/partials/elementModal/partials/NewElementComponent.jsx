@@ -9,11 +9,12 @@ import {StyledRegisterButton} from "assets/js/library/components/buttons";
 import {isObjectEmpty} from "methods/commons";
 import {StyledInput} from "assets/js/library/components/input";
 import {StyledLabel, StyledTypographyError} from 'assets/js/library/base/typography';
-import {handleChangeMethod, addElementMethod, changeMultiSelectMethod} from "./NewElementComponent.js";
+import {handleChangeMethod, addElementMethod, changeMultiSelectMethod,handleFirstLoadError} from "./NewElementComponent.js";
 import {
     styledGrid,
     stylesGridOptions,
     StyledStatusButtonBox,
+    styledGridFieldId,
     StyledStatusButton
 } from "assets/js/library/pages/webform/newWebform";
 import AppContext from "contexts/AppContext";
@@ -21,8 +22,9 @@ import MultiSelectComponent from "features/partials/MultiSelectComponent.jsx";
 
 const StypedGrid = withStyles(styledGrid)(Grid);
 const StylesGridOptions = withStyles(stylesGridOptions)(Grid);
+const StyledGridFieldId = withStyles(styledGridFieldId)(Grid);
 
-function NewElementComponent({t, element, setElement, closeForm, id, setElements, isEditForm}) {
+function NewElementComponent({t, element, setElement, closeForm, setElements, isEditForm}) {
     const {setLoading} = useContext(AppContext);
     const [fieldOptionArr, setFieldOptionArr] = useState([]);
     const [errors, setErrors] = useState({})
@@ -31,34 +33,12 @@ function NewElementComponent({t, element, setElement, closeForm, id, setElements
         addElementMethod(setLoading, element, closeForm, setElements, isEditForm)
     };
 
-    useEffect(() => {
-        if(element.field_title === ''){
-            setErrors(prevState => {
-                return {...prevState,
-                field_title: {
-                    required: t('translation:requiredValid')
-                }
-            }})
-        }
-        if(element.field_options && fieldOptionArr.length === 0){
-            setErrors(prevState => {
-                return {...prevState,
-                    field_options: {
-                        required: t('translation:requiredValid')
-                    }
-            }})
-        }else{
-            setErrors(prevState => {
-                prevState.field_options && delete prevState.field_options
-                return {...prevState}})
-        }
-    }, [element,fieldOptionArr]);
     const handleChange = (e, field) => {
         handleChangeMethod(e, field, setElement, setErrors)
     };
 
     const changeMultiSelect = (arr) => {
-        changeMultiSelectMethod(arr, setElement,setErrors)
+        changeMultiSelectMethod(arr, setElement, setErrors)
     };
 
     useEffect(() => {
@@ -68,6 +48,10 @@ function NewElementComponent({t, element, setElement, closeForm, id, setElements
         }
         setFieldOptionArr([...arr])
     }, [setFieldOptionArr, element.field_options]);
+
+    useEffect(() => {
+        handleFirstLoadError(element,setErrors,fieldOptionArr)
+    }, [element, fieldOptionArr,setErrors]);
 
     return (<>
         <StyledModalHeader>{t('webforms:addElement')}</StyledModalHeader>
@@ -106,7 +90,7 @@ function NewElementComponent({t, element, setElement, closeForm, id, setElements
                         </StyledStatusButton>
                     </StyledStatusButtonBox>
                 </StypedGrid>
-                <Grid item xs={12} className='element-id'>
+                <StyledGridFieldId display={`${!isEditForm}`} item xs={12} className='element-id'>
                     <StyledLabel>{t('webforms:fieldId')}</StyledLabel>
                     <StyledInput
                         className="first-name"
@@ -115,7 +99,7 @@ function NewElementComponent({t, element, setElement, closeForm, id, setElements
                         placeholder={t('webforms:fieldId')}
                         onChange={e => handleChange(e, 'field_id')}
                     />
-                </Grid>
+                </StyledGridFieldId>
                 <StylesGridOptions item xs={12} display={element.field_options} className='element-option'>
                     <StyledLabel>{t('translation:options')}</StyledLabel>
                     <MultiSelectComponent
@@ -123,7 +107,7 @@ function NewElementComponent({t, element, setElement, closeForm, id, setElements
                         setArray={setFieldOptionArr}
                         placeholder={t('translation:options')}
                         changeMultiSelect={changeMultiSelect}/>
-                    {errors.field_options ? (<div style={{marginTop:'25px'}}>
+                    {errors.field_options ? (<div style={{marginTop: '25px'}}>
                         {errors.field_options.required ?
                             <StyledTypographyError>{errors.field_options.required}</StyledTypographyError> : ''}
                     </div>) : (

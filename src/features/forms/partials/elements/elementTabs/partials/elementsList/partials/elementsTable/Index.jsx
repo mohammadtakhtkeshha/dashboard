@@ -1,22 +1,21 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import {withNamespaces} from "react-i18next";
 import i18next from "i18next";
-import { useParams } from "react-router";
+import {useParams} from "react-router";
 
 import ElementLiComponent from "./paritals/ElementLiComponent.jsx";
 import {getElementsListMethod} from "./Index.js"
 import AppContext from "contexts/AppContext";
 import {StyledTable, StyledTableCell, StyledTableHeadTr} from "assets/js/library/components/table";
 
-function Index({t,elements,setElements,setOpenElementForm,setElement,setIsEditForm}) {
+function Index({t, elements, setElements, setOpenElementForm, setElement, setIsEditForm, setRequired}) {
     const lang = i18next.language
     const {setLoading} = useContext(AppContext);
     let align = lang === 'en' ? 'left' : 'right'
-    let { form_id } = useParams();
-
+    let {form_id} = useParams();
     useEffect(() => {
-        getElementsListMethod(setLoading,form_id,setElements)
-    }, [setLoading,setElements,form_id]);//once
+        getElementsListMethod(setLoading, form_id, setElements)
+    }, [setLoading, setElements, form_id]);//once
 
     return (<StyledTable>
         <StyledTableHeadTr>
@@ -26,7 +25,13 @@ function Index({t,elements,setElements,setOpenElementForm,setElement,setIsEditFo
             <StyledTableCell width="5" align="center" minWidth={58}>{t('translation:compulsory')}</StyledTableCell>
             <StyledTableCell width="11" align="center" minWidth={58}></StyledTableCell>
         </StyledTableHeadTr>
-        <ElementLiComponent setIsEditForm={setIsEditForm} setElement={setElement} elements={elements} setElements={setElements} setOpenElementForm={setOpenElementForm}/>
+        <ElementLiComponent
+            setRequired={setRequired}
+            setIsEditForm={setIsEditForm}
+            setElement={setElement}
+            elements={elements}
+            setElements={setElements}
+            setOpenElementForm={setOpenElementForm}/>
     </StyledTable>)
 }
 

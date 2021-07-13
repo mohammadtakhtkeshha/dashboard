@@ -10,7 +10,7 @@ export function getState(id, setLoading) {
   return Method({ method: 'get', url: getDeleteEditTermUrl(id), headers: authHeader(), setLoading: setLoading });
 }
 
-export const registerState=(setLoading, body, openForm) => {debugger
+export const registerState=(setLoading, body, openForm) => {
   const url = openForm.id === '' ? registerStateUrl : editStateUrl(openForm.id);
   const method = openForm.id === '' ? 'post' : 'patch';
   return Method({ method: method, url: url, body: body, headers: cjcsrfauthHeader(), setLoading: setLoading });

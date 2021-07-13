@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { withNamespaces } from 'react-i18next';
 import { getMostSeenContentMethod } from './Index.js';
 import AppContext from 'contexts/AppContext';
-import { StyledTableCell, StyledTablePaper, StyledTableParent } from 'assets/js/App';
+import { StyledTableCell, StyledTablePaper, StyledTableParent } from 'assets/js/library/components/table';
 import { Typography } from '@material-ui/core';
 import { StyledPaginationBox } from 'assets/js/pagination';
 import Pagination from '@material-ui/lab/Pagination';

@@ -7,7 +7,8 @@ import {Box, CardMedia, Grid, Typography} from "@material-ui/core/index";
 import iconImg from 'assets/media/image/logo-login.png';
 import AppContext from 'contexts/AppContext';
 import {green} from "assets/js/library/abstracts/colors";
-import {StyledInput,StyledTypographyError} from "assets/js/App";
+import {StyledTypographyError} from "assets/js/library/base/typography";
+import {StyledInput} from "assets/js/library/components/input";
 import {InputBlock, LoginBlock, StyledGridLogin,LoginButton,StyledRegisterLoginButton} from "assets/js/login";
 
 function ForgetPasswordComponent({t}) {

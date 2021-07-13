@@ -1,42 +1,32 @@
-import React, { useEffect, useState, useContext } from "react"
-import { withNamespaces } from "react-i18next"
+import React, {useEffect, useState, useContext} from "react"
+import {withNamespaces} from "react-i18next"
 import i18next from "i18next";
 
-import { Typography } from "@material-ui/core"
+import {Typography} from "@material-ui/core"
 import Pagination from "@material-ui/lab/Pagination";
 
-import { getDevicesMethod, handlePaginationMethod } from "./DevicesComponent.js"
+import {getDevicesMethod, handlePaginationMethod} from "./DevicesComponent.js"
 import AppContext from "contexts/AppContext"
 import {
     StyledTableParent,
     StyledTablePaper,
-} from "assets/js/App";
+} from "assets/js/library/components/table";
 import {
     StyledMatamoTable,
     StyledMatamoTableRow,
     StyledMatamoTableHeadRow
 } from "assets/js/library/pages/matamo/matamoTable"
-import { StyledTableCell } from "assets/js/library/components/table"
-import { StyledPaginationBox } from "assets/js/pagination";
+import {StyledTableCell} from "assets/js/library/components/table"
+import {StyledPaginationBox} from "assets/js/pagination";
 
-function DevicesComponent({ t }) {
+function DevicesComponent({t}) {
     const {setLoading} = useContext(AppContext)
     const [page, setPage] = useState(0)
-    const lang = i18next.language
-    let leftRightAlign = lang === "en" ? "left" : "right"
-    const [devices, setDevices] = useState([
-        { label: "negar", nb_visits: "visits" },
-        { label: "negar", nb_visits: "visits" },
-        { label: "negar", nb_visits: "visits" },
-        { label: "negar", nb_visits: "visits" },
-        { label: "negar", nb_visits: "visits" },
-        { label: "negar", nb_visits: "visits" },
-        { label: "negar", nb_visits: "visits" },
-        { label: "negar", nb_visits: "visits" },
-        { label: "negar", nb_visits: "visits" },
-    ])
+    const [devices, setDevices] = useState([])
     const [chunks, setChunks] = useState([])
+    const lang = i18next.language
     const [totalPage, setTotalPage] = useState(0)
+    let leftRightAlign = lang === "en" ? "left" : "right"
 
     const handlePagination = (items) => {
         handlePaginationMethod(items, setChunks, setTotalPage, setDevices)
@@ -48,7 +38,7 @@ function DevicesComponent({ t }) {
 
     useEffect(() => {
         getDevicesMethod(setLoading, setDevices, handlePagination)
-    }, [setLoading,setDevices])//Once
+    }, [setLoading, setDevices])//Once
 
     return (<>
         <StyledTableParent length={devices.length}>
@@ -62,13 +52,14 @@ function DevicesComponent({ t }) {
                     {chunks.length > 0 && chunks[page].map((device, index) =>
                         <StyledMatamoTableRow key={index}>
                             <StyledTableCell width="95" align={leftRightAlign}>  {device.label}</StyledTableCell>
-                            <StyledTableCell minWidth="50" width="5" align="center"> {device.nb_visits} </StyledTableCell>
+                            <StyledTableCell minWidth="50" width="5"
+                                             align="center"> {device.nb_visits} </StyledTableCell>
                         </StyledMatamoTableRow>
                     )}
                 </StyledMatamoTable>
             </StyledTablePaper>
             <StyledPaginationBox>
-                <Pagination count={(totalPage)} onChange={paginate} />
+                <Pagination count={(totalPage)} onChange={paginate}/>
             </StyledPaginationBox>
         </StyledTableParent>
     </>)

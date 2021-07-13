@@ -8,8 +8,9 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 
-import {StyledInput, StyledRadioButton, StyledLabel} from 'assets/js/App';
-import {StyledTypographyError} from 'assets/js/App';
+import {StyledRadioButton} from 'assets/js/library/components/buttons';
+import {StyledInput} from 'assets/js/library/components/input';
+import {StyledTypographyError, StyledLabel} from 'assets/js/library/base/typography';
 import {
     uploadImgMethod,
     handleChangeMethodTitle,
@@ -41,7 +42,7 @@ import {
 } from 'assets/js/content/partials/modal/insideModal/modalForm/contentTabs/partials/formContentTitleAndImg';
 import StyledCheckboxComponent from 'features/partials/StyledCheckboxComponent.jsx';
 import UploadImgComponent from 'features/partials/UploadImgComponent.jsx';
-import MultiSelect from 'features/partials/AutocompleteComponent.jsx';
+import MultiAutoComplete from 'features/partials/MultiAutoComplete.jsx';
 import {StyledTypography} from 'assets/js/content/partials/new/contentPublishDate';
 
 const StyledGridSingleImg = withStyles(styledGridSingleImg)(Grid);
@@ -57,10 +58,26 @@ function FormContentTitleAndImgComponent({t, contentype, newsCategory}) {
     const {setLoading} = useContext(AppContext);
     const contentContext = useContext(ContentsContext);
     const [selectedNewsCategory, setSelectedNewsCategory] = useState([]);
+    const [selectedIndexes, setSelectedIndexes] = useState([]);
+
+    useEffect(() => {
+        const getIndexesOfArray = () => {
+            for (let i = 0; i < contentContext.tags.length; i++) {
+                for (let selected of contentContext.selectedTags) {
+                    if (contentContext.tags[i].tid === selected.tid) {
+                        setSelectedIndexes(prevState => {
+                            return [...prevState, i]
+                        })
+                    }
+                }
+            }
+        }
+        getIndexesOfArray();
+    }, [contentContext.tags,contentContext.selectedTags]);//when edit click
 
     useEffect(() => {
         changeNewsCategoryByGettingContentMethod(contentContext.content.field_news_category, setSelectedNewsCategory);
-    }, [contentContext.content.field_news_category,setSelectedNewsCategory]); //Once
+    }, [contentContext.content.field_news_category, setSelectedNewsCategory]); //Once
 
     return (<Grid container spacing={3}>
             <Grid item xs={6}>
@@ -72,10 +89,9 @@ function FormContentTitleAndImgComponent({t, contentype, newsCategory}) {
                         placeholder={t('translation:title')}
                         className="title"
                         onChange={e => handleChangeMethodTitle(e, contentContext)}/>
-                    {contentContext.errors.title && (
-                        <StyledTypographyError
-                            align={lang === 'en' ? 'left' : 'right'}>{contentContext.errors.title}</StyledTypographyError>
-                    )}
+                    {contentContext.errors.title && (<StyledTypographyError align={lang === 'en' ? 'left' : 'right'}>
+                        {contentContext.errors.title}
+                    </StyledTypographyError>)}
                 </Paper>
             </Grid>
             <StyledGridSubtitle item contentype={contentype} xs={6}>
@@ -148,17 +164,17 @@ function FormContentTitleAndImgComponent({t, contentype, newsCategory}) {
                     </StyledRadioButton>
                 </FormControl>
             </StyledGridComment>
-            <StyledGridTagsBlock item contentype={contentype} className="tags" xs={12}>
+            <StyledGridTagsBlock item xs={12} contentype={contentype} className="tags" >
                 <StyledTypography>{t('translation:tags')}</StyledTypography>
-                <MultiSelect
+                <MultiAutoComplete
                     array={contentContext.tags}
+                    selectedIndexes={selectedIndexes}
                     changedTags={e => changeTagsMethod(e, contentContext)}
-                    label={t('translation:tags')}
                     setSelectedTags={contentContext.setSelectedTags}
                     selectedTags={contentContext.selectedTags}
                 />
             </StyledGridTagsBlock>
-            <StyledGridSingleImg item contentype={contentype} className="image" xs={12}>
+            <StyledGridSingleImg item xs={12} contentype={contentype} className="image">
                 <UploadImgComponent type="image"
                                     getFileInParent={e => uploadImgMethod(e, 'single', contentContext, setLoading)}
                                     imgsAndUrls={contentContext.imgAndUrl}

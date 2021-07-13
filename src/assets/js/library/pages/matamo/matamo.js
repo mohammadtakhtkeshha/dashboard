@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {StyledTableCell} from "assets/js/App"
+import {StyledTableCell} from "assets/js/library/components/table";
 
 export const StyledIconMatamo = styled.img`
                 width:19px;

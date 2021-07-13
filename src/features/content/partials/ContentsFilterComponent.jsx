@@ -10,9 +10,9 @@ import { withStyles } from '@material-ui/core/styles';
 import ContentsContext from 'contexts/ContentsContext';
 import { StyledInsideGrid } from 'assets/js/content/partials/contentFilter';
 import { MarginTop1 } from 'assets/js/library/base/all';
-import { StyledAddButton, StyledInput } from 'assets/js/App';
-import { styledTextField } from 'assets/js/App';
+import { StyledInput ,styledTextField} from 'assets/js/library/components/input';
 import { changeTitleMethod, changeStatusMethod, changeContentTypeMethod, doFilterHandlerMethod } from './ContentsFilterComponent.js';
+import {StyledGreenButton} from "assets/js/library/components/buttons";
 
 const StyledTextField = withStyles(styledTextField)(TextField);
 
@@ -100,7 +100,7 @@ function ContentsFilterComponent({ t, expandedFilter, setExpandedFilter }) {
           </Grid>
           <Grid item xs={12}>
             <MarginTop1>
-              <StyledAddButton onClick={doFilterHandler}>{t('translation:do')}</StyledAddButton>
+              <StyledGreenButton  onClick={doFilterHandler}>{t('translation:do')}</StyledGreenButton>
             </MarginTop1>
           </Grid>
         </Grid>

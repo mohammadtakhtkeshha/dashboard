@@ -16,7 +16,7 @@ import {
     StyledTableCell,
     StyledTablePaper,
     StyledTableParent
-} from "assets/js/App"
+} from "assets/js/library/components/table"
 import { StyledMatamoLeftHeadRealTime } from "assets/js/library/pages/matamo/realTime";
 import {
     StyledMatamoTable,

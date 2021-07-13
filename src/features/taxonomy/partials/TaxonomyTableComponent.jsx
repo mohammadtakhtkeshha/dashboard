@@ -1,11 +1,18 @@
-import React, {useEffect} from "react"
+import React from "react"
 import {withNamespaces} from "react-i18next"
 import i18next from "i18next"
 import {Link} from "react-router-dom";
 
-import {StyledTableBody, StyledTableCell, StyledTable} from "assets/js/App"
-import {StyledTabeBodyRowCustomized, StyledVisibilityIcon} from "assets/js/taxonomy/taxonomyTable"
-import {StyledTableHeadTr} from "assets/js/library/components/table";
+import {
+    StyledTableBody,
+    StyledTableCell,
+    StyledTable,
+    StyledTableHeadTr
+} from "assets/js/library/components/table"
+import {
+    StyledTabeBodyRowCustomized,
+    StyledVisibilityIcon
+} from "assets/js/taxonomy/taxonomyTable"
 import {get} from "libraries/local-storage";
 
 function TaxonomyTableComponent({t, taxonomies}) {
@@ -38,10 +45,13 @@ function TaxonomyTableComponent({t, taxonomies}) {
         <StyledTableBody>
             {taxonomies.length > 0 ? (taxonomies?.map((taxonomy, index) => (
                 <Link key={index} to={{pathname: `/taxonomy/${taxonomy.vid}`, state: {vocab: taxonomy.name}}}>
-                    <StyledTabeBodyRowCustomized permission={`${permissions[`${currentPermission('category')}`].access}`}
-                                                 key={index}
-                                                 lang={lang}>
-                        <StyledTableCell>{t(`taxonomy:${taxonomy.name}`)}</StyledTableCell>
+                    <StyledTabeBodyRowCustomized
+                        permission={`${permissions[`${currentPermission('category')}`].access}`}
+                        key={index}
+                        lang={lang}>
+                        <StyledTableCell>
+                            {t(`taxonomy:${taxonomy.name}`)}
+                        </StyledTableCell>
                         <StyledTableCell>
                             <StyledVisibilityIcon lang={lang}>
                                 <img src={require('assets/svg/visibility.png')} alt=""/>
@@ -50,7 +60,8 @@ function TaxonomyTableComponent({t, taxonomies}) {
                         </StyledTableCell>
                     </StyledTabeBodyRowCustomized>
                 </Link>
-            ))) : t('translation:notFoundRecord')}</StyledTableBody>
+            ))) : t('translation:notFoundRecord')}
+        </StyledTableBody>
     </StyledTable>)
 }
 

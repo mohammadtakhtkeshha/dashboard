@@ -1,5 +1,5 @@
 import React from "react"
-import {StyledModalHeader} from "assets/js/App";
+import {StyledModalHeader} from "assets/js/library/components/modal";
 import {withNamespaces} from "react-i18next";
 
 function HeaderFormComponent({t}) {

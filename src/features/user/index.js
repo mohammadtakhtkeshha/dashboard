@@ -93,10 +93,10 @@ export function getRegisteredUserMethod(user, users, handlePagination, closeForm
   closeForm();
 }
 
-export const getEditedUserMethod = (users, user, handlePagination, setOpenUserForm) => {
+export const getEditedUserMethod = (users, user, handlePagination, closeForm) => {
   const currentUser = users.filter(item => item.user_id === `${user.user_id}`);
   const index = users.indexOf(currentUser[0]);
   users[index] = user;
   handlePagination(users, true);
-  setOpenUserForm({ show: false, id: '' });
+  closeForm();
 };

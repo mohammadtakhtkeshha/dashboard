@@ -16,7 +16,7 @@ import {modalClasses} from 'assets/js/library/components/modal';
 
 const useStyle = makeStyles(modalClasses);
 
-function Index({openWebform, errors, setErrors, closeForm,webform,setWebform,isEditForm}) {
+function Index({openWebform, errors, setErrors, closeForm, webform, setWebform, isEditForm,setForms}) {
     const topNode = useRef(null);
     const classes = useStyle({maxWidth: '700px'});
     const [isTourOpen, setIsTourOpen] = useState(false);
@@ -46,12 +46,19 @@ function Index({openWebform, errors, setErrors, closeForm,webform,setWebform,isE
                             webform={webform}
                             setWebform={setWebform}
                             isEditForm={isEditForm}
+                            setForms={setForms}
                         />
                     </ModalBody>
-                    <StyledTourButton onClick={() => setIsTourOpen(true)} ref={topNode} show="true">
+                    <StyledTourButton
+                        onClick={() => setIsTourOpen(true)}
+                        ref={topNode}
+                        show="true">
                         <HelpIcon/>
                     </StyledTourButton>
-                    <TourNewForm setIsTourOpen={setIsTourOpen} isTourOpen={isTourOpen} isEditForm={isEditForm}/>
+                    <TourNewForm
+                        setIsTourOpen={setIsTourOpen}
+                        isTourOpen={isTourOpen}
+                        isEditForm={isEditForm}/>
                 </Box>
             </Fade>
         </Modal>

@@ -3,8 +3,13 @@ import {withNamespaces} from 'react-i18next';
 
 import {NavLink} from 'react-router-dom';
 
-import {StyledTableBody, StyledTableBodyRow} from 'assets/js/App';
-import {StyledTableHeadTr, StyledTable, StyledTableCell} from 'assets/js/library/components/table';
+import {
+    StyledTableHeadTr,
+    StyledTable,
+    StyledTableCell,
+    StyledTableBody,
+    StyledTableBodyRow
+} from 'assets/js/library/components/table';
 import {adjustDepartemanMethod} from './TicketsTableComponent.js';
 import {StyledTid, StyledTitle, StyledStatusButton} from 'assets/js/ticket/ticketTable';
 
@@ -38,9 +43,9 @@ function TicketsTableComponent({t, chunkTickets, page, departemanList}) {
                             <StyledTableBodyRow>
                                 <StyledTableCell align="center" width={100}>
                                     {departmentNames.map(item => {
-                                        let name=''
+                                        let name = ''
                                         if (parseInt(item.id) === parseInt(ticket.deptid)) {
-                                            name=item.name;
+                                            name = item.name;
                                         }
                                         return name
                                     })}

@@ -1,5 +1,4 @@
 import React from 'react';
-import {withNamespaces} from "react-i18next"
 import i18next from "i18next"
 
 import Chip from '@material-ui/core/Chip';
@@ -18,24 +17,26 @@ function AutocompleteComponent({t, array, selectedTags, changedTags, setSelected
         changedTags(e)
     }
 
-    return (
-        <StyledAutocomplete lang={lang}>
+    return (<StyledAutocomplete lang={lang}>
             {array.length > 0 && <Autocomplete
                 multiple
                 id="tags-filled"
+                getOptionLabel={option => option.name}
                 // options={array.map((option) => option.name)}
                 options={array}
-                getOptionLabel={option => option.name}
                 value={selectedTags}
                 label={label}
                 // defaultValue={selectedTags}
                 onChange={(event, value) => handleChange(value)}
                 // getOptionSelected={getCurrentOptionSelected}
                 freeSolo
-                renderTags={(value, getTagProps) =>
-                    value.map((option, index) => (
-                        <Chip variant="outlined" label={option.name} {...getTagProps({index})} />
-                    ))
+                renderTags={(value, getTagProps) => {
+                   return <div>
+                       {value.map((option, index) => (
+                           <Chip variant="outlined" label={option.name} {...getTagProps({index})} />
+                       ))}
+                   </div>
+                }
                 }
                 renderInput={(params) => (
                     <TextField {...params} variant="filled" placeholder={label}/>
@@ -45,5 +46,4 @@ function AutocompleteComponent({t, array, selectedTags, changedTags, setSelected
     );
 }
 
-
-export default withNamespaces()(AutocompleteComponent);
+export default AutocompleteComponent;

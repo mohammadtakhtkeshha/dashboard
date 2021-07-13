@@ -65,19 +65,34 @@ export const handleChange = (e, field, setWebform, setErrors) => {
     })
 };
 
-export const register = (webForm, setLoading, history, isEditForm,setErrors) => {
+export const register = (webForm, setLoading, history, isEditForm, setErrors, closeForm, setForms) => {
     setLoading(true);
     let requestEditOrRegister = isEditForm ? editForm(setLoading, webForm) : addForm(setLoading, webForm)
     requestEditOrRegister.then(response => {
         setLoading(false)
-        const {form_id} = response.data
         success(i18next.t('translation:successRegistered'), i18next.t('translation:ok'));
-        history.push(`/elements/${form_id}/list`);
-
-    }).catch(error=>{
-        if(error.status === 422){
+        if (isEditForm) {
+            closeForm()
+            setForms(prevState => {
+                for(let prev of prevState){
+                    if (webForm.form_id === prev.id) {
+                        prev.title = webForm.title;
+                        prev.description = webForm.description;
+                        prev.status = webForm.status;
+                    }
+                }
+                return [...prevState]
+            })
+        } else {
+            history.push(`/elements/${webForm.form_id}/list`);
+        }
+    }).catch(error => {
+        if (error.status === 422) {
             setErrors(prevState => {
-                return {...prevState, form_id: {unique: i18next.t('translation:uniqueValidation')}}
+                return {
+                    ...prevState,
+                    form_id: {unique: i18next.t('translation:uniqueValidation')}
+                }
             });
         }
     })

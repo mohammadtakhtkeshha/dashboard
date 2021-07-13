@@ -1,39 +1,63 @@
-import React, {useRef, useState, useEffect, useContext} from "react"
+import React, {useContext, useState} from "react"
 import {sortable} from "react-sortable";
 import {withNamespaces} from "react-i18next";
-import {useParams} from 'react-router-dom'
+import {useParams} from 'react-router-dom';
+import i18next from "i18next";
 
 import {StyledTableBodyRow, StyledTableCell, StyledTr} from "assets/js/library/components/table";
 import {StyledRequiredBlock, StyledTitle} from "assets/js/library/pages/webform/elements"
-import i18next from "i18next";
-import {StyledActionBtnForm, StyledUl} from "assets/js/library/pages/webform/webformTable";
 import StyledCheckboxComponent from "features/partials/StyledCheckboxComponent";
-import {
-    StyledActionButtons,
-    StyledActionsBlock
-} from "assets/js/library/components/buttons";
+import {StyledActionButtons, StyledActionsBlock, StyledGreenButton} from "assets/js/library/components/buttons";
 import deleteIcon from "assets/svg/delete.png";
 import editIcon from "assets/svg/edit.png";
 import {warning} from "methods/swal";
 import {deleteElementMethod} from './ElementLiComponent.js'
 import AppContext from "contexts/AppContext";
-import {get} from "../../../../../../../../../../libraries/local-storage";
+import {get} from "libraries/local-storage";
+import {Typography} from "@material-ui/core";
+import {StyledHead} from "assets/js/library/base/all";
 
-function ElementLiComponent({t, elements, setElements, setOpenElementForm, setElement, setIsEditForm}) {
+function ElementLiComponent({t, elements, setElements, setOpenElementForm, setElement, setIsEditForm, setRequired}) {
     const lang = i18next.language
-    const ref = useRef(null)
-    const [editButtonShow, setEditButtonShow] = useState({show: false, id: ''});
     const {form_id} = useParams();
     const {setLoading} = useContext(AppContext)
     const {permissions} = JSON.parse(get(process.env.REACT_APP_USER));
 
-    const clickEditBtn = (e) => {
-        const curId = e.currentTarget.id
-        setEditButtonShow({show: true, id: curId})
-    }
-
-    const changeRequired = () => {
-
+    const changeRequired = (e, children) => {
+        const currentValue = e.currentTarget.checked;//true and false are reverse
+        setElements(prevState => {
+            for (let prev of prevState) {
+                if (prev.field_id === children.field_id) {
+                    setRequired(prevState => {
+                        if (prevState.length > 0) {
+                            const found = prevState.some(el => el.field_id === children.field_id);
+                            if (found) {
+                                for (let req of prevState) {
+                                    if (req.field_id === children.field_id) {
+                                        req.required = currentValue
+                                        return [...prevState]
+                                    }
+                                }
+                            } else {
+                                return [...prevState, {
+                                    "form_id": children.form_id,
+                                    "field_id": children.field_id,
+                                    "required": currentValue
+                                }]
+                            }
+                        } else {
+                            return [...prevState, {
+                                "form_id": children.form_id,
+                                "field_id": children.field_id,
+                                "required": currentValue
+                            }]
+                        }
+                    })
+                    prev.field_required = currentValue
+                }
+            }
+            return [...prevState]
+        })
     }
 
     const confirmDeleteHandler = e => {
@@ -49,26 +73,9 @@ function ElementLiComponent({t, elements, setElements, setOpenElementForm, setEl
         const currentElement = elements.filter(el => el.field_id === field_id)
         setElement(currentElement[0])
         setIsEditForm(true)
-
     };
 
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (ref.current && !ref.current.contains(event.target)) {
-                alert("You clicked outside of me!");
-            }
-        }
-
-        // Bind the event listener
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            // Unbind the event listener on clean up
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [ref]);
-
     function Item(props) {
-
         return (<StyledTr  {...props}>
             <StyledTableCell width="69" align="center" minWidth={58}>
                 <StyledTitle lang={lang}>
@@ -83,23 +90,14 @@ function ElementLiComponent({t, elements, setElements, setOpenElementForm, setEl
                 {props.children.field_type}
             </StyledTableCell>
             <StyledTableCell width="5" align="center" minWidth={58}>
-                {/*<button>{props.children.required ? 'true' : 'false'}</button>*/}
-                {/*<StyledCheckBox checked={props.children.required} changed={changeRequired} value={props.children.required}/>*/}
                 <StyledRequiredBlock>
-                    <StyledCheckboxComponent checked={props.children.field_required} change={changeRequired}
-                                             value={props.children.required}/>
+                    <StyledCheckboxComponent
+                        checked={props.children.field_required}
+                        change={(e) => changeRequired(e, props.children)}
+                        value={props.children.field_required}/>
                 </StyledRequiredBlock>
             </StyledTableCell>
             <StyledTableCell width="11" align="center" minWidth={58}>
-                {/*<StyledActionBtnForm ref={ref} onClick={clickEditBtn} id={props.children.field_id}>*/}
-                {/*    <span>{t('webforms:editElement')}</span>*/}
-                {/*    <span className="icon-arrow-up"></span>*/}
-                {/*    <StyledUl show={editButtonShow.show === true && editButtonShow.id === props.children.field_id}>*/}
-                {/*        <li>{t('translation:observe')}</li>*/}
-                {/*        <li>negar</li>*/}
-                {/*        <li>negar</li>*/}
-                {/*    </StyledUl>*/}
-                {/*</StyledActionBtnForm>*/}
                 <StyledActionsBlock>
                     <StyledActionButtons
                         permission={`${permissions['restful post webform_delete_field_rest_resource'].access}`}
@@ -126,19 +124,18 @@ function ElementLiComponent({t, elements, setElements, setOpenElementForm, setEl
 
     return (<>
         {elements.length > 0 ? elements.map((item, i) =>
-                <SortableItem
-                    key={i}
-                    onSortItems={onSortItems}
-                    items={elements}
-                    sortId={i}>{item}</SortableItem>)
-            : <StyledTableBodyRow>
-                <StyledTableCell colSpan="6" align="right">
-                    {t('translation:notFoundRecord')}
-                </StyledTableCell>
-            </StyledTableBodyRow>
+            <SortableItem
+                key={i}
+                onSortItems={onSortItems}
+                items={elements}
+                sortId={i}>{item}</SortableItem>
+        ) : (<StyledTableBodyRow>
+            <StyledTableCell colSpan="6" align="right">
+                {t('translation:notFoundRecord')}
+            </StyledTableCell>
+        </StyledTableBodyRow>)
         }
     </>);
 }
 
 export default withNamespaces('webforms, translation')(ElementLiComponent);
-

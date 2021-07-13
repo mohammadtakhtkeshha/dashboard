@@ -12,7 +12,8 @@ import {
     StyledUploadHereBlock,
     UploadedImgHoverBlock
 } from "assets/js/partials/uploadImg";
-import {StyledAlignTypography, StyledValidError} from "assets/js/App";
+import {StyledAlignTypography} from "assets/js/library/base/typography";
+import {StyledValidError} from "assets/js/library/base/all";
 import {ReactComponent as UploadImgSvg} from "assets/svg/uploadImgSvg.svg";
 import ReactPlayer from "react-player";
 import AudioPlayer from "material-ui-audio-player";

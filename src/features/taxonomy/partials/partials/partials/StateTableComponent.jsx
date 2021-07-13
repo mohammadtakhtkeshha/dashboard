@@ -6,8 +6,13 @@ import 'react-sortable-tree/style.css'; // This only needs to be imported once i
 import {makeStyles} from '@material-ui/core/styles';
 import {withNamespaces} from 'react-i18next';
 
-import {StyledAddButton, StyledTable, StyledTableCell} from 'assets/js/App';
-import {StyledActionsBlock, StyledActionButtons, StyledTreeTable} from 'assets/js/App';
+import {
+    StyledAddButton,
+    StyledActionsBlock,
+    StyledActionButtons,
+    StyledGreenButton
+} from 'assets/js/library/components/buttons';
+import { StyledTreeTable} from 'assets/js/library/components/dragDrop';
 import {warning} from 'methods/swal';
 import {deleteStateMethod} from './StateTableComponent.js';
 import SortableTree from 'react-sortable-tree';
@@ -15,7 +20,7 @@ import {StyledTreeRow, StyledTypographyTitle, treeStyles} from 'assets/js/librar
 import AppContext from 'contexts/AppContext';
 import deleteIcon from 'assets/svg/delete.png';
 import editIcon from 'assets/svg/edit.png';
-import {StyledTableHeadTr} from 'assets/js/library/components/table';
+import {StyledTableHeadTr,StyledTable, StyledTableCell} from 'assets/js/library/components/table';
 import {saveChangesMethod} from './StateTableComponent.js';
 import {get} from "libraries/local-storage";
 
@@ -97,7 +102,7 @@ function StateTableComponent({t, setOpenForm, setDynamicHeight, dynamicHeight, s
                 setEditPermission(permissions['edit terms in videos_category'].access)
         }
     }, [])
-    console.log(permissions['edit terms in videos_category'].access)
+
     return (<>
         <StyledTable>
             <StyledTableHeadTr>
@@ -135,13 +140,11 @@ function StateTableComponent({t, setOpenForm, setDynamicHeight, dynamicHeight, s
                         })}
                     />
                 </StyledTreeTable>
-            ) : (
-                ''
-            )}
+            ) : ('')}
         </StyledTable>
-        <StyledAddButton value="active" onClick={saveChanges}>
+        <StyledGreenButton value="active" onClick={saveChanges}>
             {t('translation:register')}
-        </StyledAddButton>
+        </StyledGreenButton>
     </>);
 }
 

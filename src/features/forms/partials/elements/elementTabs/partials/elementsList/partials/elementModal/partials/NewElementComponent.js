@@ -69,12 +69,12 @@ export const addElementMethod = (setLoading, element, closeForm, setElements, is
         closeForm()
         setElements(prevState => {
             if (isEditForm) {
-                const curElement = prevState.filter(el => el.field_id === element.field_id)
-                const index = prevState.indexOf(curElement[0])
-                prevState[index] = element
-                return [...prevState]
+                const curElement = prevState.filter(el => el.field_id === element.field_id);
+                const index = prevState.indexOf(curElement[0]);
+                prevState[index] = element;
+                return [...prevState];
             } else {
-                return [element, ...prevState]
+                return [element, ...prevState];
             }
         })
     })
@@ -104,6 +104,35 @@ export const changeMultiSelectMethod = (arr, setElement,setErrors) => {
         setElement(prevState => {
             prevState.field_options = {}
             return {...prevState};
+        })
+    }
+}
+
+
+export const handleFirstLoadError = (element,setErrors,fieldOptionArr) => {
+    if (element.field_title === '') {
+        setErrors(prevState => {
+            return {
+                ...prevState,
+                field_title: {
+                    required: i18next.t('translation:requiredValid')
+                }
+            }
+        })
+    }
+    if (element.field_options && fieldOptionArr.length === 0) {
+        setErrors(prevState => {
+            return {
+                ...prevState,
+                field_options: {
+                    required: i18next.t('translation:requiredValid')
+                }
+            }
+        })
+    } else {
+        setErrors(prevState => {
+            prevState.field_options && delete prevState.field_options
+            return {...prevState}
         })
     }
 }

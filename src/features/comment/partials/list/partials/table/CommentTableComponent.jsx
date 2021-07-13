@@ -8,13 +8,14 @@ import {StyledBackgroundColor, StyledConfirmButton} from 'assets/js/comment/comm
 import CommentModalComponent from './partials/CommentModalComponent.jsx';
 import StyledCheckboxComponent from 'features/partials/StyledCheckboxComponent';
 import AppContext from 'contexts/AppContext';
-import {StyledTableBody, StyledTableBodyRow, StyledActionButtons, StyledActionsBlock} from 'assets/js/App';
+import {StyledActionButtons, StyledActionsBlock} from 'assets/js/library/components/buttons';
 import {
     StyledTr,
     StyledTableHeadTr,
     StyledTable,
     StyledCheckboxImgInTable,
-    StyledTableCell
+    StyledTableCell,
+    StyledTableBody, StyledTableBodyRow
 } from 'assets/js/library/components/table';
 import {getJustDate} from './CommentTableComponent.js';
 import {
@@ -31,7 +32,7 @@ import deleteIcon from 'assets/svg/delete.png';
 import editIcon from 'assets/svg/edit.png';
 import i18next from 'i18next';
 import {convertDashToSlashInDate, toShamsiDate} from 'methods/commons';
-import {get} from "../../../../../../libraries/local-storage";
+import {get} from "libraries/local-storage";
 
 function CommentTableComponent({
                                    t,
@@ -54,7 +55,6 @@ function CommentTableComponent({
     const [page, setPage] = useState(0);
     const [open, setOpen] = useState({show: false, id: ''});
     const [comment, setComment] = useState({});
-    const {permissions} = JSON.parse(get(process.env.REACT_APP_USER));
 
     const allCheckboxHandler = e => {
         allCheckboxHandlerMethod(e, comments, page, setSelectedCheckBoxes);

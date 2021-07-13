@@ -2,12 +2,13 @@ import React, { useContext } from 'react';
 import { withNamespaces } from 'react-i18next';
 
 import AppContext from 'contexts/AppContext';
-import { StyledTableBody, StyledTableBodyRow, StyledActionButtons, StyledActionsBlock } from 'assets/js/App';
+import { StyledTableBody, StyledTableBodyRow } from 'assets/js/library/components/table';
+import { StyledActionButtons,StyledActionsBlock } from 'assets/js/library/components/buttons';
 import { StyledTr, StyledTableHeadTr, StyledTable, StyledTableCell } from 'assets/js/library/components/table';
 import { deleteRoleMethod, showEditFormMethod } from './RoleTableComponent.js';
 import { warning } from 'methods/swal';
-// import deleteIcon from 'assets/svg/delete.png';
-// import editIcon from 'assets/svg/edit.png';
+import deleteIcon from 'assets/svg/delete.png';
+import editIcon from 'assets/svg/edit.png';
 import i18next from 'i18next';
 import {StyledTrashEditSvg} from "assets/js/library/base/all";
 
@@ -48,13 +49,13 @@ function RoleTableComponent({ t, openForm, setOpenForm, setShowPermission, permi
                 </StyledTableCell>
                 <StyledTableCell width="5" minWidth={55} align="center">
                   <StyledActionsBlock>
-                    <StyledActionButtons value={enRoles[index]} onClick={confirmDeleteHandler}>
-                      {/*<img src={deleteIcon} alt={enRoles[index]} />*/}
-                      <StyledTrashEditSvg className="icon-trash-bin"></StyledTrashEditSvg>
+                    <StyledActionButtons permission={true} value={enRoles[index]} onClick={confirmDeleteHandler}>
+                      <img src={deleteIcon} alt={enRoles[index]} />
+                      {/*<StyledTrashEditSvg className="icon-trash-bin"></StyledTrashEditSvg>*/}
                     </StyledActionButtons>
-                    <StyledActionButtons value={enRoles[index]} onClick={showEditForm}>
-                      {/*<img src={editIcon} alt={enRoles[index]} />*/}
-                      <StyledTrashEditSvg className="icon-pencil"></StyledTrashEditSvg>
+                    <StyledActionButtons permission={true} value={enRoles[index]} onClick={showEditForm}>
+                      <img src={editIcon} alt={enRoles[index]} />
+                      {/*<StyledTrashEditSvg className="icon-pencil"></StyledTrashEditSvg>*/}
                     </StyledActionButtons>
                   </StyledActionsBlock>
                 </StyledTableCell>

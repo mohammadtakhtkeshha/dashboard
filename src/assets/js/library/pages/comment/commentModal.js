@@ -1,6 +1,6 @@
 import {green, white,grey} from "assets/js/library/abstracts/colors";
 import styled from "styled-components";
-import {ModalBody} from "../../../App";
+import {ModalBody} from "assets/js/library/components/modal";
 // export const commentModal = () => ({
 //     root:{
 //         display:'flex',

@@ -82,10 +82,9 @@ export const editCommentMethod = (
     setOpen({show: false, id: ''});
 };
 
-export const editAndAddRoleMethod = (e, setLoading, role, faRoles, id, error, handleClose, setFaRoles, setEnRoles) => {
+export const editAndAddRoleMethod = (e, setLoading, role, faRoles, id, error, handleClose, setFaRoles, setEnRoles,enRoles) => {
     setLoading(true);
-    if (id === '') {
-        //for adding
+    if (id === '') {//for adding
         if (error.unique !== '' && error.unique !== '') {
             addRole(setLoading, role).then(resposne => {
                 setFaRoles(prevState => {
@@ -101,15 +100,17 @@ export const editAndAddRoleMethod = (e, setLoading, role, faRoles, id, error, ha
             });
         }
     } else {
-        editRole(id, role, setLoading).then(resposne => {
-            setFaRoles(prevState => {
-                const currentIndex = prevState.indexOf(id);
-                prevState.splice(currentIndex, 1);
-                return [...prevState, role.role];
+        editRole(id, role, setLoading).then( (resposne) => {
+            handleClose();
+            const currentIndex=enRoles.indexOf(id)
+            setFaRoles((prevState) => {
+               prevState[currentIndex]=role.role
+                debugger
+                // prevState.splice(currentIndex, 1);
+                return [...prevState];
             });
             setLoading(false);
             success(i18next.t('translation:successEdited'), i18next.t('translation:ok'));
-            handleClose();
         });
     }
 };
@@ -246,14 +247,14 @@ export const selectedButtonMethod = (permissions, setShowPermission) => {
     setShowPermission(arr);
 };
 
-export const handleErrorMethod = (lengthOfRole,setError) => {
+export const handleErrorMethod = (lengthOfRole, setError) => {
     if (lengthOfRole > 0) {
         setError(prevState => {
-            return {...prevState,required:false}
+            return {...prevState, required: false}
         })
     } else {
         setError(prevState => {
-            return {...prevState,required:true}
+            return {...prevState, required: true}
         })
     }
 }

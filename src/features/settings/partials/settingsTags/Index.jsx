@@ -4,7 +4,7 @@ import {withNamespaces} from 'react-i18next';
 import {Grid} from '@material-ui/core';
 
 import AppContext from 'contexts/AppContext';
-import {StyledInput} from 'assets/js/App';
+import {StyledInput} from 'assets/js/library/components/input';
 import {
     StyledPadding,
     StyledButtonBlock,
@@ -13,12 +13,13 @@ import {
 import {StyledLabel} from 'assets/js/library/base/typography';
 import MultiSelectComponent from "features/partials/MultiSelectComponent.jsx"
 import {StyledPaddingRelative} from "assets/js/library/pages/settings/settingsTags";
-
 import {addSettingsMethod, handleChangeMethod, changeMultiSelectMethod} from './Index.js';
+import {get} from "libraries/local-storage";
 
 function Index({t, settingsTags, setSettingsTags}) {
     const {setLoading} = useContext(AppContext);
     const [fieldOptionArr, setFieldOptionArr] = useState([]);
+    const {permissions} = JSON.parse(get(process.env.REACT_APP_USER))
 
     const handleChange = (e, field) => {
         handleChangeMethod(e, field, setSettingsTags);
@@ -30,7 +31,7 @@ function Index({t, settingsTags, setSettingsTags}) {
 
     const changeMultiSelect = (arr) => {
         changeMultiSelectMethod(arr, setSettingsTags)
-    }
+    };
 
     useEffect(() => {
         const {site_front_keys} = settingsTags;
@@ -79,7 +80,10 @@ function Index({t, settingsTags, setSettingsTags}) {
         </Grid>
         <Grid item xs={12} md={12} xl={12}>
             <StyledButtonBlock>
-                <StyledSettingsButton error={false} onClick={() => addSettingsMethod(setLoading, settingsTags)}>
+                <StyledSettingsButton
+                    permission={`${permissions['restful post base_meta_site_rest_resource'].access}`}
+                    error={false}
+                    onClick={() => addSettingsMethod(setLoading, settingsTags)}>
                     {t('translation:saveChanges')}
                 </StyledSettingsButton>
             </StyledButtonBlock>

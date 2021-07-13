@@ -7,7 +7,7 @@ import { Typography } from '@material-ui/core';
 import { get30MinutesVisitsMethod, get24OursVisitsMethod, visitsDetailsMethod } from './RealTimeComponent.js';
 import { StyledIconMatamo, StyledTableCellActivity, StyledTableCellRealtime, StyledBoxRefer } from 'assets/js/library/pages/matamo/matamo';
 import AppContext from 'contexts/AppContext';
-import { StyledTableCell, StyledTablePaper, StyledTableParent } from 'assets/js/App';
+import { StyledTableCell, StyledTablePaper, StyledTableParent } from 'assets/js/library/components/table';
 import {
   StyledMatamoTable,
   StyledMatamoTableRow,

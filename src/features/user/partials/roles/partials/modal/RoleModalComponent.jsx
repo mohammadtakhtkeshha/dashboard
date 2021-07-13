@@ -23,7 +23,7 @@ import {roleModal} from "assets/js/library/pages/user/rolesModal";
 
 const useStyles = makeStyles(roleModal)
 
-function RoleModalComponent({t, openForm, role, handleClose, setShowPermission, showPermission, permissions, setRole, setPermissions, faRoles, setFaRoles, setEnRoles}) {
+function RoleModalComponent({t, openForm, role, handleClose, setShowPermission, showPermission, permissions, setRole, setPermissions, faRoles, setFaRoles, setEnRoles,enRoles}) {
     const classes = useStyles()
     const [isTourOpen, setIsTourOpen] = useState(false);
     const [currentStep, setCurrentStep] = useState(1);
@@ -71,6 +71,7 @@ function RoleModalComponent({t, openForm, role, handleClose, setShowPermission, 
                                        permissions={permissions}
                                        setFaRoles={setFaRoles}
                                        setEnRoles={setEnRoles}
+                                       enRoles={enRoles}
                                        handleClose={handleClose}/>
                 </ModalBody>
                 <StyledTourButton show="true" onClick={clicked}>

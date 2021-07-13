@@ -83,6 +83,7 @@
   "noRole": "no role",
   "notAble": "you don't have permission to do this action!",
   "requiredValid": "this field is required !",
+  "makeRequire": "make require",
   "inputValidation": "your input are not valid !",
   "tags": "tags",
   "categories": "categories",
@@ -123,5 +124,7 @@
   "key": "key",
   "compulsory": "compulsory",
   "preview": "preview",
+  "id": "id",
+  "ip": "ip",
   "wrongSafeCode": "wrong safe code"
 }

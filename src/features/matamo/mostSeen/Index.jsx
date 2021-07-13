@@ -6,11 +6,7 @@ import i18next from "i18next";
 import Pagination from "@material-ui/lab/Pagination";
 import { Typography } from "@material-ui/core";
 
-import {
-    StyledTablePaper,
-    StyledTableParent
-} from "assets/js/App";
-import { StyledTableCell } from "assets/js/library/components/table"
+import { StyledTableCell,  StyledTablePaper,StyledTableParent } from "assets/js/library/components/table"
 import {
     StyledMatamoTable,
     StyledMatamoTableRow,
@@ -22,7 +18,7 @@ import { getMostSeenContentMethod } from "./Index.js"
 import AppContext from "contexts/AppContext";
 
 function Index({ t }) {
-    const lang = i18next.language
+    const lang = i18next.language;
     let leftRightAlign = lang === "en" ? "left" : "right"
     const {setLoading} = useContext(AppContext)
     const [chunks, setChunks] = useState([])
@@ -37,7 +33,6 @@ function Index({ t }) {
     const paginate = (e, value) => {
         setPage(value - 1);
     }
-
 
     useEffect(() => {
         getMostSeenContentMethod(setLoading, handlePagination)

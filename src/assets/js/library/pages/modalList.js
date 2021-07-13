@@ -28,7 +28,6 @@ export const listModalStyles = (theme) => ({
 
 export const listItemModalStyles = (theme) => ({
     root: {
-        // marginTop:'20px',
         padding: '24px 0 24px 22px',
         borderBottom: '1px solid #BBC3CE',
         cursor: 'pointer',
@@ -37,17 +36,6 @@ export const listItemModalStyles = (theme) => ({
         '&:last-child': {
             borderBottom: '0!important'
         },
-        // '&:first-child': {
-        //     fontWeight: 'bold',
-        //     border: '1px solid red',
-        //     '&>div': {
-        //         fontSize: '18px!important',
-        //         textAlign: 'center!important',
-        //         '&>span': {
-        //             fontSize: '18px',
-        //         }
-        //     }
-        // }
     },
 })
 

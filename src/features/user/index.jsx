@@ -9,12 +9,12 @@ import UsersFilterComponent from './partials/UsersFilterComponent';
 import UsersActionComponent from './partials/UsersActionComponent.jsx';
 import UsersRegisterModalComponent from './partials/modal/Index.jsx';
 import UsersHeaderComponent from './partials/header/UserHeaderComponent.jsx';
-import { StyledBox } from 'assets/js/App';
+import { StyledBox } from 'assets/js/library/base/box';
 import { StyledPaginationBox } from 'assets/js/pagination';
 import AppContext from 'contexts/AppContext';
 import { constUser, handlePaginationMethod, getUsersMethod, getRolesMethod, getEditedUserMethod, getRegisteredUserMethod } from './index.js';
 
-function UsersComponent({ t }) {
+function UsersComponent({t}) {
   const {setLoading} = useContext(AppContext);
   const [totalPage, setTotalPage] = useState(0);
   const [selectedCheckBoxes, setSelectedCheckBoxes] = useState([]);
@@ -46,11 +46,11 @@ function UsersComponent({ t }) {
   };
 
   const getEditedUser = user => {
-    getEditedUserMethod(users, user, handlePagination, setOpenUserForm);
+    getEditedUserMethod(users, user, handlePagination, closeForm);
   };
 
-  const closeForm = () => {
-    setOpenUserForm({ show: false, id: '' });
+  const closeForm = async () => {
+    await setOpenUserForm({ show: false, id: '' });
     setUser(constUser);
     setErrors({});
   };

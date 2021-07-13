@@ -35,7 +35,11 @@ export const Method = async option => {
   } catch (error) {
     let errorString;
     if (error.response?.status === 422) {
-      errorString = i18next.t('translation:incorrectData');
+      if(error.response.data.message){
+        errorString = error.response.data.message;
+      }else{
+        errorString = i18next.t('translation:incorrectData');
+      }
     } else if (error.response?.status === 503) {
       errorString = i18next.t('translation:netError');
     } else if (error.response?.status === 401) {

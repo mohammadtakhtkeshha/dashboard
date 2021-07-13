@@ -5,7 +5,7 @@ import Tour from 'reactour'
 
 import {Typography} from "@material-ui/core"
 
-import { StyledHeadTypography} from "assets/js/App"
+import { StyledHeadTypography} from "assets/js/library/base/typography";
 import {StyledCloseGuideButton, StyledNextButton, StyledPrevButton} from "assets/js/partials/guideBlock"
 import {steps} from "./CommentHeaderComponent.js"
 import {StyledHeadComment} from "assets/js/library/pages/comment/commentHeader"

@@ -24,6 +24,12 @@ export const getElementsUrl = (form) => {
     return `${baseUrl}/webform/fields/${form}`;
 };
 
+export const requiredUrl = `${baseUrl}/webform/fields/req`;
+
+export const downloadUrl = form_id => {
+    return `${baseUrl}/webform/submission/csv/${form_id}`
+};
+
 
 
 

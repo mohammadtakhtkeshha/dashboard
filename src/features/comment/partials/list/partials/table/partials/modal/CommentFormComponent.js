@@ -27,7 +27,9 @@ export const editCommentMethod = (id, comment, setLoading, handlePagination, unc
     const getCurrentCommentInList =
         commentStatus === 'published' ? publishedComments.filter(item => item.cid === id) : unconfirmedComments.filter(item => item.cid === id);
     const currentStatus = comment.status[0].value;
+    setLoading(true);
     editComment(id, comment, setLoading, handlePagination).then(response => {
+        setLoading(false);
         const curComment = response.data;
         const changedComment = {
             subject: curComment.subject.length > 0 ? curComment.subject[0].value : '',

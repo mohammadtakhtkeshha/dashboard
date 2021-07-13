@@ -1,9 +1,9 @@
 import React, {useContext} from "react";
+import {withNamespaces} from "react-i18next";
 
-import {StyledModalFooter} from "assets/js/App";
+import {StyledModalFooter} from "assets/js/library/components/modal";
 import {StyledRegisterButton} from "assets/js/library/components/buttons";
 import {isObjectEmpty} from "methods/commons";
-import {withNamespaces} from "react-i18next";
 import {registerMethod} from "./FooterFormComponent.js";
 import AppContext from "contexts/AppContext";
 

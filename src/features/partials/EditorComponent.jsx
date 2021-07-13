@@ -11,7 +11,7 @@ import { uploadSingImg } from 'core/services/content.service';
 import { editorStyle } from 'assets/js/partials/editorStyle';
 import AppContext from 'contexts/AppContext';
 import { previewImgInEditorMethod } from './EditorComponent.js';
-import { StyledLabel } from 'assets/js/App';
+import { StyledLabel } from 'assets/js/library/base/typography';
 
 const useStyles = makeStyles(editorStyle);
 
@@ -48,29 +48,29 @@ function EditorComponent({ t, title, value, onClick }) {
   };
 
   return (
-    <div>aaaaaaaaaaaaaaaaaaaaaaaaaaa
-      {/*<StyledLabel>{title}</StyledLabel>*/}
-      {/*<Box className={classes.editorBox}>*/}
-      {/*  <SunEditor*/}
-      {/*    setContents={value === '<p><br></p>' ? '' : value}*/}
-      {/*    showToolbar={true}*/}
-      {/*    enableToolbar={true}*/}
-      {/*    setOptions={{*/}
-      {/*      height: 200,*/}
-      {/*      buttonList: [*/}
-      {/*        ['undo', 'redo', 'font', 'fontSize', 'formatBlock'],*/}
-      {/*        ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'removeFormat'],*/}
-      {/*        ['fontColor', 'hiliteColor', 'outdent', 'indent', 'align', 'horizontalRule', 'list', 'table'],*/}
-      {/*        ['link', 'image', 'video', 'fullScreen', 'showBlocks', 'codeView', 'preview', 'print', 'save'],*/}
-      {/*      ], // Or Array of button elementsTable, eg. [['font', 'align'], ['image']]*/}
-      {/*    }}*/}
-      {/*    onImageUploadBefore={beforeUploading}*/}
-      {/*    onImageUpload={imageUploadHandler}*/}
-      {/*    onChange={e => changeEditorContent(e)}*/}
-      {/*    name="my-editor"*/}
-      {/*    placeholder={t('translation:typeHere')}*/}
-      {/*  />*/}
-      {/*</Box>*/}
+    <div>
+      <StyledLabel>{title}</StyledLabel>
+      <Box className={classes.editorBox}>
+        <SunEditor
+          setContents={value === '<p><br></p>' ? '' : value}
+          showToolbar={true}
+          enableToolbar={true}
+          setOptions={{
+            height: 200,
+            buttonList: [
+              ['undo', 'redo', 'font', 'fontSize', 'formatBlock'],
+              ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'removeFormat'],
+              ['fontColor', 'hiliteColor', 'outdent', 'indent', 'align', 'horizontalRule', 'list', 'table'],
+              ['link', 'image', 'video', 'fullScreen', 'showBlocks', 'codeView', 'preview', 'print', 'save'],
+            ], // Or Array of button elementsTable, eg. [['font', 'align'], ['image']]
+          }}
+          onImageUploadBefore={beforeUploading}
+          onImageUpload={imageUploadHandler}
+          onChange={e => changeEditorContent(e)}
+          name="my-editor"
+          placeholder={t('translation:typeHere')}
+        />
+      </Box>
     </div>
   );
 }

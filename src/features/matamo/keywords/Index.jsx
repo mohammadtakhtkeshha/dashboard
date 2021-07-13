@@ -1,16 +1,14 @@
 import React, {useEffect, useState, useContext} from "react"
 import {withNamespaces} from "react-i18next"
-import AppContext from "contexts/AppContext";
-import {
-    StyledTablePaper,
-    StyledTableParent
-} from "assets/js/App";
-import {StyledTableCell} from "assets/js/library/components/table"
-import {Typography} from "@material-ui/core";
-import {StyledPaginationBox} from "assets/js/pagination";
-import Pagination from "@material-ui/lab/Pagination";
-import {handlePaginationMethod,getKeywordsMethod} from "./Index.js";
 import i18next from "i18next";
+
+import Pagination from "@material-ui/lab/Pagination";
+import {Typography} from "@material-ui/core";
+
+import AppContext from "contexts/AppContext";
+import {StyledTableCell,StyledTablePaper,StyledTableParent} from "assets/js/library/components/table"
+import {StyledPaginationBox} from "assets/js/pagination";
+import {handlePaginationMethod,getKeywordsMethod} from "./Index.js";
 import {StyledMatamoTableHeadRow,StyledMatamoTable,StyledMatamoTableRow} from "assets/js/library/pages/matamo/matamoTable";
 
 function Index({t}) {

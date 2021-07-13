@@ -11,7 +11,13 @@ export const styledGrid = () => ({
 
 export const styledGridFormId = () => ({
     root: {
-        display: props => props.display ? 'block' : 'none',
+        display: props => props.display === 'true' ? 'block' : 'none',
+    }
+})
+
+export const styledGridFieldId = () => ({
+    root: {
+        display: props => props.display === 'true' ? 'block' : 'none',
     }
 })
 

@@ -8,7 +8,6 @@ import {steps} from "./SubmissionTourComponent.js";
 function SubmissionTourComponent({t, setExpandedFilter, setIsTourOpen, isTourOpen, element}) {
     const [currentStep, setCurrentStep] = useState(1);
 
-
     const closeTour = () => {
         setIsTourOpen(false)
         setCurrentStep(1)

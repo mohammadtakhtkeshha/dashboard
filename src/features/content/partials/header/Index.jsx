@@ -4,7 +4,9 @@ import i18next from "i18next"
 
 import {Typography} from "@material-ui/core"
 
-import {StyledAddButton, StyledHead, StyledHeadTypography} from "assets/js/App"
+import {StyledAddButton} from "assets/js/library/components/buttons"
+import {StyledHead} from "assets/js/library/base/all"
+import {StyledHeadTypography} from "assets/js/library/base/typography"
 import {green} from "assets/js/library/abstracts/colors"
 import Tour from "reactour"
 import {StyledCloseGuideButton, StyledNextButton, StyledPrevButton} from "assets/js/partials/guideBlock"

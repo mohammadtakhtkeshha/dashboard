@@ -3,7 +3,7 @@ import {withNamespaces} from 'react-i18next';
 
 import {warning} from 'methods/swal';
 import AppContext from 'contexts/AppContext';
-import {StyledMultiButtonsBlock, StyledDeleteButton} from 'assets/js/App';
+import {StyledMultiButtonsBlock, StyledDeleteButton} from 'assets/js/library/components/buttons';
 import {multiAction} from './CommentsActionComponent.js';
 import i18next from 'i18next';
 import {StyledActiveButton, StyledDeActiveButton} from "assets/js/library/pages/comment/commentAction"

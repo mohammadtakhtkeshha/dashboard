@@ -8,7 +8,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import {Box, Typography} from '@material-ui/core/index';
 
 import AppContext from 'contexts/AppContext';
-import {StyledInput, StyledRadioButton} from 'assets/js/App';
+import {StyledInput} from 'assets/js/library/components/input';
+import {StyledRadioButton} from 'assets/js/library/components/buttons';
 import {StyledModalFooter, StyledModalHeader, StyledModalBody} from 'assets/js/library/components/modal';
 import {StyledLabel, StyledTypographyError} from 'assets/js/library/base/typography';
 import UploadImgComponent from 'features/partials/UploadImgComponent';
@@ -36,9 +37,7 @@ import {
 import {isObjectEmpty} from 'methods/commons';
 import StyledCheckboxComponent from 'features/partials/StyledCheckboxComponent';
 
-function NewUserComponent({
-                              t,
-                              faRoles,
+function NewUserComponent({t,faRoles,
                               enRoles,
                               id,
                               userNameList,
@@ -110,6 +109,8 @@ function NewUserComponent({
                 name: {required: 'حداقل تعداد کاراکتر 3 میباشد!'},
                 mail: {required: 'وارد کردن فیلد مورد نظر الزامیست!'},
             });
+        }else{
+            setErrors([])
         }
     }, [setErrors,id]);
 

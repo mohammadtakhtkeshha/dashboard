@@ -63,21 +63,24 @@ function StateHeaderComponent({t, setOpenForm, type}) {
                 <Typography>{t(`taxonomy:new${type.type}`)}</Typography>
             </StyledAddButton>
         </StyledRelative>
-        <Tour showCloseButton={false}
-              showNavigation={false}
-              showNavigationNumber={false}
-              disableDotsNavigation={false}
-              lastStepNextButton={<StyledCloseGuideButton>{t('translation:endGuide')}</StyledCloseGuideButton>}
-              nextButton={<StyledNextButton><span>{steps.length}/{currentStep}</span> {t('translation:nextStep')}
-              </StyledNextButton>}
-              prevButton={<StyledPrevButton>{t('translation:prevStep')}</StyledPrevButton>}
-              steps={steps}
-              customizedCloseButton={<StyledCloseGuideButton>{t('translation:closeGuide')}</StyledCloseGuideButton>}
-              isOpen={isTourOpen}
-              showNumber={true}
-              startAt={0}
-              getCurrentStep={(curr) => setCurrentStep(curr + 1)}
-              onRequestClose={() => closeTour()}
+        <Tour
+            showCloseButton={false}
+            showNavigation={false}
+            showNavigationNumber={false}
+            disableDotsNavigation={false}
+            lastStepNextButton={<StyledCloseGuideButton>{t('translation:endGuide')}</StyledCloseGuideButton>}
+            nextButton={<StyledNextButton>
+                <span>{steps.length}/{currentStep}</span>
+                {t('translation:nextStep')}
+            </StyledNextButton>}
+            prevButton={<StyledPrevButton>{t('translation:prevStep')}</StyledPrevButton>}
+            steps={steps}
+            customizedCloseButton={<StyledCloseGuideButton>{t('translation:closeGuide')}</StyledCloseGuideButton>}
+            isOpen={isTourOpen}
+            showNumber={true}
+            startAt={0}
+            getCurrentStep={(curr) => setCurrentStep(curr + 1)}
+            onRequestClose={() => closeTour()}
         />
     </StyledHead>)
 }

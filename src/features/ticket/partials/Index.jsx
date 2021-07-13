@@ -6,7 +6,7 @@ import Pagination from '@material-ui/lab/Pagination';
 
 import { StyledPaginationBox } from 'assets/js/pagination';
 import AppContext from 'contexts/AppContext';
-import { StyledBox } from 'assets/js/App';
+import { StyledBox } from 'assets/js/library/base/box';
 import TicketTableComponent from './TicketsTableComponent.jsx';
 import TicketHeaderComponent from './TicketHeaderComponent.jsx';
 import TicketFilterComponent from './TicketFilterComponent.jsx';

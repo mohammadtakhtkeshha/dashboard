@@ -7,7 +7,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 
-import { StyledAlignTypography} from "assets/js/App";
+import { StyledAlignTypography} from "assets/js/library/base/typography";
 import {StyledRowBox, StyledRow, StyledCol} from "assets/js/content/partials/contents";
 import ContentsContext from "contexts/ContentsContext";
 import {handleAffiliateChangeMethod} from "./FormContentPortalComponent.js";

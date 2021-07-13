@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {StyledNotScrollbar} from "assets/js/App";
+import {StyledNotScrollbar} from "assets/js/library/base/all";
 import {blue, green, white} from "assets/js/library/abstracts/colors";
 
 const White = styled.div`

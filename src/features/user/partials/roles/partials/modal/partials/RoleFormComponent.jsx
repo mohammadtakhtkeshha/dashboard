@@ -1,13 +1,13 @@
-import React, {useContext, useState, useEffect} from "react"
-import {withNamespaces} from "react-i18next"
-import {Box, Grid, Typography} from "@material-ui/core"
-import {
-    StyledInput, StyledModalFooter,
-    StyledTypographyError
-} from "assets/js/App"
-import {StyledChoosePermission, StyledPermissionsList} from "assets/js/library/pages/user/roleForm"
-import {grey} from "assets/js/library/abstracts/colors"
-import AppContext from "contexts/AppContext"
+import React, {useContext, useState, useEffect} from "react";
+import {withNamespaces} from "react-i18next";
+import {Box, Grid, Typography} from "@material-ui/core";
+
+import {StyledInput} from 'assets/js/library/components/input';
+import {StyledModalFooter} from 'assets/js/library/components/modal';
+import {StyledTypographyError} from 'assets/js/library/base/typography';
+import {StyledChoosePermission, StyledPermissionsList} from "assets/js/library/pages/user/roleForm";
+import {grey} from "assets/js/library/abstracts/colors";
+import AppContext from "contexts/AppContext";
 
 import {
     StyledPermissionButtonsBlock,
@@ -18,9 +18,9 @@ import {
     StyledInsideModal,
     StyledFirstRowPermission,
     StyledPermissionName,
-} from "assets/js/library/pages/user/roles"
-import {StyledModalBody, StyledModalHeader} from "assets/js/library/components/modal"
-import StyledCheckboxComponent from "features/partials/StyledCheckboxComponent"
+} from "assets/js/library/pages/user/roles";
+import {StyledModalBody, StyledModalHeader} from "assets/js/library/components/modal";
+import StyledCheckboxComponent from "features/partials/StyledCheckboxComponent";
 import {
     editAndAddRoleMethod,
     handleChangeNameMethod,
@@ -29,10 +29,10 @@ import {
     handleErrorMethod,
     checkIncludes,
     selectedButtonMethod
-} from "./RoleFormComponent.js"
+} from "./RoleFormComponent.js";
 import {StyledRegisterButton} from "assets/js/library/components/buttons";
 
-function RoleFormComponent({t, openForm, handleClose, permissions, role, setRole, setShowPermission, showPermission, faRoles, setFaRoles, setEnRoles}) {
+function RoleFormComponent({t, openForm, handleClose, permissions, role, setRole, setShowPermission, showPermission, faRoles, setFaRoles, setEnRoles,enRoles}) {
     const {setLoading} = useContext(AppContext)
     const [error, setError] = useState({required: true, unique: false})
 
@@ -41,7 +41,7 @@ function RoleFormComponent({t, openForm, handleClose, permissions, role, setRole
     }
 
     const editAndAddRole = (e) => {
-        editAndAddRoleMethod( e, setLoading, role, faRoles, openForm.id, error, handleClose, setFaRoles, setEnRoles)
+        editAndAddRoleMethod( e, setLoading, role, faRoles, openForm.id, error, handleClose, setFaRoles, setEnRoles,enRoles)
     }
 
     const clickPermissionButton = (e) => {
@@ -124,7 +124,9 @@ function RoleFormComponent({t, openForm, handleClose, permissions, role, setRole
             </StyledInsideModal>
         </StyledModalBody>
         <StyledModalFooter>
-            <StyledRegisterButton status={error.required === false && error.unique === false} onClick={editAndAddRole}>
+            <StyledRegisterButton
+                status={error.required === false && error.unique === false}
+                onClick={editAndAddRole}>
                 {t('translation:register')}
             </StyledRegisterButton>
             <button onClick={handleClose}>{t('translation:cancel')}</button>

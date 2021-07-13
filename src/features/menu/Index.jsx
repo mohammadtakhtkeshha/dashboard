@@ -51,23 +51,26 @@ function Index({t}) {
             <title>{t('taxonomy:menus')}</title>
         </Helmet>
         <MenuHeaderComponent setOpenForm={setOpenForm}/>
-        {/*<MenuListComponent*/}
-        {/*    setOpenForm={setOpenForm} menus={menus} setDynamicHeight={setDynamicHeight}*/}
-        {/*    dynamicHeight={dynamicHeight} getMenus={getMenus} setMenus={setMenus}/>*/}
-        {/*<ModalMenu*/}
-        {/*    menus={menus}*/}
-        {/*    openForm={openForm}*/}
-        {/*    link={link}*/}
-        {/*    setLink={setLink}*/}
-        {/*    setOpenForm={setOpenForm}*/}
-        {/*    setErrors={setErrors}*/}
-        {/*    errors={errors}*/}
-        {/*    closeForm={closeForm}*/}
-        {/*    menu={menu}*/}
-        {/*    setMenu={setMenu}*/}
-        {/*    getMenus={getMenus}*/}
-        {/*    handleCloseForm={closeForm}*/}
-        {/*/>*/}
+        <MenuListComponent
+            setOpenForm={setOpenForm}
+            menus={menus}
+            setDynamicHeight={setDynamicHeight}
+            dynamicHeight={dynamicHeight}
+            getMenus={getMenus}
+            setMenus={setMenus}/>
+        <ModalMenu
+            menus={menus}
+            openForm={openForm}
+            link={link}
+            setLink={setLink}
+            setOpenForm={setOpenForm}
+            setErrors={setErrors}
+            errors={errors}
+            closeForm={closeForm}
+            menu={menu}
+            setMenu={setMenu}
+            getMenus={getMenus}
+            handleCloseForm={closeForm}/>
     </>);
 }
 

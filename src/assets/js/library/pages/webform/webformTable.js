@@ -50,6 +50,7 @@ export const StyledUl = styled.ul`
 export const StyledMenuItem = withStyles((theme) => ({
     root: {
         display:props => props.permission === 'true' ? 'block' : 'none',
+        textAlign:props => props.lang === 'en' ? 'left' : 'right',
         '&:focus': {
             '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
                 color: theme.palette.common.white,

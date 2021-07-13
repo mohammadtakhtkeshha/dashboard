@@ -8,17 +8,17 @@ import {StyledSettingsButton, StyledButtonBlock} from 'assets/js/library/pages/s
 import {StyledInput} from 'assets/js/library/components/input';
 import {StyledPadding} from 'assets/js/library/pages/settings/index';
 import {StyledLabel, StyledTypographyError} from 'assets/js/library/base/typography';
-
 import {addSettingsMethod, handleChangeMethod} from './SettingsName.js';
-import {isObjectEmpty} from "methods/commons";
+import {isObjectEmpty} from 'methods/commons';
+import {get} from 'libraries/local-storage';
 
 function SettingsName({t, settingsName, setSettingsName}) {
     const {setLoading} = useContext(AppContext);
-
+    const {permissions} = JSON.parse(get(process.env.REACT_APP_USER))
     const [errors, setErrors] = useState({});
 
     const handleChange = (e, field) => {
-        handleChangeMethod( e, field, setSettingsName, setErrors);
+        handleChangeMethod(e, field, setSettingsName, setErrors);
     };
 
     return (<Grid container>
@@ -57,15 +57,17 @@ function SettingsName({t, settingsName, setSettingsName}) {
                 {errors.site_mail ? (
                     <div>{errors.site_mail.valid ?
                         <StyledTypographyError>{errors.site_mail.valid}</StyledTypographyError> : ''}</div>
-                ) : (
-                    ''
-                )}
+                ) : ('')}
             </StyledPadding>
         </Grid>
         <Grid item xs={12} md={12} xl={12}>
             <StyledButtonBlock>
-                <StyledSettingsButton error={`${!isObjectEmpty(errors)}`}
-                                      onClick={() => addSettingsMethod(!isObjectEmpty(errors),setLoading, settingsName)}>{t('translation:saveChanges')}</StyledSettingsButton>
+                <StyledSettingsButton
+                    permission={`${permissions['restful post base_site_rest_resource'].access}`}
+                    error={`${!isObjectEmpty(errors)}`}
+                    onClick={() => addSettingsMethod(!isObjectEmpty(errors), setLoading, settingsName)}>
+                    {t('translation:saveChanges')}
+                </StyledSettingsButton>
             </StyledButtonBlock>
         </Grid>
     </Grid>);

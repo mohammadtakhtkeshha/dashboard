@@ -1,7 +1,8 @@
 import loginImg from "../media/image/login.png";
 import {green, white, danger, grey} from "assets/js/library/abstracts/colors";
 import styled from "styled-components"
-import {StyledDefaultButton, StyledInput} from "./App";
+import {StyledDefaultButton} from "assets/js/library/components/buttons";
+import { StyledInput} from "assets/js/library/components/input";
 
 export const LoginBlock = styled.div`
                 width: 100%;

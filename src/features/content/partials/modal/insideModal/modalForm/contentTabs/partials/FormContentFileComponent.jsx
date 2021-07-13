@@ -9,7 +9,7 @@ import { removeMultiImgMethod, uploadVideoMethod, uploadVoiceMethod, removeVideo
 import { uploadImgMethod } from './FormContentTitleAndImgComponent.js';
 
 import ContentsContext from 'contexts/ContentsContext';
-import { StyledAlignTypography } from 'assets/js/App';
+import { StyledAlignTypography } from 'assets/js/library/base/typography';
 import { styledGridSoundFile, styledGridVideoFile } from 'assets/js/content/partials/modal/insideModal/modalForm/contentTabs/contentTabs';
 import UploadImgComponent from 'features/partials/UploadImgComponent';
 import {

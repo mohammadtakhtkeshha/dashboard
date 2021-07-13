@@ -16,8 +16,7 @@ import {
     StyledFlexColumnNum,
     StyledIcon
 } from "assets/js/dashboard/partials/contentChart";
-import {Center} from "assets/js/App";
-
+import {Center} from "assets/js/library/base/all";
 
 function CarsoulComponent({t, chunks, totalLength}) {
     const lang = i18next.language

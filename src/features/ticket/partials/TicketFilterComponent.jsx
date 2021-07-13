@@ -6,7 +6,9 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import {StyledFilterBlock} from "assets/js/ticket/ticketFilter";
 import {MarginTop1} from "assets/js/library/base/all";
-import {StyledAddButton, StyledRadioButton, StyledLabel, styledTextField, StyledInput} from "assets/js/App";
+import { StyledLabel} from "assets/js/library/base/typography";
+import { styledTextField, StyledInput} from "assets/js/library/components/input";
+import {StyledAddButton, StyledRadioButton,} from "assets/js/library/components/buttons";
 import TextField from "@material-ui/core/TextField"
 import {Grid, withStyles} from "@material-ui/core"
 
@@ -89,7 +91,7 @@ function TicketFilterComponent({t, tickets, expandedFilter,setExpandedFilter,han
                         </Grid>
                     </Grid>
                     <MarginTop1>
-                    <StyledAddButton onClick={doFilterHandler}>
+                    <StyledAddButton permission="true" onClick={doFilterHandler}>
                         {t('translation:do')}
                     </StyledAddButton>
                     </MarginTop1>

@@ -12,7 +12,7 @@ export const steps =  [
         position: 'top',
         stepInteraction: false,
     }, {
-        selector: '.role-elementsTable',
+        selector: '.role-list',
         content: ({goTo, inDOM}) => (
             <div>
                 <GuideBlockComponent/>

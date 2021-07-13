@@ -11,7 +11,7 @@ import AppContext from 'contexts/AppContext';
 import ContentActionComponent from './partials/ContentActionComponent.jsx';
 import ContentTableComponent from './partials/table/ContentTableComponent.jsx';
 import ContentsContext from 'contexts/ContentsContext';
-import {StyledBox} from 'assets/js/App';
+import {StyledBox} from 'assets/js/library/base/box';
 import ContentHeaderComponent from './partials/header/Index.jsx';
 import {StyledPaginationBox} from 'assets/js/pagination';
 import {

@@ -5,11 +5,11 @@ import Tour from 'reactour';
 
 import {Typography} from "@material-ui/core";
 
-import {StyledAddButton, StyledHead, StyledHeadTypography} from "assets/js/App";
-import {StyledRelative} from "assets/js/App";
+import {StyledAddButton, StyledGreenButton} from "assets/js/library/components/buttons";
+import {StyledHeadTypography} from "assets/js/library/base/typography";
+import {StyledRelative, StyledHead} from "assets/js/library/base/all";
 import {StyledCloseGuideButton, StyledNextButton, StyledPrevButton} from "assets/js/partials/guideBlock";
 import {steps} from "./RoleHeaderComponent.js";
-import {StyledHelpButton} from "assets/js/library/pages/content/contentHeader"
 import {get} from "libraries/local-storage";
 
 function Index({t, setOpenForm}) {
@@ -27,9 +27,10 @@ function Index({t, setOpenForm}) {
 
     return (<StyledHead lang={lang}>
         <StyledHeadTypography className="role-list" ref={refList}>{t('roles:roleList')}</StyledHeadTypography>
-        <StyledHelpButton permission={helpPermission.permissions['access administration pages'].access} onClick={()=>setIsTourOpen(true)}>
+        <StyledGreenButton permission={helpPermission.permissions['access administration pages'].access}
+                           onClick={() => setIsTourOpen(true)}>
             <Typography>{t('translation:guide')}</Typography>
-        </StyledHelpButton>
+        </StyledGreenButton>
         <Tour showCloseButton={false}
               showNavigation={false}
               showNavigationNumber={false}
@@ -46,9 +47,11 @@ function Index({t, setOpenForm}) {
               getCurrentStep={(curr) => setCurrentStep(curr)}
               onRequestClose={() => closeTour()}/>
         <StyledRelative>
-            <StyledAddButton className="register-button"
-                                  ref={refRegisterButton}
-                                  onClick={() => setOpenForm({show: true, id: ''})}>
+            <StyledAddButton
+                permission="true"
+                className="register-button"
+                ref={refRegisterButton}
+                onClick={() => setOpenForm({show: true, id: ''})}>
                 <Typography>{t('roles:newRole')}</Typography>
             </StyledAddButton>
         </StyledRelative>

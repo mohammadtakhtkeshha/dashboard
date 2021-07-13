@@ -12,11 +12,7 @@ import {
     StyledMatamoTableHeadRow
 } from "assets/js/library/pages/matamo/matamoTable"
 
-import {StyledTableCell} from "assets/js/library/components/table"
-import {
-    StyledTableParent,
-    StyledTablePaper,
-} from "assets/js/App";
+import {StyledTableCell,StyledTableParent,StyledTablePaper} from "assets/js/library/components/table"
 import i18next from "i18next";
 import {handlePaginationMethod} from "./DevicesComponent";
 import {StyledPaginationBox} from "assets/js/pagination";

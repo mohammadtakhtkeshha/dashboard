@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import {white, grey} from "assets/js/library/abstracts/colors"
-import {StyledActionButtonBlock} from "assets/js/App"
+import {StyledActionButtonBlock} from "assets/js/library/components/buttons"
 
 // ---------------------- DELETE THIS PART ---------------------
 export const styledTreeItem = () => ({

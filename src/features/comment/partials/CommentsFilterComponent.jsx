@@ -4,7 +4,8 @@ import { withNamespaces } from 'react-i18next';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Typography, Grid, withStyles, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
 
-import { StyledAddButton, StyledBox } from 'assets/js/App';
+import {StyledGreenButton} from 'assets/js/library/components/buttons';
+import { StyledBox } from 'assets/js/library/base/box';
 import { MarginTop1 } from 'assets/js/library/base/all';
 import { filterByMethod, doFilterHandlerMethod } from './CommentsFilterComponent.js';
 import { styledAccordionDetails, StyledCommentInput } from 'assets/js/library/pages/comment/commentFilter';
@@ -45,7 +46,7 @@ function CommentFilterComponent({ t, commentStatus, unconfirmedComments, publish
             </Grid>
           </Grid>
           <MarginTop1>
-            <StyledAddButton onClick={doFilterHandler}>{t('translation:do')}</StyledAddButton>
+            <StyledGreenButton onClick={doFilterHandler}>{t('translation:do')}</StyledGreenButton>
           </MarginTop1>
         </StyledAccordionDetails>
       </Accordion>

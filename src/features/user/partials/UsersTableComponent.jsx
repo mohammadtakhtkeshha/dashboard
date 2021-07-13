@@ -6,8 +6,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import userImg from 'assets/media/image/user.jpg';
 import AppContext from 'contexts/AppContext';
-import { deleteUser } from 'core/services/user.service';
-import { danger, success, warning } from 'methods/swal';
+import { warning } from 'methods/swal';
 import storage from 'libraries/local-storage';
 import {
   StyledTr,
@@ -30,6 +29,7 @@ import {
 import { StyledActionButtons, StyledActionsBlock } from 'assets/js/library/components/buttons';
 import deleteIcon from 'assets/svg/delete.png';
 import editIcon from 'assets/svg/edit.png';
+import {allCheckboxHandlerMethod,isCheckedHandlerMethod,delUserMethod} from './UsersTableComponent.js'
 
 function UsersTableComponent({
   t,
@@ -77,41 +77,15 @@ function UsersTableComponent({
   };
 
   const allCheckboxHandler = e => {
-    let isChecked = e.currentTarget.checked;
-    let currentUserList = chunkUsers[page];
-    let ids = currentUserList !== undefined ? currentUserList.map(user => user.user_id) : [];
-    if (!isChecked) {
-      setSelectedCheckBoxes([]);
-    } else {
-      setSelectedCheckBoxes([...ids]);
-    }
+    allCheckboxHandlerMethod(e,chunkUsers,page,setSelectedCheckBoxes)
   };
 
   const isCheckedHandler = (e, user) => {
-    let currentId = user.user_id;
-    if (e.currentTarget.checked) {
-      setSelectedCheckBoxes([...selectedCheckBoxes, currentId]);
-    } else {
-      let filteredSelected = selectedCheckBoxes.filter(item => item !== currentId);
-      setSelectedCheckBoxes([...filteredSelected]);
-    }
+    isCheckedHandlerMethod(e, user,selectedCheckBoxes,setSelectedCheckBoxes)
   };
 
   const delUser = id => {
-    setLoading(true);
-    let loginUserId = loginedUser.id;
-    if (id === loginUserId) {
-      danger(t('translation:loginDelete'), t('translation:ok'));
-      return;
-    }
-    deleteUser(id, setLoading).then(response => {
-      setLoading(false);
-      let selectedUser = users.filter(user => user.user_id === id);
-      let selectedUserIndex = users.indexOf(selectedUser[0]);
-      users.splice(selectedUserIndex, 1);
-      handlePagination(users, true);
-      success(t('translation:deletedSuccessfully'), t('translation:ok'));
-    });
+    delUserMethod(id,setLoading,loginedUser,users,handlePagination)
   };
 
   const confirmDeleteHandler = e => {
@@ -211,10 +185,16 @@ function UsersTableComponent({
               </StyledTableCellDetail>
               <StyledTableCell width={5} minWidth={60} align="center">
                 <StyledActionsBlock>
-                  <StyledActionButtons value={user.user_id} onClick={confirmDeleteHandler}>
+                  <StyledActionButtons
+                      permission="true"
+                      value={user.user_id}
+                      onClick={confirmDeleteHandler}>
                     <img src={deleteIcon} alt={user.user_id} />
                   </StyledActionButtons>
-                  <StyledActionButtons value={user.user_id} onClick={handleEditFormOpen}>
+                  <StyledActionButtons
+                      permission="true"
+                      value={user.user_id}
+                      onClick={handleEditFormOpen}>
                     <img src={editIcon} alt={user.user_id} />
                   </StyledActionButtons>
                 </StyledActionsBlock>

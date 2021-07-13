@@ -12,7 +12,8 @@ import {
     StyledUploadHereBlock,
     UploadedImgHoverBlock
 } from "assets/js/partials/uploadImg";
-import {StyledAlignTypography, StyledValidError} from "assets/js/App";
+import {StyledAlignTypography} from "assets/js/library/base/typography";
+import {StyledValidError} from "assets/js/library/base/all";
 import {ReactComponent as UploadImgSvg} from "assets/svg/uploadImgSvg.svg";
 
 function UploadImgPreviewComponent({t, title, multiple, getFileInParent, removeImgInParent, previewUrl, setPreviewUrl}) {
@@ -28,7 +29,7 @@ function UploadImgPreviewComponent({t, title, multiple, getFileInParent, removeI
                 setValidation(t('translation:imgValidation'));
                 return
             }
-         
+
             let reader = new FileReader();
             reader.onload = function (e) {
                 setPreviewUrl(prevState => {

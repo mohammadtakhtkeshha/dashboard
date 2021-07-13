@@ -9,7 +9,7 @@ import { Box, CardMedia, Grid, Typography } from '@material-ui/core/index';
 import iconImg from 'assets/media/image/logo-login.png';
 import AppContext from 'contexts/AppContext';
 import { withNamespaces } from 'react-i18next';
-import { StyledTypographyError } from 'assets/js/App';
+import { StyledTypographyError } from 'assets/js/library/base/typography';
 import {
   LoginBlock,
   StyledGridLogin,

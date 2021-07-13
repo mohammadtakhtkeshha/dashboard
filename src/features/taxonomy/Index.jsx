@@ -14,14 +14,12 @@ function Index({t}) {
         getTaxonomiesMethod(setLoading, setTaxonomies);
     }, [setLoading, setTaxonomies]); //Once
 
-    return (
-        <>
+    return (<>
             <Helmet>
                 <title>{t('taxonomy:categoryList')}</title>
             </Helmet>
             <TaxonomyTableComponent taxonomies={taxonomies}/>
-        </>
-    );
+        </>);
 }
 
 export default withNamespaces('translation,taxonomy')(Index);

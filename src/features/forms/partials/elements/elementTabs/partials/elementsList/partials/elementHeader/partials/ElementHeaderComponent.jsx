@@ -4,10 +4,10 @@ import i18next from "i18next";
 
 import {Typography} from "@material-ui/core";
 
-import {StyledAddButton, StyledHead, StyledHeadTypography} from "assets/js/App";
-import {StyledRelative} from "assets/js/App";
+import {StyledHeadTypography} from "assets/js/library/base/typography";
+import {StyledRelative,StyledHead} from "assets/js/library/base/all";
 import {get} from "libraries/local-storage";
-import {StyledGreenButton} from "assets/js/library/components/buttons";
+import {StyledGreenButton,StyledAddButton} from "assets/js/library/components/buttons";
 
 function ElementHeaderComponent({t,setOpenElementForm, setIsTourOpen,setIsEditForm}) {
     const lang = i18next.language;
@@ -20,6 +20,7 @@ function ElementHeaderComponent({t,setOpenElementForm, setIsTourOpen,setIsEditFo
 
     return (<StyledHead lang={lang}>
         <StyledHeadTypography className="element-list" >{t('webforms:elementsList')}</StyledHeadTypography>
+
         <StyledGreenButton onClick={() => {
             setIsTourOpen(true)
         }}>

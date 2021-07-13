@@ -17,51 +17,49 @@ import ElementTypeListComponent from "./partials/ElementTypeListComponent.jsx";
 
 const useStyle = makeStyles(modalClasses);
 
-function Index({closeForm, openElementForm, setElements, element, setElement,isEditForm}) {
+function Index({closeForm, openElementForm, setElements, element, setElement, isEditForm}) {
     const classes = useStyle({maxWidth: '700px'});
     const [isTourOpen, setIsTourOpen] = useState(false);
 
-    const clicked = () => {
-        setIsTourOpen(true);
-    };
-
-
     return (<Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={openElementForm}
-            onClose={closeForm}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{timeout: 500}}>
-            <Fade in={openElementForm} id="modal">
-                <Box>
-                    <StyledCancelButton onClick={closeForm}>
-                        <StyledSvg>
-                            <Exit width={'40px'} height={'40px'}/>
-                        </StyledSvg>
-                    </StyledCancelButton>
-                    <ModalBody height={element.field_type !== '' ? 'fit-content' : ''}>
-                        {element.field_type !== "" ?
-                            <NewElementComponent
-                                element={element}
-                                setElement={setElement}
-                                setElements={setElements}
-                                closeForm={closeForm}
-                                isEditForm={isEditForm}
-                                id={openElementForm.id}
-                            /> : <ElementTypeListComponent setElement={setElement}/>
-                        }
-                    </ModalBody>
-                    <StyledTourButton onClick={clicked} show={element.field_type !== '' ? 'true' : 'false'}>
-                        <HelpIcon/>
-                    </StyledTourButton>
-                    <ElementNewTourComponent element={element} setIsTourOpen={setIsTourOpen} isTourOpen={isTourOpen}/>
-                </Box>
-            </Fade>
-        </Modal>
-    );
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={openElementForm}
+        onClose={closeForm}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{timeout: 500}}>
+        <Fade in={openElementForm} id="modal">
+            <Box>
+                <StyledCancelButton onClick={closeForm}>
+                    <StyledSvg>
+                        <Exit width={'40px'} height={'40px'}/>
+                    </StyledSvg>
+                </StyledCancelButton>
+                <ModalBody height={element.field_type !== '' ? 'fit-content' : ''}>
+                    {element.field_type !== "" ?
+                        <NewElementComponent
+                            element={element}
+                            setElement={setElement}
+                            setElements={setElements}
+                            closeForm={closeForm}
+                            isEditForm={isEditForm}
+                        /> : <ElementTypeListComponent setElement={setElement}/>
+                    }
+                </ModalBody>
+                <StyledTourButton
+                    onClick={() => setIsTourOpen(true)}
+                    show={element.field_type !== '' ? 'true' : 'false'}>
+                    <HelpIcon/>
+                </StyledTourButton>
+                <ElementNewTourComponent
+                    element={element}
+                    setIsTourOpen={setIsTourOpen}
+                    isTourOpen={isTourOpen}/>
+            </Box>
+        </Fade>
+    </Modal>);
 }
 
 export default withNamespaces('translation')(Index);

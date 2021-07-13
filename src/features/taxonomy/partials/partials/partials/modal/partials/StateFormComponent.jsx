@@ -7,14 +7,13 @@ import {withStyles} from '@material-ui/core/styles';
 
 import AppContext from 'contexts/AppContext';
 import {
-    StyledLabel,
-    StyledInput,
-    StyledTypographyError,
     StyledModalFooter,
     StyledModalHeader,
     StyledModalBody,
-} from 'assets/js/App';
-import MultiSelect from 'features/partials/AutocompleteComponent.jsx';
+} from 'assets/js/library/components/modal';
+import {StyledLabel, StyledTypographyError} from 'assets/js/library/base/typography';
+import {StyledInput} from 'assets/js/library/components/input';
+import MultiAutoComplete from 'features/partials/MultiAutoComplete.jsx';
 import {
     registerMethod,
     changePublishStatusMethod,
@@ -38,6 +37,19 @@ function StateFormComponent({t, openForm, closeForm, setOpenForm, states, setErr
     const [selectedParents, setSelectedParents] = useState([]);
     const {setLoading} = useContext(AppContext);
     const lang = i18next.language;
+    const [selectedIndexes, setSelectedIndexes] = useState([]);//for autoComplete
+
+    const getIndexesOfArray = () => {
+        for (let i = 0; i < parentStates.length; i++) {
+            for (let selected of selectedParents) {
+                if (parentStates[i].id === selected.id) {debugger
+                    setSelectedIndexes(prevState => {
+                        return [...prevState, i]
+                    })
+                }
+            }
+        }
+    }
 
     const handleChange = (e, field) => {
         handleChangeMethod(e, field, setCategory, setErrors);
@@ -59,7 +71,8 @@ function StateFormComponent({t, openForm, closeForm, setOpenForm, states, setErr
         changeParentMethod(e, setCategory);
     };
 
-    const changePublishStatus = (e, isChecked) => {
+    const changePublishStatus = (e) => {
+        const isChecked=e.currentTarget.checked;
         changePublishStatusMethod(isChecked, setCategory);
     };
 
@@ -79,6 +92,10 @@ function StateFormComponent({t, openForm, closeForm, setOpenForm, states, setErr
 
     useEffect(handleDefaultParent, [category.tid]);
 
+    useEffect(() => {
+        getIndexesOfArray();
+    }, [parentStates,getIndexesOfArray]);
+
     return (
         <>
             <StyledModalHeader>{t(`taxonomy:new${type.type}`)}</StyledModalHeader>
@@ -93,8 +110,9 @@ function StateFormComponent({t, openForm, closeForm, setOpenForm, states, setErr
                             placeholder={t('translation:name')}
                             onChange={e => handleChange(e, 'name')}
                         />
-                        {errors.name && <StyledTypographyError
-                            align={lang === 'en' ? 'left' : 'right'}>{errors.name.required}</StyledTypographyError>}
+                        {errors.name && <StyledTypographyError align={lang === 'en' ? 'left' : 'right'}>
+                            {errors.name.required}
+                        </StyledTypographyError>}
                     </Grid>
                     <Grid item xs={12} className="tour-description">
                         <EditorComponent
@@ -106,12 +124,19 @@ function StateFormComponent({t, openForm, closeForm, setOpenForm, states, setErr
                     <StyledGridParent item xs={12} length={parentStates.length}>
                         <Box className="tour-parent" mb={4}>
                             <StyledLabel>{t('taxonomy:termParent')}</StyledLabel>
-                            <MultiSelect
+                            <MultiAutoComplete
                                 array={parentStates}
                                 changedTags={changeParent}
-                                label={t('taxonomy:categoryList')}
                                 setSelectedTags={setSelectedParents}
                                 selectedTags={selectedParents}
+                                selectedIndexes={selectedIndexes}
+
+                                // array={contentContext.tags}
+                                // selectedIndexes={selectedIndexes}
+                                // changedTags={e => changeTagsMethod(e, contentContext)}
+                                // label={t('translation:tags')}
+                                // setSelectedTags={contentContext.setSelectedTags}
+                                // selectedTags={contentContext.selectedTags}
                             />
                         </Box>
                     </StyledGridParent>

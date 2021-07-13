@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {ModalBody} from "../App";
+import {ModalBody} from "assets/js/library/components/modal";
 
 export const StyledModal = styled.div`
         position: absolute;

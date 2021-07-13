@@ -6,7 +6,8 @@ import { Box, Typography, withStyles, Grid, Accordion, AccordionSummary, Accordi
 import TextField from '@material-ui/core/TextField';
 
 import { StyledFilterBlock } from 'assets/js/user/users';
-import { StyledAddButton, StyledInput, styledTextField } from 'assets/js/App';
+import {  StyledInput, styledTextField } from 'assets/js/library/components/input';
+import { StyledGreenButton} from 'assets/js/library/components/buttons';
 import { StyledInsideGrid } from 'assets/js/content/partials/contentFilter';
 import i18next from 'i18next';
 
@@ -100,7 +101,7 @@ function UsersFilterComponent({ t, users, handlePagination, faRoles, enRoles, ex
                 </StyledInsideGrid>
               </Grid>
             </Grid>
-            <StyledAddButton onClick={doFilterHandler}>{t('translation:do')}</StyledAddButton>
+            <StyledGreenButton onClick={doFilterHandler}>{t('translation:do')}</StyledGreenButton>
           </StyledFilterBlock>
         </AccordionDetails>
       </Accordion>

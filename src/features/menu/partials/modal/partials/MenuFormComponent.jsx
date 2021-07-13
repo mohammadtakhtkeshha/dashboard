@@ -5,11 +5,11 @@ import {Grid} from '@material-ui/core/index';
 import {withStyles} from '@material-ui/core/styles';
 
 import AppContext from 'contexts/AppContext';
-import {StyledInput, StyledTypographyError, StyledModalFooter, StyledModalHeader, StyledModalBody} from 'assets/js/App';
+import {StyledTypographyError,StyledLabel} from 'assets/js/library/base/typography';
+import {StyledModalFooter, StyledModalHeader, StyledModalBody} from 'assets/js/library/components/modal';
+import {StyledInput} from 'assets/js/library/components/input';
 import MultiSelect from 'features/partials/AutocompleteComponent.jsx';
-import {StyledLabel} from 'assets/js/App';
 import {StyledRegisterButton} from 'assets/js/library/components/buttons';
-
 import {
     registerMethod,
     changeStatusMethod,

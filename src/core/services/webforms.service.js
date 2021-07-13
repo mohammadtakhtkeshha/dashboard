@@ -6,10 +6,12 @@ import {
     getFormsUrl,
     deleteFormUrl,
     editFormUrl,
+    downloadUrl,
     deleteElementUrl,
     getSubmissionsUrl,
     deleteSubmissionUrl,
     getElementsUrl,
+    requiredUrl,
 } from 'utils/urls/webforms.urls';
 import {
     cjauthHeader, authHeader
@@ -53,4 +55,12 @@ export const getSubmissionsList = (setLoading,form_id) => {
 
 export const deleteSubmission = (setLoading,body) => {
     return Method({ method:"POST",url: deleteSubmissionUrl, headers: cjauthHeader(), setLoading: setLoading,body:body });
+}
+
+export const makeRequired = (setLoading,body) => {
+    return Method({ method:"POST",url: requiredUrl, headers: cjauthHeader(), setLoading: setLoading,body:body });
+}
+
+export const download = (setLoading,form_id) => {debugger
+    return Method({ method:"GET",url: downloadUrl(form_id), headers: authHeader(), setLoading: setLoading });
 }

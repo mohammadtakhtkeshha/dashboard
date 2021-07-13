@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { StyledInput } from 'assets/js/App';
+import { StyledInput } from 'assets/js/library/components/input';
 
 export const styledAccordionDetails = () => ({
   root: {

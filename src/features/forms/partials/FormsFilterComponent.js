@@ -7,8 +7,9 @@ import {Box, Typography, withStyles, Grid, Accordion, AccordionSummary, Accordio
 import TextField from '@material-ui/core/TextField';
 
 import {StyledFilterBlock} from 'assets/js/user/users';
-import {StyledAddButton, StyledInput, styledTextField} from 'assets/js/App';
+import {styledTextField,StyledInput} from 'assets/js/library/components/input'
 import {StyledInsideGrid} from 'assets/js/library/pages/webform/formFilter';
+import {StyledGreenButton} from "assets/js/library/components/buttons";
 
 const StyledTextField = withStyles(styledTextField)(TextField);
 
@@ -92,7 +93,7 @@ function FormsFilterComponent({t, forms, setForms, expandedFilter, setExpandedFi
                                 </StyledInsideGrid>
                             </Grid>
                         </Grid>
-                        <StyledAddButton onClick={doFilterHandler}>{t('translation:do')}</StyledAddButton>
+                        <StyledGreenButton onClick={doFilterHandler}>{t('translation:do')}</StyledGreenButton>
                     </StyledFilterBlock>
                 </AccordionDetails>
             </Accordion>

@@ -4,9 +4,9 @@ import i18next from "i18next";
 
 import {Typography} from "@material-ui/core";
 
-import {StyledAddButton, StyledHead, StyledHeadTypography} from "assets/js/App";
-import {StyledRelative} from "assets/js/App";
-import {StyledHelpButton} from "assets/js/library/pages/content/contentHeader";
+import {StyledAddButton} from "assets/js/library/components/buttons";
+import { StyledHead,StyledRelative} from "assets/js/library/base/all";
+import { StyledHeadTypography} from "assets/js/library/base/typography";
 import {StyledGreenButton} from "assets/js/library/components/buttons";
 
 import {get} from "libraries/local-storage";
